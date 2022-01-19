@@ -1,0 +1,695 @@
+﻿l_russian:
+
+ # Faction Leader Governor / Corrupt Governor
+ civwar.5000.name:1 "§RГубернатор объявляет независимость!§!"
+ civwar.5000.desc:0 "Губернатор §Y[event_target:civil_war_leader.GetName]§! требует аудиенции."
+
+ # Faction Leader Admiral
+ civwar.5001.name:1 "§RАдмирал объявляет независимость!§!"
+ civwar.5001.desc:0 "Мы получаем отчаянные сообщения о жертвах, поступающих с флота Адмирала §Y[event_target:civil_war_leader.GetName]§!. Судя по всему, корабли флота начали стрелять друг в друга! Судя по всему, уничтожена почти треть флота! Адмирал §Y[event_target:civil_war_leader.GetName]§! требует аудиенции."
+
+ # Faction Leader Scientist
+ civwar.5003.name:1 "§RУченый объявляет независимость!§!"
+ civwar.5003.desc:0 "Ученый §Y[event_target:civil_war_leader.GetName]§! требует аудиенции."
+
+ # Faction Leader General
+ civwar.5002.name:1 "§RГенерал объявляет независимость!§!"
+ civwar.5002.desc:0 "Генерал §Y[event_target:civil_war_leader.GetName]§! требует аудиенции."
+
+ ON_SCREEN_REBELS:0 "Что?! Внимание на экран!"
+
+ # Planetary Rebellion
+
+ civplan.2000.name:0 "§RАтака сепаратистов!§!"
+ civplan.2000.desc:0 "Сепаратисты организовывавшиеся на §Y[event_target:rebellion_planet.GetName]§! пытаются захватить планету!"
+ civplan.2000.a:0 "Это плохо."
+
+ civplan.2002.name:0 "§YСепаратисты повержены!§!"
+ civplan.2002.desc:0 "Наши военные силы на §Y[event_target:rebellion_planet.GetName]§! смогли подавить восстание сепаратистов."
+ civplan.2002.a:0 "Отлично!"
+
+ civplan.9000.name:0 "§YОрганизация сепаратистов!"
+ civplan.9000.desc:0 "Месяцы беспорядков и нестабильности на §Y[event_target:separatist_planet.GetName]§! заставили местное население усомниться в нашей способности эффективно управлять планетой. Ходят слухи об отделении, и сепаратистские группы начали организовываться."
+ civplan.9000.a:0 "Огорчительно."
+
+ civplan.9001.name:0 "Угасание сепаратистов"
+ civplan.9001.desc:0 "С улучшением условий на §Y[event_target:separatists_disband_planet.GetName]§!, сепаратистские действия и дискуссии об отделени утихли."
+ civplan.9001.a:0 "Отлично!"
+
+ #### War Types ####
+
+ casus_belli_cb_install_traitor:0 "Regime Change"
+ casus_belli_cb_retrieve_traitor:0 "Treason"
+
+ casus_belli_cb_install_traitor_heir:0 "Regime Change"
+ casus_belli_cb_retrieve_traitor_heir:0 "Treason"
+
+ casus_belli_cb_fealty_war:0 "Treason"
+
+ war_goal_wg_civwar:0 "Гражданская Война"
+ war_goal_wg_civwar_desc:0 "Война ведется за независимость различных систем."
+
+ war_goal_wg_civwar_subject:0 "Civil War"
+ war_goal_wg_civwar_subject_desc:0 "War is waged over the independence of various systems."
+
+ war_goal_wg_civwar_rebel:0 "Гражданская Война"
+ war_goal_wg_civwar_rebel_desc:0 "Война ведется за независимость различных систем."
+
+ war_goal_wg_planet_rebellion:0 "Восстание"
+ war_goal_wg_planet_rebellion_desc:0 "Война ведется за независимость планеты."
+
+ war_goal_wg_planet_rebellion_rebels:0 "Восстание"
+ war_goal_wg_planet_rebellion_rebels_desc:0 "Война ведется за независимость планеты."
+
+ war_goal_wg_admiral_rebellion:0 "Восстание"
+ war_goal_wg_admiral_rebellion_desc:0 "Война ведется за идеалы адмирала."
+
+ war_goal_wg_admiral_rebellion_admiral:0 "Восстание"
+ war_goal_wg_admiral_rebellion_admiral_desc:0 "Война ведется за идеалы адмирала."
+
+ war_goal_wg_scientist_civwar:0 "Гражданская Война"
+ war_goal_wg_scientist_civwar_desc:0 "Война ведется за независимость различных систем."
+
+ war_goal_wg_scientist_civwar_scientist:0 "Гражданская Война"
+ war_goal_wg_scientist_civwar_scientist_desc:0 "Война ведется за независимость различных систем."
+
+ war_goal_wg_install_traitor:0 "Install Foreign Leader"
+ war_goal_wg_install_traitor_desc:0 "War is waged to install a displaced foreign leader as the ruler of their home nation."
+
+ war_goal_wg_retrieve_traitor:0 "Retrieve Traitor"
+ war_goal_wg_retrieve_traitor_desc:0 "War is waged to recover a traitor."
+
+ war_goal_wg_install_traitor_heir:0 "Install Foreign Heir"
+ war_goal_wg_install_traitor_heir_desc:0 "War is waged to install a foreign heir as leader."
+
+ war_goal_wg_retrieve_traitor_heir:0 "Retrieve Former Heir"
+ war_goal_wg_retrieve_traitor_heir_desc:0 "War is waged to recover a treasonous former heir"
+
+ war_goal_wg_planet_heir_rebellion:0 "Civil War"
+ war_goal_wg_planet_heir_rebellion_desc:0 "War is waged by a former heir over a planet."
+
+ war_goal_wg_planet_heir_rebellion_rebels:0 "Civil War"
+ war_goal_wg_planet_heir_rebellion_rebels_desc:0 "War is waged by a former heir over a planet."
+
+ war_goal_wg_civwar_heir:0 "Civil War"
+ war_goal_wg_civwar_heir_desc:0 "A war is waged by a former heir."
+
+ war_goal_wg_civwar_heir_rebel:0 "Civil War"
+ war_goal_wg_civwar_heir_rebel_desc:0 "A war is waged by a former heir."
+
+ origin_civwar:0 "Сепаратистское государство"
+ origin_civwar_desc:0 "Это государство образовалось после политических противоречий, которые привели его к отделению."
+
+ origin_civ_rebellion:0 "Сепаратисткая Планета"
+ origin_civ_rebellion_desc:0 "Это госудаство образовалась на планете, отделившегося от более крупного."
+
+ origin_admiral_rebellion:0 "Восстание Адмирала"
+ origin_admiral_rebellion_desc:0 "Эта нация была сформирована выдающимся политическим адмиралом, восставшим против своего правительства."
+
+ wg_admiral_rebellion_accept:1 "Какие бы корабли ни остались от флота, который реквизировал адмирал, будут возвращены, их квазигосударство будет уничтожено, а мы получим всю территорию, которой они владели."
+
+ traitor_installed_tooltip:0 "§H[from.ruler.GetName]§! will be removed from power and replaced with §H[event_target:traitorous_leader.GetName]§!."
+ traitor_retrieved_tooltip:0 "The traitor §H[event_target:traitorous_leader.GetName]§! will be retrieved from the §Y[from.GetName]§!."
+ traitor_heir_installed_tooltip:0 "The rightful heir, §H[event_target:traitorous_heir.GetName]§!, will be placed on the throne."
+ traitor_heir_retrieved_tooltip:0 "The treasonous former heir §H[event_target:traitorous_heir.GetName]§! will be retrieved from the §Y[from.GetName]§!."
+
+ # Opinion Modifiers
+ opinion_civwar:0 "Провозглашенная независимость от нас"
+ opinion_civwar_peace:0 "Провозглашенная независимость от нас"
+ opinion_civwar_planet:0 "Провозглашенная независимость от нас"
+ opinion_civwar_planet_peace:0 "Провозглашенная независимость от нас"
+ opinion_civwar_originator:0 "Бывшие угнетатели"
+ opinion_civwar_helper:0 "Funded Our Rebellion"
+ opinion_restored_to_leadership:0 "Restored to Leadership"
+ opinion_received_traitor:0 "Received Traitor"
+
+ # Army Names
+ civwar_defense_army:0 "Оборонительное ополчение Сепаратистов"
+ civwar_assault_army:0 "Наступательное ополчение Сепаратистов"
+
+ # Planetary Modifiers
+ planetary_rebels:0 "Организация Сепаратистов"
+ planetary_rebels_desc:0 "Месяцы беспорядков и нестабильности заставили местное население усомниться в нашем управлении планетой. Ходят слухи об отделении, и сепаратистские группы начали организовываться."
+ rigged_elections_planet:0 "Electoral Fraud"
+ rigged_elections_planet_desc:0 "The government's dismissal of credible evidence of electoral fraud has shaken people's trust in their institutions."
+
+ # Faction Modifiers
+ rigged_elections_pop:0 "Electoral Fraud"
+ rigged_elections_faction:0 "Electoral Fraud"
+ ruler_once_rigged_elections:0 "Past Electoral Fraud"
+ foreign_support:0 "Foreign Support"
+
+
+ # Subject Types
+ SUBJECT_devstate:0 "Сепаратная Автономия"
+ SUBJECT_DESC_devstate:0 "Формирующиеся государства почти полностью независимы от своих повелителей. Они могут расширяться и объявлять войну, и их не призывают к войнам своего сюзерена. Однако их сюзерен также не защищает.\n\nМожет расширяться: £trigger_yes£\nМожет вступать в войну: £trigger_yes£\nЗащита: £trigger_no£\nУчастие в войнах сюзерена: £trigger_no£\nМожно интегрировать: £trigger_no£\nПодношение: §Y5%§! £energy£ §HЭнергокредиты§!, £minerals£ §HМинералы§!, £food£ §HПища§!, £alloys£ §HСплавы§!, £consumer_goods£ §HПотребительские товары§!, £volatile_motes£ §HЛетучая пыль§!, £exotic_gases£ §HЭкзотические газы§!, £rare_crystals£ §HРедкие кристалы§!, £sr_living_metal£ §HЖивой металл§!, £sr_zro£ §HЗро§!, £sr_dark_matter£ §HТемная материя§!, and £nanites£ §HНаниты§!"
+
+ # Tooltips
+ civil_war_won_tooltip:0 "§Y[Root.GetName]§! will regain control of all territory lost to §Y[From.GetName]§!. \n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!."
+
+ civil_war_won_subject_tooltip:0 "§YOur subject§! will regain control of all territory lost to §Y[From.GetName]§!. \n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!."
+
+ civil_war_lost_tooltip:0 "§Y[From.GetName]§! is forced to accept the sovereignty of §Y[Root.GetName]§! \n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!."
+
+ # Fail Texts
+ resource_fail_text:0 "§RWe do not have enough resources.§!"
+
+ ##################
+ # Communications #
+ ##################
+
+ #### Planetary Rebellion ####
+
+ civcom.random:0 "AI Random"
+
+ civcom.4000.name:0 "[event_target:current_civwar_rebels.Leader.GetTitle] [event_target:current_civwar_rebels.Leader.GetName]"
+ civcom.4000.desc:0 "Я §H[event_target:current_civwar_rebels.Leader.GetTitle] [event_target:current_civwar_rebels.Leader.GetName]§! и я говорю от имени новообразованной §Y[event_target:current_civwar_rebels.GetName]§!. Мы разгромили ваши силы и обезопасили эту планету. Ваше правительство больше не оставит народ §Y[event_target:rebellion_planet.GetName]§! забытым и обнищавшим. Мы призываем вас принять это, чтобы предотвратить дальнейшее кровопролитие." 
+
+ civcom.4000.a:0 "Это измена! Мы воссоединим наше государство. Это означает войну!"
+ civcom.5030.a:0 "Это измена! Это означает войну!"
+ civcom.4000.b:0 "Без вас нам будет лучше."
+
+ civcom.4001.desc:0 "Мы знали, что это наиболее вероятный исход, и готовы защищать нашу независимость!"
+ civcom.5031.desc:0 "Я знал, что это наиболее вероятный исход. Мой флот готов защищаться!"
+ civcom.5041.desc:0 "Я знал, что это наиболее вероятный исход, и готов защищать то, что по праву принадлежит мне!"
+ civcom.4001.a:0 "Вы потерпите неудачу!"
+
+ civcom.4002.desc:0 "Мы рады, что вы так думаете. Чувство взаимно."
+ civcom.5042.desc:0 "Мы рады, что вы так думаете. Чувство взаимно."
+ civcom.4002.a:0 "Да будет так."
+
+ civcom.4100.desc:0 "Я §H[event_target:current_civwar_rebels.Leader.GetTitle] [event_target:current_civwar_rebels.Leader.GetName]§! и я говорю от имени новообразованной §Y[event_target:current_civwar_rebels.GetName]§!. Мы разгромили ваши силы и обезопасили эту планету. Ваше правительство больше не оставит народ §Y[event_target:rebellion_planet.GetName]§! забытым и обнищавшим.\n\nОднако мы признаем, что шансы на то, что в конечном итоге мы сможем удержать эту планету, невелики. Поэтому в интересах предотвращения дальнейшего кровопролития мы готовы отказаться от провозглашения полной независимости и вместо этого стать подчиненным государством вашего правительства.\n\nМы готовы платить вам §Y5% от всех наших ресурсов§! в обмен на вечную гарантию нашей независимости с вашей стороны."
+
+ civcom.4100.a:0 "Это измена! Мы воссоединим наше государство. Это означает войну!"
+ civcom.4100.b:0 "Интересно. Мы принимаем ваше предложение."
+ civcom.4100.b.tooltip:0 "§Y[event_target:current_civwar_rebels.GetName]§! становится §YСепаратным Государством§! в наших пределах. Они будут платить нам §Y5% от всех своих ресурсов§!. Они смогут расширяться и объявлять войны. Они не будут помогать нам в наших войнах, но сами будут нести ответственность за свою защиту. §RМы никогда не сможем интегрировать их.§!"
+ civcom.4100.c:0 "Без вас нам будет лучше."
+
+ civcom.4102.desc:0 "Полная независимость? Хотя это самый желанный результат, его почти никто не ожидал. Отлично, это в интересах всех!"
+ civcom.5102.desc:0 "Полная независимость? Хотя это наиболее желательный результат, я определенно не ожидал этого. Отлично, это в интересах всех!"
+ civcom.4102.a:0 "Мы посмотрим."
+
+ civcom.4103.desc:0 "Я рад, что вы приняли наше предложение. Мы отправим дипломатов в вашу столицу для уточнения деталей."
+ civcom.5103.desc:0 "Я рад, что вы приняли мое предложение. Я пришлю дипломатов в вашу столицу, чтобы уладить детали."
+ civcom.4103.a:0 "Хорошо."
+
+ #### Civil War ####
+
+ civcom.5000.desc:0 "Приветствую. Вы знали меня как Губернатора [event_target:current_civwar_rebels.Leader.GetName], лидера §Y[civil_war_party.GetName]§!. Однако, ваше правительство слишком долго препятствовало достижению целей моей фракции, и нам это надоело. Я теперь не просто губернатор. Теперь я §H[event_target:current_civwar_rebels.Leader.GetTitle] [event_target:current_civwar_rebels.Leader.GetName]§! и говорю от имени недавно сформированного §Y[event_target:current_civwar_rebels.GetName]§!. Меня поддерживает народ моей страны, и мы готовы защищаться. Я призываю ваше правительство принять это, чтобы мы могли предотвратить дальнейшее кровопролитие."
+
+ civcom.5010.desc:0 "Приветствую. Вы знали меня как Ученого [event_target:current_civwar_rebels.Leader.GetName], лидера §Y[civil_war_party.GetName]§!. Однако, ваше правительство слишком долго препятствовало достижению целей моей фракции, и нам это надоело. Я теперь не просто ученый. Теперь я §H[event_target:current_civwar_rebels.Leader.GetTitle] [event_target:current_civwar_rebels.Leader.GetName]§! и говорю от имени недавно сформированного §Y[event_target:current_civwar_rebels.GetName]§!. Меня поддерживает народ моей страны, и мы готовы защищаться. Я призываю ваше правительство принять это, чтобы мы могли предотвратить дальнейшее кровопролитие."
+
+ civcom.5020.desc:0 "Приветствую. Вы знали меня как Генерала [event_target:current_civwar_rebels.Leader.GetName], лидера §Y[civil_war_party.GetName]§!. Однако, ваше правительство слишком долго препятствовало достижению целей моей фракции, и нам это надоело. Я теперь не просто генерал. Теперь я §H[event_target:current_civwar_rebels.Leader.GetTitle] [event_target:current_civwar_rebels.Leader.GetName]§! и говорю от имени недавно сформированного §Y[event_target:current_civwar_rebels.GetName]§!. Меня поддерживает народ моей страны, и мы готовы защищаться. Я призываю ваше правительство принять это, чтобы мы могли предотвратить дальнейшее кровопролитие."
+
+ civcom.5030.desc:0 "Приветствую. К настоящему времени вы, вероятно, уже узнали о небольшой стычке в моем флоте. К сожалению, это было необходимо для того, чтобы я закрепился на своем месте. Видите ли, ваше правительство препятствует достижению целей фракции §Y[civil_war_party.GetName]§! слишком долго, и нам это надоело. Я больше не просто адмирал. Теперь я §H[event_target:current_civwar_rebels.Leader.GetTitle] [event_target:current_civwar_rebels.Leader.GetName]§!. Я намерен вывести людей из моего флота на поиски мира, на котором можно основать новое государство. Если вы попытаетесь остановить нас, мы полностью сможем защитить себя."
+
+ civcom.5040.one.desc:0 "Greetings. It's become clear to me that the people of my sector would be better off under my full authority. I am the leader that they need. As such, I am a mere Governor no longer. Now, I am §Y[event_target:current_civwar_rebels.Leader.GetTitle]§! §H[event_target:current_civwar_rebels.Leader.GetName]§!, leader of the §Y[event_target:current_civwar_rebels.GetName]§!. I've spent years gathering the support necessary to achieve this, and I won't let you stand in my way. I recommend that your government accept this, so that we can prevent further bloodshed."
+
+ civcom.5040.mult.desc:0 "Greetings. It's become clear to me that the people of our nation would be better off under my authority. I am the leader that they need. As such, I am a mere Governor no longer. Now, I am §Y[event_target:current_civwar_rebels.Leader.GetTitle]§! §H[event_target:current_civwar_rebels.Leader.GetName]§!, leader of the §Y[event_target:current_civwar_rebels.GetName]§!. I've spent years gathering the support necessary to achieve this, and I won't let you stand in my way. I recommend that your government accept this, so that we can prevent further bloodshed."
+
+ civcom.5050.one_norm.desc:0 "Did you really think I would just stand by and let you take my birthright from me? That would have been just as idiotic as the decision to disinherit me. I am §Y[event_target:current_civwar_rebels.Leader.GetTitle]§! §H[event_target:current_civwar_rebels.Leader.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
+
+ civcom.5050.one_ad.desc:0 "Did you really think I would just let you stand by and take what was promised to me? That would have been just as idiotic as the decision to disinherit me. I am §Y[event_target:current_civwar_rebels.Leader.GetTitle]§! §H[event_target:current_civwar_rebels.Leader.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
+
+ civcom.5050.multiple_norm.desc:0 "Did you really think I would just stand by and let you take my birthright from me? That would have been just as idiotic as the decision to disinherit me. I am §Y[event_target:current_civwar_rebels.Leader.GetTitle]§! §H[event_target:current_civwar_rebels.Leader.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
+
+ civcom.5050.multiple_ad.desc:0 "Did you really think I would just let you stand by and take what was promised to me? That would have been just as idiotic as the decision to disinherit me. I am §Y[event_target:current_civwar_rebels.Leader.GetTitle]§! §H[event_target:current_civwar_rebels.Leader.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
+
+ civcom.6200.norm.desc:0 "Did you really think I would just stand by and let you take my birthright from me? That would have been just as idiotic as the decision to disinherit me. I am §Y[event_target:current_civwar_rebels.Leader.GetTitle]§! §H[event_target:current_civwar_rebels.Leader.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
+
+ civcom.6200.ad.desc:0 "Did you really think I would just let you stand by and take what was promised to me? That would have been just as idiotic as the decision to disinherit me. I am §Y[event_target:current_civwar_rebels.Leader.GetTitle]§! §H[event_target:current_civwar_rebels.Leader.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
+
+ civcom.5100.desc:0 "Приветствую. Вы знали меня как Губернатора [event_target:current_civwar_rebels.Leader.GetName], лидер §Y[civil_war_party.GetName]§!. Однако, ваше правительство слишком долго препятствовало достижению целей моей партии, и людям это надоело. Я теперь не просто губернатор. Теперь я §H[event_target:current_civwar_rebels.Leader.GetTitle] [event_target:current_civwar_rebels.Leader.GetName]§! и говорю от имени недавно сформированного §Y[event_target:current_civwar_rebels.GetName]§!. Меня поддерживает народ моей страны, и мы готовы защищаться.\n\nОднако, я надеюсь, что в этом не будет необходимости. В интересах предотвращения дальнейшего кровопролития я хотел бы предложить вам сделку.\n\nМы готовы платить вам §Y5% всех наших ресурсов§! в обмен на вечную гарантию нашей независимости с вашей стороны."
+
+ civcom.5110.desc:0 "Приветствую. Вы знали меня как Ученого [event_target:current_civwar_rebels.Leader.GetName], лидер §Y[civil_war_party.GetName]§!. Однако, ваше правительство слишком долго препятствовало достижению целей моей партии, и людям это надоело. Я теперь не просто ученый. Теперь я §H[event_target:current_civwar_rebels.Leader.GetTitle] [event_target:current_civwar_rebels.Leader.GetName]§! и говорю от имени недавно сформированного §Y[event_target:current_civwar_rebels.GetName]§!. Меня поддерживает народ моей страны, и мы готовы защищаться.\n\nОднако, я надеюсь, что в этом не будет необходимости. В интересах предотвращения дальнейшего кровопролития я хотел бы предложить вам сделку..\n\nМы готовы платить вам §Y5% всех наших ресурсов§! в обмен на вечную гарантию нашей независимости с вашей стороны."
+
+ civcom.5120.desc:0 "Приветствую. Вы знали меня как Генерала [event_target:current_civwar_rebels.Leader.GetName], лидер §Y[civil_war_party.GetName]§!. Однако, ваше правительство слишком долго препятствовало достижению целей моей партии, и людям это надоело. Я теперь не просто генерал. Теперь я §H[event_target:current_civwar_rebels.Leader.GetTitle] [event_target:current_civwar_rebels.Leader.GetName]§! и говорю от имени недавно сформированного §Y[event_target:current_civwar_rebels.GetName]§!. Меня поддерживает народ моей страны, и мы готовы защищаться.\n\nОднако, я надеюсь, что в этом не будет необходимости. В интересах предотвращения дальнейшего кровопролития я хотел бы предложить вам сделку..\n\nМы готовы платить вам §Y5% всех наших ресурсов§! в обмен на вечную гарантию нашей независимости с вашей стороны."
+
+ civcom.5140.desc:0 "Приветствую. Мне стало ясно, что людям из моего сектора будет лучше под моим руководством. Я лидер, который им нужен. Таким образом, я больше не просто губернатор. Теперь я §H[event_target:current_civwar_rebels.Leader.GetTitle] [event_target:current_civwar_rebels.Leader.GetName]§!, лидер §Y[event_target:current_civwar_rebels.GetName]§!. Я потратил годы на сбор поддержки, необходимой для достижения этой цели.\n\nОднако, я понимаю, что вы можете быть не совсем готовы позволить ресурсам из моего сектора уйти. В интересах предотвращения дальнейшего кровопролития я хотел бы предложить вам сделку. \n\nЯ готов заплатить вам §Y5% всех наших ресурсов§! в обмен на вечную гарантию нашей независимости."
+
+ #####
+
+ civcom.3000.name: "[event_target:current_civwar_originator.GetRulerTitle] [event_target:current_civwar_originator.ruler.GetName] of the [event_target:current_civwar_originator.GetName]"
+ civcom.3000.desc: "Greetings my esteemed, §Y[Root.GetRulerTitle]§!. I come before you today as your humble vassal, requesting aid in maintaining stability over my realm. A group of dissidents has taken over one of our sectors, and has declared themselves independent from both us and you. In the worst case, the rebels could take control of all of our territory. If you want to retain overlordship of the territory they've seized and prevent them from seizing more, we need to crush their rebellion. "
+
+ civcom.3001.desc: "Greetings my esteemed, §Y[Root.GetRulerTitle]§!. I come before you today as your humble vassal, requesting aid in maintaining stability over my realm. A a rogue admiral has taken control over one of our fleets and has declared themselves independent from both us and you. In the worst case, the rebels could take control of some, or all, of our territory. If you want to retain overlordship over any potential territory they seize and ensure stability in my realm, we need to crush their rebellion."
+
+ civcom.3000.a: "We will take the lead, and put down these rebels."
+ civcom.3000.a.tooltip: "We'll wage war to reuinte our subjects territory."
+ civcom.3000.b: "You can take them on yourselves."
+ civcom.3000.b.tooltip: "Our subject will wage war to reunite their territory without help from us."
+ civcom.3000.c: "We don't have time for a war. We'll let them go."
+ civcom.3000.c.tooltip: "The rebelling sector will become independent from us and our subject."
+
+ #### Coup Communications ####
+ #############################
+
+ civcom.6000.disputed_heir_country_1:0 "[event_target:disputed_heir_country_1.GetName]"
+ civcom.6000.disputed_heir_country_2:0 "[event_target:disputed_heir_country_2.GetName]"
+ civcom.6000.disputed_heir_country_3:0 "[event_target:disputed_heir_country_3.GetName]"
+ civcom.6000.disputed_heir_country_4:0 "[event_target:disputed_heir_country_4.GetName]"
+ civcom.6000.disputed_heir_country_5:0 "[event_target:disputed_heir_country_5.GetName]"
+ civcom.6000.disputed_heir_country_6:0 "[event_target:disputed_heir_country_6.GetName]"
+ civcom.6000.disputed_heir_country_7:0 "[event_target:disputed_heir_country_7.GetName]"
+ civcom.6000.disputed_heir_country_8:0 "[event_target:disputed_heir_country_8.GetName]"
+ civcom.6000.disputed_heir_country_9:0 "[event_target:disputed_heir_country_9.GetName]"
+ civcom.6000.disputed_heir_country_10:0 "[event_target:disputed_heir_country_10.GetName]"
+
+ civcom.6000.war.list:0 "§YОбъявление§! §Rвойны§!:"
+
+ civcom.6000.name:0 "Имперский секретарь [event_target:coup_secretary.GetName]"
+ civcom.6000.heir.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the undoubtedly false rumors surrounding your heritage, one of your relatives has claimed that they are the true heir to the throne. They've managed to gather enough support to take control of one of our sectors, and are audaciously claiming that we are the true rebels. As of right now, we are are in a state of total war with their faction of our empire."
+
+ civcom.6000.ruler.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the circumstances surrounding your succession, one of your relatives has claimed that they are the true heir to the throne. They've managed to gather enough support to take control of one of our sectors, and are audaciously claiming that we are the true rebels. As of right now, we are are in a state of total war with their faction of our empire."
+
+ civcom.6000.a:0 "Возмутительно! Это я §H[root.GetRulerTitle]§! [Root.GetName]!"
+
+ civcom.6010.name:0 "Имперский секретарь [event_target:coup_secretary.GetName]"
+ civcom.6010.heir.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the undoubtedly false rumors surrounding your heritage, one of your vassal houses has declared their independence. They call themselves the §Y[event_target:disputed_heir_country_1.GetName]§! and claim that they owe no fealty to a §Rpretender§! §Y[root.GetRulerTitle]§!. We can declare war on them now to take back the land that is rightfully ours, or we can wait for a more suitable time."
+
+ civcom.6010.ruler.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the circumstances surrounding your succession, one of your vassal houses has declared their independence. They call themselves the §Y[event_target:disputed_heir_country_1.GetName]§! and claim that they owe no fealty to a §Rpretender§! §Y[root.GetRulerTitle]§!. We can declare war on them now to take back the land that is rightfully ours, or we can wait for a more suitable time."
+
+ civcom.6010.a:0 "Я самозванец!? Они подчинятся моей власти!"
+ civcom.6010.b:0 "По крайней мере, на данный момент они не стоят того."
+
+ civcom.6020.name:0 "Имперский секретарь [event_target:coup_secretary.GetName]"
+ civcom.6020.heir.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the undoubtedly false rumors surrounding your heritage, one of your relatives has claimed that they are the true heir to the throne. They have managed to gather enough support to take control of one of our sectors, and are audaciously claiming that we are the true rebels. As of right now, we are are in a state of total war with their faction of our empire.\n\nAdditonally, there are some vassal houses that have declared their independence, as they claim they owe no fealty to a §Rpretender§! §Y[root.GetRulerTitle]§!. While we are not at war with these 'empires' yet, your relative who has claimed the throne has also declared war on these breakaway states. We may want to declare war on them so that we can ensure that your relative doesn't take all their land, §Yland that rightfully belongs to us§!.\n\nWhat would you like to do?"
+
+ civcom.6020.ruler.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the circumstances surrounding your succession, one of your relatives has claimed that they are the true heir to the throne. They have managed to gather enough support to take control of one of our sectors, and are audaciously claiming that we are the true rebels. As of right now, we are are in a state of total war with their faction of our empire.\n\nAdditonally, there are some vassal houses that have declared their independence, as they claim they owe no fealty to a §Rpretender§! §Y[root.GetRulerTitle]§!. While we are not at war with these 'empires' yet, your relative who has claimed the throne has also declared war on these breakaway states. We may want to declare war on them so that we can ensure that your relative doesn't take all their land, §Yland that rightfully belongs to us§!.\n\nWhat would you like to do?"
+
+ civcom.6020.a:0 "На этом пока все."
+
+ civcom.6030.name:0 "Имперский секретарь [event_target:coup_secretary.GetName]"
+ civcom.6030.heir.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the circumstances surrounding your succession, one of your relatives has claimed that they are the true heir to the throne. Multiple relatives have managed to gather enough support to take control of different sectors, and are audaciously claiming that we are the true rebels. As of right now, we are are in a state of total war with their factions of our empire.\n\nAdditonally, there are some vassal houses that have declared their independence, as they claim they owe no fealty to a §Rpretender§! §Y[root.GetRulerTitle]§!. While we are not at war with these 'empires' yet, your relatives who have claimed the throne have also declared war on these breakaway states. We may want to declare war on them so that we can ensure that your relatives don't take all their land, §Yland that rightfully belongs to us§!.\n\nWhat would you like to do?"
+
+ civcom.6030.ruler.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the circumstances surrounding your succession, some of your relatives have claimed that they are the true heirs to the throne. Multiple relatives have managed to gather enough support to take control of different sectors, and are audaciously claiming that we are the true rebels. As of right now, we are are in a state of total war with their factions of our empire.\n\nAdditonally, there are some vassal houses that have declared their independence, as they claim they owe no fealty to a §Rpretender§! §Y[root.GetRulerTitle]§!. While we are not at war with these 'empires' yet, your relatives who have claimed the throne have also declared war on these breakaway states. We may want to declare war on them so that we can ensure that your relatives don't take all their land, §Yland that rightfully belongs to us§!.\n\nWhat would you like to do?"
+
+ civcom.6040.name:0 "Имперский секретарь [event_target:coup_secretary.GetName]"
+ civcom.6040.heir.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the undoubtedly false rumors surrounding your heritage, some of your relatives have claimed that they are the true heirs to the throne. Multiple relatives have managed to gather enough support to take control of different sectors, and are audaciously claiming that we are the true rebels. As of right now, we are are in a state of total war with their factions of our empire."
+
+ civcom.6040.ruler.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the circumstances surrounding your succession, some of your relatives have claimed that they are the true heirs to the throne. Multiple relatives have managed to gather enough support to take control of different sectors, and are audaciously claiming that we are the true rebels. As of right now, we are are in a state of total war with their factions of our empire."
+
+ civcom.6040.a:0 "Возмутительно! Это я §H[root.GetRulerTitle]§! [Root.GetName]!"
+
+ civcom.6050.name:0 "Имперский секретарь [event_target:coup_secretary.GetName]"
+ civcom.6050.heir.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the undoubtedly false rumors surrounding your heritage, multiple noble vassal houses within our empire have declared their independence. They all claim that they owe no fealty to a §Rpretender§! §Y[root.GetRulerTitle]§!. We can declare war on them now to take back the land that is rightfully ours, or we can wait for a more suitable time.\n\nWhat would you like to do?"
+
+ civcom.6050.ruler.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the circumstances surrounding your succession, multiple noble vassal houses within our empire have declared their independence. They all claim that they owe no fealty to a §Rpretender§! §Y[root.GetRulerTitle]§!. We can declare war on them now to take back the land that is rightfully ours, or we can wait for a more suitable time.\n\nWhat would you like to do?"
+
+ civcom.6060.name:0 "[root.GetHeirTitle] [event_target:heir_speaking.GetName]"
+ civcom.6060.desc:0 "My §Y[root.GetRulerTitle]§!, it has come to my attention that, due to some rumours, you are considering removing me from the line of succession. I am respectfully asking that you do not do that. You should not legitimize these rumours by disinheriting me."
+
+ civcom.6060.a:0 "Alright, you shall remain in the line of succession."
+ civcom.6060.b:0 "I don't know. These rumours have substance to them."
+
+ civcom.6061.name:0 "[root.GetHeirTitle] [event_target:heir_speaking.GetName]"
+ civcom.6061.desc:0 "They do not. You need only exmaine them for more than a few minutes to come to that conclusion. Regardless, I should remind you that I have support within the empire. Since I first heard of the rumors, I've been in contact the most influential supporters of mine. I highly suggest that, for the stability of the empire, the status quo remain as it is. I will not sit idly by while you attempt to steal my birthright."
+
+ civcom.6061.a:0 "I need time to think about this."
+ civcom.6061.b:0 "I've heard enough. You're being disinherited."
+
+ civcom.6062.name:0 "[root.GetHeirTitle] [event_target:heir_speaking.GetName]"
+ civcom.6062.desc:0 "Have you given more thought to my status, [root.GetRulerTitle]?"
+
+ civcom.6062.a:0 "I need more time to think about this."
+ civcom.6062.b:0 "I've decided you shall remain my heir."
+ civcom.6062.c:0 "I've decided to disinherit you."
+
+ civcom.6063.name:0 "[root.GetHeirTitle] [event_target:heir_speaking.GetName]"
+ civcom.6063.desc:0 "I'm surprised this is the route you've decided to take. I want you to be fully aware that I will do everything in my power to correct this gross injustice."
+
+ civcom.6063.a:0 "Good luck with that. Goodbye."
+
+ #### Traitor Communications ####
+ ################################
+
+ civcom.7000.name:0 "The §Rtraitor§!, [event_target:defeated_traitor.GetName]"
+ civcom.7100.name:0 "[event_target:defeated_traitor_heir.GetName]"
+ civcom.7600.name:0 "[event_target:retrieved_traitor.GetName]"
+
+ civcom.8100.name:0 "[event_target:disinherited_heir.GetName]"
+ 
+ civcom.7000.desc:0 "..."
+ civcom.7100.desc:0 "..."
+ civcom.7001.desc:0 "And yet, I stand by my actions. Everything I did was just."
+ civcom.7002.desc:0 "What? Wait. Wait!"
+ civcom.7003.desc:0 "I knew this was a possibility. I stand by my actions."
+ civcom.7004.desc:0 "That's... extremely surprising."
+ civcom.7005.desc:0 "Interesting. Very interesting."
+
+ civcom.7600.desc:0 "You really went to war to get me? I don't know if I should be flattered, or if you're just crazy."
+
+ civcom.7700.desc:0 "You really went to war to get me? I don't know if I should be flattered, or if you're just crazy."
+
+ civcom.8000.desc:0 "Greetings to the esteemed §Y[root.ruler.GetTitle]§! §H[root.ruler.GetName]§!. My name is §H[event_target:retrieved_traitor.GetName]§!, and I used to be a prominent member of the §Y[event_target:traitor_home_country.ruler.GetTitle]§! government. Due to some political turmoil in my home country, I felt the need to leave. That said, I know I could be useful to you here. I would also be extremely grateful for your assistance in taking back what is rightfully mine one day."
+
+ civcom.8001.desc:0 "I'm grateful. I'll serve however I'm most useful."
+
+ civcom.8100.desc:0 "Greetings to the esteemed §Y[root.ruler.GetTitle]§! §H[root.ruler.GetName]§!. My name is §H[event_target:disinherited_heir.GetName]§!, and I am the rightful heir to the §Y[event_target:traitor_home_country.GetName]§! throne. Political machinations in my home country have seen the §Y[event_target:traitor_home_country.ruler.GetTitle]§! remove me from the line of succession. That said, I know I could be useful to you here. I would also be extremely grateful for your assistance in taking back what is rightfully mine one day."
+
+ civcom.7000.a:0 "You'll be executed."
+ civcom.7000.b:0 "You'll be tortured."
+ civcom.7000.c:0 "You'll be imprisoned indefinitely."
+ civcom.7000.d:0 "I'm pardoning you."
+ civcom.7000.e:0 "I'm banishing you."
+
+ civcom.7001.a: "And yet, you'll still die."
+ civcom.7002.a: "No, I don't think I will."
+ civcom.7003.a: "Good riddance."
+ civcom.7004.a: "You're welcome."
+ civcom.7005.a: "Bye."
+
+ civcom.8000.a: "We don't want you here."
+ civcom.8000.b: "You may prove useful."
+
+ civcom.8001.a:0 "You'll serve as a Governor."
+ civcom.8001.b:0 "You'll serve as an Admiral."
+ civcom.8001.c:0 "You'll serve as a General."
+ civcom.8001.d:0 "You'll serve as a Scientist."
+
+ ##############
+
+ civheir.3000.name:0 "§Y[event_target:disinherited_heir.GetName]§! Flees"
+ civheir.3000.desc:0 "It seems that after being disinherited, the former heir §Y[event_target:disinherited_heir.GetName]§! fled beyond our borders. Only time will tell whether that means anything for us."
+
+ civheir.3100.desc:0 "The reformation of our government wasn't going to please everyone, esepcially those in the old order. It seems that with the loss of their status, §Y[event_target:disinherited_heir.GetName]§!, the former heir, has fled beyond our borders. Only time will tell whether that means anything for us."
+
+ civheir.3000.a:0 "Disconcerting."
+
+ civheir.3002.name:0 "Incoming Communications"
+ civheir.3002.desc:0 "It seems that after being disinherited, the former heir of §Y[event_target:traitor_home_country.GetName]§! fled their space and is now asking for an audience with us."
+
+ civheir.3102.desc:0 "It seems that after losing their status with the reformation of their government, the former heir of the §Y[event_target:traitor_home_country.GetName]§! has fled their space and is now asking for an audience with us."
+
+ civheir.3002.a:0 "Interesting."
+
+ civheir.3003.name:0 "§YFormer Heir Found§!"
+ civheir.3003.desc:0 "We were correct in our suspicions that the former heir, §H[event_target:disinherited_heir.GetName]§!, fled our space after being disinherited. Our intelligence agencies have now been able to determine that they wound up in the §Y[from.GetName]§!. Alarmingly, they now appear to be working for the §Y[from.GetAdj]§! government as a §Y[event_target:disinherited_heir.GetTitle]§!."
+ civheir.3013.desc:0 "We were correct in our suspicions that the former heir, §H[event_target:disinherited_heir.GetName]§!, fled our space after being disinherited. Our intelligence agencies have now been able to determine that they wound up in the §Y[from.GetName]§!. Alarmingly, they now appear to be working for the §Y[from.GetAdj]§! government as an §Y[event_target:disinherited_heir.GetTitle]§!."
+ civheir.3103.desc:0 "We were correct in our suspicions that the former heir, §H[event_target:disinherited_heir.GetName]§!, fled our space after our government was reformed. Our intelligence agencies have now been able to determine that they wound up in the §Y[from.GetName]§!. Alarmingly, they now appear to be working for the §Y[from.GetAdj]§! government as a §Y[event_target:disinherited_heir.GetTitle]§!."
+ civheir.3113.desc:0 "We were correct in our suspicions that the former heir, §H[event_target:disinherited_heir.GetName]§!, fled our space after our government was reformed. Our intelligence agencies have now been able to determine that they wound up in the §Y[from.GetName]§!. Alarmingly, they now appear to be working for the §Y[from.GetAdj]§! government as an §Y[event_target:disinherited_heir.GetTitle]§!."
+
+ civheir.3003.a:0 "How dare they take them in!"
+ civheir.3103.a:0 "That doesn't sound good."
+
+ civheir.8100.name:0 "§YFormer Heir Found§!"
+ civheir.8100.planet.desc:0 "It seems that after being disinherited, the former heir of §Y[event_target:traitor_home_country.GetName]§! began conspiring to take back the throne. That was all for naught, however, as our intelligence agencies found them dead today. It seems that they were holed up in a backwater neighborhood on §Y[event_target:heir_hiding_planet.GetName]§!."
+ civheir.8100.foreign.desc:0 "It seems that after being disinherited, the former heir of §Y[event_target:traitor_home_country.GetName]§! began conspiring to take back the throne. That was all for naught, however, as our intelligence agencies have uncovered strong evidence of their death. It seems that they were hiding out in §Y[event_target:heir_hiding_foreign.GetName]§!. Right now, we have no reason to believe the §Y[event_target:heir_hiding_foreign.GetAdj]§! authorities knew they were there and conspiring against us."
+ civheir.8100.capital.desc:0 "It seems that after being disinherited, the former heir of §Y[event_target:traitor_home_country.GetName]§! began conspiring to take back the throne. That was all for naught, however, as our intelligence agencies found them dead today. It seems that they were holed up in some random backwater neighborhood."
+
+ civheir.8100.a:0 "Interesting. On screen."
+
+ civend.5006.name:0 "§Y[event_target:defeated_traitor.GetName] Executed!§!"
+ civend.5007.name:0 "§Y[event_target:retrieved_traitor.GetName] Executed!§!"
+ civend.5008.name:0 "§Y[event_target:retrieved_traitor.GetName] is Dead!§!"
+
+ civend.5006.hanged.desc:0 "In an event broadcast throughout our empire, the traitor §H[event_target:defeated_traitor.GetName]§! was hung today. May all traitors and would-be rebels remember this day."
+ civend.5006.firing_squad.desc:0 "In an event broadcast throughout our empire, the traitor §H[event_target:defeated_traitor.GetName]§! was executed via firing squad. May all traitors and would-be rebels remember this day."
+ civend.5006.guillotine.desc:0 "In an event broadcast throughout our empire, the traitor §H[event_target:defeated_traitor.GetName]§! was guillotined today. May all traitors and would-be rebels remember this day."
+
+ civend.5007.hanged.desc:0 "In an event broadcast throughout our empire, the traitor §H[event_target:retrieved_traitor.GetName]§! was hung today. May all traitors and would-be rebels remember this day."
+ civend.5007.firing_squad.desc:0 "In an event broadcast throughout our empire, the traitor §H[event_target:retrieved_traitor.GetName]§! was executed via firing squad. May all traitors and would-be rebels remember this day."
+ civend.5007.guillotine.desc:0 "In an event broadcast throughout our empire, the traitor §H[event_target:retrieved_traitor.GetName]§! was guillotined today. May all traitors and would-be rebels remember this day."
+
+ civend.6004.hanged.desc:0 "In an event broadcast throughout our empire, the former heir and traitor §H[event_target:defeated_traitor.GetName]§! was hung today. May all traitors and would-be rebels remember this day."
+ civend.6004.firing_squad.desc:0 "In an event broadcast throughout our empire, the former heir and traitor §H[event_target:defeated_traitor.GetName]§! was executed via firing squad. May all traitors and would-be rebels remember this day."
+ civend.6004.guillotine.desc:0 "In an event broadcast throughout our empire, the former heir and traitor §H[event_target:defeated_traitor.GetName]§! was guillotined today. May all traitors and would-be rebels remember this day."
+
+ civend.5006.a:0 "Good."
+
+ civend.5008.flayed.desc:0 "After being flayed for hours, §H[event_target:defeated_traitor.GetName]§! died today. Their body is hung up in the capital as a reminder for all would-be rebels and traitors."
+ civend.5008.stretched.desc:0 "After being stretched for hours, §H[event_target:defeated_traitor.GetName]'s§! body finally broke and they died. Their body is displayed in the capital as a reminder for all would-be rebels and traitors."
+ civend.5008.piked.desc:0 "After being left on a pike for hours, §H[event_target:defeated_traitor.GetName]'s§! body finally split open and they died. Their remains  are being displayed in the capital as a reminder to all would-be rebels and traitors."
+
+ civend.5009.flayed.desc:0 "After being flayed for hours, the former heir §H[event_target:retrieved_traitor.GetName]§! died today. Their body is hung up in the capital as a reminder for all would-be rebels and traitors."
+ civend.5009.stretched.desc:0 "After being stretched for hours, the former heir §H[event_target:retrieved_traitor.GetName]'s§! body finally broke and they died. Their body is displayed in the capital as a reminder for all would-be rebels and traitors."
+ civend.5009.piked.desc:0 "After being left on a pike for hours, the former heir §H[event_target:retrieved_traitor.GetName]'s§! body finally split open. Their remains are being displayed in the capital as a reminder to all would-be rebels and traitors."
+
+
+ ##############
+
+ civend.1001.name:0 "§Y[event_target:defeated_traitor.GetName] Dies!§!"
+ civend.1001.hanging.desc:0 "The traitor is dead. According to first-hand reports, when their defeat seemed inevitable, §H[event_target:defeated_traitor.GetName]§! hanged themself."
+ civend.1001.jumping.desc:0 "The traitor is dead. According to first-hand reports, when their defeat seemed inevitable, §H[event_target:defeated_traitor.GetName]§! jumped off their headquarters. Our forces have found their mangled remains and confimed it."
+ civend.1001.spacing.desc:0 "The traitor is dead. According to first-hand reports, §H[event_target:defeated_traitor.GetName]§! was in corvette when they realized their defeat was inevitable. Apparently, they gave an inspired speech, then had themselves spaced out the airlock."
+ civend.1001.gun.desc:0 "The traitor is dead. According to first-hand reports, when their defeat seemed inevitable, §H[event_target:defeated_traitor.GetName]§! shot themself."
+ civend.1001.poison.desc:0 "The traitor is dead. According to first-hand reports, when their defeat seemed inevitable, §H[event_target:defeated_traitor.GetName]§! drank poison."
+ civend.1001.coup.desc:0 "The traitor is dead. According to first-hand reports, when their defeat seemed inevitable, a few 'loyal' officers who were with §H[event_target:defeated_traitor.GetName]§! killed them."
+
+ civend.1001.a:0 "Unfortunate we couldn't capture them alive."
+
+ civend.1002.name:0 "§Y[event_target:defeated_traitor.GetName] Disappears!§!"
+ civend.1002.desc:0 "The traitor §H[event_target:defeated_traitor.GetName]§! has disappeared. Reports on their last known location are shaky. There are those that say they died, while others claim that §H[event_target:defeated_traitor.GetName]§! and a few advisors managed to flee. It seems unlikely we'll ever know for sure what really happened to them."
+
+ civend.1002.a:0 "Damn it!"
+
+ civend.1003.name:0 "§Y[event_target:defeated_traitor.GetName] Flees!§!"
+ civend.1003.desc:0 "The traitor §H[event_target:defeated_traitor.GetName]§! has fled. It seems that when §H[event_target:defeated_traitor.GetName]§! realized their defeat was inevitable, they took a few of their top advisors and managed to flee our space. Only time will tell what that means for us."
+
+ civend.1003.a:0 "Damn it!"
+
+ civend.1004.name:0 "§Y[event_target:defeated_traitor.GetName] Captured!§!"
+ civend.1004.coup.desc:0 "The traitor §H[event_target:defeated_traitor.GetName]§! has been captured. It seems that when a few top advisors and officers realized defeat was inveitable, they took §H[event_target:defeated_traitor.GetName]§! hostage and held them until our forces arrived."
+ civend.1004.normal.desc:0 "The traitor §H[event_target:defeated_traitor.GetName]§! has been captured. Our special forces took §H[event_target:defeated_traitor.GetName]§! in a violent last stand in their headquaters."
+
+ civend.1004.a:0 "Great!"
+
+ civend.5001.name:0 "Incoming Communications"
+ civend.5001.desc:0 "It seems that a political leader from the §Y[event_target:traitor_home_country.GetName]§! has fled their space and is now asking for an audience with us."
+
+ civend.5001.a:0 "Interesting. On screen."
+
+ civend.5002.name:0 "§YTreasonous Leader Found§!"
+ civend.5002.desc:0 "We've finally gotten information on the whereabouts of §H[event_target:defeated_traitor.GetName]§!, who fled our space after losing the war. Our intelligence agencies have now been able to determine that they wound up in the §Y[from.GetName]§!. Alarmingly, they appear to now be working for the §Y[from.GetAdj]§! government as a §Y[event_target:defeated_traitor.GetTitle]§!."
+ civend.5012.desc:0 "We've finally gotten information on the whereabouts of §H[event_target:defeated_traitor.GetName]§!, who fled our space after losing the war. Our intelligence agencies have now been able to determine that they wound up in the §Y[from.GetName]§!. Alarmingly, they appear to now be working for the §Y[from.GetAdj]§! government as an §Y[event_target:defeated_traitor.GetTitle]§!."
+
+ civend.5002.a:0 "How dare they take that traitor in!"
+
+ civend.9005.name:0 "§YTreasonous Leader Has Died§!"
+ civend.9005.desc:0 "According to our sources in the §Y[from.GetName]§!, the traitor §H[event_target:dead_traitor.GetName]§! has died. We're not exactly sure as to the manner of their death, but we can say for certain that any threat they posed is now eliminated."
+
+ civend.9005.a:0 "Excellent"
+
+ #### Election Communications ####
+ #################################
+
+ civcom.9990.name:0 "[event_target:grievance_party_leader.GetTitle] [event_target:grievance_party_leader.GetName]"
+ civcom.9990.desc:0 "Thank you for taking my call, [root.GetRulerTitle] [ruler.GetSecondName]. My party has found preliminary evidence that the most recent election may have been compromised. We are demanding a full investigation, and trust that we can count on your support in a matter so intengral to our democracy."
+
+ civcom.9990.a:0 "We'll conduct a full and transparent investigation."
+ civcom.9990.b:0 "Your evidence is insubstantial. The election was secure."
+
+ civcom.9991.name:0 "[event_target:grievance_party_leader.GetTitle] [event_target:grievance_party_leader.GetName]"
+ civcom.9991.desc:0 "I'm surprised you would dismiss these concerns so easily, especially considering how fundamentally important election integrity is. This will not be the last you hear about this. For the sake of our democracy, we will uncover the truth."
+
+ civcom.9991.a:0 "Good luck with that."
+
+ civcom.9992.name:0 "[event_target:grievance_party_leader.GetTitle] [event_target:grievance_party_leader.GetName]"
+ civcom.9992.desc:0 "Despite your dismissal of the situation, the §Y[event_target:grievance_party]§! conducted our own investigation into the integrity of the most recent election. Through cooperation with the public, we've unconvered irrefutable evidence that your party, the [event_target:ruling_party.GetName] committed fraud in several localities in order to secure their win in the election. On behalf of our democracy, and all the people of the [root.GetName], I'm demanding that you resign and that new elections be called immediately."
+
+ civcom.9992.a:0 "Fine, I will resign and new elections will be held."
+ civcom.9992.b:0 "You have no proof that I was involved. I'm not resigning."
+
+ civcom.9993.name:0 "[event_target:grievance_party_leader.GetTitle] [event_target:grievance_party_leader.GetName]"
+ civcom.9993.desc:0 "You couldn't care less about our democracy. It's obvious now that the only thing you care about is your own power. The results of our investigation will be made public. The people will not stand for this!"
+
+ civcom.9993.a:0 "We shall see."
+
+ #### Espionage Communications ####
+ ##################################
+
+ civcom.9100.name:0 "[event_target:operation_rebel_leader.GetTitle] [event_target:operation_rebel_leader.GetName]"
+
+ civcom.9100.desc:0 "Hello, I am §Y[event_target:operation_rebel_leader.GetTitle]§! §H[event_target:operation_rebel_leader.GetSecondName]§!. Let's make this quick, I don't want this channel being detected. While I appreciate the support your government has provided me and my allies so far, we'll need more resources if we really want to succeed."
+
+ civcom.9100.a: "We'll give you what resources we can spare'."
+ civcom.9100.b: "We can afford to give you some more resources."
+ civcom.9100.c: "You can have all the resources you need."
+ civcom.9100.d: "I'm sorry, we have nothing to give."
+
+ ###################
+ ### Coup Events ###
+ ###################
+
+ origin_coup_successor:0 "Спорный приемник"
+ origin_coup_successor_desc:0 "В условиях кризиса престолонаследия расширенному члену королевской семьи удалось заручиться достаточной поддержкой, чтобы претендовать на трон."
+
+ origin_coup_independent:0 "Спорная верность"
+ origin_coup_independent_desc:0 "Императорская династия этого народа когда-то была лишь одним из многих великих дворянских домов в другой империи. Однако кризис престолонаследия заставил дом объявить о своей независимости, заявив, что не обязаны хранить верность самозванцу."
+
+ origin_disinherited_heir:0 "Disniherited Heir" ## You dont need to localize this. one
+ origin_disinherited_heir_desc:0 "This is a dummy origin for the disinherited heir." ## ^
+
+ append_dynasty_name:0 "[Ruler.GetFirstName] [event_target:disputed_heir_ruler.GetSecondName]"
+
+ war_goal_wg_coup_successor:0 "Гражданская война"
+ war_goal_wg_coup_successor_desc:0 "Война ведется по нескольким системам, которые, по утверждению различных правителей, принадлежат им."
+
+ war_goal_wg_coup_successor_mother:0 "Гражданская война"
+ war_goal_wg_coup_successor_mother_desc:0 "Война ведется против незаконнорожденного члена нашей семьи, претендующего на трон."
+
+ war_goal_wg_coup_successor_opponent:0 "Гражданская война"
+ war_goal_wg_coup_successor_opponent_desc:0 "War is being waged over multiple systems that various rulers claim belong to them."
+
+ war_goal_wg_coup_successor_opponent_mother:0 "Гражданская война"
+ war_goal_wg_coup_successor_opponent_mother_desc:0 "Война ведется против самозванца, члена семьи, который утверждает, что он истинный наследник престола."
+
+ war_goal_wg_coup_independent:0 "Вассальная война"
+ war_goal_wg_coup_independent_desc:0 "Война ведется против нелояльного вассала, который оспаривает их верность."
+
+ war_goal_wg_coup_independent_opponent:0 "Вассальная война"
+ war_goal_wg_coup_independent_opponent_desc:0 "Война ведется против претендента, который утверждает, что мы обязаны ему верностью."
+
+ war_goal_wg_coup_fealty:0 "Fealty War"
+ war_goal_wg_coup_fealty_desc:0 "War is being waged against a disloyal vassal who disputes their fealty."
+
+ trait_disputed_heritage:0 "Спорное наследие"
+ trait_disputed_heritage_desc:0 "Правдоподобные слухи окружают наследие этого члена династии."
+
+ civcoup.1009.name:0 "§YСлухи о родословной рассеиваются!§!"
+ civcoup.1009.desc:0 "Похоже, что слухи о нашем наследии, к счастью, нигде не спровоцировали восстания в нашей империи. Вероятно, мы наконец сможем оставить эти слухи позади."
+
+ civcoup.1009.a:0 "Превосходно!"
+
+ civcoup.9010.name:0 "§RHeir's Heritage in Doubt§!"
+ civcoup.9010.desc:0 "There are rumors spreading amongst the noble families of our empire regarding the ancestry of §Y[Root.GetHeirTitle]§! §H[Root.GetHeirName]§!. These rumors heavily imply that the §Y[Root.GetHeirTitle]§! is not a legitimate claimant to the throne. These rumors are likely to prove problematic when it becomes time for §H[Root.GetHeirName]§! to ascend to the throne."
+
+ civcoup.9010.a:0 "This is outrageous!"
+ civcoup.9010.b:0 "The rumors have merit. It may be best to disinherit §H[Root.GetHeirName]§!."
+
+ # civcoup.5010.name:0 "§RПреемственность наследника под сомнением§!"
+ # civcoup.5010.desc:0 "Среди знатных семей нашей империи ходят слухи о предках §H[Root.GetHeirTitle]§! §Y[Root.GetHeirName]§!. Эти слухи в значительной степени подразумевают, что §H[Root.GetHeirTitle]§! не является законным претендентом на престол. Эти слухи могут оказаться проблематичными, если §Y[Root.GetHeirName]§! коронован."
+
+ # civcoup.5010.a:0 "Это возмутительно!"
+
+ #######################
+ ### Election Events ###
+ #######################
+
+ civelection.1001.name:0 "Questions concering election integrity"
+ civelection.1001.desc:0 "The §Y[event_target:grievance_party.GetName]§! has brought forward questions regarding the integrity of the last election. The leader of the §Y[event_target:grievance_party.GetName]§!, §Y[event_target:grievance_party_leader.GetTitle] [event_target:grievance_party_leader.GetName]§!, is urgently requesting an audience."
+ civelection.1001.a:0 "Very well. On Screen."
+
+ civelection.1002.name:0 "Election Investigation Complete: §YNo Evidence of Fraud§!"
+ civelection.1002.desc:0 "The authorities that deal with our elections have finished their investigation. They found no evidence of anything improper relating to our last elections. Due to the transparent nature in which the investigation was conducted, the §Y[event_target:grievance_party.GetName]§! is satisfied with the results."
+
+ civelection.1002.a:0 "Excellent."
+
+ civelection.1003.name:0 "Election Investigation Complete: §REvidence of Fraud§!"
+ civelection.1003.desc:0 "The authorities that deal with our elections have finished their investigation. Their investigation has found evidence that the [event_target:ruling_party.GetName] committed fraud in several localities in order to secure their win. The authorities have invalidated the results of the election, ordered new elections be held immediately, and forwarded the results of their invesgiation to the relevant prosecutorial authorities. Due to our involvement in the ongoing criminal investigations, we will be unable to stand for election."
+
+ civelection.1003.a:0 "This is outrageous!"
+ civelection.1003.a.tooltip:0 "§Y[root.GetRulerTitle] [root.GetRulerName]§! is removed from office and new elections are called."
+
+ civelection.1004.name:0 "Accusations of electoral fraud die down"
+ civelection.1004.desc:0 "It seems that despite the threats of the [event_target:grievance_party.GetName], they were unable to even gather enough interest in conducting an investigation into the matter. It may have all been a ploy from the beginning to cover for their poor election performance."
+
+ civelection.1004.a:0 "Pitiful."
+
+ civelection.1005.name:0 "The §Y[event_target:grievance_party.GetName]§! finds §Yno evidence of fraud§!"
+ civelection.1005.desc:0 "After we dismissed the concerns of §Y[event_target:grievance_party.GetName]§! leader §Y[event_target:grievance_party_leader.GetTitle] [event_target:grievance_party_leader.GetName]§!, it seems that the party conducted their own investigation. Fortunately, they were unable to turn up any truly compelling evidence of fraud. With their concerns satisfied, that's the last we should hear about that."
+
+ civelection.1005.a:0 "Excellent."
+
+ civelection.1006.name:0 "The §Y[event_target:grievance_party.GetName]§! finds §Revidence of fraud§!"
+ civelection.1006.desc:0 "After we dismissed the concerns of §Y[event_target:grievance_party.GetName]§! leader §Y[event_target:grievance_party_leader.GetTitle] [event_target:grievance_party_leader.GetName]§!, it seems that the party conducted their own investigation and found irrefutable evidence of fraud. §Y[event_target:grievance_party_leader.GetTitle] [event_target:grievance_party_leader.GetName]§! is demanding an audience."
+
+ civelection.1006.a:0 "This can't be good. On Screen."
+
+ ########################
+ ### Espionage Events ###
+ ########################
+
+ operation_civil_war:0 "Instigate Separatists"
+ operation_civil_war_desc:0 "Our operatives will begin an extremely complex operation with the goal of spurring a civil war."
+
+ operation_civil_war_on_success:0 "§EIf Successful:§!\nA separatist state will be created, with a civil war being likely."
+
+ operation_civesp.001.name:0 "Testing the waters"
+ operation_civesp.001.desc:0 "Our operatives will attempt to discover if there are any divisions within [event_target:target_country.GetAdj] society that we can exploit. It's possible no divisions large enough for this operation to exploit will be found."
+
+ operation_civesp.002.name:0 "Securing our Allies"
+ operation_civesp.002.desc:0 "Now that we know there are divisions that they can exploit, our operatives will begin discreetly negotiating alliances and securing a base of support. The most dangerous part of the operation, it's possible we may not be able to secure enough allies to pull an operation of this scope off, or that [event_target:target_country.GetAdj] authorities will get wind of our intentions."
+
+ operation_civesp.003.name:0 "Taking care of the logistics"
+ operation_civesp.003.desc:0 "With our operatives and allies in place, we need to organize exactly how the main event will go down. What else do we need? Who needs to be where?"
+
+ operation_civesp.004.name:0 "Delivering the equipment"
+ operation_civesp.004.desc:0 "We will begin to attempt to smuggle heavy weaponry and other equipment to our operatives and allies in [event_target:target_country.GetAdj] space. This is a very delicate part of the operation, and our agents could be caught smuggling the goods in."
+
+ operation_civesp.005.name:0 "Putting the pieces into place"
+ operation_civesp.005.desc:0 "We've given our operatives and new allies the best possible chance of success. Whether they're successful or not is up to them now."
+
+ civesp.5000.name:0 "Call Necessary with Rebel Leader"
+ civesp.5000.desc:0 "The member of the [event_target:target_country.GetAdj] leadership that we're working with needs to speak with you about the operation. We've set up a secure channel and have them on hold right now."
+
+ civesp.5000.a:0 "Fine. On screen."
+ rebel_leader_talk: "We need to talk to the rebel leader."
+
+ operation_civesp.999.name:0 "Operation Failed"
+
+ civesp.9000.name:0 "Operation Failed"
+ civesp.9000.desc:0 "We're still gathering reports, but from what we can tell, our operation to spark a civil conflict in the [event_target:target_country.GetName] has failed. It seems that a number of our allies were discovered and arrested right at the eleventh hour."
+
+ espionage_no_divisions:0 "There are no significant divisions in [event_target:target_country.GetAdj] society that we can exploit. The operation cannot continue."
+
+ espionage_no_divisions_2:0 "The faction within [event_target:target_country.GetAdj] society that we were working with has cut ties with us. It seems that they've reconciled with their government."
+
+ espionage_no_allies:0 "We were not able to gather enough support from allies within the [event_target:target_country.GetName]. The operation cannot continue."
+
+ espionage_authorities_discovered:0 "While in the process of gathering allies, the authorities in [event_target:target_country.GetName] caught wind of our operation. Most potential allies we were in the process of acquring have been arrested. Luckily, our operatives managed to avoid capture. However, the operation is dead."
+
+ espionage_authorities_discovered_smuggling:0 "[event_target:target_country.GetAdj] authorities have seized the equipment we were smuggling in. After an inspection caught one ship, they expanded their searches until all our equipment was found. Additionally, they've managed to link the equipment to our allies, who have either been arrested or gone into hiding. The operation has been scrubbed."
+
+ espionage_resources_op_failed:0 "It seems that [event_target:operation_rebel_leader.GetTitle] §Y[event_target:operation_rebel_leader.GetSecondName]§! was not willing to continue without the additional resources, and has told his allies not to work with us. Without any people on the inside, we have to scrub the operation."
+
+ espionage_faction_leader_captured:0 "We've gotten word that [event_target:operation_rebel_leader.GetTitle] §Y[event_target:operation_rebel_leader.GetSecondName]§! and their associates have been arrested. We have to scrub the operation."
+
+
+ ###################
+ ##   Greetings   ##
+ ###################
+
+ 01_CIVWAR_GREETING:0 "У вас нет власти над народом [Root.GetAdj]!" 
+ 02_CIVWAR_GREETING:0 "У меня нет желания проливать кровь [From.GetAdj], но я сделаю то, что обязан."
+ 03_CIVWAR_GREETING:0 "[From.GetName] не заслуживает народа [Root.GetAdj]!"
+ 04_CIVWAR_GREETING:0 "Народ [Root.GetAdj] будет сопротивляться вашему правительству всем, чем сможет!"
+
+ 01_CIVCOUP_GREETING:0 "Я истинный [Root.GetRulerTitle] [Root.GetName]. Ты всего лишь внебрачный самозванец!"
+ 02_CIVCOUP_GREETING:0 "Вы мешаете династии [Root.Leader.GetSecondName]"
+ 03_CIVCOUP_GREETING:0 "Я не позволю вам запятнать фамилию [Root.Leader.GetSecondName]!"
+ 04_CIVCOUP_GREETING:0 "Я не позволю тебе узурпировать трон, самозванец."
+
+ ##################
+ ###   Unused   ###
+ ##################
+
+ # Righteous Governor
+ civwar.5000.righteous.desc:0 "Губернатор §Y[event_target:civil_war_leader.GetName]§! давно известен как высочайшая личность. К сожалению, его завышеные моральные устои в сочетании с разногласиями по поводу некоторых из наших политик заставили его поверить в то, что их сектор был бы лучше, если бы он управлялся полностью под его руководством. Таким образом, он заручился народной поддержкой в этом секторе, чтобы объявить себя лидером независимого государства. Похоже, что его популярность распространяется и на военнослужащих этого сектора. Если мы не признаем их независимость, будет война."
+
+  # Veteran Governor
+ civwar.5000.veteran.desc:0 "Многолетняя история военной службы Губернатора §Y[event_target:civil_war_leader.GetName]§! нашей нации хорошо известна. Он наблюдал за обучением многих тысяч курсантов и сыграл решающую роль в укреплении наших армий. Похоже, что часть этого обучения, к сожалению, заключалась в воспитании у курсантов большей лояльности к губернатору, чем к государству. Используя свою обширную сеть верных армейских контактов, Губернатор §Y[event_target:civil_war_leader.GetName]§! взял почти полный контроль над своим сектором и объявили себя лидером нового, независимого государства. Если мы не признаем их независимость, будет война."
+
+ # Officer Governor
+ civwar.5000.officer.desc:0 "Карьера Губернатора §Y[event_target:civil_war_leader.GetName]§! в качестве адмирала в нашем флоте хорошо известна. Он лично наблюдали за обучением сотен экипажей нашего флота. Похоже, что часть этого обучения, к сожалению, заключалась в том, чтобы привить экипажам большую лояльность к губернатору, чем к государству. Используя свою обширную сеть лояльных контактов с флотом, Губернатор §Y[event_target:civil_war_leader.GetName]§! взял почти полный контроль над своим сектором и объявили себя лидером нового, независимого государства. Если мы не признаем их независимость, будет война."
+
+ # Slaver Governor
+ civwar.5000.slaver.desc:0 "Эффективное использование Губернатором §Y[event_target:civil_war_leader.GetName]§! рабского труда было одним из главных факторов при их выборе на пост руководителя. Поместив своих личных прислуг на ключевые должности в своем секторе, они смогли более эффективно максимизировать выпуск продукции в своем секторе, что было очень полезно для нашей страны в целом. К сожалению, среди банальных действий губернатор дал сигнал своим рабам отправить доходы систем их сектора непосредственно им самим, что только что и произошло. Они объявили себя лидером нового независимого государства. Если с таким количеством рабов, которые у них есть, мы не признаем их независимость, начнется война."
+
+ #############################
+ # Pretender Events
+ #############################
+
+ pretender.1.name:0 "[From.GetRegnalName] умирает без наследника"
+ 
+ pretender.1.desc_01:0 "[From.GetRegnalName] скончался, в [Root.Capital.GetName] объявлено несколько дней траура. К сожалению, заявленного наследника не было, и на престол были поданы два отдельных претендента.\n\nСамый сильный соперник был назван [Root.GetRulerTitle] под именем [Root.GetRulerName], но это мало помогло решению проблемы."
+ 
+ pretender.1.desc_02:1 "[From.GetRegnalName] превзошел это царство бытия и начал путь к следующему. К сожалению, Духи еще не сочли нужным благословить нас достаточными знаками и предзнаменованиями, чтобы окончательно определить преемника.\n\nПосле жарких споров [Root.GetRulerName] был коронован как следующий [Root.GetRulerTitle], но не без препятствований. Претенденты из высшего духовенства сейчас пытаются оживить поддержку."
+ 
+ pretender.1.desc_03:1 "[From.GetRegnalName] умер, не имея явного наследника, оставив наше правительство в замешательстве. [Root.GetRulerName] был назван преемником после того, как ему удалось собрать достаточную поддержку среди военных на [Root.Capital.GetName], но ситуация остается неустойчивой, и претенденты пытаются собрать достаточную поддержку, чтобы бросить вызов новому правителю [Root.GetRulerTitle]."
+ 
+ pretender.1.desc_04:1 "Плоть [From.GetRegnalName] потерпела неудачу, и наши алгоритмы не смогли найти оптимальную замену. Для обеспечения эффективности новый [Root.GetRulerTitle] был выбран случайным образом, и теперь на [Root.GetRulerName] возлагается обязанность интерпретировать безошибочную волю главного компьютера.\n\nОднако были высказаны сомнения, и есть те, кто считает себя более подготовленными для выполнения этой чести."
+ 
+ pretender.1.desc_05:1 "[From.GetRegnalName] скончался, и весь [Root.GetName] в трауре. К сожалению, заявленного наследника нет, и это вызвало разногласия среди знати..\n\n[Root.GetRulerName] уже был коронован на [Root.Capital.GetName], но претенденты заявляют о дальнем родстве с [From.GetRegnalName] и оспаривают нового [Root.GetRulerTitle]."
+ 
+ pretender.1.tooltip:1 "Возникновение фракции претендентов."
