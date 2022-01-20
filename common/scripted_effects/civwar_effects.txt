@@ -1287,4 +1287,487 @@ get_civil_war_faction_planet = {
 }
 
 #####################
-# TEST
+
+# Create Armies
+create_civwar_armies = {
+	# create armies
+	random_owned_planet = {
+		limit = {
+			is_capital = yes
+		}
+		save_event_target_as = civil_war_capital
+			while = {
+			count = 3
+			create_army = {
+				name = random
+				owner = event_target:current_civwar_rebels
+				species = event_target:civwar_species
+				type = "civwar_assault_army"
+			}
+		}
+		while = {
+			count = 6
+			create_army = {
+				name = random
+				owner = event_target:current_civwar_rebels
+				species = event_target:civwar_species
+				type = "civwar_defense_army"
+			}
+		}
+		if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = totalitarian
+	        			# Divided Loyalties
+	        			is_pop_faction_type = indentured
+	        			is_pop_faction_type = aristocrat
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_authoritarian
+				}
+				prev = { create_civwar_armies_capital = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = progressive
+	        			# Divided Loyalties
+	        			is_pop_faction_type = elitist
+	        			is_pop_faction_type = labourite
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_egalitarian
+				}
+				prev = { create_civwar_armies_capital = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = imperialist
+	        			# Divided Loyalties
+	        			is_pop_faction_type = survivalist
+	        			is_pop_faction_type = warmaker
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_militarist
+				}
+				prev = { create_civwar_armies_capital = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = prosperity
+	        			# Divided Loyalties
+	        			is_pop_faction_type = activist
+	        			is_pop_faction_type = industrialist
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_pacifist
+				}
+				prev = { create_civwar_armies_capital = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = traditionalist
+	        			# Divided Loyalties
+	        			is_pop_faction_type = crusader
+	        			is_pop_faction_type = shepherd
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_spiritualist
+				}
+				prev = { create_civwar_armies_capital = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = xenoist
+	        			# Divided Loyalties
+	        			is_pop_faction_type = holistic
+	        			is_pop_faction_type = warmaker
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_xenophile
+				}
+				prev = { create_civwar_armies_capital = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = supremacist
+	        			is_pop_faction_type = isolationist
+	        			# Divided Loyalties
+	        			is_pop_faction_type = enslaver
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_xenophobe
+				}
+				prev = { create_civwar_armies_capital = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					is_pop_faction_type = socialists
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_socialism
+				}
+				prev = { create_civwar_armies_capital = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					is_pop_faction_type = bankers
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_capitalism
+				}
+				prev = { create_civwar_armies_capital = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					is_pop_faction_type = manufacturers
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_industrial
+				}
+				prev = { create_civwar_armies_capital = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					is_pop_faction_type = environmentalists
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_green
+				}
+				prev = { create_civwar_armies_capital = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					is_pop_faction_type = conservatives
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_elitist
+				}
+				prev = { create_civwar_armies_capital = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					is_pop_faction_type = labourites
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_pluralist
+				}
+				prev = { create_civwar_armies_capital = yes }
+			}
+		}
+	}
+	every_owned_planet = {
+		limit = {
+			is_capital = no
+		}
+		while = {
+			count = 2
+			create_army = {
+				name = random
+				owner = event_target:current_civwar_rebels
+				species = event_target:civwar_species
+				type = "civwar_defense_army"
+			}
+		}
+		if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = totalitarian
+	        			# Divided Loyalties
+	        			is_pop_faction_type = indentured
+	        			is_pop_faction_type = aristocrat
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_authoritarian
+				}
+				prev = { create_civwar_armies_planet = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = progressive
+	        			# Divided Loyalties
+	        			is_pop_faction_type = elitist
+	        			is_pop_faction_type = labourite
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_egalitarian
+				}
+				prev = { create_civwar_armies_planet = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = imperialist
+	        			# Divided Loyalties
+	        			is_pop_faction_type = survivalist
+	        			is_pop_faction_type = warmaker
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_militarist
+				}
+				prev = { create_civwar_armies_planet = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = prosperity
+	        			# Divided Loyalties
+	        			is_pop_faction_type = activist
+	        			is_pop_faction_type = industrialist
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_pacifist
+				}
+				prev = { create_civwar_armies_planet = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = traditionalist
+	        			# Divided Loyalties
+	        			is_pop_faction_type = crusader
+	        			is_pop_faction_type = shepherd
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_spiritualist
+				}
+				prev = { create_civwar_armies_planet = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = xenoist
+	        			# Divided Loyalties
+	        			is_pop_faction_type = holistic
+	        			is_pop_faction_type = warmaker
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_xenophile
+				}
+				prev = { create_civwar_armies_planet = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					OR = {
+	        			is_pop_faction_type = supremacist
+	        			is_pop_faction_type = isolationist
+	        			# Divided Loyalties
+	        			is_pop_faction_type = enslaver
+	        		}
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_xenophobe
+				}
+				prev = { create_civwar_armies_planet = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					is_pop_faction_type = socialists
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_socialism
+				}
+				prev = { create_civwar_armies_planet = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					is_pop_faction_type = bankers
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_capitalism
+				}
+				prev = { create_civwar_armies_planet = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					is_pop_faction_type = manufacturers
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_industrial
+				}
+				prev = { create_civwar_armies_planet = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					is_pop_faction_type = environmentalists
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_green
+				}
+				prev = { create_civwar_armies_planet = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					is_pop_faction_type = conservatives
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_elitist
+				}
+				prev = { create_civwar_armies_planet = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:civil_war_party = {
+					is_pop_faction_type = labourites
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					pop_has_ethic = ethic_pluralist
+				}
+				prev = { create_civwar_armies_planet = yes }
+			}
+		}
+	}
+}
+
+create_civwar_armies_planet = {
+	while = {
+		count = 3
+		create_army = {
+			name = random
+			owner = event_target:current_civwar_rebels
+			species = event_target:civwar_species
+			type = "civwar_defense_army"
+		}
+	}
+}
+
+create_civwar_armies_capital = {
+	while = {
+		count = 1
+		create_army = {
+			name = random
+			owner = event_target:current_civwar_rebels
+			species = event_target:civwar_species
+			type = "civwar_assault_army"
+		}
+	}
+	while = {
+		count = 3
+		create_army = {
+			name = random
+			owner = event_target:current_civwar_rebels
+			species = event_target:civwar_species
+			type = "civwar_defense_army"
+		}
+	}
+}

@@ -1288,7 +1288,7 @@ country_event = { # Civil War via Governor / Scientist / General
 						}
 						leader = { remove_leader_flag = faction_local_flag }
 						remove_pop_faction_flag = civil_war_faction_governor
-						save_event_target_as = civil_war_party
+						save_global_event_target_as = civil_war_party
 					}
 				}
 				# Set empire species to rebelling leader's species
@@ -1322,7 +1322,7 @@ country_event = { # Civil War via Governor / Scientist / General
 						}
 						leader = { remove_leader_flag = faction_local_flag }
 						remove_pop_faction_flag = civil_war_faction_governor
-						save_event_target_as = civil_war_party
+						save_global_event_target_as = civil_war_party
 					}
 				}
 				# Set empire species to rebelling leader's species
@@ -1342,7 +1342,7 @@ country_event = { # Civil War via Governor / Scientist / General
 							has_pop_faction_flag = civil_war_faction_scientist
 						}
 						remove_pop_faction_flag = civil_war_faction_scientist
-						save_event_target_as = civil_war_party
+						save_global_event_target_as = civil_war_party
 					}
 				}
 				# Set empire species to rebelling leader's species
@@ -1362,7 +1362,7 @@ country_event = { # Civil War via Governor / Scientist / General
 							has_pop_faction_flag = civil_war_faction_general
 						}
 						remove_pop_faction_flag = civil_war_faction_general
-						save_event_target_as = civil_war_party
+						save_global_event_target_as = civil_war_party
 					}
 				}
 				# Set empire species to rebelling leader's species
@@ -1387,11 +1387,9 @@ country_event = { # Civil War via Governor / Scientist / General
 			if = {
 				limit = {
 					num_sectors > 2
-					random_pop_faction = {
-						limit = {
-							leader = { is_same_value = event_target:civil_war_leader }
-							support >= 0.20
-						}
+					any_pop_faction = {
+						leader = { is_same_value = event_target:civil_war_leader }
+						support >= 0.20
 					}
 				}
 				random_list = {
@@ -1565,7 +1563,7 @@ country_event = { # Civil War via Admiral
 				remove_leader_flag = leader_civil_war_faction
 			}
 			remove_pop_faction_flag = civil_war_faction_admiral
-			save_event_target_as = civil_war_party
+			save_global_event_target_as = civil_war_party
 		}
 
 		get_civil_war_faction = yes
@@ -1934,20 +1932,7 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 		}
 
 		# create armies
-		random_owned_planet = {
-			limit = {
-				is_capital = yes
-			}
-			save_event_target_as = civil_war_capital
-			planet_event = { id = civplan.3003 }
-		}
-
-		every_owned_planet = {
-			limit = {
-				is_capital = no
-			}
-			planet_event = { id = civplan.3004 }
-		}
+		create_civwar_armies = yes
 
 		# Flavor Civics
 		if = {
