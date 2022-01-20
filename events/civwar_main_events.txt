@@ -1478,10 +1478,8 @@ country_event = { # Civil War via Governor / Scientist / General
 
 	after = {
 		hidden_effect = {
-			event_target:current_civwar_originator = {
-				every_owned_fleet = {
-					set_event_locked = no
-				}
+			every_owned_fleet = {
+				set_event_locked = no
 			}
 		}
 	}
@@ -1577,10 +1575,8 @@ country_event = { # Civil War via Admiral
 
 	after = {
 		hidden_effect = {
-			event_target:current_civwar_originator = {
-				every_owned_fleet = {
-					set_event_locked = no
-				}
+			every_owned_fleet = {
+				set_event_locked = no
 			}
 			event_target:civil_war_leader = {
 				kill_leader = { show_notification = no }
@@ -1861,10 +1857,6 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 			}
 		}
 
-		every_owned_fleet = {
-			set_event_locked = no
-		}
-
 		# Make Traitor Leader
 		country_event = { id = civwar.6000 }
 		ruler = {
@@ -1994,12 +1986,7 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 		}
 
 		event_target:current_civwar_originator = {
-
-			# Unlock Fleets
-			every_owned_fleet = {
-				set_event_locked = no
-			}
-
+			
 			# Add intel
 			add_intel = {
 				who = event_target:current_civwar_rebels
@@ -2625,11 +2612,6 @@ country_event = { # Setup for Admiral Revolt
 					angle = random
 				}
 			}
-		}
-
-		every_owned_fleet = {
-			#limit = { event_locked = yes }
-			set_event_locked = no
 		}
 
 		# Make Admiral Leader
