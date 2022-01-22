@@ -531,43 +531,36 @@ country_event = { # Mark disapproving Faction Leaders who are Governors, every m
 			years_passed < 15
 			has_ethic = ethic_gestalt_consciousness
 		}
+		any_pop_faction = {
+			exists = leader
+			leader = {
+				NOR = {
+					has_leader_flag = appointed_heir
+					has_leader_flag = civil_war_leader_governor_faction
+				}
+				leader_class = governor
+			}
+			faction_approval <= 0.4
+			support >= 0.15
+		}
 	}
 
 	immediate = {
-		if = {
+		every_pop_faction = {
 			limit = {
-				any_pop_faction = {
-					exists = leader
-					leader = {
-						NOR = {
-							has_leader_flag = appointed_heir
-							has_leader_flag = civil_war_leader_governor_faction
-						}
-						leader_class = governor
+				exists = leader
+				leader = {
+					NOR = {
+						has_leader_flag = appointed_heir
+						has_leader_flag = civil_war_leader_governor_faction
 					}
-					faction_approval <= 0.4
-					support >= 0.15
+					leader_class = governor
 				}
+				faction_approval <= 0.4
+				support >= 0.15
 			}
-			random_pop_faction = {
-				limit = {
-					exists = leader
-					leader = {
-						NOR = {
-							has_leader_flag = appointed_heir
-							has_leader_flag = civil_war_leader_governor_faction
-						}
-						leader_class = governor
-					}
-					faction_approval <= 0.4
-					support >= 0.15
-				}
-				set_pop_faction_flag = civil_war_faction_governor
-				leader = { set_leader_flag = civil_war_leader_governor_faction }
-			}
-		}
-		else = {
-			# Do Nothing
+			set_pop_faction_flag = civil_war_faction_governor
+			leader = { set_leader_flag = civil_war_leader_governor_faction }
 		}
 	}
 }
@@ -578,59 +571,44 @@ country_event = { # Unmark approving Faction Leaders who are Governors, every mo
 	is_triggered_only = yes
 
 	trigger = {
-		is_country_type_with_subjects = yes
-		NOR = {
-			years_passed < 15
-			has_ethic = ethic_gestalt_consciousness
+		OR = {
+			any_pop_faction = {
+				exists = leader
+				leader = {
+					leader_class = governor
+					has_leader_flag = civil_war_leader_governor_faction
+					NOT = { has_leader_flag = foreign_operation_ally_leader }
+				}
+				faction_approval > 0.4
+			}
+			any_pop_faction = {
+				exists = leader
+				leader = {
+					leader_class = governor
+					has_leader_flag = civil_war_leader_governor_faction
+					NOT = { has_leader_flag = foreign_operation_ally_leader }
+				}
+				support < 0.15
+			}
 		}
 	}
 
 	immediate = {
-		if = {
+		every_pop_faction = {
 			limit = {
-				OR = {
-					any_pop_faction = {
-						exists = leader
-						leader = {
-							leader_class = governor
-							has_leader_flag = civil_war_leader_governor_faction
-							NOT = { has_leader_flag = foreign_operation_ally_leader }
-						}
-						faction_approval > 0.4
-					}
-					any_pop_faction = {
-						exists = leader
-						leader = {
-							leader_class = governor
-							has_leader_flag = civil_war_leader_governor_faction
-							NOT = { has_leader_flag = foreign_operation_ally_leader }
-						}
-						support < 0.15
-					}
-				}	
-			}
-			while = {
-				count = 10
-				random_pop_faction = {
-					limit = {
-						exists = leader
-						leader = {
-							leader_class = governor
-							has_leader_flag = civil_war_leader_governor_faction
-							NOT = { has_leader_flag = foreign_operation_ally_leader }
-						}
-						OR  = {
-							faction_approval > 0.4
-							support < 0.15
-						}
-					}
-					remove_pop_faction_flag = civil_war_faction_governor
-					leader = { remove_leader_flag = civil_war_leader_governor_faction }
+				exists = leader
+				leader = {
+					leader_class = governor
+					has_leader_flag = civil_war_leader_governor_faction
+					NOT = { has_leader_flag = foreign_operation_ally_leader }
+				}
+				OR  = {
+					faction_approval > 0.4
+					support < 0.15
 				}
 			}
-		}
-		else = {
-			# Do Nothing
+			remove_pop_faction_flag = civil_war_faction_governor
+			leader = { remove_leader_flag = civil_war_leader_governor_faction }
 		}
 	}
 }
@@ -646,43 +624,36 @@ country_event = { # Mark disapproving Faction Leaders who are Admirals, every mo
 			years_passed < 15
 			has_ethic = ethic_gestalt_consciousness
 		}
+		any_pop_faction = {
+			exists = leader
+			leader = {
+				NOR = {
+					has_leader_flag = appointed_heir
+					has_leader_flag = civil_war_leader_admiral_faction
+				}
+				leader_class = admiral
+			}
+			faction_approval <= 0.4
+			support >= 0.15
+		}
 	}
 
 	immediate = {
-		if = {
+		every_pop_faction = {
 			limit = {
-				any_pop_faction = {
-					exists = leader
-					leader = {
-						NOR = {
-							has_leader_flag = appointed_heir
-							has_leader_flag = civil_war_leader_admiral_faction
-						}
-						leader_class = admiral
+				exists = leader
+				leader = {
+					NOR = {
+						has_leader_flag = appointed_heir
+						has_leader_flag = civil_war_leader_admiral_faction
 					}
-					faction_approval <= 0.4
-					support >= 0.15
+					leader_class = admiral
 				}
+				faction_approval <= 0.4
+				support >= 0.15
 			}
-			random_pop_faction = {
-				limit = {
-					exists = leader
-					leader = {
-						NOR = {
-							has_leader_flag = appointed_heir
-							has_leader_flag = civil_war_leader_admiral_faction
-						}
-						leader_class = admiral
-					}
-					faction_approval <= 0.4
-					support >= 0.15
-				}
-				set_pop_faction_flag = civil_war_faction_admiral
-				leader = { set_leader_flag = civil_war_leader_admiral_faction }
-			}
-		}
-		else = {
-			# Do Nothing
+			set_pop_faction_flag = civil_war_faction_admiral
+			leader = { set_leader_flag = civil_war_leader_admiral_faction }
 		}
 	}
 }
@@ -693,59 +664,44 @@ country_event = { # Unmark approving Faction Leaders who are Admirals, every mon
 	is_triggered_only = yes
 
 	trigger = {
-		is_country_type_with_subjects = yes
-		NOR = {
-			years_passed < 15
-			has_ethic = ethic_gestalt_consciousness
+		OR = {
+			any_pop_faction = {
+				exists = leader
+				leader = {
+					leader_class = admiral
+					has_leader_flag = civil_war_leader_admiral_faction
+					NOT = { has_leader_flag = foreign_operation_ally_leader }
+				}
+				faction_approval > 0.4
+			}
+			any_pop_faction = {
+				exists = leader
+				leader = {
+					leader_class = admiral
+					has_leader_flag = civil_war_leader_admiral_faction
+					NOT = { has_leader_flag = foreign_operation_ally_leader }
+				}
+				support < 0.15
+			}
 		}
 	}
 
 	immediate = {
-		if = {
+		every_pop_faction = {
 			limit = {
-				OR = {
-					any_pop_faction = {
-						exists = leader
-						leader = {
-							leader_class = admiral
-							has_leader_flag = civil_war_leader_admiral_faction
-							NOT = { has_leader_flag = foreign_operation_ally_leader }
-						}
-						faction_approval > 0.4
-					}
-					any_pop_faction = {
-						exists = leader
-						leader = {
-							leader_class = admiral
-							has_leader_flag = civil_war_leader_admiral_faction
-							NOT = { has_leader_flag = foreign_operation_ally_leader }
-						}
-						support < 0.15
-					}
-				}	
-			}
-			while = {
-				count = 10
-				random_pop_faction = {
-					limit = {
-						exists = leader
-						leader = {
-							leader_class = admiral
-							has_leader_flag = civil_war_leader_admiral_faction
-							NOT = { has_leader_flag = foreign_operation_ally_leader }
-						}
-						OR  = {
-							faction_approval > 0.4
-							support < 0.15
-						}
-					}
-					remove_pop_faction_flag = civil_war_faction_admiral
-					leader = { remove_leader_flag = civil_war_leader_admiral_faction }
+				exists = leader
+				leader = {
+					leader_class = admiral
+					has_leader_flag = civil_war_leader_admiral_faction
+					NOT = { has_leader_flag = foreign_operation_ally_leader }
+				}
+				OR  = {
+					faction_approval > 0.4
+					support < 0.15
 				}
 			}
-		}
-		else = {
-			# Do Nothing
+			remove_pop_faction_flag = civil_war_faction_admiral
+			leader = { remove_leader_flag = civil_war_leader_admiral_faction }
 		}
 	}
 }
@@ -766,43 +722,36 @@ country_event = { # Mark disapproving Faction Leaders who are Scientists, every 
 			years_passed < 15
 			has_ethic = ethic_gestalt_consciousness
 		}
+		any_pop_faction = {
+			exists = leader
+			leader = {
+				NOR = {
+					has_leader_flag = appointed_heir
+					has_leader_flag = civil_war_leader_scientist_faction
+				}
+				leader_class = scientist
+			}
+			faction_approval <= 0.4
+			support >= 0.15
+		}
 	}
 
 	immediate = {
-		if = {
+		every_pop_faction = {
 			limit = {
-				any_pop_faction = {
-					exists = leader
-					leader = {
-						NOR = {
-							has_leader_flag = appointed_heir
-							has_leader_flag = civil_war_leader_scientist_faction
-						}
-						leader_class = scientist
+				exists = leader
+				leader = {
+					NOR = {
+						has_leader_flag = appointed_heir
+						has_leader_flag = civil_war_leader_scientist_faction
 					}
-					faction_approval <= 0.4
-					support >= 0.15
+					leader_class = scientist
 				}
+				faction_approval <= 0.4
+				support >= 0.15
 			}
-			random_pop_faction = {
-				limit = {
-					exists = leader
-					leader = {
-						NOR = {
-							has_leader_flag = appointed_heir
-							has_leader_flag = civil_war_leader_scientist_faction
-						}
-						leader_class = scientist
-					}
-					faction_approval <= 0.4
-					support >= 0.15
-				}
-				set_pop_faction_flag = civil_war_faction_scientist
-				leader = { set_leader_flag = civil_war_leader_scientist_faction }
-			}
-		}
-		else = {
-			# Do Nothing
+			set_pop_faction_flag = civil_war_faction_scientist
+			leader = { set_leader_flag = civil_war_leader_scientist_faction }
 		}
 	}
 }
@@ -813,59 +762,44 @@ country_event = { # Unmark approving Faction Leaders who are Scientists, every m
 	is_triggered_only = yes
 
 	trigger = {
-		is_country_type_with_subjects = yes
-		NOR = {
-			years_passed < 15
-			has_ethic = ethic_gestalt_consciousness
+		OR = {
+			any_pop_faction = {
+				exists = leader
+				leader = {
+					leader_class = scientist
+					has_leader_flag = civil_war_leader_scientist_faction
+					NOT = { has_leader_flag = foreign_operation_ally_leader }
+				}
+				faction_approval > 0.4
+			}
+			any_pop_faction = {
+				exists = leader
+				leader = {
+					leader_class = scientist
+					has_leader_flag = civil_war_leader_scientist_faction
+					NOT = { has_leader_flag = foreign_operation_ally_leader }
+				}
+				support < 0.15
+			}
 		}
 	}
 
 	immediate = {
-		if = {
+		every_pop_faction = {
 			limit = {
-				OR = {
-					any_pop_faction = {
-						exists = leader
-						leader = {
-							leader_class = scientist
-							has_leader_flag = civil_war_leader_scientist_faction
-							NOT = { has_leader_flag = foreign_operation_ally_leader }
-						}
-						faction_approval > 0.4
-					}
-					any_pop_faction = {
-						exists = leader
-						leader = {
-							leader_class = scientist
-							has_leader_flag = civil_war_leader_scientist_faction
-							NOT = { has_leader_flag = foreign_operation_ally_leader }
-						}
-						support < 0.15
-					}
-				}	
-			}
-			while = {
-				count = 10
-				random_pop_faction = {
-					limit = {
-						exists = leader
-						leader = {
-							leader_class = scientist
-							has_leader_flag = civil_war_leader_scientist_faction
-							NOT = { has_leader_flag = foreign_operation_ally_leader }
-						}
-						OR  = {
-							faction_approval > 0.4
-							support < 0.15
-						}
-					}
-					remove_pop_faction_flag = civil_war_faction_scientist
-					leader = { remove_leader_flag = civil_war_leader_scientist_faction }
+				exists = leader
+				leader = {
+					leader_class = scientist
+					has_leader_flag = civil_war_leader_scientist_faction
+					NOT = { has_leader_flag = foreign_operation_ally_leader }
+				}
+				OR  = {
+					faction_approval > 0.4
+					support < 0.15
 				}
 			}
-		}
-		else = {
-			# Do Nothing
+			remove_pop_faction_flag = civil_war_faction_scientist
+			leader = { remove_leader_flag = civil_war_leader_scientist_faction }
 		}
 	}
 }
@@ -886,43 +820,36 @@ country_event = { # Mark disapproving Faction Leaders who are Generals, every mo
 			years_passed < 15
 			has_ethic = ethic_gestalt_consciousness
 		}
+		any_pop_faction = {
+			exists = leader
+			leader = {
+				NOR = {
+					has_leader_flag = appointed_heir
+					has_leader_flag = civil_war_leader_general_faction
+				}
+				leader_class = general
+			}
+			faction_approval <= 0.4
+			support >= 0.15
+		}
 	}
 
 	immediate = {
-		if = {
+		every_pop_faction = {
 			limit = {
-				any_pop_faction = {
-					exists = leader
-					leader = {
-						NOR = {
-							has_leader_flag = appointed_heir
-							has_leader_flag = civil_war_leader_general_faction
-						}
-						leader_class = general
+				exists = leader
+				leader = {
+					NOR = {
+						has_leader_flag = appointed_heir
+						has_leader_flag = civil_war_leader_general_faction
 					}
-					faction_approval <= 0.4
-					support >= 0.15
+					leader_class = general
 				}
+				faction_approval <= 0.4
+				support >= 0.15
 			}
-			random_pop_faction = {
-				limit = {
-					exists = leader
-					leader = {
-						NOR = {
-							has_leader_flag = appointed_heir
-							has_leader_flag = civil_war_leader_general_faction
-						}
-						leader_class = general
-					}
-					faction_approval <= 0.4
-					support >= 0.15
-				}
-				set_pop_faction_flag = civil_war_faction_general
-				leader = { set_leader_flag = civil_war_leader_general_faction }
-			}
-		}
-		else = {
-			# Do Nothing
+			set_pop_faction_flag = civil_war_faction_general
+			leader = { set_leader_flag = civil_war_leader_general_faction }
 		}
 	}
 }
@@ -933,59 +860,166 @@ country_event = { # Unmark approving Faction Leaders who are Generals, every mon
 	is_triggered_only = yes
 
 	trigger = {
-		is_country_type_with_subjects = yes
-		NOR = {
-			years_passed < 15
-			has_ethic = ethic_gestalt_consciousness
+		OR = {
+			any_pop_faction = {
+				exists = leader
+				leader = {
+					leader_class = general
+					has_leader_flag = civil_war_leader_general_faction
+					NOT = { has_leader_flag = foreign_operation_ally_leader }
+				}
+				faction_approval > 0.4
+			}
+			any_pop_faction = {
+				exists = leader
+				leader = {
+					leader_class = general
+					has_leader_flag = civil_war_leader_general_faction
+					NOT = { has_leader_flag = foreign_operation_ally_leader }
+				}
+				support < 0.15
+			}
 		}
 	}
 
 	immediate = {
-		if = {
+		every_pop_faction = {
 			limit = {
-				OR = {
-					any_pop_faction = {
-						exists = leader
-						leader = {
-							leader_class = general
-							has_leader_flag = civil_war_leader_general_faction
-							NOT = { has_leader_flag = foreign_operation_ally_leader }
-						}
-						faction_approval > 0.4
-					}
-					any_pop_faction = {
-						exists = leader
-						leader = {
-							leader_class = general
-							has_leader_flag = civil_war_leader_general_faction
-							NOT = { has_leader_flag = foreign_operation_ally_leader }
-						}
-						support < 0.15
-					}
-				}	
-			}
-			while = {
-				count = 10
-				random_pop_faction = {
-					limit = {
-						exists = leader
-						leader = {
-							leader_class = general
-							has_leader_flag = civil_war_leader_general_faction
-							NOT = { has_leader_flag = foreign_operation_ally_leader }
-						}
-						OR  = {
-							faction_approval > 0.4
-							support < 0.15
-						}
-					}
-					remove_pop_faction_flag = civil_war_faction_general
-					leader = { remove_leader_flag = civil_war_leader_general_faction }
+				exists = leader
+				leader = {
+					leader_class = general
+					has_leader_flag = civil_war_leader_general_faction
+					NOT = { has_leader_flag = foreign_operation_ally_leader }
+				}
+				OR  = {
+					faction_approval > 0.4
+					support < 0.15
 				}
 			}
+			remove_pop_faction_flag = civil_war_faction_general
+			leader = { remove_leader_flag = civil_war_leader_general_faction }
 		}
-		else = {
-			# Do Nothing
+	}
+}
+
+country_event = { # Unmark Leaders who are no longer leading factions
+	id = civwar.1999
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_owned_leader = {
+			OR = {
+				has_leader_flag = civil_war_leader_governor_faction
+				has_leader_flag = civil_war_leader_admiral_faction
+				has_leader_flag = civil_war_leader_scientist_faction
+				has_leader_flag = civil_war_leader_general_faction
+			}
+			NOR = {
+				leader_of_faction = totalitarian
+				leader_of_faction = progressive
+				leader_of_faction = imperialist
+				leader_of_faction = prosperity
+				leader_of_faction = technologist
+				leader_of_faction = traditionalist
+				leader_of_faction = xenoist
+				leader_of_faction = supremacist
+				leader_of_faction = isolationist
+				# Divided Loyalties
+				leader_of_faction = indentured
+				leader_of_faction = aristocrat
+				leader_of_faction = elitist
+				leader_of_faction = labourite
+				leader_of_faction = survivalist
+				leader_of_faction = warmaker
+				leader_of_faction = activist
+				leader_of_faction = industrialist
+				leader_of_faction = perfectionist
+				leader_of_faction = adopter
+				leader_of_faction = crusader
+				leader_of_faction = shepherd
+				leader_of_faction = holistic
+				leader_of_faction = warmaker
+				leader_of_faction = enslaver
+				# Ethics and Civics
+				leader_of_faction = socialists
+				leader_of_faction = bankers
+				leader_of_faction = manufacturers
+				leader_of_faction = environmentalists
+				leader_of_faction = conservatives
+				leader_of_faction = labourites
+			}
+		}
+	}
+
+	immediate = {
+		every_owned_leader = {
+			limit = {
+				OR = {
+					has_leader_flag = civil_war_leader_governor_faction
+					has_leader_flag = civil_war_leader_admiral_faction
+					has_leader_flag = civil_war_leader_scientist_faction
+					has_leader_flag = civil_war_leader_general_faction
+				}
+				NOR = {
+					leader_of_faction = totalitarian
+					leader_of_faction = progressive
+					leader_of_faction = imperialist
+					leader_of_faction = prosperity
+					leader_of_faction = technologist
+					leader_of_faction = traditionalist
+					leader_of_faction = xenoist
+					leader_of_faction = supremacist
+					leader_of_faction = isolationist
+					# Divided Loyalties
+					leader_of_faction = indentured
+					leader_of_faction = aristocrat
+					leader_of_faction = elitist
+					leader_of_faction = labourite
+					leader_of_faction = survivalist
+					leader_of_faction = warmaker
+					leader_of_faction = activist
+					leader_of_faction = industrialist
+					leader_of_faction = perfectionist
+					leader_of_faction = adopter
+					leader_of_faction = crusader
+					leader_of_faction = shepherd
+					leader_of_faction = holistic
+					leader_of_faction = warmaker
+					leader_of_faction = enslaver
+					# Ethics and Civics
+					leader_of_faction = socialists
+					leader_of_faction = bankers
+					leader_of_faction = manufacturers
+					leader_of_faction = environmentalists
+					leader_of_faction = conservatives
+					leader_of_faction = labourites
+				}
+			}
+			if = {
+				limit = {
+					has_leader_flag = civil_war_leader_governor_faction
+				}
+				remove_leader_flag = civil_war_leader_governor_faction
+			}
+			if = {
+				limit = {
+					has_leader_flag = civil_war_leader_admiral_faction
+				}
+				remove_leader_flag = civil_war_leader_admiral_faction
+			}
+			if = {
+				limit = {
+					has_leader_flag = civil_war_leader_scientist_faction
+				}
+				remove_leader_flag = civil_war_leader_scientist_faction
+			}
+			if = {
+				limit = {
+					has_leader_flag = civil_war_leader_general_faction
+				}
+				remove_leader_flag = civil_war_leader_general_faction
+			}
 		}
 	}
 }
@@ -1243,10 +1277,10 @@ country_event = { # Civil War via Governor / Scientist / General
 			}
 			if = {
 				limit = {
-					OR = {
-						has_trait = leader_trait_corrupt
-						has_leader_flag = civil_war_leader_governor_faction
-					}
+					# OR = {
+					# 	has_trait = leader_trait_corrupt
+					# 	has_leader_flag = civil_war_leader_governor_faction
+					# }
 					prev = {
 						any_owned_sector = {
 							has_sector_type = normal_sector
@@ -1323,6 +1357,30 @@ country_event = { # Civil War via Governor / Scientist / General
 						leader = { remove_leader_flag = faction_local_flag }
 						remove_pop_faction_flag = civil_war_faction_governor
 						save_global_event_target_as = civil_war_party
+					}
+				}
+				# Set empire species to rebelling leader's species
+				species = { save_global_event_target_as = civwar_species }
+				save_global_event_target_as = civil_war_leader
+				# Remove Governor
+				exile_leader_as = civil_war_leader
+			}
+			else_if = {
+				limit = {
+					has_trait = leader_trait_corrupt
+				}
+				prev = {
+					random_owned_sector = {
+						limit = {
+							has_sector_type = normal_sector
+			            }
+			            set_sector_flag = rebel_sector
+					    every_system_within_border = {
+				            limit = {
+				                check_civwar_capital = yes
+				            }
+				            set_star_flag = civil_war_flip
+				        }
 					}
 				}
 				# Set empire species to rebelling leader's species
@@ -1462,9 +1520,43 @@ country_event = { # Civil War via Governor / Scientist / General
 					        }
 						}
 					}
-					get_civil_war_faction = yes
+					if = {
+						limit {
+							event_target:civil_war_leader = {
+								has_trait = leader_trait_corrupt
+							}
+						}
+						if = {
+							limit = {
+								has_global_flag = more_authorities_activated
+							}
+							country_event = { id = civwarcountry_ma.1014 }
+						}
+						else = {
+							country_event = { id = civwarcountry.1014 }
+						}
+					}
+					else = {
+						get_civil_war_faction = yes
+					}
 				}
 				88 = { # They only get one sector
+					if = {
+						limit {
+							event_target:civil_war_leader = {
+								has_trait = leader_trait_corrupt
+							}
+						}
+						if = {
+							limit = {
+								has_global_flag = more_authorities_activated
+							}
+							country_event = { id = civwarcountry_ma.1014 }
+						}
+						else = {
+							country_event = { id = civwarcountry.1014 }
+						}
+					}
 					get_civil_war_faction = yes
 				}
 			}
@@ -1510,60 +1602,101 @@ country_event = { # Civil War via Admiral
 
 		# Remove Admiral
 		# Set empire species to rebelling admiral's species
-		random_owned_fleet = {
+		if = {
 			limit = {
-				is_ship_class = shipclass_military
+				any_owned_fleet = {
+					exists = leader
+					leader = { has_leader_flag = civil_war_leader_admiral_faction }
+				}
+			}
+			random_owned_fleet = {
+				limit = {
+					is_ship_class = shipclass_military
+					leader = {
+						has_leader_flag = civil_war_leader_admiral_faction
+					}
+				}
+				save_global_event_target_as = admiral_rebel_rally_point
+				set_fleet_flag = civil_war_fleet
 				leader = {
+					set_leader_flag = faction_local_flag
+					solar_system = { save_global_event_target_as = admiral_rebel_system }
+					species = { save_global_event_target_as = civwar_species }
+					set_leader_flag = leader_civil_war_faction
+				}
+				prev = {
+					random_pop_faction = {
+						limit = {
+							has_pop_faction_flag = civil_war_faction_admiral
+							leader = { has_leader_flag = faction_local_flag }
+						}
+						leader = { remove_leader_flag = faction_local_flag }
+						remove_pop_faction_flag = civil_war_faction_admiral
+						save_global_event_target_as = civil_war_party
+					}
+				}
+				leader = {
+					save_global_event_target_as = civil_war_leader
+					exile_leader_as = civil_war_leader
+				}
+				# Destroy 33% of the fleet in the infighting
+				every_owned_ship = {
+					limit = { is_ship_class = shipclass_military }
+				    PREV = { change_variable = { which = ship_count value = 1 }}
+				}
+				divide_variable = { which = ship_count value = 3 }
+				while = {
+				    count = ship_count
+				    random_owned_ship = {
+				    	limit = {
+				    		is_ship_class = shipclass_military
+				    		NOR = {
+				    			is_ship_size = giga_massive_planet
+				    			is_ship_size = giga_planet_behemoth
+				    			is_ship_size = giga_systemcraft
+				    		}
+				    	}
+				        delete_ship = THIS
+				    }
+				}
+				set_variable = { which = ship_count value = 0 }
+			}
+		}
+		else = {
+			random_owned_leader = {
+				limit = {
 					has_leader_flag = civil_war_leader_admiral_faction
 				}
-			}
-			save_global_event_target_as = admiral_rebel_rally_point
-			set_fleet_flag = civil_war_fleet
-			leader = {
-				solar_system = {
-					save_event_target_as = admiral_rebel_system
+				set_leader_flag = faction_local_flag
+				prev = {
+					random_owned_sector = {
+						limit = {
+							has_sector_type = normal_sector
+			            }
+			            set_sector_flag = rebel_sector
+					    every_system_within_border = {
+				            limit = {
+				                check_civwar_capital = yes
+				            }
+				            set_star_flag = civil_war_flip
+				        }
+					}
+					random_pop_faction = {
+						limit = {
+							has_pop_faction_flag = civil_war_faction_admiral
+							leader = { has_leader_flag = faction_local_flag }
+						}
+						leader = { remove_leader_flag = faction_local_flag }
+						remove_pop_faction_flag = civil_war_faction_admiral
+						save_global_event_target_as = civil_war_party
+					}
 				}
+				# Set empire species to rebelling leader's species
 				species = { save_global_event_target_as = civwar_species }
-				set_leader_flag = leader_civil_war_faction
 				save_global_event_target_as = civil_war_leader
-				exile_leader_as = civil_war_leader
+				# Remove Governor
+				exile_leader_as = civil_war_leader	
 			}
-			# Destroy 33% of the fleet in the infighting
-			every_owned_ship = {
-				limit = { is_ship_class = shipclass_military }
-			    PREV = { change_variable = { which = ship_count value = 1 }}
-			}
-			divide_variable = { which = ship_count value = 3 }
-			while = {
-			    count = ship_count
-			    random_owned_ship = {
-			    	limit = {
-			    		is_ship_class = shipclass_military
-			    		NOR = {
-			    			is_ship_size = giga_massive_planet
-			    			is_ship_size = giga_planet_behemoth
-			    			is_ship_size = giga_systemcraft
-			    		}
-			    	}
-			        delete_ship = THIS
-			    }
-			}
-			set_variable = { which = ship_count value = 0 }
-		}
-
-		# Tag Faction for localisation
-		random_pop_faction = {
-			limit = {
-				has_pop_faction_flag = civil_war_faction_admiral
-				leader = {
-					has_leader_flag = leader_civil_war_faction
-				}
-			}
-			leader = {
-				remove_leader_flag = leader_civil_war_faction
-			}
-			remove_pop_faction_flag = civil_war_faction_admiral
-			save_global_event_target_as = civil_war_party
 		}
 
 		get_civil_war_faction = yes
@@ -1724,7 +1857,7 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 					every_fleet_in_system = {
 						limit = {
 							exists = owner
-							owner = { is_same_value = event_target:current_civwar_originator }
+							is_owned_by = event_target:current_civwar_originator
 							any_owned_ship = { is_ship_class = shipclass_military_station }
 						}
 						set_owner = root
@@ -1789,7 +1922,7 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 		every_system_within_border = {
 			random_ship_in_system = {
 				limit = {
-					owner = { is_same_value = event_target:current_civwar_originator }
+					is_owned_by = event_target:current_civwar_originator
 					OR = {
 						is_ship_size = giga_massive_planet
 		    			is_ship_size = giga_planet_behemoth
@@ -1826,9 +1959,9 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 				
 				owner = {
 					create_leader = {
+						name = random
 						class = scientist
 						sub_type = survey
-						name = random
 						species = event_target:civwar_species
 					}
 				}
@@ -2040,35 +2173,74 @@ country_event = { # Setup for Admiral Revolt
 			}
 		}
 
-		event_target:admiral_rebel_system = {
-			if = {
-				limit = {
-					exists = starbase
-				}
-				starbase = { set_owner = event_target:current_civwar_rebels }
+		if = {
+			limit = {
+				exists = event_target:admiral_rebel_system
 			}
-			spawn_planet = {
-				class = pc_habitat
-				location = admiral_rebel_rally_point
-				orbit_location = yes
-				orbit_distance_offset = 10
-				orbit_angle_offset = 5
-				size = 2
-				init_effect = {
-					# set_owner = event_target:current_civwar_rebels
-					save_event_target_as = dummy_planet
-					set_name = "Dummy Planet"
-					set_surveyed = {
-						surveyed = yes
-						surveyor = event_target:current_civwar_rebels
+			# Flip system and any owned planets
+			event_target:admiral_rebel_system = {
+				if = {
+					limit = {
+						check_civwar_capital = yes
+						exists = starbase
+						starbase = {
+							is_owned_by = event_target:current_civwar_originator
+						}
+					}
+					prev = { set_country_flag = admiral_skirmish }
+					starbase = { set_owner = root }
+					give_admiral_planets = yes
+					every_neighbor_system = {
+						limit = {
+							check_civwar_capital = yes
+							exists = starbase
+							starbase = {
+								is_owned_by = event_target:current_civwar_originator
+							}
+						}
+						starbase = { set_owner = root }
+						give_admiral_planets = yes
 					}
 				}
 			}
+			clear_global_event_target = admiral_rebel_system
 		}
-
-		ruler = {
-			species = {
-				set_species_homeworld = event_target:dummy_planet
+		else = {
+			set_country_flag = admiral_has_sector
+			# flip remaining flagged systems and remove flags
+			event_target:current_civwar_originator = {
+				every_owned_planet = {
+					limit = {
+						solar_system = {
+							has_star_flag = civil_war_flip
+						}
+					}
+					solar_system = {
+						every_fleet_in_system = {
+							limit = {
+								exists = owner
+								is_owned_by = event_target:current_civwar_originator
+								any_owned_ship = { is_ship_class = shipclass_military_station }
+							}
+							set_owner = root
+						}
+					}
+					set_owner = root
+					set_controller = root
+				}
+				every_owned_sector = {
+					limit = {
+						has_sector_flag = rebel_sector
+		            }
+		            remove_sector_flag = rebel_sector
+				}
+				every_system_within_border = {
+					limit = {
+						has_star_flag = civil_war_flip
+					}
+					remove_star_flag = civil_war_flip
+					starbase = { set_owner = root }
+				}
 			}
 		}
 
@@ -2127,13 +2299,13 @@ country_event = { # Setup for Admiral Revolt
 				limit = {
 					any_owned_fleet = {
 						has_fleet_flag = civil_war_fleet
-						owner = { is_same_value = event_target:current_civwar_originator }
+						is_owned_by = event_target:current_civwar_originator
 					}
 				}
 				random_owned_fleet = {
 					limit = {
 						has_fleet_flag = civil_war_fleet
-						owner = { is_same_value = event_target:current_civwar_originator }
+						is_owned_by = event_target:current_civwar_originator
 					}
 					fleet = { set_owner = event_target:current_civwar_rebels }
 				}
@@ -2694,7 +2866,6 @@ country_event = { # Setup for Planetary Rebellion
 	is_triggered_only = yes
 
 	immediate = {
-
 		set_country_type = default
 
 		create_leader = {
@@ -2803,14 +2974,18 @@ country_event = { # Setup for Planetary Rebellion
 				}
 				every_neighbor_system = {
 					limit = {
+						NOR = {
+							any_system_planet = {
+								is_owned_by = event_target:current_civwar_originator
+							}
+							any_fleet_in_system = {
+								is_ship_class = shipclass_military
+								is_owned_by = event_target:current_civwar_originator
+							}
+						}
 						exists = starbase
 						starbase = {
-							owner =  { is_same_value = event_target:current_civwar_originator }
-						}
-						NOT = {
-							any_system_planet = {
-								owner = { is_same_value = event_target:current_civwar_originator }
-							}
+							is_owned_by = event_target:current_civwar_originator
 						}
 					}
 					starbase = { set_owner = root }
@@ -3341,9 +3516,22 @@ country_event = { # Admiral - Communications
 	id = civwar.5001
 	picture = GFX_evt_civil_action
 	title = civwar.5001.name
-	desc = civwar.5001.desc
 	hide_window = no
 	is_triggered_only = yes
+
+	desc = {
+		text = civwar.5001.desc
+		trigger {
+			from = { has_country_flag = admiral_skirmish }
+		}
+	}
+
+	desc = {
+		text = civwar.5001.sector.desc
+		trigger {
+			from = { NOT = { has_country_flag = admiral_skirmish } }
+		}
+	}
 
 	option = {
 		name = ON_SCREEN_REBELS
@@ -3355,7 +3543,20 @@ country_event = { # Admiral - Communications
 				limit = {
 					is_subject = no
 				}
-				country_event = { id = civcom.5030 }
+				if = {
+					limit = {
+						event_target:current_civwar_rebels = {
+							num_owned_planets > 0
+						}
+					}
+					random_list = {
+						95 = { country_event = { id = civcom.5031 } }
+						5 = { country_event = { id = civcom.5130 } }
+					}
+				}
+				else = {
+					country_event = { id = civcom.5030 }
+				}
 			}
 			else = {
 				country_event = { id = civcom.3001 }
@@ -3431,22 +3632,6 @@ country_event = { # Declare War vs. Governor / Scientist / General
 
 	immediate = { 
 		hidden_effect = {
-			if = {
-				limit = {
-					has_federation = yes
-				}
-				every_federation_ally = {
-					set_country_flag = remove_from_civil_war
-				}
-			}
-			if = {
-				limit = {
-					is_overlord = yes
-				}
-				every_subject = {
-					set_country_flag = remove_from_civil_war
-				}
-			}
 			declare_war = {
 				target = event_target:current_civwar_rebels
 				name = "NAME_civwar_War"
@@ -3465,24 +3650,49 @@ country_event = { # Declare War vs. Admiral
 		hidden_effect = {
 			if = {
 				limit = {
-					has_federation = yes
+					event_target:current_civwar_originator = {
+						is_subject = yes
+					}
+					event_target:current_civwar_rebels = {
+						num_owned_planets > 0
+					}
 				}
-				every_federation_ally = {
-					set_country_flag = remove_from_civil_war
+				declare_war = {
+					target = event_target:current_civwar_rebels
+					name = "NAME_civwar_War_subject"
+					attacker_war_goal = "wg_civwar_subject"
 				}
 			}
-			if = {
+			else_if = {
 				limit = {
-					is_overlord = yes
+					event_target:current_civwar_originator = {
+						is_subject = yes
+					}
 				}
-				every_subject = {
-					set_country_flag = remove_from_civil_war
+				declare_war = {
+					target = event_target:current_civwar_rebels
+					name = "NAME_admr_rebellion_War"
+					attacker_war_goal = "wg_admiral_rebellion"
 				}
 			}
-			declare_war = {
-				target = event_target:current_civwar_rebels
-				name = "NAME_admr_rebellion_War"
-				attacker_war_goal = "wg_admiral_rebellion"
+			else_if = {
+				limit = {
+					event_target:current_civwar_rebels = {
+						num_owned_planets > 0
+					}
+				}
+				declare_war = {
+					target = event_target:current_civwar_rebels
+					name = "NAME_civwar_War"
+					attacker_war_goal = "wg_civwar"
+				}
+			}
+			else = {
+				declare_war = {
+					target = event_target:current_civwar_rebels
+					name = "NAME_admr_rebellion_War"
+					attacker_war_goal = "wg_admiral_rebellion"
+				}
 			}
 			clear_global_event_target = admiral_rebel_rally_point
 		}
@@ -3531,14 +3741,9 @@ country_event = { # Declare War vs. Governor / Scientist / General / Heir Subjec
 					has_federation = yes
 				}
 				every_federation_ally = {
-					set_country_flag = remove_from_civil_war
-				}
-			}
-			if = {
-				limit = {
-					is_overlord = yes
-				}
-				every_subject = {
+					limit = {
+						NOT = { is_same_value = event_target:current_civwar_originator }
+					}
 					set_country_flag = remove_from_civil_war
 				}
 			}
@@ -3763,7 +3968,7 @@ country_event = { # War won - Transfer subject systems back to subjects
 					has_star_flag = subject_system
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = from  }
+						is_owned_by = from
 					}
 				}
 			}
@@ -3772,7 +3977,7 @@ country_event = { # War won - Transfer subject systems back to subjects
 					has_star_flag = subject_system
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = from  }
+						is_owned_by = from
 					}
 				}
 				remove_star_flag = subject_system
@@ -3812,7 +4017,7 @@ country_event = { # Status quo - Transfer subject systems back to subjects
 					has_star_flag = subject_system
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = fromfrom  }
+						is_owned_by = fromfrom
 					}
 				}
 			}
@@ -3821,7 +4026,7 @@ country_event = { # Status quo - Transfer subject systems back to subjects
 					has_star_flag = subject_system
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = fromfrom  }
+						is_owned_by = fromfrom
 					}
 				}
 				remove_star_flag = subject_system
@@ -3835,7 +4040,7 @@ country_event = { # Status quo - Transfer subject systems back to subjects
 					has_star_flag = subject_system
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = fromfromfrom  }
+						is_owned_by = fromfromfrom
 					}
 				}
 			}
@@ -3844,7 +4049,7 @@ country_event = { # Status quo - Transfer subject systems back to subjects
 					has_star_flag = subject_system
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = fromfromfrom  }
+						is_owned_by = fromfromfrom
 					}
 				}
 				remove_star_flag = subject_system

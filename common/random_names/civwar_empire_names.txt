@@ -18,6 +18,7 @@ empire_name_format = {
 		factor = 0
 		modifier = {
 			add = 1000
+			NOT = { num_owned_planets > 0 }
 			has_country_flag = civwar_fleet
 		}
 	}

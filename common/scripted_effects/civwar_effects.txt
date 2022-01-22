@@ -1771,3 +1771,23 @@ create_civwar_armies_capital = {
 		}
 	}
 }
+
+#####################
+
+give_admiral_planets = {
+	if = {
+		limit = {
+			any_system_planet = { is_colony = yes }
+		}
+		every_system_planet = {
+			limit = {
+				AND = {
+					is_capital = no
+					is_colony = yes
+					owner = { is_primitive = no }
+				}
+			}
+			set_owner = root
+		}
+	}
+}

@@ -39,7 +39,6 @@ wg_civwar = {
 			}
 			every_war_participant = {
 				limit = {
-					has_country_flag = remove_from_civil_war
 					NOT = { is_war_leader = yes }
 				}
 				prev = {
@@ -103,8 +102,10 @@ wg_civwar_subject = {
 			}
 			every_war_participant = {
 				limit = {
-					has_country_flag = remove_from_civil_war
-					NOT = { is_war_leader = yes }
+					NOR = {
+						is_war_leader = yes
+						has_country_flag = subject_for_systems
+					}
 				}
 				prev = {
 					remove_war_participant = prev
@@ -193,7 +194,6 @@ wg_planet_rebellion = {
 			}
 			every_war_participant = {
 				limit = {
-					has_country_flag = remove_from_civil_war
 					NOT = { is_war_leader = yes }
 				}
 				prev = {
@@ -332,7 +332,6 @@ wg_admiral_rebellion = {
 			}
 			every_war_participant = {
 				limit = {
-					has_country_flag = remove_from_civil_war
 					NOT = { is_war_leader = yes }
 				}
 				prev = {
@@ -1438,7 +1437,6 @@ wg_planet_heir_rebellion = {
 			}
 			every_war_participant = {
 				limit = {
-					has_country_flag = remove_from_civil_war
 					NOT = { is_war_leader = yes }
 				}
 				prev = {
@@ -1556,7 +1554,6 @@ wg_civwar_heir = {
 			}
 			every_war_participant = {
 				limit = {
-					has_country_flag = remove_from_civil_war
 					NOT = { is_war_leader = yes }
 				}
 				prev = {

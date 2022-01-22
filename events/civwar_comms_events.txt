@@ -271,7 +271,7 @@ country_event = {
 
 	# Let them be fully independent
 	option = {
-		name = civcom.4100.c
+		name = civcom.4000.b
 		trigger = {
 			is_ai = no
 		}
@@ -280,12 +280,6 @@ country_event = {
 				add_opinion_modifier = {
 					who = event_target:current_civwar_rebels
 					modifier = opinion_civwar_planet_peace
-				}
-			}
-			event_target:current_civwar_rebels = {
-				add_opinion_modifier = {
-					who = event_target:current_civwar_originator
-					modifier = opinion_civwar_originator
 				}
 			}
 			country_event = { id = civcom.4102 }
@@ -336,12 +330,6 @@ country_event = {
 						add_opinion_modifier = {
 							who = event_target:current_civwar_rebels
 							modifier = opinion_civwar_planet_peace
-						}
-					}
-					event_target:current_civwar_rebels = {
-						add_opinion_modifier = {
-							who = event_target:current_civwar_originator
-							modifier = opinion_civwar_originator
 						}
 					}
 					country_event = { id = civcom.4102 }
@@ -482,9 +470,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -522,12 +510,6 @@ country_event = {
 				add_opinion_modifier = {
 					who = event_target:current_civwar_rebels
 					modifier = opinion_civwar_peace
-				}
-			}
-			event_target:current_civwar_rebels = {
-				add_opinion_modifier = {
-					who = event_target:current_civwar_originator
-					modifier = opinion_civwar_originator
 				}
 			}
 			country_event = { id = civcom.5002 }
@@ -568,12 +550,6 @@ country_event = {
 							modifier = opinion_civwar_peace
 						}
 					}
-					event_target:current_civwar_rebels = {
-						add_opinion_modifier = {
-							who = event_target:current_civwar_originator
-							modifier = opinion_civwar_originator
-						}
-					}
 					country_event = { id = civcom.5002 }
 				}
 			}
@@ -611,7 +587,7 @@ country_event = {
 	id = civcom.5100
 	title = civcom.4000.name
 	desc = civcom.5100.desc
-	location = event_target:civil_war_capital
+	location = event_target:current_civwar_rebels.capital_scope
 	hide_window = no
 	is_triggered_only = yes
 
@@ -619,9 +595,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -646,7 +622,7 @@ country_event = {
 
 	# Let them be fully independent
 	option = {
-		name = civcom.4100.c
+		name = civcom.4000.b
 		trigger = {
 			is_ai = no
 		}
@@ -709,9 +685,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -749,12 +725,6 @@ country_event = {
 				add_opinion_modifier = {
 					who = event_target:current_civwar_rebels
 					modifier = opinion_civwar_peace
-				}
-			}
-			event_target:current_civwar_rebels = {
-				add_opinion_modifier = {
-					who = event_target:current_civwar_originator
-					modifier = opinion_civwar_originator
 				}
 			}
 			country_event = { id = civcom.5002 }
@@ -795,12 +765,6 @@ country_event = {
 							modifier = opinion_civwar_peace
 						}
 					}
-					event_target:current_civwar_rebels = {
-						add_opinion_modifier = {
-							who = event_target:current_civwar_originator
-							modifier = opinion_civwar_originator
-						}
-					}
 					country_event = { id = civcom.5002 }
 				}
 			}
@@ -838,7 +802,7 @@ country_event = {
 	id = civcom.5110
 	title = civcom.4000.name
 	desc = civcom.5110.desc
-	location = event_target:civil_war_capital
+	location = event_target:current_civwar_rebels.capital_scope
 	hide_window = no
 	is_triggered_only = yes
 
@@ -846,9 +810,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -873,7 +837,7 @@ country_event = {
 
 	# Let them be fully independent
 	option = {
-		name = civcom.4100.c
+		name = civcom.4000.b
 		trigger = {
 			is_ai = no
 		}
@@ -936,9 +900,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -976,12 +940,6 @@ country_event = {
 				add_opinion_modifier = {
 					who = event_target:current_civwar_rebels
 					modifier = opinion_civwar_peace
-				}
-			}
-			event_target:current_civwar_rebels = {
-				add_opinion_modifier = {
-					who = event_target:current_civwar_originator
-					modifier = opinion_civwar_originator
 				}
 			}
 			country_event = { id = civcom.5002 }
@@ -1022,12 +980,6 @@ country_event = {
 							modifier = opinion_civwar_peace
 						}
 					}
-					event_target:current_civwar_rebels = {
-						add_opinion_modifier = {
-							who = event_target:current_civwar_originator
-							modifier = opinion_civwar_originator
-						}
-					}
 					country_event = { id = civcom.5002 }
 				}
 			}
@@ -1065,7 +1017,7 @@ country_event = {
 	id = civcom.5120
 	title = civcom.4000.name
 	desc = civcom.5120.desc
-	location = event_target:civil_war_capital
+	location = event_target:current_civwar_rebels.capital_scope
 	hide_window = no
 	is_triggered_only = yes
 
@@ -1073,9 +1025,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -1100,7 +1052,7 @@ country_event = {
 
 	# Let them be fully independent
 	option = {
-		name = civcom.4100.c
+		name = civcom.4000.b
 		trigger = {
 			is_ai = no
 		}
@@ -1139,11 +1091,10 @@ country_event = {
 	}	
 }
 
-# Civil War - Admiral - Without Vassalization Option
+# Civil War - Admiral - Without Vassalization Option, No Planets
 country_event = {
 	id = civcom.5030
 	title = civcom.4000.name
-	desc = civcom.5030.desc
 	location = event_target:current_civwar_rebels
 	hide_window = no
 	is_triggered_only = yes
@@ -1152,13 +1103,32 @@ country_event = {
 
 	desc = {
 		text = civcom.5030.desc
-		trigger = { NOT = { has_country_flag = size_civil_war } }
+		trigger = {
+			event_target:current_civwar_rebels = {
+				NOR = {
+					num_owned_planets > 0
+					has_country_flag = admiral_has_sector
+				}
+			}
+		}
 	}
 
 	desc = {
-		text = civcom.5030.size.desc
+		text = civcom.5030.planet.desc
 		trigger = {
-			has_country_flag = size_civil_war
+			event_target:current_civwar_rebels = {
+				num_owned_planets > 0
+				NOT = { has_country_flag = admiral_has_sector }
+			}
+		}
+	}
+
+	desc = {
+		text = civcom.5030.sector.desc
+		trigger = {
+			event_target:current_civwar_rebels = {
+				has_country_flag = admiral_has_sector
+			}
 		}
 	}
 
@@ -1166,7 +1136,7 @@ country_event = {
 		portrait = event_target:civil_war_leader_ruler
 		planet_background = pc_asteroid
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -1189,7 +1159,17 @@ country_event = {
 					modifier = opinion_civwar_originator
 				}
 			}
-			country_event = { id = civcom.5031 }
+			if = {
+				limit = {
+					event_target:current_civwar_rebels = {
+						num_owned_planets > 0
+					}
+				}
+				country_event = { id = civcom.5001 }
+			}
+			else = {
+				country_event = { id = civcom.5031 }
+			}
 		}
 	}
 
@@ -1206,13 +1186,7 @@ country_event = {
 					modifier = opinion_civwar_peace
 				}
 			}
-			event_target:current_civwar_rebels = {
-				add_opinion_modifier = {
-					who = event_target:current_civwar_originator
-					modifier = opinion_civwar_originator
-				}
-			}
-			country_event = { id = civcom.5032 }
+			country_event = { id = civcom.5002 }
 		}
 	}
 
@@ -1239,7 +1213,17 @@ country_event = {
 							modifier = opinion_civwar_originator
 						}
 					}
-					country_event = { id = civcom.5031 }
+					if = {
+						limit = {
+							event_target:current_civwar_rebels = {
+								num_owned_planets > 0
+							}
+						}
+						country_event = { id = civcom.5001 }
+					}
+					else = {
+						country_event = { id = civcom.5031 }
+					}
 				}
 			}
 			10 = {
@@ -1250,13 +1234,7 @@ country_event = {
 							modifier = opinion_civwar_peace
 						}
 					}
-					event_target:current_civwar_rebels = {
-						add_opinion_modifier = {
-							who = event_target:current_civwar_originator
-							modifier = opinion_civwar_originator
-						}
-					}
-					country_event = { id = civcom.5032 }
+					country_event = { id = civcom.5002 }
 				}
 			}
 		}
@@ -1283,7 +1261,372 @@ country_event = {
 					modifier = opinion_civwar_originator
 				}
 			}
-			country_event = { id = civcom.5031 }
+			if = {
+				limit = {
+					event_target:current_civwar_rebels = {
+						num_owned_planets > 0
+					}
+				}
+				country_event = { id = civcom.5001 }
+			}
+			else = {
+				country_event = { id = civcom.5031 }
+			}
+		}
+	}
+}
+
+# Civil War - Admiral - Without Vassalization Option, Planets
+country_event = {
+	id = civcom.5031
+	title = civcom.4000.name
+	location = event_target:current_civwar_rebels
+	hide_window = no
+	is_triggered_only = yes
+
+	diplomatic = yes
+
+	desc = {
+		text = civcom.5030.planet.desc
+		trigger = {
+			event_target:current_civwar_rebels = {
+				num_owned_planets > 0
+				NOT = { has_country_flag = admiral_has_sector }
+			}
+		}
+	}
+
+	desc = {
+		text = civcom.5030.sector.desc
+		trigger = {
+			event_target:current_civwar_rebels = {
+				has_country_flag = admiral_has_sector
+			}
+		}
+	}
+
+	picture_event_data = {
+		portrait = event_target:civil_war_leader_ruler
+		planet_background = event_target:current_civwar_rebels.capital_scope
+		graphical_culture = event_target:current_civwar_rebels
+		city_level = event_target:current_civwar_rebels.capital_scope
+		room = event_target:current_civwar_rebels.ruler
+	}
+
+	# Declare War on the rebels
+	option = {
+		name = civcom.5030.a
+		trigger = {
+			is_ai = no
+		}
+		hidden_effect = {
+			event_target:current_civwar_originator = {
+				add_opinion_modifier = {
+					who = event_target:current_civwar_rebels
+					modifier = opinion_civwar
+				}
+			}
+			event_target:current_civwar_rebels = {
+				add_opinion_modifier = {
+					who = event_target:current_civwar_originator
+					modifier = opinion_civwar_originator
+				}
+			}
+			if = {
+				limit = {
+					event_target:current_civwar_rebels = {
+						num_owned_planets > 0
+					}
+				}
+				country_event = { id = civcom.5001 }
+			}
+			else = {
+				country_event = { id = civcom.5031 }
+			}
+		}
+	}
+
+	# Let them be fully independent.
+	option = {
+		name = civcom.4000.b
+		trigger = {
+			is_ai = no
+		}
+		hidden_effect = {
+			event_target:current_civwar_originator = {
+				add_opinion_modifier = {
+					who = event_target:current_civwar_rebels
+					modifier = opinion_civwar_peace
+				}
+			}
+			country_event = { id = civcom.5002 }
+		}
+	}
+
+	# AI Option
+	option = {
+		name = civcom.random
+		trigger = {
+			is_ai = yes
+			NOT = { has_valid_civic = civic_fanatic_purifiers }
+		}
+		ai_chance = { factor = 1 }
+		random_list = {
+			90 = {
+				hidden_effect = {
+					event_target:current_civwar_originator = {
+						add_opinion_modifier = {
+							who = event_target:current_civwar_rebels
+							modifier = opinion_civwar
+						}
+					}
+					event_target:current_civwar_rebels = {
+						add_opinion_modifier = {
+							who = event_target:current_civwar_originator
+							modifier = opinion_civwar_originator
+						}
+					}
+					if = {
+						limit = {
+							event_target:current_civwar_rebels = {
+								num_owned_planets > 0
+							}
+						}
+						country_event = { id = civcom.5001 }
+					}
+					else = {
+						country_event = { id = civcom.5031 }
+					}
+				}
+			}
+			10 = {
+				hidden_effect = {
+					event_target:current_civwar_originator = {
+						add_opinion_modifier = {
+							who = event_target:current_civwar_rebels
+							modifier = opinion_civwar_peace
+						}
+					}
+					country_event = { id = civcom.5002 }
+				}
+			}
+		}
+	}
+
+	# Fanatic Purifier AI Option
+	option = {
+		name = civcom.random
+		trigger = {
+			is_ai = yes
+			has_valid_civic = civic_fanatic_purifiers
+		}
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			event_target:current_civwar_originator = {
+				add_opinion_modifier = {
+					who = event_target:current_civwar_rebels
+					modifier = opinion_civwar
+				}
+			}
+			event_target:current_civwar_rebels = {
+				add_opinion_modifier = {
+					who = event_target:current_civwar_originator
+					modifier = opinion_civwar_originator
+				}
+			}
+			if = {
+				limit = {
+					event_target:current_civwar_rebels = {
+						num_owned_planets > 0
+					}
+				}
+				country_event = { id = civcom.5001 }
+			}
+			else = {
+				country_event = { id = civcom.5031 }
+			}
+		}
+	}
+}
+
+# Civil War - Admiral - With Vassalization Option
+country_event = {
+	id = civcom.5130
+	title = civcom.4000.name
+	location = event_target:current_civwar_rebels
+	hide_window = no
+	is_triggered_only = yes
+
+	diplomatic = yes
+
+	desc = {
+		text = civcom.5130.desc
+		trigger = {
+			event_target:current_civwar_rebels = {
+				NOT = { has_country_flag = admiral_skirmish }
+			}
+		}
+	}
+
+	desc = {
+		text = civcom.5130.skirmish.desc
+		trigger = {
+			event_target:current_civwar_rebels = {
+				has_country_flag = admiral_skirmish
+			}
+		}
+	}
+
+	picture_event_data = {
+		portrait = event_target:civil_war_leader_ruler
+		planet_background = event_target:current_civwar_rebels
+		graphical_culture = event_target:current_civwar_rebels
+		city_level = event_target:current_civwar_rebels.capital_scope
+		room = event_target:current_civwar_rebels.ruler
+	}
+
+	# Declare War on the rebels
+	option = {
+		name = civcom.5030.a
+		trigger = {
+			is_ai = no
+		}
+		hidden_effect = {
+			event_target:current_civwar_originator = {
+				add_opinion_modifier = {
+					who = event_target:current_civwar_rebels
+					modifier = opinion_civwar
+				}
+			}
+			event_target:current_civwar_rebels = {
+				add_opinion_modifier = {
+					who = event_target:current_civwar_originator
+					modifier = opinion_civwar_originator
+				}
+			}
+			if = {
+				limit = {
+					event_target:current_civwar_rebels = {
+						num_owned_planets > 0
+					}
+				}
+				country_event = { id = civcom.5001 }
+			}
+			else = {
+				country_event = { id = civcom.5031 }
+			}
+		}
+	}
+
+	# Accept their offer of vassalization
+	option = {
+		name = civcom.4100.b
+		trigger = {
+			is_ai = no
+		}
+		custom_tooltip = civcom.4100.b.tooltip
+		hidden_effect = { country_event = { id = civcom.5103 } }
+	}
+
+	# Let them be fully independent.
+	option = {
+		name = civcom.4000.b
+		trigger = {
+			is_ai = no
+		}
+		hidden_effect = {
+			event_target:current_civwar_originator = {
+				add_opinion_modifier = {
+					who = event_target:current_civwar_rebels
+					modifier = opinion_civwar_peace
+				}
+			}
+			country_event = { id = civcom.5102 }
+		}
+	}
+
+	# AI Option
+	option = {
+		name = civcom.random
+		trigger = {
+			is_ai = yes
+			NOT = { has_valid_civic = civic_fanatic_purifiers }
+		}
+		ai_chance = { factor = 1 }
+		random_list = {
+			90 = {
+				hidden_effect = {
+					event_target:current_civwar_originator = {
+						add_opinion_modifier = {
+							who = event_target:current_civwar_rebels
+							modifier = opinion_civwar
+						}
+					}
+					event_target:current_civwar_rebels = {
+						add_opinion_modifier = {
+							who = event_target:current_civwar_originator
+							modifier = opinion_civwar_originator
+						}
+					}
+					if = {
+						limit = {
+							event_target:current_civwar_rebels = {
+								num_owned_planets > 0
+							}
+						}
+						country_event = { id = civcom.5001 }
+					}
+					else = {
+						country_event = { id = civcom.5031 }
+					}
+				}
+			}
+			10 = {
+				hidden_effect = {
+					event_target:current_civwar_originator = {
+						add_opinion_modifier = {
+							who = event_target:current_civwar_rebels
+							modifier = opinion_civwar_peace
+						}
+					}
+					country_event = { id = civcom.5102 }
+				}
+			}
+		}
+	}
+
+	# Fanatic Purifier AI Option
+	option = {
+		name = civcom.random
+		trigger = {
+			is_ai = yes
+			has_valid_civic = civic_fanatic_purifiers
+		}
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			event_target:current_civwar_originator = {
+				add_opinion_modifier = {
+					who = event_target:current_civwar_rebels
+					modifier = opinion_civwar
+				}
+			}
+			event_target:current_civwar_rebels = {
+				add_opinion_modifier = {
+					who = event_target:current_civwar_originator
+					modifier = opinion_civwar_originator
+				}
+			}
+			if = {
+				limit = {
+					event_target:current_civwar_rebels = {
+						num_owned_planets > 0
+					}
+				}
+				country_event = { id = civcom.5001 }
+			}
+			else = {
+				country_event = { id = civcom.5031 }
+			}
 		}
 	}
 }
@@ -1314,9 +1657,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -1362,13 +1705,7 @@ country_event = {
 					modifier = opinion_civwar_peace
 				}
 			}
-			event_target:current_civwar_rebels = {
-				add_opinion_modifier = {
-					who = event_target:current_civwar_originator
-					modifier = opinion_civwar_originator
-				}
-			}
-			country_event = { id = civcom.5042 }
+			country_event = { id = civcom.5002 }
 		}
 	}
 
@@ -1406,13 +1743,7 @@ country_event = {
 							modifier = opinion_civwar_peace
 						}
 					}
-					event_target:current_civwar_rebels = {
-						add_opinion_modifier = {
-							who = event_target:current_civwar_originator
-							modifier = opinion_civwar_originator
-						}
-					}
-					country_event = { id = civcom.5042 }
+					country_event = { id = civcom.5002 }
 				}
 			}
 		}
@@ -1434,11 +1765,11 @@ country_event = {
 				}
 			}
 			event_target:current_civwar_rebels = {
-						add_opinion_modifier = {
-							who = event_target:current_civwar_originator
-							modifier = opinion_civwar_originator
-						}
-					}
+				add_opinion_modifier = {
+					who = event_target:current_civwar_originator
+					modifier = opinion_civwar_originator
+				}
+			}
 			country_event = { id = civcom.5041 }
 		}
 	}
@@ -1455,11 +1786,25 @@ country_event = {
 
 	diplomatic = yes
 
+	desc = {
+		text = civcom.5040.one.desc
+		trigger = {
+			NOT = { has_country_flag = traitor_got_multiple_sectors }
+		}
+	}
+
+	desc = {
+		text = civcom.5040.mult.desc
+		trigger = {
+			has_country_flag = traitor_got_multiple_sectors
+		}
+	}
+
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -1484,11 +1829,11 @@ country_event = {
 
 	# Let them be fully independent
 	option = {
-		name = civcom.4100.c
+		name = civcom.4000.b
 		trigger = {
 			is_ai = no
 		}
-		hidden_effect = { country_event = { id = civcom.5142 } }
+		hidden_effect = { country_event = { id = civcom.5102 } }
 	}
 
 	# AI Option
@@ -1506,7 +1851,7 @@ country_event = {
 				hidden_effect = { country_event = { id = civcom.5143 } }
 			}
 			5 = {
-				hidden_effect = { country_event = { id = civcom.5142 } }
+				hidden_effect = { country_event = { id = civcom.5102 } }
 			}
 		}
 	}
@@ -1567,9 +1912,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:current_civwar_rebels.ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -1607,12 +1952,6 @@ country_event = {
 				add_opinion_modifier = {
 					who = event_target:current_civwar_rebels
 					modifier = opinion_civwar_peace
-				}
-			}
-			event_target:current_civwar_rebels = {
-				add_opinion_modifier = {
-					who = event_target:current_civwar_originator
-					modifier = opinion_civwar_originator
 				}
 			}
 			country_event = { id = civcom.5052 }
@@ -1653,12 +1992,6 @@ country_event = {
 							modifier = opinion_civwar_peace
 						}
 					}
-					event_target:current_civwar_rebels = {
-						add_opinion_modifier = {
-							who = event_target:current_civwar_originator
-							modifier = opinion_civwar_originator
-						}
-					}
 					country_event = { id = civcom.5002 }
 				}
 			}
@@ -1673,7 +2006,7 @@ country_event = {
 	id = civcom.5001
 	title = civcom.4000.name
 	desc = civcom.4001.desc
-	location = event_target:civil_war_capital
+	location = event_target:current_civwar_rebels.capital_scope
 	hide_window = no
 	is_triggered_only = yes
 
@@ -1681,9 +2014,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -1703,7 +2036,7 @@ country_event = {
 	id = civcom.5011
 	title = civcom.4000.name
 	desc = civcom.5011.desc
-	location = event_target:civil_war_capital
+	location = event_target:current_civwar_rebels.capital_scope
 	hide_window = no
 	is_triggered_only = yes
 
@@ -1711,9 +2044,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -1729,7 +2062,7 @@ country_event = {
 	id = civcom.5031
 	title = civcom.4000.name
 	desc = civcom.5031.desc
-	location = event_target:civil_war_capital
+	location = event_target:current_civwar_rebels.capital_scope
 	hide_window = no
 	is_triggered_only = yes
 
@@ -1739,7 +2072,7 @@ country_event = {
 		portrait = event_target:civil_war_leader_ruler
 		planet_background = pc_asteroid
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -1759,7 +2092,7 @@ country_event = {
 	id = civcom.5041
 	title = civcom.4000.name
 	desc = civcom.5041.desc
-	location = event_target:civil_war_capital
+	location = event_target:current_civwar_rebels.capital_scope
 	hide_window = no
 	is_triggered_only = yes
 
@@ -1767,9 +2100,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -1791,7 +2124,7 @@ country_event = {
 	id = civcom.5002
 	title = civcom.4000.name
 	desc = civcom.4002.desc
-	location = event_target:civil_war_capital
+	location = event_target:current_civwar_rebels.capital_scope
 	hide_window = no
 	is_triggered_only = yes
 
@@ -1799,67 +2132,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
-		room = event_target:current_civwar_rebels.ruler
-	}
-
-	option = {
-		name = civcom.4002.a
-		ai_chance = { factor = 1 }
-	}
-
-	after = {
-		clear_global_event_target = civil_war_party
-	}
-}
-
-# Civil War - Granted Independence - Admiral
-country_event = {
-	id = civcom.5032
-	title = civcom.4000.name
-	desc = civcom.4002.desc
-	location = event_target:civil_war_capital
-	hide_window = no
-	is_triggered_only = yes
-
-	diplomatic = yes
-
-	picture_event_data = {
-		portrait = event_target:civil_war_leader_ruler
-		planet_background = pc_asteroid
-		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
-		room = event_target:current_civwar_rebels.ruler
-	}
-
-	option = {
-		name = civcom.4002.a
-		ai_chance = { factor = 1 }
-	}
-
-	after = {
-		clear_global_event_target = civil_war_party
-	}
-}
-
-# Civil War - Granted Independence - Corrupt Governor
-country_event = {
-	id = civcom.5042
-	title = civcom.4000.name
-	desc = civcom.5042.desc
-	location = event_target:civil_war_capital
-	hide_window = no
-	is_triggered_only = yes
-
-	diplomatic = yes
-
-	picture_event_data = {
-		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
-		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -1878,7 +2153,7 @@ country_event = {
 	id = civcom.5052
 	title = civcom.4000.name
 	desc = civcom.5052.desc
-	location = event_target:civil_war_capital
+	location = event_target:current_civwar_rebels.capital_scope
 	hide_window = no
 	is_triggered_only = yes
 
@@ -1886,9 +2161,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -1917,38 +2192,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
-		room = event_target:current_civwar_rebels.ruler
-	}
-
-	option = {
-		name = civcom.4102.a
-		ai_chance = { factor = 1 }
-	}
-
-	after = {
-		clear_global_event_target = civil_war_party
-	}
-}
-
-# Civil War - Granted Independence - Corrupt Governor - (even though they offered vassalization)
-country_event = {
-	id = civcom.5142
-	title = civcom.4000.name
-	desc = civcom.5102.desc
-	location = event_target:current_civwar_rebels
-	hide_window = no
-	is_triggered_only = yes
-
-	diplomatic = yes
-
-	picture_event_data = {
-		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
-		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -1975,9 +2221,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -2010,9 +2256,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:civil_war_leader_ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_rebels
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_rebels.ruler
 	}
 
@@ -2034,12 +2280,12 @@ country_event = {
 
 ###############
 
-# Civil War - Subject requests assitance in civil war - Governor / Scientist / General
+# Civil War - Subject requests assistance in civil war - Governor / Scientist / General
 country_event = {
 	id = civcom.3000
 	title = civcom.3000.name
 	desc = civcom.3000.desc
-	location = event_target:civil_war_capital
+	location = event_target:current_civwar_rebels.capital_scope
 	hide_window = no
 	is_triggered_only = yes
 
@@ -2047,9 +2293,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:current_civwar_originator.ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_originator
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_originator.ruler
 	}
 
@@ -2125,7 +2371,7 @@ country_event = {
 	id = civcom.3001
 	title = civcom.3000.name
 	desc = civcom.3001.desc
-	location = event_target:civil_war_capital
+	location = event_target:current_civwar_rebels.capital_scope
 	hide_window = no
 	is_triggered_only = yes
 
@@ -2133,9 +2379,9 @@ country_event = {
 
 	picture_event_data = {
 		portrait = event_target:current_civwar_originator.ruler
-		planet_background = event_target:civil_war_capital
+		planet_background = event_target:current_civwar_rebels.capital_scope
 		graphical_culture = event_target:current_civwar_originator
-		city_level = event_target:civil_war_capital
+		city_level = event_target:current_civwar_rebels.capital_scope
 		room = event_target:current_civwar_originator.ruler
 	}
 
@@ -3573,12 +3819,6 @@ country_event = {
 					modifier = opinion_civwar_planet_peace
 				}
 			}
-			event_target:current_civwar_rebels = {
-				add_opinion_modifier = {
-					who = event_target:current_civwar_originator
-					modifier = opinion_civwar_originator
-				}
-			}
 			country_event = { id = civcom.6202 }
 		}
 	}
@@ -3622,12 +3862,6 @@ country_event = {
 						add_opinion_modifier = {
 							who = event_target:current_civwar_rebels
 							modifier = opinion_civwar_planet_peace
-						}
-					}
-					event_target:current_civwar_rebels = {
-						add_opinion_modifier = {
-							who = event_target:current_civwar_originator
-							modifier = opinion_civwar_originator
 						}
 					}
 					country_event = { id = civcom.6202 }
