@@ -79,10 +79,11 @@ country_event = {
 				# Disinherited Heir bides time until death of ruler
 				8 = { country_event = { id = civheir.2100 } }
 				# Disinherited Heir escapes to foreign country
-				28 = { country_event = { id = civheir.3000 } }
+				48 = { country_event = { id = civheir.3000 } }
 				# Nothing
-				60 = {
+				40 = {
 					event_target:disinherited_heir = {
+						set_leader_flag = dead_ruler
 						kill_leader = { show_notification = no }
 					}
 				}
@@ -100,6 +101,7 @@ country_event = {
 				# Nothing
 				85 = {
 					event_target:disinherited_heir = {
+						set_leader_flag = dead_ruler
 						kill_leader = { show_notification = no }
 					}
 				}
@@ -107,6 +109,7 @@ country_event = {
 		}
 		else = {
 			event_target:disinherited_heir = {
+				set_leader_flag = dead_ruler
 				kill_leader = { show_notification = no }
 			}
 		}
@@ -145,13 +148,14 @@ country_event = {
 			}
 			random_list = {
 				# Heir to lost kingdom to foreign country
-				50 = { country_event = { id = civheir.3000 } }
+				60 = { country_event = { id = civheir.3000 } }
 				# Nothing
-				50 = { }
+				40 = { }
 			}
 		}
 		else = {
 			event_target:disinherited_heir = {
+				set_leader_flag = dead_ruler
 				kill_leader = { show_notification = no }
 			}
 		}
