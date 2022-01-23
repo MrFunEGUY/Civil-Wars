@@ -423,7 +423,7 @@ country_event = {
 		name = civcom.4103.a
 		ai_chance = { factor = 1 }
 		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
-		get_rid_rebels_of_root = yes
+		get_rid_rebels_of_originator = yes
 		event_target:current_civwar_rebels = {
 			set_subject_of = {
 				who = root

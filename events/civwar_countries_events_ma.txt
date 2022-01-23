@@ -13,9 +13,7 @@ country_event = { # Faction Leader Rebellion - Authoritarian
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			if = {
 				limit = {
@@ -45,7 +43,7 @@ country_event = { # Faction Leader Rebellion - Authoritarian
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -72,7 +70,7 @@ country_event = { # Faction Leader Rebellion - Authoritarian
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -101,7 +99,7 @@ country_event = { # Faction Leader Rebellion - Authoritarian
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -126,7 +124,7 @@ country_event = { # Faction Leader Rebellion - Authoritarian
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -247,9 +245,7 @@ country_event = { # Faction Leader Rebellion - Egalitarian
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			if = {
 				limit = {
@@ -275,7 +271,7 @@ country_event = { # Faction Leader Rebellion - Egalitarian
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -298,7 +294,7 @@ country_event = { # Faction Leader Rebellion - Egalitarian
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -321,7 +317,7 @@ country_event = { # Faction Leader Rebellion - Egalitarian
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -347,7 +343,7 @@ country_event = { # Faction Leader Rebellion - Egalitarian
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -369,7 +365,7 @@ country_event = { # Faction Leader Rebellion - Egalitarian
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -391,7 +387,7 @@ country_event = { # Faction Leader Rebellion - Egalitarian
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -558,9 +554,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			if = {
 				limit = {
@@ -590,7 +584,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -617,7 +611,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -644,7 +638,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -671,7 +665,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -698,7 +692,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -725,7 +719,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -752,7 +746,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -781,7 +775,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -806,7 +800,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -831,7 +825,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -856,7 +850,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -881,7 +875,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -906,7 +900,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -931,7 +925,7 @@ country_event = { # Faction Leader Rebellion - Militarist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1277,9 +1271,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			if = {
 				limit = {
@@ -1305,7 +1297,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1328,7 +1320,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1351,7 +1343,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1374,7 +1366,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1397,7 +1389,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1420,7 +1412,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1443,7 +1435,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1469,7 +1461,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1491,7 +1483,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1513,7 +1505,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1535,7 +1527,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1557,7 +1549,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1579,7 +1571,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1601,7 +1593,7 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -1962,9 +1954,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			if = {
 				limit = {
@@ -1990,7 +1980,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -2013,7 +2003,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -2036,7 +2026,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -2059,7 +2049,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -2082,7 +2072,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -2105,7 +2095,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -2128,7 +2118,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -2154,7 +2144,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -2176,7 +2166,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -2198,7 +2188,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -2220,7 +2210,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -2242,7 +2232,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -2264,7 +2254,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -2286,7 +2276,7 @@ country_event = { # Faction Leader Rebellion - Materialist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3014,9 +3004,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			if = {
 				limit = {
@@ -3042,7 +3030,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3065,7 +3053,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3088,7 +3076,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3111,7 +3099,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3134,7 +3122,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3157,7 +3145,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3180,7 +3168,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3206,7 +3194,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3228,7 +3216,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3250,7 +3238,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3272,7 +3260,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3294,7 +3282,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3316,7 +3304,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3338,7 +3326,7 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3684,9 +3672,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			if = {
 				limit = {
@@ -3712,7 +3698,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3735,7 +3721,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3758,7 +3744,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3781,7 +3767,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3804,7 +3790,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3827,7 +3813,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3850,7 +3836,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3876,7 +3862,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3898,7 +3884,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3920,7 +3906,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3942,7 +3928,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3964,7 +3950,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -3986,7 +3972,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4008,7 +3994,7 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4354,9 +4340,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			if = {
 				limit = {
@@ -4382,7 +4366,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4405,7 +4389,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4428,7 +4412,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4451,7 +4435,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4474,7 +4458,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4497,7 +4481,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4520,7 +4504,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4560,7 +4544,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4582,7 +4566,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4604,7 +4588,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4626,7 +4610,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4648,7 +4632,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4670,7 +4654,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -4692,7 +4676,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							flag = random
 							effect = {
 								save_event_target_as = current_civwar_rebels
-								country_event = { id = civwar.4001 } # setup happens here
+								country_event = { id = civwar.4000 } # admiral setup happens here
 							}
 						}
 					}
@@ -5047,9 +5031,7 @@ country_event = { # Faction Leader Rebellion - Socialist
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			random_list = {
 				5 = {
@@ -5071,7 +5053,7 @@ country_event = { # Faction Leader Rebellion - Socialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5094,7 +5076,7 @@ country_event = { # Faction Leader Rebellion - Socialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5117,7 +5099,7 @@ country_event = { # Faction Leader Rebellion - Socialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5140,7 +5122,7 @@ country_event = { # Faction Leader Rebellion - Socialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5163,7 +5145,7 @@ country_event = { # Faction Leader Rebellion - Socialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5186,7 +5168,7 @@ country_event = { # Faction Leader Rebellion - Socialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5209,7 +5191,7 @@ country_event = { # Faction Leader Rebellion - Socialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5391,9 +5373,7 @@ country_event = { # Faction Leader Rebellion - Capitalist
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			random_list = {
 				5 = {
@@ -5415,7 +5395,7 @@ country_event = { # Faction Leader Rebellion - Capitalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5438,7 +5418,7 @@ country_event = { # Faction Leader Rebellion - Capitalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5461,7 +5441,7 @@ country_event = { # Faction Leader Rebellion - Capitalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5484,7 +5464,7 @@ country_event = { # Faction Leader Rebellion - Capitalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5507,7 +5487,7 @@ country_event = { # Faction Leader Rebellion - Capitalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5530,7 +5510,7 @@ country_event = { # Faction Leader Rebellion - Capitalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5553,7 +5533,7 @@ country_event = { # Faction Leader Rebellion - Capitalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5936,9 +5916,7 @@ country_event = { # Faction Leader Rebellion - Industrialist
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			random_list = {
 				5 = {
@@ -5960,7 +5938,7 @@ country_event = { # Faction Leader Rebellion - Industrialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -5983,7 +5961,7 @@ country_event = { # Faction Leader Rebellion - Industrialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6006,7 +5984,7 @@ country_event = { # Faction Leader Rebellion - Industrialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6029,7 +6007,7 @@ country_event = { # Faction Leader Rebellion - Industrialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6052,7 +6030,7 @@ country_event = { # Faction Leader Rebellion - Industrialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6075,7 +6053,7 @@ country_event = { # Faction Leader Rebellion - Industrialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6098,7 +6076,7 @@ country_event = { # Faction Leader Rebellion - Industrialist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6280,9 +6258,7 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			random_list = {
 				5 = {
@@ -6304,7 +6280,7 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6327,7 +6303,7 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6350,7 +6326,7 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6373,7 +6349,7 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6396,7 +6372,7 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6419,7 +6395,7 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6442,7 +6418,7 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6624,9 +6600,7 @@ country_event = { # Faction Leader Rebellion - Elitists
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			random_list = {
 				5 = {
@@ -6648,7 +6622,7 @@ country_event = { # Faction Leader Rebellion - Elitists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6671,7 +6645,7 @@ country_event = { # Faction Leader Rebellion - Elitists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6694,7 +6668,7 @@ country_event = { # Faction Leader Rebellion - Elitists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6717,7 +6691,7 @@ country_event = { # Faction Leader Rebellion - Elitists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6740,7 +6714,7 @@ country_event = { # Faction Leader Rebellion - Elitists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6763,7 +6737,7 @@ country_event = { # Faction Leader Rebellion - Elitists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6786,7 +6760,7 @@ country_event = { # Faction Leader Rebellion - Elitists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -6968,9 +6942,7 @@ country_event = { # Faction Leader Rebellion - Pluralists
 	immediate = {
 		if = {
 			limit = {
-				event_target:civil_war_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
-				}
+				exists = event_target:admiral_rebel_system
 			}
 			random_list = {
 				5 = {
@@ -6992,7 +6964,7 @@ country_event = { # Faction Leader Rebellion - Pluralists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -7015,7 +6987,7 @@ country_event = { # Faction Leader Rebellion - Pluralists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -7038,7 +7010,7 @@ country_event = { # Faction Leader Rebellion - Pluralists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -7061,7 +7033,7 @@ country_event = { # Faction Leader Rebellion - Pluralists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -7084,7 +7056,7 @@ country_event = { # Faction Leader Rebellion - Pluralists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -7107,7 +7079,7 @@ country_event = { # Faction Leader Rebellion - Pluralists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
@@ -7130,7 +7102,7 @@ country_event = { # Faction Leader Rebellion - Pluralists
 						flag = random
 						effect = {
 							save_event_target_as = current_civwar_rebels
-							country_event = { id = civwar.4001 } # setup happens here
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}

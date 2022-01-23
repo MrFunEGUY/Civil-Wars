@@ -1286,6 +1286,24 @@ get_civil_war_faction_planet = {
 	}
 }
 
+# Get random planet
+get_random_civwar_planet = {
+	random_owned_planet = {
+		limit = {
+			num_pops >= 1
+			is_colony = yes
+			is_occupied_flag = no
+			has_orbital_bombardment = no
+			solar_system = { check_civwar_capital = yes }
+		}
+		save_event_target_as = civil_war_planet
+		solar_system = {
+			set_star_flag = civil_war_flip
+			set_star_flag = civwar_planet
+		}
+	}
+}
+
 #####################
 
 # Create Armies

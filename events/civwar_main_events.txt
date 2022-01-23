@@ -1726,7 +1726,7 @@ country_event = { # Civil War
 	}
 }
 
-country_event = { # Planetary Rebellion via Disgruntled Planet
+country_event = { # Planetary Rebellion
 	id = civwar.3100
 	hide_window = yes
 	is_triggered_only = yes
@@ -1786,7 +1786,7 @@ country_event = { # Planetary Rebellion via Disgruntled Planet
 #################
 # Setup
 
-country_event = { # Setup for Governor / Scientist / General Civil War
+country_event = { # Setup for Civil War
 	id = civwar.4000
 	hide_window = yes
 	is_triggered_only = yes
@@ -1796,14 +1796,14 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 		# saving civwar and host as event targets
 		save_event_target_as = current_civwar_rebels
 
-		# setting flags
+		# Set flag
 		set_country_flag = civwar_country
 
+		# Set Relation Flags
 		set_relation_flag = {
 			who = event_target:current_civwar_originator
 			flag = civwar_to_host_flag
 		}
-
 		from = {
 			set_relation_flag = {
 				who = root
@@ -1811,6 +1811,7 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 			}
 		}
 
+		# Remove from Federation
 		if = {
 			limit = {
 				has_federation = yes
@@ -1844,7 +1845,6 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 			establish_communications_no_message = root
 			establish_contact = { who = root location = from }
 		}
-
 		# clear new contact opinion modifier
 		if = {
 			limit = {
@@ -1859,39 +1859,101 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 			}
 		}
 
-		# flip remaining flagged systems and remove flags
-		event_target:current_civwar_originator = {
-			every_owned_planet = {
+		# Flip Stuff
+		if = {
+			limit = {
+				exists = event_target:admiral_rebel_system
+			}
+			event_target:admiral_rebel_system = {
+				if = {
+					limit = {
+						check_civwar_capital = yes
+						exists = starbase
+						starbase = {
+							is_owned_by = event_target:current_civwar_originator
+						}
+					}
+					starbase = { set_owner = root }
+					give_admiral_planets = yes
+					every_neighbor_system = {
+						limit = {
+							check_civwar_capital = yes
+							exists = starbase
+							starbase = {
+								is_owned_by = event_target:current_civwar_originator
+							}
+						}
+						starbase = { set_owner = root }
+						give_admiral_planets = yes
+					}
+				}
+				else = {
+					every_neighbor_system = {
+						limit = {
+							check_civwar_capital = yes
+							exists = starbase
+							starbase = {
+								is_owned_by = event_target:current_civwar_originator
+							}
+						}
+						starbase = { set_owner = root }
+						give_admiral_planets = yes
+					}
+				}
+			}
+			set_country_flag = admiral_skirmish
+			clear_global_event_target = admiral_rebel_system
+		}
+		else = {
+			if = {
 				limit = {
+					event_target:civil_war_leader = {
+						has_leader_flag = civil_war_leader_admiral_faction
+					}
+				}
+				every_owned_fleet = {
+					limit = {
+						has_fleet_flag = civil_war_fleet
+						is_owned_by = event_target:current_civwar_originator
+					}
+					set_owner = event_target:current_civwar_rebels
+				}
+				set_country_flag = admiral_has_sector
+			}
+			# flip remaining flagged systems and remove flags
+			event_target:current_civwar_originator = {
+				every_owned_planet = {
+					limit = {
+						solar_system = {
+							has_star_flag = civil_war_flip
+						}
+					}
 					solar_system = {
+						every_fleet_in_system = {
+							limit = {
+								exists = owner
+								is_owned_by = event_target:current_civwar_originator
+								any_owned_ship = { is_ship_class = shipclass_military_station }
+							}
+							set_owner = root
+						}
+					}
+					set_owner = root
+					# set_controller = root
+				}
+				every_owned_sector = {
+					limit = {
+						has_sector_flag = rebel_sector
+		            }
+		            remove_sector_flag = rebel_sector
+				}
+				every_system_within_border = {
+					limit = {
 						has_star_flag = civil_war_flip
 					}
+					remove_star_flag = civil_war_flip
+					starbase = { set_owner = root }
 				}
-				solar_system = {
-					every_fleet_in_system = {
-						limit = {
-							exists = owner
-							is_owned_by = event_target:current_civwar_originator
-							any_owned_ship = { is_ship_class = shipclass_military_station }
-						}
-						set_owner = root
-					}
-				}
-				set_owner = root
-				set_controller = root
-			}
-			every_owned_sector = {
-				limit = {
-					has_sector_flag = rebel_sector
-	            }
-	            remove_sector_flag = rebel_sector
-			}
-			every_system_within_border = {
-				limit = {
-					has_star_flag = civil_war_flip
-				}
-				remove_star_flag = civil_war_flip
-				starbase = { set_owner = root }
 			}
 		}
 
@@ -1921,16 +1983,388 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 		}
 
 		# Set capital starbase size
-		capital_scope = {
-			solar_system = {
-				starbase = {
-					set_starbase_size = starbase_starport
+		if = {
+			limit = {
+				exists = capital_scope
+			}
+			capital_scope = {
+				solar_system = {
+					starbase = {
+						set_starbase_size = starbase_starport
+					}
 				}
 			}
 		}
 
 		# create fleets and give resources, destroy home country fleets
-		country_event = { id = civwar.7000 }
+		if = {
+			limit = {
+				num_owned_planets > 0
+			}
+			country_event = { id = civwar.7000 }
+		}
+		else = {
+			if = {
+				limit = {
+					event_target:current_civwar_originator = {
+						has_country_flag = empire_sprawl_0 
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 3
+							create_army_transport = {
+								species = event_target:civwar_species
+								army_type = "assault_army"
+							}
+						}
+						set_location = {
+							target = event_target:admiral_rebel_rally_point
+							distance = 5
+							angle = random
+						}
+					}
+				}
+				add_resource = {
+					energy = 3000
+					minerals = 3000
+					influence = 1000
+					alloys = 3000
+				}
+			}
+			else_if = {
+				limit = {
+					event_target:current_civwar_originator = {
+						has_country_flag = empire_sprawl_0_10
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 5
+							create_army_transport = {
+								species = event_target:civwar_species
+								army_type = "assault_army"
+							}
+						}
+						set_location = {
+							target = event_target:admiral_rebel_rally_point
+							distance = 5
+							angle = random
+						}
+					}
+				}
+				add_resource = {
+					energy = 6000
+					minerals = 6000
+					influence = 1000
+					alloys = 6000
+				}
+			}
+			else_if = {
+				limit = {
+					event_target:current_civwar_originator = {
+						has_country_flag = empire_sprawl_10_20
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 8
+							create_army_transport = {
+								species = event_target:civwar_species
+								army_type = "assault_army"
+							}
+						}
+						set_location = {
+							target = event_target:admiral_rebel_rally_point
+							distance = 5
+							angle = random
+						}
+					}
+				}
+				add_resource = {
+					energy = 8000
+					minerals = 8000
+					influence = 1000
+					alloys = 8000
+				}
+			}
+			else_if = {
+				limit = {
+					event_target:current_civwar_originator = {
+						has_country_flag = empire_sprawl_20_30
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 11
+							create_army_transport = {
+								species = event_target:civwar_species
+								army_type = "assault_army"
+							}
+						}
+						set_location = {
+							target = event_target:admiral_rebel_rally_point
+							distance = 5
+							angle = random
+						}
+					}
+				}
+				add_resource = {
+					energy = 10000
+					minerals = 10000
+					influence = 1000
+					alloys = 10000
+				}
+			}
+			else_if = {
+				limit = {
+					event_target:current_civwar_originator = {
+						has_country_flag = empire_sprawl_30_40
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 14
+							create_army_transport = {
+								species = event_target:civwar_species
+								army_type = "assault_army"
+							}
+						}
+						set_location = {
+							target = event_target:admiral_rebel_rally_point
+							distance = 5
+							angle = random
+						}
+					}
+				}
+				add_resource = {
+					energy = 12000
+					minerals = 12000
+					influence = 1000
+					alloys = 12000
+				}
+			}
+			else_if = {
+				limit = {
+					event_target:current_civwar_originator = {
+						has_country_flag = empire_sprawl_40_50
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 17
+							create_army_transport = {
+								species = event_target:civwar_species
+								army_type = "assault_army"
+							}
+						}
+						set_location = {
+							target = event_target:admiral_rebel_rally_point
+							distance = 5
+							angle = random
+						}
+					}
+				}
+				add_resource = {
+					energy = 14000
+					minerals = 14000
+					influence = 1000
+					alloys = 14000
+				}
+			}
+			else_if = {
+				limit = {
+					event_target:current_civwar_originator = {
+						has_country_flag = empire_sprawl_50_60
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 19
+							create_army_transport = {
+								species = event_target:civwar_species
+								army_type = "assault_army"
+							}
+						}
+						set_location = {
+							target = event_target:admiral_rebel_rally_point
+							distance = 5
+							angle = random
+						}
+					}
+				}
+				add_resource = {
+					energy = 16000
+					minerals = 16000
+					influence = 1000
+					alloys = 15000
+				}
+			}
+			else_if = {
+				limit = {
+					event_target:current_civwar_originator = {
+						has_country_flag = empire_sprawl_60_70
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 21
+							create_army_transport = {
+								species = event_target:civwar_species
+								army_type = "assault_army"
+							}
+						}
+						set_location = {
+							target = event_target:admiral_rebel_rally_point
+							distance = 5
+							angle = random
+						}
+					}
+				}
+				add_resource = {
+					energy = 18000
+					minerals = 18000
+					influence = 1000
+					alloys = 15000
+				}
+			}
+			else_if = {
+				limit = {
+					event_target:current_civwar_originator = {
+						has_country_flag = empire_sprawl_70_80
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 24
+							create_army_transport = {
+								species = event_target:civwar_species
+								army_type = "assault_army"
+							}
+						}
+						set_location = {
+							target = event_target:admiral_rebel_rally_point
+							distance = 5
+							angle = random
+						}
+					}
+				}
+				add_resource = {
+					energy = 20000
+					minerals = 20000
+					influence = 1000
+					alloys = 15000
+				}
+			}
+			else_if = {
+				limit = {
+					event_target:current_civwar_originator = {
+						has_country_flag = empire_sprawl_80_90
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 27
+							create_army_transport = {
+								species = event_target:civwar_species
+								army_type = "assault_army"
+							}
+						}
+						set_location = {
+							target = event_target:admiral_rebel_rally_point
+							distance = 5
+							angle = random
+						}
+					}
+				}
+				add_resource = {
+					energy = 22000
+					minerals = 22000
+					influence = 1000
+					alloys = 15000
+				}
+			}
+			else_if = {
+				limit = {
+					event_target:current_civwar_originator = {
+						has_country_flag = empire_sprawl_90_100
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 30
+							create_army_transport = {
+								species = event_target:civwar_species
+								army_type = "assault_army"
+							}
+						}
+						set_location = {
+							target = event_target:admiral_rebel_rally_point
+							distance = 5
+							angle = random
+						}
+					}
+				}
+				add_resource = {
+					energy = 24000
+					minerals = 24000
+					influence = 1000
+					alloys = 15000
+				}
+			}
+			else_if = {
+				limit = {
+					event_target:current_civwar_originator = {
+						has_country_flag = empire_sprawl_100_plus
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = root
+						while = {
+							count = 33
+							create_army_transport = {
+								species = event_target:civwar_species
+								army_type = "assault_army"
+							}
+						}
+						set_location = {
+							target = event_target:admiral_rebel_rally_point
+							distance = 5
+							angle = random
+						}
+					}
+				}
+				add_resource = {
+					energy = 26000
+					minerals = 26000
+					influence = 1000
+					alloys = 15000
+				}
+			}
+		}
 
 		# Maybe the rebels get an Attack Moon/Planet/Systemcraft if it was in their borders
 		every_system_within_border = {
@@ -1949,7 +2383,7 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 							set_owner = event_target:current_civwar_rebels
 						}
 						40 = {
-							# The governor couldn't pull it off
+							# The rebels couldn't pull it off
 						}
 					}
 				}
@@ -1998,9 +2432,32 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 			}
 		}
 
+		# Colony Ship (for admirals with no planets)
+		if = {
+			limit = {
+				num_owned_planets = 0
+			}
+			create_fleet = {
+				effect = {
+					set_owner = root
+					
+					create_ship = {
+						name = random
+						random_existing_design = colonizer
+					}
+					
+					set_fleet_stance = evasive
+					set_location = {
+						target = event_target:admiral_rebel_rally_point
+						distance = 5
+						angle = random
+					}
+				}
+			}
+		}
+
 		# Make Traitor Leader
 		country_event = { id = civwar.6000 }
-		ruler = { add_trait = trait_ruler_deep_connections }
 
 		# If this was done via espionage operation, give them the resources
 		if = {
@@ -2067,6 +2524,7 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 		# To fix naming issues. This line is necessary.
 		if = {
 			limit = {
+				exists = capital_scope
 				capital_scope = { NOT = { has_planet_flag = civwar_name_changed } }
 				event_target:current_civwar_originator = { is_ai = yes }
 			}
@@ -2077,19 +2535,19 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 		}
 		set_name = random
 
-		add_intel = {
-			who = event_target:current_civwar_originator
-			amount = 70
+		if = {
+			limit = {
+				num_owned_planets > 0
+			}
+			# create armies
+			create_civwar_armies = yes
 		}
-
-		# create armies
-		create_civwar_armies = yes
 
 		# Flavor Civics
 		if = {
 			limit = {
 				NOT = { has_civic = civic_warrior_culture }
-				event_target:civil_war_leader = {
+				ruler = {
 					has_trait = leader_trait_army_veteran
 				}
 			}
@@ -2098,7 +2556,7 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 		else_if = {
 			limit = {
 				NOT = { has_civic = civic_distinguished_admiralty }
-				event_target:civil_war_leader = {
+				ruler = {
 					has_trait = leader_trait_retired_fleet_officer
 				}
 			}
@@ -2107,16 +2565,20 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 		else_if = {
 			limit = {
 				NOT = { has_civic = civic_slaver_guilds }
-				event_target:civil_war_leader = {
+				ruler = {
 					has_trait = leader_trait_iron_fist
 				}
 			}
 			force_add_civic = civic_slaver_guilds
 		}
-		else = {
-			# Do Nothing
+
+		# Intel
+		add_intel = {
+			who = event_target:current_civwar_originator
+			amount = 70
 		}
 
+		# Back to Mother Country
 		event_target:current_civwar_originator = {
 			
 			# Add intel
@@ -2140,6 +2602,14 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 			else_if = {
 				limit = {
 					event_target:civil_war_leader = {
+						has_leader_flag = civil_war_leader_admiral_faction
+					}
+				}
+				country_event = { id = civwar.5001 }
+			}
+			else_if = {
+				limit = {
+					event_target:civil_war_leader = {
 						has_leader_flag = civil_war_leader_general_faction
 					}
 				}
@@ -2153,723 +2623,6 @@ country_event = { # Setup for Governor / Scientist / General Civil War
 				}
 				country_event = { id = civwar.5003 }
 			}
-
-			remove_country_flag = empire_sprawl_0
-			remove_country_flag = empire_sprawl_0_10
-			remove_country_flag = empire_sprawl_10_20
-			remove_country_flag = empire_sprawl_20_30
-			remove_country_flag = empire_sprawl_30_40
-			remove_country_flag = empire_sprawl_40_50
-			remove_country_flag = empire_sprawl_50_60
-			remove_country_flag = empire_sprawl_60_70
-			remove_country_flag = empire_sprawl_70_80
-			remove_country_flag = empire_sprawl_80_90
-			remove_country_flag = empire_sprawl_90_100
-			remove_country_flag = empire_sprawl_100_plus
-		}
-	}
-}
-
-country_event = { # Setup for Admiral Revolt
-	id = civwar.4001
-	hide_window = yes
-	is_triggered_only = yes
-
-	immediate = {
-		# saving civwar and host as event targets
-		save_event_target_as = current_civwar_rebels
-
-		# setting flags
-		set_country_flag = civwar_fleet
-
-		set_relation_flag = {
-			who = event_target:current_civwar_originator
-			flag = civwar_to_host_flag
-		}
-
-		from = {
-			set_relation_flag = {
-				who = root
-				flag = host_to_civwar_flag
-			}
-		}
-
-		if = {
-			limit = {
-				exists = event_target:admiral_rebel_system
-			}
-			# Flip system and any owned planets
-			event_target:admiral_rebel_system = {
-				if = {
-					limit = {
-						check_civwar_capital = yes
-						exists = starbase
-						starbase = {
-							is_owned_by = event_target:current_civwar_originator
-						}
-					}
-					prev = { set_country_flag = admiral_skirmish }
-					starbase = { set_owner = root }
-					give_admiral_planets = yes
-					every_neighbor_system = {
-						limit = {
-							check_civwar_capital = yes
-							exists = starbase
-							starbase = {
-								is_owned_by = event_target:current_civwar_originator
-							}
-						}
-						starbase = { set_owner = root }
-						give_admiral_planets = yes
-					}
-				}
-			}
-			clear_global_event_target = admiral_rebel_system
-		}
-		else = {
-			set_country_flag = admiral_has_sector
-			# flip remaining flagged systems and remove flags
-			event_target:current_civwar_originator = {
-				every_owned_planet = {
-					limit = {
-						solar_system = {
-							has_star_flag = civil_war_flip
-						}
-					}
-					solar_system = {
-						every_fleet_in_system = {
-							limit = {
-								exists = owner
-								is_owned_by = event_target:current_civwar_originator
-								any_owned_ship = { is_ship_class = shipclass_military_station }
-							}
-							set_owner = root
-						}
-					}
-					set_owner = root
-					set_controller = root
-				}
-				every_owned_sector = {
-					limit = {
-						has_sector_flag = rebel_sector
-		            }
-		            remove_sector_flag = rebel_sector
-				}
-				every_system_within_border = {
-					limit = {
-						has_star_flag = civil_war_flip
-					}
-					remove_star_flag = civil_war_flip
-					starbase = { set_owner = root }
-				}
-			}
-		}
-
-		if = {
-			limit = {
-				has_federation = yes
-			}
-			leave_alliance = { override_requirements = yes }
-		}
-
-		# setting graphical culture
-		set_graphical_culture = event_target:current_civwar_originator
-
-		# establish comms
-		every_country = {
-			limit = {
-				OR = {
-					has_communications = event_target:current_civwar_originator
-					intel_level = {
-						level > low
-						system = event_target:current_civwar_originator.capital_scope.solar_system
-					}
-					any_system = {
-						has_star_flag = civil_war_flip
-						prev = {
-							intel_level = {
-								level > low
-								system = prev
-							}
-						}
-					}
-				}
-			}
-			establish_communications_no_message = root
-			establish_contact = { who = root location = from }
-		}
-
-		# clear new contact opinion modifier
-		if = {
-			limit = {
-				has_opinion_modifier = {
-					who = event_target:current_civwar_originator
-					modifier = opinion_new_contact
-				}
-			}
-			remove_opinion_modifier = {
-				who = event_target:current_civwar_originator
-				modifier = opinion_new_contact
-			}
-		}
-
-		# flip remaining flagged fleets
-		event_target:current_civwar_originator = {
-			while = {
-				count = 100
-				limit = {
-					any_owned_fleet = {
-						has_fleet_flag = civil_war_fleet
-						is_owned_by = event_target:current_civwar_originator
-					}
-				}
-				random_owned_fleet = {
-					limit = {
-						has_fleet_flag = civil_war_fleet
-						is_owned_by = event_target:current_civwar_originator
-					}
-					fleet = { set_owner = event_target:current_civwar_rebels }
-				}
-			}
-		}
-
-		# get host's technologies
-		copy_techs_from = {
-			target = event_target:current_civwar_originator
-			except = {
-				# Horizon Signal
-				tech_akx_worm_1
-				tech_akx_worm_2
-				tech_akx_worm_3
-			}
-		}
-
-		# survey host's surveyed planets
-		every_galaxy_planet = {
-			limit = {
-				is_surveyed = {
-					who = event_target:current_civwar_originator
-					status = yes
-				}
-			}
-			set_surveyed = {
-				surveyed = yes
-				surveyor = root
-			}
-		}
-
-		# Create Armies and give resources
-		if = {
-			limit = {
-				event_target:current_civwar_originator = {
-					has_country_flag = empire_sprawl_0 
-				}
-			}
-			create_fleet = {
-				effect = {
-					set_owner = root
-					while = {
-						count = 3
-						create_army_transport = {
-							species = event_target:civwar_species
-							army_type = "assault_army"
-						}
-					}
-					set_location = {
-						target = event_target:admiral_rebel_rally_point
-						distance = 5
-						angle = random
-					}
-				}
-			}
-			add_resource = {
-				energy = 3000
-				minerals = 3000
-				influence = 1000
-				alloys = 3000
-			}
-		}
-		else_if = {
-			limit = {
-				event_target:current_civwar_originator = {
-					has_country_flag = empire_sprawl_0_10
-				}
-			}
-			create_fleet = {
-				effect = {
-					set_owner = root
-					while = {
-						count = 5
-						create_army_transport = {
-							species = event_target:civwar_species
-							army_type = "assault_army"
-						}
-					}
-					set_location = {
-						target = event_target:admiral_rebel_rally_point
-						distance = 5
-						angle = random
-					}
-				}
-			}
-			add_resource = {
-				energy = 6000
-				minerals = 6000
-				influence = 1000
-				alloys = 6000
-			}
-		}
-		else_if = {
-			limit = {
-				event_target:current_civwar_originator = {
-					has_country_flag = empire_sprawl_10_20
-				}
-			}
-			create_fleet = {
-				effect = {
-					set_owner = root
-					while = {
-						count = 8
-						create_army_transport = {
-							species = event_target:civwar_species
-							army_type = "assault_army"
-						}
-					}
-					set_location = {
-						target = event_target:admiral_rebel_rally_point
-						distance = 5
-						angle = random
-					}
-				}
-			}
-			add_resource = {
-				energy = 8000
-				minerals = 8000
-				influence = 1000
-				alloys = 8000
-			}
-		}
-		else_if = {
-			limit = {
-				event_target:current_civwar_originator = {
-					has_country_flag = empire_sprawl_20_30
-				}
-			}
-			create_fleet = {
-				effect = {
-					set_owner = root
-					while = {
-						count = 11
-						create_army_transport = {
-							species = event_target:civwar_species
-							army_type = "assault_army"
-						}
-					}
-					set_location = {
-						target = event_target:admiral_rebel_rally_point
-						distance = 5
-						angle = random
-					}
-				}
-			}
-			add_resource = {
-				energy = 10000
-				minerals = 10000
-				influence = 1000
-				alloys = 10000
-			}
-		}
-		else_if = {
-			limit = {
-				event_target:current_civwar_originator = {
-					has_country_flag = empire_sprawl_30_40
-				}
-			}
-			create_fleet = {
-				effect = {
-					set_owner = root
-					while = {
-						count = 14
-						create_army_transport = {
-							species = event_target:civwar_species
-							army_type = "assault_army"
-						}
-					}
-					set_location = {
-						target = event_target:admiral_rebel_rally_point
-						distance = 5
-						angle = random
-					}
-				}
-			}
-			add_resource = {
-				energy = 12000
-				minerals = 12000
-				influence = 1000
-				alloys = 12000
-			}
-		}
-		else_if = {
-			limit = {
-				event_target:current_civwar_originator = {
-					has_country_flag = empire_sprawl_40_50
-				}
-			}
-			create_fleet = {
-				effect = {
-					set_owner = root
-					while = {
-						count = 17
-						create_army_transport = {
-							species = event_target:civwar_species
-							army_type = "assault_army"
-						}
-					}
-					set_location = {
-						target = event_target:admiral_rebel_rally_point
-						distance = 5
-						angle = random
-					}
-				}
-			}
-			add_resource = {
-				energy = 14000
-				minerals = 14000
-				influence = 1000
-				alloys = 14000
-			}
-		}
-		else_if = {
-			limit = {
-				event_target:current_civwar_originator = {
-					has_country_flag = empire_sprawl_50_60
-				}
-			}
-			create_fleet = {
-				effect = {
-					set_owner = root
-					while = {
-						count = 19
-						create_army_transport = {
-							species = event_target:civwar_species
-							army_type = "assault_army"
-						}
-					}
-					set_location = {
-						target = event_target:admiral_rebel_rally_point
-						distance = 5
-						angle = random
-					}
-				}
-			}
-			add_resource = {
-				energy = 16000
-				minerals = 16000
-				influence = 1000
-				alloys = 15000
-			}
-		}
-		else_if = {
-			limit = {
-				event_target:current_civwar_originator = {
-					has_country_flag = empire_sprawl_60_70
-				}
-			}
-			create_fleet = {
-				effect = {
-					set_owner = root
-					while = {
-						count = 21
-						create_army_transport = {
-							species = event_target:civwar_species
-							army_type = "assault_army"
-						}
-					}
-					set_location = {
-						target = event_target:admiral_rebel_rally_point
-						distance = 5
-						angle = random
-					}
-				}
-			}
-			add_resource = {
-				energy = 18000
-				minerals = 18000
-				influence = 1000
-				alloys = 15000
-			}
-		}
-		else_if = {
-			limit = {
-				event_target:current_civwar_originator = {
-					has_country_flag = empire_sprawl_70_80
-				}
-			}
-			create_fleet = {
-				effect = {
-					set_owner = root
-					while = {
-						count = 24
-						create_army_transport = {
-							species = event_target:civwar_species
-							army_type = "assault_army"
-						}
-					}
-					set_location = {
-						target = event_target:admiral_rebel_rally_point
-						distance = 5
-						angle = random
-					}
-				}
-			}
-			add_resource = {
-				energy = 20000
-				minerals = 20000
-				influence = 1000
-				alloys = 15000
-			}
-		}
-		else_if = {
-			limit = {
-				event_target:current_civwar_originator = {
-					has_country_flag = empire_sprawl_80_90
-				}
-			}
-			create_fleet = {
-				effect = {
-					set_owner = root
-					while = {
-						count = 27
-						create_army_transport = {
-							species = event_target:civwar_species
-							army_type = "assault_army"
-						}
-					}
-					set_location = {
-						target = event_target:admiral_rebel_rally_point
-						distance = 5
-						angle = random
-					}
-				}
-			}
-			add_resource = {
-				energy = 22000
-				minerals = 22000
-				influence = 1000
-				alloys = 15000
-			}
-		}
-		else_if = {
-			limit = {
-				event_target:current_civwar_originator = {
-					has_country_flag = empire_sprawl_90_100
-				}
-			}
-			create_fleet = {
-				effect = {
-					set_owner = root
-					while = {
-						count = 30
-						create_army_transport = {
-							species = event_target:civwar_species
-							army_type = "assault_army"
-						}
-					}
-					set_location = {
-						target = event_target:admiral_rebel_rally_point
-						distance = 5
-						angle = random
-					}
-				}
-			}
-			add_resource = {
-				energy = 24000
-				minerals = 24000
-				influence = 1000
-				alloys = 15000
-			}
-		}
-		else_if = {
-			limit = {
-				event_target:current_civwar_originator = {
-					has_country_flag = empire_sprawl_100_plus
-				}
-			}
-			create_fleet = {
-				effect = {
-					set_owner = root
-					while = {
-						count = 33
-						create_army_transport = {
-							species = event_target:civwar_species
-							army_type = "assault_army"
-						}
-					}
-					set_location = {
-						target = event_target:admiral_rebel_rally_point
-						distance = 5
-						angle = random
-					}
-				}
-			}
-			add_resource = {
-				energy = 26000
-				minerals = 26000
-				influence = 1000
-				alloys = 15000
-			}
-		}
-		add_100_unity_per_year_passed = yes # scripted effect
-
-		#science
-		create_fleet = {
-			effect = {
-				set_owner = root
-
-				create_ship = {
-					name = random
-					random_existing_design = science
-				}
-
-				set_fleet_stance = evasive				
-				set_location = {
-					target = event_target:admiral_rebel_rally_point
-					distance = 5
-					angle = random
-				}
-				
-				owner = {
-					create_leader = {
-						class = scientist
-						sub_type = survey
-						name = random
-						species = event_target:civwar_species
-					}
-				}
-				set_leader = last_created_leader
-			}			
-		}
-			
-		#constructor
-		create_fleet = {
-			effect = {
-				set_owner = root
-				
-				create_ship = {
-					name = random
-					random_existing_design = constructor
-				}
-				
-				set_fleet_stance = evasive
-				set_location = {
-					target = event_target:admiral_rebel_rally_point
-					distance = 5
-					angle = random
-				}
-			}
-		}
-
-		# Colony Ship
-		create_fleet = {
-			effect = {
-				set_owner = root
-				
-				create_ship = {
-					name = random
-					random_existing_design = colonizer
-				}
-				
-				set_fleet_stance = evasive
-				set_location = {
-					target = event_target:admiral_rebel_rally_point
-					distance = 5
-					angle = random
-				}
-			}
-		}
-
-		# Make Admiral Leader
-		country_event = { id = civwar.6001 }
-
-		# If this was done via espionage operation, give them the resources
-		if = {
-			limit = {
-				ruler = {
-					has_leader_flag = small_op_resources
-				}
-			}
-			add_resource = {
-				energy = 2000
-				alloys = 1000
-				consumer_goods = 500
-			}
-		}
-		else_if = {
-			limit = {
-				ruler = {
-					has_leader_flag = medium_op_resources
-				}
-			}
-			add_resource = {
-				energy = 5000
-				alloys = 2500
-				consumer_goods = 1000
-			}
-		}
-		else_if = {
-			limit = {
-				ruler = {
-					has_leader_flag = large_op_resources
-				}
-			}
-			add_resource = {
-				energy = 10000
-				alloys = 5000
-				consumer_goods = 2500
-			}
-		}
-		if = {
-			limit = {
-				ruler = {
-					OR = {
-						has_leader_flag = small_op_resources
-						has_leader_flag = medium_op_resources
-						has_leader_flag = large_op_resources
-					}
-				}
-			}
-			ruler = {
-				remove_leader_flag = small_op_resources
-				remove_leader_flag = medium_op_resources
-				remove_leader_flag = large_op_resources
-			}
-		}
-	}
-
-	
-	after = {
-
-		# Fix Fleets
-		every_owned_fleet = {
-			set_event_locked = no
-		}
-
-		# To fix naming issues. This line is necessary.
-		set_name = random
-
-		add_intel = {
-			who = event_target:current_civwar_originator
-			amount = 70
-		}
-
-		event_target:current_civwar_originator = {
-			add_intel = {
-				who = event_target:current_civwar_rebels
-				amount = 70
-			}
-
-			# Declare War
-			country_event = { id = civwar.5001 }
 
 			remove_country_flag = empire_sprawl_0
 			remove_country_flag = empire_sprawl_0_10
@@ -3831,11 +3584,44 @@ country_event = { # Traitorous Governor/Scientist/General becomes rebellion coun
 					}
 					set_leader_flag = scientist_civil_war_leader
 				}
+				else_if = {
+					limit = {
+						event_target:civil_war_leader = {
+							has_leader_flag = civil_war_leader_admiral_faction
+						}
+					}
+					set_leader_flag = admiral_civil_war_leader
+					# Make copy of admiral and set them as leader of their fleet
+					if = {
+						limit = {
+							prev = {
+								NOT = { has_country_flag = admiral_has_sector }
+							}
+						}
+						set_leader_flag = admiral_copy_1
+						prev = {
+							clone_leader = {
+								target = event_target:civil_war_leader
+								class = admiral
+								effect = {
+									set_leader_flag = admiral_copy_2
+								}
+							}
+							random_owned_fleet = {
+								limit = {
+									has_fleet_flag = civil_war_fleet
+								}
+								set_leader = last_created_leader
+							}
+						}
+					}
+				}
+				add_trait = trait_ruler_deep_connections
 				save_global_event_target_as = civil_war_leader_ruler
 				set_leader_flag = started_civil_war
 			}
 		}
-		set_leader = last_created_leader
+		set_leader = event_target:civil_war_leader_ruler
 		if = {
 			limit = {
 				event_target:civil_war_leader = {
@@ -3921,25 +3707,56 @@ country_event = { # Create Fleets and give resources, faction civil wars
 
 	immediate = {
 
-		event_target:civil_war_party = {
-			export_trigger_value_to_variable = {
-				trigger = support
-				variable = faction_support_level
+		if = {
+			limit = {
+				exists = event_target:civil_war_party
+			}
+			event_target:civil_war_party = {
+				export_trigger_value_to_variable = {
+					trigger = support
+					variable = faction_support_level
+				}
+			}
+
+			set_variable = {
+				which = faction_support_level
+				value = event_target:civil_war_party.faction_support_level
+			}
+
+			event_target:current_civwar_originator = {
+				create_fleet_from_naval_cap = event_target:civil_war_party.faction_support_level
 			}
 		}
-
-		set_variable = {
-			which = faction_support_level
-			value = event_target:civil_war_party.faction_support_level
-		}
-
-		event_target:current_civwar_originator = {
-			create_fleet_from_naval_cap = event_target:civil_war_party.faction_support_level
+		else = {
+			event_target:current_civwar_originator = {
+				random_list = {
+					20 = {
+						create_fleet_from_naval_cap = 0.05
+						set_country_flag = 5_corrupt
+					}
+					20 = {
+						create_fleet_from_naval_cap = 0.10
+						set_country_flag = 10_corrupt
+					}
+					20 = {
+						create_fleet_from_naval_cap = 0.15
+						set_country_flag = 15_corrupt
+					}
+					20 = {
+						create_fleet_from_naval_cap = 0.20
+						set_country_flag = 20_corrupt
+					}
+					20 = {
+						create_fleet_from_naval_cap = 0.25
+						set_country_flag = 25_corrupt
+					}
+				}
+			}
 		}
 
 		random_owned_planet = {
 			last_created_fleet = {
-				set_owner = prev.owner
+				set_owner = root
 				set_location = prev
 			}
 		}
@@ -3967,43 +3784,111 @@ country_event = { # Destroy Fleets, faction civil wars
 
 		save_event_target_as = ship_owner
 
-		multiply_variable = {
-			which = faction_support_level
-			value = 100
-		}
+		if = {
+			limit = {
+				exists = event_target:civil_war_party
+			}
+			multiply_variable = {
+				which = faction_support_level
+				value = 100
+			}
 
-		round_variable = faction_support_level
+			round_variable = faction_support_level
 
-		event_target:current_civwar_originator = {
-			every_owned_fleet = {
-				set_variable = { which = ship_count value = 0 }
-				every_owned_ship = {
-					limit = { is_ship_class = shipclass_military }
-					PREV = { change_variable = { which = ship_count value = event_target:ship_owner.faction_support_level } }
-				}
-				divide_variable = { which = ship_count value = 100 }
-				while = {
-					count = ship_count
-					random_owned_ship = {
-						limit = {
-				    		is_ship_class = shipclass_military
-				    		NOR = {
-				    			is_ship_size = giga_massive_planet
-				    			is_ship_size = giga_planet_behemoth
-				    			is_ship_size = giga_systemcraft
-				    			is_ship_size = space_dragon_origin
-				    			is_ship_size = space_dragon_origin_baby
-				    			is_ship_size = space_amoeba_centenarian
-				    			is_ship_size = space_whale_1
-				    			is_ship_size = space_whale_2
-				    			is_ship_size = space_whale_3
-				    			is_ship_size = space_whale_4
-				    		}
-				    	}
-					    delete_ship = THIS
+			event_target:current_civwar_originator = {
+				every_owned_fleet = {
+					set_variable = { which = ship_count value = 0 }
+					every_owned_ship = {
+						limit = { is_ship_class = shipclass_military }
+						PREV = { change_variable = { which = ship_count value = event_target:ship_owner.faction_support_level } }
 					}
+					divide_variable = { which = ship_count value = 100 }
+					while = {
+						count = ship_count
+						random_owned_ship = {
+							limit = {
+					    		is_ship_class = shipclass_military
+					    		NOR = {
+					    			is_ship_size = giga_massive_planet
+					    			is_ship_size = giga_planet_behemoth
+					    			is_ship_size = giga_systemcraft
+					    			is_ship_size = space_dragon_origin
+					    			is_ship_size = space_dragon_origin_baby
+					    			is_ship_size = space_amoeba_centenarian
+					    			is_ship_size = space_whale_1
+					    			is_ship_size = space_whale_2
+					    			is_ship_size = space_whale_3
+					    			is_ship_size = space_whale_4
+					    		}
+					    	}
+						    delete_ship = THIS
+						}
+					}
+					set_variable = { which = ship_count value = 0 }
 				}
-				set_variable = { which = ship_count value = 0 }
+			}
+		}
+		else = {
+			event_target:current_civwar_originator = {
+				every_owned_fleet = {
+					set_variable = { which = ship_count value = 0 }
+					every_owned_ship = {
+						limit = { is_ship_class = shipclass_military }
+						if = {
+							limit = {
+								prevprev = { has_country_flag = 5_corrupt }
+							}
+							PREV = { change_variable = { which = ship_count value = 5 } }
+						}
+						else_if = {
+							limit = {
+								prevprev = { has_country_flag = 10_corrupt }
+							}
+							PREV = { change_variable = { which = ship_count value = 10 } }
+						}
+						else_if = {
+							limit = {
+								prevprev = { has_country_flag = 15_corrupt }
+							}
+							PREV = { change_variable = { which = ship_count value = 15 } }
+						}
+						else_if = {
+							limit = {
+								prevprev = { has_country_flag = 20_corrupt }
+							}
+							PREV = { change_variable = { which = ship_count value = 20 } }
+						}
+						else_if = {
+							limit = {
+								prevprev = { has_country_flag = 25_corrupt }
+							}
+							PREV = { change_variable = { which = ship_count value = 25 } }
+						}
+					}
+					divide_variable = { which = ship_count value = 100 }
+					while = {
+						count = ship_count
+						random_owned_ship = {
+							limit = {
+					    		is_ship_class = shipclass_military
+					    		NOR = {
+					    			is_ship_size = giga_massive_planet
+					    			is_ship_size = giga_planet_behemoth
+					    			is_ship_size = giga_systemcraft
+					    			is_ship_size = space_dragon_origin
+					    			is_ship_size = space_dragon_origin_baby
+					    			is_ship_size = space_amoeba_centenarian
+					    			is_ship_size = space_whale_1
+					    			is_ship_size = space_whale_2
+					    			is_ship_size = space_whale_3
+					    			is_ship_size = space_whale_4
+					    		}
+					    	}
+						    delete_ship = THIS
+						}
+					}
+					set_variable = { which = ship_count value = 0 }
+				}
 			}
 		}
 	}
