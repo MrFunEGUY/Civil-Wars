@@ -1970,7 +1970,6 @@ country_event = {
 
 		fromfrom = {
 			set_owner = event_target:current_civwar_rebels
-			# remove_planet_flag = planetary_rebellion
 			remove_planet_flag = revolt_tick_5
 			save_event_target_as = rebellion_planet
 			remove_modifier = planetary_rebels
@@ -5989,10 +5988,11 @@ country_event = {
 		}
 		event_target:heir_civil_war_dummy_country = {
 			ruler = {
-				save_global_event_target_as = defeated_traitor_heir
+				set_leader_flag = defeated_traitor_heir
+				save_global_event_target_as = defeated_traitor
 			}
 		}
-		country_event = { id = civcom.7101 }
+		country_event = { id = civcom.7000 }
 	}
 
 	option = {

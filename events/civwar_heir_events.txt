@@ -16,7 +16,7 @@ country_event = {
 
 	trigger = {
 		num_owned_planets > 1
-		exists = heir
+		is_imperial = yes
 	}
 
 	immediate = {
@@ -29,7 +29,7 @@ country_event = {
 		}
 		else = {
 			heir = {
-				save_event_target_as = disinherited_heir
+				save_event_target_as = disinherited_heir_first
 			}
 			clone_leader = {
 				target = event_target:disinherited_heir
@@ -37,6 +37,10 @@ country_event = {
 				effect = {
 					save_event_target_as = disinherited_heir
 				}
+			}
+			event_target:disinherited_heir_first = {
+				set_leader_flag = dead_ruler
+				kill_leader = { show_notification = no }
 			}
 			country_event = { id = civheir.1002 days = 2 random = 21 }
 		}
@@ -199,6 +203,7 @@ country_event = {
 				copy_ethos_and_authority = root
 				save_event_target_as = heir_civil_war_dummy_country
 				set_leader = event_target:disinherited_heir
+				clear_global_event_target = disinherited_heir
 				ruler = {
 					save_event_target_as = disinherited_heir_ruler
 					set_leader_flag = disinherited_heir_conspirer
@@ -286,6 +291,7 @@ country_event = {
 			effect = {
 				copy_ethos_and_authority = root
 				set_leader = event_target:disinherited_heir
+				clear_global_event_target = disinherited_heir
 				ruler = {
 					save_event_target_as = disinherited_heir_ruler
 					set_leader_flag = disinherited_heir_conspirer
@@ -1506,13 +1512,13 @@ country_event = { # Traitorous Heir becomes rebellion country leader
 		clone_leader = {
 			target = event_target:civil_war_leader
 			class = ruler
+			effect = {
+				add_trait = trait_ruler_deep_connections
+				save_global_event_target_as = civil_war_leader_ruler
+				set_leader_flag = started_civil_war
+			}
 		}
-		set_leader = last_created_leader
-		last_created_leader = {
-			add_trait = trait_ruler_deep_connections
-			save_global_event_target_as = civil_war_leader_ruler
-			set_leader_flag = started_civil_war
-		}
+		set_leader = event_target:civil_war_leader_ruler
 		event_target:heir_civil_war_dummy_country = {
 			destroy_country = yes
 		}

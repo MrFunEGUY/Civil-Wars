@@ -705,13 +705,13 @@ get_random_sector_for_civwar = {
 			has_sector_type = normal_sector
 			NOT = { has_sector_flag = rebel_sector }
         }
-        set_sector_flag = rebel_sector
 	    every_system_within_border = {
             limit = {
             	check_civwar_capital = yes
             }
             set_star_flag = civil_war_flip
         }
+        set_sector_flag = rebel_sector
 	}
 }
 

@@ -42,10 +42,6 @@ country_event = {
 					type = wg_coup_fealty
 					owner = root
 				}
-				# using_war_goal = {
-				# 	type = wg_planet_rebellion
-				# 	owner = root
-				# }
 				using_war_goal = {
 					type = wg_admiral_rebellion
 					owner = root
@@ -829,24 +825,6 @@ country_event = {
 	}
 }
 
-# Banished Leader is attempting to escape to another empire, country notification.
-country_event = {
-	id = civend.5101
-	title = civend.5001.name
-	desc = civend.5001.desc
-	picture = GFX_evt_ship_travel
-	location = root.capital_scope
-	hide_window = no
-	is_triggered_only = yes
-
-	option = {
-		name = civend.5001.a
-		hidden_effect = {
-			country_event = { id = civcom.8200 }
-		}
-	}
-}
-
 ###########################
 ### Civil War Epilogues ###
 ###########################
@@ -1241,12 +1219,7 @@ country_event = {
 				limit = { exists = event_target:defeated_traitor }
 				event_target:defeated_traitor = { kill_leader = { show_notification = no } }
 			}
-			if = {
-				limit = { exists = event_target:defeated_traitor_heir }
-				event_target:defeated_traitor_heir = { kill_leader = { show_notification = no } }
-			}
 			clear_global_event_target = defeated_traitor
-			clear_global_event_target = defeated_traitor_heir
 			if = {
 				limit = {
 					has_country_flag = traitor_flayed

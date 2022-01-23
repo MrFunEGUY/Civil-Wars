@@ -223,8 +223,14 @@ wg_planet_rebellion = {
 			value = @tier5materialreward
 			min = @tier5materialmin
 		}
-		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
-		get_rid_rebels_of_root = yes
+		hidden_effect = {
+			from = {
+				capital_scope = {
+					set_timed_planet_flag = { flag = rebellion_suppressed days = 1800 }
+				}
+			}
+		}
+		
 	}
 
 	ai_weight = {
@@ -254,11 +260,6 @@ wg_planet_rebellion_rebels = {
 
 	on_accept = {
 		custom_tooltip = civil_war_lost_tooltip
-		add_monthly_resource_mult = {
-			resource = unity
-			value = @tier5materialreward
-			min = @tier5materialmin
-		}
 	}
 
 	ai_weight = {
