@@ -3279,10 +3279,16 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 	}
 
 	after = {
-		last_created_country = {
-			random_list = {
-				50 = { }
-				50 = { force_add_civic = civic_fanatic_purifiers }
+		if = {
+			limit = {
+				event_target:civil_war_party = { is_pop_faction_type = supremacist }
+				last_created_country = { num_species = 1 }
+			}
+			last_created_country = {
+				random_list = {
+					50 = { }
+					50 = { force_add_civic = civic_fanatic_purifiers }
+				}
 			}
 		}
 	}
