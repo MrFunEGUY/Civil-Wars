@@ -4317,25 +4317,14 @@ country_event = { # Kill Both Admirals if either dies
 	}
 
 	immediate = {
-
-		if = {
+		every_owned_leader = {
 			limit = {
-				any_owned_leader = {
-					OR = {
-						has_leader_flag = admiral_copy_1
-						has_leader_flag = admiral_copy_2
-					}
+				OR = {
+					has_leader_flag = admiral_copy_1
+					has_leader_flag = admiral_copy_2
 				}
 			}
-			every_owned_leader = {
-				limit = {
-					OR = {
-						has_leader_flag = admiral_copy_1
-						has_leader_flag = admiral_copy_2
-					}
-				}
-				kill_leader = { show_notification = no }
-			}
+			kill_leader = { show_notification = no }
 		}
 	}
 }

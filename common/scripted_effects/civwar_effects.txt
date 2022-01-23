@@ -803,23 +803,6 @@ get_rid_rebels_of_originator = {
 	}
 }
 
-# Get rid of "Rebels of x" on Galactic Map
-get_rid_rebels_of_root = {
-	hidden_effect = {
-		event_target:current_civwar_rebels = {
-			set_subject_of = {
-				who = root
-				subject_type = dummy_vassal
-			}
-		}
-		event_target:current_civwar_rebels = {
-			set_subject_of = {
-				who = none
-			}
-		}
-	}
-}
-
 #####################
 
 # Get civil war faction

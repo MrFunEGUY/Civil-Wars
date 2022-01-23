@@ -210,12 +210,7 @@ wg_planet_rebellion = {
 			}
 		}
 	}
-
-	on_status_quo = {
-		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
-		get_rid_rebels_of_root = yes
-	}
-
+	
 	on_accept = {
 		custom_tooltip = civil_war_won_tooltip
 		add_monthly_resource_mult = {
@@ -1459,11 +1454,6 @@ wg_planet_heir_rebellion = {
 			}
 			add_claims = { who = from }
 		}
-	}
-
-	on_status_quo = {
-		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
-		get_rid_rebels_of_root = yes
 	}
 
 	on_accept = {
