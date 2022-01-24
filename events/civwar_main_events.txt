@@ -1212,7 +1212,7 @@ country_event = { # Initializer for Planetary Rebellion
 }
 
 #################
-# Get Civil War Creator
+# Setup Civil War
 
 country_event = { # Civil War
 	id = civwar.3000
@@ -1249,9 +1249,10 @@ country_event = { # Civil War
 			set_event_locked = yes
 		}
 
-		# Get Leader
+		# Get Civil War Leader
 		random_owned_leader = {
 			limit = {
+				NOT = { has_leader_flag = appointed_heir }
 				OR = {
 					has_trait = leader_trait_corrupt
 					has_leader_flag = civil_war_leader_governor_faction
@@ -1702,7 +1703,10 @@ country_event = { # Civil War
 			}
 			if = {
 				limit = {
-					num_sectors > 1
+					OR = {
+						num_sectors > 1
+						exists = event_target:admiral_rebel_system
+					}
 				}
 				get_civil_war_faction = yes
 			}
@@ -1777,7 +1781,7 @@ country_event = { # Planetary Rebellion
 }
 
 #################
-# Setup
+# Setup Rebel Country
 
 country_event = { # Setup for Civil War
 	id = civwar.4000
@@ -1894,6 +1898,14 @@ country_event = { # Setup for Civil War
 					}
 				}
 			}
+			event_target:current_civwar_originator = {
+				every_owned_fleet = {
+					limit = {
+						has_fleet_flag = civil_war_fleet
+					}
+					set_owner = event_target:current_civwar_rebels
+				}
+			}
 			set_country_flag = admiral_skirmish
 			clear_global_event_target = admiral_rebel_system
 		}
@@ -1903,13 +1915,6 @@ country_event = { # Setup for Civil War
 					event_target:civil_war_leader = {
 						has_leader_flag = civil_war_leader_admiral_faction
 					}
-				}
-				every_owned_fleet = {
-					limit = {
-						has_fleet_flag = civil_war_fleet
-						is_owned_by = event_target:current_civwar_originator
-					}
-					set_owner = event_target:current_civwar_rebels
 				}
 				set_country_flag = admiral_has_sector
 			}
@@ -3685,6 +3690,7 @@ country_event = { # Traitorous Admiral becomes rebellion country leader and admi
 			limit = {
 				has_fleet_flag = civil_war_fleet
 			}
+			remove_fleet_flag = civil_war_fleet
 			set_leader = last_created_leader
 		}
 	}

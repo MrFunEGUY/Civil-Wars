@@ -27,23 +27,6 @@ country_event = {
 			}
 			country_event = { id = civheir.1001 days = 2 random = 21 }
 		}
-		else = {
-			heir = {
-				save_event_target_as = disinherited_heir_first
-			}
-			clone_leader = {
-				target = event_target:disinherited_heir
-				class = ruler
-				effect = {
-					save_event_target_as = disinherited_heir
-				}
-			}
-			event_target:disinherited_heir_first = {
-				set_leader_flag = dead_ruler
-				kill_leader = { show_notification = no }
-			}
-			country_event = { id = civheir.1002 days = 2 random = 21 }
-		}
 	}
 }
 
@@ -2342,3 +2325,63 @@ country_event = {
 		}
 	}
 }
+
+# Government Changing, save heir
+country_event = {
+	id = civheir.8200
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_imperial = yes
+		exists = heir
+	}
+
+	immediate = {
+
+		heir = { save_event_target_as = disinherited_heir_first }
+		clone_leader = {
+			target = event_target:disinherited_heir_first
+			class = ruler
+			effect = {
+				save_event_target_as = disinherited_heir
+			}
+		}
+	}
+}
+
+# Government Changing, save heir
+country_event = {
+	id = civheir.8300
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = event_target:disinherited_heir
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				NOT = { is_imperial = yes }
+			}
+			if = {
+				limit = {
+					exists = event_target:disinherited_heir_first
+				}
+				event_target:disinherited_heir_first = {
+					set_leader_flag = dead_ruler
+					kill_leader = { show_notification = no }
+				}
+			}
+			country_event = { id = civheir.1002 days = 2 random = 21 }
+		}
+		else = {
+			event_target:disinherited_heir = {
+				set_leader_flag = dead_ruler
+				kill_leader = { show_notification = no }
+			}
+		}
+	}
+}
+

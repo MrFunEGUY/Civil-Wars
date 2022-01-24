@@ -160,7 +160,15 @@ on_leader_death = {
 # THIS = country
 on_pre_government_changed = {
 	events = {
-		civheir.1000			# Heir may defect
+		civheir.8200			# Heir may defect
+	}
+}
+
+# Executed just as country is changing its government, after the new one is applied
+# THIS = country
+on_post_government_changed = {
+	events = {
+		civheir.8300			# Heir may defect
 	}
 }
 

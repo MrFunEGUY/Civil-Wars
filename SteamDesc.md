@@ -37,7 +37,7 @@ You need to pay attention to factions, their leaders, and their approval now!
 
 [h1]Notes:[/h1]
 
-Your  empire capital and core sector will never rebel under any circumstances.
+Your  empire capital and full core sector will never rebel under any circumstances. Planets (not the capital) in the core sector can be taken by Scientists and Generals in some Civil Wars, though.
 
 --
 
@@ -53,15 +53,17 @@ Your  empire capital and core sector will never rebel under any circumstances.
 
 [h1]The Future:[/h1]
 
-- Possibly: A system (likely based on a trait) that may make conquerd pops nationalist, such that enough of them on one planet or sector (or multiple of either) will try to revive their old country (or if their old country exists, create a new one)
+- Possibly: A system (likely based on a trait) that may make conquered pops nationalist, such that enough of them on one planet or sector (or multiple of either) will try to revive their old country (or if their old country exists, create a new one)
 
 - Possibly: Treasonous leaders who lose the civil war or are banished may try to start a new country, or take over and lead a primitive civilization to space.
 
+- Events that lead up to Civil Wars. Leader ultimatums to stop an imminent Civil War (ie, stuff like "Make me your heir and I won't rebel.")
+
+- Rework current espionage to make Civil Wars more likely.
+
 - Espionage mission to retrieve treasonous leaders who fled to other nations
 
-- In the future, I want to add more as may varied ways for planets and sectors to rebel as I can.
-
-- Events that lead to rebellion and ways to avoid rebellions.
+- I want to add more as may varied ways for planets and sectors to rebel as I can.
 
 - I'm open to suggestions and feedback.
 

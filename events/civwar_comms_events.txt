@@ -184,8 +184,10 @@ country_event = {
 	option = {
 		name = civcom.4001.a
 		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
-		get_rid_rebels_of_originator = yes
-		hidden_effect = { country_event = { id = civwar.5200 } }
+		hidden_effect = {
+			get_rid_rebels_of_originator = yes
+			country_event = { id = civwar.5200 }
+		}
 		ai_chance = { factor = 1 }
 	}
 }
@@ -213,7 +215,18 @@ country_event = {
 		name = civcom.4002.a
 		ai_chance = { factor = 1 }
 		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
-		get_rid_rebels_of_originator = yes
+		
+		hidden_effect = {
+			get_rid_rebels_of_originator = yes
+			event_target:current_civwar_rebels = {
+				every_system_within_border = {
+					limit = {
+						NOT = { root = { has_claim = prev } }
+					}
+					add_claims = { who = root }
+				}
+			}
+		}
 	}
 }
 
@@ -396,7 +409,9 @@ country_event = {
 		name = civcom.4102.a
 		ai_chance = { factor = 1 }
 		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
-		get_rid_rebels_of_originator = yes
+		hidden_effect = {
+			get_rid_rebels_of_originator = yes
+		}
 	}
 }
 
@@ -423,7 +438,9 @@ country_event = {
 		name = civcom.4103.a
 		ai_chance = { factor = 1 }
 		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
-		get_rid_rebels_of_originator = yes
+		hidden_effect = {
+			get_rid_rebels_of_originator = yes
+		}
 		event_target:current_civwar_rebels = {
 			set_subject_of = {
 				who = root
@@ -2140,6 +2157,16 @@ country_event = {
 	option = {
 		name = civcom.4002.a
 		ai_chance = { factor = 1 }
+		hidden_effect = {
+			event_target:current_civwar_rebels = {
+				every_system_within_border = {
+					limit = {
+						NOT = { root = { has_claim = prev } }
+					}
+					add_claims = { who = root }
+				}
+			}
+		}
 	}
 
 	after = {
@@ -2169,6 +2196,16 @@ country_event = {
 	option = {
 		name = civcom.5052.a
 		ai_chance = { factor = 1 }
+		hidden_effect = {
+			event_target:current_civwar_rebels = {
+				every_system_within_border = {
+					limit = {
+						NOT = { root = { has_claim = prev } }
+					}
+					add_claims = { who = root }
+				}
+			}
+		}
 	}
 
 	after = {
@@ -3939,8 +3976,10 @@ country_event = {
 	option = {
 		name = civcom.4001.a
 		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
-		get_rid_rebels_of_originator = yes
-		hidden_effect = { country_event = { id = civheir.5101 } }
+		hidden_effect = {
+			get_rid_rebels_of_originator = yes
+			country_event = { id = civheir.5101 }
+		}
 		ai_chance = { factor = 1 }
 	}
 }
@@ -3968,7 +4007,9 @@ country_event = {
 		name = civcom.5052.a
 		ai_chance = { factor = 1 }
 		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
-		get_rid_rebels_of_originator = yes
+		hidden_effect = {
+			get_rid_rebels_of_originator = yes
+		}
 	}
 }
 
