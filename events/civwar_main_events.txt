@@ -1051,8 +1051,8 @@ country_event = { # Initializer for Civil Wars - factions and corrupt
 			has_ethic = ethic_gestalt_consciousness
 		}
 		any_owned_leader = {
+			NOT = { has_leader_flag = appointed_heir }
 			OR = {
-				NOT = { has_leader_flag = appointed_heir }
 				has_trait = leader_trait_corrupt
 				has_leader_flag = civil_war_leader_governor_faction
 				has_leader_flag = civil_war_leader_admiral_faction
@@ -1162,22 +1162,14 @@ country_event = { # Initializer for Civil Wars - Galaxy Size
 		if = {
 			limit = {
 				any_owned_leader = {
+					NOT = { has_leader_flag = appointed_heir }
 					OR = {
-						NOT = { has_leader_flag = appointed_heir }
 						has_trait = leader_trait_corrupt
 						has_leader_flag = civil_war_leader_governor_faction
 						has_leader_flag = civil_war_leader_admiral_faction
 						has_leader_flag = civil_war_leader_general_faction
 						has_leader_flag = civil_war_leader_scientist_faction
 					}
-	        	}
-			}
-			country_event = { id = civwar.3000 }
-		}
-		else_if = {
-			limit = {
-				any_owned_leader = {
-					has_leader_flag = civil_war_leader_admiral_faction
 	        	}
 			}
 			country_event = { id = civwar.3000 }
@@ -1231,6 +1223,7 @@ country_event = { # Civil War
 		is_country_type_with_subjects = yes
 		num_owned_planets > 1
 		any_owned_leader = {
+			NOT = { has_leader_flag = appointed_heir }
 			OR = {
 				has_trait = leader_trait_corrupt
 				has_leader_flag = civil_war_leader_governor_faction
