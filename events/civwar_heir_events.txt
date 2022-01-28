@@ -584,7 +584,7 @@ country_event = { # Heir Rebellion / 1 Planet
 	
 	immediate = {
 
-		save_event_target_as = current_civwar_originator
+		save_event_target_as = civwar_originator
 
 		event_target:heir_civil_war_dummy_country = {
 			ruler = {
@@ -595,9 +595,6 @@ country_event = { # Heir Rebellion / 1 Planet
 				exile_leader_as = disinherited_heir_warrior
 			}
 		}
-
-		# setting flags
-		set_country_flag = civwar_mother_country
 
 		# Set Empire Sprawl Variable
 		get_empire_sprawl = yes
@@ -635,11 +632,11 @@ country_event = { # Setup for Heir Planetary Rebellion
 		}
 
 		set_relation_flag = {
-			who = event_target:current_civwar_originator
+			who = event_target:civwar_originator
 			flag = civwar_to_host_flag
 		}
 
-		event_target:current_civwar_originator = {
+		event_target:civwar_originator = {
 			set_relation_flag = {
 				who = root
 				flag = host_to_civwar_flag
@@ -647,16 +644,16 @@ country_event = { # Setup for Heir Planetary Rebellion
 		}
 
 		# setting graphical culture
-		set_graphical_culture = event_target:current_civwar_originator
+		set_graphical_culture = event_target:civwar_originator
 
 		# establish comms
 		every_country = {
 			limit = {
 				OR = {
-					has_communications = event_target:current_civwar_originator
+					has_communications = event_target:civwar_originator
 					intel_level = {
 						level > low
-						system = event_target:current_civwar_rebels.capital_scope.solar_system
+						system = event_target:civwar_rebels.capital_scope.solar_system
 					}
 					any_system = {
 						has_star_flag = civil_war_flip
@@ -677,19 +674,19 @@ country_event = { # Setup for Heir Planetary Rebellion
 		if = {
 			limit = {
 				has_opinion_modifier = {
-					who = event_target:current_civwar_originator
+					who = event_target:civwar_originator
 					modifier = opinion_new_contact
 				}
 			}
 			remove_opinion_modifier = {
-				who = event_target:current_civwar_originator
+				who = event_target:civwar_originator
 				modifier = opinion_new_contact
 			}
 		}
 
 		# get host's technologies
 		copy_techs_from = {
-			target = event_target:current_civwar_originator
+			target = event_target:civwar_originator
 			except = {
 				# Horizon Signal
 				tech_akx_worm_1
@@ -702,7 +699,7 @@ country_event = { # Setup for Heir Planetary Rebellion
 		every_galaxy_planet = {
 			limit = {
 				is_surveyed = {
-					who = event_target:current_civwar_originator
+					who = event_target:civwar_originator
 					status = yes
 				}
 			}
@@ -770,7 +767,7 @@ country_event = { # Setup for Heir Planetary Rebellion
 		set_name = random
 
 		add_intel = {
-			who = event_target:current_civwar_originator
+			who = event_target:civwar_originator
 			amount = 70
 		}
 
@@ -778,9 +775,9 @@ country_event = { # Setup for Heir Planetary Rebellion
 		
 		add_100_unity_per_year_passed = yes # scripted effect
 
-		event_target:current_civwar_originator = {
+		event_target:civwar_originator = {
 			add_intel = {
-				who = event_target:current_civwar_rebels
+				who = event_target:civwar_rebels
 				amount = 70
 			}
 			remove_country_flag = empire_sprawl_0
@@ -813,7 +810,7 @@ country_event = { # Heir Rebellion / 1 Sector
 	
 	immediate = {
 
-		save_event_target_as = current_civwar_originator
+		save_event_target_as = civwar_originator
 		set_country_flag = heir_one_sector
 
 		event_target:heir_civil_war_dummy_country = {
@@ -823,9 +820,6 @@ country_event = { # Heir Rebellion / 1 Sector
 				}
 			}
 		}
-
-		# setting flags
-		set_country_flag = civwar_mother_country
 
 		# Set Empire Sprawl Variable
 		get_empire_sprawl = yes
@@ -859,13 +853,15 @@ country_event = { # Setup for Heir Civil War
 
 	immediate = {
 		# saving civwar and host as event targets
-		save_event_target_as = current_civwar_rebels
+		save_event_target_as = civwar_rebels
 
-		# setting flags
-		set_country_flag = civwar_country
-
+		# setting mother flag
+		event_target:civwar_originator = {
+			set_country_flag = civwar_mother_country_@root
+		}
+		
 		set_relation_flag = {
-			who = event_target:current_civwar_originator
+			who = event_target:civwar_originator
 			flag = civwar_to_host_flag
 		}
 
@@ -877,16 +873,16 @@ country_event = { # Setup for Heir Civil War
 		}
 
 		# setting graphical culture
-		set_graphical_culture = event_target:current_civwar_originator
+		set_graphical_culture = event_target:civwar_originator
 
 		# establish comms
 		every_country = {
 			limit = {
 				OR = {
-					has_communications = event_target:current_civwar_originator
+					has_communications = event_target:civwar_originator
 					intel_level = {
 						level > low
-						system = event_target:current_civwar_originator.capital_scope.solar_system
+						system = event_target:civwar_originator.capital_scope.solar_system
 					}
 					any_system = {
 						has_star_flag = civil_war_flip
@@ -907,12 +903,12 @@ country_event = { # Setup for Heir Civil War
 		if = {
 			limit = {
 				has_opinion_modifier = {
-					who = event_target:current_civwar_originator
+					who = event_target:civwar_originator
 					modifier = opinion_new_contact
 				}
 			}
 			remove_opinion_modifier = {
-				who = event_target:current_civwar_originator
+				who = event_target:civwar_originator
 				modifier = opinion_new_contact
 			}
 		}
@@ -925,7 +921,7 @@ country_event = { # Setup for Heir Civil War
 					has_star_flag = civil_war_flip
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = event_target:current_civwar_originator }
+						owner = { is_same_value = event_target:civwar_originator }
 					}
 				}
 			}
@@ -934,7 +930,7 @@ country_event = { # Setup for Heir Civil War
 					has_star_flag = civil_war_flip
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = event_target:current_civwar_originator }
+						owner = { is_same_value = event_target:civwar_originator }
 					}
 				}
 				starbase = { set_owner = root }
@@ -948,7 +944,7 @@ country_event = { # Setup for Heir Civil War
 			}
 		}
 
-		event_target:current_civwar_originator = {
+		event_target:civwar_originator = {
 			every_owned_planet = {
 				limit = {
 					solar_system = {
@@ -961,7 +957,7 @@ country_event = { # Setup for Heir Civil War
 					every_fleet_in_system = {
 						limit = {
 							exists = owner
-							owner = { is_same_value = event_target:current_civwar_originator }
+							owner = { is_same_value = event_target:civwar_originator }
 							any_owned_ship = { is_ship_class = shipclass_military_station }
 						}
 						set_owner = root
@@ -981,7 +977,7 @@ country_event = { # Setup for Heir Civil War
 
 		# get host's technologies
 		copy_techs_from = {
-			target = event_target:current_civwar_originator
+			target = event_target:civwar_originator
 			except = {
 				# Horizon Signal
 				tech_akx_worm_1
@@ -994,7 +990,7 @@ country_event = { # Setup for Heir Civil War
 		every_galaxy_planet = {
 			limit = {
 				is_surveyed = {
-					who = event_target:current_civwar_originator
+					who = event_target:civwar_originator
 					status = yes
 				}
 			}
@@ -1020,7 +1016,7 @@ country_event = { # Setup for Heir Civil War
 		every_system_within_border = {
 			random_ship_in_system = {
 				limit = {
-					owner = { is_same_value = event_target:current_civwar_originator }
+					owner = { is_same_value = event_target:civwar_originator }
 					OR = {
 						is_ship_size = giga_massive_planet
 		    			is_ship_size = giga_planet_behemoth
@@ -1030,7 +1026,7 @@ country_event = { # Setup for Heir Civil War
 				fleet = {
 					random_list = {
 						60 = { # The rebels get your big toy.
-							set_owner = event_target:current_civwar_rebels
+							set_owner = event_target:civwar_rebels
 						}
 						40 = {
 							# The heir couldn't pull it off
@@ -1150,7 +1146,7 @@ country_event = { # Setup for Heir Civil War
 		set_name = random
 
 		add_intel = {
-			who = event_target:current_civwar_originator
+			who = event_target:civwar_originator
 			amount = 70
 		}
 
@@ -1202,7 +1198,7 @@ country_event = { # Setup for Heir Civil War
 			# Do Nothing
 		}
 
-		event_target:current_civwar_originator = {
+		event_target:civwar_originator = {
 
 			# Unlock Fleets
 			every_owned_fleet = {
@@ -1211,7 +1207,7 @@ country_event = { # Setup for Heir Civil War
 
 			# Add intel
 			add_intel = {
-				who = event_target:current_civwar_rebels
+				who = event_target:civwar_rebels
 				amount = 70
 			}
 
@@ -1248,7 +1244,7 @@ country_event = { # Heir Rebellion / Multiple Sectors
 	
 	immediate = {
 
-		save_event_target_as = current_civwar_originator
+		save_event_target_as = civwar_originator
 		set_country_flag = heir_multiple_sectors
 
 		event_target:heir_civil_war_dummy_country = {
@@ -1258,9 +1254,6 @@ country_event = { # Heir Rebellion / Multiple Sectors
 				}
 			}
 		}
-
-		# setting flags
-		set_country_flag = civwar_mother_country
 
 		# Set Empire Sprawl Variable
 		get_empire_sprawl = yes
@@ -1334,12 +1327,12 @@ country_event = { # Disinherited Heir Rebellion
 			ignore_initial_colony_error = yes
 			day_zero_contact = no
 			authority = auth_imperial
-			ethos = event_target:current_civwar_originator
+			ethos = event_target:civwar_originator
 			origin = origin_civwar
-			civics = event_target:current_civwar_originator
+			civics = event_target:civwar_originator
 			flag = random
 			effect = {
-				save_event_target_as = current_civwar_rebels
+				save_event_target_as = civwar_rebels
 				country_event = { id = civheir.4101 } # setup happens here
 			}
 		}
@@ -1405,8 +1398,8 @@ country_event = { # Declare War vs. Heir Sector
 				}
 			}
 			declare_war = {
-				target = event_target:current_civwar_rebels
-				name = "NAME_heir_War"
+				target = event_target:civwar_rebels
+				name = "NAME_heir_war"
 				attacker_war_goal = "wg_civwar_heir"
 			}
 		}
@@ -1436,8 +1429,8 @@ country_event = { # Declare War vs Heir Planet
 			}
 		}
 		declare_war = {
-			target = event_target:current_civwar_rebels
-			name = "NAME_heir_War"
+			target = event_target:civwar_rebels
+			name = "NAME_heir_war"
 			attacker_war_goal = "wg_planet_heir_rebellion"
 		}
 	}
@@ -1453,6 +1446,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		is_imperial = yes
 		from = {
 			leader_class = ruler
 			OR = {
@@ -1519,7 +1513,7 @@ country_event = { # Create Fleets and give resources, Heir Rebellions
 	immediate = {
 		if = {
 			limit = {
-				event_target:current_civwar_originator = {
+				event_target:civwar_originator = {
 					OR = {
 						has_country_flag = empire_sprawl_0
 						has_country_flag = empire_sprawl_0_10
@@ -1528,7 +1522,7 @@ country_event = { # Create Fleets and give resources, Heir Rebellions
 					}
 				}
 			}
-			event_target:current_civwar_originator = {
+			event_target:civwar_originator = {
 				if = {
 					limit = {
 						used_naval_capacity_percent < 0.1
@@ -1632,7 +1626,7 @@ country_event = { # Create Fleets and give resources, Heir Rebellions
 		}
 		else_if = {
 			limit = {
-				event_target:current_civwar_originator = {
+				event_target:civwar_originator = {
 					OR = {
 						has_country_flag = empire_sprawl_30_40
 						has_country_flag = empire_sprawl_40_50
@@ -1640,7 +1634,7 @@ country_event = { # Create Fleets and give resources, Heir Rebellions
 					}
 				}
 			}
-			event_target:current_civwar_originator = {
+			event_target:civwar_originator = {
 				if = {
 					limit = {
 						used_naval_capacity_percent < 0.1
@@ -1744,7 +1738,7 @@ country_event = { # Create Fleets and give resources, Heir Rebellions
 		}
 		else_if = {
 			limit = {
-				event_target:current_civwar_originator = {
+				event_target:civwar_originator = {
 					OR = {
 						has_country_flag = empire_sprawl_60_70
 						has_country_flag = empire_sprawl_70_80
@@ -1752,7 +1746,7 @@ country_event = { # Create Fleets and give resources, Heir Rebellions
 					}
 				}
 			}
-			event_target:current_civwar_originator = {
+			event_target:civwar_originator = {
 				if = {
 					limit = {
 						used_naval_capacity_percent < 0.1
@@ -1856,14 +1850,14 @@ country_event = { # Create Fleets and give resources, Heir Rebellions
 		}
 		else_if = {
 			limit = {
-				event_target:current_civwar_originator = {
+				event_target:civwar_originator = {
 					OR = {
 						has_country_flag = empire_sprawl_90_100
 						has_country_flag = empire_sprawl_100_plus
 					}
 				}
 			}
-			event_target:current_civwar_originator = {
+			event_target:civwar_originator = {
 				if = {
 					limit = {
 						used_naval_capacity_percent < 0.1
@@ -1987,7 +1981,7 @@ country_event = { # Destroy Fleets, Heir Rebellions
 	immediate = {
 		if = {
 			limit = {
-				event_target:current_civwar_originator = {
+				event_target:civwar_originator = {
 					OR = {
 						has_country_flag = empire_sprawl_0
 						has_country_flag = empire_sprawl_0_10
@@ -1996,7 +1990,7 @@ country_event = { # Destroy Fleets, Heir Rebellions
 					}
 				}
 			}
-			event_target:current_civwar_originator = {
+			event_target:civwar_originator = {
 				every_owned_fleet = {
 					every_owned_ship = {
 						limit = { is_ship_class = shipclass_military }
@@ -2023,7 +2017,7 @@ country_event = { # Destroy Fleets, Heir Rebellions
 		}
 		else_if = {
 			limit = {
-				event_target:current_civwar_originator = {
+				event_target:civwar_originator = {
 					OR = {
 						has_country_flag = empire_sprawl_30_40
 						has_country_flag = empire_sprawl_40_50
@@ -2031,7 +2025,7 @@ country_event = { # Destroy Fleets, Heir Rebellions
 					}
 				}
 			}
-			event_target:current_civwar_originator = {
+			event_target:civwar_originator = {
 				every_owned_fleet = {
 					every_owned_ship = {
 						limit = { is_ship_class = shipclass_military }
@@ -2058,7 +2052,7 @@ country_event = { # Destroy Fleets, Heir Rebellions
 		}
 		else_if = {
 			limit = {
-				event_target:current_civwar_originator = {
+				event_target:civwar_originator = {
 					OR = {
 						has_country_flag = empire_sprawl_60_70
 						has_country_flag = empire_sprawl_70_80
@@ -2066,7 +2060,7 @@ country_event = { # Destroy Fleets, Heir Rebellions
 					}
 				}
 			}
-			event_target:current_civwar_originator = {
+			event_target:civwar_originator = {
 				every_owned_fleet = {
 					every_owned_ship = {
 						limit = { is_ship_class = shipclass_military }
@@ -2093,14 +2087,14 @@ country_event = { # Destroy Fleets, Heir Rebellions
 		}
 		else_if = {
 			limit = {
-				event_target:current_civwar_originator = {
+				event_target:civwar_originator = {
 					OR = {
 						has_country_flag = empire_sprawl_90_100
 						has_country_flag = empire_sprawl_100_plus
 					}
 				}
 			}
-			event_target:current_civwar_originator = {
+			event_target:civwar_originator = {
 				every_owned_fleet = {
 					every_owned_ship = {
 						limit = { is_ship_class = shipclass_military }

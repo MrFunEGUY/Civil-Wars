@@ -205,7 +205,7 @@ country_event = { # Empire Fractures
 	
 	immediate = {
 
-		save_event_target_as = current_civwar_originator
+		save_event_target_as = civwar_originator
 
 		set_country_flag = coup_mother_country_@this
 
@@ -278,7 +278,7 @@ country_event = { # Empire Fractures
 			}
 				
 			# Set successor state species to founding empire species
-			event_target:current_civwar_originator = {
+			event_target:civwar_originator = {
 				species = { save_global_event_target_as = civwar_species }
 			}
 
@@ -292,7 +292,7 @@ country_event = { # Empire Fractures
 				}
 			}
 			else = {
-				event_target:current_civwar_originator = {
+				event_target:civwar_originator = {
 					species = { save_global_event_target_as = civwar_species_gov }
 				}
 			}
@@ -321,8 +321,8 @@ country_event = { # Empire Fractures
 								ethic = random
 							}
 							origin = origin_coup_successor
-							civics = event_target:current_civwar_originator
-							flag = event_target:current_civwar_originator
+							civics = event_target:civwar_originator
+							flag = event_target:civwar_originator
 							effect = {
 								copy_ethos_and_authority = root
 								country_event = { id = civcoup.1015 }
@@ -348,7 +348,7 @@ country_event = { # Empire Fractures
 							civics = random
 							flag = random
 							effect = {
-								set_country_flag = coup_country_@event_target:current_civwar_originator
+								set_country_flag = coup_country_@event_target:civwar_originator
 								country_event = { id = civcoup.1016 }
 							}
 						}
@@ -377,8 +377,8 @@ country_event = { # Empire Fractures
 								ethic = random
 							}
 							origin = origin_coup_successor
-							civics = event_target:current_civwar_originator
-							flag = event_target:current_civwar_originator
+							civics = event_target:civwar_originator
+							flag = event_target:civwar_originator
 							effect = {
 								copy_ethos_and_authority = root
 								country_event = { id = civcoup.1015 }
@@ -418,7 +418,7 @@ country_event = { # Empire Fractures
 		# Destroy Fleet percentage from home country
 		country_event = { id = civcoup.1051 }
 		hidden_effect = {
-			event_target:current_civwar_originator = {
+			event_target:civwar_originator = {
 				every_owned_fleet = {
 					set_event_locked = no
 				}
@@ -434,14 +434,14 @@ country_event = { # Setup for Successor State Countries
 
 	immediate = {
 		# saving civwar and host as event targets
-		save_event_target_as = current_civwar_rebels
+		save_event_target_as = civwar_rebels
 
 		# setting flags
 		set_country_flag = civwar_country
 		set_country_flag = disputed_heir_country
 
 		set_relation_flag = {
-			who = event_target:current_civwar_originator
+			who = event_target:civwar_originator
 			flag = civwar_to_host_flag
 		}
 
@@ -453,16 +453,16 @@ country_event = { # Setup for Successor State Countries
 		}
 
 		# setting graphical culture
-		set_graphical_culture = event_target:current_civwar_originator
+		set_graphical_culture = event_target:civwar_originator
 
 		# establish comms
 		every_country = {
 			limit = {
 				OR = {
-					has_communications = event_target:current_civwar_originator
+					has_communications = event_target:civwar_originator
 					intel_level = {
 						level > low
-						system = event_target:current_civwar_originator.capital_scope.solar_system
+						system = event_target:civwar_originator.capital_scope.solar_system
 					}
 					any_system = {
 						has_star_flag = civil_war_flip
@@ -483,12 +483,12 @@ country_event = { # Setup for Successor State Countries
 		if = {
 			limit = {
 				has_opinion_modifier = {
-					who = event_target:current_civwar_originator
+					who = event_target:civwar_originator
 					modifier = opinion_new_contact
 				}
 			}
 			remove_opinion_modifier = {
-				who = event_target:current_civwar_originator
+				who = event_target:civwar_originator
 				modifier = opinion_new_contact
 			}
 		}
@@ -501,7 +501,7 @@ country_event = { # Setup for Successor State Countries
 					has_star_flag = civil_war_flip
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = event_target:current_civwar_originator }
+						owner = { is_same_value = event_target:civwar_originator }
 					}
 				}
 			}
@@ -510,14 +510,14 @@ country_event = { # Setup for Successor State Countries
 					has_star_flag = civil_war_flip
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = event_target:current_civwar_originator }
+						owner = { is_same_value = event_target:civwar_originator }
 					}
 				}
 				starbase = { set_owner = root }
 			}
 		}
 
-		event_target:current_civwar_originator = {
+		event_target:civwar_originator = {
 			every_owned_planet = {
 				limit = {
 					solar_system = {
@@ -530,7 +530,7 @@ country_event = { # Setup for Successor State Countries
 					every_fleet_in_system = {
 						limit = {
 							exists = owner
-							owner = { is_same_value = event_target:current_civwar_originator }
+							owner = { is_same_value = event_target:civwar_originator }
 							any_owned_ship = { is_ship_class = shipclass_military_station }
 						}
 						set_owner = root
@@ -557,7 +557,7 @@ country_event = { # Setup for Successor State Countries
 
 		# get host's technologies
 		copy_techs_from = {
-			target = event_target:current_civwar_originator
+			target = event_target:civwar_originator
 			except = {
 				# Horizon Signal
 				tech_akx_worm_1
@@ -570,7 +570,7 @@ country_event = { # Setup for Successor State Countries
 		every_galaxy_planet = {
 			limit = {
 				is_surveyed = {
-					who = event_target:current_civwar_originator
+					who = event_target:civwar_originator
 					status = yes
 				}
 			}
@@ -590,7 +590,7 @@ country_event = { # Setup for Successor State Countries
 		}
 
 		# create fleets and give resources, destroy home country fleets
-		event_target:current_civwar_originator = {
+		event_target:civwar_originator = {
 			country_event = { id = civcoup.1050 }
 		}
 		add_100_unity_per_year_passed = yes # scripted effect
@@ -646,10 +646,10 @@ country_event = { # Setup for Successor State Countries
 
 	after = {
 		# To fix naming issues. This line is necessary.
-		set_name = event_target:current_civwar_originator
+		set_name = event_target:civwar_originator
 
 		add_intel = {
-			who = event_target:current_civwar_originator
+			who = event_target:civwar_originator
 			amount = 70
 		}
 
@@ -669,7 +669,7 @@ country_event = { # Setup for Successor State Countries
 			planet_event = { id = civplan.3004 }
 		}
 
-		event_target:current_civwar_originator = {
+		event_target:civwar_originator = {
 			add_intel = {
 				who = root
 				amount = 70
@@ -685,14 +685,14 @@ country_event = { # Setup for Independent Kingdoms
 
 	immediate = {
 		# saving civwar and host as event targets
-		save_event_target_as = current_civwar_rebels
+		save_event_target_as = civwar_rebels
 
 		# setting flags
 		set_country_flag = civwar_country
 		set_country_flag = disputed_heir_country
 
 		set_relation_flag = {
-			who = event_target:current_civwar_originator
+			who = event_target:civwar_originator
 			flag = civwar_to_host_flag
 		}
 
@@ -704,16 +704,16 @@ country_event = { # Setup for Independent Kingdoms
 		}
 
 		# setting graphical culture
-		set_graphical_culture = event_target:current_civwar_originator
+		set_graphical_culture = event_target:civwar_originator
 
 		# establish comms
 		every_country = {
 			limit = {
 				OR = {
-					has_communications = event_target:current_civwar_originator
+					has_communications = event_target:civwar_originator
 					intel_level = {
 						level > low
-						system = event_target:current_civwar_originator.capital_scope.solar_system
+						system = event_target:civwar_originator.capital_scope.solar_system
 					}
 					any_system = {
 						has_star_flag = civil_war_flip
@@ -734,12 +734,12 @@ country_event = { # Setup for Independent Kingdoms
 		if = {
 			limit = {
 				has_opinion_modifier = {
-					who = event_target:current_civwar_originator
+					who = event_target:civwar_originator
 					modifier = opinion_new_contact
 				}
 			}
 			remove_opinion_modifier = {
-				who = event_target:current_civwar_originator
+				who = event_target:civwar_originator
 				modifier = opinion_new_contact
 			}
 		}
@@ -752,7 +752,7 @@ country_event = { # Setup for Independent Kingdoms
 					has_star_flag = civil_war_flip
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = event_target:current_civwar_originator }
+						owner = { is_same_value = event_target:civwar_originator }
 					}
 				}
 			}
@@ -761,14 +761,14 @@ country_event = { # Setup for Independent Kingdoms
 					has_star_flag = civil_war_flip
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = event_target:current_civwar_originator }
+						owner = { is_same_value = event_target:civwar_originator }
 					}
 				}
 				starbase = { set_owner = root }
 			}
 		}
 
-		event_target:current_civwar_originator = {
+		event_target:civwar_originator = {
 			every_owned_planet = {
 				limit = {
 					solar_system = {
@@ -781,7 +781,7 @@ country_event = { # Setup for Independent Kingdoms
 					every_fleet_in_system = {
 						limit = {
 							exists = owner
-							owner = { is_same_value = event_target:current_civwar_originator }
+							owner = { is_same_value = event_target:civwar_originator }
 							any_owned_ship = { is_ship_class = shipclass_military_station }
 						}
 						set_owner = root
@@ -808,7 +808,7 @@ country_event = { # Setup for Independent Kingdoms
 
 		# get host's technologies
 		copy_techs_from = {
-			target = event_target:current_civwar_originator
+			target = event_target:civwar_originator
 			except = {
 				# Horizon Signal
 				tech_akx_worm_1
@@ -821,7 +821,7 @@ country_event = { # Setup for Independent Kingdoms
 		every_galaxy_planet = {
 			limit = {
 				is_surveyed = {
-					who = event_target:current_civwar_originator
+					who = event_target:civwar_originator
 					status = yes
 				}
 			}
@@ -841,7 +841,7 @@ country_event = { # Setup for Independent Kingdoms
 		}
 
 		# create fleets and give resources, destroy home country fleets
-		event_target:current_civwar_originator = {
+		event_target:civwar_originator = {
 			country_event = { id = civcoup.1050 }
 		}
 		add_100_unity_per_year_passed = yes # scripted effect
@@ -905,7 +905,7 @@ country_event = { # Setup for Independent Kingdoms
 		set_name = random
 
 		add_intel = {
-			who = event_target:current_civwar_originator
+			who = event_target:civwar_originator
 			amount = 70
 		}
 
@@ -925,7 +925,7 @@ country_event = { # Setup for Independent Kingdoms
 			planet_event = { id = civplan.3004 }
 		}
 
-		event_target:current_civwar_originator = {
+		event_target:civwar_originator = {
 			add_intel = {
 				who = root
 				amount = 70
@@ -2617,7 +2617,7 @@ country_event = {
 					}
 				}
 				declare_war = {
-					target = event_target:current_civwar_originator
+					target = event_target:civwar_originator
 					name = "NAME_succession_conflict"
 					attacker_war_goal = "wg_coup_successor_mother"
 				}
@@ -2723,7 +2723,7 @@ country_event = {
 					}
 				}
 				declare_war = {
-					target = event_target:current_civwar_originator
+					target = event_target:civwar_originator
 					name = "NAME_succession_conflict"
 					attacker_war_goal = "wg_coup_successor_mother"
 				}
@@ -2830,7 +2830,7 @@ country_event = {
 					}
 				}
 				declare_war = {
-					target = event_target:current_civwar_originator
+					target = event_target:civwar_originator
 					name = "NAME_succession_conflict"
 					attacker_war_goal = "wg_coup_successor_mother"
 				}
@@ -2938,7 +2938,7 @@ country_event = {
 					}
 				}
 				declare_war = {
-					target = event_target:current_civwar_originator
+					target = event_target:civwar_originator
 					name = "NAME_succession_conflict"
 					attacker_war_goal = "wg_coup_successor_mother"
 				}
@@ -3047,7 +3047,7 @@ country_event = {
 					}
 				}
 				declare_war = {
-					target = event_target:current_civwar_originator
+					target = event_target:civwar_originator
 					name = "NAME_succession_conflict"
 					attacker_war_goal = "wg_coup_successor_mother"
 				}
@@ -3157,7 +3157,7 @@ country_event = {
 					}
 				}
 				declare_war = {
-					target = event_target:current_civwar_originator
+					target = event_target:civwar_originator
 					name = "NAME_succession_conflict"
 					attacker_war_goal = "wg_coup_successor_mother"
 				}
@@ -3268,7 +3268,7 @@ country_event = {
 					}
 				}
 				declare_war = {
-					target = event_target:current_civwar_originator
+					target = event_target:civwar_originator
 					name = "NAME_succession_conflict"
 					attacker_war_goal = "wg_coup_successor_mother"
 				}
@@ -3380,7 +3380,7 @@ country_event = {
 					}
 				}
 				declare_war = {
-					target = event_target:current_civwar_originator
+					target = event_target:civwar_originator
 					name = "NAME_succession_conflict"
 					attacker_war_goal = "wg_coup_successor_mother"
 				}
@@ -3493,7 +3493,7 @@ country_event = {
 					}
 				}
 				declare_war = {
-					target = event_target:current_civwar_originator
+					target = event_target:civwar_originator
 					name = "NAME_succession_conflict"
 					attacker_war_goal = "wg_coup_successor_mother"
 				}
@@ -3607,7 +3607,7 @@ country_event = {
 					}
 				}
 				declare_war = {
-					target = event_target:current_civwar_originator
+					target = event_target:civwar_originator
 					name = "NAME_succession_conflict"
 					attacker_war_goal = "wg_coup_successor_mother"
 				}

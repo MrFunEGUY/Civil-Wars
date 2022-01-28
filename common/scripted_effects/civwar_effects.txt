@@ -789,13 +789,13 @@ get_systems_for_civwar = {
 # Get rid of "Rebels of x" on Galactic Map
 get_rid_rebels_of_originator = {
 	hidden_effect = {
-		event_target:current_civwar_rebels = {
+		event_target:civwar_rebels = {
 			set_subject_of = {
-				who = event_target:current_civwar_originator
+				who = event_target:civwar_originator
 				subject_type = dummy_vassal
 			}
 		}
-		event_target:current_civwar_rebels = {
+		event_target:civwar_rebels = {
 			set_subject_of = {
 				who = none
 			}
@@ -810,7 +810,7 @@ get_civil_war_faction = {
 	# Faction Leader Rebellion - Authoritarian
 	if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = totalitarian
         			# Divided Loyalties
@@ -832,7 +832,7 @@ get_civil_war_faction = {
 	# Faction Leader Rebellion - Egalitarian
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = progressive
         			# Divided Loyalties
@@ -854,7 +854,7 @@ get_civil_war_faction = {
 	# Faction Leader Rebellion - Militarist
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = imperialist
         			# Divided Loyalties
@@ -876,7 +876,7 @@ get_civil_war_faction = {
 	# Faction Leader Rebellion - Pacifist
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = prosperity
         			# Divided Loyalties
@@ -898,7 +898,7 @@ get_civil_war_faction = {
 	# Faction Leader Rebellion - Materialist
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = technologist
         			# Divided Loyalties
@@ -920,7 +920,7 @@ get_civil_war_faction = {
 	# Faction Leader Rebellion - Spiritualist
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = traditionalist
         			# Divided Loyalties
@@ -942,7 +942,7 @@ get_civil_war_faction = {
 	# Faction Leader Rebellion - Xenophilic
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = xenoist
         			# Divided Loyalties
@@ -964,7 +964,7 @@ get_civil_war_faction = {
 	# Faction Leader Rebellion - Xenophobic
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = supremacist
         			is_pop_faction_type = isolationist
@@ -987,7 +987,7 @@ get_civil_war_faction = {
 	else_if = {
 		limit = {
 			has_global_flag = cultural_overhaul_active
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        is_pop_faction_type = socialists
 			}
 		}
@@ -1005,7 +1005,7 @@ get_civil_war_faction = {
 	else_if = {
 		limit = {
 			has_global_flag = cultural_overhaul_active
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        is_pop_faction_type = bankers
 			}
 		}
@@ -1023,7 +1023,7 @@ get_civil_war_faction = {
 	else_if = {
 		limit = {
 			has_global_flag = cultural_overhaul_active
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        is_pop_faction_type = manufacturers
 			}
 		}
@@ -1041,7 +1041,7 @@ get_civil_war_faction = {
 	else_if = {
 		limit = {
 			has_global_flag = cultural_overhaul_active
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        is_pop_faction_type = environmentalists
 			}
 		}
@@ -1059,7 +1059,7 @@ get_civil_war_faction = {
 	else_if = {
 		limit = {
 			has_global_flag = cultural_overhaul_active
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        is_pop_faction_type = conservatives
 			}
 		}
@@ -1077,7 +1077,7 @@ get_civil_war_faction = {
 	else_if = {
 		limit = {
 			has_global_flag = cultural_overhaul_active
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        is_pop_faction_type = labourites
 			}
 		}
@@ -1098,7 +1098,7 @@ get_civil_war_faction_planet = {
 	# Faction Leader Rebellion - Authoritarian
 	if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = totalitarian
         			# Divided Loyalties
@@ -1112,7 +1112,7 @@ get_civil_war_faction_planet = {
 	# Faction Leader Rebellion - Egalitarian
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = progressive
         			# Divided Loyalties
@@ -1126,7 +1126,7 @@ get_civil_war_faction_planet = {
 	# Faction Leader Rebellion - Militarist
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = imperialist
         			# Divided Loyalties
@@ -1140,7 +1140,7 @@ get_civil_war_faction_planet = {
 	# Faction Leader Rebellion - Pacifist
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = prosperity
         			# Divided Loyalties
@@ -1154,7 +1154,7 @@ get_civil_war_faction_planet = {
 	# Faction Leader Rebellion - Materialist
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = technologist
         			# Divided Loyalties
@@ -1168,7 +1168,7 @@ get_civil_war_faction_planet = {
 	# Faction Leader Rebellion - Spiritualist
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = traditionalist
         			# Divided Loyalties
@@ -1182,7 +1182,7 @@ get_civil_war_faction_planet = {
 	# Faction Leader Rebellion - Xenophilic
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = xenoist
         			# Divided Loyalties
@@ -1196,7 +1196,7 @@ get_civil_war_faction_planet = {
 	# Faction Leader Rebellion - Xenophobic
 	else_if = {
 		limit = {
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        OR = {
         			is_pop_faction_type = supremacist
         			is_pop_faction_type = isolationist
@@ -1211,7 +1211,7 @@ get_civil_war_faction_planet = {
 	else_if = {
 		limit = {
 			has_global_flag = cultural_overhaul_active
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        is_pop_faction_type = socialists
 			}
 		}
@@ -1221,7 +1221,7 @@ get_civil_war_faction_planet = {
 	else_if = {
 		limit = {
 			has_global_flag = cultural_overhaul_active
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        is_pop_faction_type = bankers
 			}
 		}
@@ -1231,7 +1231,7 @@ get_civil_war_faction_planet = {
 	else_if = {
 		limit = {
 			has_global_flag = cultural_overhaul_active
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        is_pop_faction_type = manufacturers
 			}
 		}
@@ -1241,7 +1241,7 @@ get_civil_war_faction_planet = {
 	else_if = {
 		limit = {
 			has_global_flag = cultural_overhaul_active
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        is_pop_faction_type = environmentalists
 			}
 		}
@@ -1251,7 +1251,7 @@ get_civil_war_faction_planet = {
 	else_if = {
 		limit = {
 			has_global_flag = cultural_overhaul_active
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        is_pop_faction_type = conservatives
 			}
 		}
@@ -1261,7 +1261,7 @@ get_civil_war_faction_planet = {
 	else_if = {
 		limit = {
 			has_global_flag = cultural_overhaul_active
-			event_target:civil_war_party = {
+			event_target:civwar_party = {
 		        is_pop_faction_type = labourites
 			}
 		}
@@ -1301,7 +1301,7 @@ create_civwar_armies = {
 			count = 3
 			create_army = {
 				name = random
-				owner = event_target:current_civwar_rebels
+				owner = event_target:civwar_rebels
 				species = event_target:civwar_species
 				type = "civwar_assault_army"
 			}
@@ -1310,14 +1310,14 @@ create_civwar_armies = {
 			count = 6
 			create_army = {
 				name = random
-				owner = event_target:current_civwar_rebels
+				owner = event_target:civwar_rebels
 				species = event_target:civwar_species
 				type = "civwar_defense_army"
 			}
 		}
 		if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = totalitarian
 	        			# Divided Loyalties
@@ -1335,7 +1335,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = progressive
 	        			# Divided Loyalties
@@ -1353,7 +1353,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = imperialist
 	        			# Divided Loyalties
@@ -1371,7 +1371,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = prosperity
 	        			# Divided Loyalties
@@ -1389,7 +1389,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = traditionalist
 	        			# Divided Loyalties
@@ -1407,7 +1407,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = xenoist
 	        			# Divided Loyalties
@@ -1425,7 +1425,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = supremacist
 	        			is_pop_faction_type = isolationist
@@ -1443,7 +1443,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					is_pop_faction_type = socialists
 				}
 			}
@@ -1456,7 +1456,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					is_pop_faction_type = bankers
 				}
 			}
@@ -1469,7 +1469,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					is_pop_faction_type = manufacturers
 				}
 			}
@@ -1482,7 +1482,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					is_pop_faction_type = environmentalists
 				}
 			}
@@ -1495,7 +1495,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					is_pop_faction_type = conservatives
 				}
 			}
@@ -1508,7 +1508,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					is_pop_faction_type = labourites
 				}
 			}
@@ -1528,14 +1528,14 @@ create_civwar_armies = {
 			count = 2
 			create_army = {
 				name = random
-				owner = event_target:current_civwar_rebels
+				owner = event_target:civwar_rebels
 				species = event_target:civwar_species
 				type = "civwar_defense_army"
 			}
 		}
 		if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = totalitarian
 	        			# Divided Loyalties
@@ -1553,7 +1553,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = progressive
 	        			# Divided Loyalties
@@ -1571,7 +1571,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = imperialist
 	        			# Divided Loyalties
@@ -1589,7 +1589,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = prosperity
 	        			# Divided Loyalties
@@ -1607,7 +1607,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = traditionalist
 	        			# Divided Loyalties
@@ -1625,7 +1625,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = xenoist
 	        			# Divided Loyalties
@@ -1643,7 +1643,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					OR = {
 	        			is_pop_faction_type = supremacist
 	        			is_pop_faction_type = isolationist
@@ -1661,7 +1661,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					is_pop_faction_type = socialists
 				}
 			}
@@ -1674,7 +1674,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					is_pop_faction_type = bankers
 				}
 			}
@@ -1687,7 +1687,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					is_pop_faction_type = manufacturers
 				}
 			}
@@ -1700,7 +1700,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					is_pop_faction_type = environmentalists
 				}
 			}
@@ -1713,7 +1713,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					is_pop_faction_type = conservatives
 				}
 			}
@@ -1726,7 +1726,7 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = {
-				event_target:civil_war_party = {
+				event_target:civwar_party = {
 					is_pop_faction_type = labourites
 				}
 			}
@@ -1745,7 +1745,7 @@ create_civwar_armies_planet = {
 		count = 3
 		create_army = {
 			name = random
-			owner = event_target:current_civwar_rebels
+			owner = event_target:civwar_rebels
 			species = event_target:civwar_species
 			type = "civwar_defense_army"
 		}
@@ -1757,7 +1757,7 @@ create_civwar_armies_capital = {
 		count = 1
 		create_army = {
 			name = random
-			owner = event_target:current_civwar_rebels
+			owner = event_target:civwar_rebels
 			species = event_target:civwar_species
 			type = "civwar_assault_army"
 		}
@@ -1766,7 +1766,7 @@ create_civwar_armies_capital = {
 		count = 3
 		create_army = {
 			name = random
-			owner = event_target:current_civwar_rebels
+			owner = event_target:civwar_rebels
 			species = event_target:civwar_species
 			type = "civwar_defense_army"
 		}
@@ -1775,6 +1775,286 @@ create_civwar_armies_capital = {
 
 #####################
 
+# Get Civil War Leader
+get_civil_war_leader = {
+	if = {
+		limit = {
+			OR = {
+				has_trait = leader_trait_corrupt
+				has_leader_flag = civil_war_leader_governor_faction
+			}
+			prev = {
+				any_owned_sector = {
+					has_sector_type = normal_sector
+	                leader = {
+	                	is_same_value = prevprevprev
+	                }
+				}
+			}
+		}
+		prev = {
+			random_owned_sector = {
+				limit = {
+					has_sector_type = normal_sector
+					exists = leader
+	                leader = {
+	                	is_same_value = prevprevprev
+	                }
+	            }
+	            leader = { set_leader_flag = faction_local_flag }
+	            set_sector_flag = rebel_sector
+			    every_system_within_border = {
+		            limit = {
+		                check_civwar_capital = yes
+		            }
+		            set_star_flag = civil_war_flip
+		        }
+			}
+			random_pop_faction = {
+				limit = {
+					has_pop_faction_flag = civil_war_faction_governor
+					exists = leader
+					leader = { has_leader_flag = faction_local_flag }
+				}
+				leader = { remove_leader_flag = faction_local_flag }
+				remove_pop_faction_flag = civil_war_faction_governor
+				save_global_event_target_as = civwar_party
+			}
+		}
+		# Set empire species to rebelling leader's species
+		species = { save_global_event_target_as = civwar_species }
+		save_global_event_target_as = civil_war_leader
+		# Remove Governor
+		exile_leader_as = civil_war_leader
+	}
+	else_if = {
+		limit = {
+			has_leader_flag = civil_war_leader_governor_faction
+		}
+		set_leader_flag = faction_local_flag
+		prev = {
+			if = {
+				limit = {
+					num_sectors > 1
+				}
+				random_owned_sector = {
+					limit = {
+						has_sector_type = normal_sector
+		            }
+				    every_system_within_border = {
+			            limit = {
+			                check_civwar_capital = yes
+			            }
+			            set_star_flag = civil_war_flip
+			        }
+			        set_sector_flag = rebel_sector
+				}
+			}
+			random_pop_faction = {
+				limit = {
+					has_pop_faction_flag = civil_war_faction_governor
+					leader = { has_leader_flag = faction_local_flag }
+				}
+				leader = { remove_leader_flag = faction_local_flag }
+				remove_pop_faction_flag = civil_war_faction_governor
+				save_global_event_target_as = civwar_party
+			}
+		}
+		# Set empire species to rebelling leader's species
+		species = { save_global_event_target_as = civwar_species }
+		save_global_event_target_as = civil_war_leader
+		# Remove Governor
+		exile_leader_as = civil_war_leader
+	}
+	else_if = {
+		limit = {
+			has_trait = leader_trait_corrupt
+		}
+		prev = {
+			if = {
+				limit = {
+					num_sectors > 1
+				}
+				random_owned_sector = {
+					limit = {
+						has_sector_type = normal_sector
+		            }
+				    every_system_within_border = {
+			            limit = {
+			                check_civwar_capital = yes
+			            }
+			            set_star_flag = civil_war_flip
+			        }
+			        set_sector_flag = rebel_sector
+				}
+			}
+		}
+		# Set empire species to rebelling leader's species
+		species = { save_global_event_target_as = civwar_species }
+		save_global_event_target_as = civil_war_leader
+		# Remove Governor
+		exile_leader_as = civil_war_leader
+	}
+	else_if = {
+		limit = {
+			has_leader_flag = civil_war_leader_scientist_faction
+		}
+		# Tag Faction for localisation
+		set_leader_flag = faction_local_flag
+		prev = {
+			random_pop_faction = {
+				limit = {
+					has_pop_faction_flag = civil_war_faction_scientist
+					leader = { has_leader_flag = faction_local_flag }
+				}
+				leader = { remove_leader_flag = faction_local_flag }
+				remove_pop_faction_flag = civil_war_faction_scientist
+				save_global_event_target_as = civwar_party
+			}
+		}
+		# Set empire species to rebelling leader's species
+		species = { save_global_event_target_as = civwar_species }
+		save_global_event_target_as = civil_war_leader
+		# Remove Scientist
+		exile_leader_as = civil_war_leader
+	}
+	else_if = {
+		limit = {
+			has_leader_flag = civil_war_leader_general_faction
+		}
+		# Tag Faction for localisation
+		set_leader_flag = faction_local_flag
+		prev = {
+			random_pop_faction = {
+				limit = {
+					has_pop_faction_flag = civil_war_faction_general
+					leader = { has_leader_flag = faction_local_flag }
+				}
+				leader = { remove_leader_flag = faction_local_flag }
+				remove_pop_faction_flag = civil_war_faction_general
+				save_global_event_target_as = civwar_party
+			}
+		}
+		# Set empire species to rebelling leader's species
+		species = { save_global_event_target_as = civwar_species }
+		save_global_event_target_as = civil_war_leader
+		# Remove Scientist
+		exile_leader_as = civil_war_leader
+	}
+	else_if = {
+		limit = {
+			has_leader_flag = civil_war_leader_admiral_faction
+		}
+		prev = {
+			if = {
+				limit = {
+					any_owned_fleet = {
+						exists = leader
+						leader = { is_same_value = prevprevprev }
+					}
+				}
+				random_owned_fleet = {
+					limit = {
+						is_ship_class = shipclass_military
+						leader = { is_same_value = prevprevprev }
+					}
+					leader = {
+						set_leader_flag = faction_local_flag
+						solar_system = { save_global_event_target_as = admiral_rebel_system }
+						set_leader_flag = leader_civil_war_faction
+						species = { save_global_event_target_as = civwar_species }
+					}
+					save_global_event_target_as = admiral_rebel_rally_point
+					set_fleet_flag = civil_war_fleet
+				}
+				random_pop_faction = {
+					limit = {
+						has_pop_faction_flag = civil_war_faction_admiral
+						leader = { has_leader_flag = faction_local_flag }
+					}
+					remove_pop_faction_flag = civil_war_faction_admiral
+					save_global_event_target_as = civwar_party
+					leader = {
+						remove_leader_flag = faction_local_flag
+						save_global_event_target_as = civil_war_leader
+						exile_leader_as = civil_war_leader
+					}	
+				}
+				random_owned_fleet = {
+					limit = {
+						has_fleet_flag = civil_war_fleet
+					}
+					every_owned_ship = {
+						limit = { is_ship_class = shipclass_military }
+					    PREV = { change_variable = { which = ship_count value = 1 }}
+					}
+					divide_variable = { which = ship_count value = 3 }
+					while = {
+					    count = ship_count
+					    random_owned_ship = {
+					    	limit = {
+					    		is_ship_class = shipclass_military
+					    		NOR = {
+					    			is_ship_size = giga_massive_planet
+					    			is_ship_size = giga_planet_behemoth
+					    			is_ship_size = giga_systemcraft
+					    		}
+					    	}
+					        delete_ship = THIS
+					    }
+					}
+					set_variable = { which = ship_count value = 0 }
+				}
+			}
+			else = {
+				random_owned_leader = {
+					limit = {
+						has_leader_flag = civil_war_leader_admiral_faction
+					}
+					set_leader_flag = faction_local_flag
+					prev = {
+						if = {
+							limit = {
+								num_sectors > 1
+							}
+							random_owned_sector = {
+								limit = {
+									has_sector_type = normal_sector
+					            }
+							    every_system_within_border = {
+						            limit = {
+						                check_civwar_capital = yes
+						            }
+						            set_star_flag = civil_war_flip
+						        }
+						        set_sector_flag = rebel_sector
+							}
+						}
+						random_pop_faction = {
+							limit = {
+								has_pop_faction_flag = civil_war_faction_admiral
+								leader = { has_leader_flag = faction_local_flag }
+							}
+							leader = { remove_leader_flag = faction_local_flag }
+							remove_pop_faction_flag = civil_war_faction_admiral
+							save_global_event_target_as = civwar_party
+						}
+					}
+					# Set empire species to rebelling leader's species
+					species = { save_global_event_target_as = civwar_species }
+					save_global_event_target_as = civil_war_leader
+					# Remove Admiral
+					exile_leader_as = civil_war_leader	
+				}
+			}
+		}
+	}
+}
+
+#####################
+
+
+# Give admiral systems and planets
 give_admiral_planets = {
 	if = {
 		limit = {
@@ -1789,6 +2069,875 @@ give_admiral_planets = {
 				}
 			}
 			set_owner = root
+		}
+	}
+}
+
+#####################
+
+# Get Civil war number
+get_civil_war_number = {
+	if = {
+		limit = { 
+			NOT = { has_country_flag = has_had_civwar }
+		}
+		set_country_flag = has_had_civwar
+		set_variable = {
+			which = civwar_number
+			value = 1
+		}
+	}
+	else = {
+		change_variable = {
+			which = civwar_number
+			value = 1
+		}
+	}
+}
+
+get_planetary_reb_number = {
+	if = {
+		limit = { 
+			NOT = { has_planet_flag = has_had_rebellion }
+		}
+		set_planet_flag = has_had_rebellion
+		set_variable = {
+			which = reb_number
+			value = 1
+		}
+	}
+	else = {
+		change_variable = {
+			which = reb_number
+			value = 1
+		}
+	}
+}
+
+get_declare_war_civwar = {
+	if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 1
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 2
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_2"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 3
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_3"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 4
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_4"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 5
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_5"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 6
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_6"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 7
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_7"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 8
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_8"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 9
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_9"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 10
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_10"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 11
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_11"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 12
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_12"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 13
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_13"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 14
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_14"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 15
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_15"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 16
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_16"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 17
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_17"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 18
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_18"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 19
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_19"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 20
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war_20"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value > 20
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_civwar_war"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+}
+
+get_declare_war_civwar_subject = {
+	if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 1
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 2
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_2"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 3
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_3"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 4
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_4"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 5
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_5"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 6
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_6"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 7
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_7"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 8
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_8"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 9
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_9"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 10
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_10"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 11
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_11"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 12
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_12"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 13
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_13"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 14
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_14"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 15
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_15"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 16
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_16"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 17
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_17"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 18
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_18"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 19
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_19"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value = 20
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject_20"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = civwar_number
+				value > 20
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "civwar_war_subject"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+}
+
+get_declare_war_plan_rebellion = {
+	if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 1
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 2
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_2"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 3
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_3"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 4
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_4"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 5
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_5"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 6
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_6"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 7
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_7"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 8
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_8"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 9
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_9"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 10
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_10"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 11
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_11"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 12
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_12"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 13
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_13"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 14
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_14"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 15
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_15"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 16
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_16"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 17
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_17"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 18
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_18"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 19
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_19"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value = 20
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war_20"
+			attacker_war_goal = "wg_civwar"
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = event_target:civwar_rebels.capital_scope.reb_number
+				value > 20
+			}
+		}
+		declare_war = {
+			target = event_target:civwar_rebels
+			name = "NAME_plan_rebellion_war"
+			attacker_war_goal = "wg_civwar"
 		}
 	}
 }

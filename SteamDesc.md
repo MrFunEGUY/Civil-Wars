@@ -15,6 +15,10 @@ This mod also adds the ability to instigate a civil war in another country via e
 
 Leaders/Heirs who lose civil wars may also seek refuge in foreign countries. If you acccept them, you will gain a Casus Belli to install them as the leader of their old country. Their old country will also gain a Casus Belli to retrieve them.
 
+There are also espionage missions to start civil wars, or just make them more likely.
+
+[url=https://steamcommunity.com/workshop/filedetails/discussion/2434790082/3202617741918720410/]- See this thread for a full list of features.[/url]
+
 ---
 
 Whenever a Governor, Scientist, General, or Planet rebels, there is a small chance that they will instead offer to become your vassal. In this case, they become a new vassal type called a Autonomous State. Autonomous States are almost completely independent of their overlords. They can expand and declare war, and aren't called to their overlord's wars. However, they are also not defended by their overlord. They pay 15% of all their resources (base game, no mod added resources).
@@ -28,20 +32,13 @@ You need to pay attention to factions, their leaders, and their approval now!
 
 [hr][/hr]
 
-[h1]Features:[/h1]
-
-[url=https://steamcommunity.com/workshop/filedetails/discussion/2434790082/3202617741918720410/]- Explanation of Features[/url]
-
-
-[hr][/hr]
-
 [h1]Notes:[/h1]
 
 Your  empire capital and full core sector will never rebel under any circumstances. Planets (not the capital) in the core sector can be taken by Scientists and Generals in some Civil Wars, though.
 
 --
 
-- Subjects can have Civil Wars. If this happens, you will be given the choice of taking over the war for your subject, letting your subject wage the war on their own, or letting the rebels become independent of both you and your subject.
+Subjects can have Civil Wars. If this happens, you will be given the choice of taking over the war for your subject, letting your subject wage the war on their own, or letting the rebels become independent of both you and your subject.
 
 
 [url=https://steamcommunity.com/workshop/filedetails/discussion/2434790082/3041607712767736149/]Base Chance of Occurring[/url]
@@ -58,8 +55,6 @@ Your  empire capital and full core sector will never rebel under any circumstanc
 - Possibly: Treasonous leaders who lose the civil war or are banished may try to start a new country, or take over and lead a primitive civilization to space.
 
 - Events that lead up to Civil Wars. Leader ultimatums to stop an imminent Civil War (ie, stuff like "Make me your heir and I won't rebel.")
-
-- Rework current espionage to make Civil Wars more likely.
 
 - Espionage mission to retrieve treasonous leaders who fled to other nations
 
@@ -106,6 +101,8 @@ Fully compatible with:
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2493028212]- End Truce & Close Borders[/url]
 
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2452302093]- We Require Borders[/url]
+
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2732567565]- No More Exclaves[/url]
 
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2183551683]- Vassals Expanded and Reworked - FunEFork[/url]
 
