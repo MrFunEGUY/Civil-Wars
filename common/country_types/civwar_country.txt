@@ -231,10 +231,7 @@ admiral_country = {
 							has_technology = tech_telepathy
 							has_technology = tech_gene_seed_purification
 							AND = {
-								OR = {
-									has_ethic = ethic_militarist
-									has_ethic = ethic_fanatic_militarist
-								}
+								is_militarist = yes
 								has_technology = tech_gene_banks
 							}
 							AND = {
@@ -260,10 +257,7 @@ admiral_country = {
 							has_technology = tech_telepathy
 							has_technology = tech_gene_seed_purification
 							AND = {
-								OR = {
-									has_ethic = ethic_militarist
-									has_ethic = ethic_fanatic_militarist
-								}
+								is_militarist = yes
 								has_technology = tech_gene_banks
 							}
 							NAND = {
@@ -310,10 +304,7 @@ admiral_country = {
 							has_technology = tech_telepathy
 							has_technology = tech_gene_seed_purification
 							NAND = {
-								OR = {
-									has_ethic = ethic_militarist
-									has_ethic = ethic_fanatic_militarist
-								}
+								is_militarist = yes
 								has_technology = tech_gene_banks
 							}
 						}
@@ -370,9 +361,9 @@ admiral_country = {
 					}
 					modifier = {
 						factor = 0
-						OR = {
-							NOT = { has_authority = auth_machine_intelligence }
-							NOT = { has_technology = tech_adaptive_combat_algorithms }
+						NAND = {
+							has_authority = auth_machine_intelligence
+							has_technology = tech_adaptive_combat_algorithms
 						}
 					}
 				}
@@ -383,9 +374,9 @@ admiral_country = {
 					factor = 25
 					modifier = {
 						factor = 0
-						OR = {
-							NOT = { has_authority = auth_machine_intelligence }
-							NOT = { has_technology = tech_biomechanics }
+						NAND = {
+							has_authority = auth_machine_intelligence
+							has_technology = tech_biomechanics
 						}
 					}
 				}

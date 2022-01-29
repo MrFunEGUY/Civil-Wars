@@ -272,10 +272,7 @@ action_form_research_agreement = {
 				AND = {
 					has_civic = civic_machine_terminator
 					from = {
-						OR = {
-							has_country_flag = synthetic_empire
-							has_authority = auth_machine_intelligence
-						}
+						is_synthetic_empire = yes
 					}
 				}
 			}
@@ -288,10 +285,7 @@ action_form_research_agreement = {
 				from = { NOT = { has_civic = civic_machine_terminator } }
 				AND = {
 					from = { has_civic = civic_machine_terminator }
-					OR = {
-						has_country_flag = synthetic_empire
-						has_authority = auth_machine_intelligence
-					}
+					is_synthetic_empire = yes
 				}
 			}
 		}

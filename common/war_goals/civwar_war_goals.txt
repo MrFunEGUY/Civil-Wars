@@ -39,7 +39,7 @@ wg_civwar = {
 			}
 			every_war_participant = {
 				limit = {
-					NOT = { is_war_leader = yes }
+					is_war_leader = no
 				}
 				prev = {
 					remove_war_participant = prev
@@ -194,7 +194,7 @@ wg_planet_rebellion = {
 			}
 			every_war_participant = {
 				limit = {
-					NOT = { is_war_leader = yes }
+					is_war_leader = no
 				}
 				prev = {
 					remove_war_participant = prev
@@ -302,13 +302,13 @@ wg_admiral_rebellion = {
 					limit = {
 						any_owned_fleet = {
 							has_fleet_flag = civil_war_fleet
-							owner = { is_same_value = event_target:defeated_admiral }
+							is_owned_by = event_target:defeated_admiral
 						}
 					}
 					random_owned_fleet = {
 						limit = {
 							has_fleet_flag = civil_war_fleet
-							owner = { is_same_value = event_target:defeated_admiral }
+							is_owned_by = event_target:defeated_admiral
 						}
 						fleet = { set_owner = event_target:beat_the_admiral }
 					}
@@ -328,7 +328,7 @@ wg_admiral_rebellion = {
 			}
 			every_war_participant = {
 				limit = {
-					NOT = { is_war_leader = yes }
+					is_war_leader = no
 				}
 				prev = {
 					remove_war_participant = prev
@@ -482,7 +482,7 @@ wg_coup_successor_mother = {
 				every_war_participant = {
 					limit = {
 						has_country_flag = remove_from_civil_war
-						NOT = { is_war_leader = yes }
+						is_war_leader = no
 					}
 					prev = {
 						remove_war_participant = prev
@@ -565,7 +565,7 @@ wg_coup_independent = {
 				every_war_participant = {
 					limit = {
 						has_country_flag = remove_from_civil_war
-						NOT = { is_war_leader = yes }
+						is_war_leader = no
 					}
 					prev = {
 						remove_war_participant = prev
@@ -1433,7 +1433,7 @@ wg_planet_heir_rebellion = {
 			}
 			every_war_participant = {
 				limit = {
-					NOT = { is_war_leader = yes }
+					is_war_leader = no
 				}
 				prev = {
 					remove_war_participant = prev
@@ -1545,7 +1545,7 @@ wg_civwar_heir = {
 			}
 			every_war_participant = {
 				limit = {
-					NOT = { is_war_leader = yes }
+					is_war_leader = no
 				}
 				prev = {
 					remove_war_participant = prev

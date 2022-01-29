@@ -3107,7 +3107,7 @@ country_event = { # General - Communications
 		hidden_effect = {
 			if = {
 				limit = {
-					NOT = { is_subject = yes }
+					is_subject = no
 				}
 				random_list = {
 					80 = { country_event = { id = civcom.5020 } }
@@ -3137,7 +3137,7 @@ country_event = { # Scientist - Communications
 		hidden_effect = {
 			if = {
 				limit = {
-					NOT = { is_subject = yes }
+					is_subject = no
 				}
 				random_list = {
 					75 = { country_event = { id = civcom.5010 } }
@@ -3922,14 +3922,12 @@ event = { # Set Global Flag
 	hide_window = yes
 	is_triggered_only = yes
 
-	immediate = {
+	trigger = {
+		NOT = { has_global_flag = civil_wars_active }
+	}
 
-		if = {
-			limit = {
-				NOT = { has_global_flag = civil_wars_active }
-			}
-			set_global_flag = civil_wars_active
-		}
+	immediate = {
+		set_global_flag = civil_wars_active
 	}
 }
 

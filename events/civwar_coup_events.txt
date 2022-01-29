@@ -501,7 +501,7 @@ country_event = { # Setup for Successor State Countries
 					has_star_flag = civil_war_flip
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = event_target:civwar_originator }
+						is_owned_by = event_target:civwar_originator
 					}
 				}
 			}
@@ -510,7 +510,7 @@ country_event = { # Setup for Successor State Countries
 					has_star_flag = civil_war_flip
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = event_target:civwar_originator }
+						is_owned_by = event_target:civwar_originator
 					}
 				}
 				starbase = { set_owner = root }
@@ -530,7 +530,7 @@ country_event = { # Setup for Successor State Countries
 					every_fleet_in_system = {
 						limit = {
 							exists = owner
-							owner = { is_same_value = event_target:civwar_originator }
+							is_owned_by = event_target:civwar_originator
 							any_owned_ship = { is_ship_class = shipclass_military_station }
 						}
 						set_owner = root
@@ -752,7 +752,7 @@ country_event = { # Setup for Independent Kingdoms
 					has_star_flag = civil_war_flip
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = event_target:civwar_originator }
+						is_owned_by = event_target:civwar_originator
 					}
 				}
 			}
@@ -761,7 +761,7 @@ country_event = { # Setup for Independent Kingdoms
 					has_star_flag = civil_war_flip
 					exists = starbase
 					starbase = {
-						owner = { is_same_value = event_target:civwar_originator }
+						is_owned_by = event_target:civwar_originator
 					}
 				}
 				starbase = { set_owner = root }
@@ -781,7 +781,7 @@ country_event = { # Setup for Independent Kingdoms
 					every_fleet_in_system = {
 						limit = {
 							exists = owner
-							owner = { is_same_value = event_target:civwar_originator }
+							is_owned_by = event_target:civwar_originator
 							any_owned_ship = { is_ship_class = shipclass_military_station }
 						}
 						set_owner = root
