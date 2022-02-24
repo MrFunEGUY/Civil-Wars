@@ -5,7 +5,7 @@
 
 namespace = civcoup
 
-country_event = { # - Disputed Heir, empire may fracture, sectors randomly chosen to rebel
+country_event = { # - Disputed Heritage, empire may fracture, sectors randomly chosen to rebel
 	id = civcoup.1000
 	hide_window = yes
 	is_triggered_only = yes
@@ -87,7 +87,7 @@ country_event = { # - Disputed Heir, empire may fracture, sectors randomly chose
 	}
 }
 
-country_event = { # - Disputed Ruler, empire may fracture, sectors randomly chosen to rebel
+country_event = { # - Disputed Ruler Ascension, empire may fracture, sectors randomly chosen to rebel
 	id = civcoup.1100
 	hide_window = yes
 	is_triggered_only = yes
@@ -185,6 +185,11 @@ country_event = { # - No dissenting vassals (governors) or dynasty members
 		name = civcoup.1009.a
 		hidden_effect = {
 			ruler = {
+				if = {
+					limit = {
+						has_trait = trait_disputed_heritage
+					}
+				}
 				remove_trait = trait_disputed_heritage
 			}
 		}
@@ -259,14 +264,13 @@ country_event = { # Empire Fractures
 				limit = {
 					any_system_within_border = {
 						has_star_flag = civil_war_flip
-						sector = {
-							exists = leader
-						}
+						sector = { exists = leader }
 					}
 				}
 				random_system_within_border = {
 					limit = {
 						has_star_flag = civil_war_flip
+						sector = { exists = leader }
 					}
 					sector = {
 						leader = {
@@ -278,9 +282,7 @@ country_event = { # Empire Fractures
 			}
 				
 			# Set successor state species to founding empire species
-			event_target:civwar_originator = {
-				species = { save_global_event_target_as = civwar_species }
-			}
+			species = { save_global_event_target_as = civwar_species }
 
 			# Set independent kingdom species to rebelling governor's species
 			if = {
@@ -297,9 +299,16 @@ country_event = { # Empire Fractures
 				}
 			}
 
+			# Special civics make things angry, and so must be accounted for
+			# Galactic Emperor & Khan
 			if = {
 				limit = {
-					NOT = { has_global_flag = cultural_overhaul_active }
+					OR = {
+						has_civic = civic_galactic_sovereign
+						has_civic = civic_galactic_sovereign_megacorp
+						has_civic = civic_diadochi
+						has_civic = civic_great_khans_legacy
+					}
 				}
 				random_list = {
 					# These countries will attempt to install their preferred successor on the throne
@@ -316,15 +325,15 @@ country_event = { # Empire Fractures
 							ignore_initial_colony_error = yes
 							day_zero_contact = no
 							authority = auth_imperial
-							ethos = { 
+							ethos = {
 								ethic = ethic_fanatic_authoritarian
 								ethic = random
 							}
 							origin = origin_coup_successor
-							civics = event_target:civwar_originator
+							civics = random
 							flag = event_target:civwar_originator
 							effect = {
-								copy_ethos_and_authority = root
+								# copy_ethos_and_authority = event_target:civwar_originator
 								country_event = { id = civcoup.1015 }
 							}
 						}
@@ -371,16 +380,15 @@ country_event = { # Empire Fractures
 							ignore_initial_colony_error = yes
 							day_zero_contact = no
 							authority = auth_imperial
-							ethos = { 
+							ethos = {
 								ethic = ethic_fanatic_authoritarian
-								ethic = random
 								ethic = random
 							}
 							origin = origin_coup_successor
 							civics = event_target:civwar_originator
 							flag = event_target:civwar_originator
 							effect = {
-								copy_ethos_and_authority = root
+								# copy_ethos_and_authority = event_target:civwar_originator
 								country_event = { id = civcoup.1015 }
 							}
 						}
@@ -399,18 +407,18 @@ country_event = { # Empire Fractures
 							ethos = { 
 								ethic = ethic_fanatic_authoritarian
 								ethic = random
-								ethic = random
 							}
 							origin = origin_coup_independent
 							civics = random
 							flag = random
 							effect = {
+								set_country_flag = coup_country_@event_target:civwar_originator
 								country_event = { id = civcoup.1016 }
 							}
 						}
 					}
 				}
-			}	
+			}
 		}
 	}
 
@@ -493,59 +501,29 @@ country_event = { # Setup for Successor State Countries
 			}
 		}
 
-		# flip remaining flagged planets
-		while = {
-			count = 100
-			limit = {
-				any_system = {
-					has_star_flag = civil_war_flip
-					exists = starbase
-					starbase = {
-						is_owned_by = event_target:civwar_originator
-					}
-				}
-			}
-			random_system = {
+		event_target:civwar_originator = {
+			every_system_within_border = {
 				limit = {
 					has_star_flag = civil_war_flip
-					exists = starbase
-					starbase = {
-						is_owned_by = event_target:civwar_originator
-					}
 				}
 				starbase = { set_owner = root }
-			}
-		}
-
-		event_target:civwar_originator = {
-			every_owned_planet = {
-				limit = {
-					solar_system = {
-						has_star_flag = civil_war_flip
+				every_fleet_in_system = {
+					limit = {
+						exists = owner
+						is_owned_by = event_target:civwar_originator
+						any_owned_ship = { is_ship_class = shipclass_military_station }
 					}
+					set_owner = root
 				}
-
-				# flip military stations
-				solar_system = {
-					every_fleet_in_system = {
-						limit = {
-							exists = owner
-							is_owned_by = event_target:civwar_originator
-							any_owned_ship = { is_ship_class = shipclass_military_station }
-						}
-						set_owner = root
+				every_system_planet = {
+					limit = {
+						has_owner = yes
+						owner = { is_primitive = no }
 					}
+					set_owner = root
 				}
-				set_owner = root
-				set_controller = root
+				remove_star_flag = civil_war_flip
 			}
-		}
-
-		every_system_within_border = {
-			limit = {
-				has_star_flag = civil_war_flip
-			}
-			remove_star_flag = civil_war_flip
 		}
 
 		# Get population
@@ -584,7 +562,12 @@ country_event = { # Setup for Successor State Countries
 		capital_scope = {
 			solar_system = {
 				starbase = {
-					set_starbase_size = starbase_starhold
+					if = {
+						limit = {
+							NOT = { has_starbase_size >= starbase_starhold }
+						}
+						set_starbase_size = starbase_starhold
+					}
 				}
 			}
 		}
@@ -636,12 +619,27 @@ country_event = { # Setup for Successor State Countries
 		}
 
 		every_owned_fleet = {
-			#limit = { event_locked = yes }
 			set_event_locked = no
 		}
 
 		# Make Dynasty Member Leader
 		country_event = { id = civcoup.1040 }
+
+		# If Khan, set title.
+		event_target:civwar_originator = {
+			if = {
+				limit = {
+					OR = {
+						has_civic = civic_diadochi
+						has_civic = civic_great_khans_legacy
+					}
+				}
+				root = {
+					set_male_ruler_title = "Khan"
+					set_female_ruler_title = "Khan"
+				}
+			}
+		}
 	}
 
 	after = {
@@ -659,14 +657,14 @@ country_event = { # Setup for Successor State Countries
 				is_capital = yes
 			}
 			save_event_target_as = civil_war_capital
-			planet_event = { id = civplan.3003 }
+			planet_event = { id = civplan.3203 }
 		}
 
 		every_owned_planet = {
 			limit = {
 				is_capital = no
 			}
-			planet_event = { id = civplan.3004 }
+			planet_event = { id = civplan.3204 }
 		}
 
 		event_target:civwar_originator = {
@@ -744,59 +742,29 @@ country_event = { # Setup for Independent Kingdoms
 			}
 		}
 
-		# flip remaining flagged planets
-		while = {
-			count = 100
-			limit = {
-				any_system = {
-					has_star_flag = civil_war_flip
-					exists = starbase
-					starbase = {
-						is_owned_by = event_target:civwar_originator
-					}
-				}
-			}
-			random_system = {
+		event_target:civwar_originator = {
+			every_system_within_border = {
 				limit = {
 					has_star_flag = civil_war_flip
-					exists = starbase
-					starbase = {
-						is_owned_by = event_target:civwar_originator
-					}
 				}
 				starbase = { set_owner = root }
-			}
-		}
-
-		event_target:civwar_originator = {
-			every_owned_planet = {
-				limit = {
-					solar_system = {
-						has_star_flag = civil_war_flip
+				every_fleet_in_system = {
+					limit = {
+						exists = owner
+						is_owned_by = event_target:civwar_originator
+						any_owned_ship = { is_ship_class = shipclass_military_station }
 					}
+					set_owner = root
 				}
-
-				# flip military stations
-				solar_system = {
-					every_fleet_in_system = {
-						limit = {
-							exists = owner
-							is_owned_by = event_target:civwar_originator
-							any_owned_ship = { is_ship_class = shipclass_military_station }
-						}
-						set_owner = root
+				every_system_planet = {
+					limit = {
+						has_owner = yes
+						owner = { is_primitive = no }
 					}
+					set_owner = root
 				}
-				set_owner = root
-				set_controller = root
+				remove_star_flag = civil_war_flip
 			}
-		}
-
-		every_system_within_border = {
-			limit = {
-				has_star_flag = civil_war_flip
-			}
-			remove_star_flag = civil_war_flip
 		}
 
 		# Get population
@@ -835,7 +803,12 @@ country_event = { # Setup for Independent Kingdoms
 		capital_scope = {
 			solar_system = {
 				starbase = {
-					set_starbase_size = starbase_starhold
+					if = {
+						limit = {
+							NOT = { has_starbase_size >= starbase_starhold }
+						}
+						set_starbase_size = starbase_starhold
+					}
 				}
 			}
 		}
@@ -887,7 +860,6 @@ country_event = { # Setup for Independent Kingdoms
 		}
 
 		every_owned_fleet = {
-			#limit = { event_locked = yes }
 			set_event_locked = no
 		}
 
@@ -897,6 +869,22 @@ country_event = { # Setup for Independent Kingdoms
 				exists = event_target:civil_war_leader
 			}
 			country_event = { id = civwar.6000 }
+		}
+
+		# If Khan, set title.
+		event_target:civwar_originator = {
+			if = {
+				limit = {
+					OR = {
+						has_civic = civic_diadochi
+						has_civic = civic_great_khans_legacy
+					}
+				}
+				root = {
+					set_male_ruler_title = "Khan"
+					set_female_ruler_title = "Khan"
+				}
+			}
 		}
 	}
 
@@ -915,14 +903,14 @@ country_event = { # Setup for Independent Kingdoms
 				is_capital = yes
 			}
 			save_event_target_as = civil_war_capital
-			planet_event = { id = civplan.3003 }
+			planet_event = { id = civplan.3203 }
 		}
 
 		every_owned_planet = {
 			limit = {
 				is_capital = no
 			}
-			planet_event = { id = civplan.3004 }
+			planet_event = { id = civplan.3204 }
 		}
 
 		event_target:civwar_originator = {
@@ -2634,7 +2622,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_1
-						NOT = { is_at_war_with = event_target:disputed_heir_country_2 }
+						event_target:disputed_heir_country_1 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_1
@@ -2740,7 +2730,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_1
-						NOT = { is_at_war_with = event_target:disputed_heir_country_3 }
+						event_target:disputed_heir_country_1 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_1
@@ -2751,7 +2743,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_2
-						NOT = { is_at_war_with = event_target:disputed_heir_country_3 }
+						event_target:disputed_heir_country_2 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_2
@@ -2847,7 +2841,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_1
-						NOT = { is_at_war_with = event_target:disputed_heir_country_4 }
+						event_target:disputed_heir_country_1 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_1
@@ -2858,7 +2854,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_2
-						NOT = { is_at_war_with = event_target:disputed_heir_country_4 }
+						event_target:disputed_heir_country_2 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_2
@@ -2869,7 +2867,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_3
-						NOT = { is_at_war_with = event_target:disputed_heir_country_4 }
+						event_target:disputed_heir_country_3 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_3
@@ -2955,7 +2955,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_1
-						NOT = { is_at_war_with = event_target:disputed_heir_country_5 }
+						event_target:disputed_heir_country_1 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_1
@@ -2966,7 +2968,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_2
-						NOT = { is_at_war_with = event_target:disputed_heir_country_5 }
+						event_target:disputed_heir_country_2 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_2
@@ -2977,7 +2981,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_3
-						NOT = { is_at_war_with = event_target:disputed_heir_country_5 }
+						event_target:disputed_heir_country_3 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_3
@@ -2988,7 +2994,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_4
-						NOT = { is_at_war_with = event_target:disputed_heir_country_5 }
+						event_target:disputed_heir_country_4 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_4
@@ -3064,7 +3072,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_1
-						NOT = { is_at_war_with = event_target:disputed_heir_country_6 }
+						event_target:disputed_heir_country_1 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_1
@@ -3075,7 +3085,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_2
-						NOT = { is_at_war_with = event_target:disputed_heir_country_6 }
+						event_target:disputed_heir_country_2 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_2
@@ -3086,7 +3098,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_3
-						NOT = { is_at_war_with = event_target:disputed_heir_country_6 }
+						event_target:disputed_heir_country_3 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_3
@@ -3097,7 +3111,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_4
-						NOT = { is_at_war_with = event_target:disputed_heir_country_6 }
+						event_target:disputed_heir_country_4 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_4
@@ -3108,7 +3124,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_5
-						NOT = { is_at_war_with = event_target:disputed_heir_country_6 }
+						event_target:disputed_heir_country_5 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_5
@@ -3174,7 +3192,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_1
-						NOT = { is_at_war_with = event_target:disputed_heir_country_7 }
+						event_target:disputed_heir_country_1 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_1
@@ -3185,7 +3205,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_2
-						NOT = { is_at_war_with = event_target:disputed_heir_country_7 }
+						event_target:disputed_heir_country_2 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_2
@@ -3196,7 +3218,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_3
-						NOT = { is_at_war_with = event_target:disputed_heir_country_7 }
+						event_target:disputed_heir_country_3 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_3
@@ -3207,7 +3231,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_4
-						NOT = { is_at_war_with = event_target:disputed_heir_country_7 }
+						event_target:disputed_heir_country_4 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_4
@@ -3218,7 +3244,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_5
-						NOT = { is_at_war_with = event_target:disputed_heir_country_7 }
+						event_target:disputed_heir_country_5 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_5
@@ -3229,7 +3257,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_6
-						NOT = { is_at_war_with = event_target:disputed_heir_country_7 }
+						event_target:disputed_heir_country_6 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_6
@@ -3285,7 +3315,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_1
-						NOT = { is_at_war_with = event_target:disputed_heir_country_8 }
+						event_target:disputed_heir_country_1 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_1
@@ -3296,7 +3328,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_2
-						NOT = { is_at_war_with = event_target:disputed_heir_country_8 }
+						event_target:disputed_heir_country_2 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_2
@@ -3307,7 +3341,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_3
-						NOT = { is_at_war_with = event_target:disputed_heir_country_8 }
+						event_target:disputed_heir_country_3 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_3
@@ -3318,7 +3354,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_4
-						NOT = { is_at_war_with = event_target:disputed_heir_country_8 }
+						event_target:disputed_heir_country_4 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_4
@@ -3329,7 +3367,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_5
-						NOT = { is_at_war_with = event_target:disputed_heir_country_8 }
+						event_target:disputed_heir_country_5 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_5
@@ -3340,7 +3380,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_6
-						NOT = { is_at_war_with = event_target:disputed_heir_country_8 }
+						event_target:disputed_heir_country_6 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_6
@@ -3351,7 +3393,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_7
-						NOT = { is_at_war_with = event_target:disputed_heir_country_8 }
+						event_target:disputed_heir_country_7 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_7
@@ -3397,7 +3441,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_1
-						NOT = { is_at_war_with = event_target:disputed_heir_country_9 }
+						event_target:disputed_heir_country_1 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_1
@@ -3408,7 +3454,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_2
-						NOT = { is_at_war_with = event_target:disputed_heir_country_9 }
+						event_target:disputed_heir_country_2 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_2
@@ -3419,7 +3467,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_3
-						NOT = { is_at_war_with = event_target:disputed_heir_country_9 }
+						event_target:disputed_heir_country_3 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_3
@@ -3430,7 +3480,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_4
-						NOT = { is_at_war_with = event_target:disputed_heir_country_9 }
+						event_target:disputed_heir_country_4 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_4
@@ -3441,7 +3493,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_5
-						NOT = { is_at_war_with = event_target:disputed_heir_country_9 }
+						event_target:disputed_heir_country_5 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_5
@@ -3452,7 +3506,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_6
-						NOT = { is_at_war_with = event_target:disputed_heir_country_9 }
+						event_target:disputed_heir_country_6 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_6
@@ -3463,7 +3519,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_7
-						NOT = { is_at_war_with = event_target:disputed_heir_country_9 }
+						event_target:disputed_heir_country_7 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_7
@@ -3474,7 +3532,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_8
-						NOT = { is_at_war_with = event_target:disputed_heir_country_9 }
+						event_target:disputed_heir_country_8 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_8
@@ -3510,7 +3570,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_1
-						NOT = { is_at_war_with = event_target:disputed_heir_country_10 }
+						event_target:disputed_heir_country_1 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_1
@@ -3521,7 +3583,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_2
-						NOT = { is_at_war_with = event_target:disputed_heir_country_10 }
+						event_target:disputed_heir_country_2 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_2
@@ -3532,7 +3596,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_3
-						NOT = { is_at_war_with = event_target:disputed_heir_country_10 }
+						event_target:disputed_heir_country_3 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_3
@@ -3543,7 +3609,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_4
-						NOT = { is_at_war_with = event_target:disputed_heir_country_10 }
+						event_target:disputed_heir_country_4 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_4
@@ -3554,7 +3622,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_5
-						NOT = { is_at_war_with = event_target:disputed_heir_country_10 }
+						event_target:disputed_heir_country_5 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_5
@@ -3565,7 +3635,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_6
-						NOT = { is_at_war_with = event_target:disputed_heir_country_10 }
+						event_target:disputed_heir_country_6 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_6
@@ -3576,7 +3648,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_7
-						NOT = { is_at_war_with = event_target:disputed_heir_country_10 }
+						event_target:disputed_heir_country_7 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_7
@@ -3587,7 +3661,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_8
-						NOT = { is_at_war_with = event_target:disputed_heir_country_10 }
+						event_target:disputed_heir_country_8 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_8
@@ -3598,7 +3674,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = event_target:disputed_heir_country_9
-						NOT = { is_at_war_with = event_target:disputed_heir_country_10 }
+						event_target:disputed_heir_country_9 = {
+							NOT = { is_at_war_with = prev }
+						}
 					}
 					declare_war = {
 						target = event_target:disputed_heir_country_9
@@ -3615,9 +3693,8 @@ country_event = {
 		}
 	}
 
-	# Remove Federation Members from War
 	after = {
-		country_event = { id = civcoup.1070 days = 1 }
+		country_event = { id = civcoup.1070 }
 	}
 }
 
@@ -3639,374 +3716,7 @@ country_event = { # - War Communication
 			save_event_target_as = coup_secretary
 			exile_leader_as = coup_secretary
 		}
-		if = {
-			limit = {
-				check_variable = { which = total_rebel_countries value = 1 }
-				is_at_war_with = event_target:disputed_heir_country_1
-			}
-			country_event = { id = civcom.6000 }
-		}
-		else_if = {
-			limit = {
-				check_variable = { which = total_rebel_countries value = 1 }
-				NOT = { is_at_war_with = event_target:disputed_heir_country_1 }
-			}
-			country_event = { id = civcom.6010 }
-		}
-		else_if = {
-			limit = {
-				check_variable = { which = total_rebel_countries value > 1 }
-				OR = {
-					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_2 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_3 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_4 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_5 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_6 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_7 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_8 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_9 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_10 = { has_origin = origin_coup_independent }
-				}
-				OR = {
-					AND = {
-						is_at_war_with = event_target:disputed_heir_country_1
-						NOR = {
-							is_at_war_with = event_target:disputed_heir_country_2
-							is_at_war_with = event_target:disputed_heir_country_3
-							is_at_war_with = event_target:disputed_heir_country_4
-							is_at_war_with = event_target:disputed_heir_country_5
-							is_at_war_with = event_target:disputed_heir_country_6
-							is_at_war_with = event_target:disputed_heir_country_7
-							is_at_war_with = event_target:disputed_heir_country_8
-							is_at_war_with = event_target:disputed_heir_country_9
-							is_at_war_with = event_target:disputed_heir_country_10
-						}
-					}
-					AND = {
-						is_at_war_with = event_target:disputed_heir_country_2
-						NOR = {
-							is_at_war_with = event_target:disputed_heir_country_1
-							is_at_war_with = event_target:disputed_heir_country_3
-							is_at_war_with = event_target:disputed_heir_country_4
-							is_at_war_with = event_target:disputed_heir_country_5
-							is_at_war_with = event_target:disputed_heir_country_6
-							is_at_war_with = event_target:disputed_heir_country_7
-							is_at_war_with = event_target:disputed_heir_country_8
-							is_at_war_with = event_target:disputed_heir_country_9
-							is_at_war_with = event_target:disputed_heir_country_10
-						}
-					}
-					AND = {
-						is_at_war_with = event_target:disputed_heir_country_3
-						NOR = {
-							is_at_war_with = event_target:disputed_heir_country_1
-							is_at_war_with = event_target:disputed_heir_country_2
-							is_at_war_with = event_target:disputed_heir_country_4
-							is_at_war_with = event_target:disputed_heir_country_5
-							is_at_war_with = event_target:disputed_heir_country_6
-							is_at_war_with = event_target:disputed_heir_country_7
-							is_at_war_with = event_target:disputed_heir_country_8
-							is_at_war_with = event_target:disputed_heir_country_9
-							is_at_war_with = event_target:disputed_heir_country_10
-						}
-					}
-					AND = {
-						is_at_war_with = event_target:disputed_heir_country_4
-						NOR = {
-							is_at_war_with = event_target:disputed_heir_country_1
-							is_at_war_with = event_target:disputed_heir_country_2
-							is_at_war_with = event_target:disputed_heir_country_3
-							is_at_war_with = event_target:disputed_heir_country_5
-							is_at_war_with = event_target:disputed_heir_country_6
-							is_at_war_with = event_target:disputed_heir_country_7
-							is_at_war_with = event_target:disputed_heir_country_8
-							is_at_war_with = event_target:disputed_heir_country_9
-							is_at_war_with = event_target:disputed_heir_country_10
-						}
-					}
-					AND = {
-						is_at_war_with = event_target:disputed_heir_country_5
-						NOR = {
-							is_at_war_with = event_target:disputed_heir_country_1
-							is_at_war_with = event_target:disputed_heir_country_2
-							is_at_war_with = event_target:disputed_heir_country_3
-							is_at_war_with = event_target:disputed_heir_country_4
-							is_at_war_with = event_target:disputed_heir_country_6
-							is_at_war_with = event_target:disputed_heir_country_7
-							is_at_war_with = event_target:disputed_heir_country_8
-							is_at_war_with = event_target:disputed_heir_country_9
-							is_at_war_with = event_target:disputed_heir_country_10
-						}
-					}
-					AND = {
-						is_at_war_with = event_target:disputed_heir_country_6
-						NOR = {
-							is_at_war_with = event_target:disputed_heir_country_1
-							is_at_war_with = event_target:disputed_heir_country_2
-							is_at_war_with = event_target:disputed_heir_country_3
-							is_at_war_with = event_target:disputed_heir_country_4
-							is_at_war_with = event_target:disputed_heir_country_5
-							is_at_war_with = event_target:disputed_heir_country_7
-							is_at_war_with = event_target:disputed_heir_country_8
-							is_at_war_with = event_target:disputed_heir_country_9
-							is_at_war_with = event_target:disputed_heir_country_10
-						}
-					}
-					AND = {
-						is_at_war_with = event_target:disputed_heir_country_7
-						NOR = {
-							is_at_war_with = event_target:disputed_heir_country_1
-							is_at_war_with = event_target:disputed_heir_country_2
-							is_at_war_with = event_target:disputed_heir_country_3
-							is_at_war_with = event_target:disputed_heir_country_4
-							is_at_war_with = event_target:disputed_heir_country_5
-							is_at_war_with = event_target:disputed_heir_country_6
-							is_at_war_with = event_target:disputed_heir_country_8
-							is_at_war_with = event_target:disputed_heir_country_9
-							is_at_war_with = event_target:disputed_heir_country_10
-						}
-					}
-					AND = {
-						is_at_war_with = event_target:disputed_heir_country_8
-						NOR = {
-							is_at_war_with = event_target:disputed_heir_country_1
-							is_at_war_with = event_target:disputed_heir_country_2
-							is_at_war_with = event_target:disputed_heir_country_3
-							is_at_war_with = event_target:disputed_heir_country_4
-							is_at_war_with = event_target:disputed_heir_country_5
-							is_at_war_with = event_target:disputed_heir_country_6
-							is_at_war_with = event_target:disputed_heir_country_7
-							is_at_war_with = event_target:disputed_heir_country_9
-							is_at_war_with = event_target:disputed_heir_country_10
-						}
-					}
-					AND = {
-						is_at_war_with = event_target:disputed_heir_country_9
-						NOR = {
-							is_at_war_with = event_target:disputed_heir_country_1
-							is_at_war_with = event_target:disputed_heir_country_2
-							is_at_war_with = event_target:disputed_heir_country_3
-							is_at_war_with = event_target:disputed_heir_country_4
-							is_at_war_with = event_target:disputed_heir_country_5
-							is_at_war_with = event_target:disputed_heir_country_6
-							is_at_war_with = event_target:disputed_heir_country_7
-							is_at_war_with = event_target:disputed_heir_country_8
-							is_at_war_with = event_target:disputed_heir_country_10
-						}
-					}
-					AND = {
-						is_at_war_with = event_target:disputed_heir_country_10
-						NOR = {
-							is_at_war_with = event_target:disputed_heir_country_1
-							is_at_war_with = event_target:disputed_heir_country_2
-							is_at_war_with = event_target:disputed_heir_country_3
-							is_at_war_with = event_target:disputed_heir_country_4
-							is_at_war_with = event_target:disputed_heir_country_5
-							is_at_war_with = event_target:disputed_heir_country_6
-							is_at_war_with = event_target:disputed_heir_country_7
-							is_at_war_with = event_target:disputed_heir_country_8
-							is_at_war_with = event_target:disputed_heir_country_9
-						}
-					}
-				}
-			}
-			country_event = { id = civcom.6020 }
-		}
-		else_if = {
-			limit = {
-				check_variable = { which = total_rebel_countries value > 1 }
-				OR = {
-					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_2 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_3 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_4 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_5 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_6 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_7 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_8 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_9 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_10 = { has_origin = origin_coup_independent }
-				}
-				OR = {
-					is_at_war_with = event_target:disputed_heir_country_1
-					OR = {
-						is_at_war_with = event_target:disputed_heir_country_2
-						is_at_war_with = event_target:disputed_heir_country_3
-						is_at_war_with = event_target:disputed_heir_country_4
-						is_at_war_with = event_target:disputed_heir_country_5
-						is_at_war_with = event_target:disputed_heir_country_6
-						is_at_war_with = event_target:disputed_heir_country_7
-						is_at_war_with = event_target:disputed_heir_country_8
-						is_at_war_with = event_target:disputed_heir_country_9
-						is_at_war_with = event_target:disputed_heir_country_10
-					}
-				}
-				OR = {
-					is_at_war_with = event_target:disputed_heir_country_2
-					OR = {
-						is_at_war_with = event_target:disputed_heir_country_1
-						is_at_war_with = event_target:disputed_heir_country_3
-						is_at_war_with = event_target:disputed_heir_country_4
-						is_at_war_with = event_target:disputed_heir_country_5
-						is_at_war_with = event_target:disputed_heir_country_6
-						is_at_war_with = event_target:disputed_heir_country_7
-						is_at_war_with = event_target:disputed_heir_country_8
-						is_at_war_with = event_target:disputed_heir_country_9
-						is_at_war_with = event_target:disputed_heir_country_10
-					}
-				}
-				OR = {
-					is_at_war_with = event_target:disputed_heir_country_3
-					OR = {
-						is_at_war_with = event_target:disputed_heir_country_1
-						is_at_war_with = event_target:disputed_heir_country_2
-						is_at_war_with = event_target:disputed_heir_country_4
-						is_at_war_with = event_target:disputed_heir_country_5
-						is_at_war_with = event_target:disputed_heir_country_6
-						is_at_war_with = event_target:disputed_heir_country_7
-						is_at_war_with = event_target:disputed_heir_country_8
-						is_at_war_with = event_target:disputed_heir_country_9
-						is_at_war_with = event_target:disputed_heir_country_10
-					}
-				}
-				OR = {
-					is_at_war_with = event_target:disputed_heir_country_4
-					OR = {
-						is_at_war_with = event_target:disputed_heir_country_1
-						is_at_war_with = event_target:disputed_heir_country_2
-						is_at_war_with = event_target:disputed_heir_country_3
-						is_at_war_with = event_target:disputed_heir_country_5
-						is_at_war_with = event_target:disputed_heir_country_6
-						is_at_war_with = event_target:disputed_heir_country_7
-						is_at_war_with = event_target:disputed_heir_country_8
-						is_at_war_with = event_target:disputed_heir_country_9
-						is_at_war_with = event_target:disputed_heir_country_10
-					}
-				}
-				OR = {
-					is_at_war_with = event_target:disputed_heir_country_5
-					OR = {
-						is_at_war_with = event_target:disputed_heir_country_1
-						is_at_war_with = event_target:disputed_heir_country_2
-						is_at_war_with = event_target:disputed_heir_country_3
-						is_at_war_with = event_target:disputed_heir_country_4
-						is_at_war_with = event_target:disputed_heir_country_6
-						is_at_war_with = event_target:disputed_heir_country_7
-						is_at_war_with = event_target:disputed_heir_country_8
-						is_at_war_with = event_target:disputed_heir_country_9
-						is_at_war_with = event_target:disputed_heir_country_10
-					}
-				}
-				OR = {
-					is_at_war_with = event_target:disputed_heir_country_6
-					OR = {
-						is_at_war_with = event_target:disputed_heir_country_1
-						is_at_war_with = event_target:disputed_heir_country_2
-						is_at_war_with = event_target:disputed_heir_country_3
-						is_at_war_with = event_target:disputed_heir_country_4
-						is_at_war_with = event_target:disputed_heir_country_5
-						is_at_war_with = event_target:disputed_heir_country_7
-						is_at_war_with = event_target:disputed_heir_country_8
-						is_at_war_with = event_target:disputed_heir_country_9
-						is_at_war_with = event_target:disputed_heir_country_10
-					}
-				}
-				OR = {
-					is_at_war_with = event_target:disputed_heir_country_7
-					OR = {
-						is_at_war_with = event_target:disputed_heir_country_1
-						is_at_war_with = event_target:disputed_heir_country_2
-						is_at_war_with = event_target:disputed_heir_country_3
-						is_at_war_with = event_target:disputed_heir_country_4
-						is_at_war_with = event_target:disputed_heir_country_5
-						is_at_war_with = event_target:disputed_heir_country_6
-						is_at_war_with = event_target:disputed_heir_country_8
-						is_at_war_with = event_target:disputed_heir_country_9
-						is_at_war_with = event_target:disputed_heir_country_10
-					}
-				}
-				OR = {
-					is_at_war_with = event_target:disputed_heir_country_8
-					OR = {
-						is_at_war_with = event_target:disputed_heir_country_1
-						is_at_war_with = event_target:disputed_heir_country_2
-						is_at_war_with = event_target:disputed_heir_country_3
-						is_at_war_with = event_target:disputed_heir_country_4
-						is_at_war_with = event_target:disputed_heir_country_5
-						is_at_war_with = event_target:disputed_heir_country_6
-						is_at_war_with = event_target:disputed_heir_country_7
-						is_at_war_with = event_target:disputed_heir_country_9
-						is_at_war_with = event_target:disputed_heir_country_10
-					}
-				}
-				OR = {
-					is_at_war_with = event_target:disputed_heir_country_9
-					OR = {
-						is_at_war_with = event_target:disputed_heir_country_1
-						is_at_war_with = event_target:disputed_heir_country_2
-						is_at_war_with = event_target:disputed_heir_country_3
-						is_at_war_with = event_target:disputed_heir_country_4
-						is_at_war_with = event_target:disputed_heir_country_5
-						is_at_war_with = event_target:disputed_heir_country_6
-						is_at_war_with = event_target:disputed_heir_country_7
-						is_at_war_with = event_target:disputed_heir_country_8
-						is_at_war_with = event_target:disputed_heir_country_10
-					}
-				}
-				OR = {
-					is_at_war_with = event_target:disputed_heir_country_10
-					OR = {
-						is_at_war_with = event_target:disputed_heir_country_1
-						is_at_war_with = event_target:disputed_heir_country_2
-						is_at_war_with = event_target:disputed_heir_country_3
-						is_at_war_with = event_target:disputed_heir_country_4
-						is_at_war_with = event_target:disputed_heir_country_5
-						is_at_war_with = event_target:disputed_heir_country_6
-						is_at_war_with = event_target:disputed_heir_country_7
-						is_at_war_with = event_target:disputed_heir_country_8
-						is_at_war_with = event_target:disputed_heir_country_9
-					}
-				}
-			}
-			country_event = { id = civcom.6030 }
-		}
-		else_if = {
-			limit = {
-				check_variable = { which = total_rebel_countries value > 1 }
-				NOR = {
-					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_2 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_3 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_4 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_5 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_6 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_7 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_8 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_9 = { has_origin = origin_coup_independent }
-					event_target:disputed_heir_country_10 = { has_origin = origin_coup_independent }
-				}
-			}
-			country_event = { id = civcom.6040 }
-		}
-		else_if = {
-			limit = {
-				check_variable = { which = total_rebel_countries value > 1 }
-				NOR = {
-					is_at_war_with = event_target:disputed_heir_country_1
-					is_at_war_with = event_target:disputed_heir_country_2
-					is_at_war_with = event_target:disputed_heir_country_3
-					is_at_war_with = event_target:disputed_heir_country_4
-					is_at_war_with = event_target:disputed_heir_country_5
-					is_at_war_with = event_target:disputed_heir_country_6
-					is_at_war_with = event_target:disputed_heir_country_7
-					is_at_war_with = event_target:disputed_heir_country_8
-					is_at_war_with = event_target:disputed_heir_country_9
-					is_at_war_with = event_target:disputed_heir_country_10
-				}
-			}
-			country_event = { id = civcom.6050 }
-		}
+		get_coup_wars = yes
 	}
 }
 

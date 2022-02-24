@@ -1953,12 +1953,8 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		from = {
-			is_country_type = rebel
-		}
-		fromfrom = {
-			has_planet_flag = planetary_rebellion
-		}
+		from = { is_country_type = rebel }
+		fromfrom = { has_planet_flag = planetary_rebellion }
 	}
 
 	immediate = {
@@ -1970,6 +1966,8 @@ country_event = {
 			country_event = { id = civwar.4100 }
 		}
 
+		get_rid_rebels_of = yes
+
 		fromfrom.solar_system = {
 			starbase = {
 				set_owner = event_target:civwar_rebels
@@ -1979,6 +1977,7 @@ country_event = {
 		fromfrom = {
 			set_owner = event_target:civwar_rebels
 			remove_planet_flag = revolt_tick_5
+			remove_planet_flag = planetary_rebellion
 			save_event_target_as = rebellion_planet
 			remove_modifier = planetary_rebels
 		}
@@ -1999,6 +1998,15 @@ country_event = {
 		random_list = {
 			35 = { country_event = { id = civcom.4000 } }
 			65 = { country_event = { id = civcom.4100 } }
+		}
+	}
+
+	after = {
+		from = {
+			if = {
+				limit = { has_federation = yes }
+				leave_alliance = { override_requirements = yes }
+			}
 		}
 	}
 }
@@ -5869,6 +5877,1334 @@ planet_event = {
 							name = random
 							owner = event_target:civwar_rebels
 							species = event_target:heir_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+####
+
+# Succession Crisis Armies - Capital
+planet_event = {
+	id = civplan.3203
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = {
+				num_pops >= 1
+				num_pops < 5
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 5
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 5
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 5
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 10
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 10
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 10
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 5
+				num_pops < 10
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 5
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 10
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 10
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 10
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 10
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 10
+				num_pops < 20
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 10
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 10
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 10
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 20
+				num_pops < 30
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 10
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 30
+				num_pops < 40
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 40
+				num_pops < 50
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 50
+				num_pops < 60
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 60
+				num_pops < 70
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 70
+				num_pops < 80
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 80
+				num_pops < 90
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 35
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 90
+				num_pops < 100
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 35
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 35
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 35
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 100
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 35
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 35
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 35
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 35
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_assault_army"
+						}
+					}
+					while = {
+						count = 40
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Succession Crisis Armies - Other Planets in Sector
+planet_event = {
+	id = civplan.3204
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = {
+				num_pops >= 1
+				num_pops < 5
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 10
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 5
+				num_pops < 10
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 15
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 10
+				num_pops < 20
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 20
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 20
+				num_pops < 30
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 25
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 35
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 30
+				num_pops < 40
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 30
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 35
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 40
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 40
+				num_pops < 50
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 35
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 40
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 45
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 50
+				num_pops < 60
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 40
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 45
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 50
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 60
+				num_pops < 70
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 45
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 50
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 55
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 70
+				num_pops < 80
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 50
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 55
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 60
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 80
+				num_pops < 90
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 55
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 60
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 65
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 90
+				num_pops < 100
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 60
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 65
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 70
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				num_pops >= 100
+			}
+			random_list = {
+				25 = {
+					while = {
+						count = 65
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				50 = {
+					while = {
+						count = 70
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
+							type = "civwar_defense_army"
+						}
+					}
+				}
+				25 = {
+					while = {
+						count = 75
+						create_army = {
+							name = random
+							owner = event_target:civwar_rebels
+							species = event_target:civwar_species
 							type = "civwar_defense_army"
 						}
 					}

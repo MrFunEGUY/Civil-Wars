@@ -808,7 +808,7 @@ country_event = {
 						has_country_flag = is_a_subject
 					}
 				}
-				country_event = { id = civend.5101 }
+				country_event = { id = civend.5001 }
 			}
 		}
 	}
@@ -1102,6 +1102,7 @@ country_event = {
 	option = { # Good
 		name = civend.5006.a
 		hidden_effect = {
+			event_target:defeated_traitor = { kill_leader = { show_notification = no } }
 			clear_global_event_target = defeated_traitor
 			if = {
 				limit = {
@@ -1215,10 +1216,7 @@ country_event = {
 	option = { # Good
 		name = civend.5006.a
 		hidden_effect = {
-			if = {
-				limit = { exists = event_target:defeated_traitor }
-				event_target:defeated_traitor = { kill_leader = { show_notification = no } }
-			}
+			event_target:defeated_traitor = { kill_leader = { show_notification = no } }
 			clear_global_event_target = defeated_traitor
 			if = {
 				limit = {

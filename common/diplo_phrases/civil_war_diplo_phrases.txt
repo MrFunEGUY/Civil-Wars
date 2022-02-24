@@ -2,6 +2,8 @@
 # FROM is the actor ie the initiator of the diplomatic action
 # ROOT is the recipient of the diplomatic action
 
+# These are broken after I switched to dynamic flags, need to fix them eventually.
+
 greetings = {
 
 	01_CIVWAR_GREETING = {
@@ -17,7 +19,7 @@ greetings = {
 				}
 				is_at_war_with = FROM
 				FROM = {
-					has_country_flag = civwar_mother_country_@this
+					has_country_flag = civwar_mother_country_@root
 				}
 			}
 		}
@@ -36,7 +38,7 @@ greetings = {
 				}
 				is_at_war_with = FROM
 				FROM = {
-					has_country_flag = civwar_mother_country_@this
+					has_country_flag = civwar_mother_country_@root
 				}
 			}
 		}
@@ -55,7 +57,7 @@ greetings = {
 				}
 				is_at_war_with = FROM
 				FROM = {
-					has_country_flag = civwar_mother_country_@this
+					has_country_flag = civwar_mother_country_@root
 				}
 			}
 		}
@@ -74,7 +76,7 @@ greetings = {
 				}
 				is_at_war_with = FROM
 				FROM = {
-					has_country_flag = civwar_mother_country_@this
+					has_country_flag = civwar_mother_country_@root
 				}
 			}
 		}
@@ -91,7 +93,7 @@ greetings = {
 				has_origin = origin_coup_successor
 				is_at_war_with = FROM
 				FROM = {
-					has_country_flag = coup_mother_country
+					has_country_flag = coup_mother_country@this
 				}
 			}
 		}
@@ -106,7 +108,7 @@ greetings = {
 				has_origin = origin_coup_successor
 				is_at_war_with = FROM
 				FROM = {
-					has_country_flag = coup_mother_country
+					has_country_flag = coup_mother_country@this
 				}
 			}
 		}
@@ -121,7 +123,7 @@ greetings = {
 				has_origin = origin_coup_successor
 				is_at_war_with = FROM
 				FROM = {
-					has_country_flag = coup_mother_country
+					has_country_flag = coup_mother_country@this
 				}
 			}
 		}
@@ -136,7 +138,7 @@ greetings = {
 				has_origin = origin_coup_successor
 				is_at_war_with = FROM
 				FROM = {
-					has_country_flag = coup_mother_country
+					has_country_flag = coup_mother_country@this
 				}
 			}
 		}

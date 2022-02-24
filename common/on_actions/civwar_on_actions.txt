@@ -2,6 +2,7 @@
 on_monthly_pulse = {
 	events = {
 		civwar.9999				# Bug fix - fleets
+		civesp.9999				# Bug fix - Espionage
 	}
 }
 
@@ -37,7 +38,6 @@ on_monthly_pulse_country = {
 on_yearly_pulse_country = {
 	events = {
 		civwar.1000    			# Potential Civil War - factions and corrupt
-		# civwar.1010    		# Potential Civil War - Galaxy Size
 		civwar.1100				# Potential Planetary Rebellion
 		civwar.9410				# Rename victorious admiral's fleet, because I cant get on_war_won or on_war_ended working properly
 		civwar.9100				# Unflag federation members who are not in federations anymore
@@ -107,15 +107,6 @@ on_operation_cancelled = {
 	}
 }
 
-# A war has ended
-# Root = Loser
-# From = Main Winner
-on_war_ended = {
-	events = {
-		civwar.8000				# War won - Transfer subject systems back to subjects
-	}
-}
-
 # A war has been won
 # Root = Winner Warleader
 # From = Loser Warleader
@@ -128,6 +119,7 @@ on_war_won = {
 		civend.5005				# Traitorous Leader Retrieved at end of war
 		civend.6000				# Traitorous Heir Installed at end of war
 		civend.6001 			# Traitorous Heir Retrieved at end of war
+		civwar.8000				# War won - Transfer subject systems back to subjects
 	}
 }
 
@@ -178,5 +170,14 @@ on_post_government_changed = {
 on_country_destroyed = {
 	events = {
 		# civnat.5000
+	}
+}
+
+# Executed as a leader has been fired
+# This = Country
+# From = Leader
+on_leader_fired = {
+	events = {
+		civheir.9000			# Heir fired
 	}
 }

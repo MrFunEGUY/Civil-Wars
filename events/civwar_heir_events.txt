@@ -231,7 +231,7 @@ country_event = {
 				# Heir takes over a sector
 				40 = { country_event = { id = civheir.4100 } }
 				# Heir takes multiple sectors
-				10 = { country_event = { id = civwar.4200 } }
+				10 = { country_event = { id = civheir.4200 } }
 			}
 		}
 		else = {
@@ -318,7 +318,7 @@ country_event = {
 				# Heir takes over a sector
 				40 = { country_event = { id = civheir.4100 } }
 				# Heir takes multiple sectors
-				10 = { country_event = { id = civwar.4200 } }
+				10 = { country_event = { id = civheir.4200 } }
 			}
 		}
 		else = {
@@ -1079,7 +1079,6 @@ country_event = { # Setup for Heir Civil War
 		}
 
 		every_owned_fleet = {
-			#limit = { event_locked = yes }
 			set_event_locked = no
 		}
 
@@ -2379,3 +2378,33 @@ country_event = {
 	}
 }
 
+#################
+# On Actions
+
+# On Heir fired, no sneaky work arounds
+country_event = {
+	id = civheir.9000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = {
+			OR = {
+				has_leader_flag = appointed_heir
+				has_leader_flag = clone_heir_base
+			}
+		}
+	}
+
+	immediate = {
+		from = { save_global_event_target_as = disinherited_heir_first }
+		clone_leader = {
+			target = event_target:disinherited_heir_first
+			class = ruler
+			effect = {
+				save_global_event_target_as = disinherited_heir
+			}
+		}
+		country_event = { id = civheir.1000 }
+	}
+}

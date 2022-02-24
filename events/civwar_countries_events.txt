@@ -15,216 +15,100 @@ country_event = { # Faction Leader Rebellion - Authoritarian
 			limit = {
 				exists = event_target:admiral_rebel_system
 			}
-			if = {
-				limit = {
-					has_global_flag = cultural_overhaul_active
-				}
-				random_list = {
-					50 = {
-						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							authority = auth_imperial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = ethic_militarist
-								ethic = random
-								ethic = random
-							}
-							origin = origin_admiral_rebellion
-							civics = {
-								civic = civic_distinguished_admiralty
-								civic = random
-								civic = random
-							}
-							flag = random
-							effect = {
-								save_event_target_as = civwar_rebels
-								country_event = { id = civwar.4000 } # admiral setup happens here
-							}
+			random_list = {
+				50 = {
+					create_country = {
+						name = random
+						type = default
+						species = event_target:civwar_species
+						ignore_initial_colony_error = yes
+						day_zero_contact = no
+						authority = auth_imperial
+						ethos = { 
+							ethic = ethic_fanatic_authoritarian
+							ethic = ethic_militarist
+							ethic = random
 						}
-					}
-					50 = {
-						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							authority = auth_dictatorial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = ethic_militarist
-								ethic = random
-								ethic = random
-							}
-							origin = origin_admiral_rebellion
-							civics = {
-								civic = civic_distinguished_admiralty
-								civic = random
-								civic = random
-							}
-							flag = random
-							effect = {
-								save_event_target_as = civwar_rebels
-								country_event = { id = civwar.4000 } # admiral setup happens here
-							}
+						origin = origin_admiral_rebellion
+						civics = {
+							civic = civic_distinguished_admiralty
+							civic = random
+						}
+						flag = random
+						effect = {
+							save_event_target_as = civwar_rebels
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
-			}
-			else = {
-				random_list = {
-					50 = {
-						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							authority = auth_imperial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = ethic_militarist
-								ethic = random
-							}
-							origin = origin_admiral_rebellion
-							civics = {
-								civic = civic_distinguished_admiralty
-								civic = random
-							}
-							flag = random
-							effect = {
-								save_event_target_as = civwar_rebels
-								country_event = { id = civwar.4000 } # admiral setup happens here
-							}
+				50 = {
+					create_country = {
+						name = random
+						type = default
+						species = event_target:civwar_species
+						ignore_initial_colony_error = yes
+						day_zero_contact = no
+						authority = auth_dictatorial
+						ethos = { 
+							ethic = ethic_fanatic_authoritarian
+							ethic = ethic_militarist
+							ethic = random
 						}
-					}
-					50 = {
-						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							authority = auth_dictatorial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = ethic_militarist
-								ethic = random
-							}
-							origin = origin_admiral_rebellion
-							civics = {
-								civic = civic_distinguished_admiralty
-								civic = random
-							}
-							flag = random
-							effect = {
-								save_event_target_as = civwar_rebels
-								country_event = { id = civwar.4000 } # admiral setup happens here
-							}
+						origin = origin_admiral_rebellion
+						civics = {
+							civic = civic_distinguished_admiralty
+							civic = random
+						}
+						flag = random
+						effect = {
+							save_event_target_as = civwar_rebels
+							country_event = { id = civwar.4000 } # admiral setup happens here
 						}
 					}
 				}
 			}
 		}
 		else = {
-			if = {
-				limit = {
-					has_global_flag = cultural_overhaul_active
-				}
-				random_list = {
-					50 = {
-						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							authority = auth_imperial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = random
-								ethic = random
-							}
-							origin = origin_civwar
-							civics = random
-							flag = random
-							effect = {
-								save_event_target_as = civwar_rebels
-								country_event = { id = civwar.4000 } # setup happens here
-							}
+			random_list = {
+				50 = {
+					create_country = {
+						name = random
+						type = default
+						species = event_target:civwar_species
+						ignore_initial_colony_error = yes
+						day_zero_contact = no
+						authority = auth_imperial
+						ethos = { 
+							ethic = ethic_fanatic_authoritarian
+							ethic = random
 						}
-					}
-					50 = {
-						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							authority = auth_dictatorial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = random
-								ethic = random
-							}
-							origin = origin_civwar
-							civics = random
-							flag = random
-							effect = {
-								save_event_target_as = civwar_rebels
-								country_event = { id = civwar.4000 } # setup happens here
-							}
+						origin = origin_civwar
+						civics = random
+						flag = random
+						effect = {
+							save_event_target_as = civwar_rebels
+							country_event = { id = civwar.4000 } # setup happens here
 						}
 					}
 				}
-			}
-			else = {
-				random_list = {
-					50 = {
-						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							authority = auth_imperial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = random
-							}
-							origin = origin_civwar
-							civics = random
-							flag = random
-							effect = {
-								save_event_target_as = civwar_rebels
-								country_event = { id = civwar.4000 } # setup happens here
-							}
+				50 = {
+					create_country = {
+						name = random
+						type = default
+						species = event_target:civwar_species
+						ignore_initial_colony_error = yes
+						day_zero_contact = no
+						authority = auth_dictatorial
+						ethos = { 
+							ethic = ethic_fanatic_authoritarian
+							ethic = random
 						}
-					}
-					50 = {
-						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							authority = auth_dictatorial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = random
-							}
-							origin = origin_civwar
-							civics = random
-							flag = random
-							effect = {
-								save_event_target_as = civwar_rebels
-								country_event = { id = civwar.4000 } # setup happens here
-							}
+						origin = origin_civwar
+						civics = random
+						flag = random
+						effect = {
+							save_event_target_as = civwar_rebels
+							country_event = { id = civwar.4000 } # setup happens here
 						}
 					}
 				}
@@ -259,8 +143,6 @@ country_event = { # Faction Leader Rebellion - Egalitarian
 							ethos = { 
 								ethic = ethic_fanatic_egalitarian
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = random
@@ -281,8 +163,6 @@ country_event = { # Faction Leader Rebellion - Egalitarian
 							authority = auth_direct_democratic
 							ethos = { 
 								ethic = ethic_fanatic_egalitarian
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_admiral_rebellion
@@ -335,8 +215,6 @@ country_event = { # Faction Leader Rebellion - Egalitarian
 							ethos = { 
 								ethic = ethic_fanatic_egalitarian
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -357,8 +235,6 @@ country_event = { # Faction Leader Rebellion - Egalitarian
 							authority = auth_direct_democratic
 							ethos = { 
 								ethic = ethic_fanatic_egalitarian
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_civwar
@@ -423,13 +299,10 @@ country_event = { # Faction Leader Rebellion - Militarist
 							ethos = { 
 								ethic = ethic_fanatic_militarist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = {
 								civic = civic_distinguished_admiralty
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -450,13 +323,10 @@ country_event = { # Faction Leader Rebellion - Militarist
 							ethos = { 
 								ethic = ethic_fanatic_militarist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = {
 								civic = civic_distinguished_admiralty
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -477,13 +347,10 @@ country_event = { # Faction Leader Rebellion - Militarist
 							ethos = { 
 								ethic = ethic_fanatic_militarist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = {
 								civic = civic_distinguished_admiralty
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -504,13 +371,10 @@ country_event = { # Faction Leader Rebellion - Militarist
 							ethos = { 
 								ethic = ethic_fanatic_militarist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = {
 								civic = civic_distinguished_admiralty
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -536,7 +400,6 @@ country_event = { # Faction Leader Rebellion - Militarist
 							origin = origin_admiral_rebellion
 							civics = {
 								civic = civic_distinguished_admiralty
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -666,8 +529,6 @@ country_event = { # Faction Leader Rebellion - Militarist
 							ethos = { 
 								ethic = ethic_fanatic_militarist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -688,8 +549,6 @@ country_event = { # Faction Leader Rebellion - Militarist
 							authority = auth_direct_democratic
 							ethos = { 
 								ethic = ethic_fanatic_militarist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_civwar
@@ -712,8 +571,6 @@ country_event = { # Faction Leader Rebellion - Militarist
 							ethos = { 
 								ethic = ethic_fanatic_militarist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -735,8 +592,6 @@ country_event = { # Faction Leader Rebellion - Militarist
 							ethos = { 
 								ethic = ethic_fanatic_militarist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -757,8 +612,6 @@ country_event = { # Faction Leader Rebellion - Militarist
 							authority = auth_oligarchic
 							ethos = { 
 								ethic = ethic_fanatic_militarist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_civwar
@@ -890,8 +743,6 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							ethos = { 
 								ethic = ethic_fanatic_pacifist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = random
@@ -912,8 +763,6 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							authority = auth_direct_democratic
 							ethos = { 
 								ethic = ethic_fanatic_pacifist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_admiral_rebellion
@@ -936,8 +785,6 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							ethos = { 
 								ethic = ethic_fanatic_pacifist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = random
@@ -959,8 +806,6 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							ethos = { 
 								ethic = ethic_fanatic_pacifist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = random
@@ -981,8 +826,6 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							authority = auth_oligarchic
 							ethos = { 
 								ethic = ethic_fanatic_pacifist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_admiral_rebellion
@@ -1102,8 +945,6 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							ethos = { 
 								ethic = ethic_fanatic_pacifist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -1124,8 +965,6 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							authority = auth_direct_democratic
 							ethos = { 
 								ethic = ethic_fanatic_pacifist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_civwar
@@ -1148,8 +987,6 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							ethos = { 
 								ethic = ethic_fanatic_pacifist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -1171,8 +1008,6 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							ethos = { 
 								ethic = ethic_fanatic_pacifist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -1193,8 +1028,6 @@ country_event = { # Faction Leader Rebellion - Pacifist
 							authority = auth_oligarchic
 							ethos = { 
 								ethic = ethic_fanatic_pacifist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_civwar
@@ -1326,8 +1159,6 @@ country_event = { # Faction Leader Rebellion - Materialist
 							ethos = { 
 								ethic = ethic_fanatic_materialist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = random
@@ -1348,8 +1179,6 @@ country_event = { # Faction Leader Rebellion - Materialist
 							authority = auth_direct_democratic
 							ethos = { 
 								ethic = ethic_fanatic_materialist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_admiral_rebellion
@@ -1372,8 +1201,6 @@ country_event = { # Faction Leader Rebellion - Materialist
 							ethos = { 
 								ethic = ethic_fanatic_materialist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = random
@@ -1395,8 +1222,6 @@ country_event = { # Faction Leader Rebellion - Materialist
 							ethos = { 
 								ethic = ethic_fanatic_materialist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = random
@@ -1417,8 +1242,6 @@ country_event = { # Faction Leader Rebellion - Materialist
 							authority = auth_oligarchic
 							ethos = { 
 								ethic = ethic_fanatic_materialist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_admiral_rebellion
@@ -1543,13 +1366,10 @@ country_event = { # Faction Leader Rebellion - Materialist
 							ethos = { 
 								ethic = ethic_fanatic_materialist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = {
 								civic = civic_technocracy
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -1570,13 +1390,10 @@ country_event = { # Faction Leader Rebellion - Materialist
 							ethos = { 
 								ethic = ethic_fanatic_materialist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = {
 								civic = civic_technocracy
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -1597,13 +1414,10 @@ country_event = { # Faction Leader Rebellion - Materialist
 							ethos = { 
 								ethic = ethic_fanatic_materialist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = {
 								civic = civic_technocracy
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -1624,13 +1438,10 @@ country_event = { # Faction Leader Rebellion - Materialist
 							ethos = { 
 								ethic = ethic_fanatic_materialist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = {
 								civic = civic_technocracy
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -1651,13 +1462,10 @@ country_event = { # Faction Leader Rebellion - Materialist
 							ethos = { 
 								ethic = ethic_fanatic_materialist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = {
 								civic = civic_technocracy
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -1787,8 +1595,6 @@ country_event = { # Faction Leader Rebellion - Materialist
 							ethos = { 
 								ethic = ethic_fanatic_materialist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -1809,8 +1615,6 @@ country_event = { # Faction Leader Rebellion - Materialist
 							authority = auth_direct_democratic
 							ethos = { 
 								ethic = ethic_fanatic_materialist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_civwar
@@ -1833,8 +1637,6 @@ country_event = { # Faction Leader Rebellion - Materialist
 							ethos = { 
 								ethic = ethic_fanatic_materialist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -1856,8 +1658,6 @@ country_event = { # Faction Leader Rebellion - Materialist
 							ethos = { 
 								ethic = ethic_fanatic_materialist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -1878,8 +1678,6 @@ country_event = { # Faction Leader Rebellion - Materialist
 							authority = auth_oligarchic
 							ethos = { 
 								ethic = ethic_fanatic_materialist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_civwar
@@ -2011,8 +1809,6 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							ethos = { 
 								ethic = ethic_fanatic_spiritualist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = random
@@ -2033,8 +1829,6 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							authority = auth_direct_democratic
 							ethos = { 
 								ethic = ethic_fanatic_spiritualist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_admiral_rebellion
@@ -2057,8 +1851,6 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							ethos = { 
 								ethic = ethic_fanatic_spiritualist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = random
@@ -2080,8 +1872,6 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							ethos = { 
 								ethic = ethic_fanatic_spiritualist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = random
@@ -2102,8 +1892,6 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							authority = auth_oligarchic
 							ethos = { 
 								ethic = ethic_fanatic_spiritualist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_admiral_rebellion
@@ -2223,8 +2011,6 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							ethos = { 
 								ethic = ethic_fanatic_spiritualist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -2245,8 +2031,6 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							authority = auth_direct_democratic
 							ethos = { 
 								ethic = ethic_fanatic_spiritualist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_civwar
@@ -2269,8 +2053,6 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							ethos = { 
 								ethic = ethic_fanatic_spiritualist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -2292,8 +2074,6 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							ethos = { 
 								ethic = ethic_fanatic_spiritualist
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -2314,8 +2094,6 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 							authority = auth_oligarchic
 							ethos = { 
 								ethic = ethic_fanatic_spiritualist
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_civwar
@@ -2447,13 +2225,10 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							ethos = { 
 								ethic = ethic_fanatic_xenophile
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = {
 								civic = civic_distinguished_admiralty
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -2474,13 +2249,10 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							ethos = { 
 								ethic = ethic_fanatic_xenophile
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = {
 								civic = civic_distinguished_admiralty
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -2501,13 +2273,10 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							ethos = { 
 								ethic = ethic_fanatic_xenophile
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = {
 								civic = civic_distinguished_admiralty
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -2528,13 +2297,10 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							ethos = { 
 								ethic = ethic_fanatic_xenophile
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = {
 								civic = civic_distinguished_admiralty
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -2555,13 +2321,10 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							ethos = { 
 								ethic = ethic_fanatic_xenophile
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = {
 								civic = civic_distinguished_admiralty
-								civic = random
 								civic = random
 							}
 							flag = random
@@ -2691,8 +2454,6 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							ethos = { 
 								ethic = ethic_fanatic_xenophile
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -2713,8 +2474,6 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							authority = auth_direct_democratic
 							ethos = { 
 								ethic = ethic_fanatic_xenophile
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_civwar
@@ -2737,8 +2496,6 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							ethos = { 
 								ethic = ethic_fanatic_xenophile
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -2760,8 +2517,6 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							ethos = { 
 								ethic = ethic_fanatic_xenophile
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -2782,8 +2537,6 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 							authority = auth_oligarchic
 							ethos = { 
 								ethic = ethic_fanatic_xenophile
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_civwar
@@ -2915,8 +2668,6 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							ethos = { 
 								ethic = ethic_fanatic_xenophobe
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = random
@@ -2937,8 +2688,6 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							authority = auth_imperial
 							ethos = { 
 								ethic = ethic_fanatic_xenophobe
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_admiral_rebellion
@@ -2961,8 +2710,6 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							ethos = { 
 								ethic = ethic_fanatic_xenophobe
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_admiral_rebellion
 							civics = random
@@ -2983,8 +2730,6 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							authority = auth_oligarchic
 							ethos = { 
 								ethic = ethic_fanatic_xenophobe
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_admiral_rebellion
@@ -3104,8 +2849,6 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							ethos = { 
 								ethic = ethic_fanatic_xenophobe
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -3126,8 +2869,6 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							authority = auth_imperial
 							ethos = { 
 								ethic = ethic_fanatic_xenophobe
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_civwar
@@ -3150,8 +2891,6 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							ethos = { 
 								ethic = ethic_fanatic_xenophobe
 								ethic = random
-								ethic = random
-								ethic = random
 							}
 							origin = origin_civwar
 							civics = random
@@ -3172,8 +2911,6 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 							authority = auth_oligarchic
 							ethos = { 
 								ethic = ethic_fanatic_xenophobe
-								ethic = random
-								ethic = random
 								ethic = random
 							}
 							origin = origin_civwar
@@ -3323,7 +3060,6 @@ country_event = { # Faction Leader Rebellion - Socialist
 							ethic = ethic_fanatic_socialism
 							ethic = ethic_egalitarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -3345,7 +3081,6 @@ country_event = { # Faction Leader Rebellion - Socialist
 						ethos = { 
 							ethic = ethic_fanatic_socialism
 							ethic = ethic_egalitarian
-							ethic = random
 							ethic = random
 						}
 						origin = origin_admiral_rebellion
@@ -3369,7 +3104,6 @@ country_event = { # Faction Leader Rebellion - Socialist
 							ethic = ethic_fanatic_socialism
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -3392,7 +3126,6 @@ country_event = { # Faction Leader Rebellion - Socialist
 							ethic = ethic_fanatic_socialism
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -3413,7 +3146,6 @@ country_event = { # Faction Leader Rebellion - Socialist
 						authority = auth_oligarchic
 						ethos = { 
 							ethic = ethic_fanatic_socialism
-							ethic = random
 							ethic = random
 							ethic = random
 						}
@@ -3442,7 +3174,6 @@ country_event = { # Faction Leader Rebellion - Socialist
 							ethic = ethic_fanatic_socialism
 							ethic = ethic_egalitarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -3464,7 +3195,6 @@ country_event = { # Faction Leader Rebellion - Socialist
 						ethos = { 
 							ethic = ethic_fanatic_socialism
 							ethic = ethic_egalitarian
-							ethic = random
 							ethic = random
 						}
 						origin = origin_civwar
@@ -3488,7 +3218,6 @@ country_event = { # Faction Leader Rebellion - Socialist
 							ethic = ethic_fanatic_socialism
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -3511,7 +3240,6 @@ country_event = { # Faction Leader Rebellion - Socialist
 							ethic = ethic_fanatic_socialism
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -3532,7 +3260,6 @@ country_event = { # Faction Leader Rebellion - Socialist
 						authority = auth_oligarchic
 						ethos = { 
 							ethic = ethic_fanatic_socialism
-							ethic = random
 							ethic = random
 							ethic = random
 						}
@@ -3573,7 +3300,6 @@ country_event = { # Faction Leader Rebellion - Capitalist
 							ethic = ethic_fanatic_capitalism
 							ethic = ethic_egalitarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -3595,7 +3321,6 @@ country_event = { # Faction Leader Rebellion - Capitalist
 						ethos = { 
 							ethic = ethic_fanatic_capitalism
 							ethic = ethic_egalitarian
-							ethic = random
 							ethic = random
 						}
 						origin = origin_admiral_rebellion
@@ -3619,7 +3344,6 @@ country_event = { # Faction Leader Rebellion - Capitalist
 							ethic = ethic_fanatic_capitalism
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -3642,7 +3366,6 @@ country_event = { # Faction Leader Rebellion - Capitalist
 							ethic = ethic_fanatic_capitalism
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -3663,7 +3386,6 @@ country_event = { # Faction Leader Rebellion - Capitalist
 						authority = auth_oligarchic
 						ethos = { 
 							ethic = ethic_fanatic_capitalism
-							ethic = random
 							ethic = random
 							ethic = random
 						}
@@ -3692,7 +3414,6 @@ country_event = { # Faction Leader Rebellion - Capitalist
 							ethic = ethic_fanatic_capitalism
 							ethic = ethic_egalitarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -3714,7 +3435,6 @@ country_event = { # Faction Leader Rebellion - Capitalist
 						ethos = { 
 							ethic = ethic_fanatic_capitalism
 							ethic = ethic_egalitarian
-							ethic = random
 							ethic = random
 						}
 						origin = origin_civwar
@@ -3738,7 +3458,6 @@ country_event = { # Faction Leader Rebellion - Capitalist
 							ethic = ethic_fanatic_capitalism
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -3761,7 +3480,6 @@ country_event = { # Faction Leader Rebellion - Capitalist
 							ethic = ethic_fanatic_capitalism
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -3782,7 +3500,6 @@ country_event = { # Faction Leader Rebellion - Capitalist
 						authority = auth_oligarchic
 						ethos = { 
 							ethic = ethic_fanatic_capitalism
-							ethic = random
 							ethic = random
 							ethic = random
 						}
@@ -3823,7 +3540,6 @@ country_event = { # Corrupt Governor Rebellion
 							ethic = ethic_fanatic_authoritarian
 							ethic = random
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = {
@@ -3848,7 +3564,6 @@ country_event = { # Corrupt Governor Rebellion
 						authority = auth_dictatorial
 						ethos = { 
 							ethic = ethic_fanatic_authoritarian
-							ethic = random
 							ethic = random
 							ethic = random
 						}
@@ -3999,7 +3714,6 @@ country_event = { # Faction Leader Rebellion - Industrialist
 							ethic = ethic_fanatic_industrial
 							ethic = ethic_egalitarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -4021,7 +3735,6 @@ country_event = { # Faction Leader Rebellion - Industrialist
 						ethos = { 
 							ethic = ethic_fanatic_industrial
 							ethic = ethic_egalitarian
-							ethic = random
 							ethic = random
 						}
 						origin = origin_admiral_rebellion
@@ -4045,7 +3758,6 @@ country_event = { # Faction Leader Rebellion - Industrialist
 							ethic = ethic_fanatic_industrial
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -4068,7 +3780,6 @@ country_event = { # Faction Leader Rebellion - Industrialist
 							ethic = ethic_fanatic_industrial
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -4089,7 +3800,6 @@ country_event = { # Faction Leader Rebellion - Industrialist
 						authority = auth_oligarchic
 						ethos = { 
 							ethic = ethic_fanatic_industrial
-							ethic = random
 							ethic = random
 							ethic = random
 						}
@@ -4118,7 +3828,6 @@ country_event = { # Faction Leader Rebellion - Industrialist
 							ethic = ethic_fanatic_industrial
 							ethic = ethic_egalitarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -4140,7 +3849,6 @@ country_event = { # Faction Leader Rebellion - Industrialist
 						ethos = { 
 							ethic = ethic_fanatic_industrial
 							ethic = ethic_egalitarian
-							ethic = random
 							ethic = random
 						}
 						origin = origin_civwar
@@ -4164,7 +3872,6 @@ country_event = { # Faction Leader Rebellion - Industrialist
 							ethic = ethic_fanatic_industrial
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -4187,7 +3894,6 @@ country_event = { # Faction Leader Rebellion - Industrialist
 							ethic = ethic_fanatic_industrial
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -4208,7 +3914,6 @@ country_event = { # Faction Leader Rebellion - Industrialist
 						authority = auth_oligarchic
 						ethos = { 
 							ethic = ethic_fanatic_industrial
-							ethic = random
 							ethic = random
 							ethic = random
 						}
@@ -4249,7 +3954,6 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 							ethic = ethic_fanatic_green
 							ethic = ethic_egalitarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -4271,7 +3975,6 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 						ethos = { 
 							ethic = ethic_fanatic_green
 							ethic = ethic_egalitarian
-							ethic = random
 							ethic = random
 						}
 						origin = origin_admiral_rebellion
@@ -4295,7 +3998,6 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 							ethic = ethic_fanatic_green
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -4318,7 +4020,6 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 							ethic = ethic_fanatic_green
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -4339,7 +4040,6 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 						authority = auth_oligarchic
 						ethos = { 
 							ethic = ethic_fanatic_green
-							ethic = random
 							ethic = random
 							ethic = random
 						}
@@ -4368,7 +4068,6 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 							ethic = ethic_fanatic_green
 							ethic = ethic_egalitarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -4390,7 +4089,6 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 						ethos = { 
 							ethic = ethic_fanatic_green
 							ethic = ethic_egalitarian
-							ethic = random
 							ethic = random
 						}
 						origin = origin_civwar
@@ -4414,7 +4112,6 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 							ethic = ethic_fanatic_green
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -4437,7 +4134,6 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 							ethic = ethic_fanatic_green
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -4458,7 +4154,6 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 						authority = auth_oligarchic
 						ethos = { 
 							ethic = ethic_fanatic_green
-							ethic = random
 							ethic = random
 							ethic = random
 						}
@@ -4499,7 +4194,6 @@ country_event = { # Faction Leader Rebellion - Elitists
 							ethic = ethic_fanatic_elitist
 							ethic = ethic_egalitarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -4521,7 +4215,6 @@ country_event = { # Faction Leader Rebellion - Elitists
 						ethos = { 
 							ethic = ethic_fanatic_elitist
 							ethic = ethic_egalitarian
-							ethic = random
 							ethic = random
 						}
 						origin = origin_admiral_rebellion
@@ -4545,7 +4238,6 @@ country_event = { # Faction Leader Rebellion - Elitists
 							ethic = ethic_fanatic_elitist
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -4568,7 +4260,6 @@ country_event = { # Faction Leader Rebellion - Elitists
 							ethic = ethic_fanatic_elitist
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -4589,7 +4280,6 @@ country_event = { # Faction Leader Rebellion - Elitists
 						authority = auth_oligarchic
 						ethos = { 
 							ethic = ethic_fanatic_elitist
-							ethic = random
 							ethic = random
 							ethic = random
 						}
@@ -4618,7 +4308,6 @@ country_event = { # Faction Leader Rebellion - Elitists
 							ethic = ethic_fanatic_elitist
 							ethic = ethic_egalitarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -4640,7 +4329,6 @@ country_event = { # Faction Leader Rebellion - Elitists
 						ethos = { 
 							ethic = ethic_fanatic_elitist
 							ethic = ethic_egalitarian
-							ethic = random
 							ethic = random
 						}
 						origin = origin_civwar
@@ -4664,7 +4352,6 @@ country_event = { # Faction Leader Rebellion - Elitists
 							ethic = ethic_fanatic_elitist
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -4687,7 +4374,6 @@ country_event = { # Faction Leader Rebellion - Elitists
 							ethic = ethic_fanatic_elitist
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -4708,7 +4394,6 @@ country_event = { # Faction Leader Rebellion - Elitists
 						authority = auth_oligarchic
 						ethos = { 
 							ethic = ethic_fanatic_elitist
-							ethic = random
 							ethic = random
 							ethic = random
 						}
@@ -4749,7 +4434,6 @@ country_event = { # Faction Leader Rebellion - Pluralists
 							ethic = ethic_fanatic_pluralist
 							ethic = ethic_egalitarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -4771,7 +4455,6 @@ country_event = { # Faction Leader Rebellion - Pluralists
 						ethos = { 
 							ethic = ethic_fanatic_pluralist
 							ethic = ethic_egalitarian
-							ethic = random
 							ethic = random
 						}
 						origin = origin_admiral_rebellion
@@ -4795,7 +4478,6 @@ country_event = { # Faction Leader Rebellion - Pluralists
 							ethic = ethic_fanatic_pluralist
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -4818,7 +4500,6 @@ country_event = { # Faction Leader Rebellion - Pluralists
 							ethic = ethic_fanatic_pluralist
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_admiral_rebellion
 						civics = random
@@ -4839,7 +4520,6 @@ country_event = { # Faction Leader Rebellion - Pluralists
 						authority = auth_oligarchic
 						ethos = { 
 							ethic = ethic_fanatic_pluralist
-							ethic = random
 							ethic = random
 							ethic = random
 						}
@@ -4868,7 +4548,6 @@ country_event = { # Faction Leader Rebellion - Pluralists
 							ethic = ethic_fanatic_pluralist
 							ethic = ethic_egalitarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -4890,7 +4569,6 @@ country_event = { # Faction Leader Rebellion - Pluralists
 						ethos = { 
 							ethic = ethic_fanatic_pluralist
 							ethic = ethic_egalitarian
-							ethic = random
 							ethic = random
 						}
 						origin = origin_civwar
@@ -4914,7 +4592,6 @@ country_event = { # Faction Leader Rebellion - Pluralists
 							ethic = ethic_fanatic_pluralist
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -4937,7 +4614,6 @@ country_event = { # Faction Leader Rebellion - Pluralists
 							ethic = ethic_fanatic_pluralist
 							ethic = ethic_authoritarian
 							ethic = random
-							ethic = random
 						}
 						origin = origin_civwar
 						civics = random
@@ -4958,7 +4634,6 @@ country_event = { # Faction Leader Rebellion - Pluralists
 						authority = auth_oligarchic
 						ethos = { 
 							ethic = ethic_fanatic_pluralist
-							ethic = random
 							ethic = random
 							ethic = random
 						}

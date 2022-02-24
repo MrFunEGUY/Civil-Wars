@@ -1,4 +1,11 @@
-﻿l_russian:
+﻿# l_english:
+# l_spanish:
+# l_german:
+# l_french:
+# l_polish:
+l_russian:
+# l_braz_por:
+# l_simp_chinese:
 
  # Faction Leader Governor / Corrupt Governor
  civwar.5000.name:1 "§RГубернатор объявляет независимость!§!"
@@ -147,9 +154,11 @@
  # Tooltips
  civil_war_won_tooltip:0 "§Y[Root.GetName]§! will regain control of all territory lost to §Y[From.GetName]§!. \n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!."
 
- civil_war_won_subject_tooltip:0 "§YOur subject§! will regain control of all territory lost to §Y[From.GetName]§!. \n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!."
+ civil_war_won_subject_tooltip:0 "§YOur subject§! will regain control of all territory lost to the §Y[From.GetName]§!. \n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!."
 
- civil_war_lost_tooltip:0 "§Y[From.GetName]§! is forced to accept the sovereignty of §Y[Root.GetName]§! \n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!."
+ civil_war_lost_tooltip:0 "§Y[From.GetName]§! is forced to accept the sovereignty of the §Y[Root.GetName]§!. \n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!."
+
+ civil_war_status_quo_tooltip:0 "§Y[Root.GetName]§! is forced to accept the sovereignty of the §Y[From.GetName]§! over whatever systems they still control. \n§Y[From.GetName]§! gains £unity£ §Y$unity$§!."
 
  # Fail Texts
  resource_fail_text:0 "§RWe do not have enough resources.§!"
@@ -170,7 +179,7 @@
  civcom.4000.b:0 "Без вас нам будет лучше."
 
  civcom.4001.desc:0 "Мы знали, что это наиболее вероятный исход, и готовы защищать нашу независимость!"
- civcom.5062desc:0 "Я знал, что это наиболее вероятный исход. Мой флот готов защищаться!"
+ civcom.5062.desc:0 "Я знал, что это наиболее вероятный исход. Мой флот готов защищаться!"
  civcom.5063.desc:0 "Я знал, что это наиболее вероятный исход, и готов защищать то, что по праву принадлежит мне!"
  civcom.4001.a:0 "Вы потерпите неудачу!"
 
@@ -258,9 +267,9 @@
  civcom.6000.war.list:0 "§YОбъявление§! §Rвойны§!:"
 
  civcom.6000.name:0 "Имперский секретарь [event_target:coup_secretary.GetName]"
- civcom.6000.heir.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the undoubtedly false rumors surrounding your heritage, one of your relatives has claimed that they are the true heir to the throne. They've managed to gather enough support to take control of one of our sectors, and are audaciously claiming that we are the true rebels. As of right now, we are are in a state of total war with their faction of our empire."
+ civcom.6000.heritage.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the undoubtedly false rumors surrounding your heritage, one of your relatives has claimed that they are the true heir to the throne. They've managed to gather enough support to take control of one of our sectors, and are audaciously claiming that we are the true rebels. As of right now, we are are in a state of total war with their faction of our empire."
 
- civcom.6000.ruler.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the circumstances surrounding your succession, one of your relatives has claimed that they are the true heir to the throne. They've managed to gather enough support to take control of one of our sectors, and are audaciously claiming that we are the true rebels. As of right now, we are are in a state of total war with their faction of our empire."
+ civcom.6000.ascension.desc:0 "My §Y[root.GetRulerTitle]§!, we are in a crisis. Due to the circumstances surrounding your succession, one of your relatives has claimed that they are the true heir to the throne. They've managed to gather enough support to take control of one of our sectors, and are audaciously claiming that we are the true rebels. As of right now, we are are in a state of total war with their faction of our empire."
 
  civcom.6000.a:0 "Возмутительно! Это я §H[root.GetRulerTitle]§! [Root.GetName]!"
 
@@ -401,7 +410,7 @@
 
  civend.5006.name:0 "§Y[event_target:defeated_traitor.GetName] Executed!§!"
  civend.5007.name:0 "§Y[event_target:retrieved_traitor.GetName] Executed!§!"
- civend.5008.name:0 "§Y[event_target:retrieved_traitor.GetName] is Dead!§!"
+ civend.5008.name:0 "§Y[event_target:defeated_traitor.GetName] is Dead!§!"
 
  civend.5006.hanged.desc:0 "In an event broadcast throughout our empire, the traitor §H[event_target:defeated_traitor.GetName]§! was hung today. May all traitors and would-be rebels remember this day."
  civend.5006.firing_squad.desc:0 "In an event broadcast throughout our empire, the traitor §H[event_target:defeated_traitor.GetName]§! was executed via firing squad. May all traitors and would-be rebels remember this day."
@@ -626,9 +635,7 @@
  civesp.5000.a:0 "Fine. On screen."
  rebel_leader_talk: "We need to talk to the rebel leader."
 
- civesp.9900.name:0 "Operation Failed"
-
- civesp.9000.name:0 "Operation Failed"
+ civesp.9900.name:0 "§ROperation Failed§!"
 
  espionage_no_divisions:0 "There are no significant divisions in [event_target:target_country.GetAdj] society that we can exploit. The operation cannot continue."
 

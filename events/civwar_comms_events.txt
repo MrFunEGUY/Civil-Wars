@@ -79,85 +79,68 @@ country_event = {
 		name = civcom.random
 		trigger = {
 			is_ai = yes
-			NOT = { has_valid_civic = civic_fanatic_purifiers }
-			event_target:civwar_rebels = {
-				capital_scope = {
-					solar_system = {
-						is_bottleneck_system = no
-					}
-				}
-			}
 		}
 		ai_chance = { factor = 1 }
-		random_list = {
-			98 = {
-				hidden_effect = {
-					event_target:civwar_originator = {
-						add_opinion_modifier = {
-							who = event_target:civwar_rebels
-							modifier = opinion_civwar_planet
-						}
-					}
-					event_target:civwar_rebels = {
-						add_opinion_modifier = {
-							who = event_target:civwar_originator
-							modifier = opinion_civwar_originator
-						}
-					}
-					country_event = { id = civcom.4001 }
-				}
-			}
-			2 = {
-				hidden_effect = {
-					event_target:civwar_originator = {
-						add_opinion_modifier = {
-							who = event_target:civwar_rebels
-							modifier = opinion_civwar_planet_peace
-						}
-					}
-					event_target:civwar_rebels = {
-						add_opinion_modifier = {
-							who = event_target:civwar_originator
-							modifier = opinion_civwar_originator
-						}
-					}
-					country_event = { id = civcom.4002 }
-				}
-			}
-		}
-	}
-
-	# Fanatic Purifier AI or bottleneck system option
-	option = {
-		name = civcom.random
-		trigger = {
-			is_ai = yes
-			OR = {
-				has_valid_civic = civic_fanatic_purifiers
+		if = {
+			limit = {
+				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				event_target:civwar_rebels = {
-					capital_scope = {
-						solar_system = {
-							is_bottleneck_system = yes
+					any_system_within_border = { is_bottleneck_system = no }
+				}
+			}
+			random_list = {
+				98 = {
+					hidden_effect = {
+						event_target:civwar_originator = {
+							add_opinion_modifier = {
+								who = event_target:civwar_rebels
+								modifier = opinion_civwar_planet
+							}
 						}
+						event_target:civwar_rebels = {
+							add_opinion_modifier = {
+								who = event_target:civwar_originator
+								modifier = opinion_civwar_originator
+							}
+						}
+						country_event = { id = civcom.4001 }
+					}
+				}
+				2 = {
+					hidden_effect = {
+						event_target:civwar_originator = {
+							add_opinion_modifier = {
+								who = event_target:civwar_rebels
+								modifier = opinion_civwar_planet_peace
+							}
+						}
+						event_target:civwar_rebels = {
+							add_opinion_modifier = {
+								who = event_target:civwar_originator
+								modifier = opinion_civwar_originator
+							}
+						}
+						country_event = { id = civcom.4002 }
 					}
 				}
 			}
 		}
-		ai_chance = { factor = 1 }
-		hidden_effect = {
-			event_target:civwar_originator = {
-				add_opinion_modifier = {
-					who = event_target:civwar_rebels
-					modifier = opinion_civwar_planet
+		else = {
+			hidden_effect = {
+				event_target:civwar_originator = {
+					add_opinion_modifier = {
+						who = event_target:civwar_rebels
+						modifier = opinion_civwar_planet
+					}
 				}
-			}
-			event_target:civwar_originator = {
-				add_opinion_modifier = {
-					who = event_target:civwar_rebels
-					modifier = opinion_civwar_planet
+				event_target:civwar_originator = {
+					add_opinion_modifier = {
+						who = event_target:civwar_rebels
+						modifier = opinion_civwar_planet
+					}
 				}
+				country_event = { id = civcom.4001 }
 			}
-			country_event = { id = civcom.4001 }
 		}
 	}
 }
@@ -183,9 +166,7 @@ country_event = {
 
 	option = {
 		name = civcom.4001.a
-		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
 		hidden_effect = {
-			get_rid_rebels_of_originator = yes
 			country_event = { id = civwar.5200 }
 		}
 		ai_chance = { factor = 1 }
@@ -214,10 +195,8 @@ country_event = {
 	option = {
 		name = civcom.4002.a
 		ai_chance = { factor = 1 }
-		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
 		
 		hidden_effect = {
-			get_rid_rebels_of_originator = yes
 			event_target:civwar_rebels = {
 				every_system_within_border = {
 					limit = {
@@ -304,84 +283,65 @@ country_event = {
 		name = civcom.random
 		trigger = {
 			is_ai = yes
-			NOR = {
-				has_valid_civic = civic_fanatic_purifiers
-				event_target:civwar_rebels = {
-					capital_scope = {
-						solar_system = {
-							is_bottleneck_system = no
-						}
-					}
-				}
-			}
 		}
 		ai_chance = { factor = 1 }
-		random_list = {
-			93 = {
-				hidden_effect = {
-					event_target:civwar_originator = {
-						add_opinion_modifier = {
-							who = event_target:civwar_rebels
-							modifier = opinion_civwar_planet
-						}
-					}
-					event_target:civwar_rebels = {
-						add_opinion_modifier = {
-							who = event_target:civwar_originator
-							modifier = opinion_civwar_originator
-						}
-					}
-					country_event = { id = civcom.4001 }
-				}
-			}
-			5 = {
-				hidden_effect = { country_event = { id = civcom.4103 } }
-			}
-			2 = {
-				hidden_effect = {
-					event_target:civwar_originator = {
-						add_opinion_modifier = {
-							who = event_target:civwar_rebels
-							modifier = opinion_civwar_planet_peace
-						}
-					}
-					country_event = { id = civcom.4102 }
-				}
-			}
-		}
-	}
-
-	# Fanatic Purifier AI or bottleneck system option
-	option = {
-		name = civcom.random
-		trigger = {
-			is_ai = yes
-			OR = {
-				has_valid_civic = civic_fanatic_purifiers
+		if = {
+			limit = {
+				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				event_target:civwar_rebels = {
-					capital_scope = {
-						solar_system = {
-							is_bottleneck_system = yes
+					any_system_within_border = { is_bottleneck_system = no }
+				}
+			}
+			random_list = {
+				93 = {
+					hidden_effect = {
+						event_target:civwar_originator = {
+							add_opinion_modifier = {
+								who = event_target:civwar_rebels
+								modifier = opinion_civwar_planet
+							}
 						}
+						event_target:civwar_rebels = {
+							add_opinion_modifier = {
+								who = event_target:civwar_originator
+								modifier = opinion_civwar_originator
+							}
+						}
+						country_event = { id = civcom.4001 }
+					}
+				}
+				5 = {
+					hidden_effect = { country_event = { id = civcom.4103 } }
+				}
+				2 = {
+					hidden_effect = {
+						event_target:civwar_originator = {
+							add_opinion_modifier = {
+								who = event_target:civwar_rebels
+								modifier = opinion_civwar_planet_peace
+							}
+						}
+						country_event = { id = civcom.4102 }
 					}
 				}
 			}
 		}
-		ai_chance = { factor = 1 }
-		hidden_effect = {
-			event_target:civwar_originator = {
-				add_opinion_modifier = {
-					who = event_target:civwar_rebels
-					modifier = opinion_civwar_planet
+		else = {
+			hidden_effect = {
+				event_target:civwar_originator = {
+					add_opinion_modifier = {
+						who = event_target:civwar_rebels
+						modifier = opinion_civwar_planet
+					}
 				}
-			}
-			event_target:civwar_originator = {
-				add_opinion_modifier = {
-					who = event_target:civwar_rebels
-					modifier = opinion_civwar_planet
+				event_target:civwar_originator = {
+					add_opinion_modifier = {
+						who = event_target:civwar_rebels
+						modifier = opinion_civwar_planet
+					}
 				}
+				country_event = { id = civcom.4001 }
 			}
-			country_event = { id = civcom.4001 }
 		}
 	}
 }
@@ -408,10 +368,6 @@ country_event = {
 	option = {
 		name = civcom.4102.a
 		ai_chance = { factor = 1 }
-		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
-		hidden_effect = {
-			get_rid_rebels_of_originator = yes
-		}
 	}
 }
 
@@ -437,10 +393,6 @@ country_event = {
 	option = {
 		name = civcom.4103.a
 		ai_chance = { factor = 1 }
-		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
-		hidden_effect = {
-			get_rid_rebels_of_originator = yes
-		}
 		event_target:civwar_rebels = {
 			set_subject_of = {
 				who = root
@@ -2340,7 +2292,7 @@ country_event = {
 		name = civcom.3000.a
 		custom_tooltip = civcom.3000.a.tooltip
 		hidden_effect = {
-			from = {
+			event_target:civwar_originator = {
 				set_country_flag = subject_for_systems
 				set_country_flag = subject_for_traitor
 			}
@@ -2354,7 +2306,7 @@ country_event = {
 		name = civcom.3000.b
 		custom_tooltip = civcom.3000.b.tooltip
 		hidden_effect = {
-			from = {
+			event_target:civwar_originator = {
 				country_event = { id = civwar.5100 }
 			}
 		}
@@ -2376,16 +2328,16 @@ country_event = {
 		hidden_effect = {
 			random_list = {
 				85 = {
-					country_event = { id = civwar.5300 }
-					from = {
+					event_target:civwar_originator = {
 						set_country_flag = subject_for_systems
 						set_country_flag = subject_for_traitor
 					}
 					set_country_flag = transfer_subject_systems
+					country_event = { id = civwar.5300 }
 				}
 				13 = {
 					hidden_effect = {
-						from = {
+						event_target:civwar_originator = {
 							country_event = { id = civwar.5100 }
 						}
 					}
@@ -2435,7 +2387,7 @@ country_event = {
 		name = civcom.3000.b
 		custom_tooltip = civcom.3000.b.tooltip
 		hidden_effect = {
-			from = {
+			event_target:civwar_originator = {
 				country_event = { id = civwar.5101 }
 			}
 		}
@@ -2452,15 +2404,10 @@ country_event = {
 			random_list = {
 				85 = {
 					country_event = { id = civwar.5101 }
-					from = {
-						set_country_flag = subject_for_systems
-						set_country_flag = subject_for_traitor
-					}
-					set_country_flag = transfer_subject_systems
 				}
 				13 = {
 					hidden_effect = {
-						from = {
+						event_target:civwar_originator = {
 							country_event = { id = civwar.5101 }
 						}
 					}
@@ -2531,11 +2478,11 @@ country_event = {
 	diplomatic = yes
 
 	desc = {
-		text = civcom.6010.heir.desc
+		text = civcom.6010.heritage.desc
 		trigger = { ruler = { has_trait = trait_disputed_heritage } }
 	}
 	desc = {
-		text = civcom.6010.ruler.desc
+		text = civcom.6010.ascension.desc
 		trigger = { ruler = { NOT = { has_trait = trait_disputed_heritage } } }
 	}
 
@@ -3975,9 +3922,7 @@ country_event = {
 
 	option = {
 		name = civcom.4001.a
-		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
 		hidden_effect = {
-			get_rid_rebels_of_originator = yes
 			country_event = { id = civheir.5101 }
 		}
 		ai_chance = { factor = 1 }
@@ -4006,10 +3951,6 @@ country_event = {
 	option = {
 		name = civcom.5052.a
 		ai_chance = { factor = 1 }
-		# This needs to be done to get rid of the "Rebels of" tag on the galactic map.
-		hidden_effect = {
-			get_rid_rebels_of_originator = yes
-		}
 	}
 }
 

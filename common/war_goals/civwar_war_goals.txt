@@ -20,12 +20,37 @@ wg_civwar = {
 		always = yes
 	}
 
+	on_status_quo = {
+		custom_tooltip = civil_war_status_quo_tooltip
+		from = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier4materialreward
+				min = @tier4materialmin
+			}
+		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civil_war days = 1800 }
+		}
+	}
+
 	on_accept = {
 		custom_tooltip = civil_war_won_tooltip
 		add_monthly_resource_mult = {
 			resource = unity
 			value = @tier5materialreward
 			min = @tier5materialmin
+		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civil_war days = 1800 }
+			from = {
+				every_system_within_border = {
+					limit = {
+						exists = starbase
+					}
+					starbase = { set_owner = root }
+				}
+			}
 		}
 	}
 
@@ -36,7 +61,7 @@ wg_civwar = {
 					type = wg_civwar
 					owner = root
 				}
-			}
+			} 
 			every_war_participant = {
 				limit = {
 					is_war_leader = no
@@ -83,12 +108,33 @@ wg_civwar_subject = {
 		always = yes
 	}
 
+	on_status_quo = {
+		custom_tooltip = civil_war_status_quo_tooltip
+		from = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier4materialreward
+				min = @tier4materialmin
+			}
+		}
+	}
+
 	on_accept = {
 		custom_tooltip = civil_war_won_subject_tooltip
 		add_monthly_resource_mult = {
 			resource = unity
-			value = @tier5materialreward
-			min = @tier5materialmin
+			value = @tier1materialreward
+			min = @tier1materialmin
+		}
+		hidden_effect = {
+			from = {
+				every_system_within_border = {
+					limit = {
+						exists = starbase
+					}
+					starbase = { set_owner = root }
+				}
+			}
 		}
 	}
 
@@ -156,6 +202,11 @@ wg_civwar_rebel = {
 			value = @tier5materialreward
 			min = @tier5materialmin
 		}
+		hidden_effect = {
+			from = {
+				set_timed_country_flag = { flag = recent_civil_war days = 1800 }
+			}
+		}
 	}
 
 	ai_weight = {
@@ -175,7 +226,7 @@ wg_planet_rebellion = {
 		demand_surrender
 	}
 
-	surrender_acceptance = -300
+	surrender_acceptance = -500
 
 	potential = {
 		always = no # event only
@@ -222,6 +273,18 @@ wg_planet_rebellion = {
 			from = {
 				capital_scope = {
 					set_timed_planet_flag = { flag = rebellion_suppressed days = 1800 }
+				}
+				every_system_within_border = {
+					limit = {
+						exists = starbase
+					}
+					every_system_planet = {
+						limit = {
+							is_owned_by = from
+						}
+						set_owner = root
+					}
+					starbase = { set_owner = root }
 				}
 			}
 		}
@@ -1463,6 +1526,22 @@ wg_planet_heir_rebellion = {
 			value = @tier5materialreward
 			min = @tier5materialmin
 		}
+		hidden_effect = {
+			from = {
+				every_system_within_border = {
+					limit = {
+						exists = starbase
+					}
+					every_system_planet = {
+						limit = {
+							is_owned_by = from
+						}
+						set_owner = root
+					}
+					starbase = { set_owner = root }
+				}
+			}
+		}
 	}
 
 	ai_weight = {
@@ -1532,6 +1611,22 @@ wg_civwar_heir = {
 			resource = unity
 			value = @tier5materialreward
 			min = @tier5materialmin
+		}
+		hidden_effect = {
+			from = {
+				every_system_within_border = {
+					limit = {
+						exists = starbase
+					}
+					every_system_planet = {
+						limit = {
+							is_owned_by = from
+						}
+						set_owner = root
+					}
+					starbase = { set_owner = root }
+				}
+			}
 		}
 	}
 

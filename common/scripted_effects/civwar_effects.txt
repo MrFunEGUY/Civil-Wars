@@ -787,7 +787,7 @@ get_systems_for_civwar = {
 #####################
 
 # Get rid of "Rebels of x" on Galactic Map
-get_rid_rebels_of_originator = {
+get_rid_rebels_of = {
 	hidden_effect = {
 		event_target:civwar_rebels = {
 			set_subject_of = {
@@ -2388,543 +2388,667 @@ get_declare_war_civwar = {
 			attacker_war_goal = "wg_civwar"
 		}
 	}
+	remove_country_flag = entered_war_as_attacker
 }
 
 get_declare_war_civwar_subject = {
 	if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 1
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 1
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 2
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 2
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_2"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_2"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 3
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 3
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_3"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_3"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 4
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 4
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_4"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_4"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 5
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 5
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_5"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_5"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 6
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 6
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_6"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_6"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 7
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 7
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_7"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_7"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 8
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 8
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_8"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_8"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 9
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 9
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_9"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_9"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 10
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 10
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_10"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_10"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 11
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 11
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_11"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_11"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 12
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 12
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_12"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_12"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 13
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 13
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_13"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_13"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 14
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 14
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_14"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_14"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 15
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 15
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_15"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_15"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 16
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 16
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_16"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_16"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 17
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 17
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_17"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_17"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 18
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 18
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_18"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_18"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 19
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 19
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_19"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_19"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value = 20
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value = 20
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject_20"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject_20"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = civwar_number
-				value > 20
+			event_target:civwar_originator = {
+				check_variable = {
+					which = civwar_number
+					value > 20
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
-			name = "civwar_war_subject"
-			attacker_war_goal = "wg_civwar"
+			name = "NAME_civwar_war_subject"
+			attacker_war_goal = "wg_civwar_subject"
 		}
 	}
+	remove_country_flag = entered_war_as_attacker
 }
 
 get_declare_war_plan_rebellion = {
 	if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 1
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 1
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 2
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 2
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_2"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 3
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 3
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_3"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 4
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 4
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_4"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 5
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 5
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_5"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 6
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 6
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_6"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 7
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 7
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_7"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 8
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 8
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_8"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 9
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 9
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_9"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 10
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 10
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_10"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 11
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 11
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_11"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 12
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 12
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_12"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 13
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 13
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_13"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 14
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 14
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_14"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 15
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 15
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_15"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 16
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 16
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_16"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 17
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 17
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_17"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 18
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 18
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_18"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 19
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 19
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_19"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				which = event_target:civwar_rebels.capital_scope.reb_number
-				value = 20
+			event_target:civwar_rebels = {
+				capital_scope = {
+					check_variable = {
+						which = reb_number
+						value = 20
+					}
+				}
 			}
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war_20"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
 	else_if = {
@@ -2937,7 +3061,1472 @@ get_declare_war_plan_rebellion = {
 		declare_war = {
 			target = event_target:civwar_rebels
 			name = "NAME_plan_rebellion_war"
-			attacker_war_goal = "wg_civwar"
+			attacker_war_goal = "wg_planet_rebellion"
 		}
 	}
+	remove_country_flag = entered_war_as_attacker
+}
+
+#####################
+
+# Coup declare war effect
+get_coup_wars = {
+	# 1 Sector Rebels - Successor State
+	if = {
+		limit = {
+			check_variable = { which = total_rebel_countries value = 1 }
+			is_at_war_with = event_target:disputed_heir_country_1
+		}
+		country_event = { id = civcom.6000 }
+	}
+	# 1 Sector Rebels - Independent Kingdom
+	else_if = {
+		limit = {
+			check_variable = { which = total_rebel_countries value = 1 }
+			NOT = { is_at_war_with = event_target:disputed_heir_country_1 }
+		}
+		country_event = { id = civcom.6010 }
+	}
+	# Multiple Sectors Rebel - 1 Successor State
+	else_if = {
+		limit = {
+			check_variable = { which = total_rebel_countries value > 1 }
+			if = {
+				limit = {
+					exists = event_target:disputed_heir_country_10
+				}
+				OR = {
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+							is_at_war_with = event_target:disputed_heir_country_10
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+							is_at_war_with = event_target:disputed_heir_country_10
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_3
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+							is_at_war_with = event_target:disputed_heir_country_10
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_4
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+							is_at_war_with = event_target:disputed_heir_country_10
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_5
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+							is_at_war_with = event_target:disputed_heir_country_10
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_6
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+							is_at_war_with = event_target:disputed_heir_country_10
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_7
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+							is_at_war_with = event_target:disputed_heir_country_10
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_8
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_9
+							is_at_war_with = event_target:disputed_heir_country_10
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_9
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_10
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_10
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_9
+				}
+				OR = {
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_3
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_4
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_5
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_6
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_7
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_8
+							is_at_war_with = event_target:disputed_heir_country_9
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_8
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_9
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_9
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_8
+				}
+				OR = {
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_3
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_4
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_5
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_6
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_7
+							is_at_war_with = event_target:disputed_heir_country_8
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_7
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_8
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_8
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_7
+				}
+				OR = {
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_3
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_4
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_5
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_6
+							is_at_war_with = event_target:disputed_heir_country_7
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_6
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_7
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_7
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_6
+				}
+				OR = {
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_3
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_4
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_5
+							is_at_war_with = event_target:disputed_heir_country_6
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_5
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_6
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_6
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_5
+				}
+				OR = {
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_3
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_4
+							is_at_war_with = event_target:disputed_heir_country_5
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_4
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_5
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_5
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_4
+				}
+				OR = {
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_3
+							is_at_war_with = event_target:disputed_heir_country_4
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_3
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_4
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_4
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_3
+				}
+				OR = {
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_2
+							is_at_war_with = event_target:disputed_heir_country_3
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_3
+						}
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_3
+						NOR = {
+							is_at_war_with = event_target:disputed_heir_country_1
+							is_at_war_with = event_target:disputed_heir_country_2
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_2
+				}
+				OR = {
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						NOT = { is_at_war_with = event_target:disputed_heir_country_2 }
+					}
+					AND = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						NOT = { is_at_war_with = event_target:disputed_heir_country_1 }
+					}
+				}
+			}
+		}
+		country_event = { id = civcom.6020 }
+	}
+	# Multiple Sectors Rebel - Multiple Successor States - At Least 1 Independent Kingdom
+	else_if = {
+		limit = {
+			check_variable = { which = total_rebel_countries value > 1 }
+			OR = {
+				AND = {
+					exists = event_target:disputed_heir_country_1
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_2
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_3
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_4
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_5
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_6
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_7
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_8
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_9
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_10
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+			}
+			if = {
+				limit = {
+					exists = event_target:disputed_heir_country_10
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_1
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+						is_at_war_with = event_target:disputed_heir_country_10
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_2
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+						is_at_war_with = event_target:disputed_heir_country_10
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_3
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+						is_at_war_with = event_target:disputed_heir_country_10
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_4
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+						is_at_war_with = event_target:disputed_heir_country_10
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_5
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+						is_at_war_with = event_target:disputed_heir_country_10
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_6
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+						is_at_war_with = event_target:disputed_heir_country_10
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_7
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+						is_at_war_with = event_target:disputed_heir_country_10
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_8
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_9
+						is_at_war_with = event_target:disputed_heir_country_10
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_9
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_10
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_10
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_9
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_1
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_2
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_3
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_4
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_5
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_6
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_7
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_8
+						is_at_war_with = event_target:disputed_heir_country_9
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_8
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_9
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_9
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_8
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_1
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_2
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_3
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_4
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_5
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_6
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_7
+						is_at_war_with = event_target:disputed_heir_country_8
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_7
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_8
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_8
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_7
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_1
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_2
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_3
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_4
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_5
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_6
+						is_at_war_with = event_target:disputed_heir_country_7
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_6
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_7
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_7
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_6
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_1
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_2
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_3
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_4
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_5
+						is_at_war_with = event_target:disputed_heir_country_6
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_5
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_6
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_6
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_5
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_1
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_2
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_3
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_4
+						is_at_war_with = event_target:disputed_heir_country_5
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_4
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_5
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_5
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_4
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_1
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_2
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_3
+						is_at_war_with = event_target:disputed_heir_country_4
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_3
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_4
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_4
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = event_target:disputed_heir_country_3
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_1
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_2
+						is_at_war_with = event_target:disputed_heir_country_3
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_2
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_3
+					}
+				}
+				OR = {
+					is_at_war_with = event_target:disputed_heir_country_3
+					OR = {
+						is_at_war_with = event_target:disputed_heir_country_1
+						is_at_war_with = event_target:disputed_heir_country_2
+					}
+				}
+			}
+		}
+		country_event = { id = civcom.6030 }
+	}
+	# Multiple Sectors Rebel - All Successor States
+	else_if = {
+		limit = {
+			check_variable = { which = total_rebel_countries value > 1 }
+			NOR = {
+				AND = {
+					exists = event_target:disputed_heir_country_1
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_2
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_3
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_4
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_5
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_6
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_7
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_8
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_9
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_10
+					event_target:disputed_heir_country_1 = { has_origin = origin_coup_independent }
+				}
+			}
+		}
+		country_event = { id = civcom.6040 }
+	}
+	# Multiple Sectors Rebel - All Independent Kingdoms
+	else_if = {
+		limit = {
+			check_variable = { which = total_rebel_countries value > 1 }
+			NOR = {
+				AND = {
+					exists = event_target:disputed_heir_country_1
+					is_at_war_with = event_target:disputed_heir_country_1
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_2
+					is_at_war_with = event_target:disputed_heir_country_2
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_3
+					is_at_war_with = event_target:disputed_heir_country_3
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_4
+					is_at_war_with = event_target:disputed_heir_country_4
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_5
+					is_at_war_with = event_target:disputed_heir_country_5
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_6
+					is_at_war_with = event_target:disputed_heir_country_6
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_7
+					is_at_war_with = event_target:disputed_heir_country_7
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_8
+					is_at_war_with = event_target:disputed_heir_country_8
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_9
+					is_at_war_with = event_target:disputed_heir_country_9
+				}
+				AND = {
+					exists = event_target:disputed_heir_country_10
+					is_at_war_with = event_target:disputed_heir_country_10
+				}
+			}
+		}
+		country_event = { id = civcom.6050 }
+	}
+	remove_country_flag = entered_war_as_attacker
 }
