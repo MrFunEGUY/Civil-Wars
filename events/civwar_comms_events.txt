@@ -2118,6 +2118,7 @@ country_event = {
 					add_claims = { who = root }
 				}
 			}
+			set_timed_country_flag = { flag = recent_civil_war days = 1800 }
 		}
 	}
 
@@ -2165,8 +2166,6 @@ country_event = {
 	}
 }
 
-###############
-
 # Civil War - Granted Independence (even though they offered vassalization)
 country_event = {
 	id = civcom.5102
@@ -2189,6 +2188,9 @@ country_event = {
 	option = {
 		name = civcom.4102.a
 		ai_chance = { factor = 1 }
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civil_war days = 1800 }
+		}
 	}
 
 	after = {
@@ -2224,6 +2226,9 @@ country_event = {
 				subject_type = devstate
 			}
 		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civil_war days = 1800 }
+		}
 	}
 
 	after = {
@@ -2258,6 +2263,9 @@ country_event = {
 				who = root
 				subject_type = devstate
 			}
+		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civil_war days = 1800 }
 		}
 	}
 
@@ -4574,6 +4582,20 @@ country_event = {
 			}
 		}
 	}
+
+	# Pretend to grant them asylum, and instead ship them back to their home country
+	# option = {
+	# 	name = civcom.8000.c
+	# 	hidden_effect = {
+	# 		country_event = { id = civcom.8001 }
+	# 		every_country = {
+	# 			limit = {
+	# 				has_country_flag = traitor_already_asked
+	# 			}
+	# 			remove_country_flag = traitor_already_asked
+	# 		}
+	# 	}
+	# }
 
 	# AI Option
 	option = {

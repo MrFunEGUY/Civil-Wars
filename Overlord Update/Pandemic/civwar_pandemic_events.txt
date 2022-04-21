@@ -3,369 +3,78 @@
 ### Civil Wars by MrFunEGUY ###
 ###############################
 
-namespace = civwar
+namespace = civpan
 
 #################
 # Leader Marking Events
 
-country_event = { # Pulse Event for Civil War, every year
-	id = civwar.1000
+planet_event = { # Pulse Event for Pandemic, every year
+	id = civpan.1000
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
-		is_country_type_with_subjects = yes
-		NOR = {
-			years_passed < 15
-			has_ethic = ethic_gestalt_consciousness
-			has_country_flag = recent_civil_war
-			AND = {
-				is_subject = no
-				any_war = {
-					using_war_goal = {
-						type = wg_civwar
-						owner = root
-					}
-				}
-			}
-			AND = {
-				is_subject = yes
-				has_country_flag = subject_for_systems
-			}
-		}
+		owner = { is_country_type_with_subjects = yes }
+		NOT = { years_passed < 15 }
+		num_pops >= 5
 	}
 
 	immediate = {
 		if = {
 			limit = {
-				galaxy_percentage < 0.05
+				planet_stability >= 40
+			}
+			random_list = {
+				199 = { }
+				1 = {
+					save_event_target_as = pandemic_planet
+					owner = {
+						country_event = { id = civpan.2000 days = 1 random = 359 }
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				planet_stability < 40
+				planet_stability >= 30
+			}
+			random_list = {
+				99 = { }
+				1 = {
+					save_event_target_as = pandemic_planet
+					owner = {
+						country_event = { id = civpan.2000 days = 1 random = 359 }
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				planet_stability < 30
+				planet_stability >= 20
+			}
+			random_list = {
+				197 = { }
+				3 = {
+					save_event_target_as = pandemic_planet
+					owner = {
+						country_event = { id = civpan.2000 days = 1 random = 359 }
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				planet_stability < 20
 			}
 			random_list = {
 				98 = { }
 				2 = {
-					country_event = { id = civwar.2000 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				galaxy_percentage >= 0.05
-				galaxy_percentage < 0.1
-			}
-			random_list = {
-				97 = { }
-				3 = {
-					country_event = { id = civwar.2000 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				galaxy_percentage >= 0.1
-				galaxy_percentage < 0.2
-			}
-			random_list = {
-				93 = { }
-				7 = {
-					country_event = { id = civwar.2000 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				galaxy_percentage >= 0.2
-				galaxy_percentage < 0.3
-			}
-			random_list = {
-				85 = { }
-				15 = {
-					country_event = { id = civwar.2000 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				galaxy_percentage >= 0.3
-				galaxy_percentage < 0.4
-			}
-			random_list = {
-				75 = { }
-				25 = {
-					country_event = { id = civwar.2000 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				galaxy_percentage >= 0.4
-				galaxy_percentage < 0.5
-			}
-			random_list = {
-				60 = { }
-				40 = { 
-					country_event = { id = civwar.2000 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				galaxy_percentage >= 0.5
-				galaxy_percentage < 0.6
-			}
-			random_list = {
-				50 = { }
-				50 = { 
-					country_event = { id = civwar.2000 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				galaxy_percentage >= 0.6
-				galaxy_percentage < 0.7
-			}
-			random_list = {
-				45 = { }
-				55 = { 
-					country_event = { id = civwar.2000 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				galaxy_percentage >= 0.7
-				galaxy_percentage < 0.8
-			}
-			random_list = {
-				40 = { }
-				60 = { 
-					country_event = { id = civwar.2000 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				galaxy_percentage >= 0.8
-				galaxy_percentage < 0.9
-			}
-			random_list = {
-				30 = { }
-				70 = { 
-					country_event = { id = civwar.2000 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				galaxy_percentage >= 0.9
-			}
-			random_list = {
-				20 = { }
-				80 = { 
-					country_event = { id = civwar.2000 }
-				}
-			}
-		}
-	}
-}
-
-country_event = { # Pulse Event for Planetary Rebellion, every 5 years
-	id = civwar.1100
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		is_country_type_with_subjects = yes
-		NOR = {
-			years_passed < 15
-			has_ethic = ethic_gestalt_consciousness
-		}
-	}
-
-	immediate = {
-		if = {
-			limit = {
-				AND = {
-					empire_sprawl_over_cap  >= 10
-					empire_sprawl_over_cap  < 20
-				}
-			}
-			random_list = {
-				77 = { # 77% chance nothing happens
-				}
-				23 = { # Planetary Rebellion if One of the Conditions are met
-					country_event = { id = civwar.2100 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				AND = {
-					empire_sprawl_over_cap  >= 20
-					empire_sprawl_over_cap  < 30
-				}
-			}
-			random_list = {
-				74 = { # 74% chance nothing happens
-				}
-				26 = { # Planetary Rebellion if One of the Conditions are met
-					country_event = { id = civwar.2100 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				AND = {
-					empire_sprawl_over_cap  >= 30
-					empire_sprawl_over_cap  < 40
-				}
-			}
-			random_list = {
-				71 = { # 71% chance nothing happens
-				}
-				29 = { # Planetary Rebellion if One of the Conditions are met
-					country_event = { id = civwar.2100 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				AND = {
-					empire_sprawl_over_cap  >= 40
-					empire_sprawl_over_cap  < 50
-				}
-			}
-			random_list = {
-				68 = { # 68% chance nothing happens
-				}
-				32 = { # Planetary Rebellion if One of the Conditions are met
-					country_event = { id = civwar.2100 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				AND = {
-					empire_sprawl_over_cap  >= 50
-					empire_sprawl_over_cap  < 60
-				}
-			}
-			random_list = {
-				65 = { # 65% chance nothing happens
-				}
-				35 = { # Planetary Rebellion if One of the Conditions are met
-					country_event = { id = civwar.2100 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				AND = {
-					empire_sprawl_over_cap  >= 60
-					empire_sprawl_over_cap  < 70
-				}
-			}
-			random_list = {
-				62 = { # 62% chance nothing happens
-				}
-				38 = { # Planetary Rebellion if One of the Conditions are met
-					country_event = { id = civwar.2100 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				AND = {
-					empire_sprawl_over_cap  >= 70
-					empire_sprawl_over_cap  < 80
-				}
-			}
-			random_list = {
-				59 = { # 59% chance nothing happens
-				}
-				41 = { # Planetary Rebellion if One of the Conditions are met
-					country_event = { id = civwar.2100 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				AND = {
-					empire_sprawl_over_cap  >= 80
-					empire_sprawl_over_cap  < 90
-				}
-			}
-			random_list = {
-				56 = { # 56% chance nothing happens
-				}
-				44 = { # Planetary Rebellion if One of the Conditions are met
-					country_event = { id = civwar.2100 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				AND = {
-					empire_sprawl_over_cap  >= 90
-					empire_sprawl_over_cap  < 100
-				}
-			}
-			random_list = {
-				53 = { # 53% chance nothing happens
-				}
-				47 = { # Planetary Rebellion if One of the Conditions are met
-					country_event = { id = civwar.2100 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				AND = {
-					empire_sprawl_over_cap  >= 100
-					empire_sprawl_over_cap  < 125
-				}
-			}
-			random_list = {
-				50 = { # 50% chance nothing happens
-				}
-				50 = { # Planetary Rebellion if One of the Conditions are met
-					country_event = { id = civwar.2100 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				AND = {
-					empire_sprawl_over_cap  >= 125
-					empire_sprawl_over_cap  < 150
-				}
-			}
-			random_list = {
-				40 = { # 40% chance nothing happens
-				}
-				60 = { # Planetary Rebellion if One of the Conditions are met
-					country_event = { id = civwar.2100 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				empire_sprawl_over_cap  >= 150
-			}
-			random_list = {
-				30 = { # 30% chance nothing happens
-				}
-				70 = { # Planetary Rebellion if One of the Conditions are met
-					country_event = { id = civwar.2100 }
-				}
-			}
-		}
-		else = {
-			random_list = {
-				80 = { # 80% chance nothing happens
-				}
-				20 = { # Planetary Rebellion if One of the Conditions are met
-					country_event = { id = civwar.2100 }
+					save_event_target_as = pandemic_planet
+					owner = {
+						country_event = { id = civpan.2000 days = 1 random = 359 }
+					}
 				}
 			}
 		}
@@ -373,7 +82,7 @@ country_event = { # Pulse Event for Planetary Rebellion, every 5 years
 }
 
 country_event = { # Mark disapproving Faction Leaders who are Governors, every month
-	id = civwar.1200
+	id = civpan.1200
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -386,7 +95,7 @@ country_event = { # Mark disapproving Faction Leaders who are Governors, every m
 		any_owned_planet = {
 			num_pops >= 1
 			is_colony = yes
-			solar_system = { check_civwar_capital = yes }
+			solar_system = { check_civpan_capital = yes }
 		}
 		OR = {
 			AND = {
@@ -466,7 +175,7 @@ country_event = { # Mark disapproving Faction Leaders who are Governors, every m
 }
 
 country_event = { # Unmark approving Faction Leaders who are Governors, every month
-	id = civwar.1300
+	id = civpan.1300
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -549,7 +258,7 @@ country_event = { # Unmark approving Faction Leaders who are Governors, every mo
 }
 
 country_event = { # Mark disapproving Faction Leaders who are Admirals, every month
-	id = civwar.1400
+	id = civpan.1400
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -637,7 +346,7 @@ country_event = { # Mark disapproving Faction Leaders who are Admirals, every mo
 }
 
 country_event = { # Unmark approving Faction Leaders who are Admirals, every month
-	id = civwar.1500
+	id = civpan.1500
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -720,7 +429,7 @@ country_event = { # Unmark approving Faction Leaders who are Admirals, every mon
 }
 
 country_event = { # Mark disapproving Faction Leaders who are Scientists, every month
-	id = civwar.1600
+	id = civpan.1600
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -733,7 +442,7 @@ country_event = { # Mark disapproving Faction Leaders who are Scientists, every 
 		any_owned_planet = {
 			num_pops >= 1
 			is_colony = yes
-			solar_system = { check_civwar_capital = yes }
+			solar_system = { check_civpan_capital = yes }
 		}
 		OR = {
 			AND = {
@@ -813,7 +522,7 @@ country_event = { # Mark disapproving Faction Leaders who are Scientists, every 
 }
 
 country_event = { # Unmark approving Faction Leaders who are Scientists, every month
-	id = civwar.1700
+	id = civpan.1700
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -896,7 +605,7 @@ country_event = { # Unmark approving Faction Leaders who are Scientists, every m
 }
 
 country_event = { # Mark disapproving Faction Leaders who are Generals, every month
-	id = civwar.1800
+	id = civpan.1800
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -909,7 +618,7 @@ country_event = { # Mark disapproving Faction Leaders who are Generals, every mo
 		any_owned_planet = {
 			num_pops >= 1
 			is_colony = yes
-			solar_system = { check_civwar_capital = yes }
+			solar_system = { check_civpan_capital = yes }
 		}
 		OR = {
 			AND = {
@@ -989,7 +698,7 @@ country_event = { # Mark disapproving Faction Leaders who are Generals, every mo
 }
 
 country_event = { # Unmark approving Faction Leaders who are Generals, every month
-	id = civwar.1900
+	id = civpan.1900
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -1072,7 +781,7 @@ country_event = { # Unmark approving Faction Leaders who are Generals, every mon
 }
 
 country_event = { # Unmark Leaders who are no longer leading factions
-	id = civwar.1999
+	id = civpan.1999
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -1197,7 +906,7 @@ country_event = { # Unmark Leaders who are no longer leading factions
 # Initializers
 
 country_event = { # Initializer for Civil Wars - factions and corrupt
-	id = civwar.2000
+	id = civpan.2000
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -1207,7 +916,7 @@ country_event = { # Initializer for Civil Wars - factions and corrupt
 			any_owned_planet = {
 				num_pops >= 1
 				is_colony = yes
-				solar_system = { check_civwar_capital = yes }
+				solar_system = { check_civpan_capital = yes }
 			}
 			num_sectors > 1
 		}
@@ -1228,12 +937,12 @@ country_event = { # Initializer for Civil Wars - factions and corrupt
 	}
 
 	immediate = {
-		country_event = { id = civwar.3000 days = 1 random = 359 }
+		country_event = { id = civpan.3000 days = 1 random = 359 }
 	}
 }
 
 country_event = { # Initializer for Planetary Rebellion
-	id = civwar.2100
+	id = civpan.2100
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -1258,7 +967,7 @@ country_event = { # Initializer for Planetary Rebellion
 					}
 				}
 			}
-			country_event = { id = civwar.3100 days = 1 random = 359 }
+			country_event = { id = civpan.3100 days = 1 random = 359 }
 		}
 		else = {
 			# No Planetary Rebellion
@@ -1270,7 +979,7 @@ country_event = { # Initializer for Planetary Rebellion
 # Setup Civil War
 
 country_event = { # Civil War
-	id = civwar.3000
+	id = civpan.3000
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -1291,7 +1000,7 @@ country_event = { # Civil War
 	
 	immediate = {
 
-		save_event_target_as = civwar_originator
+		save_event_target_as = civpan_originator
 
 		# Get civil war number
 		get_civil_war_number = yes
@@ -1366,7 +1075,7 @@ country_event = { # Civil War
 						get_civil_war_faction_planet = yes
 					}
 					30 = { # 1 Sector
-						get_random_sector_for_civwar = yes
+						get_random_sector_for_civpan = yes
 						get_civil_war_faction = yes
 					}
 					10 = { # Multiple Sectors
@@ -1383,7 +1092,7 @@ country_event = { # Civil War
 					            set_sector_flag = rebel_sector
 							    every_system_within_border = {
 						            limit = {
-						                check_civwar_capital = yes
+						                check_civpan_capital = yes
 						            }
 						            set_star_flag = civil_war_flip
 						        }
@@ -1406,7 +1115,7 @@ country_event = { # Civil War
 						get_civil_war_faction_planet = yes
 					}
 					20 = { # Other Sector
-						get_random_sector_for_civwar = yes
+						get_random_sector_for_civpan = yes
 						get_civil_war_faction = yes
 					}
 				}
@@ -1444,7 +1153,7 @@ country_event = { # Civil War
 					            set_sector_flag = rebel_sector
 							    every_system_within_border = {
 						            limit = {
-						                check_civwar_capital = yes
+						                check_civpan_capital = yes
 						            }
 						            set_star_flag = civil_war_flip
 						        }
@@ -1460,10 +1169,10 @@ country_event = { # Civil War
 								limit = {
 									has_global_flag = more_authorities_activated
 								}
-								country_event = { id = civwarcountry_ma.1014 }
+								country_event = { id = civpancountry_ma.1014 }
 							}
 							else = {
-								country_event = { id = civwarcountry.1014 }
+								country_event = { id = civpancountry.1014 }
 							}
 						}
 						else = {
@@ -1481,10 +1190,10 @@ country_event = { # Civil War
 								limit = {
 									has_global_flag = more_authorities_activated
 								}
-								country_event = { id = civwarcountry_ma.1014 }
+								country_event = { id = civpancountry_ma.1014 }
 							}
 							else = {
-								country_event = { id = civwarcountry.1014 }
+								country_event = { id = civpancountry.1014 }
 							}
 						}
 						else = {
@@ -1527,7 +1236,7 @@ country_event = { # Civil War
 }
 
 country_event = { # Planetary Rebellion
-	id = civwar.3100
+	id = civpan.3100
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -1546,7 +1255,7 @@ country_event = { # Planetary Rebellion
 	
 	immediate = {
 
-		save_event_target_as = civwar_originator
+		save_event_target_as = civpan_originator
 
 		# Set Empire Sprawl Variable
 		get_empire_sprawl = yes
@@ -1565,7 +1274,7 @@ country_event = { # Planetary Rebellion
 						is_pop_category = pre_sapients
 					}  
 				}  
-				species = { save_global_event_target_as = civwar_species }
+				species = { save_global_event_target_as = civpan_species }
 			}
 			if = {
 				limit = {
@@ -1584,29 +1293,29 @@ country_event = { # Planetary Rebellion
 # Setup Rebel Country
 
 country_event = { # Setup for Civil War
-	id = civwar.4000
+	id = civpan.4000
 	hide_window = yes
 	is_triggered_only = yes
 
 	immediate = {
 
-		# saving civwar and host as event targets
-		save_event_target_as = civwar_rebels
+		# saving civpan and host as event targets
+		save_event_target_as = civpan_rebels
 
 		# setting mother flag for war trash talk
-		event_target:civwar_originator = {
-			set_country_flag = civwar_mother_country_@root
+		event_target:civpan_originator = {
+			set_country_flag = civpan_mother_country_@root
 		}
 		
 		# Set Relation Flags
 		set_relation_flag = {
-			who = event_target:civwar_originator
-			flag = civwar_to_host_flag
+			who = event_target:civpan_originator
+			flag = civpan_to_host_flag
 		}
 		from = {
 			set_relation_flag = {
 				who = root
-				flag = host_to_civwar_flag
+				flag = host_to_civpan_flag
 			}
 		}
 
@@ -1619,16 +1328,16 @@ country_event = { # Setup for Civil War
 		}
 
 		# setting graphical culture
-		set_graphical_culture = event_target:civwar_originator
+		set_graphical_culture = event_target:civpan_originator
 
 		# establish comms
 		every_country = {
 			limit = {
 				OR = {
-					has_communications = event_target:civwar_originator
+					has_communications = event_target:civpan_originator
 					intel_level = {
 						level > low
-						system = event_target:civwar_originator.capital_scope.solar_system
+						system = event_target:civpan_originator.capital_scope.solar_system
 					}
 					any_system = {
 						has_star_flag = civil_war_flip
@@ -1648,12 +1357,12 @@ country_event = { # Setup for Civil War
 		if = {
 			limit = {
 				has_opinion_modifier = {
-					who = event_target:civwar_originator
+					who = event_target:civpan_originator
 					modifier = opinion_new_contact
 				}
 			}
 			remove_opinion_modifier = {
-				who = event_target:civwar_originator
+				who = event_target:civpan_originator
 				modifier = opinion_new_contact
 			}
 		}
@@ -1666,20 +1375,20 @@ country_event = { # Setup for Civil War
 			event_target:admiral_rebel_system = {
 				if = {
 					limit = {
-						check_civwar_capital = yes
+						check_civpan_capital = yes
 						exists = starbase
 						starbase = {
-							is_owned_by = event_target:civwar_originator
+							is_owned_by = event_target:civpan_originator
 						}
 					}
 					starbase = { set_owner = root }
 					give_admiral_planets = yes
 					every_neighbor_system = {
 						limit = {
-							check_civwar_capital = yes
+							check_civpan_capital = yes
 							exists = starbase
 							starbase = {
-								is_owned_by = event_target:civwar_originator
+								is_owned_by = event_target:civpan_originator
 							}
 						}
 						starbase = { set_owner = root }
@@ -1689,10 +1398,10 @@ country_event = { # Setup for Civil War
 				else = {
 					every_neighbor_system = {
 						limit = {
-							check_civwar_capital = yes
+							check_civpan_capital = yes
 							exists = starbase
 							starbase = {
-								is_owned_by = event_target:civwar_originator
+								is_owned_by = event_target:civpan_originator
 							}
 						}
 						starbase = { set_owner = root }
@@ -1700,15 +1409,15 @@ country_event = { # Setup for Civil War
 					}
 				}
 			}
-			event_target:civwar_originator = {
+			event_target:civpan_originator = {
 				every_owned_fleet = {
 					limit = {
 						has_fleet_flag = civil_war_fleet
 					}
-					set_owner = event_target:civwar_rebels
+					set_owner = event_target:civpan_rebels
 				}
 			}
-			set_country_flag = civwar_fleet
+			set_country_flag = civpan_fleet
 			set_country_flag = admiral_skirmish
 			clear_global_event_target = admiral_rebel_system
 		}
@@ -1722,7 +1431,7 @@ country_event = { # Setup for Civil War
 				set_country_flag = admiral_has_sector
 			}
 			# flip remaining flagged systems and remove flags
-			event_target:civwar_originator = {
+			event_target:civpan_originator = {
 				every_owned_planet = {
 					limit = {
 						solar_system = {
@@ -1733,7 +1442,7 @@ country_event = { # Setup for Civil War
 						every_fleet_in_system = {
 							limit = {
 								exists = owner
-								is_owned_by = event_target:civwar_originator
+								is_owned_by = event_target:civpan_originator
 								any_owned_ship = { is_ship_class = shipclass_military_station }
 							}
 							set_owner = root
@@ -1760,7 +1469,7 @@ country_event = { # Setup for Civil War
 
 		# get host's technologies
 		copy_techs_from = {
-			target = event_target:civwar_originator
+			target = event_target:civpan_originator
 			except = {
 				# Horizon Signal
 				tech_akx_worm_1
@@ -1773,7 +1482,7 @@ country_event = { # Setup for Civil War
 		every_galaxy_planet = {
 			limit = {
 				is_surveyed = {
-					who = event_target:civwar_originator
+					who = event_target:civpan_originator
 					status = yes
 				}
 			}
@@ -1807,12 +1516,12 @@ country_event = { # Setup for Civil War
 			limit = {
 				num_owned_planets > 0
 			}
-			country_event = { id = civwar.7000 }
+			country_event = { id = civpan.7000 }
 		}
 		else = {
 			if = {
 				limit = {
-					event_target:civwar_originator = {
+					event_target:civpan_originator = {
 						has_country_flag = empire_sprawl_0 
 					}
 				}
@@ -1822,7 +1531,7 @@ country_event = { # Setup for Civil War
 						while = {
 							count = 3
 							create_army_transport = {
-								species = event_target:civwar_species
+								species = event_target:civpan_species
 								army_type = "assault_army"
 							}
 						}
@@ -1842,7 +1551,7 @@ country_event = { # Setup for Civil War
 			}
 			else_if = {
 				limit = {
-					event_target:civwar_originator = {
+					event_target:civpan_originator = {
 						has_country_flag = empire_sprawl_0_10
 					}
 				}
@@ -1852,7 +1561,7 @@ country_event = { # Setup for Civil War
 						while = {
 							count = 5
 							create_army_transport = {
-								species = event_target:civwar_species
+								species = event_target:civpan_species
 								army_type = "assault_army"
 							}
 						}
@@ -1872,7 +1581,7 @@ country_event = { # Setup for Civil War
 			}
 			else_if = {
 				limit = {
-					event_target:civwar_originator = {
+					event_target:civpan_originator = {
 						has_country_flag = empire_sprawl_10_20
 					}
 				}
@@ -1882,7 +1591,7 @@ country_event = { # Setup for Civil War
 						while = {
 							count = 8
 							create_army_transport = {
-								species = event_target:civwar_species
+								species = event_target:civpan_species
 								army_type = "assault_army"
 							}
 						}
@@ -1902,7 +1611,7 @@ country_event = { # Setup for Civil War
 			}
 			else_if = {
 				limit = {
-					event_target:civwar_originator = {
+					event_target:civpan_originator = {
 						has_country_flag = empire_sprawl_20_30
 					}
 				}
@@ -1912,7 +1621,7 @@ country_event = { # Setup for Civil War
 						while = {
 							count = 11
 							create_army_transport = {
-								species = event_target:civwar_species
+								species = event_target:civpan_species
 								army_type = "assault_army"
 							}
 						}
@@ -1932,7 +1641,7 @@ country_event = { # Setup for Civil War
 			}
 			else_if = {
 				limit = {
-					event_target:civwar_originator = {
+					event_target:civpan_originator = {
 						has_country_flag = empire_sprawl_30_40
 					}
 				}
@@ -1942,7 +1651,7 @@ country_event = { # Setup for Civil War
 						while = {
 							count = 14
 							create_army_transport = {
-								species = event_target:civwar_species
+								species = event_target:civpan_species
 								army_type = "assault_army"
 							}
 						}
@@ -1962,7 +1671,7 @@ country_event = { # Setup for Civil War
 			}
 			else_if = {
 				limit = {
-					event_target:civwar_originator = {
+					event_target:civpan_originator = {
 						has_country_flag = empire_sprawl_40_50
 					}
 				}
@@ -1972,7 +1681,7 @@ country_event = { # Setup for Civil War
 						while = {
 							count = 17
 							create_army_transport = {
-								species = event_target:civwar_species
+								species = event_target:civpan_species
 								army_type = "assault_army"
 							}
 						}
@@ -1992,7 +1701,7 @@ country_event = { # Setup for Civil War
 			}
 			else_if = {
 				limit = {
-					event_target:civwar_originator = {
+					event_target:civpan_originator = {
 						has_country_flag = empire_sprawl_50_60
 					}
 				}
@@ -2002,7 +1711,7 @@ country_event = { # Setup for Civil War
 						while = {
 							count = 19
 							create_army_transport = {
-								species = event_target:civwar_species
+								species = event_target:civpan_species
 								army_type = "assault_army"
 							}
 						}
@@ -2022,7 +1731,7 @@ country_event = { # Setup for Civil War
 			}
 			else_if = {
 				limit = {
-					event_target:civwar_originator = {
+					event_target:civpan_originator = {
 						has_country_flag = empire_sprawl_60_70
 					}
 				}
@@ -2032,7 +1741,7 @@ country_event = { # Setup for Civil War
 						while = {
 							count = 21
 							create_army_transport = {
-								species = event_target:civwar_species
+								species = event_target:civpan_species
 								army_type = "assault_army"
 							}
 						}
@@ -2052,7 +1761,7 @@ country_event = { # Setup for Civil War
 			}
 			else_if = {
 				limit = {
-					event_target:civwar_originator = {
+					event_target:civpan_originator = {
 						has_country_flag = empire_sprawl_70_80
 					}
 				}
@@ -2062,7 +1771,7 @@ country_event = { # Setup for Civil War
 						while = {
 							count = 24
 							create_army_transport = {
-								species = event_target:civwar_species
+								species = event_target:civpan_species
 								army_type = "assault_army"
 							}
 						}
@@ -2082,7 +1791,7 @@ country_event = { # Setup for Civil War
 			}
 			else_if = {
 				limit = {
-					event_target:civwar_originator = {
+					event_target:civpan_originator = {
 						has_country_flag = empire_sprawl_80_90
 					}
 				}
@@ -2092,7 +1801,7 @@ country_event = { # Setup for Civil War
 						while = {
 							count = 27
 							create_army_transport = {
-								species = event_target:civwar_species
+								species = event_target:civpan_species
 								army_type = "assault_army"
 							}
 						}
@@ -2112,7 +1821,7 @@ country_event = { # Setup for Civil War
 			}
 			else_if = {
 				limit = {
-					event_target:civwar_originator = {
+					event_target:civpan_originator = {
 						has_country_flag = empire_sprawl_90_100
 					}
 				}
@@ -2122,7 +1831,7 @@ country_event = { # Setup for Civil War
 						while = {
 							count = 30
 							create_army_transport = {
-								species = event_target:civwar_species
+								species = event_target:civpan_species
 								army_type = "assault_army"
 							}
 						}
@@ -2142,7 +1851,7 @@ country_event = { # Setup for Civil War
 			}
 			else_if = {
 				limit = {
-					event_target:civwar_originator = {
+					event_target:civpan_originator = {
 						has_country_flag = empire_sprawl_100_plus
 					}
 				}
@@ -2152,7 +1861,7 @@ country_event = { # Setup for Civil War
 						while = {
 							count = 33
 							create_army_transport = {
-								species = event_target:civwar_species
+								species = event_target:civpan_species
 								army_type = "assault_army"
 							}
 						}
@@ -2176,7 +1885,7 @@ country_event = { # Setup for Civil War
 		every_system_within_border = {
 			random_ship_in_system = {
 				limit = {
-					is_owned_by = event_target:civwar_originator
+					is_owned_by = event_target:civpan_originator
 					OR = {
 						# Gigastructures
 						is_ship_size = giga_massive_planet
@@ -2207,7 +1916,7 @@ country_event = { # Setup for Civil War
 				fleet = {
 					random_list = {
 						60 = { # The rebels get your big toy.
-							set_owner = event_target:civwar_rebels
+							set_owner = event_target:civpan_rebels
 						}
 						40 = {
 							# The rebels couldn't pull it off
@@ -2237,7 +1946,7 @@ country_event = { # Setup for Civil War
 						name = random
 						class = scientist
 						sub_type = survey
-						species = event_target:civwar_species
+						species = event_target:civpan_species
 					}
 				}
 				set_leader = last_created_leader
@@ -2284,10 +1993,10 @@ country_event = { # Setup for Civil War
 		}
 
 		# Make Traitor Leader
-		country_event = { id = civwar.6000 }
+		country_event = { id = civpan.6000 }
 
 		# If civil war country was Khan, set title.
-		event_target:civwar_originator = {
+		event_target:civpan_originator = {
 			if = {
 				limit = {
 					OR = {
@@ -2360,7 +2069,7 @@ country_event = { # Setup for Civil War
 	after = {
 
 		# Fix Fleets
-		# event_target:civwar_originator = {
+		# event_target:civpan_originator = {
 		# 	every_owned_fleet = {
 		# 		set_event_locked = no
 		# 	}
@@ -2373,12 +2082,12 @@ country_event = { # Setup for Civil War
 		if = {
 			limit = {
 				exists = capital_scope
-				capital_scope = { NOT = { has_planet_flag = civwar_name_changed } }
-				event_target:civwar_originator = { is_ai = yes }
+				capital_scope = { NOT = { has_planet_flag = civpan_name_changed } }
+				event_target:civpan_originator = { is_ai = yes }
 			}
 			capital_scope = {
 				set_name = random
-				set_planet_flag = civwar_name_changed
+				set_planet_flag = civpan_name_changed
 			}
 		}
 		set_name = random
@@ -2388,7 +2097,7 @@ country_event = { # Setup for Civil War
 				num_owned_planets > 0
 			}
 			# create armies
-			create_civwar_armies = yes
+			create_civpan_armies = yes
 		}
 
 		# Flavor Civics
@@ -2422,16 +2131,16 @@ country_event = { # Setup for Civil War
 
 		# Intel
 		add_intel = {
-			who = event_target:civwar_originator
+			who = event_target:civpan_originator
 			amount = 70
 		}
 
 		# Back to Mother Country
-		event_target:civwar_originator = {
+		event_target:civpan_originator = {
 			
 			# Add intel
 			add_intel = {
-				who = event_target:civwar_rebels
+				who = event_target:civpan_rebels
 				amount = 70
 			}
 
@@ -2466,7 +2175,7 @@ country_event = { # Setup for Civil War
 						}
 					}
 				}
-				country_event = { id = civwar.5000 }
+				country_event = { id = civpan.5000 }
 			}
 			# Admiral
 			else_if = {
@@ -2475,7 +2184,7 @@ country_event = { # Setup for Civil War
 						has_leader_flag = civil_war_leader_admiral_faction
 					}
 				}
-				country_event = { id = civwar.5001 }
+				country_event = { id = civpan.5001 }
 			}
 			# General
 			else_if = {
@@ -2484,7 +2193,7 @@ country_event = { # Setup for Civil War
 						has_leader_flag = civil_war_leader_general_faction
 					}
 				}
-				country_event = { id = civwar.5002 }
+				country_event = { id = civpan.5002 }
 			}
 			# Scientist
 			else_if = {
@@ -2493,7 +2202,7 @@ country_event = { # Setup for Civil War
 						has_leader_flag = civil_war_leader_scientist_faction
 					}
 				}
-				country_event = { id = civwar.5003 }
+				country_event = { id = civpan.5003 }
 			}
 
 			remove_country_flag = empire_sprawl_0
@@ -2513,7 +2222,7 @@ country_event = { # Setup for Civil War
 }
 
 country_event = { # Setup for Planetary Rebellion
-	id = civwar.4100
+	id = civpan.4100
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -2522,7 +2231,7 @@ country_event = { # Setup for Planetary Rebellion
 
 		create_leader = {
 			class = ruler
-			species = event_target:civwar_species
+			species = event_target:civpan_species
 			name = random
 			skill = 5
 			traits = {
@@ -2535,28 +2244,28 @@ country_event = { # Setup for Planetary Rebellion
 		set_leader = event_target:civil_war_leader_ruler
 
 		set_relation_flag = {
-			who = event_target:civwar_originator
-			flag = civwar_to_host_flag
+			who = event_target:civpan_originator
+			flag = civpan_to_host_flag
 		}
 
-		event_target:civwar_originator = {
+		event_target:civpan_originator = {
 			set_relation_flag = {
 				who = root
-				flag = host_to_civwar_flag
+				flag = host_to_civpan_flag
 			}
 		}
 
 		# setting graphical culture
-		set_graphical_culture = event_target:civwar_originator
+		set_graphical_culture = event_target:civpan_originator
 
 		# establish comms
 		every_country = {
 			limit = {
 				OR = {
-					has_communications = event_target:civwar_originator
+					has_communications = event_target:civpan_originator
 					intel_level = {
 						level > low
-						system = event_target:civwar_rebels.capital_scope.solar_system
+						system = event_target:civpan_rebels.capital_scope.solar_system
 					}
 					any_system = {
 						has_star_flag = civil_war_flip
@@ -2577,19 +2286,19 @@ country_event = { # Setup for Planetary Rebellion
 		if = {
 			limit = {
 				has_opinion_modifier = {
-					who = event_target:civwar_originator
+					who = event_target:civpan_originator
 					modifier = opinion_new_contact
 				}
 			}
 			remove_opinion_modifier = {
-				who = event_target:civwar_originator
+				who = event_target:civpan_originator
 				modifier = opinion_new_contact
 			}
 		}
 
 		# get host's technologies
 		copy_techs_from = {
-			target = event_target:civwar_originator
+			target = event_target:civpan_originator
 			except = {
 				# Horizon Signal
 				tech_akx_worm_1
@@ -2602,7 +2311,7 @@ country_event = { # Setup for Planetary Rebellion
 		every_galaxy_planet = {
 			limit = {
 				is_surveyed = {
-					who = event_target:civwar_originator
+					who = event_target:civpan_originator
 					status = yes
 				}
 			}
@@ -2627,16 +2336,16 @@ country_event = { # Setup for Planetary Rebellion
 					limit = {
 						NOR = {
 							any_system_planet = {
-								is_owned_by = event_target:civwar_originator
+								is_owned_by = event_target:civpan_originator
 							}
 							any_fleet_in_system = {
 								is_ship_class = shipclass_military
-								is_owned_by = event_target:civwar_originator
+								is_owned_by = event_target:civpan_originator
 							}
 						}
 						exists = starbase
 						starbase = {
-							is_owned_by = event_target:civwar_originator
+							is_owned_by = event_target:civpan_originator
 						}
 					}
 					starbase = { set_owner = root }
@@ -2662,7 +2371,7 @@ country_event = { # Setup for Planetary Rebellion
 						class = scientist
 						sub_type = survey
 						name = random
-						species = event_target:civwar_species
+						species = event_target:civpan_species
 					}
 				}
 				set_leader = last_created_leader
@@ -2695,31 +2404,31 @@ country_event = { # Setup for Planetary Rebellion
 		# To fix naming issues. This line is necessary.
 		if = {
 			limit = {
-				capital_scope = { NOT = { has_planet_flag = civwar_name_changed } }
-				event_target:civwar_originator = { is_ai = yes }
+				capital_scope = { NOT = { has_planet_flag = civpan_name_changed } }
+				event_target:civpan_originator = { is_ai = yes }
 			}
 			capital_scope = {
 				set_name = random
-				set_planet_flag = civwar_name_changed
+				set_planet_flag = civpan_name_changed
 			}
 		}
 		set_name = random
 
 		add_intel = {
-			who = event_target:civwar_originator
+			who = event_target:civpan_originator
 			amount = 70
 		}
 
 		# create ships
 		if = {
 			limit = {
-				event_target:civwar_originator = {
+				event_target:civpan_originator = {
 					has_country_flag = empire_sprawl_0 
 				}
 			}
 			create_fleet = {
 				effect = {
-					set_owner = event_target:civwar_rebels
+					set_owner = event_target:civpan_rebels
 					while = {
 						count = 2
 						create_ship = {
@@ -2743,13 +2452,13 @@ country_event = { # Setup for Planetary Rebellion
 		}
 		else_if = {
 			limit = {
-				event_target:civwar_originator = {
+				event_target:civpan_originator = {
 					has_country_flag = empire_sprawl_0_10 
 				}
 			}
 			create_fleet = {
 				effect = {
-					set_owner = event_target:civwar_rebels
+					set_owner = event_target:civpan_rebels
 					while = {
 						count = 3
 						create_ship = {
@@ -2773,13 +2482,13 @@ country_event = { # Setup for Planetary Rebellion
 		}
 		else_if = {
 			limit = {
-				event_target:civwar_originator = {
+				event_target:civpan_originator = {
 					has_country_flag = empire_sprawl_10_20 
 				}
 			}
 			create_fleet = {
 				effect = {
-					set_owner = event_target:civwar_rebels
+					set_owner = event_target:civpan_rebels
 					while = {
 						count = 4
 						create_ship = {
@@ -2803,13 +2512,13 @@ country_event = { # Setup for Planetary Rebellion
 		}
 		else_if = {
 			limit = {
-				event_target:civwar_originator = {
+				event_target:civpan_originator = {
 					has_country_flag = empire_sprawl_20_30 
 				}
 			}
 			create_fleet = {
 				effect = {
-					set_owner = event_target:civwar_rebels
+					set_owner = event_target:civpan_rebels
 					while = {
 						count = 5
 						create_ship = {
@@ -2833,13 +2542,13 @@ country_event = { # Setup for Planetary Rebellion
 		}
 		else_if = {
 			limit = {
-				event_target:civwar_originator = {
+				event_target:civpan_originator = {
 					has_country_flag = empire_sprawl_30_40 
 				}
 			}
 			create_fleet = {
 				effect = {
-					set_owner = event_target:civwar_rebels
+					set_owner = event_target:civpan_rebels
 					while = {
 						count = 6
 						create_ship = {
@@ -2863,13 +2572,13 @@ country_event = { # Setup for Planetary Rebellion
 		}
 		else_if = {
 			limit = {
-				event_target:civwar_originator = {
+				event_target:civpan_originator = {
 					has_country_flag = empire_sprawl_40_50 
 				}
 			}
 			create_fleet = {
 				effect = {
-					set_owner = event_target:civwar_rebels
+					set_owner = event_target:civpan_rebels
 					while = {
 						count = 7
 						create_ship = {
@@ -2893,13 +2602,13 @@ country_event = { # Setup for Planetary Rebellion
 		}
 		else_if = {
 			limit = {
-				event_target:civwar_originator = {
+				event_target:civpan_originator = {
 					has_country_flag = empire_sprawl_50_60 
 				}
 			}
 			create_fleet = {
 				effect = {
-					set_owner = event_target:civwar_rebels
+					set_owner = event_target:civpan_rebels
 					while = {
 						count = 10
 						create_ship = {
@@ -2923,13 +2632,13 @@ country_event = { # Setup for Planetary Rebellion
 		}
 		else_if = {
 			limit = {
-				event_target:civwar_originator = {
+				event_target:civpan_originator = {
 					has_country_flag = empire_sprawl_60_70 
 				}
 			}
 			create_fleet = {
 				effect = {
-					set_owner = event_target:civwar_rebels
+					set_owner = event_target:civpan_rebels
 					while = {
 						count = 12
 						create_ship = {
@@ -2953,13 +2662,13 @@ country_event = { # Setup for Planetary Rebellion
 		}
 		else_if = {
 			limit = {
-				event_target:civwar_originator = {
+				event_target:civpan_originator = {
 					has_country_flag = empire_sprawl_70_80 
 				}
 			}
 			create_fleet = {
 				effect = {
-					set_owner = event_target:civwar_rebels
+					set_owner = event_target:civpan_rebels
 					while = {
 						count = 14
 						create_ship = {
@@ -2983,13 +2692,13 @@ country_event = { # Setup for Planetary Rebellion
 		}
 		else_if = {
 			limit = {
-				event_target:civwar_originator = {
+				event_target:civpan_originator = {
 					has_country_flag = empire_sprawl_80_90 
 				}
 			}
 			create_fleet = {
 				effect = {
-					set_owner = event_target:civwar_rebels
+					set_owner = event_target:civpan_rebels
 					while = {
 						count = 16
 						create_ship = {
@@ -3013,13 +2722,13 @@ country_event = { # Setup for Planetary Rebellion
 		}
 		else_if = {
 			limit = {
-				event_target:civwar_originator = {
+				event_target:civpan_originator = {
 					has_country_flag = empire_sprawl_90_100 
 				}
 			}
 			create_fleet = {
 				effect = {
-					set_owner = event_target:civwar_rebels
+					set_owner = event_target:civpan_rebels
 					while = {
 						count = 18
 						create_ship = {
@@ -3043,13 +2752,13 @@ country_event = { # Setup for Planetary Rebellion
 		}
 		else_if = {
 			limit = {
-				event_target:civwar_originator = {
+				event_target:civpan_originator = {
 					has_country_flag = empire_sprawl_100_plus 
 				}
 			}
 			create_fleet = {
 				effect = {
-					set_owner = event_target:civwar_rebels
+					set_owner = event_target:civpan_rebels
 					while = {
 						count = 20
 						create_ship = {
@@ -3073,9 +2782,9 @@ country_event = { # Setup for Planetary Rebellion
 		}
 		add_100_unity_per_year_passed = yes # scripted effect
 
-		event_target:civwar_originator = {
+		event_target:civpan_originator = {
 			add_intel = {
-				who = event_target:civwar_rebels
+				who = event_target:civpan_rebels
 				amount = 70
 			}
 			remove_country_flag = empire_sprawl_0
@@ -3098,10 +2807,10 @@ country_event = { # Setup for Planetary Rebellion
 # Communications
 
 country_event = { # Governor - Communications
-	id = civwar.5000
+	id = civpan.5000
 	picture = GFX_evt_civil_action
-	title = civwar.5000.name
-	desc = civwar.5000.desc
+	title = civpan.5000.name
+	desc = civpan.5000.desc
 	hide_window = no
 	is_triggered_only = yes
 
@@ -3155,21 +2864,21 @@ country_event = { # Governor - Communications
 }
 
 country_event = { # Admiral - Communications
-	id = civwar.5001
+	id = civpan.5001
 	picture = GFX_evt_civil_action
-	title = civwar.5001.name
+	title = civpan.5001.name
 	hide_window = no
 	is_triggered_only = yes
 
 	desc = {
-		text = civwar.5001.desc
+		text = civpan.5001.desc
 		trigger = {
 			from = { has_country_flag = admiral_skirmish }
 		}
 	}
 
 	desc = {
-		text = civwar.5001.sector.desc
+		text = civpan.5001.sector.desc
 		trigger = {
 			from = { NOT = { has_country_flag = admiral_skirmish } }
 		}
@@ -3183,7 +2892,7 @@ country_event = { # Admiral - Communications
 		hidden_effect = {
 			if = {
 				limit = {
-					event_target:civwar_rebels = {
+					event_target:civpan_rebels = {
 						num_owned_planets > 0
 					}
 				}
@@ -3200,10 +2909,10 @@ country_event = { # Admiral - Communications
 }
 
 country_event = { # General - Communications
-	id = civwar.5002
+	id = civpan.5002
 	picture = GFX_evt_civil_action
-	title = civwar.5002.name
-	desc = civwar.5002.desc
+	title = civpan.5002.name
+	desc = civpan.5002.desc
 	hide_window = no
 	is_triggered_only = yes
 
@@ -3222,10 +2931,10 @@ country_event = { # General - Communications
 }
 
 country_event = { # Scientist - Communications
-	id = civwar.5003
+	id = civpan.5003
 	picture = GFX_evt_civil_action
-	title = civwar.5003.name
-	desc = civwar.5003.desc
+	title = civpan.5003.name
+	desc = civpan.5003.desc
 	hide_window = no
 	is_triggered_only = yes
 
@@ -3244,19 +2953,19 @@ country_event = { # Scientist - Communications
 }
 
 country_event = { # Declare War vs. Governor / Scientist / General
-	id = civwar.5100
+	id = civpan.5100
 	hide_window = yes
 	is_triggered_only = yes
 
 	immediate = { 
 		hidden_effect = {
-			get_declare_war_civwar = yes
+			get_declare_war_civpan = yes
 		}
 	}
 }
 
 country_event = { # Declare War vs. Admiral
-	id = civwar.5101
+	id = civpan.5101
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3264,15 +2973,15 @@ country_event = { # Declare War vs. Admiral
 		hidden_effect = {
 			if = {
 				limit = {
-					event_target:civwar_rebels = {
+					event_target:civpan_rebels = {
 						num_owned_planets > 0
 					}
 				}
-				get_declare_war_civwar = yes
+				get_declare_war_civpan = yes
 			}
 			else = {
 				declare_war = {
-					target = event_target:civwar_rebels
+					target = event_target:civpan_rebels
 					name = "NAME_admr_rebellion_war"
 					attacker_war_goal = "wg_admiral_rebellion"
 				}
@@ -3283,7 +2992,7 @@ country_event = { # Declare War vs. Admiral
 }
 
 country_event = { # Declare War vs Planet
-	id = civwar.5200
+	id = civpan.5200
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3309,7 +3018,7 @@ country_event = { # Declare War vs Planet
 }
 
 country_event = { # Declare War vs. Governor / Scientist / General / Heir Subjects rebels
-	id = civwar.5300
+	id = civpan.5300
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3321,12 +3030,12 @@ country_event = { # Declare War vs. Governor / Scientist / General / Heir Subjec
 				}
 				every_federation_ally = {
 					limit = {
-						NOT = { is_same_value = event_target:civwar_originator }
+						NOT = { is_same_value = event_target:civpan_originator }
 					}
 					set_country_flag = remove_from_civil_war
 				}
 			}
-			get_declare_war_civwar_subject = yes
+			get_declare_war_civpan_subject = yes
 		}
 	}
 }
@@ -3335,7 +3044,7 @@ country_event = { # Declare War vs. Governor / Scientist / General / Heir Subjec
 # Leader Setting
 
 country_event = { # Traitorous Governor/Scientist/General becomes rebellion country leader
-	id = civwar.6000
+	id = civpan.6000
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3451,7 +3160,7 @@ country_event = { # Traitorous Governor/Scientist/General becomes rebellion coun
 }
 
 country_event = { # Traitorous Admiral becomes rebellion country leader and admiral
-	id = civwar.6001
+	id = civpan.6001
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3490,7 +3199,7 @@ country_event = { # Traitorous Admiral becomes rebellion country leader and admi
 # Fleet Stuff
 
 country_event = { # Create Fleets and give resources, faction civil wars
-	id = civwar.7000
+	id = civpan.7000
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3498,28 +3207,28 @@ country_event = { # Create Fleets and give resources, faction civil wars
 
 		if = {
 			limit = {
-				exists = event_target:civwar_party
+				exists = event_target:civpan_party
 			}
-			event_target:civwar_party = {
+			event_target:civpan_party = {
 				export_trigger_value_to_variable = {
 					trigger = support
 					variable = faction_support_level
 				}
 			}
-			event_target:civwar_originator = {
+			event_target:civpan_originator = {
 				export_trigger_value_to_variable = {
 					trigger = used_naval_capacity_percent
 					variable = mother_navy_size
 				}
 				multiply_variable = {
 					which = mother_navy_size
-					value = event_target:civwar_party.faction_support_level
+					value = event_target:civpan_party.faction_support_level
 				}
 				create_fleet_from_naval_cap = mother_navy_size
 			}
 		}
 		else = {
-			event_target:civwar_originator = {
+			event_target:civpan_originator = {
 				export_trigger_value_to_variable = {
 					trigger = used_naval_capacity_percent
 					variable = mother_navy_size
@@ -3586,20 +3295,20 @@ country_event = { # Create Fleets and give resources, faction civil wars
 
 	after = {
 		# Destroy Fleet percentage from home country
-		country_event = { id = civwar.7001 }
+		country_event = { id = civpan.7001 }
 	}
 }
 
 country_event = { # Destroy Fleets, faction civil wars
-	id = civwar.7001
+	id = civpan.7001
 	hide_window = yes
 	is_triggered_only = yes
 
 	immediate = {
 
-		event_target:civwar_originator = {
+		event_target:civpan_originator = {
 
-			event_target:civwar_party = {
+			event_target:civpan_party = {
 				multiply_variable = {
 					which = faction_support_level
 					value = 100
@@ -3611,7 +3320,7 @@ country_event = { # Destroy Fleets, faction civil wars
 				set_variable = { which = ship_count value = 0 }
 				every_owned_ship = {
 					limit = { is_ship_class = shipclass_military }
-					PREV = { change_variable = { which = ship_count value = event_target:civwar_party.faction_support_level } }
+					PREV = { change_variable = { which = ship_count value = event_target:civpan_party.faction_support_level } }
 				}
 				divide_variable = { which = ship_count value = 100 }
 				while = {
@@ -3666,7 +3375,7 @@ country_event = { # Destroy Fleets, faction civil wars
 # Subject Stuff
 
 country_event = { # War won - Transfer subject systems back to subjects
-	id = civwar.8000
+	id = civpan.8000
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3678,12 +3387,12 @@ country_event = { # War won - Transfer subject systems back to subjects
 	}
 
 	immediate = {
-		country_event = { id = civwar.8010 days = 1 }
+		country_event = { id = civpan.8010 days = 1 }
 	}
 }
 
 country_event = { # War won - Subject System Transfer Initializer
-	id = civwar.8010
+	id = civpan.8010
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3722,7 +3431,7 @@ country_event = { # War won - Subject System Transfer Initializer
 }
 
 country_event = { # Status quo - Subject System Transfer Initializer
-	id = civwar.8100
+	id = civpan.8100
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3737,7 +3446,7 @@ country_event = { # Status quo - Subject System Transfer Initializer
 
 	immediate = {
 		fromfrom = {
-			country_event = { id = civwar.8110 days = 1 }
+			country_event = { id = civpan.8110 days = 1 }
 		}
 		fromfromfrom = {
 			save_global_event_target_as = defeated_country_systems
@@ -3746,7 +3455,7 @@ country_event = { # Status quo - Subject System Transfer Initializer
 }
 
 country_event = { # Status quo - Transfer subject systems back to subjects
-	id = civwar.8110
+	id = civpan.8110
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3805,7 +3514,7 @@ country_event = { # Status quo - Transfer subject systems back to subjects
 # 9000 - Free
 
 country_event = { # Unflag federation members who are not in federations anymore
-	id = civwar.9100
+	id = civpan.9100
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3824,7 +3533,7 @@ country_event = { # Unflag federation members who are not in federations anymore
 }
 
 country_event = { # Remove flag from faction leaders who become rulers
-	id = civwar.9200
+	id = civpan.9200
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3884,7 +3593,7 @@ country_event = { # Remove flag from faction leaders who become rulers
 }
 
 country_event = { # Remove flag from faction leaders who become Heirs
-	id = civwar.9201
+	id = civpan.9201
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3957,7 +3666,7 @@ country_event = { # Remove flag from faction leaders who become Heirs
 }
 
 country_event = { # Remove flag sectors that are flagged
-	id = civwar.9203
+	id = civpan.9203
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -3990,7 +3699,7 @@ country_event = { # Remove flag sectors that are flagged
 }
 
 country_event = { # Remove Extra civil_war_flip flags
-	id = civwar.9204
+	id = civpan.9204
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -4013,7 +3722,7 @@ country_event = { # Remove Extra civil_war_flip flags
 }
 
 event = { # Set Global Flag
-	id = civwar.9300
+	id = civpan.9300
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -4027,12 +3736,12 @@ event = { # Set Global Flag
 }
 
 country_event = { # Admiral Rebellion Rename after win - Status Quo
-	id = civwar.9400
+	id = civpan.9400
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
-		has_country_flag = civwar_fleet
+		has_country_flag = civpan_fleet
 	}
 
 	immediate = {
@@ -4040,7 +3749,7 @@ country_event = { # Admiral Rebellion Rename after win - Status Quo
 			limit = {
 				num_owned_planets > 1
 			}
-			remove_country_flag = civwar_fleet
+			remove_country_flag = civpan_fleet
 			capital_scope = {
 				set_name = random
 			}
@@ -4054,14 +3763,14 @@ country_event = { # Admiral Rebellion Rename after win - Status Quo
 }
 
 country_event = { # Admiral Rebellion Rename after win - yearly fire
-	id = civwar.9410
+	id = civpan.9410
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
 		is_at_war = no
 		num_owned_planets > 1
-		has_country_flag = civwar_fleet
+		has_country_flag = civpan_fleet
 	}
 
 	immediate = {
@@ -4073,7 +3782,7 @@ country_event = { # Admiral Rebellion Rename after win - yearly fire
 			remove_country_flag = fleet_no_planets
 		}
 
-		remove_country_flag = civwar_fleet
+		remove_country_flag = civpan_fleet
 		
 		capital_scope = {
 			set_name = random
@@ -4083,7 +3792,7 @@ country_event = { # Admiral Rebellion Rename after win - yearly fire
 }
 
 country_event = { # Kill Both Admirals if either dies
-	id = civwar.9450
+	id = civpan.9450
 	hide_window = yes
 	is_triggered_only = yes
 

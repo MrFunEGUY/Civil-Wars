@@ -825,9 +825,9 @@ country_event = { # Heir Rebellion / 1 Sector
 		get_empire_sprawl = yes
 
 		# event lock all fleets to prevent exploits
-		every_owned_fleet = { 
-			set_event_locked = yes
-		}
+		# every_owned_fleet = { 
+		# 	set_event_locked = yes
+		# }
 
 		# find and flag systems
 		random_owned_sector = {
@@ -1078,9 +1078,9 @@ country_event = { # Setup for Heir Civil War
 			}
 		}
 
-		every_owned_fleet = {
-			set_event_locked = no
-		}
+		# every_owned_fleet = {
+		# 	set_event_locked = no
+		# }
 
 		# Make Heir Leader
 		country_event = { id = civheir.6100 }
@@ -1200,9 +1200,9 @@ country_event = { # Setup for Heir Civil War
 		event_target:civwar_originator = {
 
 			# Unlock Fleets
-			every_owned_fleet = {
-				set_event_locked = no
-			}
+			# every_owned_fleet = {
+			# 	set_event_locked = no
+			# }
 
 			# Add intel
 			add_intel = {
@@ -1258,9 +1258,9 @@ country_event = { # Heir Rebellion / Multiple Sectors
 		get_empire_sprawl = yes
 
 		# event lock all fleets to prevent exploits
-		every_owned_fleet = { 
-			set_event_locked = yes
-		}
+		# every_owned_fleet = { 
+		# 	set_event_locked = yes
+		# }
 
 		# find and flag sectors
 		get_sectors_and_multiply = yes

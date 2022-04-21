@@ -241,9 +241,9 @@ country_event = { # Empire Fractures
 		}
 
 		# event lock all fleets to prevent exploits
-		every_owned_fleet = { 
-			set_event_locked = yes
-		}
+		# every_owned_fleet = { 
+		# 	set_event_locked = yes
+		# }
 
 		while = {
 			count = total_rebel_sectors
@@ -425,13 +425,13 @@ country_event = { # Empire Fractures
 	after = {
 		# Destroy Fleet percentage from home country
 		country_event = { id = civcoup.1051 }
-		hidden_effect = {
-			event_target:civwar_originator = {
-				every_owned_fleet = {
-					set_event_locked = no
-				}
-			}
-		}
+		# hidden_effect = {
+		# 	event_target:civwar_originator = {
+		# 		every_owned_fleet = {
+		# 			set_event_locked = no
+		# 		}
+		# 	}
+		# }
 	}
 }
 
@@ -618,9 +618,9 @@ country_event = { # Setup for Successor State Countries
 			}
 		}
 
-		every_owned_fleet = {
-			set_event_locked = no
-		}
+		# every_owned_fleet = {
+		# 	set_event_locked = no
+		# }
 
 		# Make Dynasty Member Leader
 		country_event = { id = civcoup.1040 }
@@ -859,9 +859,9 @@ country_event = { # Setup for Independent Kingdoms
 			}
 		}
 
-		every_owned_fleet = {
-			set_event_locked = no
-		}
+		# every_owned_fleet = {
+		# 	set_event_locked = no
+		# }
 
 		# Make Governor Leader if they exist
 		if = {

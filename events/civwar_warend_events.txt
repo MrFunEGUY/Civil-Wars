@@ -641,6 +641,7 @@ country_event = {
 	
 	immediate = {
 
+		# Note: Make subjects able to recieve traitors, at the risk of their overlord finding out.
 		if = {
 			limit = {
 				is_overlord = yes
@@ -682,6 +683,9 @@ country_event = {
 				country_event = { id = civend.5001 }
 			}
 		}
+		else = {
+			country_event = { id = civend.1002 }
+		}
 	}
 
 	after = {
@@ -696,7 +700,7 @@ country_event = {
 	}
 }
 
-# Traitorous Leader is attempting to escape to another empire, country notification.
+# Traitorous Leader is attempting to escape to another empire, foreign country notification.
 country_event = {
 	id = civend.5001
 	title = civend.5001.name
