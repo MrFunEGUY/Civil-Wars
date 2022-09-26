@@ -261,13 +261,16 @@ after_comms_cleanup_effect = {
 		}
 	}
 
-	if = {
+	if = { # Request assistance from neighbors
 		limit = {
 			event_target:civwar_rebels = { is_at_war_with = event_target:civwar_originator }
 			any_country = {
 				is_unfriendly = no
 				is_country_type_with_subjects = yes
 				NOT = { is_same_value = event_target:civwar_originator }
+				NOT = { has_defensive_pact = event_target:civwar_originator }
+				NOT = { has_non_aggression_pact = event_target:civwar_originator }
+				NOT = { is_in_federation_with = event_target:civwar_originator }
 				any_system_within_border = {
 					closest_system = {
 						limit = {
@@ -285,6 +288,9 @@ after_comms_cleanup_effect = {
 				is_unfriendly = no
 				is_country_type_with_subjects = yes
 				NOT = { is_same_value = event_target:civwar_originator }
+				NOT = { has_defensive_pact = event_target:civwar_originator }
+				NOT = { has_non_aggression_pact = event_target:civwar_originator }
+				NOT = { is_in_federation_with = event_target:civwar_originator }
 				any_system_within_border = {
 					closest_system = {
 						limit = {
