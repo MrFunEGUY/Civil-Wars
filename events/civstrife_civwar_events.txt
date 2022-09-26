@@ -17,7 +17,7 @@ country_event = { # Setup for Civil War
 
 	immediate = {
 
-		set_country_flag = civwar_country
+		set_timed_country_flag = { flag = civwar_country days = 90 }
 
 		# saving civwar and host as event targets
 		save_event_target_as = civwar_rebels
@@ -367,7 +367,7 @@ country_event = { # Setup for Planetary Rebellions
 	immediate = {
 
 		set_country_type = default
-		set_country_flag = plan_rebel_country
+		set_timed_country_flag = { flag = plan_rebel_country days = 90 }
 
 		save_event_target_as = civwar_rebels
 

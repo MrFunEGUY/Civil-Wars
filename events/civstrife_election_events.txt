@@ -1187,10 +1187,7 @@ country_event = {
 						flag = random
 						effect = {
 							set_country_flag = election_dispute_country
-							save_event_target_as = civwar_rebels
-							event_target:civil_war_planet = {
-								planet_event = { id = civplan.2000 }
-							}
+							created_civwar_rebel_country_effect = yes
 						}
 					}
 					get_civil_war_leader_dispute = yes
@@ -1261,10 +1258,7 @@ country_event = {
 							flag = random
 							effect = {
 								set_country_flag = election_dispute_country
-								save_event_target_as = civwar_rebels
-								event_target:civil_war_planet = {
-									planet_event = { id = civplan.2000 }
-								}
+								created_civwar_rebel_country_effect = yes
 							}
 						}
 						get_civil_war_leader_dispute = yes
