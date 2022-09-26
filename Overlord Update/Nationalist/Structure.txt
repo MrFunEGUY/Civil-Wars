@@ -1,14 +1,50 @@
 Structure:
 
-- Nationalism Triggers - {
+Mechanics = {
+	- If enough pops on a planet/in a sector gain a regionalist/natioalist sentiment (via pop flag), the planet/sector has a percent chance to spawn a separatist political faction.
+}
+
+- Regionalism/Nationalism Triggers - {
 	- Isolated Sector
-	- Conquest
-	- Integration
-	- Slavery
-	- Species rights
-	- Election Rhetoric
+	- Conquest - {
+		- Nationalists may desire: - {
+			- to become a self-governing region (tribute, vassal, etc.)
+			- more rights
+			- lower taxes
+			- etc.
+		}
+	}
+	- Integration - {
+		- Stubborn group who opposed integration, desire to revert to previous status.
+	}
+	- Slavery - {
+		- Enslaved pops may become nationalist as a means to escape slavery
+	}
+	- Species rights - {
+		- Regionalist group may appear wanting better status than residency, or other rights
+	}
+	- Election Rhetoric - {
+		- Leader wins election by agitating against neighbor or minority species within empire. - {
+			- Upon winning election, said leader may implement policies that hurt said group. Ex, war against neighbor, genocide of minority species
+		}
+	}
 	- Regional differences that develop over time - {
-		- Sector/Planet that was particularly impacted in war(s)
+		- Planet/Sector that was particularly impacted in war(s) - {
+			- Counter for how long a planet has been bombarded. The farther away a planet is from the capital and the longer it gets bombarded, the more Pressure it will add to a planet, causing regionalism to increase.
+		}
+		- Planet/Sector that has been isolated for a long time.
+	}
+
+	Removals = {
+		- Killing all regionalist pops - {
+			- Will likely be difficult in a sector, as killing of pops will result in more pops becoming regionalist
+			- On a planet, may be effective. However, possible other planets discover what occurred and grow more regionalist.
+		}
+		- Aceding to demands
+		- Improving conditions
+		- Assimilation - {
+			- How to accomplish this? 
+		}
 	}
 }
 

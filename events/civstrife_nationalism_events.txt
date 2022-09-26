@@ -1,0 +1,3406 @@
+
+###############################
+### Civil Wars by MrFunEGUY ###
+###############################
+
+
+namespace = civnat
+
+
+#################
+# Separatist Pop Formation Events, Conquest
+
+## On Starbase Transferred, mark planets with prior owner code, Country Not Destroyed
+## THIS = Ship (Starbase)
+## FROM = Former Owner (Country)
+ship_event = { ## Initial Event to create separatists from transferred planets.
+	id = civnat.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = { num_owned_planets > 0 }
+		owner = {
+			NOR = {
+				has_country_flag = civwar_country
+				has_country_flag = plan_rebel_country
+			}
+			is_country_type_with_subjects = yes
+		}
+		solar_system = {
+			any_system_planet = {
+				exists = owner
+				owner = { is_primitive = no }
+			}
+		}
+	}
+
+	immediate = {
+
+		from = {
+			save_global_event_target_as = nat_pops_country
+			set_country_flag = has_nats_in_@root.owner
+		}
+
+		owner = {
+			every_owned_planet = {
+				limit = {
+					any_owned_pop = {
+						OR = {
+							has_pop_flag = citizen_of_@event_target:nat_pops_country
+							has_pop_flag = resident_of_@event_target:nat_pops_country
+						}
+					}
+				}
+				set_timed_planet_flag = { flag = nat_pops_planet_@event_target:nat_pops_country days = 30 }
+			}
+			country_event = { id = civnat.1100 }
+		}
+	}
+}
+
+ship_event = { ## Initial Event to create separatists from destroyed countries.
+	id = civnat.1010
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = {
+			num_owned_planets = 0
+			NOT = { has_country_flag = civstrife_nat_30_year_timer }
+		}
+		owner = {
+			is_country_type_with_subjects = yes
+			NOT = { has_country_flag = destroyed_timed_flag_@from }
+		}
+		solar_system = {
+			any_system_planet = {
+				exists = owner
+				owner = { is_primitive = no }
+			}
+		}
+	}
+
+	immediate = {
+
+		owner = { # So this event only fires once, as it's fired for every system captured otherwise.
+			set_timed_country_flag = { flag = destroyed_timed_flag_@from days = 2 }
+		}
+
+		from.species = { # For some reason, this doesnt work during country creation and needs to be done after
+			save_event_target_as = original_nation_species
+		}
+
+		# Create Exile Government
+		create_country = {
+			name = from
+			type = exile_country
+			species = event_target:original_nation_species
+			ignore_initial_colony_error = yes
+			day_zero_contact = no
+			authority = from
+			ethos = from
+			origin = origin_exile_government
+			civics = from
+			flag = from
+			effect = {
+				copy_techs_from = { target = root }
+				set_leader = from.ruler
+				save_global_event_target_as = nat_pops_country
+				# This needs to be done or the species will be the ruler species, very odd.
+				change_species = event_target:original_nation_species
+			}
+		}
+
+		event_target:nat_pops_country = {
+			if = {
+				limit = { from = { is_fallen_empire = yes } }
+				set_country_flag = ancient_exile_gov
+			}
+			# establish comms
+			every_country = {
+				limit = { has_communications = from }
+				establish_communications_no_message = event_target:nat_pops_country
+				establish_contact = { who = event_target:nat_pops_country location = root }
+			}			
+			set_country_flag = has_nats_in_@from
+		}
+
+		every_galaxy_pop = { # If nationalists exists for a country that then dies, switch them to be nationalists for the exile government
+			limit = { has_pop_flag = sep_pop_nat_@from }
+			remove_pop_flag = sep_pop_nat_@from
+			set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+			add_modifier = { modifier = "death_of_motherland" days = 5400 }
+		}
+
+		every_galaxy_planet = {
+			limit = {
+				OR = {
+					has_planet_flag = frontier_planet_@from
+					has_planet_flag = integrated_planet_@from
+					has_planet_flag = fundamental_planet_@from
+					has_planet_flag = capital_planet_@from
+				}
+			}
+			if = {
+				limit = { has_planet_flag = frontier_planet_@from }
+				remove_planet_flag = frontier_planet_@from
+				set_planet_flag = frontier_planet_@event_target:nat_pops_country
+			}
+			if = {
+				limit = { has_planet_flag = integrated_planet_@from }
+				remove_planet_flag = integrated_planet_@from
+				set_planet_flag = integrated_planet_@event_target:nat_pops_country
+			}
+			if = {
+				limit = { has_planet_flag = fundamental_planet_@from }
+				remove_planet_flag = fundamental_planet_@from
+				set_planet_flag = fundamental_planet_@event_target:nat_pops_country
+			}
+			if = {
+				limit = { has_planet_flag = capital_planet_@from }
+				remove_planet_flag = capital_planet_@from
+				set_planet_flag = capital_planet_@event_target:nat_pops_country
+			}
+		}
+
+		owner = {
+			every_owned_pop = {
+				limit = { has_pop_flag = citizen_of_@from }
+				remove_pop_flag = citizen_of_@from
+				set_pop_flag = citizen_of_@event_target:nat_pops_country
+			}
+			every_owned_pop = {
+				limit = { has_pop_flag = resident_of_@from }
+				remove_pop_flag = resident_of_@from
+				set_pop_flag = resident_of_@event_target:nat_pops_country
+			}
+			every_owned_pop = {
+				limit = { has_pop_flag = slave_of_@from }
+				remove_pop_flag = slave_of_@from
+				set_pop_flag = slave_of_@event_target:nat_pops_country
+			}
+			every_owned_pop = {
+				limit = { has_pop_flag = bio_trophy_of_@from }
+				remove_pop_flag = bio_trophy_of_@from
+				set_pop_flag = bio_trophy_of_@event_target:nat_pops_country
+			}
+			every_owned_pop = {
+				limit = { has_pop_flag = purgee_of_@from }
+				remove_pop_flag = purgee_of_@from
+				set_pop_flag = purgee_of_@event_target:nat_pops_country
+			}
+		}
+		
+
+		if = { # Any Exile Govs that were currently hosted have to find new host
+			limit = {
+				any_country = {
+					any_agreement = { agreement_preset = preset_exile_government }
+					has_overlord = from
+				}
+			}
+			every_country = {
+				limit = {
+					any_agreement = { agreement_preset = preset_exile_government }
+					has_overlord = from
+				}
+				remove_modifier = exile_gov_loyalty
+				set_country_flag = already_exiled
+				country_event = { id = civnat.1300 days = 3 random = 7 }
+			}
+		}
+
+		owner = {
+			every_owned_planet = {
+				limit = {
+					any_owned_pop = {
+						OR = {
+							has_pop_flag = citizen_of_@event_target:nat_pops_country
+							has_pop_flag = resident_of_@event_target:nat_pops_country
+						}
+					}
+				}
+				set_timed_planet_flag = { flag = nat_pops_planet_@event_target:nat_pops_country days = 30 }
+			}
+			set_timed_country_flag = { flag = destroyed_country_nat_@event_target:nat_pops_country days = 30 }
+			country_event = { id = civnat.1100 days = 5 }
+		}
+	}
+}
+
+country_event = { # Create Nationalists from former nations People
+	id = civnat.1100
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+
+		every_owned_planet = { # Frontier Sectors
+			limit = {
+				has_planet_flag = frontier_planet_@event_target:nat_pops_country
+				has_planet_flag = nat_pops_planet_@event_target:nat_pops_country
+			}
+
+			remove_planet_flag = nat_pops_planet_@event_target:nat_pops_country
+
+			# First, Get Citizens who are still Citzens, least likely to radicalize.
+			set_variable = { which = num_separatist_pops value = 0 }
+
+			every_owned_pop = {
+				limit = {
+					pop_can_be_separatist_gen = yes
+					has_pop_flag = citizen_of_@event_target:nat_pops_country
+					has_citizenship_type = { type = citizenship_full }
+				}
+				prev = { change_variable = { which = num_separatist_pops value = 1 } }
+			}
+
+			if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value <= 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						# 30 = { }
+						30 = { set_variable = { which = num_separatist_pops value = 1 } }
+						30 = { set_variable = { which = num_separatist_pops value = 2 } }
+						10 = { set_variable = { which = num_separatist_pops value = 3 } }
+					}
+				}
+				else = {
+					random_list = {
+						# 50 = { set_variable = { which = num_separatist_pops value = 1 } }
+						# 30 = { set_variable = { which = num_separatist_pops value = 2 } }
+						20 = { set_variable = { which = num_separatist_pops value = 3 } }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value > 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						30 = { }
+						30 = { multiply_variable = { which = num_separatist_pops value = 0.1 } }
+						30 = { multiply_variable = { which = num_separatist_pops value = 0.2 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.3 } }
+					}
+				}
+				else = {
+					random_list = {
+						50 = { multiply_variable = { which = num_separatist_pops value = 0.1 } }
+						30 = { multiply_variable = { which = num_separatist_pops value = 0.2 } }
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.3 } }
+					}
+				}
+			}
+
+			while = {
+				count = num_separatist_pops
+				random_owned_pop = {
+					limit = {
+						pop_can_be_separatist_gen = yes
+						has_pop_flag = citizen_of_@event_target:nat_pops_country
+						has_citizenship_type = { type = citizenship_full }
+					}
+					set_pop_flag = sep_pop
+					set_pop_flag = sep_pop_nat
+					set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				}
+			}
+
+			# Second, Get Citizens who've become residents
+			set_variable = { which = num_separatist_pops value = 0 }
+
+			every_owned_pop = {
+				limit = {
+					pop_can_be_separatist_gen = yes
+					has_pop_flag = citizen_of_@event_target:nat_pops_country
+					has_citizenship_type = { type = citizenship_limited }
+				}
+				prev = { change_variable = { which = num_separatist_pops value = 1 } }
+			}
+
+			if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value <= 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						# 10 = { }
+						30 = { set_variable = { which = num_separatist_pops value = 1 } }
+						25 = { set_variable = { which = num_separatist_pops value = 2 } }
+						20 = { set_variable = { which = num_separatist_pops value = 3 } }
+						10 = { set_variable = { which = num_separatist_pops value = 4 } }
+						5 = { set_variable = { which = num_separatist_pops value = 5 } }
+					}
+				}
+				else = {
+					random_list = {
+						30 = { set_variable = { which = num_separatist_pops value = 1 } }
+						25 = { set_variable = { which = num_separatist_pops value = 2 } }
+						20 = { set_variable = { which = num_separatist_pops value = 3 } }
+						15 = { set_variable = { which = num_separatist_pops value = 4 } }
+						5 = { set_variable = { which = num_separatist_pops value = 5 } }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value > 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						10 = { }
+						30 = { multiply_variable = { which = num_separatist_pops value = 0.2 } }
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.2 } }
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.3 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.4 } }
+						5 = { multiply_variable = { which = num_separatist_pops value = 0.5 } }
+					}
+				}
+				else = {
+					random_list = {
+						30 = { multiply_variable = { which = num_separatist_pops value = 0.1 } }
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.2 } }
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.3 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.4 } }
+						5 = { multiply_variable = { which = num_separatist_pops value = 0.5 } }
+					}
+				}
+			}
+
+			while = {
+				count = num_separatist_pops
+				random_owned_pop = {
+					limit = {
+						pop_can_be_separatist_gen = yes
+						has_pop_flag = citizen_of_@event_target:nat_pops_country
+						has_citizenship_type = { type = citizenship_limited }
+					}
+					set_pop_flag = sep_pop
+					set_pop_flag = sep_pop_nat
+					set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				}
+			}
+
+			# Third, Get Citizens and Residents who've become enslaved
+			set_variable = { which = num_separatist_pops value = 0 }
+
+			every_owned_pop = {
+				limit = {
+					pop_can_be_separatist_gen = yes
+					OR = {
+						has_pop_flag = citizen_of_@event_target:nat_pops_country
+						has_pop_flag = resident_of_@event_target:nat_pops_country
+					}
+					has_citizenship_type = { type = citizenship_slavery }
+				}
+				prev = { change_variable = { which = num_separatist_pops value = 1 } }
+			}
+
+			if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value <= 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						35 = { set_variable = { which = num_separatist_pops value = 5 } }
+						30 = { set_variable = { which = num_separatist_pops value = 6 } }
+						20 = { set_variable = { which = num_separatist_pops value = 7 } }
+						15 = { set_variable = { which = num_separatist_pops value = 8 } }
+					}
+				}
+				else = {
+					random_list = {
+						25 = { set_variable = { which = num_separatist_pops value = 5 } }
+						25 = { set_variable = { which = num_separatist_pops value = 6 } }
+						25 = { set_variable = { which = num_separatist_pops value = 7 } }
+						25 = { set_variable = { which = num_separatist_pops value = 8 } }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value > 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						35 = { multiply_variable = { which = num_separatist_pops value = 0.5 } }
+						30 = { multiply_variable = { which = num_separatist_pops value = 0.6 } }
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.7 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.8 } }
+					}
+				}
+				else = {
+					random_list = {
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.5 } }
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.6 } }
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.7 } }
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.8 } }
+					}
+				}
+			}
+
+			while = {
+				count = num_separatist_pops
+				random_owned_pop = {
+					limit = {
+						pop_can_be_separatist_gen = yes
+						OR = {
+							has_pop_flag = citizen_of_@event_target:nat_pops_country
+							has_pop_flag = resident_of_@event_target:nat_pops_country
+						}
+						has_citizenship_type = { type = citizenship_slavery }
+					}
+					set_pop_flag = sep_pop
+					set_pop_flag = sep_pop_nat
+					set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				}
+			}
+
+			# Finally, Get Citizens and Residents who are now being purged - all of them
+			get_cit_res_purgees = yes
+		}
+
+		every_owned_planet = { # Integrated Sectors
+			limit = {
+				has_planet_flag = integrated_planet_@event_target:nat_pops_country
+				has_planet_flag = nat_pops_planet_@event_target:nat_pops_country
+			}
+
+			remove_planet_flag = nat_pops_planet_@event_target:nat_pops_country
+
+			# First, Get Citizens who are still Citzens, least likely to radicalize.
+			set_variable = { which = num_separatist_pops value = 0 }
+
+			every_owned_pop = {
+				limit = {
+					pop_can_be_separatist_gen = yes
+					has_pop_flag = citizen_of_@event_target:nat_pops_country
+					has_citizenship_type = { type = citizenship_full }
+				}
+				prev = { change_variable = { which = num_separatist_pops value = 1 } }
+			}
+
+			if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value <= 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						20 = { }
+						25 = { set_variable = { which = num_separatist_pops value = 1 } }
+						20 = { set_variable = { which = num_separatist_pops value = 2 } }
+						15 = { set_variable = { which = num_separatist_pops value = 3 } }
+						15 = { set_variable = { which = num_separatist_pops value = 4 } }
+						3 = { set_variable = { which = num_separatist_pops value = 5 } }
+						2 = { set_variable = { which = num_separatist_pops value = 6 } }
+					}
+				}
+				else = {
+					random_list = {
+						35 = { set_variable = { which = num_separatist_pops value = 1 } }
+						30 = { set_variable = { which = num_separatist_pops value = 2 } }
+						20 = { set_variable = { which = num_separatist_pops value = 3 } }
+						10 = { set_variable = { which = num_separatist_pops value = 4 } }
+						3 = { set_variable = { which = num_separatist_pops value = 5 } }
+						2 = { set_variable = { which = num_separatist_pops value = 6 } }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value > 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						20 = { }
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.1 } }
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.2 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.3 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.4 } }
+						3 = { multiply_variable = { which = num_separatist_pops value = 0.5 } }
+						2 = { multiply_variable = { which = num_separatist_pops value = 0.6 } }
+					}
+				}
+				else = {
+					random_list = {
+						35 = { multiply_variable = { which = num_separatist_pops value = 0.1 } }
+						30 = { multiply_variable = { which = num_separatist_pops value = 0.2 } }
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.3 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.4 } }
+						3 = { multiply_variable = { which = num_separatist_pops value = 0.5 } }
+						2 = { multiply_variable = { which = num_separatist_pops value = 0.6 } }
+					}
+				}
+			}
+
+			while = {
+				count = num_separatist_pops
+				random_owned_pop = {
+					limit = {
+						pop_can_be_separatist_gen = yes
+						has_pop_flag = citizen_of_@event_target:nat_pops_country
+						has_citizenship_type = { type = citizenship_full }
+					}
+					set_pop_flag = sep_pop
+					set_pop_flag = sep_pop_nat
+					set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				}
+			}
+
+			# Second, Get Citizens who've become residents
+			set_variable = { which = num_separatist_pops value = 0 }
+
+			every_owned_pop = {
+				limit = {
+					pop_can_be_separatist_gen = yes
+					has_pop_flag = citizen_of_@event_target:nat_pops_country
+					has_citizenship_type = { type = citizenship_limited }
+				}
+				prev = { change_variable = { which = num_separatist_pops value = 1 } }
+			}
+
+			if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value <= 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						5 = { }
+						20 = { set_variable = { which = num_separatist_pops value = 1 } }
+						20 = { set_variable = { which = num_separatist_pops value = 2 } }
+						15 = { set_variable = { which = num_separatist_pops value = 3 } }
+						15 = { set_variable = { which = num_separatist_pops value = 4 } }
+						10 = { set_variable = { which = num_separatist_pops value = 5 } }
+						10 = { set_variable = { which = num_separatist_pops value = 6 } }
+						5 = { set_variable = { which = num_separatist_pops value = 7 } }
+					}
+				}
+				else = {
+					random_list = {
+						20 = { set_variable = { which = num_separatist_pops value = 1 } }
+						20 = { set_variable = { which = num_separatist_pops value = 2 } }
+						20 = { set_variable = { which = num_separatist_pops value = 3 } }
+						15 = { set_variable = { which = num_separatist_pops value = 4 } }
+						15 = { set_variable = { which = num_separatist_pops value = 5 } }
+						10 = { set_variable = { which = num_separatist_pops value = 6 } }
+						5 = { set_variable = { which = num_separatist_pops value = 7 } }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value > 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						5 = { }
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.1 } }
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.2 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.3 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.4 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.5 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.6 } }
+						5 = { multiply_variable = { which = num_separatist_pops value = 0.7 } }
+					}
+				}
+				else = {
+					random_list = {
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.1 } }
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.2 } }
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.3 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.4 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.5 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.6 } }
+						5 = { multiply_variable = { which = num_separatist_pops value = 0.7 } }
+					}
+				}
+			}
+
+			while = {
+				count = num_separatist_pops
+				random_owned_pop = {
+					limit = {
+						pop_can_be_separatist_gen = yes
+						has_pop_flag = citizen_of_@event_target:nat_pops_country
+						has_citizenship_type = { type = citizenship_limited }
+					}
+					set_pop_flag = sep_pop
+					set_pop_flag = sep_pop_nat
+					set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				}
+			}
+
+			# Third, Get Citizens and Residents who've become enslaved
+			set_variable = { which = num_separatist_pops value = 0 }
+
+			every_owned_pop = {
+				limit = {
+					pop_can_be_separatist_gen = yes
+					OR = {
+						has_pop_flag = citizen_of_@event_target:nat_pops_country
+						has_pop_flag = resident_of_@event_target:nat_pops_country
+					}
+					has_citizenship_type = { type = citizenship_slavery }
+				}
+				prev = { change_variable = { which = num_separatist_pops value = 1 } }
+			}
+
+			if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value <= 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						35 = { set_variable = { which = num_separatist_pops value = 6 } }
+						30 = { set_variable = { which = num_separatist_pops value = 7 } }
+						20 = { set_variable = { which = num_separatist_pops value = 8 } }
+						15 = { set_variable = { which = num_separatist_pops value = 9 } }
+					}
+				}
+				else = {
+					random_list = {
+						25 = { set_variable = { which = num_separatist_pops value = 6 } }
+						25 = { set_variable = { which = num_separatist_pops value = 7 } }
+						25 = { set_variable = { which = num_separatist_pops value = 8 } }
+						25 = { set_variable = { which = num_separatist_pops value = 9 } }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value > 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						35 = { multiply_variable = { which = num_separatist_pops value = 0.6 } }
+						30 = { multiply_variable = { which = num_separatist_pops value = 0.7 } }
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.8 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.9 } }
+					}
+				}
+				else = {
+					random_list = {
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.6 } }
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.7 } }
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.8 } }
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.9 } }
+					}
+				}
+			}
+
+			while = {
+				count = num_separatist_pops
+				random_owned_pop = {
+					limit = {
+						pop_can_be_separatist_gen = yes
+						OR = {
+							has_pop_flag = citizen_of_@event_target:nat_pops_country
+							has_pop_flag = resident_of_@event_target:nat_pops_country
+						}
+						has_citizenship_type = { type = citizenship_slavery }
+					}
+					set_pop_flag = sep_pop
+					set_pop_flag = sep_pop_nat
+					set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				}
+			}
+
+			# Finally, Get Citizens and Residents who are now being purged - all of them
+			get_cit_res_purgees = yes
+		}
+
+		every_owned_planet = { # Fundamental Sectors
+			limit = {
+				has_planet_flag = fundamental_planet_@event_target:nat_pops_country
+				has_planet_flag = nat_pops_planet_@event_target:nat_pops_country
+			}
+
+			remove_planet_flag = nat_pops_planet_@event_target:nat_pops_country
+
+			# First, Get Citizens who are still Citzens, least likely to radicalize.
+			set_variable = { which = num_separatist_pops value = 0 }
+
+			every_owned_pop = {
+				limit = {
+					pop_can_be_separatist_gen = yes
+					has_pop_flag = citizen_of_@event_target:nat_pops_country
+					has_citizenship_type = { type = citizenship_full }
+				}
+				prev = { change_variable = { which = num_separatist_pops value = 1 } }
+			}
+
+			if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value <= 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						10 = { }
+						15 = { set_variable = { which = num_separatist_pops value = 1 } }
+						15 = { set_variable = { which = num_separatist_pops value = 2 } }
+						15 = { set_variable = { which = num_separatist_pops value = 3 } }
+						10 = { set_variable = { which = num_separatist_pops value = 4 } }
+						10 = { set_variable = { which = num_separatist_pops value = 5 } }
+						10 = { set_variable = { which = num_separatist_pops value = 6 } }
+						5 = { set_variable = { which = num_separatist_pops value = 7 } }
+						5 = { set_variable = { which = num_separatist_pops value = 8 } }
+						3 = { set_variable = { which = num_separatist_pops value = 9 } }
+						2 = { set_variable = { which = num_separatist_pops value = 10 } }
+					}
+				}
+				else = {
+					random_list = {
+						20 = { set_variable = { which = num_separatist_pops value = 1 } }
+						15 = { set_variable = { which = num_separatist_pops value = 2 } }
+						15 = { set_variable = { which = num_separatist_pops value = 3 } }
+						13 = { set_variable = { which = num_separatist_pops value = 4 } }
+						12 = { set_variable = { which = num_separatist_pops value = 5 } }
+						10 = { set_variable = { which = num_separatist_pops value = 6 } }
+						5 = { set_variable = { which = num_separatist_pops value = 7 } }
+						5 = { set_variable = { which = num_separatist_pops value = 8 } }
+						3 = { set_variable = { which = num_separatist_pops value = 9 } }
+						2 = { set_variable = { which = num_separatist_pops value = 10 } }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value > 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						10 = { }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.1 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.2 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.3 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.4 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.5 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.6 } }
+						5 = { multiply_variable = { which = num_separatist_pops value = 0.7 } }
+						5 = { multiply_variable = { which = num_separatist_pops value = 0.8 } }
+						3 = { multiply_variable = { which = num_separatist_pops value = 0.9 } }
+						2 = { multiply_variable = { which = num_separatist_pops value = 1 } }
+					}
+				}
+				else = {
+					random_list = {
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.1 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.2 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.3 } }
+						13 = { multiply_variable = { which = num_separatist_pops value = 0.4 } }
+						12 = { multiply_variable = { which = num_separatist_pops value = 0.5 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.6 } }
+						5 = { multiply_variable = { which = num_separatist_pops value = 0.7 } }
+						5 = { multiply_variable = { which = num_separatist_pops value = 0.8 } }
+						3 = { multiply_variable = { which = num_separatist_pops value = 0.9 } }
+						2 = { multiply_variable = { which = num_separatist_pops value = 1 } }
+					}
+				}
+			}
+
+			while = {
+				count = num_separatist_pops
+				random_owned_pop = {
+					limit = {
+						pop_can_be_separatist_gen = yes
+						has_pop_flag = citizen_of_@event_target:nat_pops_country
+						has_citizenship_type = { type = citizenship_full }
+					}
+					set_pop_flag = sep_pop
+					set_pop_flag = sep_pop_nat
+					set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				}
+			}
+
+			# Second, Get Citizens who've become residents
+			set_variable = { which = num_separatist_pops value = 0 }
+
+			every_owned_pop = {
+				limit = {
+					pop_can_be_separatist_gen = yes
+					has_pop_flag = citizen_of_@event_target:nat_pops_country
+					has_citizenship_type = { type = citizenship_limited }
+				}
+				prev = { change_variable = { which = num_separatist_pops value = 1 } }
+			}
+
+			if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value <= 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						15 = { set_variable = { which = num_separatist_pops value = 1 } }
+						15 = { set_variable = { which = num_separatist_pops value = 2 } }
+						15 = { set_variable = { which = num_separatist_pops value = 3 } }
+						15 = { set_variable = { which = num_separatist_pops value = 4 } }
+						10 = { set_variable = { which = num_separatist_pops value = 5 } }
+						10 = { set_variable = { which = num_separatist_pops value = 6 } }
+						10 = { set_variable = { which = num_separatist_pops value = 7 } }
+						5 = { set_variable = { which = num_separatist_pops value = 8 } }
+						3 = { set_variable = { which = num_separatist_pops value = 9 } }
+						2 = { set_variable = { which = num_separatist_pops value = 10 } }
+					}
+				}
+				else = {
+					random_list = {
+						10 = { set_variable = { which = num_separatist_pops value = 1 } }
+						10 = { set_variable = { which = num_separatist_pops value = 2 } }
+						15 = { set_variable = { which = num_separatist_pops value = 3 } }
+						15 = { set_variable = { which = num_separatist_pops value = 4 } }
+						10 = { set_variable = { which = num_separatist_pops value = 5 } }
+						10 = { set_variable = { which = num_separatist_pops value = 6 } }
+						10 = { set_variable = { which = num_separatist_pops value = 7 } }
+						10 = { set_variable = { which = num_separatist_pops value = 8 } }
+						5 = { set_variable = { which = num_separatist_pops value = 9 } }
+						5 = { set_variable = { which = num_separatist_pops value = 10 } }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value > 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.1 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.2 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.3 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.4 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.5 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.6 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.7 } }
+						5 = { multiply_variable = { which = num_separatist_pops value = 0.8 } }
+						3 = { multiply_variable = { which = num_separatist_pops value = 0.9 } }
+						2 = { multiply_variable = { which = num_separatist_pops value = 1 } }
+					}
+				}
+				else = {
+					random_list = {
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.1 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.2 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.3 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 0.4 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.5 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.6 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.7 } }
+						10 = { multiply_variable = { which = num_separatist_pops value = 0.8 } }
+						5 = { multiply_variable = { which = num_separatist_pops value = 0.9 } }
+						5 = { multiply_variable = { which = num_separatist_pops value = 1 } }
+					}
+				}
+			}
+
+			while = {
+				count = num_separatist_pops
+				random_owned_pop = {
+					limit = {
+						pop_can_be_separatist_gen = yes
+						has_pop_flag = citizen_of_@event_target:nat_pops_country
+						has_citizenship_type = { type = citizenship_limited }
+					}
+					set_pop_flag = sep_pop
+					set_pop_flag = sep_pop_nat
+					set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				}
+			}
+
+			# Third, Get Citizens and Residents who've become enslaved
+			set_variable = { which = num_separatist_pops value = 0 }
+
+			every_owned_pop = {
+				limit = {
+					pop_can_be_separatist_gen = yes
+					OR = {
+						has_pop_flag = citizen_of_@event_target:nat_pops_country
+						has_pop_flag = resident_of_@event_target:nat_pops_country
+					}
+					has_citizenship_type = { type = citizenship_slavery }
+				}
+				prev = { change_variable = { which = num_separatist_pops value = 1 } }
+			}
+
+			if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value <= 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						35 = { set_variable = { which = num_separatist_pops value = 7 } }
+						30 = { set_variable = { which = num_separatist_pops value = 8 } }
+						20 = { set_variable = { which = num_separatist_pops value = 9 } }
+						15 = { set_variable = { which = num_separatist_pops value = 10 } }
+					}
+				}
+				else = {
+					random_list = {
+						25 = { set_variable = { which = num_separatist_pops value = 7 } }
+						25 = { set_variable = { which = num_separatist_pops value = 8 } }
+						25 = { set_variable = { which = num_separatist_pops value = 9 } }
+						25 = { set_variable = { which = num_separatist_pops value = 10 } }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = num_separatist_pops value > 10 }
+				}
+				if = {
+					limit = {
+						owner = { NOT = { has_country_flag = destroyed_country_nat_@event_target:nat_pops_country } }
+					}
+					random_list = {
+						35 = { multiply_variable = { which = num_separatist_pops value = 0.7 } }
+						30 = { multiply_variable = { which = num_separatist_pops value = 0.8 } }
+						20 = { multiply_variable = { which = num_separatist_pops value = 0.9 } }
+						15 = { multiply_variable = { which = num_separatist_pops value = 1 } }
+					}
+				}
+				else = {
+					random_list = {
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.7 } }
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.8 } }
+						25 = { multiply_variable = { which = num_separatist_pops value = 0.9 } }
+						25 = { multiply_variable = { which = num_separatist_pops value = 1 } }
+					}
+				}
+			}
+
+			while = {
+				count = num_separatist_pops
+				random_owned_pop = {
+					limit = {
+						pop_can_be_separatist_gen = yes
+						OR = {
+							has_pop_flag = citizen_of_@event_target:nat_pops_country
+							has_pop_flag = resident_of_@event_target:nat_pops_country
+						}
+						has_citizenship_type = { type = citizenship_slavery }
+					}
+					set_pop_flag = sep_pop
+					set_pop_flag = sep_pop_nat
+					set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				}
+			}
+
+			# Finally, Get Citizens and Residents who are now being purged - all of them
+			get_cit_res_purgees = yes
+		}
+	}
+
+	after = {
+		country_event = { id = civnat.1200 }
+	}
+}
+
+country_event = { # Create Possibility of Nationalist Faction and shop for home for Govenment-In-Exile
+	id = civnat.1200
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		
+		event_target:nat_pops_country = {
+			if = {
+				limit = { NOT = { has_country_flag = has_nats } }
+ 				get_separatist_faction_nat = yes
+			}
+			if = {
+				limit = { is_country_type = exile_country }
+				if = { # Govenment-In-Exile, will shop around 
+					limit = {
+						root = { any_owned_pop = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country } }
+						is_unfriendly = no
+						any_country = {
+							is_subject = no
+							is_unfriendly = no
+							has_communications = event_target:nat_pops_country
+							is_country_type_with_subjects = yes
+							NOR = {
+								is_same_value = root
+								is_same_value = event_target:nat_pops_country
+							}
+						}
+					}
+					root = { set_country_flag = exile_already_asked_@event_target:nat_pops_country }
+					country_event = { id = civnat.1300 }
+				}
+				else_if = { # No point in keeping around a country no one misses. 
+					limit = {
+						NOT = { any_country = { any_owned_pop = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country } } }
+					}
+					destroy_country = yes
+				}
+				else = {
+					# No Gov In Exile, because no countries willing to take them in
+					# Can still be revived in the future
+					# Good to keep around for localisation reasons regardless
+				}
+			}
+		}
+		
+		# clear_global_event_target = nat_pops_country
+	}
+}
+
+country_event = { # Gov In Exile Requst Hosting
+	id = civnat.1300
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+
+		if = {
+			limit = {
+				any_country = {
+					is_subject = no
+					is_unfriendly = no
+					has_communications = root
+					is_country_type_with_subjects = yes
+					NOR = {
+						is_same_value = root
+						has_country_flag = exile_already_asked_@root
+					}
+				}
+			}
+			ordered_playable_country = {
+				limit = {
+					is_subject = no
+					is_unfriendly = no
+					has_communications = root
+					is_country_type_with_subjects = yes
+					NOR = {
+						is_same_value = root
+						has_country_flag = exile_already_asked_@root
+					}
+				}
+				position = 0
+				order_by = trigger:opinion
+			}
+			random_country = {
+				limit = {
+					is_subject = no
+					is_unfriendly = no
+					has_communications = root
+					is_country_type_with_subjects = yes
+					NOR = {
+						is_same_value = root
+						has_country_flag = exile_already_asked_@root
+					}
+				}
+				country_event = { id = civcom.9000 days = 5 random = 40 }
+			}
+		}
+
+		else = {
+			country_event = { id = civnat.1310 }
+		}
+	}
+}
+
+country_event = { # Gov In Exile cannot find host, dissolves
+	id = civnat.1310
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+
+		save_global_event_target_as = gov_in_exile
+
+		set_country_flag = dead_nation
+
+		if = {
+			limit = { NOT = { has_country_flag = ancient_exile_gov } }
+			every_playable_country = {
+				limit = {
+					has_communications = root
+					NOT = { is_same_value = root }
+				}
+				country_event = { id = civ_action.62 }
+			}
+			random_playable_country = {
+				observer_event = { id = civ_observer.2 }
+			}
+		}
+		else = {
+			every_playable_country = {
+				limit = {
+					has_communications = root
+					NOT = { is_same_value = root }
+				}
+				country_event = { id = civ_action.63 }
+			}
+			random_playable_country = {
+				observer_event = { id = civ_observer.3 }
+			}
+		}
+	}
+
+	after = {
+		clear_global_event_target = gov_in_exile
+	}
+}
+
+country_event = { # Gov In Exile finds host
+	id = civnat.1320
+	hide_window = yes
+	is_triggered_only = yes
+
+
+	immediate = {
+
+		if = {
+			limit = { NOT = { has_country_flag = ancient_exile_gov } }
+			every_playable_country = {
+				limit = {
+					has_communications = root
+					NOR = {
+						is_same_value = root
+						is_same_value = event_target:hosting_country
+					}
+				}
+				country_event = { id = civ_action.6210 }
+			}
+			random_playable_country = {
+				observer_event = { id = civ_observer.210 }
+			}
+		}
+		else = {
+			every_playable_country = {
+				limit = {
+					has_communications = root
+					NOR = {
+						is_same_value = root
+						is_same_value = event_target:hosting_country
+					}
+				}
+				country_event = { id = civ_action.6310 }
+			}
+			random_playable_country = {
+				observer_event = { id = civ_observer.310 }
+			}
+		}
+	}
+
+	after = {
+		add_modifier = { modifier = exile_gov_loyalty days = -1 }
+	}
+}
+
+country_event = { # Gov In Exile monthly host check
+	id = civnat.1330
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type = exile_country
+		has_country_flag = has_host
+		is_subject = no
+	}
+
+
+	immediate = {
+
+		remove_country_flag = has_host
+
+		set_country_flag = already_exiled
+
+		country_event = { id = civnat.1300 }
+	}
+}
+
+country_event = { # Gov In Exile restoration, when released peacefully
+	id = civnat.1340
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type = exile_country
+		any_country = { has_country_flag = exile_link_@root }
+	}
+
+
+	immediate = {
+
+		save_event_target_as = restored_country
+
+		random_country = {
+			limit = { has_country_flag = exile_link_@root }
+
+			save_global_event_target_as = new_homeland
+
+			if = {
+				limit = {
+					root = { is_subject = yes } # To make sure that they actually had a Govenment-In-Exile. If they didn't, a new dynasty will begin.
+					is_imperial = yes
+				}
+				set_leader = root.ruler
+				# This needs to be done or the species will be the ruler species, very odd.
+				change_species = event_target:restored_country.species
+			}
+			every_owned_pop = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
+				limit = { has_pop_flag = sep_pop_nat_@root }
+				remove_pop_flag = sep_pop_nat_@root
+			}
+		}
+
+		every_galaxy_pop = { # If nationalists elsewhere exist for a country that then is restored, switch them to be nationalists for the new restored country
+			limit = { has_pop_flag = sep_pop_nat_@root }
+			remove_pop_flag = sep_pop_nat_@root
+			set_pop_flag = sep_pop_nat_@event_target:new_homeland
+			add_modifier = { modifier = "restoration_of_motherland" days = 5400 }
+		}
+
+		every_galaxy_pop = {
+			limit = {
+				OR = {
+					has_pop_flag = citizen_of_@root
+					has_pop_flag = resident_of_@root
+					has_pop_flag = slave_of_@root
+					has_pop_flag = bio_trophy_of_@root
+					has_pop_flag = purgee_of_@root
+				}
+			}
+			if = {
+				limit = { has_pop_flag = citizen_of_@root }
+				remove_pop_flag = citizen_of_@root
+				set_pop_flag = citizen_of_@event_target:new_homeland
+			}
+			else_if = {
+				limit = { has_pop_flag = resident_of_@root }
+				remove_pop_flag = resident_of_@root
+				set_pop_flag = resident_of_@event_target:new_homeland
+			}
+			else_if = {
+				limit = { has_pop_flag = slave_of_@root }
+				remove_pop_flag = slave_of_@root
+				set_pop_flag = slave_of_@event_target:new_homeland
+			}
+			else_if = {
+				limit = { has_pop_flag = bio_trophy_of_@root }
+				remove_pop_flag = bio_trophy_of_@root
+				set_pop_flag = bio_trophy_of_@event_target:new_homeland
+			}
+			else_if = {
+				limit = { has_pop_flag = purgee_of_@root }
+				remove_pop_flag = purgee_of_@root
+				set_pop_flag = purgee_of_@event_target:new_homeland
+			}			
+		}
+
+		every_galaxy_planet = {
+			limit = {
+				OR = {
+					has_planet_flag = frontier_planet_@root
+					has_planet_flag = integrated_planet_@root
+					has_planet_flag = fundamental_planet_@root
+					has_planet_flag = capital_planet_@root
+				}
+			}
+			if = {
+				limit = { has_planet_flag = frontier_planet_@root }
+				remove_planet_flag = frontier_planet_@root
+				set_planet_flag = frontier_planet_@event_target:new_homeland
+			}
+			if = {
+				limit = { has_planet_flag = integrated_planet_@root }
+				remove_planet_flag = integrated_planet_@root
+				set_planet_flag = integrated_planet_@event_target:new_homeland
+			}
+			if = {
+				limit = { has_planet_flag = fundamental_planet_@root }
+				remove_planet_flag = fundamental_planet_@root
+				set_planet_flag = fundamental_planet_@event_target:new_homeland
+			}
+			if = {
+				limit = { has_planet_flag = capital_planet_@root }
+				remove_planet_flag = capital_planet_@root
+				set_planet_flag = capital_planet_@event_target:new_homeland
+			}
+		}
+
+		# Notifications to other countries
+		if = {	# If they had a Govenment-In-Exile
+			limit = { is_subject = yes }
+			overlord = {
+				save_global_event_target_as = exile_host
+				country_event = { id = civnat.9210 }
+			}
+			every_playable_country = {
+				limit = {
+					NOT = { any_subject = { is_same_value = root } }
+				}
+				country_event = { id = civnat.9200 }
+			}
+		}
+		else = {
+			every_playable_country = {
+				country_event = { id = civnat.9230 }
+			}
+		}
+
+		# Destroy exile country
+		country_event = { id = civnat.1350 days = 5 }
+	}
+}
+
+country_event = { # Gov In Exile restoration, on war won
+	id = civnat.1341
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		fromfrom = {
+			using_war_goal = { type = wg_natwar owner = from }
+		}
+		any_country = {
+			is_country_type = exile_country
+			has_country_flag = exile_link_@root
+		}
+	}
+
+
+	immediate = {
+
+		random_country = {
+			limit = {
+				is_country_type = exile_country
+				has_country_flag = exile_link_@root
+			}
+
+			save_event_target_as = restored_country
+
+			root = {
+
+				save_global_event_target_as = new_homeland
+
+				if = {
+					limit = {
+						prev = { is_subject = yes } # To make sure that they actually had a Govenment-In-Exile. If they didn't, a new dynasty will begin.
+						is_imperial = yes
+					}
+					set_leader = prev.ruler
+				}
+				every_owned_pop = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
+					limit = { has_pop_flag = sep_pop_nat_@prev }
+					remove_pop_flag = sep_pop_nat_@prev
+				}
+			}
+
+			every_galaxy_pop = { # If nationalists elsewhere exist for a country that then is restored, switch them to be nationalists for the new restored country
+				limit = { has_pop_flag = sep_pop_nat_@prev }
+				remove_pop_flag = sep_pop_nat_@prev
+				set_pop_flag = sep_pop_nat_@event_target:new_homeland
+				add_modifier = { modifier = "restoration_of_motherland" days = 5400 }
+			}
+
+			every_galaxy_pop = {
+				limit = {
+					OR = {
+						has_pop_flag = citizen_of_@prev
+						has_pop_flag = resident_of_@prev
+						has_pop_flag = slave_of_@prev
+						has_pop_flag = bio_trophy_of_@prev
+						has_pop_flag = purgee_of_@prev
+					}
+				}
+				if = {
+					limit = { has_pop_flag = citizen_of_@prev }
+					remove_pop_flag = citizen_of_@prev
+					set_pop_flag = citizen_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_flag = resident_of_@prev }
+					remove_pop_flag = resident_of_@prev
+					set_pop_flag = resident_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_flag = slave_of_@prev }
+					remove_pop_flag = slave_of_@prev
+					set_pop_flag = slave_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_flag = bio_trophy_of_@prev }
+					remove_pop_flag = bio_trophy_of_@prev
+					set_pop_flag = bio_trophy_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_flag = purgee_of_@prev }
+					remove_pop_flag = purgee_of_@prev
+					set_pop_flag = purgee_of_@event_target:new_homeland
+				}			
+			}
+
+			every_galaxy_planet = {
+				limit = {
+					OR = {
+						has_planet_flag = frontier_planet_@prev
+						has_planet_flag = integrated_planet_@prev
+						has_planet_flag = fundamental_planet_@prev
+						has_planet_flag = capital_planet_@prev
+					}
+				}
+				if = {
+					limit = { has_planet_flag = frontier_planet_@prev }
+					remove_planet_flag = frontier_planet_@prev
+					set_planet_flag = frontier_planet_@event_target:new_homeland
+				}
+				if = {
+					limit = { has_planet_flag = integrated_planet_@prev }
+					remove_planet_flag = integrated_planet_@prev
+					set_planet_flag = integrated_planet_@event_target:new_homeland
+				}
+				if = {
+					limit = { has_planet_flag = fundamental_planet_@prev }
+					remove_planet_flag = fundamental_planet_@prev
+					set_planet_flag = fundamental_planet_@event_target:new_homeland
+				}
+				if = {
+					limit = { has_planet_flag = capital_planet_@prev }
+					remove_planet_flag = capital_planet_@prev
+					set_planet_flag = capital_planet_@event_target:new_homeland
+				}
+			}
+
+			# Notifications to other countries
+			if = {	# If they had a Govenment-In-Exile
+				limit = { is_subject = yes }
+				overlord = {
+					save_global_event_target_as = exile_host
+					country_event = { id = civnat.9210 }
+				}
+				every_playable_country = {
+					limit = {
+						NOT = { any_subject = { is_same_value = root } }
+					}
+					country_event = { id = civnat.9200 }
+				}
+			}
+			else = {
+				every_playable_country = {
+					country_event = { id = civnat.9230 }
+				}
+			}
+
+			# Destroy exile country
+			country_event = { id = civnat.1350 days = 5 }
+		}
+	}
+}
+
+country_event = { # Gov In Exile restoration, on status quo
+	id = civnat.1342
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		FromFromFromFrom = {
+			using_war_goal = { type = wg_natwar owner = FromFrom }
+		}
+		any_country = {
+			is_country_type = exile_country
+			has_country_flag = exile_link_@fromfromfrom
+		}
+	}
+
+
+	immediate = {
+
+		random_country = {
+			limit = {
+				is_country_type = exile_country
+				has_country_flag = exile_link_@fromfromfrom
+			}
+
+			save_event_target_as = restored_country
+
+			fromfromfrom = {
+
+				save_global_event_target_as = new_homeland
+
+				if = {
+					limit = {
+						prev = { is_subject = yes } # To make sure that they actually had a Govenment-In-Exile. If they didn't, a new dynasty will begin.
+						is_imperial = yes
+					}
+					set_leader = prev.ruler
+				}
+				every_owned_pop = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
+					limit = { has_pop_flag = sep_pop_nat_@prev }
+					remove_pop_flag = sep_pop_nat_@prev
+				}
+			}
+
+			every_galaxy_pop = { # If nationalists elsewhere exist for a country that then is restored, switch them to be nationalists for the new restored country
+				limit = { has_pop_flag = sep_pop_nat_@prev }
+				remove_pop_flag = sep_pop_nat_@prev
+				set_pop_flag = sep_pop_nat_@event_target:new_homeland
+				add_modifier = { modifier = "restoration_of_motherland" days = 5400 }
+			}
+
+			every_galaxy_pop = {
+				limit = {
+					OR = {
+						has_pop_flag = citizen_of_@prev
+						has_pop_flag = resident_of_@prev
+						has_pop_flag = slave_of_@prev
+						has_pop_flag = bio_trophy_of_@prev
+						has_pop_flag = purgee_of_@prev
+					}
+				}
+				if = {
+					limit = { has_pop_flag = citizen_of_@prev }
+					remove_pop_flag = citizen_of_@prev
+					set_pop_flag = citizen_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_flag = resident_of_@prev }
+					remove_pop_flag = resident_of_@prev
+					set_pop_flag = resident_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_flag = slave_of_@prev }
+					remove_pop_flag = slave_of_@prev
+					set_pop_flag = slave_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_flag = bio_trophy_of_@prev }
+					remove_pop_flag = bio_trophy_of_@prev
+					set_pop_flag = bio_trophy_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_flag = purgee_of_@prev }
+					remove_pop_flag = purgee_of_@prev
+					set_pop_flag = purgee_of_@event_target:new_homeland
+				}			
+			}
+
+			every_galaxy_planet = {
+				limit = {
+					OR = {
+						has_planet_flag = frontier_planet_@prev
+						has_planet_flag = integrated_planet_@prev
+						has_planet_flag = fundamental_planet_@prev
+						has_planet_flag = capital_planet_@prev
+					}
+				}
+				if = {
+					limit = { has_planet_flag = frontier_planet_@prev }
+					remove_planet_flag = frontier_planet_@prev
+					set_planet_flag = frontier_planet_@event_target:new_homeland
+				}
+				if = {
+					limit = { has_planet_flag = integrated_planet_@prev }
+					remove_planet_flag = integrated_planet_@prev
+					set_planet_flag = integrated_planet_@event_target:new_homeland
+				}
+				if = {
+					limit = { has_planet_flag = fundamental_planet_@prev }
+					remove_planet_flag = fundamental_planet_@prev
+					set_planet_flag = fundamental_planet_@event_target:new_homeland
+				}
+				if = {
+					limit = { has_planet_flag = capital_planet_@prev }
+					remove_planet_flag = capital_planet_@prev
+					set_planet_flag = capital_planet_@event_target:new_homeland
+				}
+			}
+
+			capital_scope = {
+				if = { # If they don't have their opriginal capital planet, they rename their empire.
+					limit = { NOT = { has_planet_flag = capital_planet_@event_target:new_homeland } }
+					prev = {
+						set_name = random
+						set_country_flag = nat_country_new_name
+					}
+				}
+			}
+
+			# Notifications to other countries
+			if = {	# If they had a Govenment-In-Exile
+				limit = { is_subject = yes }
+				overlord = {
+					save_global_event_target_as = exile_host
+					country_event = { id = civnat.9210 }
+				}
+				every_playable_country = {
+					limit = {
+						NOT = { any_subject = { is_same_value = root } }
+					}
+					country_event = { id = civnat.9200 }
+				}
+			}
+			else = {
+				every_playable_country = {
+					country_event = { id = civnat.9230 }
+				}
+			}
+
+			# Destroy exile country
+			country_event = { id = civnat.1350 days = 5 }
+		}
+	}
+}
+
+country_event = { # Gov In Exile restoration, Granted Land
+	id = civnat.1343
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type = exile_country
+	}
+
+
+	immediate = {
+
+		set_country_type = default
+
+		save_event_target_as = restored_country
+
+		create_country = {
+			name = event_target:restored_country
+			type = default
+			species = event_target:restored_country
+			ignore_initial_colony_error = yes
+			day_zero_contact = no
+			authority = event_target:restored_country
+			ethos = event_target:restored_country
+			origin = origin_nationalist_restoration
+			civics = event_target:restored_country
+			flag = event_target:restored_country
+			effect = {
+				save_event_target_as = new_homeland
+				set_leader = root.ruler
+				# This needs to be done or the species will be the ruler species, very odd.
+				change_species = event_target:restored_country.species
+
+				every_country = {
+					limit = {
+						OR = {
+							has_communications = root
+							has_communications = root.overlord
+							is_same_value = root.overlord
+							intel_level = {
+								level > low
+								system = root.capital_scope.solar_system
+							}
+						}
+					}
+					establish_communications_no_message = event_target:new_homeland
+					establish_contact = { who = event_target:new_homeland location = from }
+				}
+
+				# clear new contact opinion modifier
+				if = {
+					limit = {
+						has_opinion_modifier = {
+							who = root.overlord
+							modifier = opinion_new_contact
+						}
+					}
+					remove_opinion_modifier = {
+						who = root.overlord
+						modifier = opinion_new_contact
+					}
+				}
+			}
+		}
+
+		every_owned_pop = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
+			limit = { has_pop_flag = sep_pop_nat_@root }
+			remove_pop_flag = sep_pop_nat_@root
+		}
+
+		every_galaxy_pop = { # If nationalists elsewhere exist for a country that then is restored, switch them to be nationalists for the new restored country
+			limit = { has_pop_flag = sep_pop_nat_@root }
+			remove_pop_flag = sep_pop_nat_@root
+			set_pop_flag = sep_pop_nat_@event_target:new_homeland
+			add_modifier = { modifier = "restoration_of_motherland" days = 5400 }
+		}
+
+		every_galaxy_pop = {
+			limit = {
+				OR = {
+					has_pop_flag = citizen_of_@root
+					has_pop_flag = resident_of_@root
+					has_pop_flag = slave_of_@root
+					has_pop_flag = bio_trophy_of_@root
+					has_pop_flag = purgee_of_@root
+				}
+			}
+			if = {
+				limit = { has_pop_flag = citizen_of_@root }
+				remove_pop_flag = citizen_of_@root
+				set_pop_flag = citizen_of_@event_target:new_homeland
+			}
+			else_if = {
+				limit = { has_pop_flag = resident_of_@root }
+				remove_pop_flag = resident_of_@root
+				set_pop_flag = resident_of_@event_target:new_homeland
+			}
+			else_if = {
+				limit = { has_pop_flag = slave_of_@root }
+				remove_pop_flag = slave_of_@root
+				set_pop_flag = slave_of_@event_target:new_homeland
+			}
+			else_if = {
+				limit = { has_pop_flag = bio_trophy_of_@root }
+				remove_pop_flag = bio_trophy_of_@root
+				set_pop_flag = bio_trophy_of_@event_target:new_homeland
+			}
+			else_if = {
+				limit = { has_pop_flag = purgee_of_@root }
+				remove_pop_flag = purgee_of_@root
+				set_pop_flag = purgee_of_@event_target:new_homeland
+			}			
+		}
+
+		every_galaxy_planet = {
+			limit = {
+				OR = {
+					has_planet_flag = frontier_planet_@root
+					has_planet_flag = integrated_planet_@root
+					has_planet_flag = fundamental_planet_@root
+					has_planet_flag = capital_planet_@root
+				}
+			}
+			if = {
+				limit = { has_planet_flag = frontier_planet_@root }
+				remove_planet_flag = frontier_planet_@root
+				set_planet_flag = frontier_planet_@event_target:new_homeland
+			}
+			if = {
+				limit = { has_planet_flag = integrated_planet_@root }
+				remove_planet_flag = integrated_planet_@root
+				set_planet_flag = integrated_planet_@event_target:new_homeland
+			}
+			if = {
+				limit = { has_planet_flag = fundamental_planet_@root }
+				remove_planet_flag = fundamental_planet_@root
+				set_planet_flag = fundamental_planet_@event_target:new_homeland
+			}
+			if = {
+				limit = { has_planet_flag = capital_planet_@root }
+				remove_planet_flag = capital_planet_@root
+				set_planet_flag = capital_planet_@event_target:new_homeland
+			}
+		}
+
+		capital_scope = {
+			starbase = { set_owner = event_target:new_homeland }
+			solar_system = {
+				every_system_planet = {
+					limit = { is_owned_by = root }
+					set_owner = event_target:new_homeland
+				}
+			}
+			if = { # If they don't have their opriginal capital planet, they rename their empire.
+				limit = { NOT = { has_planet_flag = capital_planet_@event_target:new_homeland } }
+				prev = {
+					set_name = random
+					set_country_flag = nat_country_new_name
+				}
+			}
+		}
+
+		event_target:new_homeland = {
+			if = {
+				limit = {
+					any_owned_planet = { has_planet_flag = capital_planet_@event_target:new_homeland }
+				}
+				random_owned_planet = {
+					limit = { has_planet_flag = capital_planet_@event_target:new_homeland }
+					set_capital = yes
+				}
+			}
+			add_opinion_modifier = {
+				who = event_target:exile_host
+				modifier = opinion_restored_nats
+			}
+		}
+
+		overlord = {
+			save_global_event_target_as = exile_host
+		}
+		every_playable_country = {
+			limit = {
+				# NOT = { any_subject = { is_same_value = root } }
+			}
+			country_event = { id = civnat.9205 }
+		}
+		event_target:exile_host = {
+			add_intel = {
+				who = event_target:new_homeland
+				amount = 70
+			}
+		}
+
+		# Destroy exile country
+		country_event = { id = civnat.1350 days = 5 }
+	}
+}
+
+country_event = { # Hosted Gov In Exile restoration, on wg_restore_nation
+	id = civnat.1344
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		fromfrom = {
+			using_war_goal = { type = wg_restore_nation owner = root }
+		}
+		any_subject = {
+			is_country_type = exile_country
+			has_country_flag = restore_war_@from
+		}
+	}
+
+
+	immediate = {
+
+		random_subject = {
+			limit = {
+				is_country_type = exile_country
+				has_country_flag = restore_war_@from
+			}
+			save_event_target_as = restored_country
+		}
+
+		create_country = {
+			name = event_target:restored_country
+			type = default
+			species = event_target:restored_country
+			ignore_initial_colony_error = yes
+			day_zero_contact = no
+			authority = event_target:restored_country
+			ethos = event_target:restored_country
+			origin = origin_nationalist_restoration
+			civics = event_target:restored_country
+			flag = event_target:restored_country
+			effect = {
+				save_event_target_as = new_homeland
+				set_leader = event_target:restored_country.ruler
+
+				every_country = {
+					limit = {
+						OR = {
+							has_communications = root
+							has_communications = root.overlord
+							is_same_value = root.overlord
+							intel_level = {
+								level > low
+								system = root.capital_scope.solar_system
+							}
+						}
+					}
+					establish_communications_no_message = event_target:new_homeland
+					establish_contact = { who = event_target:new_homeland location = from }
+				}
+
+				# clear new contact opinion modifier
+				if = {
+					limit = {
+						has_opinion_modifier = {
+							who = root.overlord
+							modifier = opinion_new_contact
+						}
+					}
+					remove_opinion_modifier = {
+						who = root.overlord
+						modifier = opinion_new_contact
+					}
+				}
+			}
+		}
+
+		from = {
+			save_event_target_as = restored_land_taken_from
+			every_planet_within_border = {
+				limit = {
+					OR = {
+						has_planet_flag = integrated_planet_@prevprev
+						has_planet_flag = fundamental_planet_@prevprev
+					}
+				}
+				set_owner = event_target:new_homeland
+				starbase = { set_owner = event_target:new_homeland }
+			}
+			every_system_within_border = {
+				limit = {
+					OR = {
+						has_star_flag = integrated_system_@root
+						has_star_flag = fundamental_system_@root
+					}
+				}
+				starbase = { set_owner = event_target:new_homeland }
+				every_system_planet = {
+					limit = { is_owned_by = event_target:restored_land_taken_from }
+					set_owner = event_target:new_homeland
+				}
+			}
+		}
+
+		event_target:new_homeland = {
+			every_owned_pop = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
+				limit = { has_pop_flag = sep_pop_nat_@event_target:restored_country }
+				remove_pop_flag = sep_pop_nat_@event_target:restored_country
+			}
+
+			every_galaxy_pop = { # If nationalists elsewhere exist for a country that then is restored, switch them to be nationalists for the new restored country
+				limit = { has_pop_flag = sep_pop_nat_@event_target:restored_country }
+				remove_pop_flag = sep_pop_nat_@event_target:restored_country
+				set_pop_flag = sep_pop_nat_@event_target:new_homeland
+				add_modifier = { modifier = "restoration_of_motherland" days = 5400 }
+			}
+
+			every_galaxy_pop = {
+				limit = {
+					OR = {
+						has_pop_flag = citizen_of_@event_target:restored_country
+						has_pop_flag = resident_of_@event_target:restored_country
+						has_pop_flag = slave_of_@event_target:restored_country
+						has_pop_flag = bio_trophy_of_@event_target:restored_country
+						has_pop_flag = purgee_of_@event_target:restored_country
+					}
+				}
+				if = {
+					limit = { has_pop_flag = citizen_of_@event_target:restored_country }
+					remove_pop_flag = citizen_of_@event_target:restored_country
+					set_pop_flag = citizen_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_flag = resident_of_@event_target:restored_country }
+					remove_pop_flag = resident_of_@event_target:restored_country
+					set_pop_flag = resident_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_flag = slave_of_@event_target:restored_country }
+					remove_pop_flag = slave_of_@event_target:restored_country
+					set_pop_flag = slave_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_flag = bio_trophy_of_@event_target:restored_country }
+					remove_pop_flag = bio_trophy_of_@event_target:restored_country
+					set_pop_flag = bio_trophy_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_flag = purgee_of_@event_target:restored_country }
+					remove_pop_flag = purgee_of_@event_target:restored_country
+					set_pop_flag = purgee_of_@event_target:new_homeland
+				}			
+			}
+
+			every_galaxy_planet = {
+				limit = {
+					OR = {
+						has_planet_flag = frontier_planet_@event_target:restored_country
+						has_planet_flag = integrated_planet_@event_target:restored_country
+						has_planet_flag = fundamental_planet_@event_target:restored_country
+						has_planet_flag = capital_planet_@event_target:restored_country
+					}
+				}
+				if = {
+					limit = { has_planet_flag = frontier_planet_@event_target:restored_country }
+					remove_planet_flag = frontier_planet_@event_target:restored_country
+					set_planet_flag = frontier_planet_@event_target:new_homeland
+				}
+				if = {
+					limit = { has_planet_flag = integrated_planet_@event_target:restored_country }
+					remove_planet_flag = integrated_planet_@event_target:restored_country
+					set_planet_flag = integrated_planet_@event_target:new_homeland
+				}
+				if = {
+					limit = { has_planet_flag = fundamental_planet_@event_target:restored_country }
+					remove_planet_flag = fundamental_planet_@event_target:restored_country
+					set_planet_flag = fundamental_planet_@event_target:new_homeland
+				}
+				if = {
+					limit = { has_planet_flag = capital_planet_@event_target:restored_country }
+					remove_planet_flag = capital_planet_@event_target:restored_country
+					set_planet_flag = capital_planet_@event_target:new_homeland
+				}
+			}
+
+			if = {
+				limit = { any_owned_planet = { has_planet_flag = capital_planet_@event_target:new_homeland } }
+				random_owned_planet = {
+					limit = { has_planet_flag = capital_planet_@event_target:new_homeland }
+					set_capital = yes
+				}
+			}
+			# If they don't have their opriginal capital planet, they rename their empire.
+			else = {
+				set_name = random
+				set_country_flag = nat_country_new_name
+			}
+		}
+
+		# Notifications to other countries
+		event_target:restored_country = {
+			root = {
+				save_global_event_target_as = exile_host
+				country_event = { id = civnat.9215 }
+			}
+			# Destroy exile country
+			country_event = { id = civnat.1350 days = 5 }
+		}
+		every_playable_country = {
+			limit = {
+				NOT = { any_subject = { is_same_value = root } }
+			}
+			country_event = { id = civnat.9220 }
+		}
+	}
+}
+
+country_event = { # Gov In Exile restored, destroy exile country
+	id = civnat.1350
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type = exile_country
+	}
+
+	immediate = {
+		destroy_country = yes
+	}
+}
+
+################
+# Flag Events
+
+country_event = { # Set Sector and System flags
+	id = civnat.2000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type_with_subjects = yes
+		years_passed >= 1
+		OR = {
+			any_owned_sector = { # New Sectors
+				NOR = {
+					has_sector_flag = frontier_sector_@root
+					has_sector_flag = integrated_sector_@root
+					has_sector_flag = fundamental_sector_@root
+				}
+			}
+			any_owned_planet = { # New planets
+				NOR = {
+					has_planet_flag = frontier_planet_@root
+					has_planet_flag = integrated_planet_@root
+					has_planet_flag = fundamental_planet_@root
+				}
+			}
+			any_system_within_border = { # New Integrated Sector Systems
+				exists = sector
+				sector = { has_sector_flag = integrated_sector_@root }
+				NOT = { has_star_flag = integrated_system_@root }
+			}	
+			any_system_within_border = { # New Fundamental Sector Systems
+				exists = sector
+				sector = { has_sector_flag = fundamental_sector_@root }
+				NOT = { has_star_flag = fundamental_system_@root }
+			}
+			any_system_within_border = { # System Changed Sectors, should be rare
+				exists = sector
+				OR = {
+					AND = {
+						has_star_flag = integrated_system_@root
+						sector = { NOT = { has_sector_flag = integrated_sector_@root } }
+					}
+					AND = {
+						has_star_flag = fundamental_system_@root
+						sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
+					}
+				}
+			}
+			any_owned_planet = { # Planets Changed Sectors, should be rare
+				exists = sector
+				OR = {
+					AND = {
+						has_planet_flag = frontier_planet_@root
+						sector = { NOT = { has_sector_flag = frontier_sector_@root } }
+					}
+					AND = {
+						has_planet_flag = integrated_planet_@root
+						sector = { NOT = { has_sector_flag = integrated_sector_@root } }
+					}
+					AND = {
+						has_planet_flag = fundamental_planet_@root
+						sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
+					}
+				}
+			}	
+		}
+	}
+
+	immediate = {
+
+		if = { # Set initial sector flags
+			limit = {
+				any_owned_sector = {
+					NOR = {
+						has_sector_flag = frontier_sector_@root
+						has_sector_flag = integrated_sector_@root
+						has_sector_flag = fundamental_sector_@root
+					}
+				}
+			}
+			every_owned_sector = {
+				limit = {
+					NOR = {
+						has_sector_flag = frontier_sector_@root
+						has_sector_flag = integrated_sector_@root
+						has_sector_flag = fundamental_sector_@root
+					}
+				}
+				if = {
+					limit = {
+						sector_capital = {
+							NOR = {
+								has_planet_flag = frontier_planet_@root
+								has_planet_flag = integrated_planet_@root
+								has_planet_flag = fundamental_planet_@root
+							}
+						}
+					}
+					every_owned_planet = { set_planet_flag = frontier_planet_@root }
+					set_sector_flag = frontier_sector_@root
+
+					every_system_within_border = { # Between 7 and 15 years to transform into an Integrated Sector
+						system_event = { id = civnat.2100 days = 2520 random = 5400 }
+					}	
+				}
+				else_if = {
+					limit = { sector_capital = { has_planet_flag = frontier_planet_@root } }
+					set_sector_flag = frontier_sector_@root
+				}
+				else_if = {
+					limit = { sector_capital = { has_planet_flag = integrated_planet_@root } }
+					set_sector_flag = integrated_sector_@root
+					every_system_within_border = {
+						limit = { NOT = { has_star_flag = fundamental_system_@root } }
+						set_star_flag = integrated_system_@root
+					}
+				}
+				else_if = {
+					limit = { sector_capital = { has_planet_flag = fundamental_planet_@root } }
+					set_sector_flag = fundamental_sector_@root
+					every_system_within_border = {
+						if = {
+							limit = { has_star_flag = integrated_system_@root }
+							remove_star_flag = integrated_system_@root
+						}
+						set_star_flag = fundamental_system_@root
+					}
+					
+				}
+			}
+		}
+
+		if = { # For new systems in Integrated sector
+			limit = {
+				any_system_within_border = {
+					exists = sector
+					sector = { has_sector_flag = integrated_sector_@root }
+					NOT = { has_star_flag = integrated_system_@root }
+				}
+			}
+			every_system_within_border = {
+				limit = {
+					exists = sector
+					sector = { has_sector_flag = integrated_sector_@root }
+					NOT = { has_star_flag = integrated_system_@root }
+				}
+				set_star_flag = integrated_system_@root
+			}
+		}
+		if = { # For new systems in Fundamental sector
+			limit = {
+				any_system_within_border = {
+					exists = sector
+					sector = { has_sector_flag = fundamental_sector_@root }
+					NOT = { has_star_flag = fundamental_system_@root }
+				}
+			}
+			every_system_within_border = {
+				limit = {
+					exists = sector
+					sector = { has_sector_flag = fundamental_sector_@root }
+					NOT = { has_star_flag = fundamental_system_@root }
+				}
+				set_star_flag = fundamental_system_@root
+			}
+		}
+
+		if = { # For new planets and planets without a sector
+			limit = {
+				any_owned_planet = {
+					NOR = {
+						has_planet_flag = frontier_planet_@root
+						has_planet_flag = integrated_planet_@root
+						has_planet_flag = fundamental_planet_@root
+					}
+				}
+			}
+			every_owned_planet = {
+				limit = {
+					NOR = {
+						has_planet_flag = frontier_planet_@root
+						has_planet_flag = integrated_planet_@root
+						has_planet_flag = fundamental_planet_@root
+					}
+				}
+				if = {
+					limit = {
+						OR = {
+							NOT = { exists = sector }
+							sector = { has_sector_flag = frontier_sector_@root }
+						}
+					}
+					set_planet_flag = frontier_planet_@root
+				}
+				else_if = {
+					limit = { sector = { has_sector_flag = integrated_sector_@root } }
+					set_planet_flag = integrated_planet_@root
+				}
+				else_if = {
+					limit = { sector = { has_sector_flag = fundamental_sector_@root } }
+					set_planet_flag = fundamental_planet_@root
+				}
+			}
+		}
+	}
+
+	after = {
+		if = {  # Planets Changed Sectors or Systems changed sectors, should be rare
+			limit = {
+				OR = {
+					any_system_within_border = {
+						exists = sector
+						OR = {
+							AND = {
+								has_star_flag = integrated_system_@root
+								sector = { NOT = { has_sector_flag = integrated_sector_@root } }
+							}
+							AND = {
+								has_star_flag = fundamental_system_@root
+								sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
+							}
+						}
+					}
+					any_owned_planet = {
+						exists = sector
+						OR = {
+							AND = {
+								has_planet_flag = frontier_planet_@root
+								sector = { NOT = { has_sector_flag = frontier_sector_@root } }
+							}
+							AND = {
+								has_planet_flag = integrated_planet_@root
+								sector = { NOT = { has_sector_flag = integrated_sector_@root } }
+							}
+							AND = {
+								has_planet_flag = fundamental_planet_@root
+								sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
+							}
+						}
+					}
+				}
+			}
+			country_event = { id = civnat.2300 } # For planets changed sector, should be rare
+		}
+	}
+}
+
+country_event = { # Set Capital Sector as Fundamental on Game Start
+	id = civnat.2005
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_regular_empire = yes
+		NOT = { has_country_flag = capital_fundamental_set }
+	}
+
+	immediate = {
+
+		capital_scope = {
+			set_planet_flag = fundamental_planet_@root
+			set_planet_flag = capital_planet_@root
+			solar_system = { set_star_flag = fundamental_system_@root }
+			sector = {
+				set_sector_flag = fundamental_sector_@root
+				if = {
+					limit = { has_sector_flag = frontier_sector_@root }
+					remove_sector_flag = frontier_sector_@root
+				}
+				every_owned_planet = {
+					if = {
+						limit = { has_planet_flag = frontier_planet_@root }
+						remove_planet_flag = frontier_planet_@root
+					}
+					if = {
+						limit = { has_planet_flag = integrated_planet_@root }
+						remove_planet_flag = integrated_planet_@root
+					}
+					set_planet_flag = fundamental_planet_@root
+				}
+			}			
+		}
+
+		set_country_flag = capital_fundamental_set
+	}
+}
+
+system_event = { # Frontier Sector -> Integrated Sector
+	id = civnat.2100
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = sector
+		sector.sector_capital = { # Check to make sure its the same as the original sector owner
+			has_planet_flag = frontier_planet_@root
+		}
+	}
+
+	immediate = {
+
+		sector = {
+			
+			remove_sector_flag = frontier_sector_@root
+			set_sector_flag = integrated_sector_@root
+			
+			every_owned_planet = {
+				set_planet_flag = integrated_planet_@root
+				if = {
+					limit = { has_planet_flag = frontier_planet_@root }
+					remove_planet_flag = frontier_planet_@root
+				}
+			}
+			every_system_within_border = { # Between 30 and 70 years to transform into a Fundamental Sector
+				system_event = { id = civnat.2200 days = 10800 random = 25200 }
+				set_star_flag = integrated_system_@root
+			}
+		}
+	}
+}
+
+system_event = { # Integrated Sector -> Fundamental Sector
+	id = civnat.2200
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = sector
+		sector.sector_capital = { # Check to make sure its the same as the original sector owner
+			has_planet_flag = integrated_planet_@root
+		}
+	}
+
+	immediate = {
+
+		sector = {
+			
+			remove_sector_flag = integrated_sector_@root
+			set_sector_flag = fundamental_sector_@root
+			
+			every_owned_planet = {
+				set_planet_flag = fundamental_planet_@root
+				if = {
+					limit = { has_planet_flag = integrated_planet_@root }
+					remove_planet_flag = integrated_planet_@root
+				}
+			}
+			every_system_within_border = {
+				limit = { has_star_flag = integrated_system_@root }
+				remove_star_flag = integrated_system_@root
+				set_star_flag = fundamental_system_@root
+			}
+		}
+	}
+}
+
+country_event = { # For planets and systems that have changed sectors, should be rare
+	id = civnat.2300
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			any_system_within_border = {
+				exists = sector
+				OR = {
+					AND = {
+						has_star_flag = integrated_system_@root
+						sector = { NOT = { has_sector_flag = integrated_sector_@root } }
+					}
+					AND = {
+						has_star_flag = fundamental_system_@root
+						sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
+					}
+				}
+			}
+			any_owned_planet = {
+				exists = sector
+				OR = {
+					AND = {
+						has_planet_flag = frontier_planet_@root
+						sector = { NOT = { has_sector_flag = frontier_sector_@root } }
+					}
+					AND = {
+						has_planet_flag = integrated_planet_@root
+						sector = { NOT = { has_sector_flag = integrated_sector_@root } }
+					}
+					AND = {
+						has_planet_flag = fundamental_planet_@root
+						sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
+					}
+				}
+			}
+		}
+	}
+
+	immediate = {
+
+		every_system_within_border = {
+			limit = {
+				exists = sector
+				has_star_flag = integrated_system_@root
+				sector = { NOT = { has_sector_flag = integrated_sector_@root } }
+			}
+			if = {
+				limit = { sector = { has_sector_flag = fundamental_sector_@root } }
+				set_star_flag = fundamental_system_@root
+			}
+			remove_star_flag = integrated_system_@root
+		}
+
+		every_system_within_border = {
+			limit = {
+				exists = sector
+				has_star_flag = fundamental_system_@root
+				sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
+			}
+			if = {
+				limit = { sector = { has_sector_flag = integrated_sector_@root } }
+				set_star_flag = integrated_system_@root
+			}
+			remove_star_flag = fundamental_system_@root
+		}
+
+		every_owned_planet = {
+			limit = {
+				exists = sector
+				has_planet_flag = frontier_planet_@root
+				sector = { NOT = { has_sector_flag = frontier_sector_@root } }
+			}
+			remove_planet_flag = frontier_planet_@root
+		}
+		every_owned_planet = {
+			limit = {
+				exists = sector
+				has_planet_flag = integrated_planet_@root
+				sector = { NOT = { has_sector_flag = integrated_sector_@root } }
+			}
+			remove_planet_flag = integrated_planet_@root
+		}
+		every_owned_planet = {
+			limit = {
+				exists = sector
+				has_planet_flag = fundamental_planet_@root
+				sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
+			}
+			remove_planet_flag = fundamental_planet_@root
+		}
+	}
+}
+
+country_event = { # Set and Remove Citizenship flags for species
+	id = civnat.2500
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			any_owned_species = {
+				has_citizenship_type = { type = citizenship_full country = root }
+				any_species_pop = { NOT = { has_pop_flag = citizen_of_@root } }
+			}
+			any_owned_species = {
+				NOT = { has_citizenship_type = { type = citizenship_full country = root } }
+				any_species_pop = { has_pop_flag = citizen_of_@root }
+			}
+			any_owned_species = {
+				has_citizenship_type = { type = citizenship_limited country = root }
+				any_species_pop = { NOT = { has_pop_flag = resident_of_@root } }
+			}
+			any_owned_species = {
+				NOT = { has_citizenship_type = { type = citizenship_limited country = root } }
+				any_species_pop = { has_pop_flag = resident_of_@root }
+			}
+			any_owned_species = {
+				has_citizenship_type = { type = citizenship_slavery country = root }
+				any_species_pop = { NOT = { has_pop_flag = slave_of_@root } }
+			}
+			any_owned_species = {
+				NOT = { has_citizenship_type = { type = citizenship_slavery country = root } }
+				any_species_pop = { has_pop_flag = slave_of_@root }
+			}
+			any_owned_species = {
+				has_citizenship_type = { type = citizenship_organic_trophy country = root }
+				any_species_pop = { NOT = { has_pop_flag = bio_tropy_of_@root } }
+			}
+			any_owned_species = {
+				NOT = { has_citizenship_type = { type = citizenship_organic_trophy country = root } }
+				any_species_pop = { has_pop_flag = bio_tropy_of_@root }
+			}
+			any_owned_species = {
+				has_citizenship_type = { type = citizenship_purge country = root }
+				any_species_pop = { NOT = { has_pop_flag = purgee_of_@root } }
+			}
+			any_owned_species = {
+				NOT = { has_citizenship_type = { type = citizenship_purge country = root } }
+				any_species_pop = { has_pop_flag = purgee_of_@root }
+			}
+		}
+	}
+
+	immediate = {
+
+		if = {
+			limit = {
+				any_owned_pop = {
+					has_citizenship_type = { type = citizenship_full }
+					NOT = { has_pop_flag = citizen_of_@root }
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					NOT = { has_pop_flag = citizen_of_@root }
+					has_citizenship_type = { type = citizenship_full }
+				}
+				set_pop_flag = citizen_of_@root
+			}
+		}
+		if = {
+			limit = {
+				any_owned_pop = {
+					NOT = { has_citizenship_type = { type = citizenship_full } }
+					has_pop_flag = citizen_of_@root
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					NOT = { has_citizenship_type = { type = citizenship_full } }
+					has_pop_flag = citizen_of_@root
+				}
+				remove_pop_flag = citizen_of_@root
+			}
+		}
+
+		if = {
+			limit = {
+				any_owned_pop = {
+					has_citizenship_type = { type = citizenship_limited }
+					NOT = { has_pop_flag = resident_of_@root }
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					has_citizenship_type = { type = citizenship_limited }
+					NOT = { has_pop_flag = resident_of_@root }
+				}
+				set_pop_flag = resident_of_@root
+			}
+		}
+		if = {
+			limit = {
+				any_owned_pop = {
+					NOT = { has_citizenship_type = { type = citizenship_limited } }
+					has_pop_flag = resident_of_@root
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					NOT = { has_citizenship_type = { type = citizenship_limited } }
+					has_pop_flag = resident_of_@root
+				}
+				remove_pop_flag = resident_of_@root
+			}
+		}
+
+		if = {
+			limit = {
+				any_owned_pop = {
+					has_citizenship_type = { type = citizenship_slavery }
+					NOT = { has_pop_flag = slave_of_@root }
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					has_citizenship_type = { type = citizenship_slavery }
+					NOT = { has_pop_flag = slave_of_@root }
+				}
+				set_pop_flag = slave_of_@root
+			}
+		}
+		if = {
+			limit = {
+				any_owned_pop = {
+					NOT = { has_citizenship_type = { type = citizenship_slavery } }
+					has_pop_flag = slave_of_@root
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					NOT = { has_citizenship_type = { type = citizenship_slavery } }
+					has_pop_flag = slave_of_@root
+				}
+				remove_pop_flag = slave_of_@root
+			}
+		}
+
+		if = {
+			limit = {
+				any_owned_pop = {
+					has_citizenship_type = { type = citizenship_organic_trophy }
+					NOT = { has_pop_flag = bio_tropy_of_@root }
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					has_citizenship_type = { type = citizenship_organic_trophy }
+					NOT = { has_pop_flag = bio_tropy_of_@root }
+				}
+				set_pop_flag = bio_tropy_of_@root
+			}
+		}
+		if = {
+			limit = {
+				any_owned_pop = {
+					NOT = { has_citizenship_type = { type = citizenship_organic_trophy } }
+					has_pop_flag = bio_tropy_of_@root
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					NOT = { has_citizenship_type = { type = citizenship_organic_trophy } }
+					has_pop_flag = bio_tropy_of_@root
+				}
+				remove_pop_flag = bio_tropy_of_@root
+			}
+		}
+
+		if = {
+			limit = {
+				any_owned_pop = {
+					has_citizenship_type = { type = citizenship_purge }
+					NOT = { has_pop_flag = purgee_of_@root }
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					has_citizenship_type = { type = citizenship_purge }
+					NOT = { has_pop_flag = purgee_of_@root }
+				}
+				set_pop_flag = purgee_of_@root
+			}
+		}
+		if = {
+			limit = {
+				any_owned_pop = {
+					NOT = { has_citizenship_type = { type = citizenship_purge } }
+					has_pop_flag = purgee_of_@root
+				}
+			}
+			every_owned_pop = {
+				limit = {
+					NOT = { has_citizenship_type = { type = citizenship_purge } }
+					has_pop_flag = purgee_of_@root
+				}
+				remove_pop_flag = purgee_of_@root
+			}
+		}
+		
+	}
+}
+
+#########
+
+country_event = { # Spread Nationalism Initial Trigger
+	id = civnat.3000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_country = {
+			NOT = { is_same_value = root }
+			is_country_type_with_subjects = yes
+			any_owned_planet = {
+				num_pops >= 3
+				any_owned_pop = {
+					has_pop_flag = sep_pop_nat_@root
+					happiness < 75
+					planet = {
+						any_owned_pop = {
+							NOT = { has_pop_flag = sep_pop_nat_@root }
+							pop_was_saved = no
+							happiness <= 60
+							OR = {
+								is_same_species = prevprev.species 	# Nats can be made from species who were citizens, not just former citizens
+								is_same_species = root.species
+								has_pop_flag = citizen_of_@root
+								has_pop_flag = resident_of_@root
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+
+	immediate = {
+		save_event_target_as = nat_motherland
+
+		every_country = {
+			limit = {
+				NOT = { is_same_value = root }
+				is_country_type_with_subjects = yes
+				any_owned_planet = {
+					num_pops >= 3
+					any_owned_pop = {
+						has_pop_flag = sep_pop_nat_@event_target:nat_motherland
+						happiness < 75
+						planet = {
+							any_owned_pop = {
+								happiness <= 60
+								pop_was_saved = no
+								NOT = { has_pop_flag = sep_pop_nat_@event_target:nat_motherland }
+								OR = {
+									is_same_species = prevprev.species
+									is_same_species = event_target:nat_motherland.species
+									has_pop_flag = citizen_of_@event_target:nat_motherland
+									has_pop_flag = resident_of_@event_target:nat_motherland
+								}
+							}
+						}
+					}
+				}
+			}
+
+			every_owned_planet = {
+				limit = {
+					num_pops >= 3
+					any_owned_pop = {
+						has_pop_flag = sep_pop_nat_@event_target:nat_motherland
+						happiness < 75
+						planet = {
+							any_owned_pop = {
+								happiness <= 60
+								pop_was_saved = no
+								NOT = { has_pop_flag = sep_pop_nat_@event_target:nat_motherland }
+								OR = {
+									is_same_species = prevprev.species
+									is_same_species = event_target:nat_motherland.species
+									has_pop_flag = citizen_of_@event_target:nat_motherland
+									has_pop_flag = resident_of_@event_target:nat_motherland
+								}
+							}
+						}
+					}
+				}
+
+				planet_event = { id = civnat.3010 days = 1 random = 359 }
+			}
+
+		}
+	}
+}
+
+planet_event = { # Spread Nationalism Event
+	id = civnat.3010
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_owned_pop = {
+			has_pop_flag = sep_pop_nat_@event_target:nat_motherland
+			happiness < 75
+			planet = {
+				any_owned_pop = {
+					happiness <= 60
+					pop_was_saved = no
+					NOT = { has_pop_flag = sep_pop_nat_@event_target:nat_motherland }
+					OR = {
+						is_same_species = prevprev.species
+						is_same_species = event_target:nat_motherland.species
+						has_pop_flag = citizen_of_@event_target:nat_motherland
+						has_pop_flag = resident_of_@event_target:nat_motherland
+					}
+				}
+			}
+		}
+	}
+	
+
+	immediate = {
+
+		set_variable = { which = nat_pop_converts value = 0 }
+
+		every_owned_pop = {
+			limit = {
+				has_pop_flag = sep_pop_nat_@event_target:nat_motherland
+				happiness < 75
+			}
+			if = {
+				limit = { happiness <= 20 }
+				random_list = {
+					20 = { }
+					80 = { prev = { change_variable = { which = nat_pop_converts value = 1 } } }
+				}
+			}
+			else_if = {
+				limit = {
+					happiness > 20
+					happiness <= 40
+				}
+				random_list = {
+					40 = { }
+					60 = { prev = { change_variable = { which = nat_pop_converts value = 1 } } }
+				}
+			}
+			else_if = {
+				limit = {
+					happiness > 40
+					happiness <= 60
+				}
+				random_list = {
+					60 = { }
+					40 = { prev = { change_variable = { which = nat_pop_converts value = 1 } } }
+				}
+			}
+			else_if = {
+				limit = {
+					happiness > 60
+					happiness < 75
+				}
+				random_list = {
+					85 = { }
+					15 = { prev = { change_variable = { which = nat_pop_converts value = 1 } } }
+				}
+			}
+		}
+
+		while = {
+			count = nat_pop_converts
+			random_owned_pop = {
+				limit = {
+					has_pop_flag = sep_pop_nat_@event_target:nat_motherland
+					happiness < 75
+				}
+				planet = {
+					ordered_owned_pop = {
+						limit = {
+							happiness <= 60
+							pop_was_saved = no
+							NOT = { has_pop_flag = sep_pop_nat_@event_target:nat_motherland }
+							OR = {
+								is_same_species = prevprev.species
+								is_same_species = event_target:nat_motherland.species
+								has_pop_flag = citizen_of_@event_target:nat_motherland
+								has_pop_flag = resident_of_@event_target:nat_motherland
+							}
+						}
+						position = 0
+						order_by = trigger:happiness
+						inverse = yes
+						set_pop_flag = sep_pop_nat_@event_target:nat_motherland
+					}
+				}
+			}
+		}
+
+		clear_variable = nat_pop_converts
+	}
+}
+
+country_event = { # Remove Nationalism Initial Trigger
+	id = civnat.3020
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_country = {
+			any_owned_pop = {
+				has_pop_flag = sep_pop_nat_@root
+				happiness >= 85
+				is_enslaved = no
+				is_being_purged = no
+			}
+		}
+	}
+	
+
+	immediate = {
+		save_event_target_as = nat_motherland
+
+		every_country = {
+			limit = {
+				any_owned_pop = {
+					has_pop_flag = sep_pop_nat_@event_target:nat_motherland
+					happiness >= 85
+					is_enslaved = no
+					is_being_purged = no
+				}
+			}
+
+			every_owned_pop = {
+				limit = {
+					has_pop_flag = sep_pop_nat_@event_target:nat_motherland
+					happiness >= 85
+					is_enslaved = no
+					is_being_purged = no
+				}
+				pop_event = { id = civnat.3030 days = 1 random = 359 }
+			}
+
+		}
+	}
+}
+
+pop_event = { # Remove Nationalism Event
+	id = civnat.3030
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_pop_flag = sep_pop_nat_@event_target:nat_motherland
+		happiness >= 85
+		is_enslaved = no
+		is_being_purged = no
+	}
+	
+
+	immediate = {
+
+		random_list = {
+			40 = { }
+			60 = { remove_pop_flag = sep_pop_nat_@event_target:nat_motherland }
+		}
+	}
+}
+
+###################
+# Situation Events
+
+country_event = { # Check disapproving Factions every month Initializer
+	id = civnat.4000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		years_passed >= 5
+		any_country = {
+			is_country_type_with_subjects = yes
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+			any_pop_faction = {
+				has_pop_faction_flag = nat_faction_@root
+				# faction_approval < 0.20
+				NOT = { has_pop_faction_flag = faction_sep_situation }
+			}
+		}
+		
+	}
+
+	immediate = {
+		every_country = {
+			limit = {
+				is_country_type_with_subjects = yes
+				NOT = { has_ethic = ethic_gestalt_consciousness }
+				any_pop_faction = {
+					has_pop_faction_flag = nat_faction_@root
+					# faction_approval < 0.20
+					NOT = { has_pop_faction_flag = faction_sep_situation }
+				}
+			}
+			country_event = { id = civnat.4010 days = 1 random = 359 }
+		}
+	}
+}
+
+country_event = { # Check disapproving Factions every month Event
+	id = civnat.4010
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type_with_subjects = yes
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+		any_pop_faction = {
+			has_pop_faction_flag = nat_faction_@from
+			# faction_approval < 0.20
+			NOT = { has_pop_faction_flag = faction_sep_situation }
+		}
+	}
+
+	immediate = {
+		from = { save_global_event_target_as = faction_nat_motherland }
+		random_pop_faction = {
+			limit = {
+				has_pop_faction_flag = nat_faction_@from
+				# faction_approval < 0.20
+				NOT = { has_pop_faction_flag = faction_sep_situation }
+			}
+			set_pop_faction_flag = faction_sep_situation
+			owner = {
+				start_situation = {
+					type = situation_civstrife_faction_sep_nat
+					target = prev
+				}
+			}
+		}
+	}
+}
+
+#########
+
+country_event = { # Give Claims to Fundamental land
+	id = civnat.5000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_country = {
+			NOT = { is_same_value = root }
+			any_owned_planet = { has_planet_flag = fundamental_planet_@root }
+		}
+	}
+	
+
+	immediate = {
+		save_event_target_as = nat_motherland
+
+		every_country = {
+			limit = {
+				NOT = { is_same_value = root }
+				any_owned_planet = {
+					has_planet_flag = fundamental_planet_@root
+					solar_system = {
+						root = { NOT = { has_claim = prev } }
+					}
+				}
+			}
+
+			every_owned_planet = {
+				limit = {
+					has_planet_flag = fundamental_planet_@root
+					solar_system = {
+						root = { NOT = { has_claim = prev } }
+					}
+				}
+				solar_system = {
+					add_claims = {
+						who = root
+						num_of_claims = 10
+						show_notification = yes
+					}
+				}
+   			}
+		}
+	}
+}
+
+############
+# Messages #
+############
+
+pop_faction_event = { # Nationalist Faction Formed Notif
+	id = civnat.9000
+	title = civnat.9000.name
+	desc = civnat.9000.desc
+	picture = GFX_evt_one_sided_deal
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = civnat.9000.a
+	}
+}
+
+situation_event = { # Nationalists Strike
+	id = civnat.9010
+	picture = GFX_evt_open_revolt
+	title = civnat.9010.name
+	desc = civnat.9010.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = civnat.9010.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = { # Set new Separatist/Nationalist Faction Leader
+	id = civnat.9100
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_pop_faction = {
+			NOR = {
+				exists = leader
+				is_regular_faction = yes
+			}
+		}
+	}
+
+	immediate = {
+
+		set_variable = { which = num_sep_faction_leaders value = 0 }
+
+		random_pop_faction = {
+			limit = {
+				NOR = {
+					exists = leader
+					is_regular_faction = yes
+				}
+			}
+			random_owned_pop = {
+				species = { save_event_target_as = nat_pop_species }
+			}
+			owner = {
+				create_leader = {
+					class = civstrife_leader
+					species = event_target:nat_pop_species
+					name = random
+					leader_age_min = 25
+					leader_age_max = 55
+					traits = { trait = leader_trait_charismatic }
+					effect = {
+						set_leader_flag = nat_leader
+					}
+				}
+			}
+			set_leader = last_created_leader
+		}
+	}
+}
+
+country_event = { # Exiled country has been restored, had host, general message
+	id = civnat.9200
+	title = civnat.9200.name
+	picture = GFX_evt_news_room
+	hide_window = no
+	is_triggered_only = yes
+
+	desc = {
+		text = civnat.9200.original_name.desc
+		trigger = {
+			event_target:new_homeland = { NOT = { has_country_flag = nat_country_new_name } }
+		}
+	}
+
+	desc = {
+		text = civnat.9200.new_name.desc
+		trigger = {
+			event_target:new_homeland = { has_country_flag = nat_country_new_name }
+		}
+	}
+
+	option = {
+		name = INTERESTING
+	}
+}
+
+country_event = { # Exiled country has been restored, host granted land, general message
+	id = civnat.9205
+	title = civnat.9200.name
+	picture = GFX_evt_news_room
+	hide_window = no
+	is_triggered_only = yes
+
+	desc = {
+		text = civnat.9205.original_name.desc
+		trigger = {
+			event_target:new_homeland = { NOT = { has_country_flag = nat_country_new_name } }
+		}
+	}
+
+	desc = {
+		text = civnat.9205.new_name.desc
+		trigger = {
+			event_target:new_homeland = { has_country_flag = nat_country_new_name }
+		}
+	}
+
+	option = {
+		name = INTERESTING
+	}
+}
+
+country_event = { # Exiled country has been restored, had host, host country message
+	id = civnat.9210
+	title = civnat.9200.name
+	picture = GFX_evt_two_sided_deal
+	hide_window = no
+	is_triggered_only = yes
+
+	desc = {
+		text = civnat.9210.original_name.desc
+		trigger = {
+			event_target:new_homeland = { NOT = { has_country_flag = nat_country_new_name } }
+		}
+	}
+
+	desc = {
+		text = civnat.9210.new_name.desc
+		trigger = {
+			event_target:new_homeland = { has_country_flag = nat_country_new_name }
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+	}
+}
+
+country_event = { # Exiled country has been restored, via wg_restore_nation, host message
+	id = civnat.9215
+	title = civnat.9200.name
+	picture = GFX_evt_two_sided_deal
+	hide_window = no
+	is_triggered_only = yes
+
+	desc = {
+		text = civnat.9215.original_name.desc
+		trigger = {
+			event_target:new_homeland = { NOT = { has_country_flag = nat_country_new_name } }
+		}
+	}
+
+	desc = {
+		text = civnat.9215.new_name.desc
+		trigger = {
+			event_target:new_homeland = { has_country_flag = nat_country_new_name }
+		}
+	}
+
+	option = {
+		name = INTERESTING
+	}
+}
+
+country_event = { # Exiled country has been restored, via wg_restore_nation, general message
+	id = civnat.9220
+	title = civnat.9200.name
+	picture = GFX_evt_news_room
+	hide_window = no
+	is_triggered_only = yes
+
+	desc = {
+		text = civnat.9220.original_name.desc
+		trigger = {
+			event_target:new_homeland = { NOT = { has_country_flag = nat_country_new_name } }
+		}
+	}
+
+	desc = {
+		text = civnat.9220.new_name.desc
+		trigger = {
+			event_target:new_homeland = { has_country_flag = nat_country_new_name }
+		}
+	}
+
+	option = {
+		name = INTERESTING
+	}
+}
+
+country_event = { # Exiled country has been restored, did not have host
+	id = civnat.9230
+	title = civnat.9200.name
+	picture = GFX_evt_news_room
+	hide_window = no
+	is_triggered_only = yes
+
+	desc = {
+		text = civnat.9230.original_name.desc
+		trigger = {
+			event_target:new_homeland = { NOT = { has_country_flag = nat_country_new_name } }
+		}
+	}
+
+	desc = {
+		text = civnat.9230.new_name.desc
+		trigger = {
+			event_target:new_homeland = { has_country_flag = nat_country_new_name }
+		}
+	}
+
+	option = {
+		name = INTERESTING
+	}
+}

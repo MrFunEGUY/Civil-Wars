@@ -1,0 +1,599 @@
+namespace = unrest
+
+@unrest_event_cooldown = 360
+
+###### These events have been repurposed and should not fire:
+
+planet_event = { # Generic Stability Revolt Planet Finder
+	id = unrest.50
+	is_triggered_only = yes
+	hide_window = yes
+
+	pre_triggers = {
+		has_owner = yes
+		has_ground_combat = no
+	}
+
+	trigger = {
+		always = no
+	}
+
+	immediate = {
+		# set_timed_planet_flag = {
+		# 	flag = unrest_timer
+		# 	days = 360
+		# }
+		# planet_event = { id = unrest.54 days = 300 random = 59 } #definitely within the next year
+	}
+}
+
+planet_event = { # Generic Stability Revolt Initializer
+	id = unrest.54
+	is_triggered_only = yes
+	hide_window = yes
+
+	pre_triggers = {
+		has_owner = yes
+		has_ground_combat = no
+	}
+
+	trigger = {
+		always = no
+	}
+
+	immediate = {
+		# if = {
+		# 	limit = { #Extra safety because it's possible for two planets to fire this delayed event on the same day and it will check the trigger before either of them can fire (as of March 2022)
+		# 		NOT = {
+		# 			sector = {
+		# 				any_system_within_border = {
+		# 					any_system_planet = {
+		# 						any_targeting_situation = { is_situation_type = situation_planetary_revolt }
+		# 					}
+		# 				}
+		# 			}
+		# 		}
+		# 	}
+		# 	sector = { #Generally, one would expect the strongest planet to be the center of the revolt
+		# 		#Use case here is if you conquer a whole bunch of enemy planets at once.
+		# 		ordered_owned_planet = {
+		# 			position = 0
+		# 			order_by = trigger:num_pops
+		# 			limit = {
+		# 				has_planet_flag = revolt_tick_5
+		# 				has_planet_flag = unrest_timer
+		# 				planet_stability <= 25
+		# 				num_pops >= 5
+		# 				is_occupied_flag = no
+		# 				has_orbital_bombardment = no
+		# 				has_ground_combat = no
+		# 				NOR = {
+		# 					has_planet_flag = slave_stirring  #hopefully, this will become a Situation too [lets see if I can beat you to it]
+		# 					has_planet_flag = recent_revolt_attempt
+		# 					has_planet_flag = situation_slave_revolt
+		# 					has_planet_flag = situation_nat_revolt
+		# 				}
+		# 				OR = {
+		# 					owner = { is_gestalt = yes }
+		# 					any_owned_species = { species_has_happiness_with_owner = root.owner }
+		# 				}
+		# 			}
+		# 			planet_event = { id = unrest.55 }
+		# 		}
+		# 	}
+		# }
+	}
+}
+
+planet_event = { # Situation Start Event
+	id = unrest.55
+	title = unrest.55.name
+	desc = {
+		trigger = {
+			owner = { is_gestalt = no }
+		}
+		text = unrest.55.desc.standard
+	}
+	desc = {
+		trigger = {
+			owner = { is_gestalt = yes }
+			any_owned_pop = {
+				is_sapient = yes
+				NOT = { has_ethic = ethic_gestalt_consciousness }
+			}
+		}
+		text = unrest.55.desc.gestalt_standard
+	}
+	desc = {
+		trigger = {
+			owner = { is_gestalt = yes }
+			count_owned_pop = {
+				limit = {
+					is_sapient = yes
+					NOT = { has_ethic = ethic_gestalt_consciousness }
+				}
+				count = 0
+			}
+		}
+		text = unrest.55.desc.gestalt_breakaway_gestalt
+	}
+	picture = GFX_evt_night_raid
+	show_sound = event_air_raid_siren
+	location = root
+	is_triggered_only = yes
+	situation = event_target:revolt_situation
+
+	immediate = {
+		
+		owner = {
+			start_situation = {
+				type = situation_planetary_revolt_stability
+				target = root
+				effect = {
+					save_event_target_as = revolt_situation
+				}
+			}
+		}
+	}
+
+	option = {
+		name = unrest.55.A
+
+		tooltip = {
+			owner = {
+				start_situation = {
+					type = situation_planetary_revolt_stability
+					target = root
+				}
+			}
+		}
+	}
+}
+
+situation_event = { # Stability Revolt - Faction Check
+	id = unrest.100
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		situation_progress > 25
+		NOT = { has_situation_flag = 25_percent_event }
+	}
+
+	immediate = {
+		set_situation_flag = 25_percent_event
+
+		owner = { # 30% or more pops on planet, revolt can take ethical shape. Increased severity, coordination.
+			
+		}
+
+		target = {
+			set_timed_planet_flag = {
+				flag = recent_unrest_event
+				days = @unrest_event_cooldown
+			}
+			random_list = {
+				1 = {
+					planet_event = { id = unrest.115 }
+					root = { set_situation_flag = spiritualist }
+					modifier = {
+						factor = 0
+						NOT = {
+							any_owned_pop = {
+								has_ethic = ethic_spiritualist
+							}
+						}
+					}
+					complex_trigger_modifier = {
+						trigger = count_owned_pop
+						parameters = {
+							limit = { has_ethic = ethic_spiritualist }
+						}
+						mode = add
+					}
+					modifier = {
+						factor = 0.5
+						owner = { is_spiritualist = yes }
+					}
+				}
+				1 = {
+					planet_event = { id = unrest.120 }
+					root = { set_situation_flag = authoritarian }
+					modifier = {
+						factor = 0
+						NOT = {
+							any_owned_pop = {
+								has_ethic = ethic_authoritarian
+							}
+						}
+					}
+					complex_trigger_modifier = {
+						trigger = count_owned_pop
+						parameters = {
+							limit = { has_ethic = ethic_authoritarian }
+						}
+						mode = add
+					}
+					modifier = {
+						factor = 0.5
+						owner = { is_authoritarian = yes }
+					}
+					modifier = {
+						factor = 0.5
+						owner = { is_imperial = yes }
+					}
+					modifier = {
+						factor = 2
+						owner = { is_democracy = yes }
+					}
+				}
+				1 = {
+					planet_event = { id = unrest.125 }
+					root = { set_situation_flag = xenophobe }
+					modifier = {
+						factor = 0
+						NOT = {
+							any_owned_pop = {
+								has_ethic = ethic_xenophobe
+							}
+						}
+					}
+					complex_trigger_modifier = {
+						trigger = count_owned_pop
+						parameters = {
+							limit = { has_ethic = ethic_xenophobe }
+						}
+						mode = add
+					}
+					modifier = {
+						factor = 0
+						owner = { has_comms_with_alien_empire = no }
+					}
+					modifier = {
+						factor = 0.25
+						NOT = {
+							any_owned_pop = {
+								NOT = { is_same_species = owner }
+								pop_has_happiness = no
+							}
+						}
+					}
+					modifier = {
+						factor = 0.5
+						owner = { is_xenophobe = yes }
+					}
+					modifier = {
+						factor = 0.5
+						is_majority_species = owner
+					}
+					modifier = {
+						factor = 2
+						NOT = { is_majority_species = owner }
+					}
+				}
+				1 = {
+					planet_event = { id = unrest.130 }
+					root = { set_situation_flag = spiritualist }
+					modifier = {
+						factor = 0
+						NOT = {
+							any_owned_pop = {
+								has_ethic = ethic_materialist
+							}
+						}
+					}
+					complex_trigger_modifier = {
+						trigger = count_owned_pop
+						parameters = {
+							limit = { has_ethic = ethic_materialist }
+						}
+						mode = add
+					}
+					modifier = {
+						factor = 0.5
+						owner = { is_materialist = yes }
+					}
+				}
+				1 = {
+					planet_event = { id = unrest.135 }
+					root = { set_situation_flag = xenophile }
+					modifier = {
+						factor = 0
+						owner = { has_comms_with_alien_empire = no }
+					}
+					modifier = {
+						factor = 0
+						NOT = {
+							any_owned_pop = {
+								has_ethic = ethic_xenophile
+							}
+						}
+					}
+					modifier = {
+						factor = 0.25
+						NOT = {
+							any_owned_pop = {
+								NOT = { is_same_species = owner }
+								pop_has_happiness = no
+							}
+						}
+					}
+					complex_trigger_modifier = {
+						trigger = count_owned_pop
+						parameters = {
+							limit = { has_ethic = ethic_xenophile }
+						}
+						mode = add
+					}
+					modifier = {
+						factor = 0.5
+						owner = { is_xenophile = yes }
+					}
+				}
+				1 = {
+					planet_event = { id = unrest.140 }
+					root = { set_situation_flag = egalitarian }
+					modifier = {
+						factor = 0
+						NOT = {
+							any_owned_pop = {
+								has_ethic = ethic_egalitarian
+							}
+						}
+					}
+					complex_trigger_modifier = {
+						trigger = count_owned_pop
+						parameters = {
+							limit = { has_ethic = ethic_egalitarian }
+						}
+						mode = add
+					}
+					modifier = {
+						factor = 0.5
+						owner = { is_egalitarian = yes }
+					}
+					modifier = {
+						factor = 0.5
+						owner = { is_democracy = yes }
+					}
+					modifier = {
+						factor = 2
+						owner = { is_imperial = yes }
+					}
+				}
+				1 = {
+					planet_event = { id = unrest.145 }
+					root = { set_situation_flag = pacifist }
+					modifier = {
+						factor = 0
+						NOT = {
+							any_owned_pop = {
+								has_ethic = ethic_pacifist
+							}
+						}
+					}
+					complex_trigger_modifier = {
+						trigger = count_owned_pop
+						parameters = {
+							limit = { has_ethic = ethic_pacifist }
+						}
+						mode = add
+					}
+					modifier = {
+						factor = 0.5
+						owner = { is_pacifist = yes }
+					}
+					modifier = {
+						factor = 2
+						owner = { is_at_war = yes }
+					}
+				}
+				1 = {
+					planet_event = { id = unrest.150 }
+					root = { set_situation_flag = militarist }
+					modifier = {
+						factor = 0
+						NOT = {
+							any_owned_pop = {
+								has_ethic = ethic_militarist
+							}
+						}
+					}
+					complex_trigger_modifier = {
+						trigger = count_owned_pop
+						parameters = {
+							limit = { has_ethic = ethic_militarist }
+						}
+						mode = add
+					}
+					modifier = {
+						factor = 0.5
+						owner = { is_militarist = yes }
+					}
+					modifier = {
+						factor = 0.75
+						owner = { is_at_war = yes }
+					}
+				}
+				1 = {
+					if = {
+						limit = {
+							owner = { is_hive_empire = yes }
+						}
+						root = { set_situation_flag = hive }
+					}
+					else_if = {
+						limit = {
+							owner = { is_machine_empire = yes }
+						}
+						root = { set_situation_flag = machine }
+					}
+					#Nothing else. We don't really need an event here for them.
+
+					modifier = {
+						factor = 0
+						OR = {
+							owner = { is_gestalt = no }
+							count_owned_pop = {
+								limit = {
+									NOT = { has_ethic = ethic_gestalt_consciousness }
+								}
+								count = 0
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+# These events are still important and are used.
+### Random events
+
+# Unrest: Terror
+situation_event = {
+	id = unrest.101
+	title = unrest.101.name
+	desc = unrest.101.civstrife.desc
+	picture = GFX_evt_night_raid
+	show_sound = event_air_raid_siren
+	location = root.target
+	is_triggered_only = yes
+	situation = this
+
+	trigger = {
+		NOT = { has_situation_flag = random_event_happened }
+		owner = {
+			is_country_type_with_subjects = yes
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		target = {
+			any_owned_pop = {
+				planet = {
+					exists = controller
+					controller = { is_same_value = root.owner }
+					planet_stability < @stabilitylevel2
+					NOT = { has_planet_flag = recent_unrest_event }
+					has_orbital_bombardment = no
+					has_ground_combat = no
+				}
+			}	
+		}
+	}
+
+	immediate = {
+		set_timed_situation_flag = { flag = random_event_happened days = 360 }
+		target = {
+			random_owned_pop = {
+				limit = {
+					planet = {
+						exists = controller
+						controller = { is_same_value = root.owner }
+						planet_stability < @stabilitylevel2
+						NOT = { has_planet_flag = recent_unrest_event }
+						has_orbital_bombardment = no
+						has_ground_combat = no
+					}
+				}
+				planet = {
+					add_modifier = {
+						modifier = minor_terrorist_action
+						days = 3600 # 10 years
+					}
+					set_timed_planet_flag = {
+						flag = recent_unrest_event
+						days = @unrest_event_cooldown
+					}
+					save_event_target_as = target_planet
+				}
+			}
+		}
+	}
+
+	option = {
+		name = UNFORTUNATE
+		tooltip = {
+			event_target:target_planet = {
+				add_modifier = {
+					modifier = minor_terrorist_action
+					days = 3600 # 10 years
+				}
+			}
+		}
+	}
+}
+
+# Unrest: Severe Terror
+situation_event = {
+	id = unrest.105
+	title = unrest.105.name
+	desc = unrest.105.civstrife.desc
+	picture = GFX_evt_night_raid
+	show_sound = event_air_raid_siren
+	location = root.target
+	is_triggered_only = yes
+	situation = this
+
+	trigger = {
+		NOT = { has_situation_flag = random_event_happened }
+		owner = {
+			is_country_type_with_subjects = yes
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		target = {
+			any_owned_pop = {
+				planet = {
+					exists = controller
+					controller = { is_same_value = root.owner }
+					planet_stability < @stabilitylevel2
+					NOT = { has_planet_flag = recent_unrest_event }
+					has_orbital_bombardment = no
+					has_ground_combat = no
+				}
+			}	
+		}
+	}
+
+	immediate = {
+		set_timed_situation_flag = { flag = random_event_happened days = 360 }
+		target = {
+			random_owned_pop = {
+				limit = {
+					planet = {
+						exists = controller
+						controller = { is_same_value = root.owner }
+						planet_stability < @stabilitylevel2
+						NOT = { has_planet_flag = recent_unrest_event }
+						has_orbital_bombardment = no
+						has_ground_combat = no
+					}
+				}
+				planet = {
+					add_modifier = {
+						modifier = major_terrorist_action
+						days = 7200 # 20 years
+					}
+					set_timed_planet_flag = {
+						flag = recent_unrest_event
+						days = @unrest_event_cooldown
+					}
+					save_event_target_as = target_planet
+				}
+			}
+		}
+	}
+
+	option = {
+		name = UNFORTUNATE
+		tooltip = {
+			event_target:target_planet = {
+				add_modifier = {
+					modifier = major_terrorist_action
+					days = 7200 # 20 years
+				}
+			}
+		}
+	}
+}

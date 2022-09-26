@@ -1,115 +1,386 @@
-Change the mod from Civil Wars to Civil Strife:
-
 I want to make it so the mod is more focused around random political events (you might even say, dynamic political events) that lead to deteriorating conditions within your empire. These conditions can then more organically culimate in Civil Wars and Rebellions.
+# Turns out this^ is really hard to implement!
 
-Additions: - {
-	- Pressure Mechanic - {
-		- Events (plagues, assassinations, annexations, etc.) add pressure to the planet/sector/empire/character that they happen to. Once a certain level of pressure is reached, there is a percent chance for that planet/sector/empire/character to have an outcome.
-		- It's not necessarily a chain such that an annexation -> assassination. An assassination can also randomly occur and lead to pressure, for example. 
+Organization = {
+
+	Civil Wars = {
+		- Ethic Based			# Complete
+		- Planetary Separatism	# Mostly Complete, need to do all the factions
+		- Sectoral  Separatism	= { # Mostly Complete, need to do all the factions
+			- Stability/Crime
+			- Isolated Sectors # Prety sure I fixed any bugs
+		}
+		- Nationalism = { 		# Mostly Complete, need to do all the factions
+			- Countries will regard territory that theyve held for longer to be more integral, and will become more nationalist for such land.
+			- Slaves and purgees can join nationalist factions 	# Might not be a good idea, we'll see
+			- Exile Governments	= {			# Complete
+				- Can be hosted and restored
+			}
+		}
+		- Disputed Elections, Selections, and Successions = {			# Done, just should add some more random events
+			- Election and Selection disputes can occur if the most recently (s)elected ruler is not the leader of the most popular party = {
+				- All except Imperial
+				- (S)Election Dispute will be a situation = {
+					- Random events can happen during sitaution = {
+						- Official offers to cover up the fraud (regardless if true or not) = {
+							- Can either help cover up the fraud, or come out and make things even worse. # Need to implement the potential for the coverup to get out in the future
+						}
+						- Coup by disgruntled party = {
+							- Will make other factions mad, can easily lead to civil war
+						}
+					}
+				}
+			}
+			Succession Disputes = {						# Complete, just should add some more random events
+				- Imperial only
+				- Occur when an Imperial ruler either = {
+					- Dies without an heir
+					- Heir ascends to the throne after less than 5 years as heir (small chance) # Not implemented, unsure if I will
+				}
+			}
+		}
+		- Ask bordering countries for assistance = {	# Complete
+			- Ask countries that have direct access to the rebel country if they can provide any resources or ships
+		}
+		# Not going to do species separatism, as it can derive from nationalism anyway. Additionally, I think it would be pretty complicated to implement. Obviously this whole mod is fucking complicated, but I don't wanna.
 	}
-	- Important Characters & Families: - {
-		- Dynasties - {
+
+	Espionage Operations = {
+		# I Just dont think Im gonna do any espionage operations. I dont feel comortable with how the mechanics for any them would work against other players, and I dont want to have something that is only available to beat up the AI. I will look further into this.
+		- Coups = {
+			- Can instigate coups on governments with opposing ethics.
+			- Will be easier in autocracies.
+			- Coups will turn the country into an autocracy.
+			- Coups can fail by being discovered
+			- Coups can succeed, with the populace not really resistant.
+			- Coups can succeed, but the population is resistant and the nation could fall into civil war in the future.
+			- Coups may need long term resources for their success = {
+				- Every year the leader you supported in the coup may ask for money, fleets, or armies.
+				- Refusing to continue support may lead to the regime collapsing.
+				- Regime may eventually stabilize on its own.
+			}
+		}
+		- Instigate separatism - {
+			- Regionalism - {
+				- Planet = {
+					- Higher Success Chance
+				}
+				- Sector - {
+					- Lower Chance
+				}
+			}
+			- Factionalism - {
+				- Easier for minority and unhappy ethics
+			}
+		}
+		- Assassinations
+		- Recruitment =  {
+			- Like an asset irl.
+		}
+	}
+
+	Events = {
+		All = {
+			- Pandemics					# Mostly Complete, dont know if I want to implement
+			- Leader rivalries - {
+				- Admirals - On lost battle together
+			}
+			- Assassinations (rare without mitigating circumstances)
+			- Defections (rare without mitigating circumstances) = {
+				- Leaders of parties that are small and/or never win elections
+				- Being at war, leaders have higher chance to defect
+			}
+			- Scientists wants to do illegal/unethical research
+			- Different Ruler Species
+			- Collaborators
+		}
+
+		Authorities = {
+
+			Imperial/Dictatorial = {
+				- Authority Reform = {
+					- Democratic reform = {
+						- Triggered through pressures
+					}
+					- Oligarchic reform = {
+						- Triggered by ambitious leaders, feudal, aristocratic, etc.
+					}
+				}
+				- Coups against immortal leaders
+				- Violent Xenophobic backlash to xeno leader if phobic
+				- Royal Family Events
+				- Governor rivalries = {
+					- Factional, 
+				}
+			}
+
+			Democratic = {
+				- Leader wins 3+ elections = {
+					- Term Limits
+						- DPE?
+					- Authoritarian Reform = {
+						- Monarchical Reform = {
+							- Via unsolved pressures, corruption
+						}
+						- Dictatorial Reform = {
+							- Via unsolved pressures, corruption
+						}
+						- Oligarchic Reform = {
+							- Via ambitious leaders
+						}
+					}
+				}
+				- Political Family Events
+				- Election Mandates = {
+					- Nationalist (Militarist/Xenopbobe) leader of Xenophobes promises to invade neighboring country.
+					- Pacifist leader promises to end war, stop rivarly, hostilities
+					- Xenophilic leader promises to engage in trade/migration deals
+				}
+			}
+
+			Corporate = {
+				- Authority Reform = {
+					- Democratic reform
+					- Monarchical Reform
+					- Dictatorial Reform
+					- Oligarchic reform
+				}
+				- Corporate Family Events
+			}
+		}
+
+		Ethics = {
+
+			Spiritualist = {
+				- Religious Schism
+			}
+		}
+	}
+}
+
+Additions: = {
+
+	- Vassal Presets = {
+		- Authorities = {
+			Bad = {
+				- Autonomous States
+			}
+
+			- Will Immediately reintegrate after 10 years = {
+				# Governors who just want to fix the problems in their sector
+				# and then reintegrate
+				- Democratic - Governorate
+				- Imperial - Viceroyalty
+				- Dictatorial - Voivodeship
+				- Oligarchy - Department
+				- Corporate - Branch
+			}
+		}
+	}
+
+	- Important Characters & Families: = {
+		- Dynasties = {
 			- Events that create siblings for ruler; create potential succession issues
 			- Events that create children of politicians in Democratic states.
 		}
 		- Feudal/Aristocratic family Governorships
 	}
-	- Similarly (m)aligned planets may rebel together
-	- Planets not in a sector have a malus applied
-	- Sector attributes
 
-	Outcomes - {
-		- Civil Wars
-		- Rebellions
+	- Sectors = {
+		- Sector attributes = {
+			- When a sector is first created, it will be a "Frontier". Frontier sectors will have less production and stability, but will naturally gain this over time.
+			- Frontier sectors can turn into "Integrated" sectors, which will be the base level of sector that most sectors will be. However, Integrated sectors can also further develop and turn into "Fundamental" sectors = {
+				- Fundamental sectors will be considered fundamental to the identity of a nation.
+				- Nations will be significantly more likely to wage war for planets and systems in territory they consider fundamental = {
+					- Holding another nation's fundmental systems or planets will give them an opinion malus
+					- Fundamental sectors much more likely to create nationalist pops.
+				}
+			}
+			- Timeline = {
+				- Frontier -> Integrated: 7 - 15 years
+				- Integrated -> Fundamental: 30 - 70 years
+			}
+			Sector Types = {
+				- Frontier: Malus to stability and production, increased crime
+					- Level of initial malus determined by distance from capital.
+				- Integrated: Normal attributes.
+				- Fundamental: Slight bonus to stability and production.
+			}
+		}
+	}
+
+	- Planets = {
+		- Similarly (m)aligned planets may rebel together
+		- Planetary policies
+		- Planets not in a sector have a significant malus applied
+	}
+	
+	- Regional Factions (for Planetary and Sectarian independence) = {
+		- Regional Independence Parties = {
+			- Can appear based on distance to capital, stability, etc.
+		}
+		- Regional Factional Parties = {
+			- Spiritualist = {
+				- They want special rights granted for their variant of faith.
+			}
+		}
+	}
+
+	Internal = {
+		- Leader variable that tracks how many years they've spent in a sector. Leaders who've spent more time within a sector have more connections to the sector and events related to such.
+	}
+
+	Outcomes = {
+		- Balkanization = {
+			- If a country has already had and lost a few Civil Wars and only has a handful of planets is about to have another one, there's a chance the entire nation may just Balkanize.
+			- Balkanization can occur in a few ways = {
+				- All planets (other than the capital) become sovereign planet-states.
+				- All planets (other than the capital) become independent, however they become "tributaries" under the original nation. Similar to Imperator tribal mechanic. = {
+					- To signify that these nations don't claim to be sovereign, they will initially simply be named after the planet = {
+						- Imperial balnakization state leaders will style themselves as Viceroys.
+						- Democratic balnkized state leaders will style themselves as Administrators.
+						- If they gain independence, they will take on a formal name.
+						- After enough time in this state, they may wish to formally acknowledge their status as a client and take a formal name.
+					}
+				}
+			}
+		}
 		- Assassinations
-		- Defections
+		- Defections = {
+			- Fake defections too? = { # Good for espionge operations
+				- Admiral = {
+					- You scheme to have one of your admirals steal one of their fleets
+					- Better yet, they're a sleeper agent, and only turn after you declare war! The possibilities.
+				}
+				- Governor = {
+					- Steal resources from their sector.
+					- Steal border planets
+					- Steal their entire sector (this might be way too op)
+				}
+				- Scientist = {
+					- Steal research
+				}
+				- If double agent gets elected ruler of target nation = {
+					- They may become your client state
+					- They may renounce their mother nation
+				}
+			}
+		}
 	}
 }
 
+Situations = {
 
-Situations - {
+	Multi-Empire = {
+		- Outcomes can become situations for other countries. Ex - {
+			- The neighbors of a country embroiled in a Civil War get a situation saying as much that they can choose to react to = {
+				- Able to support the government or the rebels
+			}
+			- Government reform = {
+				- Maybe neighbors form a coalition with other neighbors to revert a democracy back to a monarchy, or vice versa.
+			}
+		}
+	}
 
-	Empire-Wide: - {
-		- Imperial: - {
+	Empire-Wide = {
+		- Imperial: = {
 			- Democratic reform
 			- Assassinations
-			- Successions crises - {
+			- Successions crises = {
 				- Dying without an heir
 			}
-			- Feudal - {
-				- War between governors - {
+			- Feudal = {
+				- War between governors = {
 					- Overlord able to join a side, or to let them settle it themselves
-					- Mechanics: - {
+					- Mechanics: = {
 						- Warring governor sectors temporarily become vassals of your nation whom are at total war with each other.
 						- War goal is to place a member of their family on the seat of the other governorship. 
 					}
 				}
 			}
 		}
-		- Democratic - {
+		- Democratic = {
 			- Authoritarian reform
 			- Assassinations
 			- Faction leaders have a high chance of being replaced after each unsuccessful election.
-			- Disputed elections - {
+			- Disputed elections = {
 				- The longer a country goes without a disputed election, the less likely a disputed election is to trigger Civil War pressure.
 			}
-			- Election Mandates to resolve situations (!!!) - {
+			- Election Mandates to resolve situations (!!!) = {
 				- This would allow for much more dynamic-feeling elections, without mandates ever getting stale. Additionally, losing an election could be a pressure point towards a civil war.
 			}
 		}
-		- Food shortages - {
+		- Food shortages = {
 			- Could planet/sectors that are exporting food to revolt such that they are not exporting the food that they need, further exacerbating your crisis.
 		}
 	}
 
-	Sector/Planet: - {
-		~ Tolerance variables for Planets and Sectors signifying how likely they are to rebel.
+	Sector/Planet: = {
+		~ Pressure variables for Planets and Sectors signifying how likely they are to rebel.
 
 		- High Crime/Instability 
 		- Slavery
 		- Religious
 		- Ethic
 		- Policy protests
-		- Pandemic - {
-			- Affected by pops - {
+		- Pandemic = {
+			- Affected by pops = {
 				- Give some pops on the planet a flag, and if any flagged pops leave they can infect other planets.
 				- can_resettle_planet - game_rules
 			}
 		}
-		- Nationalism - {
+		- Nationalism = {
 			- Conquered pops/nations
 			- Species rights
-			- Regional differences that develop over time - {
+			- Regional differences that develop over time = {
 				- Sector/Planet that was particularly impacted in war(s)
 			}
 			- Desire to conquer neighbor
 		}
 	}
 
-	Admiral: - {
+	Ethics = {
+
+		- Spiritualist = {
+			- Spiritual Schism = {
+				- Schisms within the established state religion could lead to civil war.
+			}
+		}
+	}
+
+	Admiral: = {
 		- The admiral will progressively offer to pay for more and more the the upkeep of their fleet personally, in exchange for favors and other concessions from the state. This will save you resources (potentially a ton), but comes with the increased threat that the fleet will by loyal to the admiral and that they may rebel.
+		- Rival Admirals: = {
+			- Two admirals that, when in combat together, actually lower the damage of both of their fleets.
+			- This can occur: = {
+				- After both admirals are in combat together and lose
+				- With faction leader admirals
+				- Potentially randomly = {
+					- More common in imperial/feudal/aristocratic societies
+				}
+			}
+		}
+	}
+
+	Governor: = {
 		- 
 	}
 
-	Governor: - {
-		- 
-	}
-
-	General: - {
+	General: = {
 		- Scorned 
 	}
 
-	Scientist: - {
+	Scientist: = {
 		- Secretly giving research to an enemy
-		- Wants to do dangerous/illegal research - {
+		- Wants to do dangerous/illegal research = {
 			- You can let them
-			- You can deny them - {
+			- You can deny them = {
 				- They might do it behind your back, try to get funding from another empire more sympathetic to their research
 			}
 		}
 	}
 
-	Subject - {
+	Subject = {
 		- You want to control a subject / "neutral" small country (think Rome and Parthia with ancient Armenia)
 		- 
 	}

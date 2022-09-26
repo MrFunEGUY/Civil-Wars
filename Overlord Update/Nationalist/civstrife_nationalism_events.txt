@@ -1,0 +1,1008 @@
+
+###############################
+### Civil Wars by MrFunEGUY ###
+###############################
+
+namespace = civnat
+
+#################
+# Initializers
+
+# On Country Destroyed, save country such that it may potentially be revived
+country_event = {
+	id = civmain.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_owned_planet = {
+			check_variable = {
+				which = planet_pressure
+				value >= 50
+			}
+		}
+	}
+
+	immediate = {
+		save_global_event_target_as = revival_country
+
+		create_country = {
+			name = "[event_target:revival_country.GetName]"
+			type = extinct_country
+			species = event_target:revival_country.species
+			ignore_initial_colony_error = yes
+			day_zero_contact = no
+			authority = event_target:revival_country
+			ethos = event_target:revival_country
+			origin = origin_revived_nation
+			civics = event_target:revival_country
+			flag = event_target:revival_country
+			effect = {
+				copy_ethos_and_authority = event_target:revival_country
+				set_country_flag = revival_country_@event_target:revival_country
+				clear_global_event_target = revival_country
+			}
+		}
+
+	}
+}
+
+# On Starbase Transferred, mark planets with prior owner code
+country_event = {
+	id = civmain.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		solar_system = {
+			any_system_planet = {
+				exists = owner
+				owner = { is_primitive = no }
+			}
+		}
+	}
+
+	immediate = {
+
+		if = {
+			limit = {
+				from = { num_owned_planets > 0 }
+			}
+			from = { save_event_target_as = nat_pops_country }
+			every_system_planet = {
+				limit = {
+					exists = owner
+					owner = { is_primitive = no }
+				}
+				set_planet_flag = nat_pops_planet_@event_target:nat_pops_country
+			}
+			owner = {
+				country_event = { id = civmain.1000 }
+			}
+		}
+		else_if = {
+			limit = {
+				from = { num_owned_planets = 0 }
+			}
+			from = { save_event_target_as = nat_pops_country }
+			every_system_planet = {
+				limit = {
+					exists = owner
+					owner = { is_primitive = no }
+				}
+				set_planet_flag = nat_pops_planet_@event_target:nat_pops_country
+			}
+			owner = {
+				country_event = { id = civmain.1000 }
+			}
+		}
+	}
+}
+
+#################
+# Separatist Pop Formation Events
+
+planet_event = { # Separatist Pop Formation, random
+	id = civnat.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		check_for_pop_separatism = yes
+	}
+
+	immediate = {
+		random_list = {
+			80 = { }
+
+			20 = { # There are three of the same in different orders below to randomize the order in which pops are made separatists, such that you dont get ex. only generally separatist pops, then only spec pops, etc.
+				random_list = {
+					40 = { # 1 Separatist Pop
+						random_list = {
+							10 = {
+								if = {
+									limit = {
+										planet_stability <= 25
+										is_occupied_flag = no
+										has_orbital_bombardment = no
+									}
+									get_sep_pop_gen = yes
+								}
+								else_if = {
+									limit = {
+										any_owned_pop = {
+											OR = {
+												has_modifier = faction_approval_low
+												has_modifier = faction_approval_very_low
+											}
+										}
+									}
+									get_sep_pop_ethic = yes
+								}
+								else_if = {
+									limit = {
+										any_owned_species = {
+											OR = {
+												NOT = { has_citizenship_type = { type = citizenship_full } }
+												has_migration_control = { value = yes }
+												has_colonization_control = { value = yes }
+												has_population_control = { value = yes }
+												has_living_standard = { type = living_standard_subsistence }
+												OR = {
+													has_military_service_type = { type = military_service_none }
+													has_military_service_type = { type = military_service_limited }
+												}
+											}
+										}
+									}
+									get_sep_pop_spec = yes
+								}
+							}
+							10 = {
+								if = {
+									limit = {
+										any_owned_pop = {
+											OR = {
+												has_modifier = faction_approval_low
+												has_modifier = faction_approval_very_low
+											}
+										}
+									}
+									get_sep_pop_ethic = yes
+								}
+								else_if = {
+									limit = {
+										any_owned_species = {
+											OR = {
+												NOT = { has_citizenship_type = { type = citizenship_full } }
+												has_migration_control = { value = yes }
+												has_colonization_control = { value = yes }
+												has_population_control = { value = yes }
+												has_living_standard = { type = living_standard_subsistence }
+												OR = {
+													has_military_service_type = { type = military_service_none }
+													has_military_service_type = { type = military_service_limited }
+												}
+											}
+										}
+									}
+									get_sep_pop_spec = yes
+								}
+								else_if = {
+									limit = {
+										planet_stability <= 25
+										is_occupied_flag = no
+										has_orbital_bombardment = no
+									}
+									get_sep_pop_gen = yes
+								}
+							}
+							10 = {
+								if = {
+									limit = {
+										any_owned_species = {
+											OR = {
+												NOT = { has_citizenship_type = { type = citizenship_full } }
+												has_migration_control = { value = yes }
+												has_colonization_control = { value = yes }
+												has_population_control = { value = yes }
+												has_living_standard = { type = living_standard_subsistence }
+												OR = {
+													has_military_service_type = { type = military_service_none }
+													has_military_service_type = { type = military_service_limited }
+												}
+											}
+										}
+									}
+									get_sep_pop_spec = yes
+								}
+								else_if = {
+									limit = {
+										planet_stability <= 25
+										is_occupied_flag = no
+										has_orbital_bombardment = no
+									}
+									get_sep_pop_gen = yes
+								}
+								else_if = {
+									limit = {
+										any_owned_pop = {
+											OR = {
+												has_modifier = faction_approval_low
+												has_modifier = faction_approval_very_low
+											}
+										}
+									}
+									get_sep_pop_ethic = yes
+								}
+							}
+						}
+					}
+					30 = { # 2 Separatist Pops
+						while = {
+							count = 2
+							random_list = {
+								10 = {
+									if = {
+										limit = {
+											planet_stability <= 25
+											is_occupied_flag = no
+											has_orbital_bombardment = no
+										}
+										get_sep_pop_gen = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_pop = {
+												OR = {
+													has_modifier = faction_approval_low
+													has_modifier = faction_approval_very_low
+												}
+											}
+										}
+										get_sep_pop_ethic = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_species = {
+												OR = {
+													NOT = { has_citizenship_type = { type = citizenship_full } }
+													has_migration_control = { value = yes }
+													has_colonization_control = { value = yes }
+													has_population_control = { value = yes }
+													has_living_standard = { type = living_standard_subsistence }
+													OR = {
+														has_military_service_type = { type = military_service_none }
+														has_military_service_type = { type = military_service_limited }
+													}
+												}
+											}
+										}
+										get_sep_pop_spec = yes
+									}
+								}
+								10 = {
+									if = {
+										limit = {
+											any_owned_pop = {
+												OR = {
+													has_modifier = faction_approval_low
+													has_modifier = faction_approval_very_low
+												}
+											}
+										}
+										get_sep_pop_ethic = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_species = {
+												OR = {
+													NOT = { has_citizenship_type = { type = citizenship_full } }
+													has_migration_control = { value = yes }
+													has_colonization_control = { value = yes }
+													has_population_control = { value = yes }
+													has_living_standard = { type = living_standard_subsistence }
+													OR = {
+														has_military_service_type = { type = military_service_none }
+														has_military_service_type = { type = military_service_limited }
+													}
+												}
+											}
+										}
+										get_sep_pop_spec = yes
+									}
+									else_if = {
+										limit = {
+											planet_stability <= 25
+											is_occupied_flag = no
+											has_orbital_bombardment = no
+										}
+										get_sep_pop_gen = yes
+									}
+								}
+								10 = {
+									if = {
+										limit = {
+											any_owned_species = {
+												OR = {
+													NOT = { has_citizenship_type = { type = citizenship_full } }
+													has_migration_control = { value = yes }
+													has_colonization_control = { value = yes }
+													has_population_control = { value = yes }
+													has_living_standard = { type = living_standard_subsistence }
+													OR = {
+														has_military_service_type = { type = military_service_none }
+														has_military_service_type = { type = military_service_limited }
+													}
+												}
+											}
+										}
+										get_sep_pop_spec = yes
+									}
+									else_if = {
+										limit = {
+											planet_stability <= 25
+											is_occupied_flag = no
+											has_orbital_bombardment = no
+										}
+										get_sep_pop_gen = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_pop = {
+												OR = {
+													has_modifier = faction_approval_low
+													has_modifier = faction_approval_very_low
+												}
+											}
+										}
+										get_sep_pop_ethic = yes
+									}
+								}
+							}
+						}
+					}
+					20 = { # 3 Separatist Pops
+						while = {
+							count = 3
+							random_list = {
+								10 = {
+									if = {
+										limit = {
+											planet_stability <= 25
+											is_occupied_flag = no
+											has_orbital_bombardment = no
+										}
+										get_sep_pop_gen = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_pop = {
+												OR = {
+													has_modifier = faction_approval_low
+													has_modifier = faction_approval_very_low
+												}
+											}
+										}
+										get_sep_pop_ethic = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_species = {
+												OR = {
+													NOT = { has_citizenship_type = { type = citizenship_full } }
+													has_migration_control = { value = yes }
+													has_colonization_control = { value = yes }
+													has_population_control = { value = yes }
+													has_living_standard = { type = living_standard_subsistence }
+													OR = {
+														has_military_service_type = { type = military_service_none }
+														has_military_service_type = { type = military_service_limited }
+													}
+												}
+											}
+										}
+										get_sep_pop_spec = yes
+									}
+								}
+								10 = {
+									if = {
+										limit = {
+											any_owned_pop = {
+												OR = {
+													has_modifier = faction_approval_low
+													has_modifier = faction_approval_very_low
+												}
+											}
+										}
+										get_sep_pop_ethic = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_species = {
+												OR = {
+													NOT = { has_citizenship_type = { type = citizenship_full } }
+													has_migration_control = { value = yes }
+													has_colonization_control = { value = yes }
+													has_population_control = { value = yes }
+													has_living_standard = { type = living_standard_subsistence }
+													OR = {
+														has_military_service_type = { type = military_service_none }
+														has_military_service_type = { type = military_service_limited }
+													}
+												}
+											}
+										}
+										get_sep_pop_spec = yes
+									}
+									else_if = {
+										limit = {
+											planet_stability <= 25
+											is_occupied_flag = no
+											has_orbital_bombardment = no
+										}
+										get_sep_pop_gen = yes
+									}
+								}
+								10 = {
+									if = {
+										limit = {
+											any_owned_species = {
+												OR = {
+													NOT = { has_citizenship_type = { type = citizenship_full } }
+													has_migration_control = { value = yes }
+													has_colonization_control = { value = yes }
+													has_population_control = { value = yes }
+													has_living_standard = { type = living_standard_subsistence }
+													OR = {
+														has_military_service_type = { type = military_service_none }
+														has_military_service_type = { type = military_service_limited }
+													}
+												}
+											}
+										}
+										get_sep_pop_spec = yes
+									}
+									else_if = {
+										limit = {
+											planet_stability <= 25
+											is_occupied_flag = no
+											has_orbital_bombardment = no
+										}
+										get_sep_pop_gen = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_pop = {
+												OR = {
+													has_modifier = faction_approval_low
+													has_modifier = faction_approval_very_low
+												}
+											}
+										}
+										get_sep_pop_ethic = yes
+									}
+								}
+							}
+						}
+					}
+					7 = { # 4 Separatist Pops
+						while = {
+							count = 4
+							random_list = {
+								10 = {
+									if = {
+										limit = {
+											planet_stability <= 25
+											is_occupied_flag = no
+											has_orbital_bombardment = no
+										}
+										get_sep_pop_gen = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_pop = {
+												OR = {
+													has_modifier = faction_approval_low
+													has_modifier = faction_approval_very_low
+												}
+											}
+										}
+										get_sep_pop_ethic = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_species = {
+												OR = {
+													NOT = { has_citizenship_type = { type = citizenship_full } }
+													has_migration_control = { value = yes }
+													has_colonization_control = { value = yes }
+													has_population_control = { value = yes }
+													has_living_standard = { type = living_standard_subsistence }
+													OR = {
+														has_military_service_type = { type = military_service_none }
+														has_military_service_type = { type = military_service_limited }
+													}
+												}
+											}
+										}
+										get_sep_pop_spec = yes
+									}
+								}
+								10 = {
+									if = {
+										limit = {
+											any_owned_pop = {
+												OR = {
+													has_modifier = faction_approval_low
+													has_modifier = faction_approval_very_low
+												}
+											}
+										}
+										get_sep_pop_ethic = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_species = {
+												OR = {
+													NOT = { has_citizenship_type = { type = citizenship_full } }
+													has_migration_control = { value = yes }
+													has_colonization_control = { value = yes }
+													has_population_control = { value = yes }
+													has_living_standard = { type = living_standard_subsistence }
+													OR = {
+														has_military_service_type = { type = military_service_none }
+														has_military_service_type = { type = military_service_limited }
+													}
+												}
+											}
+										}
+										get_sep_pop_spec = yes
+									}
+									else_if = {
+										limit = {
+											planet_stability <= 25
+											is_occupied_flag = no
+											has_orbital_bombardment = no
+										}
+										get_sep_pop_gen = yes
+									}
+								}
+								10 = {
+									if = {
+										limit = {
+											any_owned_species = {
+												OR = {
+													NOT = { has_citizenship_type = { type = citizenship_full } }
+													has_migration_control = { value = yes }
+													has_colonization_control = { value = yes }
+													has_population_control = { value = yes }
+													has_living_standard = { type = living_standard_subsistence }
+													OR = {
+														has_military_service_type = { type = military_service_none }
+														has_military_service_type = { type = military_service_limited }
+													}
+												}
+											}
+										}
+										get_sep_pop_spec = yes
+									}
+									else_if = {
+										limit = {
+											planet_stability <= 25
+											is_occupied_flag = no
+											has_orbital_bombardment = no
+										}
+										get_sep_pop_gen = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_pop = {
+												OR = {
+													has_modifier = faction_approval_low
+													has_modifier = faction_approval_very_low
+												}
+											}
+										}
+										get_sep_pop_ethic = yes
+									}
+								}
+							}
+						}
+					}
+					3 = { # 5 Separatist Pops
+						while = {
+							count = 5
+							random_list = {
+								10 = {
+									if = {
+										limit = {
+											planet_stability <= 25
+											is_occupied_flag = no
+											has_orbital_bombardment = no
+										}
+										get_sep_pop_gen = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_pop = {
+												OR = {
+													has_modifier = faction_approval_low
+													has_modifier = faction_approval_very_low
+												}
+											}
+										}
+										get_sep_pop_ethic = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_species = {
+												OR = {
+													NOT = { has_citizenship_type = { type = citizenship_full } }
+													has_migration_control = { value = yes }
+													has_colonization_control = { value = yes }
+													has_population_control = { value = yes }
+													has_living_standard = { type = living_standard_subsistence }
+													OR = {
+														has_military_service_type = { type = military_service_none }
+														has_military_service_type = { type = military_service_limited }
+													}
+												}
+											}
+										}
+										get_sep_pop_spec = yes
+									}
+								}
+								10 = {
+									if = {
+										limit = {
+											any_owned_pop = {
+												OR = {
+													has_modifier = faction_approval_low
+													has_modifier = faction_approval_very_low
+												}
+											}
+										}
+										get_sep_pop_ethic = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_species = {
+												OR = {
+													NOT = { has_citizenship_type = { type = citizenship_full } }
+													has_migration_control = { value = yes }
+													has_colonization_control = { value = yes }
+													has_population_control = { value = yes }
+													has_living_standard = { type = living_standard_subsistence }
+													OR = {
+														has_military_service_type = { type = military_service_none }
+														has_military_service_type = { type = military_service_limited }
+													}
+												}
+											}
+										}
+										get_sep_pop_spec = yes
+									}
+									else_if = {
+										limit = {
+											planet_stability <= 25
+											is_occupied_flag = no
+											has_orbital_bombardment = no
+										}
+										get_sep_pop_gen = yes
+									}
+								}
+								10 = {
+									if = {
+										limit = {
+											any_owned_species = {
+												OR = {
+													NOT = { has_citizenship_type = { type = citizenship_full } }
+													has_migration_control = { value = yes }
+													has_colonization_control = { value = yes }
+													has_population_control = { value = yes }
+													has_living_standard = { type = living_standard_subsistence }
+													OR = {
+														has_military_service_type = { type = military_service_none }
+														has_military_service_type = { type = military_service_limited }
+													}
+												}
+											}
+										}
+										get_sep_pop_spec = yes
+									}
+									else_if = {
+										limit = {
+											planet_stability <= 25
+											is_occupied_flag = no
+											has_orbital_bombardment = no
+										}
+										get_sep_pop_gen = yes
+									}
+									else_if = {
+										limit = {
+											any_owned_pop = {
+												OR = {
+													has_modifier = faction_approval_low
+													has_modifier = faction_approval_very_low
+												}
+											}
+										}
+										get_sep_pop_ethic = yes
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+planet_event = { # Separatist Pop Formation, upon being conquered
+	id = civnat.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_owned_pop = {
+			has_modifier = pop_recently_conquered
+		}
+	}
+
+	immediate = {
+		every_owned_pop = {
+			limit = {
+				has_modifier = pop_recently_conquered
+			}
+		}
+	}
+}
+
+
+#################
+# Separatist Party Formation Events
+
+country_event = { # Separatist Party Planet Form Check
+	id = civnat.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_owned_planet = {
+			check_variable = {
+				which = planet_pressure
+				value >= 50
+			}
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				any_owned_planet = {
+					check_variable = { which = planet_pressure value >= 50 }
+					check_variable = { which = planet_pressure value < 60 }
+				}
+			}
+			random_owned_planet = {
+				limit = {
+					check_variable = { which = planet_pressure value >= 50 }
+					check_variable = { which = planet_pressure value < 60 }
+				}
+				random_list = { 60 = { } 40 = { set_planet_flag = separatist_planet } }
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_planet = {
+					check_variable = { which = planet_pressure value >= 60 }
+					check_variable = { which = planet_pressure value < 70 }
+				}
+			}
+			random_owned_planet = {
+				limit = {
+					check_variable = { which = planet_pressure value >= 60 }
+					check_variable = { which = planet_pressure value < 70 }
+				}
+				random_list = { 55 = { } 45 = { set_planet_flag = separatist_planet } }
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_planet = {
+					check_variable = { which = planet_pressure value >= 70 }
+					check_variable = { which = planet_pressure value < 80 }
+				}
+			}
+			random_owned_planet = {
+				limit = {
+					check_variable = { which = planet_pressure value >= 70 }
+					check_variable = { which = planet_pressure value < 80 }
+				}
+				random_list = { 50 = { } 50 = { set_planet_flag = separatist_planet } }
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_planet = {
+					check_variable = { which = planet_pressure value >= 80 }
+					check_variable = { which = planet_pressure value < 90 }
+				}
+			}
+			random_owned_planet = {
+				limit = {
+					check_variable = { which = planet_pressure value >= 80 }
+					check_variable = { which = planet_pressure value < 90 }
+				}
+				random_list = { 45 = { } 55 = { set_planet_flag = separatist_planet } }
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_planet = {
+					check_variable = { which = planet_pressure value >= 80 }
+					check_variable = { which = planet_pressure value < 90 }
+				}
+			}
+			random_owned_planet = {
+				limit = {
+					check_variable = { which = planet_pressure value >= 80 }
+					check_variable = { which = planet_pressure value < 90 }
+				}
+				random_list = { 40 = { } 60 = { set_planet_flag = separatist_planet } }
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_planet = {
+					check_variable = { which = planet_pressure value >= 90 }
+				}
+			}
+			random_owned_planet = {
+				limit = {
+					check_variable = { which = planet_pressure value >= 90 }
+				}
+				random_list = { 35 = { } 65 = { set_planet_flag = separatist_planet } }
+			}
+		}
+	}
+}
+
+country_event = { # Separatist Party Sector Form Check
+	id = civnat.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_owned_sector = {
+			check_variable = {
+				which = sector_pressure
+				value >= 50
+			}
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				any_owned_sector = {
+					check_variable = { which = sector_pressure value >= 50 }
+					check_variable = { which = sector_pressure value < 60 }
+				}
+			}
+			random_owned_sector = {
+				limit = {
+					check_variable = { which = sector_pressure value >= 50 }
+					check_variable = { which = sector_pressure value < 60 }
+				}
+				random_list = { 60 = { } 40 = { set_sector_flag = separatist_sector } }
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_sector = {
+					check_variable = { which = sector_pressure value >= 60 }
+					check_variable = { which = sector_pressure value < 70 }
+				}
+			}
+			random_owned_sector = {
+				limit = {
+					check_variable = { which = sector_pressure value >= 60 }
+					check_variable = { which = sector_pressure value < 70 }
+				}
+				random_list = { 55 = { } 45 = { set_sector_flag = separatist_sector } }
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_sector = {
+					check_variable = { which = sector_pressure value >= 70 }
+					check_variable = { which = sector_pressure value < 80 }
+				}
+			}
+			random_owned_sector = {
+				limit = {
+					check_variable = { which = sector_pressure value >= 70 }
+					check_variable = { which = sector_pressure value < 80 }
+				}
+				random_list = { 50 = { } 50 = { set_sector_flag = separatist_sector } }
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_sector = {
+					check_variable = { which = sector_pressure value >= 80 }
+					check_variable = { which = sector_pressure value < 90 }
+				}
+			}
+			random_owned_sector = {
+				limit = {
+					check_variable = { which = sector_pressure value >= 80 }
+					check_variable = { which = sector_pressure value < 90 }
+				}
+				random_list = { 45 = { } 55 = { set_sector_flag = separatist_sector } }
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_sector = {
+					check_variable = { which = sector_pressure value >= 80 }
+					check_variable = { which = sector_pressure value < 90 }
+				}
+			}
+			random_owned_sector = {
+				limit = {
+					check_variable = { which = sector_pressure value >= 80 }
+					check_variable = { which = sector_pressure value < 90 }
+				}
+				random_list = { 40 = { } 60 = { set_sector_flag = separatist_sector } }
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_sector = {
+					check_variable = { which = sector_pressure value >= 90 }
+				}
+			}
+			random_owned_sector = {
+				limit = {
+					check_variable = { which = sector_pressure value >= 90 }
+				}
+				random_list = { 35 = { } 65 = { set_sector_flag = separatist_sector } }
+			}
+		}
+	}
+}
+
+#################
+# Misc Events
+
+country_event = { # Save destroyed country
+	id = civnat.9000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = from
+	}
+
+	immediate = {
+		save_event_target_as = revival_country
+
+		create_country = {
+			name = "Dead [event_target:revival_country.GetName]"
+			type = default
+			authority = event_target:revival_country
+			civics = event_target:revival_country
+			origin = "origin_default"
+			species = last_created_species
+			flag = event_target:revival_country
+			effect = {
+				copy_ethos_and_authority = event_target:revival_country
+			}
+			ignore_initial_colony_error = yes
+		}
+	}
+}

@@ -1,0 +1,683 @@
+
+# Separatism - Planet
+situation_civstrife_faction_sep_plan = {
+	picture = GFX_evt_civil_action
+	category = positive
+
+	fail_icon = GFX_situation_outcome_negative
+	fail_icon_frame = GFX_situation_outcome_frame_red
+	complete_icon = GFX_situation_outcome_positive
+	complete_icon_frame = GFX_situation_outcome_frame_green
+
+	on_start = {
+		add_situation_progress = 50
+		target = {
+			set_variable = { which = gen_sep_upkeep value = 0 }
+			every_owned_pop = {
+				prev = { change_variable = { which = gen_sep_upkeep value = 1 } }
+			}
+		}
+	}
+
+	on_progress_complete = {
+		custom_tooltip = situation_civstrife_separatist_end
+	}
+
+	on_fail = {
+		custom_tooltip = situation_civstrife_separatist_failed
+	}
+
+	on_abort = {
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = gen_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = gen_sep_upkeep
+		}
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = { exists = target }
+			# target = { faction_approval >= 0.2 }
+		}
+	}
+
+	start_value = 0
+
+	stages = {
+		reb_faction_1 = {
+			icon = GFX_situation_stage_1
+			icon_background = GFX_situation_stage_frame_red
+			modifier = { planet_stability_add = -2 }
+			end = 100
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_do_nothing
+		icon = GFX_situation_approach_suspicious
+		icon_background = GFX_situation_approach_bg_red
+		default = yes
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 0.5
+				multiplier = target.gen_sep_upkeep
+			}
+		}
+		ai_weight = {
+			base = 0
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_pr
+		icon = GFX_situation_approach_handshake
+		icon_background = GFX_situation_approach_bg_yellow
+		default = yes
+		on_select = { custom_tooltip = slowed_radical_tooltip }
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 1
+				energy = 0.2
+				multiplier = target.gen_sep_upkeep
+			}
+		}
+		modifier = { pop_happiness = -0.05 }
+		ai_weight = {
+			base = 0
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_repression
+		icon = GFX_situation_approach_whip
+		icon_background = GFX_situation_approach_bg_yellow
+		default = yes
+		on_select = { custom_tooltip = slowed_radical_tooltip_2 }
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 1.5
+				energy = 0.5
+				multiplier = target.gen_sep_upkeep
+			}
+		}
+		modifier = { pop_happiness = -0.15 }
+		ai_weight = {
+			base = 0
+		}
+		potential = { owner = { NOT = { is_egalitarian = yes } } }
+	}
+
+	on_monthly = {
+		events = {
+			civsep.4010			# Monthly Separatism Spread
+			civsep.4100			# Possible Revolt/Civil War
+	    }
+	    random_events = {
+			91 = 0
+			3 = unrest.101
+			3 = unrest.105
+			3 = unrest.110
+		}
+	}
+
+	monthly_progress = {
+		base = 0
+	}
+}
+
+# Separatism - Sector
+situation_civstrife_faction_sep_sec = {
+	picture = GFX_evt_civil_action
+	category = positive
+
+	fail_icon = GFX_situation_outcome_negative
+	fail_icon_frame = GFX_situation_outcome_frame_red
+	complete_icon = GFX_situation_outcome_positive
+	complete_icon_frame = GFX_situation_outcome_frame_green
+
+	on_start = {
+		add_situation_progress = 50
+		target = {
+			set_variable = { which = gen_sep_upkeep value = 0 }
+			every_owned_pop = {
+				prev = { change_variable = { which = gen_sep_upkeep value = 1 } }
+			}
+		}
+	}
+
+	on_progress_complete = {
+		custom_tooltip = situation_civstrife_separatist_end
+	}
+
+	on_fail = {
+		custom_tooltip = situation_civstrife_separatist_failed
+	}
+
+	on_abort = {
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = gen_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = gen_sep_upkeep
+		}
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = { exists = target }
+			# target = { faction_approval >= 0.2 }
+		}
+	}
+
+	start_value = 0
+
+	stages = {
+		reb_faction_1 = {
+			icon = GFX_situation_stage_1
+			icon_background = GFX_situation_stage_frame_red
+			modifier = { planet_stability_add = -2 }
+			end = 100
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_do_nothing
+		icon = GFX_situation_approach_suspicious
+		icon_background = GFX_situation_approach_bg_red
+		default = yes
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 0.5
+				multiplier = target.gen_sep_upkeep
+			}
+		}
+		ai_weight = {
+			base = 0
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_pr
+		icon = GFX_situation_approach_handshake
+		icon_background = GFX_situation_approach_bg_yellow
+		default = yes
+		on_select = { custom_tooltip = slowed_radical_tooltip }
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 1
+				energy = 0.2
+				multiplier = target.gen_sep_upkeep
+			}
+		}
+		modifier = { pop_happiness = -0.05 }
+		ai_weight = {
+			base = 0
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_repression
+		icon = GFX_situation_approach_whip
+		icon_background = GFX_situation_approach_bg_yellow
+		default = yes
+		on_select = { custom_tooltip = slowed_radical_tooltip_2 }
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 1.5
+				energy = 0.5
+				multiplier = target.gen_sep_upkeep
+			}
+		}
+		modifier = { pop_happiness = -0.15 }
+		ai_weight = {
+			base = 0
+		}
+		potential = { owner = { NOT = { is_egalitarian = yes } } }
+	}
+
+	on_monthly = {
+		events = {
+			civsep.4010			# Monthly Separatism Spread
+			civsep.4200			# Possible Revolt/Civil War
+	    }
+	    random_events = {
+			91 = 0
+			3 = unrest.101
+			3 = unrest.105
+			3 = unrest.110
+		}
+	}
+
+	monthly_progress = {
+		base = 0
+	}
+}
+
+# Separatism - Isolated Sector
+situation_civstrife_faction_iso_sep_sec = {
+	picture = GFX_evt_civil_action
+	category = positive
+
+	fail_icon = GFX_situation_outcome_negative
+	fail_icon_frame = GFX_situation_outcome_frame_red
+	complete_icon = GFX_situation_outcome_positive
+	complete_icon_frame = GFX_situation_outcome_frame_green
+
+	on_start = {
+		add_situation_progress = 50
+		target = {
+			set_variable = { which = gen_sep_upkeep value = 0 }
+			every_owned_pop = {
+				prev = { change_variable = { which = gen_sep_upkeep value = 1 } }
+			}
+		}
+	}
+
+	on_progress_complete = {
+		custom_tooltip = situation_civstrife_separatist_end
+	}
+
+	on_fail = {
+		custom_tooltip = situation_civstrife_separatist_failed
+	}
+
+	on_abort = {
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = gen_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = gen_sep_upkeep
+		}
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = { exists = target }
+			# target = { faction_approval >= 0.2 }
+		}
+	}
+
+	start_value = 0
+
+	stages = {
+		reb_faction_1 = {
+			icon = GFX_situation_stage_1
+			icon_background = GFX_situation_stage_frame_red
+			modifier = { planet_stability_add = -2 }
+			end = 100
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_do_nothing
+		icon = GFX_situation_approach_suspicious
+		icon_background = GFX_situation_approach_bg_red
+		default = yes
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 0.5
+				multiplier = target.gen_sep_upkeep
+			}
+		}
+		ai_weight = {
+			base = 0
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_pr
+		icon = GFX_situation_approach_handshake
+		icon_background = GFX_situation_approach_bg_yellow
+		default = yes
+		on_select = { custom_tooltip = slowed_radical_tooltip }
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 1
+				energy = 0.2
+				multiplier = target.gen_sep_upkeep
+			}
+		}
+		modifier = { pop_happiness = -0.05 }
+		ai_weight = {
+			base = 0
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_repression
+		icon = GFX_situation_approach_whip
+		icon_background = GFX_situation_approach_bg_yellow
+		default = yes
+		on_select = { custom_tooltip = slowed_radical_tooltip_2 }
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 1.5
+				energy = 0.5
+				multiplier = target.gen_sep_upkeep
+			}
+		}
+		modifier = { pop_happiness = -0.15 }
+		ai_weight = {
+			base = 0
+		}
+		potential = { owner = { NOT = { is_egalitarian = yes } } }
+	}
+
+	on_monthly = {
+		events = {
+			civsep.4200			# Possible Revolt/Civil War
+			civsep.4500			# Leader Check
+	    }
+	    random_events = {
+			91 = 0
+			3 = unrest.101
+			3 = unrest.105
+			3 = unrest.110
+		}
+	}
+
+	monthly_progress = {
+		base = 0
+	}
+}
+
+# Separatism - Nationalist
+situation_civstrife_faction_sep_nat = {
+	picture = GFX_evt_civil_action
+	category = positive
+
+	fail_icon = GFX_situation_outcome_negative
+	fail_icon_frame = GFX_situation_outcome_frame_red
+	complete_icon = GFX_situation_outcome_positive
+	complete_icon_frame = GFX_situation_outcome_frame_green
+
+	on_start = {
+		event_target:faction_nat_motherland = {
+			set_country_flag = nat_motherland_sit_@root
+			set_country_flag = nat_motherland_sit_@root.owner
+		}
+		add_situation_progress = 50
+		target = {
+			set_variable = { which = nat_sep_upkeep value = 0 }
+			every_owned_pop = {
+				prev = { change_variable = { which = nat_sep_upkeep value = 1 } }
+			}
+		}
+		clear_global_event_target = faction_nat_motherland
+	}
+
+	on_progress_complete = {
+		custom_tooltip = situation_civstrife_separatist_end
+	}
+
+	on_fail = {
+		custom_tooltip = situation_civstrife_separatist_failed
+	}
+
+	on_abort = {
+		random_country = {
+			limit = {
+				has_country_flag = nat_motherland_sit_@root
+				has_country_flag = nat_motherland_sit_@root.owner
+			}
+			remove_country_flag = nat_motherland_sit_@root
+			remove_country_flag = nat_motherland_sit_@root.owner
+		}
+		if = {
+			limit = { exists = target }
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = num_sep_pops
+				clear_variable = nat_sep_upkeep
+			}
+		}
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = { exists = target }
+			# target = { faction_approval >= 0.2 }
+		}
+	}
+
+	start_value = 0
+
+	stages = {
+		reb_faction_1 = {
+			icon = GFX_situation_stage_1
+			icon_background = GFX_situation_stage_frame_red
+			modifier = { planet_stability_add = -2 }
+			end = 100
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_do_nothing
+		icon = GFX_situation_approach_suspicious
+		icon_background = GFX_situation_approach_bg_red
+		default = yes
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 0.5
+				multiplier = target.nat_sep_upkeep
+			}
+		}
+		ai_weight = {
+			base = 0
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_pr
+		icon = GFX_situation_approach_handshake
+		icon_background = GFX_situation_approach_bg_yellow
+		default = yes
+		on_select = { custom_tooltip = slowed_radical_tooltip }
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 1
+				energy = 0.2
+				multiplier = target.nat_sep_upkeep
+			}
+		}
+		modifier = { pop_happiness = -0.05 }
+		ai_weight = {
+			base = 0
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_repression
+		icon = GFX_situation_approach_whip
+		icon_background = GFX_situation_approach_bg_yellow
+		default = yes
+		on_select = { custom_tooltip = slowed_radical_tooltip_2 }
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 1.5
+				energy = 0.5
+				multiplier = target.nat_sep_upkeep
+			}
+		}
+		modifier = { pop_happiness = -0.15 }
+		ai_weight = {
+			base = 0
+		}
+		potential = { owner = { NOT = { is_egalitarian = yes } } }
+	}
+
+	on_monthly = {
+		events = {
+			civwar.5000			# Possible Revolt/Civil War
+	    }
+	    random_events = {
+			91 = 0
+			3 = unrest.101
+			3 = unrest.105
+			3 = unrest.110
+		}
+	}
+
+	monthly_progress = {
+		base = 0
+	}
+}
+
+# Separatist/Nationalist Ruler (S)Elected
+situation_civstrife_faction_sep_ruler = {
+	picture = GFX_evt_civil_action
+	category = positive
+
+	fail_icon = GFX_situation_outcome_negative
+	fail_icon_frame = GFX_situation_outcome_frame_red
+	complete_icon = GFX_situation_outcome_positive
+	complete_icon_frame = GFX_situation_outcome_frame_green
+
+	on_start = {
+		event_target:faction_nat_motherland = {
+			set_country_flag = nat_motherland_sit_@root
+			set_country_flag = nat_motherland_sit_@root.owner
+		}
+		add_situation_progress = 50
+		target = {
+			set_variable = { which = nat_sep_upkeep value = 0 }
+			every_owned_pop = {
+				prev = { change_variable = { which = nat_sep_upkeep value = 1 } }
+			}
+		}
+		clear_global_event_target = faction_nat_motherland
+	}
+
+	on_progress_complete = {
+		custom_tooltip = situation_civstrife_separatist_end
+	}
+
+	on_fail = {
+		custom_tooltip = situation_civstrife_separatist_failed
+	}
+
+	on_abort = {
+		random_country = {
+			limit = {
+				has_country_flag = nat_motherland_sit_@root
+				has_country_flag = nat_motherland_sit_@root.owner
+			}
+			remove_country_flag = nat_motherland_sit_@root
+			remove_country_flag = nat_motherland_sit_@root.owner
+		}
+		if = {
+			limit = { exists = target }
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = num_sep_pops
+				clear_variable = nat_sep_upkeep
+			}
+		}
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = { exists = target }
+			# target = { faction_approval >= 0.2 }
+		}
+	}
+
+	start_value = 0
+
+	stages = {
+		reb_faction_1 = {
+			icon = GFX_situation_stage_1
+			icon_background = GFX_situation_stage_frame_red
+			modifier = { planet_stability_add = -2 }
+			end = 100
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_do_nothing
+		icon = GFX_situation_approach_suspicious
+		icon_background = GFX_situation_approach_bg_red
+		default = yes
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 0.5
+				multiplier = target.nat_sep_upkeep
+			}
+		}
+		ai_weight = {
+			base = 0
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_pr
+		icon = GFX_situation_approach_handshake
+		icon_background = GFX_situation_approach_bg_yellow
+		default = yes
+		on_select = { custom_tooltip = slowed_radical_tooltip }
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 1
+				energy = 0.2
+				multiplier = target.nat_sep_upkeep
+			}
+		}
+		modifier = { pop_happiness = -0.05 }
+		ai_weight = {
+			base = 0
+		}
+	}
+
+	approach = {
+		name = approach_civstrife_faction_repression
+		icon = GFX_situation_approach_whip
+		icon_background = GFX_situation_approach_bg_yellow
+		default = yes
+		on_select = { custom_tooltip = slowed_radical_tooltip_2 }
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 1.5
+				energy = 0.5
+				multiplier = target.nat_sep_upkeep
+			}
+		}
+		modifier = { pop_happiness = -0.15 }
+		ai_weight = {
+			base = 0
+		}
+		potential = { owner = { NOT = { is_egalitarian = yes } } }
+	}
+
+	on_monthly = {
+		events = {
+			civwar.5000			# Possible Revolt/Civil War
+	    }
+	    random_events = {
+			91 = 0
+			3 = unrest.101
+			3 = unrest.105
+			3 = unrest.110
+		}
+	}
+
+	monthly_progress = {
+		base = 0
+	}
+}

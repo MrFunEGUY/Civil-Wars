@@ -9,25 +9,25 @@ This mod makes it so that certain political operators and unstable planets will 
 
 [h1]About:[/h1]
 
-There are a few different types of rebellions in this mod: Civil Wars/Admiral Rebellions, Planetary Rebellions, disinherited Heir Rebellions, and Succession Conflicts.
+This mod introduces a number of different mechanics and overhauls some vanilla ones in order to make Civil Wars possible and engaging. Complete new mechanics introduced in this mod are Ethic-based Civil Wars and Nationalist uprisings. The mod reworks planetary revolts, and adds in sectoral revolts. The way all of these Civil Wars are handled is through Situations. When a faction is upset, they will begin to radicalize and after 25% of a planet/sector/country is radicalized, they have a chance to revolt.
 
-This mod also adds the ability to instigate a civil war in another country via espionage.
+Vanilla planetary rebellions have been reworked. Now, a planet that is heavy on instability or crime will first spawn a Separatist faction. This faction will then radicalize and attempt to secede if the situation does not improve. Sectors that have 2 or more planets that are upset will force the planetary separtists to disband and rejoin as a sectoral separatist faction. The sector will then attempt to secede if their situation does not improve.
 
-Leaders/Heirs who lose civil wars may also seek refuge in foreign countries. If you acccept them, you will gain a Casus Belli to install them as the leader of their old country. Their old country will also gain a Casus Belli to retrieve them.
+Nationalism is a new mechanic I've implemented into the game. Basically, over time, countries and pops will grow to see territory that has belonged to them for a long time as integral to their country. Pops who are conquered/transferred to new a new owner may still long for their motherland. In that case, they may form a Nationalist faction. Members of Nationalist factions will seek to secede and create new states based on their original homeland. If a country is destroyed, it is possible for nationalist factions to rise up and restore the country. This gets into the Government-in-Exile mechanic.
 
-There are also espionage missions to start civil wars, or just make them more likely.
+Countries that lose all their territory are no longer immediately destroyed. Instead, they will form Governments-in-Exile and will attempt to find a country to host them. Host countries can attempt to restore exiled countries via a new CB against nations that hold territory that is seen as integral by the exiled government.
+
+Leaders who start Civil Wars will ask for help from neighbors they border. Neighbors can provide resources, ships, or they can join the way on the side of the rebels. Leaders who lose Civil Wars may also seek refuge in foreign countries. If you acccept them, you will gain a Casus Belli to install them as the leader of their old country. Their old country will also gain a Casus Belli to retrieve them.
 
 [url=https://steamcommunity.com/workshop/filedetails/discussion/2434790082/3202617741918720410/]- See this thread for a full list of features.[/url]
 
 ---
 
-Whenever a Governor, Scientist, General, or Planet rebels, there is a small chance that they will instead offer to become your vassal. In this case, they become a new vassal type called a Autonomous State. Autonomous States are almost completely independent of their overlords. They can expand and declare war, and aren't called to their overlord's wars. However, they are also not defended by their overlord. They pay 15% of all their resources (base game, no mod added resources).
+For most rebellions, there is a small chance that they will instead offer to become your vassal. In this case, they become a new vassal type called a Autonomous State. Autonomous States are almost completely independent of their overlords. They can expand and declare war, and aren't called to their overlord's wars. However, they are also not defended by their overlord. They pay 15% of all their resources (base game, no mod added resources).
 
 Autonomous States can never be integrated. 
 
 ---
-
-You need to pay attention to factions, their leaders, and their approval now!
 
 
 [hr][/hr]
@@ -50,13 +50,11 @@ Subjects can have Civil Wars. If this happens, you will be given the choice of t
 
 [h1]The Future:[/h1]
 
-- Possibly: A system (likely based on a trait) that may make conquered pops nationalist, such that enough of them on one planet or sector (or multiple of either) will try to revive their old country (or if their old country exists, create a new one)
-
 - Possibly: Treasonous leaders who lose the civil war or are banished may try to start a new country, or take over and lead a primitive civilization to space.
 
 - Events that lead up to Civil Wars. Leader ultimatums to stop an imminent Civil War (ie, stuff like "Make me your heir and I won't rebel.")
 
-- Espionage mission to retrieve treasonous leaders who fled to other nations
+- Espionage mission to retrieve treasonous leaders who fled to other nations.
 
 - I want to add more as may varied ways for planets and sectors to rebel as I can.
 
@@ -103,6 +101,8 @@ Fully compatible with:
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2452302093]- We Require Borders[/url]
 
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2732567565]- No More Exclaves[/url]
+
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2801992671]- Occupied Resources[/url]
 
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2183551683]- Vassals Expanded and Reworked - FunEFork[/url]
 

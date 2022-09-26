@@ -6,19 +6,25 @@ spriteTypes = {
 	}
 
 	spriteType = {
+		name = "GFX_wg_natwar"
+		texturefile = "gfx/interface/icons/diplomacy/diplomacy_isvassal.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
 		name = "GFX_wg_civwar_subject"
 		texturefile = "gfx/interface/icons/diplomacy/diplomacy_isvassal.dds"
 		noOfFrames = 1
 	}
 
 	spriteType = {
-		name = "GFX_wg_civwar_heir"
+		name = "GFX_wg_natwar_subject"
 		texturefile = "gfx/interface/icons/diplomacy/diplomacy_isvassal.dds"
 		noOfFrames = 1
 	}
 
 	spriteType = {
-		name = "GFX_wg_admiral_rebellion"
+		name = "GFX_wg_civwar_heir"
 		texturefile = "gfx/interface/icons/diplomacy/diplomacy_isvassal.dds"
 		noOfFrames = 1
 	}
@@ -54,6 +60,12 @@ spriteTypes = {
 	}
 
 	spriteType = {
+		name = "GFX_wg_sector_rebellion"
+		texturefile = "gfx/interface/icons/diplomacy/diplomacy_isvassal.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
 		name = "GFX_wg_planet_heir_rebellion"
 		texturefile = "gfx/interface/icons/diplomacy/diplomacy_isvassal.dds"
 		noOfFrames = 1
@@ -61,6 +73,12 @@ spriteTypes = {
 
 	spriteType = {
 		name = "GFX_wg_civwar_rebel"
+		texturefile = "gfx/interface/icons/diplomacy/diplomacy_civil_war_rebels.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_wg_natwar_rebel"
 		texturefile = "gfx/interface/icons/diplomacy/diplomacy_civil_war_rebels.dds"
 		noOfFrames = 1
 	}
@@ -79,6 +97,12 @@ spriteTypes = {
 
 	spriteType = {
 		name = "GFX_wg_planet_rebellion_rebels"
+		texturefile = "gfx/interface/icons/diplomacy/diplomacy_civil_war_rebels.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_wg_sector_rebellion_rebels"
 		texturefile = "gfx/interface/icons/diplomacy/diplomacy_civil_war_rebels.dds"
 		noOfFrames = 1
 	}
@@ -131,8 +155,59 @@ spriteTypes = {
 		noOfFrames = 1
 	}
 
+	###### Vassals
+
 	spriteType = {
-		name = "GFX_diplomacy_status_is_devstate"
-		texturefile = "gfx/interface/icons/diplomacy/diplomacy_isdevstate.dds"
+		name = "GFX_diplomacy_status_is_auto_state"
+		texturefile = "gfx/interface/icons/diplomacy/diplomacy_isautostate.dds"
 	}
+
+	spriteType = {
+		name = "GFX_diplomacy_status_is_exile_gov"
+		texturefile = "gfx/interface/icons/diplomacy/diplomacy_isexilegov.dds"
+	}
+
+	###### Resolutions
+
+	spriteType = {
+		name = "GFX_resolution_restore_nation"
+		texturefile = "gfx/interface/icons/diplomacy/resolution_restore_nation.dds"
+	}
+
+	###### Separatist Factions
+
+	###############
+	# Nationalists
+
+	spriteType = {
+		name = "GFX_faction_icon_nat_separatist_1"
+		textureFile = "gfx/interface/icons/faction_icons/faction_icons_separatists.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_faction_icon_nat_separatist_2"
+		textureFile = "gfx/interface/icons/faction_icons/faction_icons_separatists.dds"
+		noOfFrames = 1
+	}
+
+
+	######################
+	# Sectoral Separatists
+
+	spriteType = {
+		name = "GFX_faction_icon_sec_separatist_1"
+		textureFile = "gfx/interface/icons/faction_icons/faction_icons_separatists.dds"
+		noOfFrames = 1
+	}
+
+	#######################
+	# Planetary Separatists
+
+	spriteType = {
+		name = "GFX_faction_icon_plan_separatist_1"
+		textureFile = "gfx/interface/icons/faction_icons/faction_icons_colonialist_lobby.dds"
+		noOfFrames = 1
+	}
+	
 }

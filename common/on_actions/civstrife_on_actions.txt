@@ -1,0 +1,220 @@
+
+# Triggers when the game starts
+on_game_start = {
+	events = {
+		civmisc.1000   			# Set Global Flag
+	}
+}
+
+# this = country
+on_game_start_country = {
+	events = {
+		civnat.2005				# Set Capital Fundamental Sector on Game Start
+	}
+}
+
+# this = country
+on_monthly_pulse_country = {
+	events = {
+
+		civethic.1000			# Checks Ethic factions, start Radicalization Situation
+
+		civsep.1000    			# Instability counter on stability decrease and add separatists
+		civsep.1010				# Decrease instability counter on stability increase before separatists appear
+		civsep.1100				# Stability counter on stability increase and remove separatists
+		civsep.1110				# Decrease stability counter on stability decrease after separatists appear
+		civsep.2010				# Create Regular Separatists Yearly Initializer
+		civsep.2100				# Remove Separatists Yearly Initializer
+		civsep.2200				# Create Corrupt Governor Separatists Yearly Initializer
+		civsep.3000				# Sector Separatist Party Form Check
+		civsep.3000				# Sector Separatist Party Form Check
+		civsep.4000				# Checks Separatist factions, start Radicalization Situation
+
+		# civpan.2010				# Cross Border Pandemic Initializer
+
+		civnat.1330				# Gov In Exile monthly host check
+		civnat.2000				# Set Planet/System/Sector flags
+		civnat.2300				# For planets changed sector, should be rare
+		civnat.2500				# Set and Remove Citizenship flags for species
+		civnat.4000				# Checks Nationalist factions, start Radicalization Situation
+		civnat.9100				# Set new Separatist/Nationalist Faction Leader
+
+		civesp.9200				# Remove Faction flags from espionage without proper leader
+
+		civplan.4000			# Planet no Sector Malus
+		civplan.4010			# Planet Sector Malus Removal
+	}
+}
+
+# this = country
+on_yearly_pulse_country = {
+	events = {
+		civwar.9100				# Unflag federation members who are not in federations anymore
+		civwar.9203				# Unflag sectors that are flagged, for whatever reason
+		civwar.9204				# Unflag stars that are flagged, for whatever reason
+		
+		# civpan.1000				# Pandemic Initializer
+		
+		civethic.5000			# Remove Ethic Separatism Initial Trigger
+
+		civnat.2005				# Set Capital Sector as Fundamental on Game Start, and yearly for new empires
+		civnat.3000				# Spread Nationalism Initial Trigger
+		civnat.3020				# Remove Nationalism Initial Trigger
+		civnat.5000				# Give Claims to Fundamental land that has been lost
+
+		civsep.3100				# Find Isolated Sectors
+	}
+}
+
+# No scope, like on_game_start
+on_five_year_pulse = {
+	events = {
+		civmisc.1000   			# Set Global Flag if not set, save-game compatibility
+	}
+}
+
+# this = country
+on_decade_pulse_country = {
+	events = {
+		# civroyal.9000			# Check if heir has disputed heritage
+	}
+}
+
+# Triggers country_event for the defender upon defeat
+# This = country, planet owner
+# From = country, attack leader
+# FromFrom = planet
+on_planet_defenders_lose = {
+	events = {
+		civplan.1000			# Faction/Nationalist Rebels Win
+		civplan.4001			# Heir's forces Win
+		civwar.9200				# Remove Civil War flags from leaders who become rulers
+	}
+}
+
+# Triggers country_event for the defender upon victory
+# Root = country, planet owner
+# From = country, attack leader
+# FromFrom = planet
+on_planet_defenders_win = {
+	events = {
+		civplan.1100			# Faction/Nationalist Rebels Lose
+		civplan.9010			# Heir's forces lose
+	}
+}
+
+# Executed as new ruler has been set
+# This = Country
+on_ruler_set = {
+	events = {
+		civwar.9200				# Remove Civil War flags from leaders who become rulers
+		civelect.1000			# Election dispute initialzer
+		# civelect.4000			# Separatist/Nationalist wins (s)election
+	}
+}
+
+# THIS = Espionage operation
+on_operation_cancelled = {
+	events = {
+		# civesp.9100
+	}
+}
+
+# A war has been won
+# Root = Winner Warleader
+# From = Loser Warleader
+# FromFrom = War
+on_war_won = {
+	events = {
+		civend.1000				# Initializer for opposing leaders, normal Civil Wars
+		civend.2000				# Initializer for opposing leaders, subject Civil Wars
+		civend.8000				# Traitorous Leader Installed at end of war
+		civend.5005				# Traitorous Leader Retrieved at end of war
+		civend.6001 			# Traitorous Heir Retrieved at end of war
+		civnat.1341				# Gov In Exile restoration on war won
+	}
+}
+
+# A status quo has been signed
+# Root = Actor
+# From = Recipient
+# FromFrom = Main Attacker
+# FromFromFrom = Main Defender
+# FromFromFromFrom = War
+on_status_quo = {
+	events = {
+		civnat.1342				# Gov In Exile restoration on status quo
+	}
+}
+
+# Executed as a leader has died
+# This = Country
+# From = Leader
+on_leader_death = {
+	events = {
+		civend.9000    			# Remove Grateful Leader modifier when installed traitor leader dies
+		civheir.8000    		# Disinherited conspiring heir dies
+		civheir.6000    		# Ruler who disinheired heir dies, civil war
+		civwar.9450    			# Kill both admirals if either dies
+		civroyal.1000			# Ruler has disupted ascension, empire may fracture
+	}
+}
+
+# Executed just as country is changing its government, before the new one is applied
+# THIS = country
+on_pre_government_changed = {
+	events = {
+		civheir.8200			# Heir will defect if non-imperial
+	}
+}
+
+# Executed just as country is changing its government, after the new one is applied
+# THIS = country
+on_post_government_changed = {
+	events = {
+		civheir.8300			# Heir will defect if non-imperial
+	}
+}
+
+# Executed as a leader has been fired
+# This = Country
+# From = Leader
+on_leader_fired = {
+	events = {
+		civheir.9000			# Heir fired
+		# civtest.1100			# Leader fired during sucession crisis
+	}
+}
+
+# Scope: Leader (just before unassignment)
+# Fires if a leader is unassigned from their position for any reason (including being assigned elsewhere)
+on_leader_unassigned = {
+	events = {
+		# civtest.1200			# Keeps leaders in place during crisis
+	}
+}
+
+# Called when a Starbase changes owner
+# THIS = Ship (Starbase)
+# FROM = Former Owner (Country)
+on_starbase_transfer = {
+	events = {
+		civnat.1000				# Initialize Separatism on Planets taken
+		civnat.1010				# Initialize Separatism on Planets taken - Destroyed Country
+	}
+}
+
+# Called when an election starts
+# scope: country
+on_election_started = {
+	events = {
+		civelect.9000				# If an election starts, remove all disputes
+	}
+}
+
+# # Called when an election ends
+# # scope: country
+# on_election_ended = {
+# 	events = {
+# 	}
+# }

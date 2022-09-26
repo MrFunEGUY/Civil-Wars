@@ -26,139 +26,64 @@
 @diff_t8 = 12
 @diff_t9 = 13
 
-operation_faction_discontent = {
-    categories = { op_cat_subterfuge op_cat_manipulation }
-    picture = GFX_evt_open_revolt
-    desc = operation_faction_discontent_desc
-    stages = 3
-    spy_power_cost = 40
+# operation_civstrife_coup = {
+#     categories = { op_cat_subterfuge op_cat_manipulation }
+#     picture = GFX_evt_open_revolt
+#     desc = operation_faction_discontent_desc
+#     stages = 3
+#     spy_power_cost = 40
 
-    resources = {
-        category = operations
-        cost = {
-            energy = 5000
-            alloys = 500
-        }
-        upkeep = {
-            energy = 30
-        }
-    }
+#     resources = {
+#         category = operations
+#         cost = {
+#             energy = 5000
+#             alloys = 500
+#         }
+#         upkeep = {
+#             energy = 30
+#         }
+#     }
 
-    potential = {
-        target = {
-            NOT = { has_country_flag = faction_operation_target }
-            any_owned_planet = {
-                num_pops >= 1
-                is_colony = yes
-                solar_system = { check_civwar_capital = yes }
-            }
-        }
-    }
+#     potential = {
+#         target = {
+#             NOT = { has_country_flag = faction_operation_target }
+#             any_owned_planet = {
+#                 num_pops >= 1
+#                 is_colony = yes
+#                 is_capital = no
+#             }
+#         }
+#     }
 
-    allow = {
-        custom_tooltip = {
-            is_running_espionage_operation = no
-            fail_text = operation_one_at_a_time
-        }
-    }
+#     allow = {
+#         custom_tooltip = {
+#             is_running_espionage_operation = no
+#             fail_text = operation_one_at_a_time
+#         }
+#     }
 
-    # Testing the waters
-    stage = {
-        difficulty = @diff_t3
-        icon = GFX_espionage_chapter_icon_motion
-        event = civesp.001
-    }
-    # Disseminating Misinformation
-    stage = {
-        difficulty = @diff_t4
-        icon = GFX_espionage_chapter_icon_target
-        event = civesp.002
-    }
-    # Operation Successful
-    stage = {
-        difficulty = @diff_t5
-        icon = GFX_espionage_chapter_icon_motion
-        event = civesp.003
-    }
-    on_roll_failed = {
-        standard_espionage_operation_on_roll_failed = {
-            # RANDOM_EVENTS = operation_random_events_generic
-        }
-    }
-    on_create = { }
-}
-
-operation_civil_war = {
-    categories = { op_cat_subterfuge op_cat_manipulation }
-    picture = GFX_evt_open_revolt
-    desc = operation_civil_war_desc
-    stages = 5
-    spy_power_cost = 70
-
-    resources = {
-        category = operations
-        cost = {
-            energy = 10000
-            alloys = 1000
-        }
-        upkeep = {
-            energy = 40
-            alloys = 20
-        }
-    }
-
-    potential = {
-        target = {
-            NOT = { has_country_flag = civil_war_operation_target }
-            any_owned_planet = {
-                num_pops >= 1
-                is_colony = yes
-                solar_system = { check_civwar_capital = yes }
-            }
-        }
-    }
-
-    allow = {
-        custom_tooltip = {
-            is_running_espionage_operation = no
-            fail_text = operation_one_at_a_time
-        }
-    }
-
-    # Testing the waters
-    stage = {
-        difficulty = @diff_t6
-        icon = GFX_espionage_chapter_icon_motion
-        event = civesp.101
-    }
-    # Securing our Allies
-    stage = {
-        difficulty = @diff_t9
-        icon = GFX_espionage_chapter_icon_target
-        event = civesp.102
-    }
-    # Taking care of the logistics
-    stage = {
-        difficulty = @diff_t8
-        icon = GFX_espionage_chapter_icon_motion
-        event = civesp.103
-    }
-    # Delivering the equipment
-    stage = {
-        difficulty = @diff_t9
-        icon = GFX_espionage_chapter_icon_motion
-        event = civesp.104
-    }
-    # Putting the pieces into place
-    stage = {
-        difficulty = @diff_t7
-        icon = GFX_espionage_chapter_icon_success
-        event = civesp.105
-    }
-    on_roll_failed = {
-        standard_espionage_operation_on_roll_failed = {
-            # RANDOM_EVENTS = operation_random_events_generic
-        }
-    }
-    on_create = { }
-}
+#     # Testing the waters
+#     stage = {
+#         difficulty = @diff_t3
+#         icon = GFX_espionage_chapter_icon_motion
+#         event = civesp.001
+#     }
+#     # Disseminating Misinformation
+#     stage = {
+#         difficulty = @diff_t4
+#         icon = GFX_espionage_chapter_icon_target
+#         event = civesp.002
+#     }
+#     # Operation Successful
+#     stage = {
+#         difficulty = @diff_t5
+#         icon = GFX_espionage_chapter_icon_motion
+#         event = civesp.003
+#     }
+#     on_roll_failed = {
+#         standard_espionage_operation_on_roll_failed = {
+#             # RANDOM_EVENTS = operation_random_events_generic
+#         }
+#     }
+#     on_create = { }
+# }

@@ -1,0 +1,1603 @@
+
+###############################
+### Civil Wars by MrFunEGUY ###
+###############################
+
+
+namespace = civwar
+
+
+#################
+# Setup Rebel Country
+
+country_event = { # Setup for Civil War
+	id = civwar.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+
+		set_country_flag = civwar_country
+
+		# saving civwar and host as event targets
+		save_event_target_as = civwar_rebels
+
+		set_timed_country_flag = { flag = recent_civil_war days = 720 }
+		event_target:civwar_originator = {
+			set_timed_country_flag = { flag = recent_civil_war days = 720 }
+			every_owned_fleet = { set_event_locked = yes }
+			set_country_flag = civwar_mother_country_@root
+
+			set_variable = { which = total_faction_pops value = 0 } # If I move this anywhere else shit gets crazy!
+			every_owned_pop = {
+				limit = { pop_has_happiness = yes }
+				prev = { change_variable = { which = total_faction_pops value = 1 } }
+			}
+			set_relation_flag = {
+				who = root
+				flag = host_to_civwar_flag
+			}
+		}
+
+		# Set leaders and other stuff
+		if = {
+			limit = { event_target:civwar_originator = { has_country_flag = heir_mother_country } }
+			set_leader = event_target:heir_civil_war_dummy_country.ruler
+			event_target:heir_civil_war_dummy_country = { destroy_country = yes }
+		}
+		else_if = {
+			limit = {
+				event_target:civwar_originator = {
+					any_owned_leader = { is_same_value = event_target:rebel_leader }
+				}
+			}
+			set_leader = event_target:rebel_leader
+		}
+		else_if = {
+			limit = { exists = event_target:crisis_sector_leader }
+			set_leader = event_target:crisis_sector_leader
+		}
+		else = {
+			random_owned_pop = {
+				limit = { has_pop_flag = sep_leader_species }
+				species = { save_event_target_as = civwar_species }
+			}
+			create_leader = {
+				class = ruler
+				species = event_target:civwar_species
+				name = random
+				skill = 5
+				traits = { trait = trait_ruler_deep_connections }
+				effect = {
+					save_event_target_as = new_rebel_leader
+					set_leader_flag = new_faction_ruler
+				}
+			}
+			set_leader = event_target:new_rebel_leader
+		}
+
+		# Flip Systems and Planets, count pops
+		set_variable = { which = total_faction_pops value = 0 }
+		set_variable = { which = num_mil_pops value = 0 }
+		event_target:civwar_originator = {
+			if = {
+				limit = {
+					OR = {
+						has_country_flag = corrupt_rebellion
+						has_country_flag = succession_mother_country
+					}
+				}
+				random_owned_sector = {
+					limit = { has_sector_flag = leader_sector }
+					remove_sector_flag = leader_sector
+					every_owned_planet = { # Every system with planets
+						set_owner = root
+						starbase = { set_owner = root }
+						every_owned_pop = {
+							limit = { can_be_soldier = yes }
+							root = { change_variable = { which = num_mil_pops value = 1 } }
+						}
+					}
+					every_system_within_border = { # Every Other system, changing this gets weird, so just leave it cause it works fine
+						starbase = { set_owner = root }
+					}
+				}
+			}
+			else = {
+				# Set variable for fleet
+				event_target:civwar_party = { set_variable = { which = fac_mil_support value = 0 } }
+
+				# Flip Systems and count pops
+				random_owned_sector = {
+					limit = { has_sector_flag = leader_sector }
+					remove_sector_flag = leader_sector
+					save_event_target_as = transfer_sector
+
+					every_owned_planet = { # Every system with planets
+
+						random_owned_pop = { # Get random pop species to be leader of secondary revolts
+							limit = {
+								exists = pop_faction
+								pop_faction = { is_same_value = event_target:civwar_party }
+							}
+							set_timed_pop_flag = { flag = sep_leader_species days = 5 }
+						}
+						every_owned_pop = {
+							limit = { can_be_soldier = yes }
+							root = { change_variable = { which = num_mil_pops value = 1 } }
+						}
+						every_owned_pop = {
+							limit = {
+								event_target:civwar_originator = { has_country_flag = ethic_civwar }
+								exists = pop_faction
+								pop_faction = { is_same_value = event_target:civwar_party }
+							}
+							root = { change_variable = { which = total_faction_pops value = 1 } }
+							event_target:civwar_party = { change_variable = { which = fac_mil_support value = 1 } }
+						}
+						set_owner = root
+						starbase = { set_owner = root }
+					}
+
+					every_system_within_border = { # Every Other system, changing this gets weird, so just leave it cause it works fine
+						starbase = { set_owner = root }
+					}
+				}
+				if = {
+					limit = { any_owned_sector = { has_sector_flag = rebel_sector_follower_@event_target:transfer_sector } }
+					every_owned_sector = {
+						limit = { sector = { has_sector_flag = rebel_sector_follower_@event_target:transfer_sector } }
+						every_system_within_border = {
+							every_system_planet = {
+								limit = { is_owned_by = event_target:civwar_originator }
+								every_owned_pop = {
+									limit = { can_be_soldier = yes }
+									root = { change_variable = { which = num_mil_pops value = 1 } }
+								}
+								every_owned_pop = {
+									limit = {
+										event_target:civwar_originator = { has_country_flag = ethic_civwar }
+										exists = pop_faction
+										pop_faction = { is_same_value = event_target:civwar_party }
+									}
+									root = { change_variable = { which = total_faction_pops value = 1 } }
+									event_target:civwar_party = { change_variable = { which = fac_mil_support value = 1 } }
+								}
+								set_owner = root
+							}
+							starbase = { set_owner = root }
+						}
+						root = {
+							if = {
+								limit = { NOT = { has_country_flag = multiple_sectors } }
+								set_country_flag = multiple_sectors
+							}
+						}
+					}
+				}
+			}
+		}
+		while = { # clean up borders by giving rebels frontier territory they wouldnt otherwise get
+			count = 50
+			if = {
+				limit = {
+					any_system_within_border = {
+						closest_system = {
+							limit = {
+								exists = space_owner
+								space_owner = { is_same_value = event_target:civwar_originator }
+								NOT = { exists = sector }
+							}
+							use_bypasses = yes
+							max_steps = 1
+						}
+					}
+				}
+				every_system_within_border = {
+					limit = {
+						closest_system = {
+							limit = {
+								exists = space_owner
+								space_owner = { is_same_value = event_target:civwar_originator }
+								NOT = { exists = sector }
+							}
+							use_bypasses = yes
+							max_steps = 1
+						}
+					}
+					closest_system = {
+						limit = {
+							exists = space_owner
+							space_owner = { is_same_value = event_target:civwar_originator }
+							NOT = { exists = sector }
+						}
+						use_bypasses = yes
+						max_steps = 1
+						starbase = { set_owner = root }
+					}
+				}
+			}
+		}
+
+		get_country_immediate_setup = yes
+
+		# create armies
+		create_civwar_armies = yes
+
+		# If there are multiple rebel states
+		set_country_flag = ally_reb_@event_target:civwar_originator
+		if = {
+			limit = { NOT = { any_country = { has_country_flag = leader_reb_@event_target:civwar_originator } } }
+			set_country_flag = leader_reb_@event_target:civwar_originator
+		}
+		else = {
+			set_timed_country_flag = { flag = lone_reb days = 5 }
+		}
+	}
+
+	after = {
+		
+		get_country_after_setup = yes
+
+		# Declare War
+		event_target:civwar_originator = {
+			
+			# Add intel
+			add_intel = {
+				who = event_target:civwar_rebels
+				amount = 70
+			}
+			# Unlock Fleets
+			every_owned_fleet = { set_event_locked = no }
+
+			# Declare War
+			# Subject Civil War - Gov/General/Scientist
+			if = {
+				limit = {
+					is_subject = yes
+					NOT = {
+						any_agreement = {
+							has_term_value = {
+								term = joins_subject_wars
+								value = joins_subject_wars_none
+							}
+						}
+					}
+				}
+				overlord = { country_event = { id = civwar.2000 } }
+			}
+			# Governor
+			else_if = {
+				limit = {
+					event_target:civwar_rebels.ruler = {
+						OR = {
+							has_trait = leader_trait_corrupt
+							has_leader_flag = civil_war_ruler_governor
+							has_leader_flag = civil_war_ruler_governor_isolated
+							has_leader_flag = civil_war_ruler_governor_dispute
+						}
+					}
+				}
+				country_event = { id = civwar.2010 }
+			}
+			# Admiral
+			else_if = {
+				limit = {
+					event_target:civwar_rebels.ruler = {
+						OR = {
+							has_leader_flag = civil_war_ruler_admiral
+							has_leader_flag = civil_war_ruler_admiral_isolated
+							has_leader_flag = civil_war_ruler_admiral_dispute
+						}
+					}
+				}
+				country_event = { id = civwar.2020 }
+			}
+			# General
+			else_if = {
+				limit = {
+					event_target:civwar_rebels.ruler = {
+						OR = {
+							has_leader_flag = civil_war_ruler_general
+							has_leader_flag = civil_war_ruler_general_isolated
+							has_leader_flag = civil_war_ruler_general_dispute
+						}
+					}
+				}
+				country_event = { id = civwar.2030 }
+			}
+			# Scientist
+			else_if = {
+				limit = {
+					event_target:civwar_rebels.ruler = {
+						OR = {
+							has_leader_flag = civil_war_ruler_scientist
+							has_leader_flag = civil_war_ruler_scientist_isolated
+							has_leader_flag = civil_war_ruler_scientist_dispute
+						}
+					}
+				}
+				country_event = { id = civwar.2040 }
+			}
+			# Nationalist
+			else_if = {
+				limit = {
+					event_target:civwar_rebels.ruler = {
+						has_leader_flag = civil_war_ruler_nationalist
+					}
+				}
+				if = { # Query Motherland if possible
+					limit = { NOT = { has_country_flag = motherland_is_exile } }
+					country_event = { id = civwar.2050 }
+				}
+				else_if = { # If not second nat country and there is no queryable motherland, regular notification
+					limit = { has_country_flag = motherland_is_exile }
+					country_event = { id = civwar.2055 }
+				}
+			}
+			# Isolated Sectoral Separatist Heir
+			else_if = {
+				limit = {
+					event_target:civwar_rebels.ruler = {
+						has_leader_flag = civil_war_ruler_heir_isolated
+					}
+				}
+				country_event = { id = civwar.2065 }
+			}
+			# Disinherited Heir
+			else_if = {
+				limit = {
+					event_target:civwar_rebels.ruler = {
+						has_leader_flag = civil_war_ruler_heir_disinherited
+					}
+				}
+				country_event = { id = civwar.2066 }
+			}
+		}
+
+		get_remove_seps_after = yes
+	}
+}
+
+country_event = { # Setup for Planetary Rebellions
+	id = civwar.1100
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+
+		set_country_type = default
+		set_country_flag = plan_rebel_country
+
+		save_event_target_as = civwar_rebels
+
+		set_timed_country_flag = { flag = recent_civil_war days = 720 }
+		event_target:civwar_originator = {
+			set_timed_country_flag = { flag = recent_civil_war days = 720 }
+			every_owned_fleet = { set_event_locked = yes }
+			set_variable = { which = total_faction_pops value = 0 } # If I move this anywhere else, shit gets crazy!
+			every_owned_pop = {
+				limit = { pop_has_happiness = yes }
+				prev = { change_variable = { which = total_faction_pops value = 1 } }
+			}
+			root = {
+				every_owned_pop = {
+					limit = { pop_has_happiness = yes }
+					prevprev = { change_variable = { which = total_faction_pops value = 1 } }
+				}
+			}
+			random_owned_leader = {
+				limit = { has_leader_flag = leader_for_@root.capital_scope }
+				save_event_target_as = rebel_leader_won
+				if = {
+					limit = { NOT = { has_leader_flag = civil_war_leader_separatist_faction } }
+					pop_faction = { save_event_target_as = civwar_party }
+					owner = { create_party_name_leader = yes }
+				}	
+			}
+			set_relation_flag = {
+				who = root
+				flag = host_to_civwar_flag
+			}
+		}
+
+		# Flip Systems
+		if = {
+			limit = {
+				capital_scope = {
+					OR = {
+						has_planet_flag = small_civil_war
+						has_planet_flag = heir_planetary_rebellion
+						has_planet_flag = nat_leader_planet
+						has_planet_flag = ethic_planet_rebellion_@this
+						has_planet_flag = sep_planet_rebellion_@this
+						has_planet_flag = nat_planet_rebellion_@this
+					}
+				}
+			}
+			capital_scope.solar_system = {
+				every_neighbor_system = {
+					limit = {
+						exists = starbase
+						starbase = { is_owned_by = event_target:civwar_originator }
+						OR = {
+							root.capital_scope = { has_planet_flag = heir_planetary_rebellion }
+							NOT = { any_system_planet = { is_owned_by = event_target:civwar_originator } }
+						}
+					}
+					starbase = { set_owner = root }	
+				}
+				every_system_planet = { # In case it takes over a system with multiple planets.
+					limit = { is_owned_by = event_target:civwar_originator }
+					set_owner = root
+				}
+			}
+		}
+		else_if = {
+			limit = { capital_scope = { has_planet_flag = ethic_sector_rebellion_@this } }
+			capital_scope = { save_event_target_as = sector_capital_planet }
+			event_target:civwar_originator = {
+				random_owned_sector = {
+					limit = { has_sector_flag = ethic_sector_rebellion_@event_target:sector_capital_planet }
+					every_owned_planet = { set_owner = root }
+					every_system_within_border = {
+						starbase = { set_owner = root }
+					}
+					remove_sector_flag = ethic_sector_rebellion_@event_target:sector_capital_planet
+				}
+			}
+		}
+		else_if = {
+			limit = { capital_scope = { has_planet_flag = sep_sector_rebellion_@this } }
+			capital_scope = { save_event_target_as = sector_capital_planet }
+			event_target:civwar_originator = {
+				random_owned_sector = {
+					limit = { has_sector_flag = sep_sector_rebellion_@event_target:sector_capital_planet }
+					every_owned_planet = { set_owner = root }
+					every_system_within_border = {
+						starbase = { set_owner = root }
+					}
+					remove_sector_flag = sep_sector_rebellion_@event_target:sector_capital_planet
+				}
+			}
+		}
+		else_if = {
+			limit = { capital_scope = { has_planet_flag = nat_sector_rebellion_@this } }
+			capital_scope = { save_event_target_as = sector_capital_planet }
+			event_target:civwar_originator = {
+				random_owned_sector = {
+					limit = { has_sector_flag = nat_sector_rebellion_@event_target:sector_capital_planet }
+					every_owned_planet = { set_owner = root }
+					every_system_within_border = {
+						starbase = { set_owner = root }
+					}
+					remove_sector_flag = nat_sector_rebellion_@event_target:sector_capital_planet
+				}
+			}
+		}
+
+		# Set Leader
+		if = {
+			limit = {
+				event_target:civwar_originator = {
+					any_owned_leader = { is_same_value = event_target:rebel_leader_won }
+				}
+			}
+			set_leader = event_target:rebel_leader_won
+		}
+		else_if = {
+			event_target:civwar_originator = { has_country_flag = heir_mother_country }
+			# Leader set when rebellion starts to avoid needing global event targets
+		}
+		else = {
+			random_owned_pop = {
+				limit = { has_pop_flag = sep_pop_ethic }
+				species = { save_event_target_as = civwar_species }
+			}
+			create_leader = {
+				class = ruler
+				species = event_target:civwar_species
+				name = random
+				skill = 5
+				traits = { trait = trait_ruler_deep_connections }
+				effect = {
+					save_event_target_as = new_rebel_leader
+					set_leader_flag = new_faction_ruler
+				}
+			}
+			set_leader = event_target:new_rebel_leader
+		}
+
+		get_country_immediate_setup = yes
+	}
+
+	after = {
+
+		get_country_after_setup = yes
+		event_target:civwar_originator = {
+			# Add intel
+			add_intel = {
+				who = event_target:civwar_rebels
+				amount = 70
+			}
+			# Unlock Fleets
+			every_owned_fleet = { set_event_locked = no }
+		}
+
+		get_remove_seps_after = yes
+	}
+}
+
+################
+# Communications
+
+country_event = { # Subject - Communications
+	id = civwar.2000
+	picture = GFX_evt_civil_action
+	title = civwar.2000.name
+	desc = civwar.2000.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = ON_SCREEN
+		hidden_effect = {
+			country_event = { id = civcom.1200 }
+		}
+	}
+}
+
+country_event = { # Governor - Communications
+	id = civwar.2010
+	picture = GFX_evt_civil_action
+	title = civwar.2010.name
+	desc = civwar.2010.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = ON_SCREEN_REBELS
+		hidden_effect = {
+			# Regular Governor, didnt get multiple sectors, may ask to become a vassal
+			if = {
+				limit = {
+					NOR = {
+						any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
+						event_target:civil_war_leader = { has_trait = leader_trait_corrupt }
+						event_target:civil_war_leader = { has_leader_flag = civil_war_ruler_governor_isolated }
+						event_target:civwar_rebels = {
+							check_variable = {
+								which = num_mil_pops
+								value >= root.num_mil_pops
+							}
+						}
+						event_target:civwar_rebels = {
+							check_variable = {
+								which = total_empire_size
+								value >= root.total_empire_size
+							}
+						}
+					}
+				}
+				random_list = {
+					85 = { country_event = { id = civcom.1100 } }
+					15 = { country_event = { id = civcom.1105 } }
+				}
+			}
+			else = {
+				country_event = { id = civcom.1100 }
+			}
+		}
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = { # Admiral - Communications
+	id = civwar.2020
+	picture = GFX_evt_civil_action
+	title = civwar.2020.name
+	desc = civwar.2020.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = ON_SCREEN_REBELS
+		hidden_effect = {
+			if = {
+				limit = {
+					NOR = {
+						any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
+						event_target:civil_war_leader = { has_leader_flag = civil_war_ruler_admiral_isolated }
+						event_target:civwar_rebels = {
+							check_variable = {
+								which = num_mil_pops
+								value >= root.num_mil_pops
+							}
+						}
+						event_target:civwar_rebels = {
+							check_variable = {
+								which = total_empire_size
+								value >= root.total_empire_size
+							}
+						}
+					}
+				}
+				random_list = {
+					85 = { country_event = { id = civcom.1100 } }
+					15 = { country_event = { id = civcom.1105 } }
+				}
+			}
+			else = {
+				country_event = { id = civcom.1100 }
+			}
+		}
+	}
+}
+
+country_event = { # General - Communications
+	id = civwar.2030
+	picture = GFX_evt_civil_action
+	title = civwar.2030.name
+	desc = civwar.2030.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = ON_SCREEN_REBELS
+		hidden_effect = {
+			if = {
+				limit = {
+					NOR = {
+						any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
+						event_target:civil_war_leader = { has_leader_flag = civil_war_ruler_general_isolated }
+						event_target:civwar_rebels = {
+							check_variable = {
+								which = num_mil_pops
+								value >= root.num_mil_pops
+							}
+						}
+						event_target:civwar_rebels = {
+							check_variable = {
+								which = total_empire_size
+								value >= root.total_empire_size
+							}
+						}
+					}
+				}
+				random_list = {
+					85 = { country_event = { id = civcom.1100 } }
+					15 = { country_event = { id = civcom.1105 } }
+				}
+			}
+			else = {
+				country_event = { id = civcom.1100 }
+			}
+		}
+	}
+}
+
+country_event = { # Scientist - Communications
+	id = civwar.2040
+	picture = GFX_evt_civil_action
+	title = civwar.2040.name
+	desc = civwar.2040.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = ON_SCREEN_REBELS
+		hidden_effect = {
+			hidden_effect = {
+				if = {
+					limit = {
+						NOR = {
+							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
+							event_target:civil_war_leader = { has_leader_flag = civil_war_ruler_scientist_isolated }
+							event_target:civwar_rebels = {
+								check_variable = {
+									which = num_mil_pops
+									value >= root.num_mil_pops
+								}
+							}
+							event_target:civwar_rebels = {
+								check_variable = {
+									which = total_empire_size
+									value >= root.total_empire_size
+								}
+							}
+						}
+					}
+					random_list = {
+						85 = { country_event = { id = civcom.1100 } }
+						15 = { country_event = { id = civcom.1105 } }
+					}
+				}
+				else = {
+					country_event = { id = civcom.1100 }
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Nationalist - Query Motherland
+	id = civwar.2050
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		if = { # Motherland needs to be bordering for war assistance.
+			limit = {
+				event_target:nat_motherland_model = {
+					any_system_within_border = {
+						closest_system = {
+							limit = {
+								exists = space_owner
+								space_owner = {
+									OR = {
+										is_same_value = event_target:civwar_rebels
+										is_same_value = root
+										is_in_federation_with = root
+										AND = {
+											exists = overlord
+											overlord = { is_same_value = root }
+										}
+									}
+								}
+							}
+							use_bypasses = yes
+							max_steps = 1
+						}
+					}
+				}
+			}
+			event_target:nat_motherland_model = { set_country_flag = borders_rebels }
+		}
+
+		event_target:nat_motherland_model = { country_event = { id = civcom.4010 } }
+	}
+}
+
+country_event = { # Nationalist - Communications
+	id = civwar.2055
+	picture = GFX_evt_civil_action
+	title = civwar.2055.name
+	desc = civwar.2055.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = { has_country_flag = motherland_is_exile }
+			event_target:nat_motherland_model = { set_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+		}
+	}
+
+	option = {
+		name = ON_SCREEN_REBELS
+		hidden_effect = {
+			hidden_effect = {
+				if = {
+					limit = {
+						NOR = {
+							any_country = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
+							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
+							event_target:civwar_rebels = {
+								check_variable = {
+									which = num_mil_pops
+									value >= root.num_mil_pops
+								}
+							}
+							event_target:civwar_rebels = {
+								check_variable = {
+									which = total_empire_size
+									value >= root.total_empire_size
+								}
+							}
+						}
+					}
+					random_list = {
+						95 = { country_event = { id = civcom.1100 } }
+						5 = { country_event = { id = civcom.1105 } }
+					}
+				}
+				else = {
+					country_event = { id = civcom.1100 }
+				}
+			}
+		}
+	}
+}
+
+country_event = { # New Leader/Separatist - Communications
+	id = civwar.2060
+	picture = GFX_evt_civil_action
+	title = civwar.2060.name
+	desc = civwar.2060.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = ON_SCREEN_REBELS
+		hidden_effect = {
+			if = {
+				limit = {
+					NOR = {
+						event_target:civwar_rebels = {
+							check_variable = {
+								which = num_mil_pops
+								value >= root.num_mil_pops
+							}
+						}
+						event_target:civwar_rebels = {
+							check_variable = {
+								which = total_empire_size
+								value >= root.total_empire_size
+							}
+						}
+					}
+				}
+				random_list = {
+					85 = { country_event = { id = civcom.1100 } }
+					15 = { country_event = { id = civcom.1105 } }
+				}
+			}
+			else = {
+				country_event = { id = civcom.1100 }
+			}
+		}
+	}
+}
+
+country_event = { # Heir - Communications
+	id = civwar.2065
+	picture = GFX_evt_civil_action
+	title = civwar.2065.name
+	desc = civwar.2065.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = ON_SCREEN_REBELS
+		hidden_effect = {
+			country_event = { id = civcom.1100 }
+		}
+	}
+}
+
+country_event = { # Former Heir - Communications
+	id = civwar.2066
+	picture = GFX_evt_civil_action
+	title = civwar.2066.name
+	desc = civwar.2065.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = ON_SCREEN_REBELS
+		hidden_effect = {
+			country_event = { id = civcom.3100 }
+		}
+	}
+}
+
+country_event = { # Rebel - Query Neighbors
+	id = civwar.2100
+	picture = GFX_evt_civil_action
+	title = civwar.2100.name
+	desc = civwar.2100.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = INTRIGUING
+		hidden_effect = {
+			hidden_effect = {
+				country_event = { id = civcom.4000 }
+			}
+		}
+	}
+
+	option = {
+		name = civwar.2100.deny.desc
+	}
+}
+
+################
+# Fleet Stuff
+
+country_event = { # Create Fleets and give resources, faction civil wars
+	id = civwar.3000
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+
+		event_target:civwar_originator = {
+			set_variable = { which = num_mil_pops value = trigger:num_pops }
+			set_variable = { which = total_empire_size value = trigger:empire_size }
+		}
+
+		if = { # Not Isolated Sector rebellions
+			limit = { event_target:civwar_rebels.ruler = { NOT = { has_leader_flag = leader_civil_war_isolated } } }
+			event_target:civwar_originator = {
+				export_trigger_value_to_variable = {
+					trigger = used_naval_capacity_percent
+					variable = mother_navy_size
+				}
+
+				if = {
+					limit = {
+						OR = {
+							has_country_flag = succession_mother_country
+							has_country_flag = heir_mother_country
+						}
+					}
+					# Count total military pops in Mother Country
+					set_variable = { which = total_crisis_pops value = 0 }
+					every_owned_pop = {
+						limit = { can_be_soldier = yes }
+						PREV = { change_variable = { which = total_crisis_pops value = 1 } }
+					}
+					set_variable = {
+						which = num_rebel_pops
+						value = event_target:civwar_rebels.num_mil_pops
+					}
+					log = "==================="
+					log = "RULER: [event_target:civwar_rebels.ruler.GetName]"
+					log = "REBEL POPS: [this.num_rebel_pops]"
+					change_variable = {
+						which = total_crisis_pops
+						value = num_rebel_pops
+					}
+					log = "TOTAL POPS: [this.total_crisis_pops]"
+					set_variable = { which = rebel_pop_percentage value = num_rebel_pops }
+					divide_variable = { # Is Now a percentage of total military pops
+						which = rebel_pop_percentage
+						value = total_crisis_pops 
+					}
+					log = "REBEL PERCENTAGE: [this.rebel_pop_percentage]"
+					multiply_variable = {
+						which = mother_navy_size
+						value = rebel_pop_percentage
+					}
+					create_fleet_from_naval_cap = mother_navy_size
+					log = "MOM NAVY SIZE: [this.mother_navy_size]"
+					log = "==================="
+				}
+				else_if = {
+					limit = { exists = event_target:civwar_party }
+					event_target:civwar_party = {
+						divide_variable = {
+							which = fac_mil_support
+							value = event_target:civwar_originator.total_faction_pops
+						}
+					}
+					multiply_variable = {
+						which = mother_navy_size
+						value = event_target:civwar_party.fac_mil_support
+					}
+					create_fleet_from_naval_cap = mother_navy_size
+				}
+				else = {
+					set_variable = { which = fac_mil_support value = 0 }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop }
+						prev = { change_variable = { which = fac_mil_support value = 1 } }
+					}
+					divide_variable = {
+						which = fac_mil_support
+						value = event_target:civwar_originator.total_faction_pops
+					}
+					multiply_variable = {
+						which = mother_navy_size
+						value = root.fac_mil_support
+					}
+					create_fleet_from_naval_cap = mother_navy_size
+				}
+			}
+			
+			last_created_fleet = {
+				set_owner = event_target:civwar_rebels
+				set_location = event_target:civwar_rebels.capital_scope
+			}
+		}
+		else = { # Isolated Sectors just take everything that was in their territory.
+			event_target:civwar_originator = {
+				every_owned_fleet = {
+					limit = {
+						exists = solar_system.starbase
+						solar_system.starbase = { is_owned_by = event_target:civwar_rebels }
+					}
+					set_owner = event_target:civwar_rebels
+				}
+			}
+		}
+
+		add_resource = {
+			energy = 100
+			minerals = 75
+			food = 75
+			consumer_goods = 50
+			alloys = 50
+			influence = 1
+			mult = num_mil_pops
+		}
+
+		add_500_unity_per_year_passed = yes
+	}
+
+	after = {
+		# Destroy Fleet percentage from home country
+		event_target:civwar_originator = {
+			if = {
+				limit = {
+					event_target:civwar_rebels.ruler = { NOT = { has_leader_flag = leader_civil_war_isolated } }
+				}
+				country_event = { id = civwar.3005 }
+			}
+		}
+	}
+}
+
+country_event = { # Destroy Fleets, faction civil wars
+	id = civwar.3005
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = succession_mother_country
+					has_country_flag = heir_mother_country
+				}
+			}
+			multiply_variable = { which = rebel_pop_percentage value = 100 }
+			get_ship_delete_effect = { PERCENT = root.rebel_pop_percentage }
+		}
+		else_if = {
+			limit = { exists = event_target:civwar_party }
+			event_target:civwar_party = {
+				multiply_variable = { which = fac_mil_support value = 100 }
+				floor_variable = fac_mil_support
+			}
+			get_ship_delete_effect = { PERCENT = event_target:civwar_party.fac_mil_support }
+		}
+		else = { # Shit, when is this gonna happen. Separatists?
+			event_target:civwar_rebels = {
+				multiply_variable = { which = fac_mil_support value = 100 }
+				floor_variable = fac_mil_support
+			}
+			get_ship_delete_effect = { PERCENT = event_target:civwar_rebels.fac_mil_support }
+		}
+
+		every_owned_fleet = { set_event_locked = no }
+	}
+}
+
+#################
+# War Initializers
+
+situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationalists
+	id = civwar.5000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		target.leader = { NOT = { is_same_value = owner.heir } }
+		owner = {
+			NOT = { any_owned_leader = { has_leader_flag = situation_leader_@root } } # Not already in the process of revolting
+			OR = {
+				AND = { # Civil War
+					any_owned_planet = { solar_system = { is_capital_system = no } }
+					pop_percentage = { # Civil War
+						percentage >= 0.25
+						limit = {
+							exists = pop_faction
+							pop_faction = { is_same_value = root.target }
+							OR = {
+								root = { is_ethic_situation = no }
+								has_pop_flag = sep_pop_ethic
+							}
+						}
+						exclude = { can_think = no }
+					}
+				}
+				any_owned_sector = { # Sectoral Revolt
+					pop_percentage = {
+						percentage >= 0.25
+						limit = {
+							exists = pop_faction
+							pop_faction = { is_same_value = root.target }
+							OR = {
+								root = { is_ethic_situation = no }
+								has_pop_flag = sep_pop_ethic
+							}
+						}
+						exclude = { can_think = no }
+					}
+					NOT = {
+						any_owned_planet = {
+							OR = {
+								has_planet_flag = ongoing_revolt
+								solar_system = { is_capital_system = yes }
+							}
+						}
+					}
+				}
+				any_owned_planet = { # Planetary Revolt
+					solar_system = { is_capital_system = no }
+					NOT = { has_planet_flag = ongoing_revolt }
+					pop_percentage = {
+						percentage >= 0.25
+						limit = {
+							exists = pop_faction
+							pop_faction = { is_same_value = root.target }
+							OR = {
+								root = { is_ethic_situation = no }
+								has_pop_flag = sep_pop_ethic
+							}
+						}
+						exclude = { can_think = no }
+					}
+				}
+			}
+		}
+	}
+
+	immediate = {
+		situation_event = { id = civwar.5010 days = 1 random = 20 }
+	}
+}
+
+situation_event = { # Possible Revolt/Civil War Event
+	id = civwar.5010
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		target.leader = { NOT = { is_same_value = owner.heir } }
+		owner = {
+			NOT = { any_owned_leader = { has_leader_flag = situation_leader_@root } } # Not already in the process of revolting
+			OR = {
+				AND = {
+					any_owned_planet = { solar_system = { is_capital_system = no } }
+					pop_percentage = { # Civil War
+						percentage >= 0.25
+						# percentage > 0
+						limit = {
+							exists = pop_faction
+							pop_faction = { is_same_value = root.target }
+							OR = {
+								root = { is_ethic_situation = no }
+								has_pop_flag = sep_pop_ethic
+							}
+						}
+						exclude = { can_think = no }
+					}	
+				}
+				any_owned_sector = { # Sectoral Revolt
+					NOT = {
+						any_owned_planet = {
+							OR = {
+								has_planet_flag = ongoing_revolt
+								solar_system = { is_capital_system = yes }
+							}
+						}
+					}
+					pop_percentage = {
+						percentage >= 0.25
+						limit = {
+							exists = pop_faction
+							pop_faction = { is_same_value = root.target }
+							OR = {
+								root = { is_ethic_situation = no }
+								has_pop_flag = sep_pop_ethic
+							}
+						}
+						exclude = { can_think = no }
+					}
+				}
+				any_owned_planet = { # Planetary Revolt
+					solar_system = { is_capital_system = no }
+					NOT = { has_planet_flag = ongoing_revolt }
+					pop_percentage = {
+						percentage >= 0.25
+						limit = {
+							exists = pop_faction
+							pop_faction = { is_same_value = root.target }
+							OR = {
+								root = { is_ethic_situation = no }
+								has_pop_flag = sep_pop_ethic
+							}
+						}
+						exclude = { can_think = no }
+					}
+				}
+			}
+		}
+	}
+
+	immediate = {
+		owner = {
+			if = { # Potential Multi Planet/Sector Civil War
+				limit = {
+					pop_percentage = { 
+						percentage >= 0.25
+						# percentage > 0
+						limit = {
+							exists = pop_faction
+							pop_faction = { is_same_value = root.target }
+							OR = {
+								root = { is_ethic_situation = no }
+								has_pop_flag = sep_pop_ethic
+							}
+						}
+						exclude = { can_think = no }
+					}
+				}
+				random = {
+					chance = 45
+					get_war_type_flag = yes
+					save_event_target_as = civwar_originator
+					get_civil_war_number = yes
+					if = { # 2 Sectors, other Sector will revolt
+						limit = { num_sectors = 2 }
+						get_two_sector_effect = yes
+					}
+					else_if = { # > 2 Sectors, if applicable, up to 67% can revolt
+						limit = { num_sectors > 2 }
+						get_multi_sector_effect = yes
+					}
+					else_if = { # >= 2 Planets
+						limit = {
+							num_owned_planets >= 2
+							any_owned_planet = { solar_system = { is_capital_system = no } }
+						}
+						get_small_civwar_effect = yes
+					}
+				}
+			}
+			else_if = { # Sectoral Revolt
+				limit = {
+					any_owned_sector = { 
+						pop_percentage = {
+							percentage >= 0.25
+							limit = {
+								exists = pop_faction
+								pop_faction = { is_same_value = root.target }
+								OR = {
+									root = { is_ethic_situation = no }
+									has_pop_flag = sep_pop_ethic
+								}
+							}
+							exclude = { can_think = no }
+						}
+						NOT = {
+							any_owned_planet = {
+								OR = {
+									has_planet_flag = ongoing_revolt
+									solar_system = { is_capital_system = yes }
+								}
+							}
+						}
+					}
+				}
+				random = {
+					chance = 15
+					get_war_type_flag = yes
+					save_event_target_as = civwar_originator
+					get_civil_war_number = yes
+					get_sectoral_revolt_effect = yes
+				}
+			}
+			else_if = { # Planetary Revolt
+				limit = {
+					any_owned_planet = { 
+						solar_system = { is_capital_system = no }
+						sector = { NOT = { has_sector_flag = ethic_sector_rebellion_@sector_capital } }
+						pop_percentage = {
+							percentage >= 0.25
+							limit = {
+								exists = pop_faction
+								pop_faction = { is_same_value = root.target }
+								OR = {
+									root = { is_ethic_situation = no }
+									has_pop_flag = sep_pop_ethic
+								}
+							}
+							exclude = { can_think = no }
+						}
+					}
+				}
+				random = {
+					chance = 5
+					get_war_type_flag = yes
+					save_event_target_as = civwar_originator
+					get_planetary_revolt_effect = yes
+				}
+			}
+		}
+	}
+}
+
+#################
+# Misc
+
+# 9100 - Free
+
+country_event = { # Change flag from faction leaders who become rulers
+	id = civwar.9200
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		ruler = {
+			OR = {
+				has_leader_flag = new_faction_ruler
+				has_leader_flag = gen_iso_faction_leader
+				has_leader_flag = leader_civil_war_faction
+				has_leader_flag = appointed_heir
+				##
+				has_leader_flag = civil_war_leader_governor_faction
+				has_leader_flag = civil_war_leader_admiral_faction
+				has_leader_flag = civil_war_leader_general_faction
+				has_leader_flag = civil_war_leader_scientist_faction
+				##
+				has_leader_flag = civil_war_leader_governor_isolated
+				has_leader_flag = civil_war_leader_admiral_isolated
+				has_leader_flag = civil_war_leader_general_isolated
+				has_leader_flag = civil_war_leader_scientist_isolated
+				has_leader_flag = civil_war_leader_heir_isolated
+				##
+				has_leader_flag = civil_war_leader_governor_dispute
+				has_leader_flag = civil_war_leader_admiral_dispute
+				has_leader_flag = civil_war_leader_general_dispute
+				has_leader_flag = civil_war_leader_scientist_dispute
+				##
+				has_leader_flag = civil_war_leader_separatist_faction
+				has_leader_flag = civil_war_leader_nationalist_faction
+			}
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_heir_isolated } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_heir_isolated
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_heir_isolated
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_governor_faction } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_governor_faction
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_governor
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_governor_isolated } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_governor_isolated
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_governor_isolated
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_governor_dispute } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_governor_dispute
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_governor_dispute
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_admiral_faction } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_admiral_faction
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_admiral
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_admiral_isolated } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_admiral_isolated
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_admiral_isolated
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_admiral_dispute } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_admiral_dispute
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_admiral_dispute
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_general_faction } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_general_faction
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_general
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_general_isolated } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_general_isolated
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_general_isolated
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_general_dispute } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_general_dispute
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_general_dispute
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_scientist_faction } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_scientist_faction
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_scientist
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_scientist_isolated } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_scientist_isolated
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_scientist_isolated
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_scientist_dispute } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_scientist_dispute
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_scientist_dispute
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_separatist_faction } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_separatist_faction
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_separatist
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = civil_war_leader_nationalist_faction } }
+			ruler = {
+				remove_leader_flag = civil_war_leader_nationalist_faction
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_nationalist
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = new_faction_ruler } }
+			ruler = {
+				remove_leader_flag = new_faction_ruler
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_new
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = gen_iso_faction_leader } }
+			ruler = {
+				remove_leader_flag = gen_iso_faction_leader
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_new_isolated
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = appointed_heir } }
+			ruler = {
+				remove_leader_flag = appointed_heir
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_heir_disinherited
+				set_leader_flag = appointed_heir_ruler
+			}
+		}
+
+		if = {
+			limit = {
+				ruler = {
+					has_trait = leader_trait_corrupt
+					NOT = { has_leader_flag = civil_war_ruler_governor }
+				}
+			}
+			ruler = { set_leader_flag = civil_war_ruler_governor }
+		}
+
+		if = {
+			limit = { ruler = { has_leader_flag = leader_civil_war_faction } }
+			ruler = { remove_leader_flag = leader_civil_war_faction }
+		}
+	}
+}
+
+country_event = { # Remove flag sectors that are flagged
+	id = civwar.9203
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_owned_sector = {
+			OR = {
+				has_sector_flag = rebel_sector
+				has_sector_flag = already_used
+			}
+		}
+	}
+
+	immediate = {
+		while = {
+			count = 10
+			random_owned_sector = {
+				limit = { has_sector_flag = rebel_sector }
+				remove_sector_flag = rebel_sector
+			}
+			random_owned_sector = {
+				limit = { has_sector_flag = already_used }
+				remove_sector_flag = already_used
+			}
+		}
+	}
+}
+
+country_event = { # Remove Extra civil_war_flip flags
+	id = civwar.9204
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+
+		if = {
+			limit = {
+				any_system_within_border = { has_star_flag = civil_war_flip }
+			}
+			every_system_within_border = {
+				limit = { has_star_flag = civil_war_flip }
+				remove_star_flag = civil_war_flip
+			}
+		}
+	}
+}
+
+country_event = { # Kill Both Admirals if either dies
+	id = civwar.9450
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = {
+			OR = {
+				has_leader_flag = admiral_copy_1
+				has_leader_flag = admiral_copy_2
+			}
+		}
+	}
+
+	immediate = {
+		every_owned_leader = {
+			limit = {
+				OR = {
+					has_leader_flag = admiral_copy_1
+					has_leader_flag = admiral_copy_2
+				}
+			}
+			kill_leader = { show_notification = no }
+		}
+	}
+}

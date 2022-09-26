@@ -1,0 +1,24 @@
+
+###############################
+### Civil Wars by MrFunEGUY ###
+###############################
+
+
+namespace = civmisc
+
+#################
+# Misc
+
+event = { # Set Global Flag
+	id = civmisc.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { has_global_flag = civil_wars_active }
+	}
+
+	immediate = {
+		set_global_flag = civil_wars_active
+	}
+}

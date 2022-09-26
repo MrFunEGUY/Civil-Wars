@@ -1,0 +1,238 @@
+
+###############################
+### Civil Wars by MrFunEGUY ###
+###############################
+
+
+namespace = civtest
+
+#################
+# Test Stuff
+
+planet_event = {
+	id = civtest.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+
+		save_global_event_target_as = plan_separatist_@this
+
+		log = "TARGET: [event_target:plan_separatist_@this.GetName]"
+	}
+}
+
+planet_event = {
+	id = civtest.1100
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+
+		every_owned_pop = {
+			set_pop_flag = sep_pop
+		}
+	}
+}
+
+leader_event = {
+	id = civtest.1200
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_leader_flag = cannot_be_fired
+		exists = solar_system
+	}
+
+	immediate = {
+		if = {
+			limit = { leader_class = governor }
+			solar_system.sector = { save_event_target_as = put_back_sector }
+		}
+		else_if = {
+			limit = { leader_class = general }
+			planet = { save_event_target_as = put_back_planet }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					leader_class = admiral
+					leader_class = scientist
+				}
+			}
+			fleet = { save_event_target_as = put_back_fleet }
+		}
+	}
+
+	after = {
+		leader_event = { id = civtest.1210 days = 1 }
+	}
+}
+
+leader_event = {
+	id = civtest.1210
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = { leader_class = governor }
+			event_target:put_back_sector = { set_leader = root }
+		}
+		else_if = {
+			limit = { leader_class = general }
+			event_target:put_back_planet = { set_leader = root }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					leader_class = admiral
+					leader_class = scientist
+				}
+			}
+			event_target:put_back_fleet = { set_leader = root }
+		}
+	}
+}
+
+country_event = {
+	id = civtest.1220
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		every_owned_pop	 = {
+			limit = { has_pop_flag = sep_pop_ethic }
+			remove_pop_flag	 = sep_pop_ethic
+		}
+	}
+}
+
+planet_event = {
+	id = civtest.2000
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		every_owned_pop = {
+			set_pop_flag = sep_pop_ethic
+		}
+	}
+}
+
+planet_event = {
+	id = civtest.2005
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		every_owned_pop = {
+			set_pop_flag = sep_pop
+		}
+		get_separatist_faction_planet = yes
+	}
+}
+
+planet_event = {
+	id = civtest.2010
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		every_owned_pop = {
+			remove_pop_flag = sep_pop_ethic
+		}
+	}
+}
+
+planet_event = {
+	id = civtest.2015
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		random_owned_pop = {
+			limit = { member_of_faction = imperialist }
+			set_pop_flag = sep_pop_ethic
+		}
+	}
+}
+
+country_event = {
+	id = civtest.2020
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		every_owned_pop = {
+			remove_pop_flag = sep_pop_ethic
+		}
+	}
+}
+
+planet_event = {
+	id = civtest.2030
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		solar_system = { set_star_flag = frontier_@owner }
+	}
+}
+
+planet_event = {
+	id = civtest.2100
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		create_country = {
+			name = random
+			type = default
+			species = random
+			ignore_initial_colony_error = yes
+			day_zero_contact = no
+			authority = auth_dictatorial
+			ethos = { 
+				ethic = ethic_fanatic_authoritarian
+				# ethic = ethic_militarist
+				ethic = random
+			}
+			origin = origin_admiral_rebellion
+			civics = {
+				civic = civic_distinguished_admiralty
+				civic = random
+			}
+			flag = random
+		}
+		set_owner = last_created_country
+	}
+}
+
+
+# Event target Saving
+planet_event = {
+	id = civtest.5000
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+
+		save_global_event_target_as = test_planet
+
+		solar_system = {
+			save_global_event_target_as = test_system
+		}
+	}
+}
+
+country_event = {
+	id = civtest.9000
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		clear_resources = yes
+	}
+}

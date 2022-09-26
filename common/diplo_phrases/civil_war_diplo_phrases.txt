@@ -2,145 +2,161 @@
 # FROM is the actor ie the initiator of the diplomatic action
 # ROOT is the recipient of the diplomatic action
 
-# These are broken after I switched to dynamic flags, need to fix them eventually.
-
 greetings = {
 
 	01_CIVWAR_GREETING = {
-		weight = {
-			weight = 100
-		}
+		weight = { weight = 100 }
 		trigger = {
-			AND = {
-				OR = {
-					has_origin = origin_civwar
-					has_origin = origin_civ_rebellion
-					has_origin = origin_admiral_rebellion
-				}
-				is_at_war_with = FROM
-				FROM = {
-					has_country_flag = civwar_mother_country_@root
-				}
-			}
+			any_war = { using_war_goal = { type = wg_civwar owner = from } }
 		}
 	}
 
 	02_CIVWAR_GREETING = {
-		weight = {
-			weight = 100
-		}
+		weight = { weight = 100 }
 		trigger = {
-			AND = {
-				OR = {
-					has_origin = origin_civwar
-					has_origin = origin_civ_rebellion
-					has_origin = origin_admiral_rebellion
-				}
-				is_at_war_with = FROM
-				FROM = {
-					has_country_flag = civwar_mother_country_@root
-				}
-			}
+			any_war = { using_war_goal = { type = wg_civwar owner = from } }
 		}
 	}
 
 	03_CIVWAR_GREETING = {
-		weight = {
-			weight = 100
-		}
+		weight = { weight = 100 }
 		trigger = {
-			AND = {
-				OR = {
-					has_origin = origin_civwar
-					has_origin = origin_civ_rebellion
-					has_origin = origin_admiral_rebellion
-				}
-				is_at_war_with = FROM
-				FROM = {
-					has_country_flag = civwar_mother_country_@root
-				}
-			}
+			any_war = { using_war_goal = { type = wg_civwar owner = from } }
 		}
 	}
 
 	04_CIVWAR_GREETING = {
-		weight = {
-			weight = 100
-		}
+		weight = { weight = 100 }
 		trigger = {
-			AND = {
-				OR = {
-					has_origin = origin_civwar
-					has_origin = origin_civ_rebellion
-					has_origin = origin_admiral_rebellion
-				}
-				is_at_war_with = FROM
-				FROM = {
-					has_country_flag = civwar_mother_country_@root
-				}
-			}
+			any_war = { using_war_goal = { type = wg_civwar owner = from } }
 		}
 	}
 
 	### Coup Greetings
 
 	01_CIVCOUP_GREETING = {
-		weight = {
-			weight = 100
-		}
+		weight = { weight = 100 }
 		trigger = {
-			AND = {
-				has_origin = origin_coup_successor
-				is_at_war_with = FROM
-				FROM = {
-					has_country_flag = coup_mother_country@this
-				}
+			any_war = {
+				using_war_goal = { type = wg_coup_successor_opponent owner = from }
 			}
 		}
 	}
 
 	02_CIVCOUP_GREETING = {
-		weight = {
-			weight = 100
-		}
+		weight = { weight = 100 }
 		trigger = {
-			AND = {
-				has_origin = origin_coup_successor
-				is_at_war_with = FROM
-				FROM = {
-					has_country_flag = coup_mother_country@this
-				}
+			any_war = {
+				using_war_goal = { type = wg_coup_successor_opponent owner = from }
 			}
 		}
 	}
 
 	03_CIVCOUP_GREETING = {
-		weight = {
-			weight = 100
-		}
+		weight = { weight = 100 }
 		trigger = {
-			AND = {
-				has_origin = origin_coup_successor
-				is_at_war_with = FROM
-				FROM = {
-					has_country_flag = coup_mother_country@this
-				}
+			any_war = {
+				using_war_goal = { type = wg_coup_successor_opponent owner = from }
 			}
 		}
 	}
 
 	04_CIVCOUP_GREETING = {
-		weight = {
-			weight = 100
-		}
+		weight = { weight = 100 }
 		trigger = {
-			AND = {
-				has_origin = origin_coup_successor
-				is_at_war_with = FROM
-				FROM = {
-					has_country_flag = coup_mother_country@this
-				}
+			any_war = {
+				using_war_goal = { type = wg_coup_successor_opponent owner = from }
 			}
+		}
+	}
+
+	### Fealty Greetings
+
+	01_CIVFEALTY_GREETING = {
+		weight = { weight = 100 }
+		trigger = {
+			any_war = {
+				using_war_goal = { type = wg_coup_independent owner = from }
+			}
+		}
+	}
+
+	02_CIVFEALTY_GREETING = {
+		weight = { weight = 100 }
+		trigger = {
+			any_war = {
+				using_war_goal = { type = wg_coup_independent owner = from }
+			}
+		}
+	}
+
+	03_CIVFEALTY_GREETING = {
+		weight = { weight = 100 }
+		trigger = {
+			any_war = {
+				using_war_goal = { type = wg_coup_independent owner = from }
+			}
+		}
+	}
+
+	04_CIVFEALTY_GREETING = {
+		weight = { weight = 100 }
+		trigger = {
+			any_war = {
+				using_war_goal = { type = wg_coup_independent owner = from }
+			}
+		}
+	}
+
+	### Heir Greetings
+
+	01_CIVHEIR_GREETING = {
+		weight = { weight = 100 }
+		trigger = {
+			any_war = {
+				using_war_goal = { type = wg_civwar_heir owner = from }
+			}
+		}
+	}
+
+	02_CIVHEIR_GREETING = {
+		weight = { weight = 100 }
+		trigger = {
+			any_war = {
+				using_war_goal = { type = wg_civwar_heir owner = from }
+			}
+		}
+	}
+
+	### Government-in-Exile Greetings
+
+	01_EXILE_GREETING = {
+		weight = { weight = 100 }
+		trigger = {
+			is_country_type = exile_country
+		}
+	}
+
+	02_EXILE_GREETING = {
+		weight = { weight = 100 }
+		trigger = {
+			is_country_type = exile_country
+		}
+	}
+
+	03_EXILE_GREETING = {
+		weight = { weight = 25 }
+		trigger = {
+			is_country_type = exile_country
+			is_imperial = yes
+		}
+	}
+
+	04_EXILE_GREETING = {
+		weight = { weight = 25 }
+		trigger = {
+			is_country_type = exile_country
+			is_imperial = yes
 		}
 	}
 }

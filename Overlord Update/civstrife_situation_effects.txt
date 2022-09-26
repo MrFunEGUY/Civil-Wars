@@ -1,0 +1,191 @@
+
+###############################
+### Civil Wars by MrFunEGUY ###
+###############################
+
+# Get Separatist Pops
+
+get_sep_pop_gen = {
+	random_owned_pop = {
+		limit = {
+			NOR = {
+				has_pop_flag = sep_pop
+				has_modifier = pop_saved_from_slavery
+			}
+		}
+		set_pop_flag = sep_pop
+	}
+}
+
+get_sep_pop_ethic = {
+	random_owned_pop = {
+		limit = {
+			NOR = {
+				has_pop_flag = sep_pop
+				has_modifier = pop_saved_from_slavery
+			}
+		}
+		set_pop_flag = sep_pop
+		set_pop_flag = sep_pop_ethic
+		if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_xenophile
+					pop_has_ethic = ethic_fanatic_xenophile
+				}
+			}
+			set_pop_flag = sep_pop_ethic_xenophile
+		}
+		else_if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_xenophobe
+					pop_has_ethic = ethic_fanatic_xenophobe
+				}
+			}
+			set_pop_flag = sep_pop_ethic_xenophobe
+		}
+		else_if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_spiritualist
+					pop_has_ethic = ethic_fanatic_spiritualist
+				}
+			}
+			set_pop_flag = sep_pop_ethic_spi
+		}
+		else_if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_materialist
+					pop_has_ethic = ethic_fanatic_materialist
+				}
+			}
+			set_pop_flag = sep_pop_ethic_mat
+		}
+		else_if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_militarist
+					pop_has_ethic = ethic_fanatic_militarist
+				}
+			}
+			set_pop_flag = sep_pop_ethic_mil
+		}
+		else_if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_pacifist
+					pop_has_ethic = ethic_fanatic_pacifist
+				}
+			}
+			set_pop_flag = sep_pop_ethic_pac
+		}
+		else_if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_authoritarian
+					pop_has_ethic = ethic_fanatic_authoritarian
+				}
+			}
+			set_pop_flag = sep_pop_ethic_auth
+		}
+		else_if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_egalitarian
+					pop_has_ethic = ethic_fanatic_egalitarian
+				}
+			}
+			set_pop_flag = sep_pop_ethic_egal
+		}
+		else_if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_socialism
+					pop_has_ethic = ethic_fanatic_socialism
+				}
+			}
+			set_pop_flag = sep_pop_ethic_soc
+		}
+		else_if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_capitalism
+					pop_has_ethic = ethic_fanatic_capitalism
+				}
+			}
+			set_pop_flag = sep_pop_ethic_cap
+		}
+		else_if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_green
+					pop_has_ethic = ethic_fanatic_green
+				}
+			}
+			set_pop_flag = sep_pop_ethic_env
+		}
+		else_if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_industrial
+					pop_has_ethic = ethic_fanatic_industrial
+				}
+			}
+			set_pop_flag = sep_pop_ethic_indus
+		}
+		else_if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_elitist
+					pop_has_ethic = ethic_fanatic_elitist
+				}
+			}
+			set_pop_flag = sep_pop_ethic_elite
+		}
+		else_if = {
+			limit = {
+				OR = {
+					pop_has_ethic = ethic_pluralist
+					pop_has_ethic = ethic_fanatic_pluralist
+				}
+			}
+			set_pop_flag = sep_pop_ethic_plur
+		}
+	}
+}
+
+get_sep_pop_spec = {
+	random_owned_pop = {
+		limit = {
+			NOR = {
+				has_pop_flag = sep_pop
+				has_modifier = pop_saved_from_slavery
+			}
+			species = {
+				OR = {
+					NOT = { has_citizenship_type = { type = citizenship_full } }
+					has_migration_control = { value = yes }
+					has_colonization_control = { value = yes }
+					has_population_control = { value = yes }
+					has_living_standard = { type = living_standard_subsistence }
+					OR = {
+						has_military_service_type = { type = military_service_none }
+						has_military_service_type = { type = military_service_limited }
+					}
+				}
+			}
+		}
+		species = { save_event_target_as = separatist_species }
+		if = {
+			limit = {
+				owner = { NOT = { has_country_flag = separatist_species_@event_target:separatist_species } }
+			}
+			owner = { set_country_flag = separatist_species_@event_target:separatist_species }
+		}
+		set_pop_flag = sep_pop
+		set_pop_flag = sep_pop_spec
+		set_pop_flag = sep_pop_spec_@event_target:separatist_species
+	}
+}

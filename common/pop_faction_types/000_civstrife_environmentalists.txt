@@ -1,0 +1,61 @@
+##############################
+# Ecologist Environmentalists Faction
+##############################
+
+environmentalists = {
+	election_header = "GFX_faction_header_yellow"
+	guiding_ethic = ethic_ecocentric
+	
+	unique = yes
+	support_multiplier = 1
+	
+	resources = {
+		category = pop_factions
+		produces = {
+			influence = 0
+		}		
+	}
+
+	is_potential = {
+		always = no
+	}
+	
+	parameters = {
+		empire = {
+			type = country
+			valid_objects = {
+				is_same_value = root
+			}
+		}
+	}
+	
+	can_join_pre_triggers = {
+		is_enslaved = no
+		is_being_purged = no
+		is_robot_pop = no
+	}
+
+	can_join_faction = {	   
+		always = no
+	}
+	
+	attraction = {
+		base = 0
+	}
+	
+	leader = {
+		base = 0		
+	}
+	
+	on_create = {
+
+	}
+
+	on_destroy = {
+
+	}
+	
+	actions = {
+
+	}
+}

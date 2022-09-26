@@ -1,0 +1,520 @@
+
+###############################
+### Civil Wars by MrFunEGUY ###
+###############################
+
+
+namespace = civethic
+
+#######################
+# Ethic Faction Events
+
+country_event = { # Check disapproving Factions every month
+	id = civethic.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type_with_subjects = yes
+		num_owned_planets > 1
+		count_pop_faction = {
+			count > 1
+			limit = { is_regular_faction = yes }
+		}
+		years_passed >= 15
+		NOT = {
+			has_ethic = ethic_gestalt_consciousness
+			has_country_flag = recent_civil_war
+		}
+		OR = {
+			AND = {
+				is_democracy = yes
+				any_pop_faction = {
+					is_regular_faction = yes
+					support >= 0.2
+					faction_approval <= 0.35
+					NOT = { has_pop_faction_flag = faction_sep_situation }
+					OR = {
+						NOT = { exists = leader }
+						leader = { NOT = { is_same_value = root.ruler } }
+					}
+				}
+			}
+			AND = {
+				is_democracy = no
+				any_pop_faction = {
+					is_regular_faction = yes
+					support >= 0.15
+					faction_approval <= 0.4
+					NOT = { has_pop_faction_flag = faction_sep_situation }
+					OR = {
+						NOT = { exists = leader }
+						leader = { NOT = { is_same_value = root.ruler } }
+					}
+				}
+			}
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = { is_democracy = yes }
+			random_pop_faction = {
+				limit = {
+					is_regular_faction = yes
+					support >= 0.2
+					faction_approval <= 0.35
+					NOT = { has_pop_faction_flag = faction_sep_situation }
+					OR = {
+						NOT = { exists = leader }
+						leader = { NOT = { is_same_value = root.ruler } }
+					}
+				}
+				set_pop_faction_flag = faction_sep_situation
+				if = {
+					limit = { is_egalitarian_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_egal
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_authoritarian_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_auth
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_spiritualist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_spi
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_materialist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_mat
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_militarist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_mil
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_pacifist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_pac
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_xenophile_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_phile
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_xenophobe_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_phobe
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_socialism_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_soc
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_capitalism_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_cap
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_industrial_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_indus
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_ecologist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_eco
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_elitist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_elite
+							target = prev
+						}
+					}
+				}	
+				else_if = {
+					limit = { is_pluralist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_plur
+							target = prev
+						}
+					}
+				}
+			}
+		}
+		else = {
+			random_pop_faction = {
+				limit = {
+					is_regular_faction = yes
+					support >= 0.15
+					faction_approval <= 0.40
+					NOT = { has_pop_faction_flag = faction_sep_situation }
+					OR = {
+						NOT = { exists = leader }
+						leader = { NOT = { is_same_value = root.ruler } }
+					}
+				}
+				set_pop_faction_flag = faction_sep_situation
+				if = {
+					limit = { is_egalitarian_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_egal
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_authoritarian_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_auth
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_spiritualist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_spi
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_materialist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_mat
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_militarist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_mil
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_pacifist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_pac
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_xenophile_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_phile
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_xenophobe_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_phobe
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_socialism_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_soc
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_capitalism_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_cap
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_ecologist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_eco
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_industrial_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_indus
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_pluralist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_plur
+							target = prev
+						}
+					}
+				}
+				else_if = {
+					limit = { is_elitist_faction = yes }
+					owner = {
+						start_situation = {
+							type = situation_civstrife_faction_elite
+							target = prev
+						}
+					}
+				}			
+			}
+		}
+	}
+}
+
+situation_event = { # Spread Faction Separatists Every Month
+	id = civethic.2000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		target = {
+			any_owned_pop = {
+				happiness <= 60
+				NOT = { has_pop_flag = sep_pop_ethic }
+			}
+		}
+	}
+
+	immediate = {
+		target = {
+
+			set_variable = {
+				which = maybe_seps
+				value = trigger:num_pops
+			}
+
+			if = {
+				limit = { root = { current_situation_approach = approach_civstrife_faction_pr } }
+				random_list = {
+					50 = { multiply_variable = { which = maybe_seps value = 0.01 } }
+					30 = { multiply_variable = { which = maybe_seps value = 0.02 } }
+					20 = { multiply_variable = { which = maybe_seps value = 0.03 } }
+				}
+			}
+			else_if = {
+				limit = { root = { current_situation_approach = approach_civstrife_faction_repression } }
+				random_list = {
+					70 = { multiply_variable = { which = maybe_seps value = 0.01 } }
+					30 = { multiply_variable = { which = maybe_seps value = 0.02 } }
+				}
+			}
+			else = {
+				random_list = {
+					40 = { multiply_variable = { which = maybe_seps value = 0.01 } }
+					30 = { multiply_variable = { which = maybe_seps value = 0.02 } }
+					15 = { multiply_variable = { which = maybe_seps value = 0.03 } }
+					10 = { multiply_variable = { which = maybe_seps value = 0.04 } }
+					5 = { multiply_variable = { which = maybe_seps value = 0.05 } }
+				}
+			}
+
+			ceiling_variable = maybe_seps # At least one pop
+
+			set_variable = { which = ethic_sep_chance value = 1 }
+
+			subtract_variable = {
+				which = ethic_sep_chance
+				value = trigger:faction_approval
+			}
+
+			divide_variable = { which = ethic_sep_chance value = 2 }
+
+			multiply_variable = { which = ethic_sep_chance value = 100 }
+
+			if = { # Heirs in control of factions can considerably slow radicalization, they also will not take control of rebelling factions
+				limit = {
+					exists = leader
+					leader = { has_leader_flag = appointed_heir }
+				}
+				divide_variable = { which = ethic_sep_chance value = 4 }
+			}
+
+			ordered_owned_pop = {
+				limit = {
+					happiness <= 60
+					NOT = { has_pop_flag = sep_pop_ethic }
+				}
+				position = 0
+				order_by = trigger:happiness
+				inverse = yes
+				random = {
+					chance = prev.ethic_sep_chance
+					# chance = 100
+					set_pop_flag = sep_pop_ethic
+					if = {
+						limit = {
+							NOT = { has_pop_flag = sep_pop }
+						}
+						set_pop_flag = sep_pop
+					}
+				}
+			}
+
+			set_variable = { which = sep_upkeep value = 0 }
+			every_owned_pop = {
+				limit = { has_pop_flag = sep_pop_ethic }
+				prev = { change_variable = { which = sep_upkeep value = 1 } }
+			}
+		}
+	}
+}
+
+##############
+# Remove Flags
+
+country_event = { # Remove Ethic Separatism Initial Trigger
+	id = civethic.5000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_owned_pop = {
+			has_pop_flag = sep_pop_ethic
+			happiness >= 75
+		}
+	}
+	
+
+	immediate = {
+		every_owned_pop = {
+			limit = {
+				has_pop_flag = sep_pop_ethic
+				happiness >= 75
+			}
+			pop_event = { id = civethic.5010 days = 1 random = 359 }
+		}
+	}
+}
+
+pop_event = { # Remove Ethic Separatist Event
+	id = civethic.5010
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_pop_flag = sep_pop_ethic
+		happiness >= 75
+	}
+	
+
+	immediate = {
+
+		random_list = {
+			40 = { }
+			60 = { remove_pop_flag = sep_pop_ethic }
+		}
+	}
+}
+
+##############
+# Notifications
+
+situation_event = { # Planetary Separatists Strike
+	id = civethic.9000
+	picture = GFX_evt_open_revolt
+	title = civsep.9020.name
+	desc = civsep.9020.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = civnat.9010.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+situation_event = { # Sectoral Separatists Strike
+	id = civethic.9010
+	picture = GFX_evt_open_revolt
+	title = civsep.9020.name
+	desc = civsep.9030.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = civnat.9010.a
+		ai_chance = { factor = 1 }
+	}
+}
