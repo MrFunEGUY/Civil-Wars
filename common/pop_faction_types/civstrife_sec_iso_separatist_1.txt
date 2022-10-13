@@ -19,6 +19,7 @@ sec_iso_separatist_1 = {
 
 	is_potential = {
 		years_passed >= 5
+		exists = event_target:sec_iso_separatist_1
 		any_owned_sector = { is_same_value = event_target:sec_iso_separatist_1 }	
 	}
 
@@ -79,7 +80,6 @@ sec_iso_separatist_1 = {
 		modifier = { #Outcasts and radicals
 			factor = 1.5
 			OR = {
-				NOT = { is_same_species = owner_species }
 				NOT = { has_citizenship_type = { type = citizenship_full } }
 				has_trait = trait_unruly
 			}
@@ -87,37 +87,12 @@ sec_iso_separatist_1 = {
 	}
 
 	leader = {
-		# base = 100
 		base = 0.1
 
 		modifier = {
 			factor = 0
 			sector = { NOT = { is_same_value = event_target:sec_iso_separatist_1 } }
 		}
-
-		# modifier = {
-		# 	factor = 3
-		# 	leader_class = governor
-		# 	sector = { is_same_value = event_target:sec_iso_separatist_1 }
-		# }
-
-		# modifier = {
-		# 	factor = 3
-		# 	leader_class = admiral
-		# 	sector = { is_same_value = event_target:sec_iso_separatist_1 }
-		# }
-
-		# modifier = {
-		# 	factor = 2
-		# 	leader_class = general
-		# 	sector = { is_same_value = event_target:sec_iso_separatist_1 }
-		# }
-
-		# modifier = {
-		# 	factor = 1
-		# 	leader_class = scientist
-		# 	sector = { is_same_value = event_target:sec_iso_separatist_1 }
-		# }
 	}
 
 	# Independence

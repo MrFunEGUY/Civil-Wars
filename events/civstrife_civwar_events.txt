@@ -327,11 +327,20 @@ country_event = { # Setup for Civil War
 					}
 				}
 				if = { # Query Motherland if possible
-					limit = { NOT = { has_country_flag = motherland_is_exile } }
+					# limit = { NOT = { has_country_flag = motherland_is_exile } }
+					limit = {
+						event_target:nat_motherland_model = {
+							NOT = { is_country_type = exile_country }
+							OR = { # For now, I will make this work for subjects in the near future
+								is_subject = no
+								overlord = { NOT = { is_same_value = event_target:civwar_originator } }
+							}
+						}
+					}
 					country_event = { id = civwar.2050 }
 				}
-				else_if = { # If not second nat country and there is no queryable motherland, regular notification
-					limit = { has_country_flag = motherland_is_exile }
+				else = {
+					event_target:nat_motherland_model = { set_country_flag = motherland_wont_join_@event_target:civwar_rebels }
 					country_event = { id = civwar.2055 }
 				}
 			}
@@ -348,7 +357,11 @@ country_event = { # Setup for Civil War
 			else_if = {
 				limit = {
 					event_target:civwar_rebels.ruler = {
-						has_leader_flag = civil_war_ruler_heir_disinherited
+						OR = {
+							has_leader_flag = civil_war_ruler_heir_true_born
+							has_leader_flag = civil_war_ruler_heir_gov_changed
+							has_leader_flag = civil_war_ruler_heir_disinherited
+						}
 					}
 				}
 				country_event = { id = civwar.2066 }
@@ -367,7 +380,9 @@ country_event = { # Setup for Planetary Rebellions
 	immediate = {
 
 		set_country_type = default
-		set_timed_country_flag = { flag = plan_rebel_country days = 90 }
+
+		set_country_flag = plan_rebel_country
+		# set_timed_country_flag = { flag = plan_rebel_country days = 90 }
 
 		save_event_target_as = civwar_rebels
 
@@ -486,7 +501,7 @@ country_event = { # Setup for Planetary Rebellions
 			set_leader = event_target:rebel_leader_won
 		}
 		else_if = {
-			event_target:civwar_originator = { has_country_flag = heir_mother_country }
+			limit = { event_target:civwar_originator = { has_country_flag = heir_mother_country } }
 			# Leader set when rebellion starts to avoid needing global event targets
 		}
 		else = {
@@ -754,7 +769,7 @@ country_event = { # Nationalist - Query Motherland
 			event_target:nat_motherland_model = { set_country_flag = borders_rebels }
 		}
 
-		event_target:nat_motherland_model = { country_event = { id = civcom.4010 } }
+		event_target:nat_motherland_model = { country_event = { id = civcom.4000 } }
 	}
 }
 
@@ -765,13 +780,6 @@ country_event = { # Nationalist - Communications
 	desc = civwar.2055.desc
 	hide_window = no
 	is_triggered_only = yes
-
-	immediate = {
-		if = {
-			limit = { has_country_flag = motherland_is_exile }
-			event_target:nat_motherland_model = { set_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-		}
-	}
 
 	option = {
 		name = ON_SCREEN_REBELS
@@ -892,7 +900,9 @@ country_event = { # Rebel - Query Neighbors
 	option = {
 		name = INTRIGUING
 		hidden_effect = {
-			country_event = { id = civcom.4000 }
+			hidden_effect = {
+				country_event = { id = civcom.4000 }
+			}
 		}
 	}
 
@@ -941,27 +951,27 @@ country_event = { # Create Fleets and give resources, faction civil wars
 						which = num_rebel_pops
 						value = event_target:civwar_rebels.num_mil_pops
 					}
-					log = "==================="
-					log = "RULER: [event_target:civwar_rebels.ruler.GetName]"
-					log = "REBEL POPS: [this.num_rebel_pops]"
+					# log = "==================="
+					# log = "RULER: [event_target:civwar_rebels.ruler.GetName]"
+					# log = "REBEL POPS: [this.num_rebel_pops]"
 					change_variable = {
 						which = total_crisis_pops
 						value = num_rebel_pops
 					}
-					log = "TOTAL POPS: [this.total_crisis_pops]"
+					# log = "TOTAL POPS: [this.total_crisis_pops]"
 					set_variable = { which = rebel_pop_percentage value = num_rebel_pops }
 					divide_variable = { # Is Now a percentage of total military pops
 						which = rebel_pop_percentage
 						value = total_crisis_pops 
 					}
-					log = "REBEL PERCENTAGE: [this.rebel_pop_percentage]"
+					# log = "REBEL PERCENTAGE: [this.rebel_pop_percentage]"
 					multiply_variable = {
 						which = mother_navy_size
 						value = rebel_pop_percentage
 					}
 					create_fleet_from_naval_cap = mother_navy_size
-					log = "MOM NAVY SIZE: [this.mother_navy_size]"
-					log = "==================="
+					# log = "MOM NAVY SIZE: [this.mother_navy_size]"
+					# log = "==================="
 				}
 				else_if = {
 					limit = { exists = event_target:civwar_party }
@@ -1326,7 +1336,7 @@ situation_event = { # Possible Revolt/Civil War Event
 
 # 9100 - Free
 
-country_event = { # Change flag from faction leaders who become rulers
+country_event = { # Change leader flags to ruler flags
 	id = civwar.9200
 	hide_window = yes
 	is_triggered_only = yes
@@ -1338,6 +1348,8 @@ country_event = { # Change flag from faction leaders who become rulers
 				has_leader_flag = gen_iso_faction_leader
 				has_leader_flag = leader_civil_war_faction
 				has_leader_flag = appointed_heir
+				has_leader_flag = gov_changed_heir
+				has_leader_flag = true_born_heir
 				##
 				has_leader_flag = civil_war_leader_governor_faction
 				has_leader_flag = civil_war_leader_admiral_faction
@@ -1499,12 +1511,29 @@ country_event = { # Change flag from faction leaders who become rulers
 			}
 		}
 		else_if = {
+			limit = { ruler = { has_leader_flag = gov_changed_heir } }
+			ruler = {
+				remove_leader_flag = gov_changed_heir
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_heir_gov_changed
+			}
+		}
+
+		if = {
 			limit = { ruler = { has_leader_flag = appointed_heir } }
 			ruler = {
 				remove_leader_flag = appointed_heir
 				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_heir_disinherited
 				set_leader_flag = appointed_heir_ruler
+			}
+		}
+		else_if = {
+			limit = { ruler = { has_leader_flag = true_born_heir } }
+			ruler = {
+				remove_leader_flag = true_born_heir
+				set_leader_flag = civil_war_ruler
+				set_leader_flag = civil_war_ruler_heir_true_born
 			}
 		}
 
@@ -1531,25 +1560,13 @@ country_event = { # Remove flag sectors that are flagged
 	is_triggered_only = yes
 
 	trigger = {
-		any_owned_sector = {
-			OR = {
-				has_sector_flag = rebel_sector
-				has_sector_flag = already_used
-			}
-		}
+		any_owned_sector = { has_sector_flag = rebel_sector }
 	}
 
 	immediate = {
-		while = {
-			count = 10
-			random_owned_sector = {
-				limit = { has_sector_flag = rebel_sector }
-				remove_sector_flag = rebel_sector
-			}
-			random_owned_sector = {
-				limit = { has_sector_flag = already_used }
-				remove_sector_flag = already_used
-			}
+		every_owned_sector = {
+			limit = { has_sector_flag = rebel_sector }
+			remove_sector_flag = rebel_sector
 		}
 	}
 }
@@ -1569,33 +1586,6 @@ country_event = { # Remove Extra civil_war_flip flags
 				limit = { has_star_flag = civil_war_flip }
 				remove_star_flag = civil_war_flip
 			}
-		}
-	}
-}
-
-country_event = { # Kill Both Admirals if either dies
-	id = civwar.9450
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		from = {
-			OR = {
-				has_leader_flag = admiral_copy_1
-				has_leader_flag = admiral_copy_2
-			}
-		}
-	}
-
-	immediate = {
-		every_owned_leader = {
-			limit = {
-				OR = {
-					has_leader_flag = admiral_copy_1
-					has_leader_flag = admiral_copy_2
-				}
-			}
-			kill_leader = { show_notification = no }
 		}
 	}
 }

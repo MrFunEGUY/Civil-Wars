@@ -24,6 +24,7 @@ planet_event = { ## Initial Event to create separatists from transferred planets
 			num_owned_planets > 0
 			is_country_type_with_subjects = yes
 			NOT = { is_overlord_to = from }
+			NOT = { has_country_flag = civstrife_nat_timer }
 		}
 		from = {
 			NOT = { has_country_flag = civwar_rebel_timer }
@@ -67,6 +68,7 @@ planet_event = { ## Initial Event to create separatists from destroyed countries
 			num_owned_planets = 0
 			is_country_type_with_subjects = yes
 			NOT = { is_overlord_to = from }
+			NOT = { has_country_flag = civstrife_nat_timer }
 		}
 		from = {
 			is_country_type_with_subjects = yes
@@ -271,13 +273,14 @@ country_event = { # Save as global event target and shop for home for Govenment-
 					root = { set_country_flag = exile_already_asked_@event_target:nat_pops_country }
 					country_event = { id = civnat.1300 }
 				}
-				else_if = { # Keep around for localisation reasons
-					limit = {
-						NOT = { any_country = { any_owned_pop = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country } } }
-					}
-					# destroy_country = yes
-				}
+				# else_if = {
+				# 	limit = {
+				# 		NOT = { any_country = { any_owned_pop = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country } } }
+				# 	}
+				# 	# destroy_country = yes
+				# }
 				else = {
+					# Keep around for localisation reasons
 					# No Gov In Exile, because no countries willing to take them in
 					# Can still be revived in the future
 					# Good to keep around for localisation reasons regardless
@@ -300,33 +303,19 @@ country_event = { # Gov In Exile Requst Hosting
 					is_subject = no
 					is_unfriendly = no
 					has_communications = root
-					is_country_type_with_subjects = yes
+					is_country_type = default
 					NOR = {
 						is_same_value = root
 						has_country_flag = exile_already_asked_@root
 					}
 				}
-			}
-			ordered_playable_country = {
-				limit = {
-					is_subject = no
-					is_unfriendly = no
-					has_communications = root
-					is_country_type_with_subjects = yes
-					NOR = {
-						is_same_value = root
-						has_country_flag = exile_already_asked_@root
-					}
-				}
-				position = 0
-				order_by = trigger:opinion
 			}
 			random_country = {
 				limit = {
 					is_subject = no
 					is_unfriendly = no
 					has_communications = root
-					is_country_type_with_subjects = yes
+					is_country_type = default
 					NOR = {
 						is_same_value = root
 						has_country_flag = exile_already_asked_@root
@@ -595,7 +584,7 @@ country_event = { # Gov In Exile restoration, on war won
 
 	trigger = {
 		fromfrom = {
-			using_war_goal = { type = wg_natwar owner = from }
+			using_war_goal = { type = wg_natwar owner = root.from }
 		}
 		any_country = {
 			is_country_type = exile_country
@@ -1560,8 +1549,23 @@ country_event = { # Set Sector and System flags
 	}
 }
 
-country_event = { # Set Capital Sector as Fundamental on Game Start
+country_event = { # Set Capital Sector as Fundamental on Game Start initializer
 	id = civnat.2005
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_regular_empire = yes
+		NOT = { has_country_flag = capital_fundamental_set }
+	}
+
+	immediate = {
+		country_event = { id = civnat.2006 days = 360 } # Was getting issues with sectors existing yet
+	}
+}
+
+country_event = { # Set Capital Sector as Fundamental after one year
+	id = civnat.2006
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -1576,26 +1580,28 @@ country_event = { # Set Capital Sector as Fundamental on Game Start
 			set_planet_flag = fundamental_planet_@root
 			set_planet_flag = capital_planet_@root
 			solar_system = { set_star_flag = fundamental_system_@root }
-			sector = {
-				set_sector_flag = fundamental_sector_@root
-				if = {
-					limit = { has_sector_flag = frontier_sector_@root }
-					remove_sector_flag = frontier_sector_@root
-				}
-				every_owned_planet = {
+			if = {
+				limit = { exists = sector }
+				sector = {
+					set_sector_flag = fundamental_sector_@root
 					if = {
-						limit = { has_planet_flag = frontier_planet_@root }
-						remove_planet_flag = frontier_planet_@root
+						limit = { has_sector_flag = frontier_sector_@root }
+						remove_sector_flag = frontier_sector_@root
 					}
-					if = {
-						limit = { has_planet_flag = integrated_planet_@root }
-						remove_planet_flag = integrated_planet_@root
+					every_owned_planet = {
+						if = {
+							limit = { has_planet_flag = frontier_planet_@root }
+							remove_planet_flag = frontier_planet_@root
+						}
+						if = {
+							limit = { has_planet_flag = integrated_planet_@root }
+							remove_planet_flag = integrated_planet_@root
+						}
+						set_planet_flag = fundamental_planet_@root
 					}
-					set_planet_flag = fundamental_planet_@root
 				}
-			}			
+			}
 		}
-
 		set_country_flag = capital_fundamental_set
 	}
 }
@@ -1770,7 +1776,7 @@ country_event = { # Set and Remove Citizenship flags for species
 	is_triggered_only = yes
 
 	trigger = {
-		NOT = { has_country_flag = civstrife_nat_30_year_timer }
+		NOT = { has_country_flag = civstrife_nat_timer }
 		
 		any_owned_pop = {
 			NOT = { has_modifier = pop_recently_conquered }
@@ -2209,7 +2215,7 @@ country_event = { # Remove Nationalism Initial Trigger
 		any_country = {
 			any_owned_pop = {
 				has_pop_flag = sep_pop_nat_@root
-				happiness >= 85
+				happiness >= 65
 				is_enslaved = no
 				is_being_purged = no
 			}
@@ -2224,7 +2230,7 @@ country_event = { # Remove Nationalism Initial Trigger
 			limit = {
 				any_owned_pop = {
 					has_pop_flag = sep_pop_nat_@event_target:nat_motherland
-					happiness >= 85
+					happiness >= 65
 					is_enslaved = no
 					is_being_purged = no
 				}
@@ -2233,7 +2239,7 @@ country_event = { # Remove Nationalism Initial Trigger
 			every_owned_pop = {
 				limit = {
 					has_pop_flag = sep_pop_nat_@event_target:nat_motherland
-					happiness >= 85
+					happiness >= 65
 					is_enslaved = no
 					is_being_purged = no
 				}
@@ -2251,7 +2257,7 @@ pop_event = { # Remove Nationalism Event
 
 	trigger = {
 		has_pop_flag = sep_pop_nat_@event_target:nat_motherland
-		happiness >= 85
+		happiness >= 65
 		is_enslaved = no
 		is_being_purged = no
 	}
@@ -2259,9 +2265,9 @@ pop_event = { # Remove Nationalism Event
 
 	immediate = {
 
-		random_list = {
-			40 = { }
-			60 = { remove_pop_flag = sep_pop_nat_@event_target:nat_motherland }
+		random = {
+			chance = 60
+			remove_pop_flag = sep_pop_nat_@event_target:nat_motherland
 		}
 	}
 }
@@ -2281,7 +2287,7 @@ country_event = { # Check disapproving Factions every month Initializer
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 			any_pop_faction = {
 				has_pop_faction_flag = nat_faction_@root
-				# faction_approval < 0.20
+				faction_approval < 0.20
 				NOT = { has_pop_faction_flag = faction_sep_situation }
 			}
 		}
@@ -2295,7 +2301,7 @@ country_event = { # Check disapproving Factions every month Initializer
 				NOT = { has_ethic = ethic_gestalt_consciousness }
 				any_pop_faction = {
 					has_pop_faction_flag = nat_faction_@root
-					# faction_approval < 0.20
+					faction_approval < 0.20
 					NOT = { has_pop_faction_flag = faction_sep_situation }
 				}
 			}
@@ -2314,7 +2320,7 @@ country_event = { # Check disapproving Factions every month Event
 		NOT = { has_ethic = ethic_gestalt_consciousness }
 		any_pop_faction = {
 			has_pop_faction_flag = nat_faction_@from
-			# faction_approval < 0.20
+			faction_approval < 0.20
 			NOT = { has_pop_faction_flag = faction_sep_situation }
 		}
 	}
@@ -2324,7 +2330,7 @@ country_event = { # Check disapproving Factions every month Event
 		random_pop_faction = {
 			limit = {
 				has_pop_faction_flag = nat_faction_@from
-				# faction_approval < 0.20
+				faction_approval < 0.20
 				NOT = { has_pop_faction_flag = faction_sep_situation }
 			}
 			set_pop_faction_flag = faction_sep_situation

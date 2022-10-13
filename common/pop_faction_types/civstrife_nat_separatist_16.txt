@@ -53,15 +53,15 @@ nat_separatist_16 = {
 	}
 
 	attraction = {
-		base = 150
+		base = 125
 
 		modifier = {
 			factor = 0
-			happiness >= 85
+			happiness >= 70
 		}
 
 		modifier = {
-			factor = 0.9
+			factor = 0.55
 			has_citizenship_type = { type = citizenship_full }
 		}
 
@@ -72,47 +72,46 @@ nat_separatist_16 = {
 		}
 
 		modifier = {
-			factor = 1.2
+			factor = 1.1
 			happiness <= 0.5
 			happiness > 0.4
 		}
 
 		modifier = {
-			factor = 1.35
+			factor = 1.2
 			happiness <= 0.4
 			happiness > 0.3
 		}
 
 		modifier = {
-			factor = 1.5
+			factor = 1.3
 			happiness <= 0.3
 			happiness > 0.2
 		}
 
 		modifier = {
-			factor = 1.75
+			factor = 1.4
 			happiness <= 0.2
 			happiness > 0.1
 		}
 
 		modifier = {
-			factor = 2
+			factor = 1.55
 			happiness <= 0.1
 		}
 
 		modifier = { #Outcasts and radicals
 			factor = 1.5
 			OR = {
-				NOT = { is_same_species = owner_species }
 				NOT = { has_citizenship_type = { type = citizenship_full } }
 				has_trait = trait_unruly
 			}
 		}
 
-		# modifier = {
-		# 	factor = 2.5
-		# 	owner = { is_at_war_with = event_target:nat_separatist_16 }
-		# }
+		modifier = {
+			factor = 2
+			owner = { is_at_war_with = event_target:nat_separatist_16 }
+		}
 	}
 
 	leader = {
@@ -303,8 +302,7 @@ nat_separatist_16 = {
 		trigger = {
 			owner = {
 				NOT = {
-					any_war = { any_defender = { is_same_value = event_target:nat_separatist_16 } }
-					# is_at_war_with = event_target:nat_separatist_16
+					is_at_war_with = event_target:nat_separatist_16
 				}
 			}
 		}

@@ -19,6 +19,7 @@ plan_separatist_72 = {
 
 	is_potential = {
 		years_passed >= 5
+		exists = event_target:plan_separatist_72
 		any_owned_planet = { is_same_value = event_target:plan_separatist_72 }	
 	}
 
@@ -56,7 +57,7 @@ plan_separatist_72 = {
 		}
 
 		modifier = {
-			factor = 1.15
+			factor = 1.2
 			happiness <= 0.4
 			happiness > 0.3
 		}
@@ -68,20 +69,19 @@ plan_separatist_72 = {
 		}
 
 		modifier = {
-			factor = 1.45
+			factor = 1.4
 			happiness <= 0.2
 			happiness > 0.1
 		}
 
 		modifier = {
-			factor = 1.6
+			factor = 1.5
 			happiness <= 0.1
 		}
 
 		modifier = { #Outcasts and radicals
 			factor = 1.5
 			OR = {
-				NOT = { is_same_species = owner_species }
 				NOT = { has_citizenship_type = { type = citizenship_full } }
 				has_trait = trait_unruly
 			}
@@ -388,9 +388,7 @@ plan_separatist_72 = {
 	}
 
 	on_create = {
-		random_owned_pop = {
-			planet = { event_target:plan_separatist_72 = { save_event_target_as = plan_sep_loc } }
-		}
+		event_target:plan_separatist_72 = { save_event_target_as = plan_sep_loc }
 		plan_faction_first_effect = yes
 		set_name = {
 			key = plan_separatist_real_name

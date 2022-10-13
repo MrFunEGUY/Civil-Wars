@@ -6,6 +6,8 @@ l_german:
 # l_russian:
 # l_braz_por:
 # l_simp_chinese:
+# l_korean:
+# l_japanese:
 
  ###################
  # Inittial Comms
@@ -199,6 +201,7 @@ l_german:
  civcom.1005.general.sec.desc: "Greetings. You knew me as General §H[event_target:civwar_rebels.Ruler.GetName]§!, leader of the §Y[event_target:civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people of the §Y[event_target:sector_name_leader.GetName]§! sector have had enough. I am a mere General no longer. Now, I lead the §H[event_target:civwar_rebels.GetName]§! as their §Y[event_target:civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
  civcom.1005.scientist.sec.desc: "Greetings. You knew me as Scientist §H[event_target:civwar_rebels.Ruler.GetName]§!, leader of the §Y[event_target:civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people of the §Y[event_target:sector_name_leader.GetName]§! sector have had enough. I am a mere Scientist no longer. Now, I lead the §H[event_target:civwar_rebels.GetName]§! as their §Y[event_target:civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
  civcom.1005.separatist.sec.desc: "Greetings. My name is §H[event_target:civwar_rebels.Ruler.GetName]§!, and I represent the people of the §Y[event_target:sector_name_leader.GetName]§! sector, who have long been left neglected and impoverished by your government. Now, they have chosen me to lead §H[event_target:civwar_rebels.GetName]§! as their §H[event_target:civwar_rebels.GetRulerTitle]§!. \n\nHowever, in the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
+ civcom.1005.nationalist.sec.desc: "Greetings. My name is §H[event_target:civwar_rebels.Ruler.GetName]§!, a former member of the §Y[event_target:civwar_party_name_leader.GetName]§!. Now, as §Y[event_target:civwar_rebels.GetRulerTitle]§!, I lead a new §Y[event_target:nat_motherland_model.GetAdj]§! state, the §H[event_target:civwar_rebels.GetName]§!, which is modeled after §Your motherland§! the §Y[event_target:nat_motherland]§! as their .\n\nOur new state is modeled after §Your motherland§!, the §Y[event_target:nat_motherland_model.GetName]§!. I have the support of the people of my nation, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
 
 
  civcom.1000.war: "This is treason. We will reunite our nation. This means war."
@@ -231,8 +234,6 @@ l_german:
 
  civcom.5062.desc: "I knew this was the most likely outcome. My fleet is prepared to defend itself."
  civcom.5063.desc: "I knew this was the most likely outcome, and I'm prepared to defend what is rightfully mine."
-
- civcom.4010.a: "You will fail."
 
  civcom.2120.desc: "We're glad you feel that way. The feeling is mutual."
  civcom.5042.desc: "I'm glad you feel that way. The feeling is mutual."
@@ -328,9 +329,13 @@ l_german:
 
  civcom.1105.nationalist.exile.imp.desc: "Greetings. My name is §H[event_target:civwar_rebels.Ruler.GetName]§!, and I am a former member of the §Y[event_target:civwar_party_name_leader.GetName]§!. Now, I lead the §H[event_target:civwar_rebels.GetName]§! as their §Y[event_target:civwar_rebels.GetRulerTitle] on a provisional basis§!.\n\nOur new state is modeled after §Your motherland§!, the original §Y[event_target:nat_motherland_model.GetName]§!, and I will relinquish power to our true leader, §Y[event_target:civwar_rebels.GetRulerTitle]§! §H[event_target:nat_motherland_model.ruler.GetName]§!, once our liberation is complete. In the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
 
- civcom.3100.norm.desc: "Did you really think I would just stand by and let you take my birthright from me? During my time as heir, I made allies. There are many throughout the realm who support me. As such, I am §Y[event_target:civwar_rebels.GetRulerTitle]§! §H[event_target:civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
+ civcom.3100.norm.reg.desc: "Did you really think I would just stand by and let you take my birthright from me? During my time as heir, I made allies. There are many throughout the realm who support me. As such, I am §Y[event_target:civwar_rebels.GetRulerTitle]§! §H[event_target:civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
 
- civcom.3100.ad.desc: "Did you really think I would just stand by and let you take what was promised to me? During my time as heir, I made allies. There are many throughout the realm who support me. As such, I am §Y[event_target:civwar_rebels.GetRulerTitle]§! §H[event_target:civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my what is rightfully mine."
+ civcom.3100.ad.reg.desc: "Did you really think I would just stand by and let you take what was promised to me? During my time as heir, I made allies. There are many throughout the realm who support me. As such, I am §Y[event_target:civwar_rebels.GetRulerTitle]§! §H[event_target:civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my what is rightfully mine."
+
+civcom.3100.norm.gov.desc: "The dismantling of the monarchy was treason. Did you really think I would just stand by and let you take my birthright from me? During my time as heir, I made allies. There are many throughout the realm who still support the monarchy. As such, I am §Y[event_target:civwar_rebels.GetRulerTitle]§! §H[event_target:civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
+
+ civcom.3100.ad.gov.desc: "The dismantling of the monarchy was treason. Did you really think I would just stand by and let you take what was promised to me? During my time as heir, I made allies. There are many throughout the realm who stil support the monarchy. As such, I am §Y[event_target:civwar_rebels.GetRulerTitle]§! §H[event_target:civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my what is rightfully mine."
 
  civcom.3110.desc: "I knew this was the course you would most likely take, seeing as you have a tendency to make poor decisions. Ever more the reason that I should lead."
 
@@ -353,16 +358,19 @@ l_german:
  civcom.4000.name: "[event_target:civwar_rebels.GetRulerTitle] §H[event_target:civwar_rebels.ruler.GetName]§! of the §Y[event_target:civwar_rebels.GetName]§!"
  civcom.4000.norm.desc: "Greetings to §Y[Root.GetRulerTitle]§! §H[Root.GetRulerName]§!. I am §Y[event_target:civwar_rebels.GetRulerTitle]§! §H[event_target:civwar_rebels.ruler.GetName]§!, and I represent the §Y[event_target:civwar_rebels.GetName]§!. We have broken away from the §Y[event_target:civwar_originator.GetName]§! and founded a new state. However, the §Y[event_target:civwar_originator.GetAdj]§! government has declared war in an attempt to maintain their hold over us. I come before you today requesting any assistance that you may be able to provide."
 
- civcom.4000.nat.desc: "Greetings to §Y[Root.GetRulerTitle]§! §H[Root.GetRulerName]§!. I am §Y[event_target:civwar_rebels.GetRulerTitle]§! §H[event_target:civwar_rebels.ruler.GetName]§!, and I represent the §Y[event_target:civwar_rebels.GetName]§!. We have broken away from the §Y[event_target:civwar_originator.GetName]§! and founded a new state based on our motherland, the §Y[event_target:nat_motherland_model.GetName]§!. However, the §Y[event_target:civwar_originator.GetAdj]§! government has declared war in an attempt to maintain their hold over us. I come before you today requesting any assistance that you may be able to provide."
+ civcom.4000.heir.desc: "Greetings to §Y[Root.GetRulerTitle]§! §H[Root.GetRulerName]§!. I am §Y[event_target:civwar_rebels.GetRulerTitle]§! §H[event_target:civwar_rebels.ruler.GetName]§!, and I represent the §Y[event_target:civwar_rebels.GetName]§!. I was, and still rightfully am, the heir to the throne of the §Y[event_target:civwar_originator.GetName]§!. However, political machinations have seen me denied my rightful claim to the throne. Unwilling to let this stand, I was forced to found the §Y[event_target:civwar_rebels.GetName]§! with territory that was still loyal to me. However, the §Y[event_target:civwar_originator.GetRulerTitle]§! has decided to wage war against me in a further attempt to deny me what is rightfully mine. I come before you today requesting any assistance that you may be able to provide."
 
- civcom.4010.desc: "Greetings, §Y[root.GetRulerTitle]§! §H[Root.Ruler.GetName]§!. My name is §H[event_target:civwar_rebels.Ruler.GetName]§!, and I come representing a group of loyal patriots who've rebelled against the oppressive rule of the §Y[event_target:civwar_originator.GetName]§!. We've created a new §Y[Root.GetAdj]§! state, the §H[event_target:civwar_rebels.GetName]§!, modeled after our true motherland, the  §Y[Root.GetName]§!. I have been chosen to lead as §Y[event_target:civwar_rebels.GetRulerTitle]§!.\n\nWe would be grateful if you would assist in our liberation struggle if the despised §Y[event_target:civwar_originator.GetAdj]§! government decides to take up arms against us."
+ # Not Yet Implelemented
+ # civcom.4000.nat.border.desc: "Greetings, §Y[root.GetRulerTitle]§! §H[Root.Ruler.GetName]§!. My name is §H[event_target:civwar_rebels.Ruler.GetName]§!, and I come representing a group of loyal patriots who've rebelled against the oppressive rule of the §Y[event_target:civwar_originator.GetName]§!. We've created a new §Y[Root.GetAdj]§! state, the §H[event_target:civwar_rebels.GetName]§!, modeled after our true motherland, the  §Y[Root.GetName]§!. I have been chosen to lead as §Y[event_target:civwar_rebels.GetRulerTitle]§!.\n\nWe would be grateful if you would assist in our liberation struggle in the likely event the despised §Y[event_target:civwar_originator.GetAdj]§! government attempts to force us back under their control. Additionally, should our liberation struggle prove successful, would would formally like to rejoin the §Y[Root.GetName]§!."
+
+ civcom.4000.nat.desc: "Greetings, §Y[root.GetRulerTitle]§! §H[Root.Ruler.GetName]§!. My name is §H[event_target:civwar_rebels.Ruler.GetName]§!, and I come representing a group of loyal patriots who've rebelled against the oppressive rule of the §Y[event_target:civwar_originator.GetName]§!. We've created a new §Y[Root.GetAdj]§! state, the §H[event_target:civwar_rebels.GetName]§!, modeled after our true motherland, the  §Y[Root.GetName]§!. I have been chosen to lead as §Y[event_target:civwar_rebels.GetRulerTitle]§!.\n\nWe would be grateful if you would assist in our liberation struggle in the likely event the despised §Y[event_target:civwar_originator.GetAdj]§! government attempts to force us back under their control."
 
  civcom.4000.abstain: "We're sorry, but we cannot assist you."
  civcom.4000.resources: "We can provide you with aid."
  civcom.4000.ships: "We can provide you with some ships."
  civcom.4000.help: "You have our fully military support."
 
- civcom.4000.heir.desc: "Greetings to §Y[Root.GetRulerTitle]§! §H[Root.GetRulerName]§!. I am §Y[event_target:civwar_rebels.GetRulerTitle]§! §H[event_target:civwar_rebels.ruler.GetName]§!, and I represent the §Y[event_target:civwar_rebels.GetName]§!. I was, and still rightfully am, the heir to the throne of the §Y[event_target:civwar_originator.GetName]§!. However, political machinations have seen me denied my rightful claim to the throne. Unwilling to let this stand, I was forced to found the §Y[event_target:civwar_rebels.GetName]§! with territory that was still loyal to me. However, the §Y[event_target:civwar_originator.GetRulerTitle]§! has decided to wage war against me in a further attempt to deny me what is rightfully mine. I come before you today requesting any assistance that you may be able to provide."
+ 
 
  civcom.4100.norm.desc: "We knew the chances were slim. Have a good day."
  civcom.4100.nat.desc: "Really? This is dissapointing. We thought we could surely count on our fellow §Y[Root.GetSpeciesAdj]§! to assist us."
@@ -377,8 +385,8 @@ l_german:
  civcom.4120.10: "We'll give you around §Y10%§! of our ships."
  civcom.4120.15: "We'll give you around §Y15%§! of our ships."
  
- civcom.4000.norm.desc: "You are a true ally. We'll surely win this war now."
- civcom.4000.nat.desc: "We greatly appreciate the assistance. We knew we would be able to count on our motherland for support."
+ civcom.4125.norm.desc: "You are a true ally. We'll surely win this war now."
+ civcom.4125.nat.desc: "We greatly appreciate the assistance. We knew we would be able to count on our motherland for support."
 
  we_must_border_rebels: "We do not border the §Y[event_target:civwar_rebels.GetName]§!"
 
@@ -398,25 +406,31 @@ l_german:
  civcom.8100.name: "[event_target:disinherited_heir.GetName]"
  
  civcom.7000.desc: "..."
- civcom.7000.desc: "..."
+
  civcom.7001.desc: "And yet, I stand by my actions. Everything I did was just."
+
  civcom.7110.torture.desc: "What? Wait. Wait!"
+
  civcom.7115.desc: "I knew this was a possibility. I stand by my actions."
+
  civcom.7004.desc: "That's... extremely surprising."
  civcom.7005.desc: "Interesting. Very interesting."
+ 
 
  civcom.7100.desc: "You really went to war to get me? I don't know if I should be flattered, or if you're just crazy."
- civcom.7100.a: "You'll be executed."
- civcom.7100.b: "You'll be tortured."
- civcom.7100.c: "You'll be imprisoned indefinitely."
+ civcom.7000.a: "You'll be executed."
+ civcom.7000.b: "You'll be tortured."
+ civcom.7000.c: "You'll be imprisoned indefinitely."
  civcom.7000.d: "I'm pardoning you."
  civcom.7000.e: "I'm banishing you."
 
+ civcom.7001.a: "And yet, you'll still die."
  civcom.7002.a: "No, I don't think I will."
  civcom.7003.a: "Good riddance."
  civcom.7004.a: "You're welcome."
+ civcom.7005.a: "Be Gone."
 
- civcom.7110.die: "And yet, you'll still die."
+ civcom.7110.die: "$civcom.7001.a$"
  civcom.7110.bye: "Bye."
 
 
@@ -710,6 +724,24 @@ l_german:
  civelect.2100.unless: "I won't be the one leaving."
  civelect.2100.unless.tooltip: "The other faction leaders will be arrested, and §H[owner.ruler.GetName]§! will remain the §Y[owner.GetRulerTitle]§!."
 
+ civelect.4000.name: "Separatist becomes [root.GetRulerTitle]"
+ civelect.4000.plan.dem.desc: "With the last election stunningly resulting in §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! becoming §Y[root.GetRulerTitle]§!, they have promised to fulfill their campaign promise of having the §Y[event_target:ruler_sep_planet.GetName]§! secede from the §Y[root.GetName]§!."
+ civelect.4000.sec.dem.desc: "With the last election stunningly resulting in §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! becoming §Y[root.GetRulerTitle]§!, they have promised to fulfill their campaign promise of having the §Y[event_target:ruler_sep_sector.GetName]§! sector secede from the §Y[root.GetName]§!."
+ civelect.4000.nat.dem.desc: "With the last election stunningly resulting in §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! becoming §Y[root.GetRulerTitle]§!, they have promised to fulfill their campaign promise of creating a new state for their people."
+
+ civelect.4000.plan.other.desc: "With §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! somehow managing to secure enough support to become §Y[root.GetRulerTitle]§!, they have promised to fulfill their promise of having the §Y[event_target:ruler_sep_planet.GetName]§! secede from the §Y[root.GetName]§!."
+ civelect.4000.sec.other.desc: "With §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! somehow managing to secure enough support to become §Y[root.GetRulerTitle]§!, they have promised to fulfill their promise of having the §Y[event_target:ruler_sep_sector.GetName]§! sector secede from the §Y[root.GetName]§!."
+ civelect.4000.nat.other.desc: "With §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! somehow managing to secure enough support to become §Y[root.GetRulerTitle]§!, they have promised to fulfill their promise of creating a new state for their people."
+
+ civelect.4000.how: "How could this happen?"
+
+ civelect.4010.plan.desc: "§Y[root.GetRulerTitle]§! §H[Ruler.GetName]§! has drawn up all the plans for the secession of §Y[event_target:ruler_sep_planet.GetName]§!. The new state will take control all systems connected to the §Y[event_target:ruler_sep_planet.solar_system.GetName]§! system. All that needs to happen now is the ratification of the document, giving it the force of law. Will ratification of the document be allowed?"
+ civelect.4010.sec.desc: "§Y[root.GetRulerTitle]§! §H[Ruler.GetName]§! has drawn up all the plans for the secession of the §Y[event_target:ruler_sep_sector.GetName]§! sector. Due to a sector having it's own administration, it will be as simple as transferring over that administration to the new government. All that needs to happen now is the ratification of the document, giving it the force of law. Will ratification of the document be allowed?"
+ civelect.4010.nat.desc: "§Y[root.GetRulerTitle]§! §H[Ruler.GetName]§! has drawn up all the plans to create a new state for their people. All that needs to happen now is the ratification of the document, giving it the force of law. Will ratification of the document be allowed?"
+
+ civelect.4010.ratify: "Ratify the document."
+ civelect.4010.no: "Stop it's ratification."
+
  civelect.9000.name: "Investigation Cancelled"
  civelect.9000.dem.desc: "Due to the fact that a new election is being held, the investigation into the conduct of the prior election has been cancelled."
  civelect.9000.other.desc: "Due to the fact that a new §Y[owner.GetRulerTitle]§! selection process is being held, the investigation into the conduct of the prior selection has been cancelled."
@@ -911,25 +943,25 @@ l_german:
 
  # Planetary Separatist Rebellion
  situation_civstrife_faction_sep_plan: "§P[Target.GetName]§!"
- situation_civstrife_faction_sep_plan_type: "§YSeparatist§! Radicalizing"
+ situation_civstrife_faction_sep_plan_type: "§YSeparatists§! Radicalizing"
  situation_civstrife_faction_sep_plan_desc:"The separatists of the §Y[Target.GetName]§! have begun to discuss more radical means of achieving independence."
  situation_civstrife_faction_sep_plan_monthly_change_tooltip: "Radicalism is spreading."
 
  # Sectoral Separatist Rebellion
  situation_civstrife_faction_sep_sec: "§P[Target.GetName]§!"
- situation_civstrife_faction_sep_sec_type: "§YSeparatist§! Radicalizing"
+ situation_civstrife_faction_sep_sec_type: "§YSeparatists§! Radicalizing"
  situation_civstrife_faction_sep_sec_desc:"The separatists of the §Y[Target.GetName]§! have begun to discuss more radical means of achieving independence."
  situation_civstrife_faction_sep_sec_monthly_change_tooltip: "Radicalism is spreading."
 
  # Isolated Sector Separatist Rebellion
  situation_civstrife_faction_iso_sep_sec: "§P[Target.GetName]§!"
- situation_civstrife_faction_iso_sep_sec_type: "§YSeparatist§! Radicalizing"
+ situation_civstrife_faction_iso_sep_sec_type: "§YSeparatists§! Radicalizing"
  situation_civstrife_faction_iso_sep_sec_desc:"The separatists of the §Y[Target.GetName]§! have begun to discuss how best to declare their independence."
  situation_civstrife_faction_iso_sep_sec_monthly_change_tooltip: "Radicalism is spreading."
 
  # Nationalist Rebellion
  situation_civstrife_faction_sep_nat: "§P[Target.GetName]§!"
- situation_civstrife_faction_sep_nat_type: "§YSeparatist§! Radicalizing"
+ situation_civstrife_faction_sep_nat_type: "§YSeparatists§! Radicalizing"
  situation_civstrife_faction_sep_nat_desc:"The nationalists of the §Y[Target.GetName]§! have begun to discuss more radical means of achieving either reunification with their motherland, or the creation of a new state."
  situation_civstrife_faction_sep_nat_monthly_change_tooltip: "Radicalism is spreading."
 

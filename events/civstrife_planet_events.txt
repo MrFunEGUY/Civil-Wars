@@ -46,7 +46,7 @@ country_event = {
 
 		if = {
 			limit = { FromFrom = { has_planet_flag = ethic_planet_rebellion_@this } }
-			set_country_flag = ethic_plan_rebels_@event_target:civwar_rebels
+			# set_country_flag = ethic_plan_rebels_@event_target:civwar_rebels
 			FromFrom = { remove_planet_flag = ethic_planet_rebellion_@this }
 		}
 		else_if = {
@@ -61,7 +61,7 @@ country_event = {
 		else_if = {
 			limit = { FromFrom = { has_planet_flag = sep_planet_rebellion_@this } }
 			FromFrom = { remove_planet_flag = sep_planet_rebellion_@this }
-			set_country_flag = sep_plan_rebels_@event_target:civwar_rebels
+			# set_country_flag = sep_plan_rebels_@event_target:civwar_rebels
 		}
 		else_if = {
 			limit = { FromFrom = { has_planet_flag = sep_sector_rebellion_@this } }
@@ -129,7 +129,6 @@ country_event = {
 				save_event_target_as = nat_motherland_model
 			}
 			if = { # Query Motherland if possible
-				# limit = { NOT = { has_country_flag = motherland_is_exile } }
 				limit = { NOT = { event_target:nat_motherland_model = { is_country_type = exile_country } } }
 				country_event = { id = civwar.2050 }
 			}
@@ -152,7 +151,7 @@ country_event = {
 		}
 		else = {
 			random_list = {
-				# 65 = { country_event = { id = civcom.1000 } }
+				65 = { country_event = { id = civcom.1000 } }
 				35 = { country_event = { id = civcom.1005 } }
 			}
 		}

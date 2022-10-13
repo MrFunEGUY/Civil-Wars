@@ -197,19 +197,19 @@ observer_event = {
 	is_triggered_only = yes
 
 	desc = {
+		text = civ_action.62.desc.reg
 		trigger = {
 			event_target:gov_in_exile = {
 				NOT = { has_country_flag = already_exiled }
 			}
 		}
-		text = civ_action.62.desc.reg
 	}
 
 	desc = {
+		text = civ_action.62.desc.already
 		trigger = {
 			event_target:gov_in_exile = { has_country_flag = already_exiled }
 		}
-		text = civ_action.62.desc.already
 	}
 
 	option = {
@@ -221,11 +221,26 @@ observer_event = {
 observer_event = {
 	id = civ_observer.3
 	title = civ_action.63.name
-	desc = civ_action.63.desc
 	show_sound = event_default
 	picture = "GFX_evt_city_ruins"
 
 	is_triggered_only = yes
+
+	desc = {
+		text = civ_action.63.desc.reg
+		trigger = {
+			event_target:gov_in_exile = {
+				NOT = { has_country_flag = already_exiled }
+			}
+		}
+	}
+
+	desc = {
+		text = civ_action.63.desc.already
+		trigger = {
+			event_target:gov_in_exile = { has_country_flag = already_exiled }
+		}
+	}
 
 	option = {
 		name = OK

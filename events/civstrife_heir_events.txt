@@ -9,7 +9,7 @@ namespace = civheir
 #################
 # Initializers
 
-# Initializer, heir disinherited or government changed from imperial
+# Initializer, heir disinherited
 country_event = {
 	id = civheir.1000
 	hide_window = yes
@@ -24,6 +24,10 @@ country_event = {
 	immediate = {
 
 		country_event = { id = civheir.1001 days = 2 random = 21 }
+
+		event_target:disinherited_heir = {
+			exile_leader_as = disinherited_heir
+		}
 	}
 }
 
@@ -61,9 +65,34 @@ country_event = {
 				# Disinherited Heir starts Civil War within year
 				20 = { country_event = { id = civheir.2000 } }
 				# Disinherited Heir bides time until death of ruler
-				# 30 = { country_event = { id = civheir.2005 } }
+				30 = { country_event = { id = civheir.2005 } }
 				# Disinherited Heir escapes to foreign country
-				# 50 = { country_event = { id = civheir.3000 } }
+				50 = { country_event = { id = civheir.3000 } }
+			}
+		}
+		else_if = {
+			limit = {
+				num_owned_planets = 1
+				any_country = {
+					has_communications = root
+					OR = {
+						is_country_type_with_subjects = yes
+						# is_country_type = primitive
+					}
+					NOR = {
+						is_loyal_to = root
+						is_overlord_to = root
+						is_custodial_to = root
+						is_homicidal = yes
+						is_fallen_empire = yes
+					}
+				}
+			}
+			random_list = {
+				# Disinherited Heir bides time until death of ruler
+				20 = { country_event = { id = civheir.2005 } }
+				# Disinherited Heir escapes to foreign country
+				80 = { country_event = { id = civheir.3000 } }
 			}
 		}
 		else_if = {
@@ -91,50 +120,10 @@ country_event = {
 	}
 }
 
-# Initializer, Government changed
-country_event = {
-	id = civheir.1002
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		exists = event_target:disinherited_heir
-	}
-
-	immediate = {
-
-		if = {
-			limit = {
-				any_country = {
-					has_communications = root
-					OR = {
-						is_country_type_with_subjects = yes
-						# is_country_type = primitive
-					}
-					NOR = {
-						is_loyal_to = root
-						is_overlord_to = root
-						is_custodial_to = root
-						is_homicidal = yes
-						is_fallen_empire = yes
-					}
-				}
-			}
-			country_event = { id = civheir.3000 }
-		}
-		else = {
-			event_target:disinherited_heir = {
-				set_leader_flag = dead_ruler
-				kill_leader = { show_notification = no }
-			}
-		}
-	}
-}
-
 #################
 # Dummy Countries
 
-# Disinherited Heir starts Civil War within year, dummy country
+# Disinherited Heir starts Civil War within a few years, dummy country
 country_event = {
 	id = civheir.2000
 	hide_window = yes
@@ -146,7 +135,15 @@ country_event = {
 
 	immediate = {
 
-		save_event_target_as = heir_mother_country
+		if = {
+			limit = { exists = event_target:gov_switch_country }
+			event_target:gov_switch_country = {
+				save_event_target_as = heir_mother_country
+			}
+		}
+		else = {
+			save_event_target_as = heir_mother_country
+		}
 
 		create_country = {
 			name = random
@@ -177,9 +174,14 @@ country_event = {
 			}
 		}
 
+		if = {
+			limit = { exists = event_target:gov_switch_country }
+			event_target:gov_switch_country = { destroy_country = yes }
+		}
+
 		set_country_flag = heir_mother_country_@last_created_country
 
-		country_event = { id = civheir.2100 days = 7 random = 345 }
+		country_event = { id = civheir.2100 days = 7 random = 720 }
 	}
 }
 
@@ -195,7 +197,15 @@ country_event = {
 
 	immediate = {
 
-		save_event_target_as = heir_mother_country
+		if = {
+			limit = { exists = event_target:gov_switch_country }
+			event_target:gov_switch_country = {
+				save_event_target_as = heir_mother_country
+			}
+		}
+		else = {
+			save_event_target_as = heir_mother_country
+		}
 
 		create_country = {
 			name = random
@@ -229,6 +239,11 @@ country_event = {
 				}
 				set_heir_country_flag = yes
 			}
+		}
+
+		if = {
+			limit = { exists = event_target:gov_switch_country }
+			event_target:gov_switch_country = { destroy_country = yes }
 		}
 
 		set_country_flag = heir_mother_country_@last_created_country
@@ -271,7 +286,7 @@ country_event = {
 			limit = { num_sectors > 2 }
 			random_list = {
 				# Heir takes over a sector
-				# 65 = { get_heir_one_sector_effect = yes }
+				65 = { get_heir_one_sector_effect = yes }
 				# Heir takes multiple sectors
 				35 = { get_heir_multi_sector_effect = yes }
 			}
@@ -300,13 +315,14 @@ country_event = {
 	trigger = {
 		exists = event_target:disinherited_heir
 	}
+
+	immediate = {
+		country_event = { id = civheir.3010 }
+	}
 	
 	# Damn it!
 	option = {
 		name = civheir.3000.a
-		hidden_effect = {
-			country_event = { id = civheir.3010 }
-		}
 	}
 }
 
@@ -400,103 +416,6 @@ country_event = {
 
 	option = { # How dare they accept them!
 		name = civheir.3030.a
-		hidden_effect = {
-			clear_global_event_target = disinherited_heir
-		}
-	}
-}
-
-###########
-
-# Heir to lost kingdom escapes
-country_event = {
-	id = civheir.3100
-	title = civheir.3000.name
-	desc = civheir.3100.desc
-	picture = GFX_evt_ship_travel
-	location = root.capital_scope
-	hide_window = no
-	is_triggered_only = yes
-
-	trigger = {
-		exists = event_target:disinherited_heir
-	}
-	
-	# Damn it!
-	option = {
-		name = civheir.3000.a
-		hidden_effect = {
-			country_event = { id = civheir.3105 }
-		}
-	}
-}
-
-# Heir to lost kingdom is finding another empire, will work for them.
-country_event = {
-	id = civheir.3105
-	hide_window = yes
-	is_triggered_only = yes
-	
-	immediate = {
-
-		save_event_target_as = traitor_home_country
-
-		random_country = {
-			limit = {
-				has_communications = root
-				NOR = {
-					is_loyal_to = root
-					is_overlord_to = root
-					is_custodial_to = root
-					is_homicidal = yes
-					is_fallen_empire = yes
-					has_country_flag = traitor_heir_already_asked
-				}
-			}
-			country_event = { id = civheir.3110 }
-		}
-	}
-}
-
-# Heir to lost kingdom is finding another empire, country notification.
-country_event = {
-	id = civheir.3110
-	title = civheir.3020.name
-	desc = civheir.3110.desc
-	picture = GFX_evt_ship_travel
-	location = root.capital_scope
-	hide_window = no
-	is_triggered_only = yes
-
-	option = {
-		name = civheir.3020.a
-		hidden_effect = {
-			country_event = { id = civcom.8100 }
-		}
-	}
-}
-
-# Heir to lost kingdom escaped to another empire, notify mother country.
-country_event = {
-	id = civheir.3115
-	title = civheir.3030.name
-	picture = GFX_evt_ship_travel
-	location = from.capital_scope
-	hide_window = no
-	is_triggered_only = yes
-
-	desc = {
-		text = civheir.3030.admiral.desc
-		trigger = { event_target:disinherited_heir_asylum = { leader_class = admiral } }
-	}
-
-	desc = {
-		text = civheir.3030.regular.desc
-		trigger = { event_target:disinherited_heir_asylum = { NOT = { leader_class = admiral } } }
-	}
-
-	option = { # How dare they accept them!
-		name = civheir.3115.a
 		hidden_effect = {
 			clear_global_event_target = disinherited_heir
 		}
@@ -769,45 +688,95 @@ country_event = {
 	}
 
 	immediate = {
-		heir = { save_event_target_as = disinherited_heir_first }
-		clone_leader = {
-			target = event_target:disinherited_heir_first
-			class = ruler
+		heir = {	
+			if = { # Natural Born Heirs
+				limit = { NOT = { has_leader_flag = appointed_heir } }
+				save_event_target_as = disinherited_heir_maybe
+				owner = {
+					clone_leader = {
+						target = event_target:disinherited_heir_maybe
+						class = ruler
+						effect = {
+							save_event_target_as = disinherited_heir_clone
+						}
+					}
+				}
+			}
+			# Appointed Heirs
+			else = { save_event_target_as = disinherited_heir_maybe }
+		}
+
+		create_country = {
+			name = root
+			type = heir_country
+			species = root.species
+			ignore_initial_colony_error = yes
+			day_zero_contact = no
+			authority = root
+			ethos = root
+			origin = origin_disinherited_heir
+			civics = root
+			flag = root
 			effect = {
-				save_event_target_as = disinherited_heir
+				save_event_target_as = gov_switch_country
+			}
+		}
+
+		if = {
+			limit = { heir = { has_leader_flag = adopted_dynastic_name } }
+			random_owned_leader = {
+				limit = { has_leader_flag = dynastic_name_leader }
+				save_event_target_as = transfer_dynasty_name_leader
+			}
+			event_target:gov_switch_country = {
+				clone_leader = {
+					target = event_target:transfer_dynasty_name_leader
+					effect = {
+						set_leader_flag = dynastic_name_leader
+					}
+				}
 			}
 		}
 	}
+
+	after = {
+		country_event = { id = civheir.8210 days = 2 }
+	}
 }
 
-# Government Changing, save heir
+# Government Changing, check if still imperial
 country_event = {
-	id = civheir.8300
+	id = civheir.8210
 	hide_window = yes
 	is_triggered_only = yes
-
-	trigger = {
-		exists = event_target:disinherited_heir
-		ruler = { NOT = { is_same_value = event_target:disinherited_heir } }
-	}
 
 	immediate = {
 		if = { # Because you dont want to call this for just changing civics
 			limit = { is_imperial = no }
-			if = {
-				limit = { exists = event_target:disinherited_heir_first }
-				event_target:disinherited_heir_first = {
+			if = { # Natural Born Heirs
+				limit = { exists = event_target:disinherited_heir_clone }
+				event_target:disinherited_heir_clone = {
+					set_leader_flag = gov_changed_heir
+					save_event_target_as = disinherited_heir
+				}
+			}
+			else = { # Appointed Heirs
+				event_target:disinherited_heir_maybe = {
+					set_leader_flag = gov_changed_heir
+					save_event_target_as = disinherited_heir
+				}
+			}
+			country_event = { id = civheir.1001 days = 2 random = 21 }
+		}
+		else = {
+			if = { # Natural Born Heir clone
+				limit = { exists = event_target:disinherited_heir_clone }
+				event_target:disinherited_heir_clone = {
 					set_leader_flag = dead_ruler
 					kill_leader = { show_notification = no }
 				}
 			}
-			country_event = { id = civheir.1002 days = 2 random = 21 }
-		}
-		else = {
-			event_target:disinherited_heir = {
-				set_leader_flag = dead_ruler
-				kill_leader = { show_notification = no }
-			}
+			event_target:gov_switch_country = { destroy_country = yes }
 		}
 	}
 }

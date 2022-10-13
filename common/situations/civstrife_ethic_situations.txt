@@ -19,7 +19,7 @@ situation_civstrife_faction_egal = {
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
 			}
 			multiply_variable = { which = num_sep_pops value = 0.02 }
-			ceiling_variable = num_fac_pops
+			ceiling_variable = num_sep_pops
 			while = {
 				count = num_sep_pops
 				random_owned_pop = {
@@ -57,17 +57,41 @@ situation_civstrife_faction_egal = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -80,7 +104,7 @@ situation_civstrife_faction_egal = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -116,7 +140,7 @@ situation_civstrife_faction_egal = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -136,11 +160,11 @@ situation_civstrife_faction_egal = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -202,17 +226,41 @@ situation_civstrife_faction_auth = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -225,7 +273,7 @@ situation_civstrife_faction_auth = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -261,7 +309,7 @@ situation_civstrife_faction_auth = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -281,11 +329,11 @@ situation_civstrife_faction_auth = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -326,7 +374,7 @@ situation_civstrife_faction_mil = {
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
 			}
 			multiply_variable = { which = num_sep_pops value = 0.02 }
-			ceiling_variable = num_fac_pops
+			ceiling_variable = num_sep_pops
 			while = {
 				count = num_sep_pops
 				random_owned_pop = {
@@ -364,17 +412,41 @@ situation_civstrife_faction_mil = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -387,7 +459,7 @@ situation_civstrife_faction_mil = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -423,7 +495,7 @@ situation_civstrife_faction_mil = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -443,11 +515,11 @@ situation_civstrife_faction_mil = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -533,17 +605,41 @@ situation_civstrife_faction_pac = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -556,7 +652,7 @@ situation_civstrife_faction_pac = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -592,7 +688,7 @@ situation_civstrife_faction_pac = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -612,11 +708,11 @@ situation_civstrife_faction_pac = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -660,7 +756,7 @@ situation_civstrife_faction_mat = {
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
 			}
 			multiply_variable = { which = num_sep_pops value = 0.02 }
-			ceiling_variable = num_fac_pops
+			ceiling_variable = num_sep_pops
 			while = {
 				count = num_sep_pops
 				random_owned_pop = {
@@ -698,17 +794,41 @@ situation_civstrife_faction_mat = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -721,7 +841,7 @@ situation_civstrife_faction_mat = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -757,7 +877,7 @@ situation_civstrife_faction_mat = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -777,11 +897,11 @@ situation_civstrife_faction_mat = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -822,7 +942,7 @@ situation_civstrife_faction_spi = {
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
 			}
 			multiply_variable = { which = num_sep_pops value = 0.02 }
-			ceiling_variable = num_fac_pops
+			ceiling_variable = num_sep_pops
 			while = {
 				count = num_sep_pops
 				random_owned_pop = {
@@ -860,17 +980,41 @@ situation_civstrife_faction_spi = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -883,7 +1027,7 @@ situation_civstrife_faction_spi = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -919,7 +1063,7 @@ situation_civstrife_faction_spi = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -939,11 +1083,11 @@ situation_civstrife_faction_spi = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -984,7 +1128,7 @@ situation_civstrife_faction_phile = {
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
 			}
 			multiply_variable = { which = num_sep_pops value = 0.02 }
-			ceiling_variable = num_fac_pops
+			ceiling_variable = num_sep_pops
 			while = {
 				count = num_sep_pops
 				random_owned_pop = {
@@ -1022,17 +1166,41 @@ situation_civstrife_faction_phile = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -1045,7 +1213,7 @@ situation_civstrife_faction_phile = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -1081,7 +1249,7 @@ situation_civstrife_faction_phile = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -1101,11 +1269,11 @@ situation_civstrife_faction_phile = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -1146,7 +1314,7 @@ situation_civstrife_faction_phobe = {
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
 			}
 			multiply_variable = { which = num_sep_pops value = 0.02 }
-			ceiling_variable = num_fac_pops
+			ceiling_variable = num_sep_pops
 			while = {
 				count = num_sep_pops
 				random_owned_pop = {
@@ -1184,17 +1352,41 @@ situation_civstrife_faction_phobe = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -1207,7 +1399,7 @@ situation_civstrife_faction_phobe = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -1243,7 +1435,7 @@ situation_civstrife_faction_phobe = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -1263,11 +1455,11 @@ situation_civstrife_faction_phobe = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -1308,7 +1500,7 @@ situation_civstrife_faction_soc = {
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
 			}
 			multiply_variable = { which = num_sep_pops value = 0.02 }
-			ceiling_variable = num_fac_pops
+			ceiling_variable = num_sep_pops
 			while = {
 				count = num_sep_pops
 				random_owned_pop = {
@@ -1346,17 +1538,41 @@ situation_civstrife_faction_soc = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -1369,7 +1585,7 @@ situation_civstrife_faction_soc = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -1405,7 +1621,7 @@ situation_civstrife_faction_soc = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -1425,11 +1641,11 @@ situation_civstrife_faction_soc = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -1470,7 +1686,7 @@ situation_civstrife_faction_cap = {
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
 			}
 			multiply_variable = { which = num_sep_pops value = 0.02 }
-			ceiling_variable = num_fac_pops
+			ceiling_variable = num_sep_pops
 			while = {
 				count = num_sep_pops
 				random_owned_pop = {
@@ -1508,17 +1724,41 @@ situation_civstrife_faction_cap = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -1531,7 +1771,7 @@ situation_civstrife_faction_cap = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -1567,7 +1807,7 @@ situation_civstrife_faction_cap = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -1587,11 +1827,11 @@ situation_civstrife_faction_cap = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -1632,7 +1872,7 @@ situation_civstrife_faction_indus = {
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
 			}
 			multiply_variable = { which = num_sep_pops value = 0.02 }
-			ceiling_variable = num_fac_pops
+			ceiling_variable = num_sep_pops
 			while = {
 				count = num_sep_pops
 				random_owned_pop = {
@@ -1670,17 +1910,41 @@ situation_civstrife_faction_indus = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -1693,7 +1957,7 @@ situation_civstrife_faction_indus = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -1729,7 +1993,7 @@ situation_civstrife_faction_indus = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -1749,11 +2013,11 @@ situation_civstrife_faction_indus = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -1794,7 +2058,7 @@ situation_civstrife_faction_eco = {
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
 			}
 			multiply_variable = { which = num_sep_pops value = 0.02 }
-			ceiling_variable = num_fac_pops
+			ceiling_variable = num_sep_pops
 			while = {
 				count = num_sep_pops
 				random_owned_pop = {
@@ -1832,17 +2096,41 @@ situation_civstrife_faction_eco = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -1855,7 +2143,7 @@ situation_civstrife_faction_eco = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -1891,7 +2179,7 @@ situation_civstrife_faction_eco = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -1911,11 +2199,11 @@ situation_civstrife_faction_eco = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -1956,7 +2244,7 @@ situation_civstrife_faction_elite = {
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
 			}
 			multiply_variable = { which = num_sep_pops value = 0.02 }
-			ceiling_variable = num_fac_pops
+			ceiling_variable = num_sep_pops
 			while = {
 				count = num_sep_pops
 				random_owned_pop = {
@@ -1994,17 +2282,41 @@ situation_civstrife_faction_elite = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -2017,7 +2329,7 @@ situation_civstrife_faction_elite = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -2053,7 +2365,7 @@ situation_civstrife_faction_elite = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -2073,11 +2385,11 @@ situation_civstrife_faction_elite = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -2118,7 +2430,7 @@ situation_civstrife_faction_plur = {
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
 			}
 			multiply_variable = { which = num_sep_pops value = 0.02 }
-			ceiling_variable = num_fac_pops
+			ceiling_variable = num_sep_pops
 			while = {
 				count = num_sep_pops
 				random_owned_pop = {
@@ -2156,17 +2468,41 @@ situation_civstrife_faction_plur = {
 				owner = { is_democracy = yes }
 				target = {
 					OR = {
-						support < 0.15
-						faction_approval > 0.4
-					}	
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.15
+								faction_approval >= 0.4
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.30
+								faction_approval >= 0.25
+							}	
+						}
+					}
 				}
 			}
 			AND = {
 				owner = { is_democracy = no }
 				target = {
 					OR = {
-						support < 0.1
-						faction_approval > 0.45
+						AND = {
+							is_ai = no
+							OR = {
+								support <= 0.1
+								faction_approval >= 0.45
+							}	
+						}
+						AND = {
+							is_ai = yes
+							OR = {
+								support <= 0.25
+								faction_approval >= 0.3
+							}	
+						}
 					}
 				}
 			}
@@ -2179,7 +2515,7 @@ situation_civstrife_faction_plur = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -2215,7 +2551,7 @@ situation_civstrife_faction_plur = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -2235,11 +2571,11 @@ situation_civstrife_faction_plur = {
 				multiplier = target.sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {

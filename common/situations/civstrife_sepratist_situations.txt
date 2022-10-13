@@ -39,7 +39,8 @@ situation_civstrife_faction_sep_plan = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = target }
-			# target = { faction_approval >= 0.2 }
+			target = { any_owned_pop = { planet = { has_planet_flag = rebellion_suppressed } } }
+			target = { faction_approval >= 0.2 }
 		}
 	}
 
@@ -49,7 +50,7 @@ situation_civstrife_faction_sep_plan = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -85,7 +86,7 @@ situation_civstrife_faction_sep_plan = {
 				multiplier = target.gen_sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -105,11 +106,11 @@ situation_civstrife_faction_sep_plan = {
 				multiplier = target.gen_sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -170,7 +171,8 @@ situation_civstrife_faction_sep_sec = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = target }
-			# target = { faction_approval >= 0.2 }
+			target = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
+			target = { faction_approval >= 0.2 }
 		}
 	}
 
@@ -180,7 +182,7 @@ situation_civstrife_faction_sep_sec = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -216,7 +218,7 @@ situation_civstrife_faction_sep_sec = {
 				multiplier = target.gen_sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -236,11 +238,11 @@ situation_civstrife_faction_sep_sec = {
 				multiplier = target.gen_sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -301,7 +303,8 @@ situation_civstrife_faction_iso_sep_sec = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = target }
-			# target = { faction_approval >= 0.2 }
+			# target = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
+			target = { faction_approval >= 0.2 }
 		}
 	}
 
@@ -311,7 +314,7 @@ situation_civstrife_faction_iso_sep_sec = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -347,7 +350,7 @@ situation_civstrife_faction_iso_sep_sec = {
 				multiplier = target.gen_sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -367,11 +370,11 @@ situation_civstrife_faction_iso_sep_sec = {
 				multiplier = target.gen_sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -447,7 +450,7 @@ situation_civstrife_faction_sep_nat = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = target }
-			# target = { faction_approval >= 0.2 }
+			target = { faction_approval >= 0.2 }
 		}
 	}
 
@@ -457,7 +460,7 @@ situation_civstrife_faction_sep_nat = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -493,7 +496,7 @@ situation_civstrife_faction_sep_nat = {
 				multiplier = target.nat_sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -513,11 +516,11 @@ situation_civstrife_faction_sep_nat = {
 				multiplier = target.nat_sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -592,7 +595,7 @@ situation_civstrife_faction_sep_ruler = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = target }
-			# target = { faction_approval >= 0.2 }
+			target = { faction_approval >= 0.2 }
 		}
 	}
 
@@ -602,7 +605,7 @@ situation_civstrife_faction_sep_ruler = {
 		reb_faction_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_red
-			modifier = { planet_stability_add = -2 }
+			# modifier = { planet_stability_add = -2 }
 			end = 100
 		}
 	}
@@ -638,7 +641,7 @@ situation_civstrife_faction_sep_ruler = {
 				multiplier = target.nat_sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.05 }
+		target_modifier = { pop_happiness = -0.05 }
 		ai_weight = {
 			base = 0
 		}
@@ -658,11 +661,11 @@ situation_civstrife_faction_sep_ruler = {
 				multiplier = target.nat_sep_upkeep
 			}
 		}
-		modifier = { pop_happiness = -0.15 }
+		target_modifier = { pop_happiness = -0.15 }
 		ai_weight = {
 			base = 0
 		}
-		potential = { owner = { NOT = { is_egalitarian = yes } } }
+		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {

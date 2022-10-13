@@ -19,6 +19,7 @@ sec_iso_separatist_16 = {
 
 	is_potential = {
 		years_passed >= 5
+		exists = event_target:sec_iso_separatist_16
 		any_owned_sector = { is_same_value = event_target:sec_iso_separatist_16 }	
 	}
 
@@ -79,7 +80,6 @@ sec_iso_separatist_16 = {
 		modifier = { #Outcasts and radicals
 			factor = 1.5
 			OR = {
-				NOT = { is_same_species = owner_species }
 				NOT = { has_citizenship_type = { type = citizenship_full } }
 				has_trait = trait_unruly
 			}
@@ -93,8 +93,6 @@ sec_iso_separatist_16 = {
 			factor = 0
 			sector = { NOT = { is_same_value = event_target:sec_iso_separatist_16 } }
 		}
-
-
 	}
 
 	# Independence

@@ -258,9 +258,6 @@ country_event = {
 
 	immediate = {
 
-		# TESTING
-		random_pop_faction = { set_pop_faction_flag = disputed_election_faction }
-
 		random_pop_faction = {
 			limit = { has_pop_faction_flag = disputed_election_faction }
 			save_event_target_as = dispute_party
@@ -295,9 +292,6 @@ country_event = {
 
 	immediate = {
 
-		# TESTING
-		random_pop_faction = { set_pop_faction_flag = disputed_election_faction }
-
 		random_pop_faction = {
 			limit = { has_pop_faction_flag = disputed_election_faction }
 			save_event_target_as = dispute_party
@@ -324,14 +318,16 @@ situation_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		count_pop_faction = { count > 1 }
-		any_pop_faction = { has_pop_faction_flag = disputed_election_faction }
+		owner = {
+			count_pop_faction = { count > 1 }
+			any_pop_faction = { has_pop_faction_flag = disputed_election_faction }
+		}
 	}
 
 	immediate = {
 
 		if = {
-			limit = { has_democratic_elections = yes }
+			limit = { owner = { has_democratic_elections = yes } }
 			random_list = {
 				89 = { }
 				# Official offers to cover it up
@@ -341,7 +337,7 @@ situation_event = {
 			}
 		}
 		else_if = {
-			limit = { is_oligarchy = yes }
+			limit = { owner = { is_oligarchy = yes } }
 			random_list = {
 				80 = { }
 				# Official offers to cover it up
@@ -351,7 +347,7 @@ situation_event = {
 			}
 		}
 		else_if = {
-			limit = { is_dictatorial = yes }
+			limit = { owner = { is_dictatorial = yes } }
 			random_list = {
 				70 = { }
 				# Official offers to cover it up
@@ -373,12 +369,12 @@ situation_event = {
 
 	desc = {
 		text = civelect.1100.dem.desc
-		trigger = { has_democratic_elections = yes }
+		trigger = { owner = { has_democratic_elections = yes } }
 	}
 
 	desc = {
 		text = civelect.1100.other.desc
-		trigger = { has_democratic_elections = no }
+		trigger = { owner = { has_democratic_elections = no } }
 	}
 
 	immediate = {
@@ -415,11 +411,15 @@ situation_event = {
 		name = MAKE_IT_SO
 		trigger = { check_variable = { which = target.monthly_energy value > 0 } }
 		allow = {
-			has_country_resource = { type = energy amount >= target.monthly_energy }
+			owner = {
+				has_country_resource = { type = energy amount >= target.monthly_energy }
+			}
 		}
-		add_resource = { # Should be 10% of Stockpile + 10% of Monthly Energy
-			energy = -1
-			mult = monthly_energy
+		owner = {
+			add_resource = { # Should be 10% of Stockpile + 10% of Monthly Energy
+				energy = -1
+				mult = target.monthly_energy
+			}
 		}
 		hidden_effect = {
 			set_situation_flag = corrupt_help
@@ -432,9 +432,11 @@ situation_event = {
 		name = MAKE_IT_SO
 		trigger = { check_variable = { which = target.monthly_energy value <= 0 } }
 		allow = {
-			has_country_resource = { type = energy amount >= 2000 }
+			owner = {
+				has_country_resource = { type = energy amount >= 2000 }
+			}
 		}
-		add_resource = { energy = -500 }
+		owner = { add_resource = { energy = -500 } }
 		hidden_effect = {
 			set_situation_flag = corrupt_help
 			owner = { set_country_flag = corrupt_election_help } # For the future, if it may get found out
@@ -563,43 +565,41 @@ situation_event = {
 
 
 	immediate = {
-
-		set_situation_flag = found_inconclusive
-
-		# if = {
-		# 	limit = {
-		# 		has_situation_flag = corrupt_help
-		# 		current_situation_approach = approach_civstrife_election_obstruct
-		# 	}
-		# 	random_list = {
-		# 		80 = { set_situation_flag = found_nothing }
-		# 		10 = { set_situation_flag = found_truth }
-		# 		10 = { set_situation_flag = found_inconclusive }
-		# 	}
-		# }
-		# else_if = {
-		# 	limit = { has_situation_flag = corrupt_help }
-		# 	random_list = {
-		# 		70 = { set_situation_flag = found_nothing }
-		# 		20 = { set_situation_flag = found_truth }
-		# 		10 = { set_situation_flag = found_inconclusive }
-		# 	}
-		# }
-		# else_if = {
-		# 	limit = { current_situation_approach = approach_civstrife_election_obstruct }
-		# 	random_list = {
-		# 		60 = { set_situation_flag = found_nothing }
-		# 		30 = { set_situation_flag = found_truth }
-		# 		10 = { set_situation_flag = found_inconclusive }
-		# 	}
-		# }
-		# else = {
-		# 	random_list = {
-		# 		50 = { set_situation_flag = found_nothing }
-		# 		40 = { set_situation_flag = found_truth }
-		# 		10 = { set_situation_flag = found_inconclusive }
-		# 	}
-		# }
+		
+		if = {
+			limit = {
+				has_situation_flag = corrupt_help
+				current_situation_approach = approach_civstrife_election_obstruct
+			}
+			random_list = {
+				80 = { set_situation_flag = found_nothing }
+				10 = { set_situation_flag = found_truth }
+				10 = { set_situation_flag = found_inconclusive }
+			}
+		}
+		else_if = {
+			limit = { has_situation_flag = corrupt_help }
+			random_list = {
+				70 = { set_situation_flag = found_nothing }
+				20 = { set_situation_flag = found_truth }
+				10 = { set_situation_flag = found_inconclusive }
+			}
+		}
+		else_if = {
+			limit = { current_situation_approach = approach_civstrife_election_obstruct }
+			random_list = {
+				60 = { set_situation_flag = found_nothing }
+				30 = { set_situation_flag = found_truth }
+				10 = { set_situation_flag = found_inconclusive }
+			}
+		}
+		else = {
+			random_list = {
+				50 = { set_situation_flag = found_nothing }
+				40 = { set_situation_flag = found_truth }
+				10 = { set_situation_flag = found_inconclusive }
+			}
+		}
 	}
 
 	after = {
@@ -845,25 +845,29 @@ situation_event = {
 			has_situation_flag = fraud_occurred
 		}
 		allow = {
+			owner = {
+				if = {
+					limit = { has_democratic_elections = yes }
+					has_country_resource = { type = unity amount >= two_years_unity }
+				}
+				else = {
+					has_country_resource = { type = unity amount >= one_years_unity }
+				}
+			}
+		}
+		owner = {
 			if = {
 				limit = { has_democratic_elections = yes }
-				owner = { has_country_resource = { type = unity amount >= two_years_unity } }
+				add_resource = {
+					unity = -1
+					mult = two_years_unity
+				}
 			}
 			else = {
-				owner = { has_country_resource = { type = unity amount >= one_years_unity } }
-			}
-		}
-		if = {
-			limit = { has_democratic_elections = yes }
-			add_resource = {
-				unity = -1
-				mult = two_years_unity
-			}
-		}
-		else = {
-			add_resource = {
-				unity = -1
-				mult = one_years_unity
+				add_resource = {
+					unity = -1
+					mult = one_years_unity
+				}
 			}
 		}
 		hidden_effect = {
@@ -1140,7 +1144,7 @@ country_event = {
 			every_owned_sector = {
 				limit = { has_sector_flag = potential_rebel }
 				remove_sector_flag = potential_rebel
-			}a
+			}
 		}
 		else_if = { # >= 2 Planets
 			limit = {
@@ -1176,10 +1180,7 @@ country_event = {
 					set_planet_flag = disputed_election_war
 					create_rebels = {
 						name = random
-						type = default
 						species = event_target:civwar_originator
-						ignore_initial_colony_error = yes
-						day_zero_contact = no
 						authority = event_target:civwar_originator
 						ethos = event_target:civwar_originator
 						origin = origin_civwar

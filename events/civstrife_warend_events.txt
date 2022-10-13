@@ -53,7 +53,13 @@ country_event = {
 						owner = root
 					}
 				}
-				from.ruler = { has_leader_flag = civil_war_ruler }
+				from.ruler = {
+					NOR = {
+						has_leader_flag = civil_war_ruler_separatist
+						has_leader_flag = civil_war_ruler_nationalist
+						has_leader_flag = civil_war_ruler_new
+					}
+				}
 			}
 		}
 	}

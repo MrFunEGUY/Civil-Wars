@@ -39,8 +39,6 @@ on_monthly_pulse_country = {
 		civnat.4000				# Checks Nationalist factions, start Radicalization Situation
 		civnat.9100				# Set new Separatist/Nationalist Faction Leader
 
-		civesp.9200				# Remove Faction flags from espionage without proper leader
-
 		civplan.4000			# Planet no Sector Malus
 		civplan.4010			# Planet Sector Malus Removal
 	}
@@ -49,7 +47,6 @@ on_monthly_pulse_country = {
 # this = country
 on_yearly_pulse_country = {
 	events = {
-		civwar.9100				# Unflag federation members who are not in federations anymore
 		civwar.9203				# Unflag sectors that are flagged, for whatever reason
 		civwar.9204				# Unflag stars that are flagged, for whatever reason
 		
@@ -87,7 +84,6 @@ on_decade_pulse_country = {
 on_planet_defenders_lose = {
 	events = {
 		civplan.1000			# Faction/Nationalist Rebels Win
-		civplan.4001			# Heir's forces Win
 		civwar.9200				# Remove Civil War flags from leaders who become rulers
 	}
 }
@@ -129,8 +125,6 @@ on_war_won = {
 		civend.1000				# Initializer for opposing leaders, normal Civil Wars
 		civend.2000				# Initializer for opposing leaders, subject Civil Wars
 		civend.8000				# Traitorous Leader Installed at end of war
-		civend.5005				# Traitorous Leader Retrieved at end of war
-		civend.6001 			# Traitorous Heir Retrieved at end of war
 		civnat.1341				# Gov In Exile restoration on war won
 	}
 }
@@ -155,7 +149,6 @@ on_leader_death = {
 		civend.9000    			# Remove Grateful Leader modifier when installed traitor leader dies
 		civheir.8000    		# Disinherited conspiring heir dies
 		civheir.6000    		# Ruler who disinheired heir dies, civil war
-		civwar.9450    			# Kill both admirals if either dies
 		civroyal.1000			# Ruler has disupted ascension, empire may fracture
 	}
 }
@@ -172,7 +165,7 @@ on_pre_government_changed = {
 # THIS = country
 on_post_government_changed = {
 	events = {
-		civheir.8300			# Heir will defect if non-imperial
+		# civheir.8210			# Heir will defect if non-imperial
 	}
 }
 

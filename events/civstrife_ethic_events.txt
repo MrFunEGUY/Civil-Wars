@@ -31,8 +31,18 @@ country_event = { # Check disapproving Factions every month
 				is_democracy = yes
 				any_pop_faction = {
 					is_regular_faction = yes
-					support >= 0.2
-					faction_approval <= 0.35
+					OR = {
+						AND = {
+							owner = { is_ai = no }
+							support >= 0.2
+							faction_approval <= 0.35
+						}
+						AND = {
+							owner = { is_ai = yes }
+							support >= 0.35
+							faction_approval <= 0.2
+						}
+					}
 					NOT = { has_pop_faction_flag = faction_sep_situation }
 					OR = {
 						NOT = { exists = leader }
@@ -44,6 +54,18 @@ country_event = { # Check disapproving Factions every month
 				is_democracy = no
 				any_pop_faction = {
 					is_regular_faction = yes
+					OR = {
+						AND = {
+							owner = { is_ai = no }
+							support >= 0.15
+							faction_approval <= 0.40
+						}
+						AND = {
+							owner = { is_ai = yes }
+							support >= 0.3
+							faction_approval <= 0.25
+						}
+					}
 					support >= 0.15
 					faction_approval <= 0.4
 					NOT = { has_pop_faction_flag = faction_sep_situation }
@@ -62,8 +84,18 @@ country_event = { # Check disapproving Factions every month
 			random_pop_faction = {
 				limit = {
 					is_regular_faction = yes
-					support >= 0.2
-					faction_approval <= 0.35
+					OR = {
+						AND = {
+							owner = { is_ai = no }
+							support >= 0.2
+							faction_approval <= 0.35
+						}
+						AND = {
+							owner = { is_ai = yes }
+							support >= 0.35
+							faction_approval <= 0.2
+						}
+					}
 					NOT = { has_pop_faction_flag = faction_sep_situation }
 					OR = {
 						NOT = { exists = leader }
@@ -203,8 +235,18 @@ country_event = { # Check disapproving Factions every month
 			random_pop_faction = {
 				limit = {
 					is_regular_faction = yes
-					support >= 0.15
-					faction_approval <= 0.40
+					OR = {
+						AND = {
+							owner = { is_ai = no }
+							support >= 0.15
+							faction_approval <= 0.40
+						}
+						AND = {
+							owner = { is_ai = yes }
+							support >= 0.3
+							faction_approval <= 0.25
+						}
+					}
 					NOT = { has_pop_faction_flag = faction_sep_situation }
 					OR = {
 						NOT = { exists = leader }

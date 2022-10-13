@@ -10,7 +10,7 @@ namespace = civcom
 #  Rebellions  #
 ################
 
-# Leader Communication - Without Vassalization Option
+# Without Vassalization Option
 country_event = {
 	id = civcom.1000
 	title = civcom.1000.name
@@ -21,9 +21,9 @@ country_event = {
 	desc = {
 		text = civcom.1000.governor.plan.desc
 		trigger = {
-			has_country_flag = ethic_plan_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_governor
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_governor }
+				has_country_flag = plan_rebel_country
 			}
 		}
 	}
@@ -31,9 +31,9 @@ country_event = {
 	desc = {
 		text = civcom.1000.admiral.plan.desc
 		trigger = {
-			has_country_flag = ethic_plan_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_admiral
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_admiral }
+				has_country_flag = plan_rebel_country
 			}
 		}
 	}
@@ -41,9 +41,9 @@ country_event = {
 	desc = {
 		text = civcom.1000.general.plan.desc
 		trigger = {
-			has_country_flag = ethic_plan_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_general
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_general }
+				has_country_flag = plan_rebel_country
 			}
 		}
 	}
@@ -51,9 +51,9 @@ country_event = {
 	desc = {
 		text = civcom.1000.scientist.plan.desc
 		trigger = {
-			has_country_flag = ethic_plan_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_scientist
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_scientist }
+				has_country_flag = plan_rebel_country
 			}
 		}
 	}
@@ -61,9 +61,9 @@ country_event = {
 	desc = { # For Balkanization
 		text = civcom.1000.newleader.plan.desc
 		trigger = {
-			has_country_flag = ethic_plan_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_new
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_new }
+				has_country_flag = plan_rebel_country
 			}
 		}
 	}
@@ -71,10 +71,15 @@ country_event = {
 	desc = {
 		text = civcom.1000.separatist.plan.desc
 		trigger = {
-			has_country_flag = sep_plan_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_separatist
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_separatist }
+				has_country_flag = plan_rebel_country
 			}
+
+			# has_country_flag = sep_plan_rebels_@event_target:civwar_rebels
+			# event_target:civwar_rebels.ruler = {
+			# 	has_leader_flag = civil_war_ruler_separatist
+			# }
 		}
 	}
 
@@ -82,10 +87,6 @@ country_event = {
 		text = civcom.1000.nationalist.support.desc
 		trigger = {
 			any_country = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
-			OR = {
-				has_country_flag = nat_plan_rebels_@event_target:civwar_rebels
-				has_country_flag = nat_sec_rebels_@event_target:civwar_rebels
-			}
 			event_target:civwar_rebels.ruler = {
 				has_leader_flag = civil_war_ruler_nationalist
 			}
@@ -96,10 +97,6 @@ country_event = {
 		text = civcom.1000.nationalist.no_support.desc
 		trigger = {
 			any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-			OR = {
-				has_country_flag = nat_plan_rebels_@event_target:civwar_rebels
-				has_country_flag = nat_sec_rebels_@event_target:civwar_rebels
-			}
 			event_target:civwar_rebels.ruler = {
 				has_leader_flag = civil_war_ruler_nationalist
 			}
@@ -193,10 +190,10 @@ country_event = {
 			country_event = { id = civcom.2020 }
 		}
 		ai_chance = {
-			factor = 5
+			factor = 2
 
 			modifier = {
-				factor = 1.5
+				factor = 2
 				is_pacifist = yes	
 			}
 
@@ -213,7 +210,7 @@ country_event = {
 	}
 }
 
-# Leader Communication - With Vassalization Option
+# With Vassalization Option
 country_event = {
 	id = civcom.1005
 	title = civcom.1000.name
@@ -224,9 +221,9 @@ country_event = {
 	desc = {
 		text = civcom.1005.governor.plan.desc
 		trigger = {
-			has_country_flag = ethic_plan_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_governor
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_governor }
+				has_country_flag = plan_rebel_country
 			}
 		}
 	}
@@ -234,9 +231,9 @@ country_event = {
 	desc = {
 		text = civcom.1005.admiral.plan.desc
 		trigger = {
-			has_country_flag = ethic_plan_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_admiral
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_admiral }
+				has_country_flag = plan_rebel_country
 			}
 		}
 	}
@@ -244,9 +241,9 @@ country_event = {
 	desc = {
 		text = civcom.1005.general.plan.desc
 		trigger = {
-			has_country_flag = ethic_plan_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_general
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_general }
+				has_country_flag = plan_rebel_country
 			}
 		}
 	}
@@ -254,9 +251,9 @@ country_event = {
 	desc = {
 		text = civcom.1005.scientist.plan.desc
 		trigger = {
-			has_country_flag = ethic_plan_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_scientist
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_scientist }
+				has_country_flag = plan_rebel_country
 			}
 		}
 	}
@@ -264,19 +261,19 @@ country_event = {
 	desc = {
 		text = civcom.1005.separatist.plan.desc
 		trigger = {
-			has_country_flag = sep_plan_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_separatist
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_separatist }
+				has_country_flag = plan_rebel_country
 			}
 		}
 	}
 
 	desc = {
-		text = civcom.1005.nationalist.plan.desc
+		text = civcom.1005.nationalist.desc
 		trigger = {
-			has_country_flag = nat_plan_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_nationalist
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_nationalist }
+				has_country_flag = plan_rebel_country
 			}
 		}
 	}
@@ -379,7 +376,7 @@ country_event = {
 		custom_tooltip = civcom.1005.vassal.tooltip
 		hidden_effect = { country_event = { id = civcom.2010 } }
 		ai_chance = {
-			factor = 5
+			factor = 2
 
 			modifier = {
 				factor = 2
@@ -406,7 +403,7 @@ country_event = {
 			country_event = { id = civcom.2025 }
 		}
 		ai_chance = {
-			factor = 5
+			factor = 2
 
 			modifier = {
 				factor = 1.15
@@ -534,33 +531,33 @@ country_event = {
 		}
 	}
 
-	desc = {
+	desc = { # New Nat Country, motherland will join war
 		text = civcom.1100.nationalist.support.desc
 		trigger = {
-			any_country = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
-			NOT = { any_country = { has_country_flag = ally_country_@event_target:civwar_originator } }
+			NOT = { has_country_flag = rebs_help_eachother }
+			event_target:nat_motherland_model = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels.ruler = {
 				has_leader_flag = civil_war_ruler_nationalist
 			}
 		}
 	}
 
-	desc = {
+	desc = { # Multiple New Nat Countries, motherland will join war
 		text = civcom.1100.nationalist.mult.support.desc
 		trigger = {
-			any_country = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
-			any_country = { has_country_flag = ally_country_@event_target:civwar_originator }
+			has_country_flag = rebs_help_eachother
+			event_target:nat_motherland_model = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels.ruler = {
 				has_leader_flag = civil_war_ruler_nationalist
 			}
 		}
 	}
 
-	desc = {
+	desc = { # New Nat Country, motherland wont join war
 		text = civcom.1100.nationalist.no_support.desc
 		trigger = {
-			any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-			NOT = { any_country = { has_country_flag = ally_country_@event_target:civwar_originator } }
+			NOT = { has_country_flag = rebs_help_eachother }
+			event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels = {
 				NOT = { has_country_flag = exile_restored_country }
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
@@ -568,11 +565,11 @@ country_event = {
 		}
 	}
 
-	desc = {
+	desc = { # Multiple New Nat Countries, motherland wont join war
 		text = civcom.1100.nationalist.mult.no_support.desc
 		trigger = {
-			any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-			any_country = { has_country_flag = ally_country_@event_target:civwar_originator }
+			has_country_flag = rebs_help_eachother
+			event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels = {
 				NOT = { has_country_flag = exile_restored_country }
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
@@ -580,49 +577,57 @@ country_event = {
 		}
 	}
 
-	desc = {
+	desc = { # Restored Country
 		text = civcom.1100.nationalist.no_support.exile.reg.desc
 		trigger = {
-			any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-			NOT = { any_country = { has_country_flag = ally_country_@event_target:civwar_originator } }
+			NOT = { has_country_flag = rebs_help_eachother }
+			event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels = {
-				is_imperial = no
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
+				NOR = {
+					is_imperial = yes
+					has_country_flag = exile_restored_country
+				}
 			}
 		}
 	}
 
-	desc = {
+	desc = { # Restored Country, other states as well
 		text = civcom.1100.nationalist.mult.no_support.exile.reg.desc
 		trigger = {
-			any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-			any_country = { has_country_flag = ally_country_@event_target:civwar_originator }
+			has_country_flag = rebs_help_eachother
+			event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels = {
-				is_imperial = no
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
+				NOR = {
+					is_imperial = yes
+					has_country_flag = exile_restored_country
+				}
 			}
 		}
 	}
 
-	desc = {
+	desc = { # Restored Country, Old Dynasty will take over
 		text = civcom.1100.nationalist.no_support.exile.imp.desc
 		trigger = {
-			any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-			NOT = { any_country = { has_country_flag = ally_country_@event_target:civwar_originator } }
+			NOT = { has_country_flag = rebs_help_eachother }
+			event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels = {
 				is_imperial = yes
+				has_country_flag = exile_restored_country
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
 			}
 		}
 	}
 
-	desc = {
+	desc = { # Restored Country, Old Dynasty will take over, other states as well
 		text = civcom.1100.nationalist.mult.no_support.exile.imp.desc
 		trigger = {
-			any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-			any_country = { has_country_flag = ally_country_@event_target:civwar_originator }
+			has_country_flag = rebs_help_eachother
+			event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels = {
 				is_imperial = yes
+				has_country_flag = exile_restored_country
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
 			}
 		}
@@ -737,10 +742,10 @@ country_event = {
 		trigger = { is_ai = no }
 		hidden_effect = { country_event = { id = civcom.2020 } }
 		ai_chance = {
-			factor = 5
+			factor = 2
 
 			modifier = {
-				factor = 1.5
+				factor = 2
 				is_pacifist = yes	
 			}
 
@@ -869,7 +874,7 @@ country_event = {
 		custom_tooltip = civcom.1105.b.tooltip
 		hidden_effect = { country_event = { id = civcom.2010 } }
 		ai_chance = {
-			factor = 5
+			factor = 2
 
 			modifier = {
 				factor = 2
@@ -889,10 +894,10 @@ country_event = {
 		trigger = { is_ai = no }
 		hidden_effect = { country_event = { id = civcom.2025 } }
 		ai_chance = {
-			factor = 5
+			factor = 1
 
 			modifier = {
-				factor = 1.5
+				factor = 1.15
 				is_pacifist = yes	
 			}
 
@@ -966,15 +971,23 @@ country_event = {
 				limit = { event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion } }
 				event_target:civwar_originator = { get_declare_war_natwar = yes }
 			}
+			else_if = {
+				limit = { event_target:civwar_rebels = { has_country_flag = plan_rebel_country } }
+				event_target:civwar_originator = { get_declare_war_plan_rebellion = yes }
+			}
+			else_if = {
+				limit = { event_target:civwar_rebels = { has_country_flag = heir_rebel_country } }
+				event_target:civwar_originator = { get_declare_war_heirwar = yes }
+			}
 			else = {
 				event_target:civwar_originator = { get_declare_war_civwar = yes }
 			}
 		}
 		ai_chance = {
-			factor = 5
+			factor = 3
 
 			modifier = {
-				factor = 1.5
+				factor = 2
 				is_pacifist = yes	
 			}
 
@@ -996,7 +1009,7 @@ country_event = {
 			}	
 		}
 		ai_chance = {
-			factor = 5
+			factor = 1
 
 			modifier = {
 				factor = 1.15
@@ -1011,11 +1024,8 @@ country_event = {
 	}
 
 	after = {
-		clear_global_event_target = civwar_party
 		if = {
-			limit = {
-				event_target:civwar_originator = { has_country_flag = subject_join_war }
-			}
+			limit = { event_target:civwar_originator = { has_country_flag = subject_join_war } }
 			event_target:civwar_rebels = {
 				every_system_within_border = {
 					if = {
@@ -1081,25 +1091,10 @@ country_event = {
 		hidden_effect = {
 			if = {
 				limit = { event_target:civwar_rebels = { has_country_flag = heir_rebel_country } }
-				declare_war = {
-					target = event_target:civwar_rebels
-					name = "Heir War"
-					attacker_war_goal = "wg_civwar_heir"
-					effect = {
-						set_name = {
-							key = NAME_heir_war
-							variable_string = "[event_target:civwar_rebels.Leader.GetName]"
-						}
-					}
-				}
+				get_declare_war_heirwar = yes
 			}
 			else_if = {
-				limit = {
-					OR = {
-						has_country_flag = ethic_plan_rebels_@event_target:civwar_rebels
-						has_country_flag = sep_plan_rebels_@event_target:civwar_rebels
-					}
-				}
+				limit = { event_target:civwar_rebels = { has_country_flag = plan_rebel_country } }
 				get_declare_war_plan_rebellion = yes
 			}
 			else_if = {
@@ -1255,20 +1250,14 @@ country_event = {
 	desc = {
 		text = civcom.3000.gov_may_deal.desc
 		trigger = {
-			event_target:crisis_sector = {
-				has_sector_flag = governor_rebel_sector
-				has_sector_flag = gov_may_deal
-			}
+			event_target:crisis_sector = { has_sector_flag = gov_may_deal }
 		}
 	}
 
 	desc = {
 		text = civcom.3000.gov_wont_deal.desc
 		trigger = {
-			event_target:crisis_sector = {
-				has_sector_flag = governor_rebel_sector
-				has_sector_flag = gov_wont_deal
-			}
+			event_target:crisis_sector = { has_sector_flag = gov_wont_deal }
 		}
 	}
 
@@ -1294,7 +1283,7 @@ country_event = {
 				limit = { has_sector_flag = governor_rebel_sector }
 				random_list = {
 					50 = { set_sector_flag = gov_may_deal }
-					# 50 = { set_sector_flag = gov_wont_deal }
+					50 = { set_sector_flag = gov_wont_deal }
 				}
 			}
 		}
@@ -1608,6 +1597,7 @@ country_event = {
 		trigger = {
 			NOT = { has_valid_civic = civic_adoptive_dynasties }
 			event_target:civwar_rebels.ruler = { NOT = { has_leader_flag = appointed_heir_ruler } }
+			event_target:civwar_rebels.ruler = { NOT = { has_leader_flag = civil_war_ruler_heir_gov_changed } }
 		}
 	}
 
@@ -1617,8 +1607,28 @@ country_event = {
 			OR = {
 				has_valid_civic = civic_adoptive_dynasties
 				event_target:civwar_rebels.ruler = { has_leader_flag = appointed_heir_ruler }
+				event_target:civwar_rebels.ruler = { NOT = { has_leader_flag = civil_war_ruler_heir_gov_changed } }
 			}
-			
+		}
+	}
+
+	desc = {
+		text = civcom.3100.norm.gov.desc
+		trigger = {
+			NOT = { has_valid_civic = civic_adoptive_dynasties }
+			event_target:civwar_rebels.ruler = { NOT = { has_leader_flag = appointed_heir_ruler } }
+			event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_gov_changed }
+		}
+	}
+
+	desc = {
+		text = civcom.3100.ad.gov.desc
+		trigger = {
+			OR = {
+				has_valid_civic = civic_adoptive_dynasties
+				event_target:civwar_rebels.ruler = { has_leader_flag = appointed_heir_ruler }
+				event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_gov_changed }
+			}
 		}
 	}
 
@@ -1647,7 +1657,7 @@ country_event = {
 #  Rebels Request Assistance  #
 ###############################
 
-# Civil War - Rebels requests assistance from neighbors
+# Rebels request assistance from neighbors or nationalist motherland
 country_event = {
 	id = civcom.4000
 	title = civcom.4000.name
@@ -1674,7 +1684,6 @@ country_event = {
 				event_target:civwar_rebels = { has_country_flag = nat_civwar }
 				event_target:civwar_rebels = { has_country_flag = heir_rebel_country }
 			}
-			
 		}
 	}
 
@@ -1690,6 +1699,10 @@ country_event = {
 	option = {
 		name = civcom.4000.abstain
 		hidden_effect = {
+			if = {
+				limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
+				set_country_flag = motherland_wont_join_@event_target:civwar_rebels
+			}
 			country_event = { id = civcom.4100 }
 		}
 		ai_chance = {
@@ -1723,6 +1736,10 @@ country_event = {
 			has_country_resource = { type = alloys amount >= 500 }
 		}
 		hidden_effect = {
+			if = {
+				limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
+				set_country_flag = motherland_wont_join_@event_target:civwar_rebels
+			}
 			country_event = { id = civcom.4110 }
 		}
 		ai_chance = {
@@ -1762,6 +1779,10 @@ country_event = {
 			}
 		}
 		hidden_effect = {
+			if = {
+				limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
+				set_country_flag = motherland_wont_join_@event_target:civwar_rebels
+			}
 			country_event = { id = civcom.4120 }
 		}
 		ai_chance = {
@@ -1798,8 +1819,17 @@ country_event = {
 					}
 				}
 			}
+			custom_tooltip = {
+				fail_text = we_must_border_rebels
+				event_target:civwar_rebels = { has_country_flag = nat_civwar }
+				NOT = { has_country_flag = borders_rebels }
+			}
 		}
 		hidden_effect = {
+			if = {
+				limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
+				set_country_flag = motherland_will_join_@event_target:civwar_rebels
+			}
 			country_event = { id = civcom.4125 }
 		}
 		ai_chance = {
@@ -1821,82 +1851,6 @@ country_event = {
 			}
 		}
 	}
-}
-
-# Nationalist Civil War, Query Motherland
-country_event = {
-	id = civcom.4010
-	title = civcom.4000.name
-	desc = civcom.4010.desc
-	location = event_target:civwar_rebels
-	hide_window = no
-	is_triggered_only = yes
-
-	diplomatic = yes
-
-	picture_event_data = {
-		portrait = event_target:civwar_rebels.ruler
-		planet_background = event_target:civwar_rebels.capital_scope
-		graphical_culture = event_target:civwar_rebels
-		city_level = event_target:civwar_rebels.capital_scope
-		room = event_target:civwar_rebels.ruler
-	}
-
-	# Abstain from assisting
-	option = {
-		name = civcom.4000.abstain
-		hidden_effect = {
-			set_country_flag = motherland_wont_join_@event_target:civwar_rebels
-			country_event = { id = civcom.4100 }
-		}
-	}
-
-	# Provide Resources
-	option = {
-		name = civcom.4000.resources
-		allow = {
-			has_country_resource = { type = energy amount >= 1000 }
-			has_country_resource = { type = minerals amount >= 1000 }
-			has_country_resource = { type = food amount >= 1000 }
-			has_country_resource = { type = consumer_goods amount >= 500 }
-			has_country_resource = { type = alloys amount >= 500 }
-		}
-		hidden_effect = {
-			set_country_flag = motherland_wont_join_@event_target:civwar_rebels
-			set_country_flag = motherland_resources
-			country_event = { id = civcom.4110 }
-		}
-	}
-
-	# Give your nationalists ships
-	option = {
-		name = civcom.4000.help
-		allow = {
-			custom_tooltip = {
-				fail_text = we_must_border_rebels
-				NOT = { has_country_flag = borders_rebels }
-			}
-		}
-		hidden_effect = {
-			set_country_flag = motherland_wont_join_@event_target:civwar_rebels
-			country_event = { id = civcom.4120 }
-		}
-	}
-
-	# Join your nationalists in war
-	option = {
-		name = civcom.4010.help
-		allow = {
-			custom_tooltip = {
-				fail_text = we_must_border_rebels
-				NOT = { has_country_flag = borders_rebels }
-			}
-		}
-		hidden_effect = {
-			set_country_flag = motherland_will_join_@event_target:civwar_rebels
-			country_event = { id = civcom.4125 }
-		}
-	}
 
 	after = {
 		if = {
@@ -1908,7 +1862,7 @@ country_event = {
 
 ###############
 
-# Neighbor Abstains
+# Neighbor/Motherland Abstains
 country_event = {
 	id = civcom.4100
 	title = civcom.4000.name
@@ -1923,7 +1877,7 @@ country_event = {
 		trigger = {
 			OR = {
 				NOT = { exists = event_target:nat_motherland_model }
-				nat_motherland_model = { NOT = { is_same_value = root } }
+				event_target:nat_motherland_model = { NOT = { is_same_value = root } }
 			}
 		}
 	}
@@ -1932,7 +1886,7 @@ country_event = {
 		text = civcom.4100.nat.desc
 		trigger = {
 			exists = event_target:nat_motherland_model
-			nat_motherland_model = { is_same_value = root }
+			event_target:nat_motherland_model = { is_same_value = root }
 		}
 	}
 
@@ -1948,9 +1902,16 @@ country_event = {
 	option = {
 		name = civcom.4100.sorry
 	}
+
+	after = {
+		if = {
+			limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
+			event_target:civwar_originator = { country_event = { id = civwar.2055 } }
+		}
+	}
 }
 
-# Neighbor gives resources
+# Neighbor/Motherland gives resources
 country_event = {
 	id = civcom.4110
 	title = civcom.4000.name
@@ -2054,9 +2015,16 @@ country_event = {
 		}
 		ai_chance = { factor = 1 }
 	}
+
+	after = {
+		if = {
+			limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
+			event_target:civwar_originator = { country_event = { id = civwar.2055 } }
+		}
+	}
 }
 
-# Neighbor gives ships
+# Neighbor/Motherland gives ships
 country_event = {
 	id = civcom.4120
 	title = civcom.4000.name
@@ -2171,13 +2139,19 @@ country_event = {
 			}
 		}
 	}
+
+	after = {
+		if = {
+			limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
+			event_target:civwar_originator = { country_event = { id = civwar.2055 } }
+		}
+	}
 }
 
-# Neighbor joins war
+# Neighbor/Motherland joins war
 country_event = {
 	id = civcom.4125
 	title = civcom.4000.name
-	desc = civcom.4125.desc
 	location = event_target:civwar_rebels
 	hide_window = no
 	is_triggered_only = yes
@@ -2185,12 +2159,12 @@ country_event = {
 	diplomatic = yes
 
 	desc = {
-		text = civcom.4000.nat.desc
+		text = civcom.4125.nat.desc
 		trigger = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
 	}
 
 	desc = {
-		text = civcom.4000.norm.desc
+		text = civcom.4125.norm.desc
 		trigger = { event_target:civwar_rebels = { NOT = { has_country_flag = nat_civwar } } }
 	}
 
@@ -2208,13 +2182,25 @@ country_event = {
 	}
 
 	option = {
-		name = civcom.2110.welcome
+		name = civcom.4125.welcome
 		hidden_effect = {
-			join_war = event_target:civwar_rebels
+			if = { # Nationalists get this message before war can start, and so they will join after it has been determined whether war is happening
+				limit = { event_target:civwar_rebels = { NOT = { has_country_flag = nat_civwar } } }
+				join_war = event_target:civwar_rebels
+			}
 		}
 		ai_chance = { factor = 5 }
 	}
+
+	after = {
+		if = {
+			limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
+			event_target:civwar_originator = { country_event = { id = civwar.2055 } }
+		}
+	}
 }
+
+###############
 
 ### 5000 & 6000 Open
 
@@ -2461,7 +2447,7 @@ country_event = {
 
 	# Execute
 	option = {
-		name = civcom.7100.a
+		name = civcom.7000.a
 		hidden_effect = {
 			random_list = {
 				33 = { set_country_flag = traitor_hanged }
@@ -2474,7 +2460,7 @@ country_event = {
 
 	# Torture
 	option = {
-		name = civcom.7100.b
+		name = civcom.7000.b
 		hidden_effect = {
 			random_list = {
 				33 = { set_country_flag = traitor_flayed }
@@ -2487,7 +2473,7 @@ country_event = {
 
 	# Imprison
 	option = {
-		name = civcom.7100.c
+		name = civcom.7000.c
 		hidden_effect = {
 			country_event = { id = civcom.7115 }
 		}
@@ -2661,7 +2647,7 @@ country_event = {
 			}
 		}
 		ai_chance = {
-			factor = 5
+			factor = 3
 
 			modifier = {
 				factor = 0
@@ -2752,7 +2738,6 @@ country_event = {
 					save_global_event_target_as = defeated_traitor_asylum
 				}
 			}
-			set_traitor_country_flag = yes
 			event_target:defeated_traitor_asylum = {
 				set_leader_flag = traitor_@event_target:traitor_home_country
 			}
@@ -2761,7 +2746,6 @@ country_event = {
 				kill_leader = { show_notification = no }
 			}
 			event_target:traitor_home_country = {
-				set_traitor_country_flag_mother = yes
 				country_event = { id = civend.5002 days = 14 random = 360 }
 			}
 		}
@@ -2784,7 +2768,6 @@ country_event = {
 					save_global_event_target_as = defeated_traitor_asylum
 				}
 			}
-			set_traitor_country_flag = yes
 			event_target:defeated_traitor_asylum = {
 				set_leader_flag = traitor_@event_target:traitor_home_country
 			}
@@ -2793,7 +2776,6 @@ country_event = {
 				kill_leader = { show_notification = no }
 			}
 			event_target:traitor_home_country = {
-				set_traitor_country_flag_mother = yes
 				country_event = { id = civend.5012 days = 14 random = 360 }
 			}
 		}
@@ -2816,7 +2798,6 @@ country_event = {
 					save_global_event_target_as = defeated_traitor_asylum
 				}
 			}
-			set_traitor_country_flag = yes
 			event_target:defeated_traitor_asylum = {
 				set_leader_flag = traitor_@event_target:traitor_home_country
 			}
@@ -2825,7 +2806,6 @@ country_event = {
 				kill_leader = { show_notification = no }
 			}
 			event_target:traitor_home_country = {
-				set_traitor_country_flag_mother = yes
 				country_event = { id = civend.5002 days = 14 random = 360 }
 			}
 		}
@@ -2848,7 +2828,6 @@ country_event = {
 					save_global_event_target_as = defeated_traitor_asylum
 				}
 			}
-			set_traitor_country_flag = yes
 			event_target:defeated_traitor_asylum = {
 				set_leader_flag = traitor_@event_target:traitor_home_country
 			}
@@ -2857,7 +2836,6 @@ country_event = {
 				kill_leader = { show_notification = no }
 			}
 			event_target:traitor_home_country = {
-				set_traitor_country_flag_mother = yes
 				country_event = { id = civend.5002 days = 14 random = 360 }
 			}
 		}
@@ -2891,16 +2869,16 @@ country_event = {
 	}
 
 	# Deny them asylum
-	# option = {
-	# 	name = civcom.8000.a
-	# 	hidden_effect = {
-	# 		set_country_flag = traitor_heir_already_asked
-	# 		event_target:traitor_home_country = {
-	# 			country_event = { id = civheir.3001 }
-	# 		}
-	# 	}
-	# 	ai_chance = { factor = 4 }
-	# }
+	option = {
+		name = civcom.8000.a
+		hidden_effect = {
+			set_country_flag = traitor_heir_already_asked
+			event_target:traitor_home_country = {
+				country_event = { id = civheir.3010 }
+			}
+		}
+		ai_chance = { factor = 4 }
+	}
 
 	# Grant Asylum
 	option = {

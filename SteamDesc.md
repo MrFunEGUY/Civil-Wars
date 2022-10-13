@@ -66,7 +66,7 @@ Subjects can have Civil Wars. If this happens, you will be given the choice of t
 [h1]Compatibility:[/h1]
 
 Fully compatible with:
-- Any of the Ethics and Civics Overhauls ([url=https://steamcommunity.com/sharedfiles/filedetails/?id=2387799348]Redux[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1100284147]Classic[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2517213262]Bug Branch[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2379954995]Revolutions[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2280945168]Restored[/url], etc.)
+- Any of the Ethics and Civics Overhauls ([url=https://steamcommunity.com/sharedfiles/filedetails/?id=2387799348]Redux[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1100284147]Classic[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2517213262]Bug Branch[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2379954995]Revolutions[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2810254780]Infinity[/url], etc.)
 
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2663665954]- Divided Loyalties[/url]
 
