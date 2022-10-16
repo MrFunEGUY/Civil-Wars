@@ -353,6 +353,13 @@ wg_natwar = {
 					}
 					starbase = { set_owner = root }
 				}
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_nat }
+					random = {
+						chance = 45
+						remove_pop_flag = sep_pop_nat
+					}
+				}
 			}
 		}
 	}
