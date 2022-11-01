@@ -531,6 +531,62 @@ pop_event = { # Remove Ethic Separatist Event
 }
 
 ##############
+# Set Recent Civil War Timer Flags on War End
+
+# A war has been won
+# Root = Winner Warleader
+# From = Loser Warleader
+# FromFrom = War
+country_event = { # Set timer flag
+	id = civethic.6000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		fromfrom = {
+			OR = {
+				using_war_goal = { type = wg_civwar owner = root }
+				using_war_goal = { type = wg_civwar owner = from }
+			}
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = { fromfrom = { using_war_goal = { type = wg_civwar owner = root } } }
+			set_timed_country_flag = { flag = recent_civil_war days = 720 }
+		}
+		else = {
+			from = { set_timed_country_flag = { flag = recent_civil_war days = 720 } }
+		}
+	}
+}
+
+# A status quo has been signed
+# Root = Actor
+# From = Recipient
+# FromFrom = Main Attacker
+# FromFromFrom = Main Defender
+# FromFromFromFrom = War
+country_event = { # Set timer flag
+	id = civethic.6010
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		FromFromFromFrom = {
+			using_war_goal = { type = wg_civwar owner = FromFrom }
+		}
+	}
+
+	immediate = {
+		fromfrom = {
+			set_timed_country_flag = { flag = recent_civil_war days = 720 }
+		}
+	}
+}
+
+##############
 # Notifications
 
 situation_event = { # Planetary Separatists Strike

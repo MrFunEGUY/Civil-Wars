@@ -22,3 +22,17 @@ event = { # Set Global Flag
 		set_global_flag = civil_wars_active
 	}
 }
+
+leader_event = {
+	id = civmisc.2000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = this
+	}
+
+	immediate = {
+		kill_leader = { show_notification = no }
+	}
+}

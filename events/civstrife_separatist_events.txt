@@ -2245,6 +2245,9 @@ situation_event = { # Sectoral Revolt Event
 									set_leader_flag = dummy_leader
 								}
 							}
+							last_created_leader = {
+								leader_event = { id = civmisc.2000 days = 180 }
+							}
 						}
 						root = { situation_event = { id = civsep.9030 } }
 					}
@@ -2401,6 +2404,9 @@ situation_event = { # Sectoral Revolt Event
 						set_leader_flag = dummy_sector_leader
 						save_global_event_target_as = sector_name_leader
 					}
+				}
+				last_created_leader = {
+					leader_event = { id = civmisc.2000 days = 180 }
 				}
 
 				make_isolated_sector_country = yes

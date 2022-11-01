@@ -2841,7 +2841,9 @@ get_sectoral_revolt_effect = {
 					set_leader_flag = dummy_leader
 				}
 			}
-			
+			last_created_leader = {
+				leader_event = { id = civmisc.2000 days = 180 }
+			}
 		}
 		root = {
 			if = {
@@ -7785,7 +7787,10 @@ create_party_name_leader = {
 			set_leader_flag = dummy_leader
 			save_event_target_as = civwar_party_name_leader
 		}
-	}	
+	}
+	last_created_leader = {
+		leader_event = { id = civmisc.2000 days = 180 }
+	}
 }
 
 #####################
@@ -9970,6 +9975,7 @@ nat_faction_first_effect = {
 			key = dummy_sep_leader
 			variable_string = "\\[Root.GetName]"
 		}
+		leader_event = { id = civmisc.2000 days = 180 }
 	}
 }
 
@@ -10015,6 +10021,7 @@ plan_faction_first_effect = {
 			key = dummy_sep_leader
 			variable_string = "\\[Root.GetName]"
 		}
+		leader_event = { id = civmisc.2000 days = 180 }
 	}
 }
 
@@ -10067,6 +10074,7 @@ sector_faction_first_effect = {
 			key = dummy_sep_leader
 			variable_string = "\\[Root.GetName]"
 		}
+		leader_event = { id = civmisc.2000 days = 180 }
 	}
 }
 

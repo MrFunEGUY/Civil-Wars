@@ -39,8 +39,9 @@ situation_civstrife_faction_sep_plan = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = target }
-			target = { any_owned_pop = { planet = { has_planet_flag = rebellion_suppressed } } }
 			target = { faction_approval >= 0.2 }
+			target = { any_owned_pop = { planet = { is_capital = yes } } }
+			target = { any_owned_pop = { planet = { has_planet_flag = rebellion_suppressed } } }
 		}
 	}
 
@@ -171,8 +172,9 @@ situation_civstrife_faction_sep_sec = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = target }
-			target = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
 			target = { faction_approval >= 0.2 }
+			target = { any_owned_pop = { sector = { any_owned_planet = { is_capital = yes } } } }
+			target = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
 		}
 	}
 
@@ -303,8 +305,9 @@ situation_civstrife_faction_iso_sep_sec = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = target }
-			# target = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
 			target = { faction_approval >= 0.2 }
+			target = { any_owned_pop = { sector = { any_owned_planet = { is_capital = yes } } } }
+			target = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
 		}
 	}
 
