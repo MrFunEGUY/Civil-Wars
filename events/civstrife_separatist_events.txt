@@ -2033,6 +2033,7 @@ situation_event = { # Planetary Revolt Initializer
 	trigger = {
 		owner = {
 			any_owned_planet = {
+				is_under_colonization = no
 				solar_system = { is_capital_system = no }
 				NOT = { has_planet_flag = ongoing_revolt }
 				pop_percentage = {
@@ -2063,6 +2064,7 @@ situation_event = { # Planetary Revolt Event
 	trigger = {
 		owner = {
 			any_owned_planet = {
+				is_under_colonization = no
 				solar_system = { is_capital_system = no }
 				NOT = { has_planet_flag = ongoing_revolt }
 				pop_percentage = {
@@ -2084,6 +2086,7 @@ situation_event = { # Planetary Revolt Event
 		owner = {
 			random_owned_planet = {
 				limit = {
+					is_under_colonization = no
 					solar_system = { is_capital_system = no }
 					NOT = { has_planet_flag = ongoing_revolt }
 					pop_percentage = {

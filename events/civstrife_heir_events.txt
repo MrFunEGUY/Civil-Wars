@@ -791,12 +791,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		from = {
-			OR = {
-				has_leader_flag = appointed_heir
-				has_leader_flag = clone_heir_base
-			}
-		}
+		from = { has_leader_flag = appointed_heir }
 	}
 
 	immediate = {

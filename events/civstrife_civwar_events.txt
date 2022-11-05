@@ -1160,7 +1160,7 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 	}
 }
 
-situation_event = { # Possible Revolt/Civil War Event
+situation_event = { # Revolt/Civil War Event
 	id = civwar.5010
 	hide_window = yes
 	is_triggered_only = yes
@@ -1171,7 +1171,10 @@ situation_event = { # Possible Revolt/Civil War Event
 			NOT = { any_owned_leader = { has_leader_flag = situation_leader_@root } } # Not already in the process of revolting
 			OR = {
 				AND = {
-					any_owned_planet = { solar_system = { is_capital_system = no } }
+					any_owned_planet = {
+						is_under_colonization = no
+						solar_system = { is_capital_system = no }
+					}
 					pop_percentage = { # Civil War
 						percentage >= 0.25
 						# percentage > 0
@@ -1209,6 +1212,7 @@ situation_event = { # Possible Revolt/Civil War Event
 					}
 				}
 				any_owned_planet = { # Planetary Revolt
+					is_under_colonization = no
 					solar_system = { is_capital_system = no }
 					NOT = { has_planet_flag = ongoing_revolt }
 					pop_percentage = {
@@ -1262,7 +1266,10 @@ situation_event = { # Possible Revolt/Civil War Event
 					else_if = { # >= 2 Planets
 						limit = {
 							num_owned_planets >= 2
-							any_owned_planet = { solar_system = { is_capital_system = no } }
+							any_owned_planet = {
+								is_under_colonization = no
+								solar_system = { is_capital_system = no }
+							}
 						}
 						get_small_civwar_effect = yes
 					}
@@ -1303,7 +1310,8 @@ situation_event = { # Possible Revolt/Civil War Event
 			}
 			else_if = { # Planetary Revolt
 				limit = {
-					any_owned_planet = { 
+					any_owned_planet = {
+						is_under_colonization = no
 						solar_system = { is_capital_system = no }
 						sector = { NOT = { has_sector_flag = ethic_sector_rebellion_@sector_capital } }
 						pop_percentage = {
