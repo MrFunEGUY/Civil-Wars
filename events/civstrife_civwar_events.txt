@@ -52,6 +52,13 @@ country_event = { # Setup for Civil War
 				}
 			}
 			set_leader = event_target:rebel_leader
+			ruler = {
+				if = {
+					limit = { has_leader_flag = corrupt_governor }
+					add_trait = leader_trait_corrupt
+				}
+			}
+
 		}
 		else_if = {
 			limit = { exists = event_target:crisis_sector_leader }
@@ -368,7 +375,7 @@ country_event = { # Setup for Civil War
 			}
 		}
 
-		get_remove_seps_after = yes
+		# get_remove_seps_after = yes
 	}
 }
 
@@ -499,6 +506,14 @@ country_event = { # Setup for Planetary Rebellions
 				}
 			}
 			set_leader = event_target:rebel_leader_won
+			ruler = {
+				if = {
+					limit = { has_leader_flag = corrupt_governor }
+					add_trait = leader_trait_corrupt
+				}
+				add_random_leader_trait = yes
+				add_random_leader_trait = yes
+			}
 		}
 		else_if = {
 			limit = { event_target:civwar_originator = { has_country_flag = heir_mother_country } }
@@ -927,7 +942,7 @@ country_event = { # Create Fleets and give resources, faction civil wars
 		}
 
 		if = { # Not Isolated Sector rebellions
-			limit = { event_target:civwar_rebels.ruler = { NOT = { has_leader_flag = leader_civil_war_isolated } } }
+			limit = { ruler = { NOT = { has_leader_flag = leader_civil_war_isolated } } }
 			event_target:civwar_originator = {
 				export_trigger_value_to_variable = {
 					trigger = used_naval_capacity_percent
@@ -989,19 +1004,27 @@ country_event = { # Create Fleets and give resources, faction civil wars
 				}
 				else = {
 					set_variable = { which = fac_mil_support value = 0 }
-					every_owned_pop = {
-						limit = { has_pop_flag = sep_pop }
-						prev = { change_variable = { which = fac_mil_support value = 1 } }
+					root = {
+						every_owned_pop = {
+							limit = { has_pop_flag = sep_pop }
+							prevprev = { change_variable = { which = fac_mil_support value = 1 } }
+						}
 					}
+					# log = "RULER: [event_target:civwar_rebels.ruler.GetName]"
+					# log = "REBEL POPS: [this.fac_mil_support]"
+					# log = "MOTHER POPS: [event_target:civwar_originator.total_faction_pops]"
 					divide_variable = {
 						which = fac_mil_support
 						value = event_target:civwar_originator.total_faction_pops
 					}
+					# log = "REBEL PERCENTAGE: [this.fac_mil_support]"
 					multiply_variable = {
 						which = mother_navy_size
-						value = root.fac_mil_support
+						value = fac_mil_support
 					}
 					create_fleet_from_naval_cap = mother_navy_size
+					# log = "MOM NAVY SIZE: [this.mother_navy_size]"
+					# log = "==================="
 				}
 			}
 			
@@ -1156,6 +1179,7 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 	}
 
 	immediate = {
+		owner = { set_country_flag = TEST_TEST_TEST_ONE }
 		situation_event = { id = civwar.5010 days = 1 random = 20 }
 	}
 }
@@ -1234,6 +1258,7 @@ situation_event = { # Revolt/Civil War Event
 
 	immediate = {
 		owner = {
+			set_country_flag = TEST_TEST_TEST_TWO
 			if = { # Potential Multi Planet/Sector Civil War
 				limit = {
 					pop_percentage = { 

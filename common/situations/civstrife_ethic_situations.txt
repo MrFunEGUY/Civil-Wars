@@ -58,14 +58,14 @@ situation_civstrife_faction_egal = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -79,14 +79,14 @@ situation_civstrife_faction_egal = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3
@@ -227,14 +227,14 @@ situation_civstrife_faction_auth = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -248,14 +248,14 @@ situation_civstrife_faction_auth = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3
@@ -413,14 +413,14 @@ situation_civstrife_faction_mil = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -434,14 +434,14 @@ situation_civstrife_faction_mil = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3
@@ -606,14 +606,14 @@ situation_civstrife_faction_pac = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -627,14 +627,14 @@ situation_civstrife_faction_pac = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3
@@ -795,14 +795,14 @@ situation_civstrife_faction_mat = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -816,14 +816,14 @@ situation_civstrife_faction_mat = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3
@@ -934,6 +934,7 @@ situation_civstrife_faction_spi = {
 
 	on_start = {
 		add_situation_progress = 50
+		owner = { set_country_flag = TEST_TEST_TEST }
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -981,14 +982,14 @@ situation_civstrife_faction_spi = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -1002,14 +1003,14 @@ situation_civstrife_faction_spi = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3
@@ -1167,14 +1168,14 @@ situation_civstrife_faction_phile = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -1188,14 +1189,14 @@ situation_civstrife_faction_phile = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3
@@ -1353,14 +1354,14 @@ situation_civstrife_faction_phobe = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -1374,14 +1375,14 @@ situation_civstrife_faction_phobe = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3
@@ -1539,14 +1540,14 @@ situation_civstrife_faction_soc = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -1560,14 +1561,14 @@ situation_civstrife_faction_soc = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3
@@ -1725,14 +1726,14 @@ situation_civstrife_faction_cap = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -1746,14 +1747,14 @@ situation_civstrife_faction_cap = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3
@@ -1911,14 +1912,14 @@ situation_civstrife_faction_indus = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -1932,14 +1933,14 @@ situation_civstrife_faction_indus = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3
@@ -2097,14 +2098,14 @@ situation_civstrife_faction_eco = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -2118,14 +2119,14 @@ situation_civstrife_faction_eco = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3
@@ -2283,14 +2284,14 @@ situation_civstrife_faction_elite = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -2304,14 +2305,14 @@ situation_civstrife_faction_elite = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3
@@ -2469,14 +2470,14 @@ situation_civstrife_faction_plur = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.15
 								faction_approval >= 0.4
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.30
 								faction_approval >= 0.25
@@ -2490,14 +2491,14 @@ situation_civstrife_faction_plur = {
 				target = {
 					OR = {
 						AND = {
-							is_ai = no
+							owner = { is_ai = no }
 							OR = {
 								support <= 0.1
 								faction_approval >= 0.45
 							}	
 						}
 						AND = {
-							is_ai = yes
+							owner = { is_ai = yes }
 							OR = {
 								support <= 0.25
 								faction_approval >= 0.3

@@ -178,7 +178,10 @@ country_event = {
 
 			modifier = {
 				factor = 1.5
-				is_authoritarian = yes	
+				OR = {
+					is_authoritarian = yes
+					is_militarist = yes
+				}
 			}
 		}
 	}
@@ -355,7 +358,6 @@ country_event = {
 	# Declare War on the rebels
 	option = {
 		name = civcom.1000.war
-		trigger = { is_ai = no }
 		hidden_effect = {
 			country_event = { id = civcom.2000 }
 		}
@@ -364,7 +366,10 @@ country_event = {
 
 			modifier = {
 				factor = 1.5
-				is_authoritarian = yes	
+				OR = {
+					is_authoritarian = yes
+					is_militarist = yes
+				}
 			}
 		}
 	}
@@ -372,7 +377,6 @@ country_event = {
 	# Accept their offer of vassalization
 	option = {
 		name = civcom.1005.vassal
-		trigger = { is_ai = no }
 		custom_tooltip = civcom.1005.vassal.tooltip
 		hidden_effect = { country_event = { id = civcom.2010 } }
 		ai_chance = {
@@ -398,7 +402,6 @@ country_event = {
 	# Let them be fully independent
 	option = {
 		name = civcom.1000.independence
-		trigger = { is_ai = no }
 		hidden_effect = {
 			country_event = { id = civcom.2025 }
 		}
@@ -724,14 +727,16 @@ country_event = {
 	# Declare War on the rebels
 	option = {
 		name = civcom.1000.war
-		trigger = { is_ai = no }
 		hidden_effect = { country_event = { id = civcom.2000 } }
 		ai_chance = {
 			factor = 5
 
 			modifier = {
 				factor = 1.5
-				is_authoritarian = yes	
+				OR = {
+					is_authoritarian = yes
+					is_militarist = yes
+				}	
 			}
 		}
 	}
@@ -739,7 +744,6 @@ country_event = {
 	# Let them be fully independent.
 	option = {
 		name = civcom.1000.independence
-		trigger = { is_ai = no }
 		hidden_effect = { country_event = { id = civcom.2020 } }
 		ai_chance = {
 			factor = 2
@@ -850,14 +854,16 @@ country_event = {
 	# Declare War on the rebels
 	option = {
 		name = civcom.1105.a
-		trigger = { is_ai = no }
 		hidden_effect = { country_event = { id = civcom.2000 } }
 		ai_chance = {
 			factor = 5
 
 			modifier = {
 				factor = 1.5
-				is_authoritarian = yes	
+				OR = {
+					is_authoritarian = yes
+					is_militarist = yes
+				}	
 			}
 
 			modifier = {
@@ -870,7 +876,6 @@ country_event = {
 	# Accept their offer of vassalization
 	option = {
 		name = civcom.1105.b
-		trigger = { is_ai = no }
 		custom_tooltip = civcom.1105.b.tooltip
 		hidden_effect = { country_event = { id = civcom.2010 } }
 		ai_chance = {
@@ -891,7 +896,6 @@ country_event = {
 	# Let them be fully independent
 	option = {
 		name = civcom.1000.independence
-		trigger = { is_ai = no }
 		hidden_effect = { country_event = { id = civcom.2025 } }
 		ai_chance = {
 			factor = 1

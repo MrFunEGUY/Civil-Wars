@@ -1596,6 +1596,8 @@ country_event = { # Corrupt Governor Launch Rebellion Event
 
 	immediate = {
 
+		log = "TEST LOG ONE"
+
 		random_owned_sector = {
 			limit = {
 				exists = leader
@@ -1616,14 +1618,18 @@ country_event = { # Corrupt Governor Launch Rebellion Event
 			}
 			set_sector_flag = leader_sector
 			leader = {
+				set_leader_flag = corrupt_governor
+				set_leader_flag = civil_war_leader_governor_faction
 				save_event_target_as = rebel_leader
 				species = { save_event_target_as = civwar_species }
 			}
 			owner = {
-				set_country_flag = corrupt_rebellion
+				set_timed_country_flag = { flag = corrupt_rebellion days = 180 }
 				save_event_target_as = civwar_originator
+				get_civil_war_number = yes
 				country_event = { id = civwarcountry.1070 }
 			}
+			
 			
 		}
 	}

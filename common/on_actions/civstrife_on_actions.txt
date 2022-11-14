@@ -215,3 +215,12 @@ on_election_started = {
 # 	events = {
 # 	}
 # }
+
+# A country is created via create_country or create_rebels
+# This = created country
+# From = root of context where create_country/create_rebels happens
+on_country_created = {
+	events = {
+		civmisc.3000				# Set Country Birth Date Variable
+	}
+}
