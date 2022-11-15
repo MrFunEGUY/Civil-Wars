@@ -193,7 +193,7 @@ country_event = {
 			country_event = { id = civcom.2020 }
 		}
 		ai_chance = {
-			factor = 2
+			factor = 3
 
 			modifier = {
 				factor = 2
@@ -380,7 +380,7 @@ country_event = {
 		custom_tooltip = civcom.1005.vassal.tooltip
 		hidden_effect = { country_event = { id = civcom.2010 } }
 		ai_chance = {
-			factor = 2
+			factor = 3
 
 			modifier = {
 				factor = 2
@@ -406,7 +406,7 @@ country_event = {
 			country_event = { id = civcom.2025 }
 		}
 		ai_chance = {
-			factor = 2
+			factor = 1
 
 			modifier = {
 				factor = 1.15
@@ -746,7 +746,7 @@ country_event = {
 		name = civcom.1000.independence
 		hidden_effect = { country_event = { id = civcom.2020 } }
 		ai_chance = {
-			factor = 2
+			factor = 3
 
 			modifier = {
 				factor = 2
@@ -879,7 +879,7 @@ country_event = {
 		custom_tooltip = civcom.1105.b.tooltip
 		hidden_effect = { country_event = { id = civcom.2010 } }
 		ai_chance = {
-			factor = 2
+			factor = 3
 
 			modifier = {
 				factor = 2
@@ -1608,11 +1608,14 @@ country_event = {
 	desc = {
 		text = civcom.3100.ad.desc
 		trigger = {
-			OR = {
-				has_valid_civic = civic_adoptive_dynasties
-				event_target:civwar_rebels.ruler = { has_leader_flag = appointed_heir_ruler }
+			AND = {
 				event_target:civwar_rebels.ruler = { NOT = { has_leader_flag = civil_war_ruler_heir_gov_changed } }
+				OR = {
+					has_valid_civic = civic_adoptive_dynasties
+					event_target:civwar_rebels.ruler = { has_leader_flag = appointed_heir_ruler }
+				}
 			}
+			
 		}
 	}
 
@@ -1644,16 +1647,49 @@ country_event = {
 		room = event_target:civwar_rebels.ruler
 	}
 
-	# Declare War on the rebels
+	# Declare War on rebels 
 	option = {
 		name = civcom.1000.war
-		hidden_effect = { country_event = { id = civcom.2000 } }
+		hidden_effect = {
+			country_event = { id = civcom.2000 }
+		}
+		ai_chance = {
+			factor = 5
+
+			modifier = {
+				factor = 1.5
+				OR = {
+					is_authoritarian = yes
+					is_militarist = yes
+				}
+			}
+		}
 	}
 
 	# Let them be fully independent.
 	option = {
 		name = civcom.1000.independence
-		hidden_effect = { country_event = { id = civcom.2020 } }
+		hidden_effect = {
+			country_event = { id = civcom.2020 }
+		}
+		ai_chance = {
+			factor = 3
+
+			modifier = {
+				factor = 2
+				is_pacifist = yes	
+			}
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_valid_civic = civic_fanatic_purifiers
+					event_target:civwar_rebels = {
+						any_system_within_border = { is_bottleneck_system = no }
+					}
+				}	
+			}
+		}
 	}
 }
 
@@ -1699,12 +1735,16 @@ country_event = {
 		room = root.ruler
 	}
 
+	immediate = {
+		log = "ORIGIN: [event_target:civwar_originator.GetName]"
+	}
+
 	# Abstain from assisting
 	option = {
 		name = civcom.4000.abstain
 		hidden_effect = {
 			if = {
-				limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
+				limit = { is_same_value = event_target:nat_motherland_model }
 				set_country_flag = motherland_wont_join_@event_target:civwar_rebels
 			}
 			country_event = { id = civcom.4100 }
@@ -1741,7 +1781,7 @@ country_event = {
 		}
 		hidden_effect = {
 			if = {
-				limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
+				limit = { is_same_value = event_target:nat_motherland_model }
 				set_country_flag = motherland_wont_join_@event_target:civwar_rebels
 			}
 			country_event = { id = civcom.4110 }
@@ -1825,13 +1865,36 @@ country_event = {
 			}
 			custom_tooltip = {
 				fail_text = we_must_border_rebels
-				event_target:civwar_rebels = { has_country_flag = nat_civwar }
-				NOT = { has_country_flag = borders_rebels }
+				if = {
+					limit = { is_same_value = event_target:nat_motherland_model }
+					event_target:civwar_rebels = {
+						any_system_within_border = {
+							closest_system = {
+								limit = {
+									exists = space_owner
+									space_owner = {
+										OR = {
+											is_same_value = root
+											is_in_federation_with = root
+											AND = {
+												exists = overlord
+												overlord = { is_same_value = root }
+											}
+										}
+									}
+								}
+								use_bypasses = yes
+								max_steps = 1
+							}
+						}
+					}
+					
+				}				
 			}
 		}
 		hidden_effect = {
 			if = {
-				limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
+				limit = { is_same_value = event_target:nat_motherland_model }
 				set_country_flag = motherland_will_join_@event_target:civwar_rebels
 			}
 			country_event = { id = civcom.4125 }

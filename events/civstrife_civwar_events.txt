@@ -796,37 +796,39 @@ country_event = { # Nationalist - Communications
 	hide_window = no
 	is_triggered_only = yes
 
+	immediate = {
+		log = "2055 HAPPENED"
+	}
+
 	option = {
 		name = ON_SCREEN_REBELS
 		hidden_effect = {
-			hidden_effect = {
-				if = {
-					limit = {
-						NOR = {
-							any_country = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
-							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
-							event_target:civwar_rebels = {
-								check_variable = {
-									which = num_mil_pops
-									value >= root.num_mil_pops
-								}
+			if = {
+				limit = {
+					NOR = {
+						any_country = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
+						any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
+						event_target:civwar_rebels = {
+							check_variable = {
+								which = num_mil_pops
+								value >= root.num_mil_pops
 							}
-							event_target:civwar_rebels = {
-								check_variable = {
-									which = total_empire_size
-									value >= root.total_empire_size
-								}
+						}
+						event_target:civwar_rebels = {
+							check_variable = {
+								which = total_empire_size
+								value >= root.total_empire_size
 							}
 						}
 					}
-					random_list = {
-						95 = { country_event = { id = civcom.1100 } }
-						5 = { country_event = { id = civcom.1105 } }
-					}
 				}
-				else = {
-					country_event = { id = civcom.1100 }
+				random_list = {
+					95 = { country_event = { id = civcom.1100 } }
+					5 = { country_event = { id = civcom.1105 } }
 				}
+			}
+			else = {
+				country_event = { id = civcom.1100 }
 			}
 		}
 	}
@@ -915,9 +917,7 @@ country_event = { # Rebel - Query Neighbors
 	option = {
 		name = INTRIGUING
 		hidden_effect = {
-			hidden_effect = {
-				country_event = { id = civcom.4000 }
-			}
+			country_event = { id = civcom.4000 }
 		}
 	}
 

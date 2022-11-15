@@ -32,7 +32,11 @@ country_event = {
 
 	immediate = {
 
+		log = "CIVPLAN 1000"
+
 		save_event_target_as = civwar_originator
+
+		log = "[event_target:civwar_originator.GetName]"
 
 		FromFrom = {
 			remove_planet_flag = ongoing_revolt
@@ -91,12 +95,15 @@ country_event = {
 			FromFrom = { remove_planet_flag = heir_planetary_rebellion }
 			set_country_flag = heir_rebel_country
 		}
+
+		#####
 	
 		if = {
 			limit = { event_target:civwar_originator = { is_subject = yes } }
 			event_target:civwar_originator.overlord = {
 				country_event = { id = civwar.2000 }
 			}
+			log = "1"
 		}
 		else_if = {
 			limit = {
@@ -118,19 +125,21 @@ country_event = {
 				FromFrom = { remove_planet_flag = balkan_war }
 				country_event = { id = civcom.1000 }
 			}
+			log = "2"
 		}
 		else_if = {
-
 			limit = { has_country_flag = nat_civwar }
-			
+			from = { set_timed_country_flag = { flag = nat_civwar days = 360 } }
 			random_country = {
 				limit = { has_country_flag = nat_planet_@FromFrom }
 				remove_country_flag = nat_planet_@FromFrom
 				save_event_target_as = nat_motherland_model
 			}
 			if = { # Query Motherland if possible
-				limit = { NOT = { event_target:nat_motherland_model = { is_country_type = exile_country } } }
+				limit = { event_target:nat_motherland_model = { NOT = { is_country_type = exile_country } } }
 				country_event = { id = civwar.2050 }
+				log = "3.1"
+				log = "NAT MOM: [event_target:nat_motherland_model.GetName]"
 			}
 			else_if = { # If not second nat country and there is no queryable motherland, regular notification
 				limit = { event_target:nat_motherland_model = { is_country_type = exile_country } }
@@ -139,21 +148,26 @@ country_event = {
 					event_target:civwar_originator.overlord = {
 						country_event = { id = civwar.2000 }
 					}
+					log = "3.2.1"
 				}
 				else = {
 					country_event = { id = civwar.2055 }
+					log = "3.2.2"
 				}
 			}
+			log = "3"
 		}
 		else_if = {
 			limit = { has_country_flag = heir_rebel_country }
 			country_event = { id = civcom.3100 }
+			log = "4"
 		}
 		else = {
 			random_list = {
 				65 = { country_event = { id = civcom.1000 } }
 				35 = { country_event = { id = civcom.1005 } }
 			}
+			log = "5"
 		}
 	}
 
