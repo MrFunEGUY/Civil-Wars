@@ -558,9 +558,7 @@ frontier_planet_unrest_untick_check_gen = {
 		planet_crime < 60
 		AND = {
 			exists = sector.leader
-			sector.leader = {
-				has_trait = leader_trait_corrupt
-			}
+			sector.leader = { has_trait = leader_trait_corrupt }
 		}
 	}
 }
@@ -572,9 +570,7 @@ integrated_planet_unrest_untick_check_gen = {
 		planet_crime < 70
 		AND = {
 			exists = sector.leader
-			sector.leader = {
-				has_trait = leader_trait_corrupt
-			}
+			sector.leader = { has_trait = leader_trait_corrupt }
 		}
 	}
 }
@@ -586,9 +582,7 @@ fundamental_planet_unrest_untick_check_gen = {
 		planet_crime < 80
 		AND = {
 			exists = sector.leader
-			sector.leader = {
-				has_trait = leader_trait_corrupt
-			}
+			sector.leader = { has_trait = leader_trait_corrupt }
 		}
 	}
 	
@@ -596,16 +590,18 @@ fundamental_planet_unrest_untick_check_gen = {
 
 combined_planet_unrest_calm_check_gen = {
 	OR = {
-		frontier_planet_unrest_untick_check_gen = yes
-		check_variable = { which = revolt_tick value = 6 }
-	}
-	OR = {
-		integrated_planet_unrest_untick_check_gen = yes
-		check_variable = { which = revolt_tick value = 7 }
-	}
-	OR = {
-		fundamental_planet_unrest_untick_check_gen = yes
-		check_variable = { which = revolt_tick value = 8 }
+		AND = {
+			frontier_planet_unrest_untick_check_gen = yes
+			check_variable = { which = revolt_tick value = 6 }
+		}
+		AND = {
+			integrated_planet_unrest_untick_check_gen = yes
+			check_variable = { which = revolt_tick value = 7 }
+		}
+		AND = {
+			fundamental_planet_unrest_untick_check_gen = yes
+			check_variable = { which = revolt_tick value = 8 }
+		}
 	}
 }
 
@@ -872,6 +868,13 @@ is_ethic_situation = {
 	}
 }
 
+is_nat_faction_allowed = {
+	# count_owned_pop = { # Note: define POP_FACTION_MIN_POTENTIAL_MEMBERS does this now!
+	# 	count >= 5
+	# 	limit = { has_pop_flag = sep_pop_nat }
+	# }
+}
+
 # For My Sanity
 
 get_sector_leader_test = {
@@ -949,4 +952,23 @@ federation_check_for_subject_trigger = {
 			}
 		}
 	}
+}
+
+is_faction_allowed = {
+	OR = {
+		AND = {
+			years_passed > 10
+			# has_encountered_other_species = yes
+		}
+		AND = {
+			days_passed > 30
+			has_valid_civic = civic_parliamentary_system
+		}
+	}
+	NOT = { has_ethic = ethic_gestalt_consciousness }
+	NOT = { has_country_flag = suppress_vanilla_factions }
+	# if = {
+	# 	limit = { is_regular_faction = yes }
+	# 	NOT = { has_country_flag = suppress_vanilla_factions }
+	# }
 }

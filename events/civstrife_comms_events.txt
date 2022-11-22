@@ -560,7 +560,10 @@ country_event = {
 		text = civcom.1100.nationalist.no_support.desc
 		trigger = {
 			NOT = { has_country_flag = rebs_help_eachother }
-			event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+			OR = {
+				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+				event_target:nat_motherland_model = { is_country_type = exile_country }
+			}
 			event_target:civwar_rebels = {
 				NOT = { has_country_flag = exile_restored_country }
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
@@ -572,7 +575,10 @@ country_event = {
 		text = civcom.1100.nationalist.mult.no_support.desc
 		trigger = {
 			has_country_flag = rebs_help_eachother
-			event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+			OR = {
+				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+				event_target:nat_motherland_model = { is_country_type = exile_country }
+			}
 			event_target:civwar_rebels = {
 				NOT = { has_country_flag = exile_restored_country }
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
@@ -584,13 +590,14 @@ country_event = {
 		text = civcom.1100.nationalist.no_support.exile.reg.desc
 		trigger = {
 			NOT = { has_country_flag = rebs_help_eachother }
-			event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+			OR = {
+				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+				event_target:nat_motherland_model = { is_country_type = exile_country }
+			}
 			event_target:civwar_rebels = {
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
-				NOR = {
-					is_imperial = yes
-					has_country_flag = exile_restored_country
-				}
+				has_country_flag = exile_restored_country
+				is_imperial = no
 			}
 		}
 	}
@@ -599,13 +606,14 @@ country_event = {
 		text = civcom.1100.nationalist.mult.no_support.exile.reg.desc
 		trigger = {
 			has_country_flag = rebs_help_eachother
-			event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+			OR = {
+				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+				event_target:nat_motherland_model = { is_country_type = exile_country }
+			}
 			event_target:civwar_rebels = {
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
-				NOR = {
-					is_imperial = yes
-					has_country_flag = exile_restored_country
-				}
+				has_country_flag = exile_restored_country
+				is_imperial = no
 			}
 		}
 	}
@@ -614,7 +622,10 @@ country_event = {
 		text = civcom.1100.nationalist.no_support.exile.imp.desc
 		trigger = {
 			NOT = { has_country_flag = rebs_help_eachother }
-			event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+			OR = {
+				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+				event_target:nat_motherland_model = { is_country_type = exile_country }
+			}
 			event_target:civwar_rebels = {
 				is_imperial = yes
 				has_country_flag = exile_restored_country
@@ -627,7 +638,10 @@ country_event = {
 		text = civcom.1100.nationalist.mult.no_support.exile.imp.desc
 		trigger = {
 			has_country_flag = rebs_help_eachother
-			event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+			OR = {
+				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+				event_target:nat_motherland_model = { is_country_type = exile_country }
+			}
 			event_target:civwar_rebels = {
 				is_imperial = yes
 				has_country_flag = exile_restored_country
@@ -713,6 +727,14 @@ country_event = {
 
 	immediate = {
 		get_motherland_effect = yes
+		if = {
+			limit = { event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels } }
+			log = "GOOD"
+		}
+		else = {
+			log = "BAD"
+		}
+		
 	}
 	
 
@@ -1102,7 +1124,7 @@ country_event = {
 				get_declare_war_plan_rebellion = yes
 			}
 			else_if = {
-				limit = { has_country_flag = nat_civwar }
+				limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
 				get_declare_war_natwar = yes
 			}
 			else = {
@@ -1867,28 +1889,43 @@ country_event = {
 				fail_text = we_must_border_rebels
 				if = {
 					limit = { is_same_value = event_target:nat_motherland_model }
-					event_target:civwar_rebels = {
-						any_system_within_border = {
-							closest_system = {
-								limit = {
-									exists = space_owner
-									space_owner = {
-										OR = {
-											is_same_value = root
-											is_in_federation_with = root
-											AND = {
-												exists = overlord
-												overlord = { is_same_value = root }
+					any_system_within_border = {
+						closest_system = {
+							limit = {
+								exists = space_owner
+								space_owner = {
+									OR = {
+										is_same_value = event_target:civwar_rebels
+										is_same_value = event_target:civwar_originator
+										is_in_federation_with = event_target:civwar_originator
+										AND = {
+											exists = overlord
+											OR = {
+												overlord = { is_same_value = event_target:civwar_rebels }
+												AND = {
+													overlord = { is_same_value = event_target:civwar_originator }
+													any_agreement = {
+														OR = {
+															has_term_value = {
+																term = joins_overlord_wars
+																value = joins_overlord_wars_defensive
+															}
+															has_term_value = {
+																term = joins_overlord_wars
+																value = joins_overlord_wars_all
+															}
+														}
+													}
+												}
 											}
 										}
 									}
 								}
-								use_bypasses = yes
-								max_steps = 1
 							}
+							use_bypasses = yes
+							max_steps = 1
 						}
 					}
-					
 				}				
 			}
 		}

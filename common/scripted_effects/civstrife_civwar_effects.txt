@@ -622,7 +622,7 @@ make_nat_war_country = {
 			has_country_flag = nat_motherland_sit_@root.owner
 		}
 		save_event_target_as = nat_motherland_model
-		log = "\\[this.GetName]"
+		log = "NAT WAR MODEL: \\[this.GetName]"
 		if = {
 			limit = { is_country_type = exile_country }
 			prev.owner = { set_country_flag = motherland_is_exile }
@@ -635,63 +635,6 @@ make_nat_war_country = {
 		}
 		create_country = {
 			name = event_target:nat_motherland_model
-			type = default
-			species = event_target:nat_motherland_model
-			ignore_initial_colony_error = yes
-			day_zero_contact = no
-			authority = event_target:nat_motherland_model
-			ethos = event_target:nat_motherland_model
-			origin = origin_nationalist_rebellion
-			civics = event_target:nat_motherland_model
-			flag = event_target:nat_motherland_model
-			effect = {
-				set_country_flag = nat_civwar
-				set_country_flag = exile_restored_country
-				set_country_flag = exile_link_@event_target:nat_motherland_model
-				created_civwar_country_effect = yes
-			}
-		}
-		event_target:nat_motherland_model = { set_country_flag = exile_link_@last_created_country }
-	}
-	else = {
-		create_country = {
-			name = random
-			type = default
-			species = event_target:nat_motherland_model
-			ignore_initial_colony_error = yes
-			day_zero_contact = no
-			authority = event_target:nat_motherland_model
-			ethos = event_target:nat_motherland_model
-			origin = origin_nationalist_rebellion
-			civics = event_target:nat_motherland_model
-			flag = random
-			effect = {
-				set_country_flag = nat_civwar
-				created_civwar_country_effect = yes
-			}
-		}
-	}	
-}
-
-make_nat_country = {
-	random_country = {
-		limit = {
-			has_country_flag = nat_motherland_sit_@root
-			has_country_flag = nat_motherland_sit_@root.owner
-		}
-		save_event_target_as = nat_motherland_model
-		if = {
-			limit = { is_country_type = exile_country }
-			prev.owner = { set_country_flag = motherland_is_exile }
-		}
-	}
-	if = { # New country has the same flag if it is a restoration
-		limit = {
-			event_target:nat_motherland_model = { is_country_type = exile_country }
-			NOT = { any_country = { has_country_flag = exile_link_@event_target:nat_motherland_model } }
-		}
-		create_country = {
-			name = random
 			type = default
 			species = event_target:nat_motherland_model
 			ignore_initial_colony_error = yes
@@ -2535,7 +2478,7 @@ get_multi_sector_effect = {
 
 	if = {
 		limit = { check_variable = { which = total_reb_countries value > 1 } }
-		set_country_flag = rebs_help_eachother
+		set_timed_country_flag { flag = rebs_help_eachother days = 180 }
 	}
 
 	every_owned_sector = {
@@ -2601,6 +2544,19 @@ get_multi_sector_effect = {
 		limit = { has_sector_flag = potential_rebel }
 		remove_sector_flag = potential_rebel
 	}
+
+	if = {
+		limit = { root.target = { is_nationalist_faction = yes } }
+		root.target = {
+			every_owned_pop = {
+				limit = { has_pop_flag = sep_pop_nat }
+				random = {
+					chance = 80
+					remove_pop_flag = sep_pop_nat
+				}
+			}
+		}
+	}
 }
 
 get_two_sector_effect = {
@@ -2642,6 +2598,15 @@ get_two_sector_effect = {
 		}
 		else = {
 			make_nat_war_country = yes
+			root.target = {
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_nat }
+					random = {
+						chance = 80
+						remove_pop_flag = sep_pop_nat
+					}
+				}
+			}
 		}
 	}
 }
@@ -2764,6 +2729,15 @@ get_small_civwar_effect = {
 		}
 		else = {
 			situation_event = { id = civnat.9010 }
+			target = {
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_nat }
+					random = {
+						chance = 80
+						remove_pop_flag = sep_pop_nat
+					}
+				}
+			}
 		}
 	}
 }
@@ -2775,6 +2749,7 @@ get_sectoral_revolt_effect = {
 		limit = {
 			pop_percentage = {
 				percentage >= 0.25
+				# percentage > 0
 				limit = {
 					exists = pop_faction
 					pop_faction = { is_same_value = root.target }
@@ -2852,6 +2827,15 @@ get_sectoral_revolt_effect = {
 			}
 			else = {
 				situation_event = { id = civnat.9010 }
+				target = {
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_nat }
+						random = {
+							chance = 80
+							remove_pop_flag = sep_pop_nat
+						}
+					}
+				}
 			}
 		}
 	}
@@ -2870,6 +2854,7 @@ get_planetary_revolt_effect = {
 			NOT = { has_planet_flag = ongoing_revolt }
 			pop_percentage = {
 				percentage >= 0.25
+				# percentage > 0
 				limit = {
 					exists = pop_faction
 					pop_faction = { is_same_value = root.target }
@@ -2908,7 +2893,18 @@ get_planetary_revolt_effect = {
 			set_planet_flag = nat_planet_rebellion_@this
 			get_nationalist_war_leader = yes
 			get_nat_plan_rebels = yes
-			root = { situation_event = { id = civnat.9010 } }
+			root = {
+				situation_event = { id = civnat.9010 }
+				target = {
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_nat }
+						random = {
+							chance = 80
+							remove_pop_flag = sep_pop_nat
+						}
+					}
+				}
+			}
 		}
 	}
 }
@@ -7574,10 +7570,15 @@ get_nat_plan_rebels = {
 		}
 	}
 
-	if = { # New country has the same flag if it is a restoration
+	if = { # New country has the same flag and name if it is a restoration
 		limit = {
 			event_target:nat_motherland_model = { is_country_type = exile_country }
-			NOT = { any_country = { has_country_flag = exile_link_@event_target:nat_motherland_model } }
+			NOT = {
+				any_country = {
+					is_country_type = default
+					has_country_flag = exile_link_@event_target:nat_motherland_model
+				}
+			}
 		}
 		create_rebels = {
 			name = event_target:nat_motherland_model
@@ -7592,6 +7593,7 @@ get_nat_plan_rebels = {
 			# flag = event_target:nat_motherland_model
 			flag = random
 			effect = {
+				set_country_flag = nat_civwar
 				set_country_flag = exile_restored_country
 				set_country_flag = exile_link_@event_target:nat_motherland_model
 				created_civwar_rebel_country_effect = yes
@@ -7612,6 +7614,7 @@ get_nat_plan_rebels = {
 			civics = event_target:nat_motherland_model
 			flag = random
 			effect = {
+				set_country_flag = nat_civwar
 				created_civwar_rebel_country_effect = yes
 			}
 		}
@@ -8306,11 +8309,11 @@ get_remove_seps_after = {
 get_war_type_flag = {
 	if = {
 		limit = { root = { is_situation_type = situation_civstrife_faction_sep_nat } }
-		set_country_flag = nat_civwar
+		set_timed_country_flag = { flag = nat_mother_civwar days = 360 }
 	}
 	else_if = {
 		limit = { root.target = { is_regular_faction = yes } }
-		set_country_flag = ethic_civwar
+		set_timed_country_flag = { flag = ethic_civwar days = 360 }
 	}
 }
 
@@ -10001,6 +10004,10 @@ nat_faction_second_effect = {
 	}
 	set_leader = last_created_leader
 	pop_faction_event = { id = civnat.9000 }
+}
+
+nat_faction_destroy_effect = {
+	leader = { kill_leader = { show_notification = no } }
 }
 
 plan_faction_first_effect = {

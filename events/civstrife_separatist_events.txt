@@ -417,54 +417,11 @@ country_event = { # Planetary Calm counter on stability increase and remove sepa
 			is_subject = yes
 			# has_ethic = ethic_gestalt_consciousness
 		}
-		any_owned_planet = {
-			OR = {
-				frontier_planet_unrest_untick_check_gen = yes
-				check_variable = { which = revolt_tick value = 6 }
-			}
-			OR = {
-				integrated_planet_unrest_untick_check_gen = yes
-				check_variable = { which = revolt_tick value = 7 }
-			}
-			OR = {
-				fundamental_planet_unrest_untick_check_gen = yes
-				check_variable = { which = revolt_tick value = 8 }
-			}
-		}
+		any_owned_planet = { combined_planet_unrest_calm_check_gen = yes }
 	}
 
 	immediate = {
 		if = {
-			limit = {
-				any_owned_planet = {
-					combined_planet_unrest_calm_check_gen = yes
-					NOT = { is_variable_set = calm_tick }
-				}
-			}
-			every_owned_planet = {
-				limit = {
-					combined_planet_unrest_calm_check_gen = yes
-					NOT = { is_variable_set = calm_tick }
-				}
-				set_variable = { which = calm_tick value = 1 }
-			}
-		}
-		else_if = {
-			limit = {
-				any_owned_planet = {
-					combined_planet_unrest_calm_check_gen = yes
-					check_variable = { which = calm_tick value < 60 }
-				}
-			}
-			every_owned_planet = {
-				limit = {
-					combined_planet_unrest_calm_check_gen = yes
-					check_variable = { which = calm_tick value < 60 }
-				}
-				change_variable = { which = calm_tick value = 1 }
-			}
-		}
-		else_if = {
 			limit = {
 				any_owned_planet = {
 					combined_planet_unrest_calm_check_gen = yes
@@ -481,6 +438,36 @@ country_event = { # Planetary Calm counter on stability increase and remove sepa
 				remove_planet_flag = plan_sep_active
 				save_event_target_as = separatists_disband_planet
 				planet_event = { id = civsep.9005 }
+			}
+		}
+		if = {
+			limit = {
+				any_owned_planet = {
+					combined_planet_unrest_calm_check_gen = yes
+					check_variable = { which = calm_tick value < 60 }
+				}
+			}
+			every_owned_planet = {
+				limit = {
+					combined_planet_unrest_calm_check_gen = yes
+					check_variable = { which = calm_tick value < 60 }
+				}
+				change_variable = { which = calm_tick value = 1 }
+			}
+		}
+		if = {
+			limit = {
+				any_owned_planet = {
+					combined_planet_unrest_calm_check_gen = yes
+					NOT = { is_variable_set = calm_tick }
+				}
+			}
+			every_owned_planet = {
+				limit = {
+					combined_planet_unrest_calm_check_gen = yes
+					NOT = { is_variable_set = calm_tick }
+				}
+				set_variable = { which = calm_tick value = 1 }
 			}
 		}
 	}
@@ -1304,7 +1291,7 @@ planet_event = { # Create Separatists Yearly Event
 
 		every_owned_pop = {
 			limit = { pop_can_be_separatist_gen = yes }
-			change_variable = { which = num_sep_pops value = 1 }
+			prev = { change_variable = { which = num_sep_pops value = 1 } }
 		}
 
 		while = {
@@ -1648,6 +1635,7 @@ country_event = { # Sector Separatist Party Form Check
 		if = {
 			limit = {
 				any_owned_sector = {
+					NOT = { any_owned_planet = { is_capital = yes } }
 					NOT = { has_sector_flag = sector_sep_active } # For Isolated Sectors who might have given this sector this already
 					count_owned_planet = {
 						limit = { has_planet_flag = plan_sep_active }
@@ -1662,6 +1650,7 @@ country_event = { # Sector Separatist Party Form Check
 
 		every_owned_sector = {
 			limit = {
+				NOT = { any_owned_planet = { is_capital = yes } }
 				NOT = { has_sector_flag = sector_sep_active } # For Isolated Sectors who might have given this sector this already
 				count_owned_planet = {
 					limit = { has_planet_flag = plan_sep_active }
@@ -2074,7 +2063,8 @@ situation_event = { # Planetary Revolt Event
 				solar_system = { is_capital_system = no }
 				NOT = { has_planet_flag = ongoing_revolt }
 				pop_percentage = {
-					percentage >= 0.25
+					# percentage >= 0.25
+					percentage >= 0
 					limit = {
 						exists = pop_faction
 						pop_faction = {
@@ -2096,7 +2086,8 @@ situation_event = { # Planetary Revolt Event
 					solar_system = { is_capital_system = no }
 					NOT = { has_planet_flag = ongoing_revolt }
 					pop_percentage = {
-						percentage >= 0.25
+						# percentage >= 0.25
+						percentage >= 0
 						limit = {
 							exists = pop_faction
 							pop_faction = {
@@ -2109,7 +2100,8 @@ situation_event = { # Planetary Revolt Event
 				}
 				
 				random = {
-					chance = 10
+					# chance = 10
+					chance = 100
 					root.target = {
 						set_variable = { which = fac_mil_support value = 0 }
 						save_event_target_as = civwar_party
@@ -2596,7 +2588,7 @@ planet_event = { # Planetary Separatist Faction Disband Notif
 	is_triggered_only = yes
 
 	option = {
-		name = WORRYING
+		name = EXCELLENT
 	}
 }
 

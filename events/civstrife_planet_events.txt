@@ -32,11 +32,9 @@ country_event = {
 
 	immediate = {
 
-		log = "CIVPLAN 1000"
+		log = "civplan.1000 happening"
 
 		save_event_target_as = civwar_originator
-
-		log = "[event_target:civwar_originator.GetName]"
 
 		FromFrom = {
 			remove_planet_flag = ongoing_revolt
@@ -107,7 +105,7 @@ country_event = {
 		}
 		else_if = {
 			limit = {
-				NOT = { has_country_flag = nat_civwar }
+				event_target:civwar_rebels = { NOT = { has_country_flag = nat_civwar } }
 				FromFrom = {
 					OR = {
 						has_planet_flag = small_civil_war
@@ -115,6 +113,7 @@ country_event = {
 					}
 				}
 			}
+			log = "2"
 			if = {
 				limit = { FromFrom = { has_planet_flag = small_civil_war } }
 				FromFrom = { remove_planet_flag = small_civil_war }
@@ -125,11 +124,10 @@ country_event = {
 				FromFrom = { remove_planet_flag = balkan_war }
 				country_event = { id = civcom.1000 }
 			}
-			log = "2"
 		}
 		else_if = {
-			limit = { has_country_flag = nat_civwar }
-			from = { set_timed_country_flag = { flag = nat_civwar days = 360 } }
+			limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
+			log = "3"
 			random_country = {
 				limit = { has_country_flag = nat_planet_@FromFrom }
 				remove_country_flag = nat_planet_@FromFrom
@@ -138,36 +136,32 @@ country_event = {
 			if = { # Query Motherland if possible
 				limit = { event_target:nat_motherland_model = { NOT = { is_country_type = exile_country } } }
 				country_event = { id = civwar.2050 }
-				log = "3.1"
-				log = "NAT MOM: [event_target:nat_motherland_model.GetName]"
+				log = "NOT EXILE: [event_target:nat_motherland_model.GetName]"
 			}
 			else_if = { # If not second nat country and there is no queryable motherland, regular notification
 				limit = { event_target:nat_motherland_model = { is_country_type = exile_country } }
-				if = {
-					limit = { event_target:civwar_originator = { is_subject = yes } }
-					event_target:civwar_originator.overlord = {
-						country_event = { id = civwar.2000 }
-					}
-					log = "3.2.1"
-				}
-				else = {
-					country_event = { id = civwar.2055 }
-					log = "3.2.2"
-				}
+				country_event = { id = civwar.2055 }
+				log = "EXILE: [event_target:nat_motherland_model.GetName]"
 			}
-			log = "3"
 		}
 		else_if = {
 			limit = { has_country_flag = heir_rebel_country }
-			country_event = { id = civcom.3100 }
 			log = "4"
+			country_event = { id = civcom.3100 }
 		}
 		else = {
-			random_list = {
-				65 = { country_event = { id = civcom.1000 } }
-				35 = { country_event = { id = civcom.1005 } }
-			}
 			log = "5"
+			if = {
+				limit = { event_target:civwar_rebels = { is_homicidal = no } }
+				random_list = {
+					65 = { country_event = { id = civcom.1000 } }
+					35 = { country_event = { id = civcom.1005 } }
+				}
+			}
+			else = { # Purifiers wont ask for vassalization
+				country_event = { id = civcom.1000 }
+			}
+			
 		}
 	}
 

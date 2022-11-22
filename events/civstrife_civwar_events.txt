@@ -246,6 +246,8 @@ country_event = { # Setup for Civil War
 		
 		get_country_after_setup = yes
 
+		log = "1000 [this.GetName]"
+
 		# Declare War
 		event_target:civwar_originator = {
 			
@@ -334,7 +336,6 @@ country_event = { # Setup for Civil War
 					}
 				}
 				if = { # Query Motherland if possible
-					# limit = { NOT = { has_country_flag = motherland_is_exile } }
 					limit = {
 						event_target:nat_motherland_model = {
 							NOT = { is_country_type = exile_country }
@@ -372,6 +373,8 @@ country_event = { # Setup for Civil War
 					}
 				}
 				country_event = { id = civwar.2066 }
+			}
+			else = {
 			}
 		}
 
@@ -1224,6 +1227,7 @@ situation_event = { # Revolt/Civil War Event
 					}
 					pop_percentage = {
 						percentage >= 0.25
+						# percentage >= 0
 						limit = {
 							exists = pop_faction
 							pop_faction = { is_same_value = root.target }
@@ -1241,6 +1245,7 @@ situation_event = { # Revolt/Civil War Event
 					NOT = { has_planet_flag = ongoing_revolt }
 					pop_percentage = {
 						percentage >= 0.25
+						# percentage > 0
 						limit = {
 							exists = pop_faction
 							pop_faction = { is_same_value = root.target }
@@ -1258,7 +1263,6 @@ situation_event = { # Revolt/Civil War Event
 
 	immediate = {
 		owner = {
-			set_country_flag = TEST_TEST_TEST_TWO
 			if = { # Potential Multi Planet/Sector Civil War
 				limit = {
 					pop_percentage = { 
@@ -1305,6 +1309,7 @@ situation_event = { # Revolt/Civil War Event
 					any_owned_sector = { 
 						pop_percentage = {
 							percentage >= 0.25
+							# percentage > 2
 							limit = {
 								exists = pop_faction
 								pop_faction = { is_same_value = root.target }
@@ -1338,9 +1343,13 @@ situation_event = { # Revolt/Civil War Event
 					any_owned_planet = {
 						is_under_colonization = no
 						solar_system = { is_capital_system = no }
-						sector = { NOT = { has_sector_flag = ethic_sector_rebellion_@sector_capital } }
+						sector = {
+							NOT = { has_sector_flag = ethic_sector_rebellion_@sector_capital }
+							NOT = { any_owned_planet = { has_planet_flag = ongoing_revolt } }
+						}
 						pop_percentage = {
 							percentage >= 0.25
+							# percentage > 0
 							limit = {
 								exists = pop_faction
 								pop_faction = { is_same_value = root.target }

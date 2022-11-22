@@ -2107,7 +2107,7 @@ planet_event = { # Spread Nationalism Event
 	trigger = {
 		any_owned_pop = {
 			has_pop_flag = sep_pop_nat_@event_target:nat_motherland
-			happiness < 75
+			happiness < 65
 			planet = {
 				any_owned_pop = {
 					happiness <= 60
@@ -2132,7 +2132,7 @@ planet_event = { # Spread Nationalism Event
 		every_owned_pop = {
 			limit = {
 				has_pop_flag = sep_pop_nat_@event_target:nat_motherland
-				happiness < 75
+				happiness < 65
 			}
 			if = {
 				limit = { happiness <= 20 }
@@ -2154,21 +2154,11 @@ planet_event = { # Spread Nationalism Event
 			else_if = {
 				limit = {
 					happiness > 40
-					happiness <= 60
+					happiness < 65
 				}
 				random_list = {
 					60 = { }
 					40 = { prev = { change_variable = { which = nat_pop_converts value = 1 } } }
-				}
-			}
-			else_if = {
-				limit = {
-					happiness > 60
-					happiness < 75
-				}
-				random_list = {
-					85 = { }
-					15 = { prev = { change_variable = { which = nat_pop_converts value = 1 } } }
 				}
 			}
 		}
@@ -2214,40 +2204,31 @@ country_event = { # Remove Nationalism Initial Trigger
 	is_triggered_only = yes
 
 	trigger = {
-		any_country = {
-			any_owned_pop = {
-				has_pop_flag = sep_pop_nat_@root
-				happiness >= 65
-				is_enslaved = no
-				is_being_purged = no
-			}
-		}
+		any_owned_pop = { has_pop_flag = sep_pop_nat }
 	}
 	
 
 	immediate = {
-		save_event_target_as = nat_motherland
 
-		every_country = {
+		every_owned_pop = {
 			limit = {
-				any_owned_pop = {
-					has_pop_flag = sep_pop_nat_@event_target:nat_motherland
-					happiness >= 65
-					is_enslaved = no
-					is_being_purged = no
-				}
+				has_pop_flag = sep_pop_nat
+				happiness >= 65
+				is_enslaved = no
+				is_being_purged = no
 			}
-
-			every_owned_pop = {
-				limit = {
-					has_pop_flag = sep_pop_nat_@event_target:nat_motherland
-					happiness >= 65
-					is_enslaved = no
-					is_being_purged = no
-				}
+			random = {
+				chance = 80
 				pop_event = { id = civnat.3030 days = 1 random = 359 }
 			}
+		}
 
+		every_owned_pop = {
+			limit = { has_pop_flag = sep_pop_nat }
+			random = {
+				chance = 2
+				pop_event = { id = civnat.3030 days = 1 random = 359 }
+			}
 		}
 	}
 }
@@ -2258,19 +2239,12 @@ pop_event = { # Remove Nationalism Event
 	is_triggered_only = yes
 
 	trigger = {
-		has_pop_flag = sep_pop_nat_@event_target:nat_motherland
-		happiness >= 65
-		is_enslaved = no
-		is_being_purged = no
+		has_pop_flag = sep_pop_nat
 	}
 	
 
 	immediate = {
-
-		random = {
-			chance = 60
-			remove_pop_flag = sep_pop_nat_@event_target:nat_motherland
-		}
+		remove_pop_flag = sep_pop_nat
 	}
 }
 

@@ -18,6 +18,7 @@ nat_separatist_29 = {
 	}
 
 	is_potential = {
+		is_faction_allowed = yes
 		exists = event_target:nat_separatist_29
 	}
 
@@ -54,7 +55,7 @@ nat_separatist_29 = {
 	}
 
 	attraction = {
-		base = 125
+		base = 100
 
 		modifier = {
 			factor = 0
@@ -418,7 +419,7 @@ nat_separatist_29 = {
 		nat_faction_second_effect = yes
 	}
 
-	on_destroy = {}
+	on_destroy = { faction_kill_leader_effect = yes }
 
 	actions = {}
 }
