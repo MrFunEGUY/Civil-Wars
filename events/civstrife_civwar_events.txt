@@ -338,7 +338,7 @@ country_event = { # Setup for Civil War
 				if = { # Query Motherland if possible
 					limit = {
 						event_target:nat_motherland_model = {
-							NOT = { is_country_type = exile_country }
+							NOT = { is_country_type = enclave_exiled_gov }
 							OR = { # For now, I will make this work for subjects in the near future
 								is_subject = no
 								overlord = { NOT = { is_same_value = event_target:civwar_originator } }
@@ -374,11 +374,9 @@ country_event = { # Setup for Civil War
 				}
 				country_event = { id = civwar.2066 }
 			}
-			else = {
-			}
 		}
 
-		# get_remove_seps_after = yes
+		get_remove_seps_after = yes
 	}
 }
 

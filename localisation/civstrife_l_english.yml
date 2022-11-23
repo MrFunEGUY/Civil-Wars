@@ -134,15 +134,17 @@
  death_of_motherland: "Motherland has been destroyed"
  restoration_of_motherland: "Motherland has been restored"
 
+ # Enclaves
+ enclave_exiled_gov: "Government-in-Exile"
+ enclave_exiled_gov_desc: "Governments-in-Exile are governments of nations that have lost all their territory. They continue on with the hope that at least some of their territory may eventually be restored."
+
+ exile_gov_station_name: "[event_target:exiled_government.species.GetAdj] Station"
+
  # Subject Types
  preset_auto_state: "Autonomous State"
  preset_auto_state_desc: "Autonomous States are completely diplomatically independent of their overlords. They provide a tribute in exchange for the right to operate as a sovereign nation."
  # preset_auto_state_desc: "Autonomous States are completely diplomatically independent of their overlords. They provide a tribute in exchange for the right to operate as a sovereign nation. \n\nCan Expand: £trigger_yes£\nCan Wage War: £trigger_yes£\nProtected: £trigger_no£\nJoins Overlord's Wars: £trigger_no£\nCan Integrate: £trigger_no£\nOverlord £influence£ §HInfluence§!: §R-0.2§!\nTribute: §Y15%§! £energy£ §HEnergy§!, £minerals£ §HMinerals§!, £food£ §HFood§!, £alloys£ §HAlloys§!, £consumer_goods£ §HConsumer Goods§!, £volatile_motes£ §HVolatile Motes§!, £exotic_gases£ §HExotic Gases§!, £rare_crystals£ §HRare Crystals§!, and £minor_artifacts£ §HMinor Artifacts§!"
  preset_auto_state_flavor_desc: "Autonomous States are completely diplomatically independent of their overlords. They provide tribute in exchange for the right to operate as a sovereign nation."
-
- preset_exile_government: "Government-in-Exile"
- preset_exile_government_desc: "Governments-in-Exile are governments of nations that have lost all their territory. They continue on with the hope that at least some of their territory may eventually be restored."
- preset_exile_government_flavor_desc: "Governments-in-Exile are governments of nations that have lost all their territory. They continue on with the hope that at least some of their territory may eventually be restored."
 
  not_allowed_for_auto_state: "$TRIGGER_FAIL$Not allowed for §YAutonomous States§!."
 
@@ -255,6 +257,30 @@
 
  civcom.9000.deny: "We can't host you."
  civcom.9000.host: "We will host you."
+
+ civcom.9100.name: "The Government-in-Exile of the §Y[exiled_gov_enclave_country.GetName]§!"
+ civcom.9100.desc: "Greetings, esteemed §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. I am §Y[exiled_gov_enclave_country.GetRulerTitle]§! §H[exiled_gov_enclave_country.ruler.GetName]§!, leader of the §Y[exiled_gov_enclave_country.GetName]§!. As you may already be aware, our territory has been completely conquered by foreign forces. In the best interests of the §Y[exiled_gov_enclave_country.GetSpeciesAdj]§! people, our leadership has formed a §HGovernment-in-Exile§!."
+
+ civcom.9100.back: "We'd like to discuss another matter."
+
+ civcom.9100.host: "As your §YHost§!, we would like to discuss some things."
+
+ civcom.9110.desc: "Anything for our gracious host. What would you like to discuss?"
+ civcom.9110.war: "We want to go to war on your behalf."
+ civcom.9110.end: "We can no longer host you."
+
+ civcom.9120.desc: "This is a welcome development. We may finally have territory of our own again."
+ civcom.9120.target: "Let us choose the target."
+
+ civcom.9130.desc: "Wait, §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!, is there any way that we can change your mind? It will be incredibly difficult for us to move our operations to a new host, assuming that we can find another friendly and willing nation."
+ civcom.9130.terminate: "We're sorry, but the decision is final."
+
+ civcom.nevermind: "Nevermind."
+
+ civnat.9300.name: "Government-in-Exile Destroyed"
+ civnat.9300.desc: "Our fleet has destroyed the station that headquartered the government-in-exile of the §Y[destroyed_exile_gov.GetName]§!. They were unable to evacuate to a new location before their demise, and so the government of the §Y[destroyed_exile_gov.GetName]§! has finally been destroyed."
+ civnat.9300.other.desc: "Word has reached us that the station that headquartered the government-in-exile of the §Y[destroyed_exile_gov.GetName]§! in [exile_system.GetName] system has been destroyed by the §Y[exile_destroyer.GetName]§!."
+ # civnat.9305.unfortunate:0 "Unfortunate."
 
  #### Civil War Communications ####
  ##################################

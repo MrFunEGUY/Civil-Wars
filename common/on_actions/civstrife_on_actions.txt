@@ -13,6 +13,12 @@ on_game_start_country = {
 	}
 }
 
+on_monthly_pulse = {
+	events = {
+		civmisc.9000			# Change GiE Subjects to Enclaves
+	}
+}
+
 # this = country
 on_monthly_pulse_country = {
 	events = {
@@ -32,7 +38,6 @@ on_monthly_pulse_country = {
 
 		# civpan.2010				# Cross Border Pandemic Initializer
 
-		civnat.1330				# Gov In Exile monthly host check
 		civnat.2000				# Set Planet/System/Sector flags
 		civnat.2300				# For planets changed sector, should be rare
 		civnat.2500				# Set and Remove Citizenship flags for species
@@ -201,6 +206,16 @@ on_planet_transfer = {
 	}
 }
 
+# This = owner of ship 1 (destroyed)
+# From = owner of ship 2 (combatant)
+# FromFrom = ship 1
+# FromFromFrom = ship 2
+on_ship_destroyed_victim = {
+	events = {
+		civnat.1360				# Destroy Gov In Exile Enclave
+	}
+}
+
 # Called when an election starts
 # scope: country
 on_election_started = {
@@ -222,5 +237,15 @@ on_election_started = {
 on_country_created = {
 	events = {
 		civmisc.3000				# Set Country Birth Date Variable
+	}
+}
+
+# Triggers when trying to open the diplomacy view for countries with custom diplomacy.
+# Country scope
+# This = target country (player)
+# From = source country
+on_custom_diplomacy = {
+	events = {
+		civcom.9005 # Exiled Government Enclave
 	}
 }

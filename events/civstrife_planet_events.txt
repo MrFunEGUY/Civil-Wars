@@ -134,12 +134,12 @@ country_event = {
 				save_event_target_as = nat_motherland_model
 			}
 			if = { # Query Motherland if possible
-				limit = { event_target:nat_motherland_model = { NOT = { is_country_type = exile_country } } }
+				limit = { event_target:nat_motherland_model = { NOT = { is_country_type = enclave_exiled_gov } } }
 				country_event = { id = civwar.2050 }
 				log = "NOT EXILE: [event_target:nat_motherland_model.GetName]"
 			}
 			else_if = { # If not second nat country and there is no queryable motherland, regular notification
-				limit = { event_target:nat_motherland_model = { is_country_type = exile_country } }
+				limit = { event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov } }
 				country_event = { id = civwar.2055 }
 				log = "EXILE: [event_target:nat_motherland_model.GetName]"
 			}

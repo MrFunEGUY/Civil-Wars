@@ -54,3 +54,120 @@ country_event = {
 		change_variable = { which = Country_Birth_Date value = 2200 }
 	}
 }
+
+country_event = { # Test
+	id = civmisc.8000
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		save_global_event_target_as = civwar_test_country
+	}
+}
+
+country_event = { # Test
+	id = civmisc.8010
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		declare_war = {
+			target = event_target:civwar_test_country
+			name = "Test War"
+			attacker_war_goal = "wg_coup_independent"
+		}
+	}
+}
+
+event = { # Switch GiE Subjects to Enclaves
+	id = civmisc.9000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { has_global_flag = civwars_exile_subjects_fixed }
+	}
+
+	immediate = {
+		set_global_flag = civwars_exile_subjects_fixed
+
+		every_country = {
+			limit = {
+				is_subject = yes
+				is_country_type = exile_country
+			}
+		
+			save_event_target_as = old_nat_country
+			set_timed_country_flag = { flag = quick_fix_flag days = 90 }
+
+			overlord = {
+				save_event_target_as = hosting_country
+				if = {
+					limit = { any_owned_planet = { NOT = { has_planet_flag = exiled_gov_host_planet } } }
+					if = {
+						limit = { capital_scope = { NOT = { has_planet_flag = exiled_gov_host_planet } } }
+						set_planet_flag = exiled_gov_host_planet
+						save_event_target_as = gov_hosting_planet
+					}
+					else = {
+						random_owned_planet = {
+							limit = { NOT = { has_planet_flag = exiled_gov_host_planet } }
+							set_planet_flag = exiled_gov_host_planet
+							save_event_target_as = gov_hosting_planet
+						}
+					}
+				}
+				else = {
+					random_system_within_border = {
+						random_system_planet = {
+							limit = { NOT = { has_planet_flag = exiled_gov_host_planet } }
+							set_planet_flag = exiled_gov_host_planet
+							save_event_target_as = gov_hosting_planet
+						}
+					}
+				}
+
+				create_country = {
+					name = event_target:old_nat_country
+					type = enclave_exiled_gov
+					authority = event_target:old_nat_country
+					civics = event_target:old_nat_country
+					origin = "origin_exile_government"
+					species = event_target:old_nat_country.species
+					flag = event_target:old_nat_country
+					ethos = event_target:old_nat_country
+					ignore_initial_colony_error = yes
+					effect = {
+						save_event_target_as = nat_pops_country
+						set_country_flag = exiled_gov_enclave_country
+						set_graphical_culture = event_target:old_nat_country
+						create_fleet = {
+							settings = { spawn_debris = no }
+							effect = {
+								set_owner = prev
+								create_ship = {
+									name = "Exiled Government Headquarters"
+									design = "NAME_Mercenary_Enclave_Station_5"
+									graphical_culture = prev
+								}
+								set_location = {
+									target = event_target:gov_hosting_planet
+									distance = 45
+									angle = random
+								}
+							}
+						}
+						set_custom_capital_location = event_target:gov_hosting_planet
+						#Set ruler
+						set_leader = event_target:old_nat_country.ruler
+						establish_communications_no_message = event_target:hosting_country
+						set_country_flag = has_host
+					}
+				}
+				get_nat_change_flags = yes
+			}
+
+			destroy_country = yes
+		}
+	}
+}

@@ -939,21 +939,6 @@ is_unfriendly = {
 	}
 }
 
-federation_check_for_subject_trigger = {
-	custom_tooltip = {
-		fail_text = same_federation_as_overlord
-		OR = {
-			has_federation = no
-			is_subject = no
-			AND = {
-				is_subject = yes
-				NOT = { any_agreement = { agreement_preset = preset_exile_government } }
-				is_in_federation_with = overlord
-			}
-		}
-	}
-}
-
 is_faction_allowed = {
 	OR = {
 		AND = {

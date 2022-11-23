@@ -624,13 +624,13 @@ make_nat_war_country = {
 		save_event_target_as = nat_motherland_model
 		log = "NAT WAR MODEL: \\[this.GetName]"
 		if = {
-			limit = { is_country_type = exile_country }
+			limit = { is_country_type = enclave_exiled_gov }
 			prev.owner = { set_country_flag = motherland_is_exile }
 		}
 	}
 	if = { # New country has the same flag if it is a restoration
 		limit = {
-			event_target:nat_motherland_model = { is_country_type = exile_country }
+			event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
 			NOT = { any_country = { has_country_flag = exile_link_@event_target:nat_motherland_model } }
 		}
 		create_country = {
@@ -7565,14 +7565,14 @@ get_nat_plan_rebels = {
 		save_event_target_as = nat_motherland_model
 		set_country_flag = nat_planet_@prev
 		if = {
-			limit = { is_country_type = exile_country }
+			limit = { is_country_type = enclave_exiled_gov }
 			prev.owner = { set_country_flag = motherland_is_exile }
 		}
 	}
 
 	if = { # New country has the same flag and name if it is a restoration
 		limit = {
-			event_target:nat_motherland_model = { is_country_type = exile_country }
+			event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
 			NOT = {
 				any_country = {
 					is_country_type = default
@@ -7853,21 +7853,11 @@ create_civwar_armies = {
 			}
 		}
 
-		
 
 		while = {
 			count = num_sep_pops
 			random_list = {
-				50 = {
-					while = {
-						count = 1
-						create_army = {
-							name = random
-							owner = event_target:civwar_rebels
-							species = event_target:civwar_species
-							type = "civwar_assault_army"
-						}
-					}
+				60 = {
 					while = {
 						count = 1
 						create_army = {
@@ -7889,7 +7879,7 @@ create_civwar_armies = {
 						}
 					}
 					while = {
-						count = 2
+						count = 1
 						create_army = {
 							name = random
 							owner = event_target:civwar_rebels
@@ -7898,9 +7888,9 @@ create_civwar_armies = {
 						}
 					}
 				}
-				20 = {
+				10 = {
 					while = {
-						count = 2
+						count = 1
 						create_army = {
 							name = random
 							owner = event_target:civwar_rebels
@@ -8611,7 +8601,7 @@ get_declare_war_subject = {
 		limit = { event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion } }
 		if = {
 			limit = {
-				event_target:nat_motherland_model = { is_country_type = exile_country }
+				event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
 			}
 			declare_war = {
 				target = event_target:civwar_rebels
@@ -9393,7 +9383,7 @@ get_declare_war_natwar = {
 
 	if = {
 		limit = {
-			event_target:nat_motherland_model = { is_country_type = exile_country }
+			event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
 		}
 		declare_war = {
 			target = event_target:civwar_rebels
@@ -10897,6 +10887,95 @@ get_nat_seps = {
 	get_cit_res_purgees = yes
 }
 
+get_nat_change_flags = {
+	event_target:nat_pops_country = {
+		if = {
+			limit = { event_target:old_nat_country = { has_country_flag = ancient_exile_gov } }
+			set_country_flag = ancient_exile_gov
+		}
+		# establish comms
+		every_country = {
+			limit = { has_communications = event_target:old_nat_country }
+			establish_communications_no_message = event_target:nat_pops_country
+			establish_contact = { who = event_target:nat_pops_country location = root }
+		}			
+	}
+
+	every_galaxy_pop = {
+		limit = {
+			OR = {
+				has_pop_flag = sep_pop_nat_@event_target:old_nat_country
+				has_pop_flag = citizen_of_@event_target:old_nat_country
+				has_pop_flag = resident_of_@event_target:old_nat_country
+				has_pop_flag = slave_of_@event_target:old_nat_country
+				has_pop_flag = bio_trophy_of_@event_target:old_nat_country
+				has_pop_flag = purgee_of_@event_target:old_nat_country
+			}
+		}
+		if = {
+			limit = { has_pop_flag = sep_pop_nat_@event_target:old_nat_country }
+			remove_pop_flag = sep_pop_nat_@event_target:old_nat_country
+			set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+		}
+		if = {
+			limit = { has_pop_flag = citizen_of_@event_target:old_nat_country }
+			remove_pop_flag = citizen_of_@event_target:old_nat_country
+			set_pop_flag = citizen_of_@event_target:nat_pops_country
+		}
+		else_if = {
+			limit = { has_pop_flag = resident_of_@event_target:old_nat_country }
+			remove_pop_flag = resident_of_@event_target:old_nat_country
+			set_pop_flag = resident_of_@event_target:nat_pops_country
+		}
+		else_if = {
+			limit = { has_pop_flag = slave_of_@event_target:old_nat_country }
+			remove_pop_flag = slave_of_@event_target:old_nat_country
+			set_pop_flag = slave_of_@event_target:nat_pops_country
+		}
+		else_if = {
+			limit = { has_pop_flag = bio_trophy_of_@event_target:old_nat_country }
+			remove_pop_flag = bio_trophy_of_@event_target:old_nat_country
+			set_pop_flag = bio_trophy_of_@event_target:nat_pops_country
+		}
+		else_if = {
+			limit = { has_pop_flag = purgee_of_@event_target:old_nat_country }
+			remove_pop_flag = purgee_of_@event_target:old_nat_country
+			set_pop_flag = purgee_of_@event_target:nat_pops_country
+		}
+	}
+
+	every_galaxy_planet = {
+		limit = {
+			OR = {
+				has_planet_flag = capital_planet_@event_target:old_nat_country
+				has_planet_flag = frontier_planet_@event_target:old_nat_country
+				has_planet_flag = integrated_planet_@event_target:old_nat_country
+				has_planet_flag = fundamental_planet_@event_target:old_nat_country
+			}
+		}
+		if = {
+			limit = { has_planet_flag = capital_planet_@event_target:old_nat_country }
+			remove_planet_flag = capital_planet_@event_target:old_nat_country
+			set_planet_flag = capital_planet_@event_target:nat_pops_country
+		}
+		if = {
+			limit = { has_planet_flag = frontier_planet_@event_target:old_nat_country }
+			remove_planet_flag = frontier_planet_@event_target:old_nat_country
+			set_planet_flag = frontier_planet_@event_target:nat_pops_country
+		}
+		else_if = {
+			limit = { has_planet_flag = integrated_planet_@event_target:old_nat_country }
+			remove_planet_flag = integrated_planet_@event_target:old_nat_country
+			set_planet_flag = integrated_planet_@event_target:nat_pops_country
+		}
+		else_if = {
+			limit = { has_planet_flag = fundamental_planet_@event_target:old_nat_country }
+			remove_planet_flag = fundamental_planet_@event_target:old_nat_country
+			set_planet_flag = fundamental_planet_@event_target:nat_pops_country
+		}
+	}
+}
+
 get_dispute_faction = {
 	random_pop_faction = {
 		limit = {
@@ -10983,6 +11062,226 @@ get_dispute_faction = {
 		}
 		set_pop_faction_flag = disputed_election_faction
 	}
+}
+
+create_exile_enclave_country = {
+	save_event_target_as = hosting_country
+	set_country_flag = exile_already_asked_@from # So that if they release the GiE subject, they do not get asked to host again
+
+	from = { save_event_target_as = old_nat_country }
+
+	if = {
+		limit = { any_owned_planet = { NOT = { has_planet_flag = exiled_gov_host_planet } } }
+		if = {
+			limit = { capital_scope = { NOT = { has_planet_flag = exiled_gov_host_planet } } }
+			capital_scope = {
+				set_planet_flag = exiled_gov_host_planet
+				save_event_target_as = gov_hosting_planet
+			}
+		}
+		else = {
+			random_owned_planet = {
+				limit = { NOT = { has_planet_flag = exiled_gov_host_planet } }
+				set_planet_flag = exiled_gov_host_planet
+				save_event_target_as = gov_hosting_planet
+			}
+		}
+	}
+	else = {
+		random_system_within_border = {
+			random_system_planet = {
+				limit = { NOT = { has_planet_flag = exiled_gov_host_planet } }
+				set_planet_flag = exiled_gov_host_planet
+				save_event_target_as = gov_hosting_planet
+			}
+		}
+	}
+
+	create_country = {
+		name = event_target:old_nat_country
+		type = enclave_exiled_gov
+		authority = event_target:old_nat_country
+		civics = event_target:old_nat_country
+		origin = "origin_exile_government"
+		species = event_target:old_nat_country.species
+		flag = event_target:old_nat_country
+		ethos = event_target:old_nat_country
+		ignore_initial_colony_error = yes
+		effect = {
+			save_event_target_as = nat_pops_country
+			set_country_flag = exiled_gov_enclave_country
+			set_graphical_culture = event_target:old_nat_country
+			create_fleet = {
+				settings = { spawn_debris = no }
+				effect = {
+					set_owner = prev
+					create_ship = {
+						name = "Exiled Government Headquarters"
+						design = "NAME_Mercenary_Enclave_Station_5"
+						graphical_culture = event_target:old_nat_country
+					}
+					set_location = {
+						target = event_target:gov_hosting_planet
+						distance = 45
+						angle = random
+					}
+				}
+			}
+			set_custom_capital_location = event_target:gov_hosting_planet
+			#Set ruler
+			set_leader = event_target:old_nat_country.ruler
+			establish_communications_no_message = root
+			set_country_flag = has_host
+			get_separatist_faction_nat = yes
+			country_event = { id = civnat.1320 }
+		}
+	}
+
+	event_target:gov_hosting_planet = {
+		set_planet_flag = exile_enclave_link_@event_target:nat_pops_country
+	}
+
+	get_nat_change_flags = yes
+
+	from = { destroy_country = yes }
+}
+
+get_restoration_war_targets = {
+
+	set_variable = { which = restoration_war_targets value = 0 }
+
+	# Count how many valid States there are
+	every_country = {
+		limit = {
+			OR = {
+				is_subject = no
+				any_agreement = {
+					OR = {
+						has_term_value = {
+							term = joins_subject_wars
+							value = joins_subject_wars_none
+						}
+						has_term_value = {
+							term = joins_subject_wars
+							value = joins_subject_wars_offensive
+						}
+					}
+				}
+			}
+			any_system_within_border = {
+				closest_system = {
+					limit = {
+						exists = space_owner
+						space_owner = {
+							OR = {
+								is_same_value = root
+								is_in_federation_with = root
+								AND = {
+									exists = overlord
+									overlord = { is_same_value = root }
+								}
+							}
+						}
+					}
+					use_bypasses = yes
+					max_steps = 1
+				}
+			}
+		}
+		set_country_flag = restoration_war_country
+		prev = { change_variable = { which = restoration_war_targets value = 1 } }
+	}
+
+	if = {
+		limit = { check_variable = { which = restoration_war_targets value >= 1 } }
+		random_country = {
+			limit = { has_country_flag = restoration_war_country }
+			remove_country_flag = restoration_war_country
+			save_event_target_as = restoration_war_target_1
+		}
+	}
+	if = {
+		limit = { check_variable = { which = restoration_war_targets value >= 2 } }
+		random_country = {
+			limit = { has_country_flag = restoration_war_country }
+			remove_country_flag = restoration_war_country
+			save_event_target_as = restoration_war_target_2
+		}
+	}
+	if = {
+		limit = { check_variable = { which = restoration_war_targets value >= 3 } }
+		random_country = {
+			limit = { has_country_flag = restoration_war_country }
+			remove_country_flag = restoration_war_country
+			save_event_target_as = restoration_war_target_3
+		}
+	}
+	if = {
+		limit = { check_variable = { which = restoration_war_targets value >= 4 } }
+		random_country = {
+			limit = { has_country_flag = restoration_war_country }
+			remove_country_flag = restoration_war_country
+			save_event_target_as = restoration_war_target_4
+		}
+	}
+	if = {
+		limit = { check_variable = { which = restoration_war_targets value >= 5 } }
+		random_country = {
+			limit = { has_country_flag = restoration_war_country }
+			remove_country_flag = restoration_war_country
+			save_event_target_as = restoration_war_target_5
+		}
+	}
+	if = {
+		limit = { check_variable = { which = restoration_war_targets value >= 6 } }
+		random_country = {
+			limit = { has_country_flag = restoration_war_country }
+			remove_country_flag = restoration_war_country
+			save_event_target_as = restoration_war_target_6
+		}
+	}
+	if = {
+		limit = { check_variable = { which = restoration_war_targets value >= 7 } }
+		random_country = {
+			limit = { has_country_flag = restoration_war_country }
+			remove_country_flag = restoration_war_country
+			save_event_target_as = restoration_war_target_7
+		}
+	}
+	if = {
+		limit = { check_variable = { which = restoration_war_targets value >= 8 } }
+		random_country = {
+			limit = { has_country_flag = restoration_war_country }
+			remove_country_flag = restoration_war_country
+			save_event_target_as = restoration_war_target_8
+		}
+	}
+	if = {
+		limit = { check_variable = { which = restoration_war_targets value >= 9 } }
+		random_country = {
+			limit = { has_country_flag = restoration_war_country }
+			remove_country_flag = restoration_war_country
+			save_event_target_as = restoration_war_target_9
+		}
+	}
+	if = {
+		limit = { check_variable = { which = restoration_war_targets value >= 10 } }
+		random_country = {
+			limit = { has_country_flag = restoration_war_country }
+			remove_country_flag = restoration_war_country
+			save_event_target_as = restoration_war_target_10
+		}
+	}
+
+	if = {
+		limit = { any_country = { has_country_flag = restoration_war_country } }
+		every_country = {
+			limit = { has_country_flag = restoration_war_country }
+			remove_country_flag = restoration_war_country
+		}
+	}
+
+	country_event = { id = civcom.9125 }
 }
 
 ######################

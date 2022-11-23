@@ -27,10 +27,7 @@ refresh_subject_count_loyalty_penalty = {
 			limit = {
 				NOT = {
 					any_agreement = {
-						OR = {
-							agreement_preset = preset_exile_government
-							agreement_preset = preset_auto_state
-						}
+						agreement_preset = preset_auto_state
 					}
 				}
 			}

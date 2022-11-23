@@ -137,7 +137,7 @@ nat_separatist_2 = {
 
 		potential = {
 			event_target:nat_separatist_2 = {
-				NOT = { is_country_type = exile_country }
+				NOT = { is_country_type = enclave_exiled_gov }
 			}
 		}
 
@@ -163,7 +163,7 @@ nat_separatist_2 = {
 
 		potential = {
 			event_target:nat_separatist_2 = {
-				is_country_type = exile_country
+				is_country_type = enclave_exiled_gov
 			}
 		}
 
@@ -189,14 +189,19 @@ nat_separatist_2 = {
 
 		potential = {
 			event_target:nat_separatist_2 = {
-				is_country_type = exile_country
+				is_country_type = enclave_exiled_gov
 				NOT = { has_country_flag = dead_nation }
 			}
 		}
 
 		trigger = {
 			event_target:nat_separatist_2 = {
-				has_overlord = root.owner
+				random_owned_fleet = {
+					limit = { is_ship_size = enclave_mercenary_station }
+					solar_system = {
+						space_owner = { is_same_value = root.owner }
+					}
+				}
 			}
 		}
 	}
@@ -232,7 +237,7 @@ nat_separatist_2 = {
 
 		potential = {
 			event_target:nat_separatist_2 = {
-				NOT = { is_country_type = exile_country }
+				NOT = { is_country_type = enclave_exiled_gov }
 			}
 		}
 
@@ -254,7 +259,7 @@ nat_separatist_2 = {
 
 		potential = {
 			event_target:nat_separatist_2 = {
-				NOT = { is_country_type = exile_country }
+				NOT = { is_country_type = enclave_exiled_gov }
 			}
 		}
 
@@ -276,7 +281,7 @@ nat_separatist_2 = {
 
 		potential = {
 			event_target:nat_separatist_2 = {
-				NOT = { is_country_type = exile_country }
+				NOT = { is_country_type = enclave_exiled_gov }
 			}
 		}
 
@@ -298,7 +303,7 @@ nat_separatist_2 = {
 
 		potential = {
 			event_target:nat_separatist_2 = {
-				NOT = { is_country_type = exile_country }
+				NOT = { is_country_type = enclave_exiled_gov }
 			}
 		}
 

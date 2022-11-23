@@ -69,6 +69,7 @@ planet_event = { ## Initial Event to create separatists from destroyed countries
 			is_country_type_with_subjects = yes
 			NOT = { is_overlord_to = from }
 			NOT = { has_country_flag = civstrife_nat_timer }
+			NOT = { has_country_flag = quick_fix_flag }
 		}
 		from = {
 			is_country_type_with_subjects = yes
@@ -113,111 +114,13 @@ planet_event = { ## Initial Event to create separatists from destroyed countries
 			}
 		}
 
-		event_target:nat_pops_country = {
-			if = {
-				limit = { fromfrom = { is_fallen_empire = yes } }
-				set_country_flag = ancient_exile_gov
-			}
-			# establish comms
-			every_country = {
-				limit = { has_communications = fromfrom }
-				establish_communications_no_message = event_target:nat_pops_country
-				establish_contact = { who = event_target:nat_pops_country location = root }
-			}			
-			set_country_flag = has_nats_in_@fromfrom
-		}
+		fromfrom = { save_event_target_as = old_nat_country }
+
+		get_nat_change_flags = yes
 
 		every_galaxy_pop = {
-			limit = {
-				OR = {
-					has_pop_flag = sep_pop_nat_@fromfrom
-					has_pop_flag = citizen_of_@fromfrom
-					has_pop_flag = resident_of_@fromfrom
-					has_pop_flag = slave_of_@fromfrom
-					has_pop_flag = bio_trophy_of_@fromfrom
-					has_pop_flag = purgee_of_@fromfrom
-				}
-			}
-			if = {
-				limit = { has_pop_flag = sep_pop_nat_@fromfrom }
-				remove_pop_flag = sep_pop_nat_@fromfrom
-				set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
-				add_modifier = { modifier = "death_of_motherland" days = 5400 }
-			}
-			if = {
-				limit = { has_pop_flag = citizen_of_@fromfrom }
-				remove_pop_flag = citizen_of_@fromfrom
-				set_pop_flag = citizen_of_@event_target:nat_pops_country
-			}
-			else_if = {
-				limit = { has_pop_flag = resident_of_@fromfrom }
-				remove_pop_flag = resident_of_@fromfrom
-				set_pop_flag = resident_of_@event_target:nat_pops_country
-			}
-			else_if = {
-				limit = { has_pop_flag = slave_of_@fromfrom }
-				remove_pop_flag = slave_of_@fromfrom
-				set_pop_flag = slave_of_@event_target:nat_pops_country
-			}
-			else_if = {
-				limit = { has_pop_flag = bio_trophy_of_@fromfrom }
-				remove_pop_flag = bio_trophy_of_@fromfrom
-				set_pop_flag = bio_trophy_of_@event_target:nat_pops_country
-			}
-			else_if = {
-				limit = { has_pop_flag = purgee_of_@fromfrom }
-				remove_pop_flag = purgee_of_@fromfrom
-				set_pop_flag = purgee_of_@event_target:nat_pops_country
-			}
-		}
-
-		every_galaxy_planet = {
-			limit = {
-				OR = {
-					has_planet_flag = capital_planet_@fromfrom
-					has_planet_flag = frontier_planet_@fromfrom
-					has_planet_flag = integrated_planet_@fromfrom
-					has_planet_flag = fundamental_planet_@fromfrom
-				}
-			}
-			if = {
-				limit = { has_planet_flag = capital_planet_@fromfrom }
-				remove_planet_flag = capital_planet_@fromfrom
-				set_planet_flag = capital_planet_@event_target:nat_pops_country
-			}
-			if = {
-				limit = { has_planet_flag = frontier_planet_@fromfrom }
-				remove_planet_flag = frontier_planet_@fromfrom
-				set_planet_flag = frontier_planet_@event_target:nat_pops_country
-			}
-			else_if = {
-				limit = { has_planet_flag = integrated_planet_@fromfrom }
-				remove_planet_flag = integrated_planet_@fromfrom
-				set_planet_flag = integrated_planet_@event_target:nat_pops_country
-			}
-			else_if = {
-				limit = { has_planet_flag = fundamental_planet_@fromfrom }
-				remove_planet_flag = fundamental_planet_@fromfrom
-				set_planet_flag = fundamental_planet_@event_target:nat_pops_country
-			}
-		}
-		
-		if = { # Any Exile Govs that were currently hosted have to find new host
-			limit = {
-				any_country = {
-					any_agreement = { agreement_preset = preset_exile_government }
-					has_overlord = fromfrom
-				}
-			}
-			every_country = {
-				limit = {
-					any_agreement = { agreement_preset = preset_exile_government }
-					has_overlord = fromfrom
-				}
-				remove_modifier = exile_gov_loyalty
-				set_country_flag = already_exiled
-				country_event = { id = civnat.1300 days = 3 random = 7 }
-			}
+			limit = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country }
+			add_modifier = { modifier = "death_of_motherland" days = 5400 }
 		}
 
 		set_timed_planet_flag = { flag = nat_pops_planet_@event_target:nat_pops_country days = 30 }
@@ -250,20 +153,16 @@ country_event = { # Save as global event target and shop for home for Govenment-
 		
 		event_target:nat_pops_country = {
 			if = {
-				limit = { NOT = { has_country_flag = has_nats } }
- 				get_separatist_faction_nat = yes
-			}
-			if = {
 				limit = { is_country_type = exile_country }
 				if = { # Govenment-In-Exile, will shop around 
 					limit = {
-						root = { any_owned_pop = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country } }
 						is_unfriendly = no
 						any_country = {
 							is_subject = no
 							is_unfriendly = no
-							has_communications = event_target:nat_pops_country
 							is_country_type_with_subjects = yes
+							has_communications = event_target:nat_pops_country
+							any_owned_pop = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country }
 							NOR = {
 								is_same_value = root
 								is_same_value = event_target:nat_pops_country
@@ -300,10 +199,9 @@ country_event = { # Gov In Exile Requst Hosting
 		if = {
 			limit = {
 				any_country = {
-					is_subject = no
 					is_unfriendly = no
 					has_communications = root
-					is_country_type = default
+					is_country_type_with_subjects = yes
 					NOR = {
 						is_same_value = root
 						has_country_flag = exile_already_asked_@root
@@ -312,15 +210,16 @@ country_event = { # Gov In Exile Requst Hosting
 			}
 			random_country = {
 				limit = {
-					is_subject = no
 					is_unfriendly = no
 					has_communications = root
-					is_country_type = default
+					is_country_type_with_subjects = yes
 					NOR = {
 						is_same_value = root
 						has_country_flag = exile_already_asked_@root
 					}
+					# has_country_flag = TEST_TEST
 				}
+				# country_event = { id = civcom.9000 }
 				country_event = { id = civcom.9000 days = 5 random = 40 }
 			}
 		}
@@ -338,9 +237,45 @@ country_event = { # Gov In Exile cannot find host, dissolves
 
 	immediate = {
 
-		save_global_event_target_as = gov_in_exile
+		if = {
+			limit = { NOT = { has_country_flag = has_nats } }
+			get_separatist_faction_nat = yes
+		}
 
-		set_country_flag = dead_nation
+		if = {
+			limit = { NOT = { has_country_flag = dead_nation } }
+			set_country_flag = dead_nation
+		}
+
+		if = {
+			limit = { is_country_type = enclave_exiled_gov }
+			random_owned_fleet = { destroy_fleet = this }
+
+			save_event_target_as = old_nat_country
+
+			# Create Exile Government
+			create_country = {
+				name = event_target:old_nat_country
+				type = exile_country
+				species = event_target:old_nat_country.species
+				day_zero_contact = no
+				authority = event_target:old_nat_country
+				ethos = event_target:old_nat_country
+				origin = origin_exile_government
+				civics = event_target:old_nat_country
+				flag = event_target:old_nat_country
+				ignore_initial_colony_error = yes
+				effect = {
+					copy_techs_from = { target = event_target:old_nat_country }
+					set_leader = event_target:old_nat_country.ruler
+					get_separatist_faction_nat = yes
+					save_event_target_as = nat_pops_country
+				}
+			}
+			get_nat_change_flags = yes
+		}
+
+		save_event_target_as = gov_in_exile
 
 		if = {
 			limit = { NOT = { has_country_flag = ancient_exile_gov } }
@@ -367,10 +302,11 @@ country_event = { # Gov In Exile cannot find host, dissolves
 				observer_event = { id = civ_observer.3 }
 			}
 		}
-	}
 
-	after = {
-		clear_global_event_target = gov_in_exile
+		if = {
+			limit = { is_country_type = enclave_exiled_gov }
+			destroy_country = yes
+		}
 	}
 }
 
@@ -420,25 +356,46 @@ country_event = { # Gov In Exile finds host
 	}
 }
 
-country_event = { # Gov In Exile monthly host check
+country_event = { # Govenment-In-Exile Released as Enclave
 	id = civnat.1330
 	hide_window = yes
 	is_triggered_only = yes
 
-	trigger = {
-		is_country_type = exile_country
-		has_country_flag = has_host
-		is_subject = no
-	}
-
-
 	immediate = {
 
-		remove_country_flag = has_host
+		event_target:exiled_gov_enclave_country = { save_event_target_as = exile_need_host }
 
-		set_country_flag = already_exiled
+		random_owned_planet = {
+			limit = { has_planet_flag = exile_enclave_link_@event_target:exile_need_host }
+			remove_planet_flag = exiled_gov_host_planet
+			remove_planet_flag = exile_enclave_link_@event_target:exile_need_host
+		}
 
-		country_event = { id = civnat.1300 }
+		event_target:exile_need_host = { country_event = { id = civnat.1300 } }
+
+		# Create Exile Government
+		# create_country = {
+		# 	name = event_target:old_nat_country
+		# 	type = exile_country
+		# 	species = event_target:old_nat_country.species
+		# 	ignore_initial_colony_error = yes
+		# 	day_zero_contact = no
+		# 	authority = event_target:old_nat_country
+		# 	ethos = event_target:old_nat_country
+		# 	origin = origin_exile_government
+		# 	civics = event_target:old_nat_country
+		# 	flag = event_target:old_nat_country
+		# 	effect = {
+		# 		copy_techs_from = { target = event_target:old_nat_country }
+		# 		set_leader = event_target:old_nat_country.ruler
+		# 		save_event_target_as = nat_pops_country
+		# 	}
+		# }
+
+		# get_nat_change_flags = yes
+
+		# event_target:old_nat_country = { destroy_country = yes }
+		# event_target:nat_pops_country = { country_event = { id = civnat.1300 } }
 	}
 }
 
@@ -448,7 +405,7 @@ country_event = { # Gov In Exile restoration, when released peacefully
 	is_triggered_only = yes
 
 	trigger = {
-		is_country_type = exile_country
+		is_country_type = enclave_exiled_gov
 		any_country = { has_country_flag = exile_link_@root }
 	}
 
@@ -587,7 +544,7 @@ country_event = { # Gov In Exile restoration, on war won
 			using_war_goal = { type = wg_natwar owner = root.from }
 		}
 		any_country = {
-			is_country_type = exile_country
+			is_country_type = enclave_exiled_gov
 			has_country_flag = exile_link_@root
 		}
 	}
@@ -597,7 +554,7 @@ country_event = { # Gov In Exile restoration, on war won
 
 		random_country = {
 			limit = {
-				is_country_type = exile_country
+				is_country_type = enclave_exiled_gov
 				has_country_flag = exile_link_@root
 			}
 
@@ -731,7 +688,7 @@ country_event = { # Gov In Exile restoration, on status quo
 			using_war_goal = { type = wg_natwar owner = FromFrom }
 		}
 		any_country = {
-			is_country_type = exile_country
+			is_country_type = enclave_exiled_gov
 			has_country_flag = exile_link_@fromfromfrom
 		}
 	}
@@ -741,7 +698,7 @@ country_event = { # Gov In Exile restoration, on status quo
 
 		random_country = {
 			limit = {
-				is_country_type = exile_country
+				is_country_type = enclave_exiled_gov
 				has_country_flag = exile_link_@fromfromfrom
 			}
 
@@ -881,7 +838,7 @@ country_event = { # Gov In Exile restoration, Granted Land
 	is_triggered_only = yes
 
 	trigger = {
-		is_country_type = exile_country
+		is_country_type = enclave_exiled_gov
 	}
 
 
@@ -1293,10 +1250,42 @@ country_event = { # Gov In Exile restored, destroy exile country
 	is_triggered_only = yes
 
 	trigger = {
-		is_country_type = exile_country
+		is_country_type = enclave_exiled_gov
 	}
 
 	immediate = {
+		destroy_country = yes
+	}
+}
+
+country_event = { # Gov In Exile Enclave destroyed
+	id = civnat.1360
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type = enclave_exiled_gov
+	}
+
+	immediate = {
+		save_event_target_as = destroyed_exile_gov
+		FROMFROM = {
+			solar_system = { save_event_target_as = exile_system }
+		}
+		FROM = {
+			save_event_target_as = exile_destroyer
+			country_event = { id = civnat.9300 }
+		}
+		every_country = {
+			limit = {
+				is_country_type = default
+				has_communications = ROOT
+				NOT = { is_country = event_target:exile_destroyer }
+			}
+			country_event = { id = civnat.9300 }
+		}
+	}
+	after = {
 		destroy_country = yes
 	}
 }
@@ -2267,7 +2256,6 @@ country_event = { # Check disapproving Factions every month Initializer
 				NOT = { has_pop_faction_flag = faction_sep_situation }
 			}
 		}
-		
 	}
 
 	immediate = {
@@ -2594,6 +2582,28 @@ country_event = { # Exiled country has been restored, did not have host
 		trigger = {
 			event_target:new_homeland = { has_country_flag = nat_country_new_name }
 		}
+	}
+
+	option = {
+		name = INTERESTING
+	}
+}
+
+country_event = { # Exiled country has been restored, did not have host
+	id = civnat.9300
+	title = civnat.9300.name
+	picture = GFX_evt_news_room
+	hide_window = no
+	is_triggered_only = yes
+
+	desc = {
+		text = civnat.9300.desc
+		trigger = { NOT = { is_same_value = event_target:exile_destroyer } }
+	}
+
+	desc = {
+		text = civnat.9300.other.desc
+		trigger = { is_same_value = event_target:exile_destroyer }
 	}
 
 	option = {

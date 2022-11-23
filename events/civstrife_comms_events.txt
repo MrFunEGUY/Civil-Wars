@@ -562,7 +562,7 @@ country_event = {
 			NOT = { has_country_flag = rebs_help_eachother }
 			OR = {
 				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_country_type = exile_country }
+				event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
 			}
 			event_target:civwar_rebels = {
 				NOT = { has_country_flag = exile_restored_country }
@@ -577,7 +577,7 @@ country_event = {
 			has_country_flag = rebs_help_eachother
 			OR = {
 				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_country_type = exile_country }
+				event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
 			}
 			event_target:civwar_rebels = {
 				NOT = { has_country_flag = exile_restored_country }
@@ -592,7 +592,7 @@ country_event = {
 			NOT = { has_country_flag = rebs_help_eachother }
 			OR = {
 				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_country_type = exile_country }
+				event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
 			}
 			event_target:civwar_rebels = {
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
@@ -608,7 +608,7 @@ country_event = {
 			has_country_flag = rebs_help_eachother
 			OR = {
 				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_country_type = exile_country }
+				event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
 			}
 			event_target:civwar_rebels = {
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
@@ -624,7 +624,7 @@ country_event = {
 			NOT = { has_country_flag = rebs_help_eachother }
 			OR = {
 				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_country_type = exile_country }
+				event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
 			}
 			event_target:civwar_rebels = {
 				is_imperial = yes
@@ -640,7 +640,7 @@ country_event = {
 			has_country_flag = rebs_help_eachother
 			OR = {
 				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_country_type = exile_country }
+				event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
 			}
 			event_target:civwar_rebels = {
 				is_imperial = yes
@@ -832,7 +832,7 @@ country_event = {
 	desc = {
 		text = civcom.1105.nationalist.desc
 		trigger = {
-			event_target:nat_motherland_model = { NOT = { is_country_type = exile_country } }
+			event_target:nat_motherland_model = { NOT = { is_country_type = enclave_exiled_gov } }
 			event_target:civwar_rebels.ruler = {
 				has_leader_flag = civil_war_ruler_nationalist
 			}
@@ -842,7 +842,7 @@ country_event = {
 	desc = {
 		text = civcom.1105.nationalist.exile.reg.desc
 		trigger = {
-			event_target:nat_motherland_model = { is_country_type = exile_country }
+			event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
 			event_target:civwar_rebels = {
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
 				is_imperial = no
@@ -853,7 +853,7 @@ country_event = {
 	desc = {
 		text = civcom.1105.nationalist.exile.imp.desc
 		trigger = {
-			event_target:nat_motherland_model = { is_country_type = exile_country }
+			event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
 			event_target:civwar_rebels = {
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
 				is_imperial = yes
@@ -3183,22 +3183,389 @@ country_event = {
 	option = {
 		name = civcom.9000.host
 		hidden_effect = {
-			save_global_event_target_as = hosting_country
 			every_country = {
-				limit = {
-					has_country_flag = exile_already_asked_@from
-				}
+				limit = { has_country_flag = exile_already_asked_@from }
 				remove_country_flag = exile_already_asked_@from
 			}
-			from = {
-				set_subject_of = {
-					who = ROOT
-					preset = preset_exile_government
-				}
-				set_country_flag = has_host
-				country_event = { id = civnat.1320 }
+
+			if = {
+				limit = { from = { NOT = { is_country_type = enclave_exiled_gov } } }
+				create_exile_enclave_country = yes
+				log = "YES"
 			}
-			set_country_flag = exile_already_asked_@from # So that if they release the GiE subject, they do not get asked to host again
+			else = {
+				log = "NO"
+				from = { save_event_target_as = exile_new_host }
+				if = {
+					limit = { any_owned_planet = { NOT = { has_planet_flag = exiled_gov_host_planet } } }
+					if = {
+						limit = { capital_scope = { NOT = { has_planet_flag = exiled_gov_host_planet } } }
+						capital_scope = {
+							set_planet_flag = exiled_gov_host_planet
+							save_event_target_as = gov_hosting_planet
+						}
+					}
+					else = {
+						random_owned_planet = {
+							limit = { NOT = { has_planet_flag = exiled_gov_host_planet } }
+							set_planet_flag = exiled_gov_host_planet
+							save_event_target_as = gov_hosting_planet
+						}
+					}
+				}
+				else = {
+					random_system_within_border = {
+						random_system_planet = {
+							limit = { NOT = { has_planet_flag = exiled_gov_host_planet } }
+							set_planet_flag = exiled_gov_host_planet
+							save_event_target_as = gov_hosting_planet
+						}
+					}
+				}
+				create_fleet = {
+					settings = { spawn_debris = no }
+					effect = {
+						set_owner = event_target:exile_new_host
+						create_ship = {
+							name = "Exiled Government Headquarters"
+							design = "NAME_Mercenary_Enclave_Station_5"
+							graphical_culture = from
+						}
+						set_location = {
+							target = event_target:gov_hosting_planet
+							distance = 45
+							angle = random
+						}
+						save_event_target_as = new_capital_station
+					}
+				}
+
+				event_target:gov_hosting_planet = {
+					set_planet_flag = exile_enclave_link_@event_target:exile_new_host
+				}
+
+				event_target:exile_new_host = {
+					random_owned_fleet = {
+						limit = { NOT = { is_same_value = event_target:new_capital_station } }
+						destroy_fleet = this
+					}
+				}
+			}
+		}
+	}
+}
+
+# Mercenary Enclave Greetings: Gatekeeper event
+# Via on_custom_diplomacy | this = target country (player); from = country being contacted
+country_event = {
+	id = civcom.9005
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = {
+			is_country_type = enclave_exiled_gov
+			has_country_flag = exiled_gov_enclave_country
+		}
+		NOT = {
+			has_active_event = {
+				civcom.9100 # Initial
+				civcom.9110
+				civcom.9120
+				civcom.9130
+			}
+		}
+	}
+
+	immediate = {
+		ai_trade_facility = {
+			from = { save_event_target_as = exiled_gov_enclave_country }
+			country_event = { id = civcom.9100 }
+		}
+	}
+}
+
+# Exile Enclave: GREETINGS
+# This = player country; event_target:exiled_gov_enclave_country = enclave country
+country_event = {
+	id = civcom.9100
+	title = civcom.9100.name
+	desc = civcom.9100.desc
+	is_triggered_only = yes
+
+	diplomatic = yes
+	custom_gui = "enclave_exiled_gov_window"
+	custom_gui_option = "enclave_exiled_gov_option"
+	picture_event_data = {
+		portrait = event_target:exiled_gov_enclave_country.ruler
+		room = ethic_spaceship_room
+	}
+	location = event_target:exiled_gov_enclave_system
+
+	immediate = {
+		event_target:exiled_gov_enclave_country = {
+			random_owned_fleet = {
+				limit = { is_ship_size = enclave_mercenary_station }
+				solar_system = {
+					save_event_target_as = exiled_gov_enclave_system
+					if = {
+						limit = { exists = space_owner }
+						space_owner = { save_event_target_as = exiled_gov_patron }
+					}
+				}
+			}
+		}
+		# without this immediate is not invoked when event runs in a special mode that allows AI to collect trade data
+		run_in_ai_mode = yes
+	}
+
+	# Cease dialog
+	option = {
+		name = GOODBYE
+		default_hide_option = yes
+	}
+
+	# Host Panel
+	option = {
+		name = civcom.9100.host
+		custom_tooltip = mercenary_tt_patron
+		trigger = {
+			NOR = {
+				is_hostile = event_target:exiled_gov_enclave_country
+				#is_homicidal = yes
+			}
+			exists = event_target:exiled_gov_patron
+			event_target:exiled_gov_patron = { is_same_empire = root }
+		}
+		hidden_effect = {
+			country_event = { id = civcom.9110 }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+
+		}
+	}
+}
+
+# Exile Enclave: Host PANEL
+# This = player country; event_target:exiled_gov_enclave_country = enclave country
+country_event = {
+	id = civcom.9110
+	base = civcom.9100
+	desc_clear = yes
+	option_clear = yes
+
+	desc = civcom.9110.desc
+
+	#Discuss another matter (return to menu)
+	option = {
+		name = civcom.9100.back
+		hidden_effect = {
+			country_event = { id = civcom.9100 }
+		}
+	}
+
+	# Declare War on Behalf
+	option = {
+		name = civcom.9110.war
+		allow = {
+			custom_tooltip = {
+				fail_text = "Still Being Coded"
+				always = no # Still Coding
+			}
+			any_country = {
+				has_communications = root
+				is_country_type_with_subjects = yes
+				NOT = { has_overlord = root }
+				NOT = { has_defensive_pact = root }
+				NOT = { has_non_aggression_pact = root }
+				NOT = { is_in_federation_with = root }
+			}
+		}
+		hidden_effect = {
+			country_event = { id = civcom.9120 }
+		}
+	}
+
+	# Terminate host relationship (tell them to find new host)
+	option = {
+		name = civcom.9110.end
+		hidden_effect = {
+			country_event = { id = civcom.9130 }
+		}
+	}
+}
+
+# Exile Enclave: Go to War on Behalf
+# This = player country; event_target:exiled_gov_enclave_country = enclave country
+country_event = {
+	id = civcom.9120
+	base = civcom.9100
+	desc_clear = yes
+	option_clear = yes
+
+	desc = civcom.9120.desc
+
+	# Nevermind
+	option = {
+		name = civcom.nevermind
+	}
+
+	# Terminate host relationship (tell them to find new host)
+	option = {
+		name = civcom.9120.target
+		hidden_effect = {
+			get_restoration_war_targets = yes
+		}
+	}
+}
+
+# Exile Enclave: Choose War Target
+# This = player country; event_target:exiled_gov_enclave_country = enclave country
+country_event = {
+	id = civcom.9125
+	base = civcom.9100
+	desc_clear = yes
+	option_clear = yes
+
+	desc = civcom.9120.desc
+
+	# No valid target
+	option = {
+		name = civcom.9125.fail
+		trigger = { check_variable = { which = veru_total_subjects value = 0 } }
+	}
+
+	option = {
+		name = civcom.nevermind
+		trigger = { check_variable = { which = veru_total_subjects value > 0 } }
+	}
+
+	# Now we show a list of the subject states to the player
+	option = {
+		name = civcom.9125.restoration_war_target_1
+		trigger = { check_variable = { which = veru_total_subjects value >= 1 } }
+		hidden_effect = {
+			event_target:restoration_war_target_1 = {
+				save_event_target_as = chosen_war_target
+			}
+			country_event = { id = veru.1050 }
+		}
+	}
+	option = {
+		name = civcom.9125.restoration_war_target_2
+		trigger = { check_variable = { which = veru_total_subjects value >= 2 } }
+		hidden_effect = {
+			event_target:restoration_war_target_2 = {
+				save_event_target_as = chosen_war_target
+			}
+			country_event = { id = veru.1050 }
+		}
+	}
+	option = {
+		name = civcom.9125.restoration_war_target_3
+		trigger = { check_variable = { which = veru_total_subjects value >= 3 } }
+		hidden_effect = {
+			event_target:restoration_war_target_3 = {
+				save_event_target_as = chosen_war_target
+			}
+			country_event = { id = veru.1050 }
+		}
+	}
+	option = {
+		name = civcom.9125.restoration_war_target_4
+		trigger = { check_variable = { which = veru_total_subjects value >= 4 } }
+		hidden_effect = {
+			event_target:restoration_war_target_4 = {
+				save_event_target_as = chosen_war_target
+			}
+			country_event = { id = veru.1050 }
+		}
+	}
+	option = {
+		name = civcom.9125.restoration_war_target_5
+		trigger = { check_variable = { which = veru_total_subjects value >= 5 } }
+		hidden_effect = {
+			event_target:restoration_war_target_5 = {
+				save_event_target_as = chosen_war_target
+			}
+			country_event = { id = veru.1050 }
+		}
+	}
+	option = {
+		name = civcom.9125.restoration_war_target_6
+		trigger = { check_variable = { which = veru_total_subjects value >= 6 } }
+		hidden_effect = {
+			event_target:restoration_war_target_6 = {
+				save_event_target_as = chosen_war_target
+			}
+			country_event = { id = veru.1050 }
+		}
+	}
+	option = {
+		name = civcom.9125.restoration_war_target_7
+		trigger = { check_variable = { which = veru_total_subjects value >= 7 } }
+		hidden_effect = {
+			event_target:restoration_war_target_7 = {
+				save_event_target_as = chosen_war_target
+			}
+			country_event = { id = veru.1050 }
+		}
+	}
+	option = {
+		name = civcom.9125.restoration_war_target_8
+		trigger = { check_variable = { which = veru_total_subjects value >= 8 } }
+		hidden_effect = {
+			event_target:restoration_war_target_8 = {
+				save_event_target_as = chosen_war_target
+			}
+			country_event = { id = veru.1050 }
+		}
+	}
+	option = {
+		name = civcom.9125.restoration_war_target_9
+		trigger = { check_variable = { which = veru_total_subjects value >= 9 } }
+		hidden_effect = {
+			event_target:restoration_war_target_9 = {
+				save_event_target_as = chosen_war_target
+			}
+			country_event = { id = veru.1050 }
+		}
+	}
+	option = {
+		name = civcom.9125.restoration_war_target_10
+		trigger = { check_variable = { which = veru_total_subjects value >= 10 } }
+		hidden_effect = {
+			event_target:restoration_war_target_10 = {
+				save_event_target_as = chosen_war_target
+			}
+			country_event = { id = veru.1050 }
+		}
+	}
+}
+
+# Exile Enclave: Stop Hosting Government
+# This = player country; event_target:exiled_gov_enclave_country = enclave country
+country_event = {
+	id = civcom.9130
+	base = civcom.9100
+	desc_clear = yes
+	option_clear = yes
+
+	desc = civcom.9130.desc
+
+	# Nevermind
+	option = {
+		name = civcom.nevermind
+	}
+
+	# Stop Hosting Government (tell them to find new host)
+	option = {
+		name = civcom.9130.terminate
+		hidden_effect = {
+			country_event = { id = civnat.1330 }
 		}
 	}
 }
