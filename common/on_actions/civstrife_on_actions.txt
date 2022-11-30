@@ -27,11 +27,12 @@ on_monthly_pulse_country = {
 
 		civsep.1000    			# Instability counter on stability decrease and add separatists
 		civsep.1010				# Decrease instability counter on stability increase before separatists appear
-		civsep.1100				# Stability counter on stability increase and remove separatists
-		civsep.1110				# Decrease stability counter on stability decrease after separatists appear
+		civsep.1100				# Planetary Calm counter on stability increase and remove separatists
+		civsep.1110				# Decrease Calm counter on stability decrease after separatists appear
+		civsep.1200				# Sectoral Calm counter on stability increase and remove separatists
+		civsep.1210				# Decrease Calm counter on stability decrease after separatists appear
 		civsep.2010				# Create Regular Separatists Yearly Initializer
 		civsep.2100				# Remove Separatists Yearly Initializer
-		civsep.2200				# Create Corrupt Governor Separatists Yearly Initializer
 		civsep.3000				# Sector Separatist Party Form Check
 		civsep.3000				# Sector Separatist Party Form Check
 		civsep.4000				# Checks Separatist factions, start Radicalization Situation
@@ -64,7 +65,10 @@ on_yearly_pulse_country = {
 		civnat.3020				# Remove Nationalism Initial Trigger
 		civnat.5000				# Give Claims to Fundamental land that has been lost
 
+		civsep.2200				# Create Corrupt Governor Separatists Yearly Initializer
 		civsep.3100				# Find Isolated Sectors
+
+		civmisc.2100			# Remove unused dummy leaders
 	}
 }
 

@@ -76,8 +76,8 @@ l_russian:
  origin_civwar: "Separatist State"
  origin_civwar_desc: "This nation was formed after political disagreements led to their secession from another nation."
 
- origin_civ_rebellion: "Planetary Rebellion"
- origin_civ_rebellion_desc: "This nation was formed from a planet that seceded from a larger empire."
+ origin_plan_rebellion: "Planetary Rebellion"
+ origin_plan_rebellion_desc: "This nation was formed from a planet that seceded from a larger empire."
 
  origin_coup_successor: "Disputed Successor"
  origin_coup_successor_desc: "Amid a sucession crisis, an extended member of the royal family managed to garner enough support to claim the throne."
@@ -666,7 +666,7 @@ civcom.3100.norm.gov.desc: "The dismantling of the monarchy was treason. Did you
  situation_civstrife_succession_desc: "§Y[owner.GetRulerTitle]§! §H[owner.ruler.GetName]§! ascended to the throne without ever being officially annointed as heir. This has left the realm in a precarious situation, with various others attempting to assert their claim to the throne."
  situation_civstrife_succession_monthly_change_tooltip: "The crisis is progressing towards a resolution."
 
- approach_civstrife_succession_propaganda: "Propaganda Campaign"
+ approach_succession_propaganda: "Propaganda Campaign"
  succession_propaganda_tooltip: "We will do everything in our power to convince the people and important officials within the realm that we are the only legitimate §Y[owner.GetRulerTitle]§!."
 
  succession_stage_1: "Take Stock"
@@ -756,8 +756,8 @@ civcom.3100.norm.gov.desc: "The dismantling of the monarchy was treason. Did you
  situation_civstrife_selection_type: "[owner.GetRulerTitle] Selection Investigation"
  situation_civstrife_selection_desc: "The integrity of the selection of our most recent §Y[owner.GetRulerTitle]§! has been called into question. An investigation is currently ongoing."
 
- approach_civstrife_election_do_nothing: "Do Nothing"
- approach_civstrife_election_obstruct: "Obstruct Investigation"
+ approach_election_do_nothing: "Do Nothing"
+ approach_election_obstruct: "Obstruct Investigation"
  situation_civstrife_election_end: "The investigators will reveal their findings."
 
  election_nothing_tooltip: "Our administration will cooperate with the investigation."
@@ -835,12 +835,12 @@ civcom.3100.norm.gov.desc: "The dismantling of the monarchy was treason. Did you
  situation_civstrife_pandemic_national_sing_desc: "The pandemic that originated on §Y[Target.GetName]§! has now spread beyond the original sector and gone nationwide."
  situation_civstrife_pandemic_national_mult_desc: "The pandemic that originated on §Y[Target.GetName]§! has now spread to §Y[event_target:pandemic_species_loc.GetNamePlural]§! on other planets in the sector."
 
- approach_civstrife_pandemic_do_nothing: "Do Nothing"
- approach_civstrife_pandemic_do_nothing_desc: "Nothing will be done to control the spread of the pandemic."
- approach_civstrife_pandemic_governor: "Governor Oversight"
- approach_civstrife_pandemic_governor_desc: "Governor §Y[target.sector.leader.GetName]§! will handle the pandemic. Their ability to implement an effective quarantine will depend upon their skill level."
- approach_civstrife_pandemic_direct: "Direct Oversight"
- approach_civstrife_pandemic_direct_desc: "The central government will directly handle the pandemic. Though more costly, direct oversight will always result in an effective quarantine."
+ approach_pandemic_do_nothing: "Do Nothing"
+ approach_pandemic_do_nothing_desc: "Nothing will be done to control the spread of the pandemic."
+ approach_pandemic_governor: "Governor Oversight"
+ approach_pandemic_governor_desc: "Governor §Y[target.sector.leader.GetName]§! will handle the pandemic. Their ability to implement an effective quarantine will depend upon their skill level."
+ approach_pandemic_direct: "Direct Oversight"
+ approach_pandemic_direct_desc: "The central government will directly handle the pandemic. Though more costly, direct oversight will always result in an effective quarantine."
 
  situation_civstrife_pandemic_planet_monthly_change_tooltip: "Our medical community is working on the development of a cure."
  situation_civstrife_pandemic_sector_monthly_change_tooltip: "$situation_civstrife_pandemic_planet_monthly_change_tooltip$"
@@ -924,14 +924,14 @@ civcom.3100.norm.gov.desc: "The dismantling of the monarchy was treason. Did you
  #############################
 
  # Multi-Purpose
- approach_civstrife_faction_do_nothing: "Do Nothing"
- approach_civstrife_faction_do_nothing_desc: "Nothing will be done."
+ approach_do_nothing: "Do Nothing"
+ approach_do_nothing_desc: "Nothing will be done."
 
- approach_civstrife_faction_pr: "PR Campaign"
- approach_civstrife_faction_pr_desc: "We will begin a Public Relations Campaign to better explain why our current policies are crucial to the prosperity of our nation."
+ approach_pr_campaign: "PR Campaign"
+ approach_pr_campaign_desc: "We will begin a Public Relations Campaign to better explain why our current policies are crucial to the prosperity of our nation."
 
- approach_civstrife_faction_repression: "Repression"
- approach_civstrife_faction_repression_desc: "Our police forces and intelligence services will be instructed to forcefully repress radical elements of the §Y[Target.GetName]§!."
+ approach_faction_repression: "Repression"
+ approach_faction_repression_desc: "Our police forces and intelligence services will be instructed to forcefully repress radical elements of the §Y[Target.GetName]§!."
 
  slowed_radical_tooltip: "The radicalzation of members of the §Y[Target.GetName]§! will be slowed."
  slowed_radical_tooltip_2: "The radicalzation of members of the §Y[Target.GetName]§! will be significantly slowed."
@@ -939,7 +939,7 @@ civcom.3100.norm.gov.desc: "The dismantling of the monarchy was treason. Did you
  situation_civstrife_separatist_end: "A radicalized population is more likely to cause trouble."
  situation_civstrife_separatist_failed: "The radicals will quiet down."
 
- reb_faction_1: "Radicalization"
+ reb_situation_1: "Radicalization"
 
  # Planetary Separatist Rebellion
  situation_civstrife_faction_sep_plan: "§P[Target.GetName]§!"
@@ -1276,7 +1276,7 @@ civcom.3100.norm.gov.desc: "The dismantling of the monarchy was treason. Did you
 
  civnat.9010.name: "§RNationalists Strike!§!"
  civnat.9010.desc: "The nationalists of the §Y[root.target.GetName]§! that were organizing have made their move, and are attempting to seize §Y[event_target:civil_war_planet.GetName]§! and its surrounding systems!"
- civnat.9010.a: "This is bad."
+ civcom.this_is_bad: "This is bad."
 
  civnat.9000.a: "They'll be closely watched."
 

@@ -23,7 +23,7 @@ country_event = { # Check disapproving Factions every month
 		}
 		years_passed >= 15
 		NOT = {
-			has_ethic = ethic_gestalt_consciousness
+			is_gestalt = yes
 			has_country_flag = recent_civil_war
 		}
 		OR = {
@@ -31,47 +31,42 @@ country_event = { # Check disapproving Factions every month
 				is_democracy = yes
 				any_pop_faction = {
 					is_regular_faction = yes
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							support >= 0.2
-							faction_approval <= 0.35
-						}
-						AND = {
-							owner = { is_ai = yes }
-							support >= 0.35
-							faction_approval <= 0.2
-						}
-					}
 					NOT = { has_pop_faction_flag = faction_sep_situation }
 					OR = {
 						NOT = { exists = leader }
 						leader = { NOT = { is_same_value = root.ruler } }
 					}
-				}
-			}
-			AND = {
-				is_democracy = no
-				any_pop_faction = {
-					is_regular_faction = yes
 					OR = {
 						AND = {
-							owner = { is_ai = no }
-							support >= 0.15
-							faction_approval <= 0.40
+							owner  = { is_democracy = yes }
+							OR = {
+								AND = {
+									owner = { is_ai = no }
+									support >= 0.2
+									faction_approval <= 0.35
+								}
+								AND = {
+									owner = { is_ai = yes }
+									support >= 0.35
+									faction_approval <= 0.2
+								}
+							}
 						}
 						AND = {
-							owner = { is_ai = yes }
-							support >= 0.3
-							faction_approval <= 0.25
+							owner  = { is_democracy = no }
+							OR = {
+								AND = {
+									owner = { is_ai = no }
+									support >= 0.15
+									faction_approval <= 0.40
+								}
+								AND = {
+									owner = { is_ai = yes }
+									support >= 0.3
+									faction_approval <= 0.25
+								}
+							}
 						}
-					}
-					support >= 0.15
-					faction_approval <= 0.4
-					NOT = { has_pop_faction_flag = faction_sep_situation }
-					OR = {
-						NOT = { exists = leader }
-						leader = { NOT = { is_same_value = root.ruler } }
 					}
 				}
 			}
@@ -79,307 +74,173 @@ country_event = { # Check disapproving Factions every month
 	}
 
 	immediate = {
-		if = {
-			limit = { is_democracy = yes }
-			random_pop_faction = {
-				limit = {
-					is_regular_faction = yes
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							support >= 0.2
-							faction_approval <= 0.35
-						}
-						AND = {
-							owner = { is_ai = yes }
-							support >= 0.35
-							faction_approval <= 0.2
-						}
-					}
-					NOT = { has_pop_faction_flag = faction_sep_situation }
-					OR = {
-						NOT = { exists = leader }
-						leader = { NOT = { is_same_value = root.ruler } }
-					}
-				}
-				set_pop_faction_flag = faction_sep_situation
-				if = {
-					limit = { is_egalitarian_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_egal
-							target = prev
+		random_pop_faction = {
+			limit = {
+				is_regular_faction = yes
+				OR = {
+					AND = {
+						owner  = { is_democracy = yes }
+						OR = {
+							AND = {
+								owner = { is_ai = no }
+								support >= 0.2
+								faction_approval <= 0.35
+							}
+							AND = {
+								owner = { is_ai = yes }
+								support >= 0.35
+								faction_approval <= 0.2
+							}
 						}
 					}
-				}
-				else_if = {
-					limit = { is_authoritarian_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_auth
-							target = prev
+					AND = {
+						owner  = { is_democracy = no }
+						OR = {
+							AND = {
+								owner = { is_ai = no }
+								support >= 0.15
+								faction_approval <= 0.40
+							}
+							AND = {
+								owner = { is_ai = yes }
+								support >= 0.3
+								faction_approval <= 0.25
+							}
 						}
 					}
 				}
-				else_if = {
-					limit = { is_spiritualist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_spi
-							target = prev
-						}
-					}
+				NOT = { has_pop_faction_flag = faction_sep_situation }
+				OR = {
+					NOT = { exists = leader }
+					leader = { NOT = { is_same_value = root.ruler } }
 				}
-				else_if = {
-					limit = { is_materialist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_mat
-							target = prev
-						}
-					}
-				}
-				else_if = {
-					limit = { is_militarist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_mil
-							target = prev
-						}
-					}
-				}
-				else_if = {
-					limit = { is_pacifist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_pac
-							target = prev
-						}
-					}
-				}
-				else_if = {
-					limit = { is_xenophile_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_phile
-							target = prev
-						}
-					}
-				}
-				else_if = {
-					limit = { is_xenophobe_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_phobe
-							target = prev
-						}
-					}
-				}
-				else_if = {
-					limit = { is_socialism_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_soc
-							target = prev
-						}
-					}
-				}
-				else_if = {
-					limit = { is_capitalism_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_cap
-							target = prev
-						}
-					}
-				}
-				else_if = {
-					limit = { is_industrial_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_indus
-							target = prev
-						}
-					}
-				}
-				else_if = {
-					limit = { is_ecologist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_eco
-							target = prev
-						}
-					}
-				}
-				else_if = {
-					limit = { is_elitist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_elite
-							target = prev
-						}
-					}
-				}	
-				else_if = {
-					limit = { is_pluralist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_plur
-							target = prev
-						}
+			}
+			set_pop_faction_flag = faction_sep_situation
+			if = {
+				limit = { is_egalitarian_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_egal
+						target = prev
 					}
 				}
 			}
-		}
-		else = {
-			random_pop_faction = {
-				limit = {
-					is_regular_faction = yes
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							support >= 0.15
-							faction_approval <= 0.40
-						}
-						AND = {
-							owner = { is_ai = yes }
-							support >= 0.3
-							faction_approval <= 0.25
-						}
-					}
-					NOT = { has_pop_faction_flag = faction_sep_situation }
-					OR = {
-						NOT = { exists = leader }
-						leader = { NOT = { is_same_value = root.ruler } }
+			else_if = {
+				limit = { is_authoritarian_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_auth
+						target = prev
 					}
 				}
-				set_pop_faction_flag = faction_sep_situation
-				if = {
-					limit = { is_egalitarian_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_egal
-							target = prev
-						}
+			}
+			else_if = {
+				limit = { is_spiritualist_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_spi
+						target = prev
 					}
 				}
-				else_if = {
-					limit = { is_authoritarian_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_auth
-							target = prev
-						}
+			}
+			else_if = {
+				limit = { is_materialist_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_mat
+						target = prev
 					}
 				}
-				else_if = {
-					limit = { is_spiritualist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_spi
-							target = prev
-						}
+			}
+			else_if = {
+				limit = { is_militarist_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_mil
+						target = prev
 					}
 				}
-				else_if = {
-					limit = { is_materialist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_mat
-							target = prev
-						}
+			}
+			else_if = {
+				limit = { is_pacifist_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_pac
+						target = prev
 					}
 				}
-				else_if = {
-					limit = { is_militarist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_mil
-							target = prev
-						}
+			}
+			else_if = {
+				limit = { is_xenophile_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_phile
+						target = prev
 					}
 				}
-				else_if = {
-					limit = { is_pacifist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_pac
-							target = prev
-						}
+			}
+			else_if = {
+				limit = { is_xenophobe_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_phobe
+						target = prev
 					}
 				}
-				else_if = {
-					limit = { is_xenophile_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_phile
-							target = prev
-						}
+			}
+			else_if = {
+				limit = { is_socialism_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_soc
+						target = prev
 					}
 				}
-				else_if = {
-					limit = { is_xenophobe_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_phobe
-							target = prev
-						}
+			}
+			else_if = {
+				limit = { is_capitalism_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_cap
+						target = prev
 					}
 				}
-				else_if = {
-					limit = { is_socialism_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_soc
-							target = prev
-						}
+			}
+			else_if = {
+				limit = { is_industrial_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_indus
+						target = prev
 					}
 				}
-				else_if = {
-					limit = { is_capitalism_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_cap
-							target = prev
-						}
+			}
+			else_if = {
+				limit = { is_ecologist_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_eco
+						target = prev
 					}
 				}
-				else_if = {
-					limit = { is_ecologist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_eco
-							target = prev
-						}
+			}
+			else_if = {
+				limit = { is_elitist_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_elite
+						target = prev
 					}
 				}
-				else_if = {
-					limit = { is_industrial_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_indus
-							target = prev
-						}
+			}	
+			else_if = {
+				limit = { is_pluralist_faction = yes }
+				owner = {
+					start_situation = {
+						type = situation_civstrife_faction_plur
+						target = prev
 					}
 				}
-				else_if = {
-					limit = { is_pluralist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_plur
-							target = prev
-						}
-					}
-				}
-				else_if = {
-					limit = { is_elitist_faction = yes }
-					owner = {
-						start_situation = {
-							type = situation_civstrife_faction_elite
-							target = prev
-						}
-					}
-				}			
 			}
 		}
 	}
@@ -391,6 +252,10 @@ situation_event = { # Spread Faction Separatists Every Month
 	is_triggered_only = yes
 
 	trigger = {
+		OR = {
+			current_stage = reb_situation_2
+			situation_progress >= 80
+		}
 		target = {
 			any_owned_pop = {
 				happiness <= 60
@@ -408,7 +273,7 @@ situation_event = { # Spread Faction Separatists Every Month
 			}
 
 			if = {
-				limit = { root = { current_situation_approach = approach_civstrife_faction_pr } }
+				limit = { root = { current_situation_approach = approach_pr_campaign } }
 				random_list = {
 					50 = { multiply_variable = { which = maybe_seps value = 0.01 } }
 					30 = { multiply_variable = { which = maybe_seps value = 0.02 } }
@@ -416,7 +281,7 @@ situation_event = { # Spread Faction Separatists Every Month
 				}
 			}
 			else_if = {
-				limit = { root = { current_situation_approach = approach_civstrife_faction_repression } }
+				limit = { root = { current_situation_approach = approach_faction_repression } }
 				random_list = {
 					70 = { multiply_variable = { which = maybe_seps value = 0.01 } }
 					30 = { multiply_variable = { which = maybe_seps value = 0.02 } }
@@ -598,7 +463,7 @@ situation_event = { # Planetary Separatists Strike
 	is_triggered_only = yes
 
 	option = {
-		name = civnat.9010.a
+		name = civcom.this_is_bad
 		ai_chance = { factor = 1 }
 	}
 }
@@ -612,7 +477,7 @@ situation_event = { # Sectoral Separatists Strike
 	is_triggered_only = yes
 
 	option = {
-		name = civnat.9010.a
+		name = civcom.this_is_bad
 		ai_chance = { factor = 1 }
 	}
 }

@@ -4,7 +4,7 @@ namespace = unrest
 
 ###### These events have been repurposed and should not fire:
 
-planet_event = { # Generic Stability Revolt Planet Finder
+planet_event = { # Now only for slave revolts
 	id = unrest.50
 	is_triggered_only = yes
 	hide_window = yes
@@ -15,19 +15,56 @@ planet_event = { # Generic Stability Revolt Planet Finder
 	}
 
 	trigger = {
-		always = no
+		planet_stability < @stabilitylevel2
+		num_pops >= 10
+		pop_percentage = {
+			percentage >= 0.4
+			limit = {
+				is_enslaved = yes
+				happiness < 60
+			}
+			exclude = { can_think = no }
+		}
+		has_orbital_bombardment = no
+		exists = owner
+		owner = {
+			is_country_type = default
+			NOT = { any_situation = { has_situation_flag = slave_sit_@root } }
+		}
+		NOR = {
+			has_planet_flag = 3_year_owner_change_flag
+			has_planet_flag = recent_revolt_attempt
+		}
+		is_doomsday_planet = no
+		exists = controller
+		controller = { is_same_value = root.owner }
+		OR = {
+			owner = { is_gestalt = yes }
+			any_owned_species = { species_has_happiness_with_owner = root.owner }
+		}
+		# check_variable_arithmetic = { #will the revolt actually tick up?
+		# 	which = value:potential_revolt_situation_monthly_progress_estimation
+		# 	value > 0
+		# }
 	}
 
 	immediate = {
-		# set_timed_planet_flag = {
+		# set_timed_planet_flag = { # This doesnt work with the culture shock limit below, vanilla bug
 		# 	flag = unrest_timer
 		# 	days = 360
 		# }
-		# planet_event = { id = unrest.54 days = 300 random = 59 } #definitely within the next year
+
+		if = { #Getting an impossible to prevent revolt due to culture shock is a bit harsh. (Planet can start with no jobs, for instance)
+			limit = { has_culture_shock = yes }
+			planet_event = { id = unrest.54 days = 1880 random = 180 } #at least 8 years after owner change (including the 3 years via 3_year_owner_change_flag)
+		}
+		else = {
+			planet_event = { id = unrest.54 days = 300 random = 59 } #definitely within the next year
+		}
 	}
 }
 
-planet_event = { # Generic Stability Revolt Initializer
+planet_event = { # Get Slave Revolt Planet
 	id = unrest.54
 	is_triggered_only = yes
 	hide_window = yes
@@ -38,99 +75,129 @@ planet_event = { # Generic Stability Revolt Initializer
 	}
 
 	trigger = {
-		always = no
+		planet_stability < @stabilitylevel2
+		num_pops >= 10
+		pop_percentage = {
+			percentage >= 0.4
+			limit = {
+				is_enslaved = yes
+				happiness < 60
+			}
+			exclude = { can_think = no }
+		}
+		has_orbital_bombardment = no
+		exists = owner
+		owner = {
+			is_country_type = default
+			NOT = { any_situation = { has_situation_flag = slave_sit_@root } }
+		}
+		NOR = {
+			has_planet_flag = 3_year_owner_change_flag
+			has_planet_flag = recent_revolt_attempt
+		}
+		is_doomsday_planet = no
+		exists = controller
+		controller = { is_same_value = root.owner }
+		OR = {
+			owner = { is_gestalt = yes }
+			any_owned_species = { species_has_happiness_with_owner = root.owner }
+		}
+		# check_variable_arithmetic = { #will the revolt actually tick up?
+		# 	which = value:potential_revolt_situation_monthly_progress_estimation
+		# 	value > 0
+		# }
 	}
 
 	immediate = {
-		# if = {
-		# 	limit = { #Extra safety because it's possible for two planets to fire this delayed event on the same day and it will check the trigger before either of them can fire (as of March 2022)
-		# 		NOT = {
-		# 			sector = {
-		# 				any_system_within_border = {
-		# 					any_system_planet = {
-		# 						any_targeting_situation = { is_situation_type = situation_planetary_revolt }
-		# 					}
-		# 				}
-		# 			}
-		# 		}
-		# 	}
-		# 	sector = { #Generally, one would expect the strongest planet to be the center of the revolt
-		# 		#Use case here is if you conquer a whole bunch of enemy planets at once.
-		# 		ordered_owned_planet = {
-		# 			position = 0
-		# 			order_by = trigger:num_pops
-		# 			limit = {
-		# 				has_planet_flag = revolt_tick_5
-		# 				has_planet_flag = unrest_timer
-		# 				planet_stability <= 25
-		# 				num_pops >= 5
-		# 				is_occupied_flag = no
-		# 				has_orbital_bombardment = no
-		# 				has_ground_combat = no
-		# 				NOR = {
-		# 					has_planet_flag = slave_stirring  #hopefully, this will become a Situation too [lets see if I can beat you to it]
-		# 					has_planet_flag = recent_revolt_attempt
-		# 					has_planet_flag = situation_slave_revolt
-		# 					has_planet_flag = situation_nat_revolt
-		# 				}
-		# 				OR = {
-		# 					owner = { is_gestalt = yes }
-		# 					any_owned_species = { species_has_happiness_with_owner = root.owner }
-		# 				}
-		# 			}
-		# 			planet_event = { id = unrest.55 }
-		# 		}
-		# 	}
-		# }
+
+		set_variable = { which = num_slave_rebels value = 0 }
+
+		every_owned_pop = {
+			limit = {
+				is_enslaved = yes
+				happiness < 60
+			}
+			prev = { change_variable = { which = num_slave_rebels value = 1 } }
+		}
+
+		set_timed_planet_flag = {
+			flag = unrest_timer
+			days = 30
+		}
+
+		if = {
+			limit = { #Extra safety because it's possible for two planets to fire this delayed event on the same day and it will check the trigger before either of them can fire (as of March 2022)
+				NOT = { owner = { any_situation = { is_situation_type = situation_civstrife_sep_slaves } } }
+			}
+			owner = { #Generally, one would expect the strongest planet to be the center of the revolt
+				#Use case here is if you conquer a whole bunch of enemy planets at once.
+				ordered_owned_planet = {
+					position = 0
+					order_by = num_slave_rebels
+					limit = {
+						has_planet_flag = unrest_timer
+						planet_stability < @stabilitylevel2
+						has_orbital_bombardment = no
+						has_ground_combat = no
+						NOR = {
+							has_planet_flag = 3_year_owner_change_flag
+							has_planet_flag = recent_revolt_attempt
+						}
+						exists = controller
+						controller = { is_same_value = root.owner }
+						OR = {
+							owner = { is_gestalt = yes }
+							any_owned_species = { species_has_happiness_with_owner = root.owner }
+						}
+						# check_variable_arithmetic = { #will the revolt actually tick up?
+						# 	which = value:potential_revolt_situation_monthly_progress_estimation
+						# 	value > 0
+						# }
+					}
+					planet_event = { id = unrest.55 }
+				}
+			}
+		}
+	}
+
+	after = {
+		clear_variable = num_slave_rebels
 	}
 }
 
-planet_event = { # Situation Start Event
+planet_event = { # Slave Situation start event
 	id = unrest.55
 	title = unrest.55.name
 	desc = {
 		trigger = {
 			owner = { is_gestalt = no }
 		}
-		text = unrest.55.desc.standard
+		text = unrest.55.desc.slave
 	}
 	desc = {
 		trigger = {
 			owner = { is_gestalt = yes }
-			any_owned_pop = {
-				is_sapient = yes
-				NOT = { has_ethic = ethic_gestalt_consciousness }
-			}
 		}
 		text = unrest.55.desc.gestalt_standard
 	}
-	desc = {
-		trigger = {
-			owner = { is_gestalt = yes }
-			count_owned_pop = {
-				limit = {
-					is_sapient = yes
-					NOT = { has_ethic = ethic_gestalt_consciousness }
-				}
-				count = 0
-			}
-		}
-		text = unrest.55.desc.gestalt_breakaway_gestalt
-	}
 	picture = GFX_evt_night_raid
-	show_sound = event_air_raid_siren
+	show_sound = {
+		sound = advisor_notification_planet_in_revolt
+		sound_is_advisor = yes
+	}
 	location = root
 	is_triggered_only = yes
-	situation = event_target:revolt_situation
+	situation = event_target:new_situation
 
 	immediate = {
-		
 		owner = {
 			start_situation = {
-				type = situation_planetary_revolt_stability
+				type = situation_civstrife_sep_slaves
 				target = root
 				effect = {
-					save_event_target_as = revolt_situation
+					save_event_target_as = new_situation
+					set_situation_flag = slave_revolt
+					set_situation_flag = slave_sit_@root
 				}
 			}
 		}
@@ -142,7 +209,7 @@ planet_event = { # Situation Start Event
 		tooltip = {
 			owner = {
 				start_situation = {
-					type = situation_planetary_revolt_stability
+					type = situation_civstrife_sep_slaves
 					target = root
 				}
 			}
@@ -150,7 +217,7 @@ planet_event = { # Situation Start Event
 	}
 }
 
-situation_event = { # Stability Revolt - Faction Check
+situation_event = { ### Stability Revolt - Faction Check - currently unused
 	id = unrest.100
 	hide_window = yes
 	is_triggered_only = yes
@@ -436,7 +503,7 @@ situation_event = { # Stability Revolt - Faction Check
 							owner = { is_gestalt = no }
 							count_owned_pop = {
 								limit = {
-									NOT = { has_ethic = ethic_gestalt_consciousness }
+									is_gestalt = no
 								}
 								count = 0
 							}
@@ -459,15 +526,16 @@ situation_event = {
 	desc = unrest.101.civstrife.desc
 	picture = GFX_evt_night_raid
 	show_sound = event_air_raid_siren
-	location = root.target
+	location = event_target:target_planet
 	is_triggered_only = yes
 	situation = this
 
 	trigger = {
+		situation_progress >= 30
 		NOT = { has_situation_flag = random_event_happened }
 		owner = {
 			is_country_type_with_subjects = yes
-			NOT = { has_ethic = ethic_gestalt_consciousness }
+			is_gestalt = no
 		}
 		target = {
 			any_owned_pop = {
@@ -532,15 +600,16 @@ situation_event = {
 	desc = unrest.105.civstrife.desc
 	picture = GFX_evt_night_raid
 	show_sound = event_air_raid_siren
-	location = root.target
+	location = event_target:target_planet
 	is_triggered_only = yes
 	situation = this
 
 	trigger = {
+		situation_progress >= 30
 		NOT = { has_situation_flag = random_event_happened }
 		owner = {
 			is_country_type_with_subjects = yes
-			NOT = { has_ethic = ethic_gestalt_consciousness }
+			is_gestalt = no
 		}
 		target = {
 			any_owned_pop = {
@@ -592,6 +661,208 @@ situation_event = {
 				add_modifier = {
 					modifier = major_terrorist_action
 					days = 7200 # 20 years
+				}
+			}
+		}
+	}
+}
+
+# Unrest : Keeping the Peace
+situation_event = {
+	id = unrest.110
+	title = unrest.110.name
+	desc = unrest.110.desc
+	picture = GFX_evt_announcement
+	show_sound = event_announcement
+	location = root.target
+	is_triggered_only = yes
+	situation = this
+
+	trigger = {
+		situation_progress >= 30
+		NOT = { has_situation_flag = random_event_happened }
+		owner = {
+			is_country_type = default
+			is_gestalt = no
+		}
+		target = {
+			exists = controller
+			controller = { is_same_value = root.owner }
+			planet_stability < @stabilitylevel2
+			planet_stability >= @stabilitylevel1
+			NOT = { has_planet_flag = recent_unrest_event }
+			has_orbital_bombardment = no
+			has_ground_combat = no
+		}
+	}
+
+	immediate = {
+		set_situation_flag = random_event_happened
+		target = {
+			add_modifier = {
+				modifier = riots_averted
+				days = 3600 # 10 years
+			}
+			set_timed_planet_flag = {
+				flag = recent_unrest_event
+				days = @unrest_event_cooldown
+			}
+		}
+	}
+
+	option = {
+		name = GOOD
+		tooltip = {
+			target = {
+				add_modifier = {
+					modifier = riots_averted
+					days = 3600 # 20 years
+				}
+			}
+		}
+	}
+}
+
+# Extra slave revolt content
+
+# Resistance: Sabotage
+planet_event = {
+	id = unrest.156
+	title = unrest.156.name
+	desc = unrest.156.desc
+	picture = GFX_evt_night_raid
+	show_sound = event_ship_explosion
+	location = event_target:revolt_planet
+	situation = from
+
+	is_triggered_only = yes
+
+	immediate = {
+		add_planet_devastation = 30
+	}
+	option = {
+		name = unrest.156.a
+		tooltip = { add_planet_devastation = 30 }
+	}
+	option = {
+		name = unrest.156.b
+		tooltip = { add_planet_devastation = 30 }
+	}
+}
+
+# Riots
+situation_event = {
+	id = unrest.157
+	title = unrest.157.name
+	desc = unrest.157.desc
+	picture = GFX_evt_surrender
+	show_sound = event_planetary_riot
+	location = target
+	situation = this
+
+	trigger = {
+		situation_progress >= 20
+		has_situation_flag = slave_revolt
+		NOT = { has_situation_flag = slave_riots }
+		owner = { is_country_type = default }
+		target = {
+			exists = controller
+			controller = { is_same_value = root.owner }
+			planet_stability < @stabilitylevel2
+			NOT = { has_planet_flag = recent_unrest_event }
+			has_orbital_bombardment = no
+			has_ground_combat = no
+		}
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+		set_situation_flag = random_event_happened
+		set_situation_flag = slave_riots
+		target = {
+			set_timed_planet_flag = {
+				flag = recent_unrest_event
+				days = @unrest_event_cooldown
+			}
+			add_modifier = {
+				modifier = slave_riots
+				days = 3600
+			}
+		}
+	}
+	option = {
+		name = unrest.157.a
+	}
+	option = {
+		name = unrest.157.b
+	}
+	after = {
+		tooltip = {
+			target = {
+				add_modifier = {
+					modifier = slave_riots
+					days = 3600
+				}
+			}
+		}
+	}
+}
+
+# Resistance: hunger strike
+situation_event = {
+	id = unrest.159
+	title = unrest.159.name
+	desc = unrest.159.desc
+	picture = GFX_evt_burning_settlement
+	show_sound = event_planetary_riot
+	location = target
+	situation = this
+
+	trigger = {
+		situation_progress >= 20
+		has_situation_flag = slave_revolt
+		NOT = { has_situation_flag = slave_hunger_strikes }
+		owner = { is_country_type = default }
+		target = {
+			exists = controller
+			controller = { is_same_value = root.owner }
+			planet_stability < @stabilitylevel2
+			NOT = { has_planet_flag = recent_unrest_event }
+			has_orbital_bombardment = no
+			has_ground_combat = no
+		}
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+		set_situation_flag = random_event_happened
+		set_situation_flag = slave_hunger_strikes
+		target = {
+			set_timed_planet_flag = {
+				flag = recent_unrest_event
+				days = @unrest_event_cooldown
+			}
+			add_modifier = {
+				modifier = slave_hunger_strike
+				days = 1800
+			}
+		}
+	}
+
+	option = {
+		name = unrest.159.a
+	}
+	option = {
+		name = unrest.159.b
+	}
+	after = {
+		tooltip = {
+			target = {
+				add_modifier = {
+					modifier = slave_hunger_strike
+					days = 1800
 				}
 			}
 		}

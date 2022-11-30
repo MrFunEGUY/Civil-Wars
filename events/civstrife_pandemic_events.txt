@@ -201,7 +201,7 @@
 
 # 		if = {
 # 			limit = {
-# 				current_situation_approach = approach_civstrife_pandemic_governor
+# 				current_situation_approach = approach_pandemic_governor
 # 				NOT = { has_situation_flag = gov_quarantine_check }
 # 				target.sector.leader = { NOT = { has_leader_flag = gov_pandemic_decided } }
 # 				target = { NOT = { has_planet_flag = pandemic_quarantine  } }
@@ -256,14 +256,14 @@
 # 		}
 # 		else_if = {
 # 			limit = {
-# 				current_situation_approach = approach_civstrife_pandemic_direct
+# 				current_situation_approach = approach_pandemic_direct
 # 				target = { NOT = { has_planet_flag = pandemic_quarantine_direct } }
 # 			}
 # 			target = { set_planet_flag = pandemic_quarantine_direct }
 # 		}
 # 		else_if = {
 # 			limit = {
-# 				NOT = { current_situation_approach = approach_civstrife_pandemic_direct }
+# 				NOT = { current_situation_approach = approach_pandemic_direct }
 # 				target = { has_planet_flag = pandemic_quarantine_direct }
 # 			}
 # 			target = { remove_planet_flag = pandemic_quarantine_direct }
@@ -275,7 +275,7 @@
 # 			}
 # 			if = {
 # 				limit = {
-# 					current_situation_approach = approach_civstrife_pandemic_do_nothing
+# 					current_situation_approach = approach_pandemic_do_nothing
 # 				}
 # 				random_list = {
 # 					50 = {}
@@ -302,7 +302,7 @@
 # 			}
 # 			else_if = {
 # 				limit = {
-# 					current_situation_approach = approach_civstrife_pandemic_governor
+# 					current_situation_approach = approach_pandemic_governor
 # 				}
 # 				random_list = {
 # 					85 = {}
@@ -329,7 +329,7 @@
 # 			}
 # 			else_if = {
 # 				limit = {
-# 					current_situation_approach = approach_civstrife_pandemic_direct
+# 					current_situation_approach = approach_pandemic_direct
 # 				}
 # 				random_list = {
 # 					95 = {}
@@ -361,7 +361,7 @@
 # 			}
 # 			if = {
 # 				limit = {
-# 					current_situation_approach = approach_civstrife_pandemic_do_nothing
+# 					current_situation_approach = approach_pandemic_do_nothing
 # 				}
 # 				random_list = {
 # 					35 = {}
@@ -388,7 +388,7 @@
 # 			}
 # 			else_if = {
 # 				limit = {
-# 					current_situation_approach = approach_civstrife_pandemic_governor
+# 					current_situation_approach = approach_pandemic_governor
 # 				}
 # 				random_list = {
 # 					80 = {}
@@ -415,7 +415,7 @@
 # 			}
 # 			else_if = {
 # 				limit = {
-# 					current_situation_approach = approach_civstrife_pandemic_direct
+# 					current_situation_approach = approach_pandemic_direct
 # 				}
 # 				random_list = {
 # 					90 = {}
@@ -447,7 +447,7 @@
 # 			}
 # 			if = {
 # 				limit = {
-# 					current_situation_approach = approach_civstrife_pandemic_do_nothing
+# 					current_situation_approach = approach_pandemic_do_nothing
 # 				}
 # 				random_list = {
 # 					20 = {}
@@ -474,7 +474,7 @@
 # 			}
 # 			else_if = {
 # 				limit = {
-# 					current_situation_approach = approach_civstrife_pandemic_governor
+# 					current_situation_approach = approach_pandemic_governor
 # 				}
 # 				random_list = {
 # 					70 = {}
@@ -501,7 +501,7 @@
 # 			}
 # 			else_if = {
 # 				limit = {
-# 					current_situation_approach = approach_civstrife_pandemic_direct
+# 					current_situation_approach = approach_pandemic_direct
 # 				}
 # 				random_list = {
 # 					85 = {}
@@ -622,7 +622,7 @@
 
 # 		if = {
 # 			limit = {
-# 				current_situation_approach = approach_civstrife_pandemic_governor
+# 				current_situation_approach = approach_pandemic_governor
 # 				NOT = { has_situation_flag = gov_quarantine_check }
 # 				target.sector.leader = { NOT = { has_leader_flag = gov_pandemic_decided } }
 # 				target.sector = { NOT = { has_sector_flag = pandemic_quarantine  } }
@@ -677,14 +677,14 @@
 # 		}
 # 		else_if = {
 # 			limit = {
-# 				current_situation_approach = approach_civstrife_pandemic_direct
+# 				current_situation_approach = approach_pandemic_direct
 # 				target.sector = { NOT = { has_sector_flag = pandemic_quarantine_direct } }
 # 			}
 # 			target.sector = { set_sector_flag = pandemic_quarantine_direct }
 # 		}
 # 		else_if = {
 # 			limit = {
-# 				NOT = { current_situation_approach = approach_civstrife_pandemic_direct }
+# 				NOT = { current_situation_approach = approach_pandemic_direct }
 # 				target.sector = { has_sector_flag = pandemic_quarantine_direct }
 # 			}
 # 			target.sector = { remove_sector_flag = pandemic_quarantine_direct }
@@ -938,7 +938,7 @@
 # 				}
 # 				if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_do_nothing
+# 						current_situation_approach = approach_pandemic_do_nothing
 # 					}
 # 					random_list = {
 # 						50 = {}
@@ -965,7 +965,7 @@
 # 				}
 # 				else_if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_governor
+# 						current_situation_approach = approach_pandemic_governor
 # 					}
 # 					random_list = {
 # 						85 = {}
@@ -992,7 +992,7 @@
 # 				}
 # 				else_if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_direct
+# 						current_situation_approach = approach_pandemic_direct
 # 					}
 # 					random_list = {
 # 						95 = {}
@@ -1024,7 +1024,7 @@
 # 				}
 # 				if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_do_nothing
+# 						current_situation_approach = approach_pandemic_do_nothing
 # 					}
 # 					random_list = {
 # 						35 = {}
@@ -1051,7 +1051,7 @@
 # 				}
 # 				else_if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_governor
+# 						current_situation_approach = approach_pandemic_governor
 # 					}
 # 					random_list = {
 # 						80 = {}
@@ -1078,7 +1078,7 @@
 # 				}
 # 				else_if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_direct
+# 						current_situation_approach = approach_pandemic_direct
 # 					}
 # 					random_list = {
 # 						90 = {}
@@ -1110,7 +1110,7 @@
 # 				}
 # 				if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_do_nothing
+# 						current_situation_approach = approach_pandemic_do_nothing
 # 					}
 # 					random_list = {
 # 						20 = {}
@@ -1137,7 +1137,7 @@
 # 				}
 # 				else_if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_governor
+# 						current_situation_approach = approach_pandemic_governor
 # 					}
 # 					random_list = {
 # 						70 = {}
@@ -1164,7 +1164,7 @@
 # 				}
 # 				else_if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_direct
+# 						current_situation_approach = approach_pandemic_direct
 # 					}
 # 					random_list = {
 # 						85 = {}
@@ -1258,7 +1258,7 @@
 # 				}
 # 				if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_do_nothing
+# 						current_situation_approach = approach_pandemic_do_nothing
 # 					}
 # 					random_list = {
 # 						50 = {}
@@ -1285,7 +1285,7 @@
 # 				}
 # 				else_if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_governor
+# 						current_situation_approach = approach_pandemic_governor
 # 					}
 # 					random_list = {
 # 						85 = {}
@@ -1312,7 +1312,7 @@
 # 				}
 # 				else_if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_direct
+# 						current_situation_approach = approach_pandemic_direct
 # 					}
 # 					random_list = {
 # 						95 = {}
@@ -1344,7 +1344,7 @@
 # 				}
 # 				if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_do_nothing
+# 						current_situation_approach = approach_pandemic_do_nothing
 # 					}
 # 					random_list = {
 # 						35 = {}
@@ -1371,7 +1371,7 @@
 # 				}
 # 				else_if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_governor
+# 						current_situation_approach = approach_pandemic_governor
 # 					}
 # 					random_list = {
 # 						80 = {}
@@ -1398,7 +1398,7 @@
 # 				}
 # 				else_if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_direct
+# 						current_situation_approach = approach_pandemic_direct
 # 					}
 # 					random_list = {
 # 						90 = {}
@@ -1430,7 +1430,7 @@
 # 				}
 # 				if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_do_nothing
+# 						current_situation_approach = approach_pandemic_do_nothing
 # 					}
 # 					random_list = {
 # 						20 = {}
@@ -1457,7 +1457,7 @@
 # 				}
 # 				else_if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_governor
+# 						current_situation_approach = approach_pandemic_governor
 # 					}
 # 					random_list = {
 # 						70 = {}
@@ -1484,7 +1484,7 @@
 # 				}
 # 				else_if = {
 # 					limit = {
-# 						current_situation_approach = approach_civstrife_pandemic_direct
+# 						current_situation_approach = approach_pandemic_direct
 # 					}
 # 					random_list = {
 # 						85 = {}

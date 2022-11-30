@@ -8,7 +8,7 @@ namespace = civwar
 
 
 #################
-# Setup Rebel Country
+# Setup Rebel Country.
 
 country_event = { # Setup for Civil War
 	id = civwar.1000
@@ -105,7 +105,7 @@ country_event = { # Setup for Civil War
 							root = { change_variable = { which = num_mil_pops value = 1 } }
 						}
 					}
-					every_system_within_border = { # Every Other system, changing this gets weird, so just leave it cause it works fine
+					every_system_within_border = { # Every other system, changing this gets weird, so just leave it cause it works fine
 						starbase = { set_owner = root }
 					}
 				}
@@ -246,8 +246,6 @@ country_event = { # Setup for Civil War
 		
 		get_country_after_setup = yes
 
-		log = "1000 [this.GetName]"
-
 		# Declare War
 		event_target:civwar_originator = {
 			
@@ -338,7 +336,7 @@ country_event = { # Setup for Civil War
 				if = { # Query Motherland if possible
 					limit = {
 						event_target:nat_motherland_model = {
-							NOT = { is_country_type = enclave_exiled_gov }
+							is_exile_country = no
 							OR = { # For now, I will make this work for subjects in the near future
 								is_subject = no
 								overlord = { NOT = { is_same_value = event_target:civwar_originator } }
@@ -376,7 +374,8 @@ country_event = { # Setup for Civil War
 			}
 		}
 
-		get_remove_seps_after = yes
+		# Create Armies, needs to be done later so pops are set
+		country_event = { id = civwar.3100 days = 1 }
 	}
 }
 
@@ -388,9 +387,6 @@ country_event = { # Setup for Planetary Rebellions
 	immediate = {
 
 		set_country_type = default
-
-		set_country_flag = plan_rebel_country
-		# set_timed_country_flag = { flag = plan_rebel_country days = 90 }
 
 		save_event_target_as = civwar_rebels
 
@@ -433,7 +429,7 @@ country_event = { # Setup for Planetary Rebellions
 						has_planet_flag = heir_planetary_rebellion
 						has_planet_flag = nat_leader_planet
 						has_planet_flag = ethic_planet_rebellion_@this
-						has_planet_flag = sep_planet_rebellion_@this
+						has_planet_flag = sep_planet_rebellion
 						has_planet_flag = nat_planet_rebellion_@this
 					}
 				}
@@ -495,6 +491,47 @@ country_event = { # Setup for Planetary Rebellions
 						starbase = { set_owner = root }
 					}
 					remove_sector_flag = nat_sector_rebellion_@event_target:sector_capital_planet
+				}
+			}
+		}
+		while = { # clean up borders by giving rebels frontier territory they wouldnt otherwise get
+			count = 50
+			if = {
+				limit = {
+					any_system_within_border = {
+						closest_system = {
+							limit = {
+								exists = space_owner
+								space_owner = { is_same_value = event_target:civwar_originator }
+								NOT = { exists = sector }
+							}
+							use_bypasses = yes
+							max_steps = 1
+						}
+					}
+				}
+				every_system_within_border = {
+					limit = {
+						closest_system = {
+							limit = {
+								exists = space_owner
+								space_owner = { is_same_value = event_target:civwar_originator }
+								NOT = { exists = sector }
+							}
+							use_bypasses = yes
+							max_steps = 1
+						}
+					}
+					closest_system = {
+						limit = {
+							exists = space_owner
+							space_owner = { is_same_value = event_target:civwar_originator }
+							NOT = { exists = sector }
+						}
+						use_bypasses = yes
+						max_steps = 1
+						starbase = { set_owner = root }
+					}
 				}
 			}
 		}
@@ -930,7 +967,7 @@ country_event = { # Rebel - Query Neighbors
 ################
 # Fleet Stuff
 
-country_event = { # Create Fleets and give resources, faction civil wars
+country_event = { # Create Fleets and give resources
 	id = civwar.3000
 	hide_window = yes
 	is_triggered_only = yes
@@ -1072,7 +1109,7 @@ country_event = { # Create Fleets and give resources, faction civil wars
 	}
 }
 
-country_event = { # Destroy Fleets, faction civil wars
+country_event = { # Destroy Fleets
 	id = civwar.3005
 	hide_window = yes
 	is_triggered_only = yes
@@ -1109,8 +1146,101 @@ country_event = { # Destroy Fleets, faction civil wars
 	}
 }
 
+country_event = { # Create Armies, needs to be done later so pops have changed ownership
+	id = civwar.3100
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		every_owned_planet = {
+			set_variable = { which = num_sep_pops value = 0 }
+
+			if = {
+				limit = { owner = { has_country_flag = heir_rebel_country } }
+				every_owned_pop = {
+					limit = { can_think = yes }
+					random = {
+						chance = 35
+						prev = { change_variable = { which = num_sep_pops value = 1 } }
+					}
+				}
+			}
+			else = {
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop }
+					prev = { change_variable = { which = num_sep_pops value = 1 } }
+				}
+			}
+
+
+			while = {
+				count = num_sep_pops
+				random_list = {
+					60 = {
+						while = {
+							count = 1
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_defense_army"
+							}
+						}
+					}
+					30 = {
+						while = {
+							count = 1
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_assault_army"
+							}
+						}
+						while = {
+							count = 1
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_defense_army"
+							}
+						}
+					}
+					10 = {
+						while = {
+							count = 1
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_assault_army"
+							}
+						}
+						while = {
+							count = 2
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_defense_army"
+							}
+						}
+					}
+				}
+			}
+
+			clear_variable = num_sep_pops
+		}
+	}
+
+	after = {
+		get_remove_seps_after = yes
+	}
+}
+
 #################
-# War Initializers
+# Situation Events
 
 situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationalists
 	id = civwar.5000
@@ -1118,7 +1248,19 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 	is_triggered_only = yes
 
 	trigger = {
-		target.leader = { NOT = { is_same_value = owner.heir } }
+		OR = {
+			target = { is_regular_faction = no }
+			situation_progress >= 80
+		}
+		target.leader = {
+			NOT = { is_same_value = owner.heir }
+			NOT = { has_leader_flag = appointed_heir }
+			# Event Flags
+			NOT = { has_leader_flag = leader_bribed }
+			NOT = { has_leader_flag = faction_raided }
+			NOT = { has_leader_flag = corrupt_fac_deal }
+		}
+		
 		owner = {
 			NOT = { any_owned_leader = { has_leader_flag = situation_leader_@root } } # Not already in the process of revolting
 			OR = {
@@ -1180,7 +1322,6 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 	}
 
 	immediate = {
-		owner = { set_country_flag = TEST_TEST_TEST_ONE }
 		situation_event = { id = civwar.5010 days = 1 random = 20 }
 	}
 }
@@ -1191,7 +1332,18 @@ situation_event = { # Revolt/Civil War Event
 	is_triggered_only = yes
 
 	trigger = {
-		target.leader = { NOT = { is_same_value = owner.heir } }
+		OR = {
+			target = { is_regular_faction = no }
+			situation_progress >= 80
+		}
+		target.leader = {
+			NOT = { is_same_value = owner.heir }
+			NOT = { has_leader_flag = appointed_heir }
+			# Event Flags
+			NOT = { has_leader_flag = leader_bribed }
+			NOT = { has_leader_flag = faction_raided }
+			NOT = { has_leader_flag = corrupt_fac_deal }
+		}
 		owner = {
 			NOT = { any_owned_leader = { has_leader_flag = situation_leader_@root } } # Not already in the process of revolting
 			OR = {
@@ -1368,6 +1520,18 @@ situation_event = { # Revolt/Civil War Event
 				}
 			}
 		}
+	}
+}
+
+situation_event = { # Speak with Faction leader
+	id = civwar.5100
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_situation_approach = approach_do_nothing
+		target.leader = { save_event_target_as = mad_faction_leader }
+		owner = { country_event = { id = civcom.6000 } }
 	}
 }
 

@@ -3,7 +3,6 @@
 ### Civil Wars by MrFunEGUY ###
 ###############################
 
-
 namespace = civcom
 
 ################
@@ -22,8 +21,8 @@ country_event = {
 		text = civcom.1000.governor.plan.desc
 		trigger = {
 			event_target:civwar_rebels = {
-				ruler = { has_leader_flag = civil_war_ruler_governor }
 				has_country_flag = plan_rebel_country
+				ruler = { has_leader_flag = civil_war_ruler_governor }
 			}
 		}
 	}
@@ -32,8 +31,8 @@ country_event = {
 		text = civcom.1000.admiral.plan.desc
 		trigger = {
 			event_target:civwar_rebels = {
-				ruler = { has_leader_flag = civil_war_ruler_admiral }
 				has_country_flag = plan_rebel_country
+				ruler = { has_leader_flag = civil_war_ruler_admiral }
 			}
 		}
 	}
@@ -42,8 +41,8 @@ country_event = {
 		text = civcom.1000.general.plan.desc
 		trigger = {
 			event_target:civwar_rebels = {
-				ruler = { has_leader_flag = civil_war_ruler_general }
 				has_country_flag = plan_rebel_country
+				ruler = { has_leader_flag = civil_war_ruler_general }
 			}
 		}
 	}
@@ -52,8 +51,8 @@ country_event = {
 		text = civcom.1000.scientist.plan.desc
 		trigger = {
 			event_target:civwar_rebels = {
-				ruler = { has_leader_flag = civil_war_ruler_scientist }
 				has_country_flag = plan_rebel_country
+				ruler = { has_leader_flag = civil_war_ruler_scientist }
 			}
 		}
 	}
@@ -62,8 +61,8 @@ country_event = {
 		text = civcom.1000.newleader.plan.desc
 		trigger = {
 			event_target:civwar_rebels = {
-				ruler = { has_leader_flag = civil_war_ruler_new }
 				has_country_flag = plan_rebel_country
+				ruler = { has_leader_flag = civil_war_ruler_new }
 			}
 		}
 	}
@@ -72,14 +71,73 @@ country_event = {
 		text = civcom.1000.separatist.plan.desc
 		trigger = {
 			event_target:civwar_rebels = {
-				ruler = { has_leader_flag = civil_war_ruler_separatist }
 				has_country_flag = plan_rebel_country
+				ruler = { has_leader_flag = civil_war_ruler_separatist }
 			}
+		}
+	}
 
-			# has_country_flag = sep_plan_rebels_@event_target:civwar_rebels
-			# event_target:civwar_rebels.ruler = {
-			# 	has_leader_flag = civil_war_ruler_separatist
-			# }
+	desc = {
+		text = civcom.1000.slaves.plan.desc
+		trigger = {
+			event_target:civwar_rebels = { has_country_flag = plan_slave_rebel_country }
+		}
+	}
+
+	desc = {
+		text = civcom.1000.governor.sec.desc
+		trigger = {
+			event_target:civwar_rebels = {
+				has_country_flag = ethic_sec_rebels
+				ruler = { has_leader_flag = civil_war_ruler_governor }
+			}
+		}
+	}
+
+	desc = {
+		text = civcom.1000.admiral.sec.desc
+		trigger = {
+			event_target:civwar_rebels = {
+				has_country_flag = ethic_sec_rebels
+				ruler = { has_leader_flag = civil_war_ruler_admiral }
+			}
+		}
+	}
+
+	desc = {
+		text = civcom.1000.general.sec.desc
+		trigger = {
+			event_target:civwar_rebels = {
+				has_country_flag = ethic_sec_rebels
+				ruler = { has_leader_flag = civil_war_ruler_general }
+			}
+		}
+	}
+
+	desc = {
+		text = civcom.1000.scientist.sec.desc
+		trigger = {
+			event_target:civwar_rebels = {
+				has_country_flag = ethic_sec_rebels
+				ruler = { has_leader_flag = civil_war_ruler_scientist }
+			}
+		}
+	}
+
+	desc = {
+		text = civcom.1000.separatist.sec.desc
+		trigger = {
+			event_target:civwar_rebels = {
+				has_country_flag = sep_sec_rebels
+				ruler = { has_leader_flag = civil_war_ruler_separatist }
+			}
+		}
+	}
+
+	desc = {
+		text = civcom.1000.slaves.sec.desc
+		trigger = {
+			event_target:civwar_rebels = { has_country_flag = slave_rebel_country }
 		}
 	}
 
@@ -99,56 +157,6 @@ country_event = {
 			any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels.ruler = {
 				has_leader_flag = civil_war_ruler_nationalist
-			}
-		}
-	}
-
-	desc = {
-		text = civcom.1000.governor.sec.desc
-		trigger = {
-			has_country_flag = ethic_sec_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_governor
-			}
-		}
-	}
-
-	desc = {
-		text = civcom.1000.admiral.sec.desc
-		trigger = {
-			has_country_flag = ethic_sec_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_admiral
-			}
-		}
-	}
-
-	desc = {
-		text = civcom.1000.general.sec.desc
-		trigger = {
-			has_country_flag = ethic_sec_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_general
-			}
-		}
-	}
-
-	desc = {
-		text = civcom.1000.scientist.sec.desc
-		trigger = {
-			has_country_flag = ethic_sec_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_scientist
-			}
-		}
-	}
-
-	desc = {
-		text = civcom.1000.separatist.sec.desc
-		trigger = {
-			has_country_flag = sep_sec_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_separatist
 			}
 		}
 	}
@@ -284,9 +292,9 @@ country_event = {
 	desc = {
 		text = civcom.1005.governor.sec.desc
 		trigger = {
-			has_country_flag = ethic_sec_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_governor
+			event_target:civwar_rebels = {
+				has_country_flag = ethic_sec_rebels
+				ruler = { has_leader_flag = civil_war_ruler_governor }
 			}
 		}
 	}
@@ -294,9 +302,9 @@ country_event = {
 	desc = {
 		text = civcom.1005.admiral.sec.desc
 		trigger = {
-			has_country_flag = ethic_sec_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_admiral
+			event_target:civwar_rebels = {
+				has_country_flag = ethic_sec_rebels
+				ruler = { has_leader_flag = civil_war_ruler_admiral }
 			}
 		}
 	}
@@ -304,9 +312,9 @@ country_event = {
 	desc = {
 		text = civcom.1005.general.sec.desc
 		trigger = {
-			has_country_flag = ethic_sec_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_general
+			event_target:civwar_rebels = {
+				has_country_flag = ethic_sec_rebels
+				ruler = { has_leader_flag = civil_war_ruler_general }
 			}
 		}
 	}
@@ -314,9 +322,9 @@ country_event = {
 	desc = {
 		text = civcom.1005.scientist.sec.desc
 		trigger = {
-			has_country_flag = ethic_sec_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_scientist
+			event_target:civwar_rebels = {
+				has_country_flag = ethic_sec_rebels
+				ruler = { has_leader_flag = civil_war_ruler_scientist }
 			}
 		}
 	}
@@ -324,9 +332,9 @@ country_event = {
 	desc = {
 		text = civcom.1005.separatist.sec.desc
 		trigger = {
-			has_country_flag = sep_sec_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_separatist
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_separatist }
+				has_country_flag = sep_sec_rebels
 			}
 		}
 	}
@@ -334,9 +342,9 @@ country_event = {
 	desc = {
 		text = civcom.1005.nationalist.sec.desc
 		trigger = {
-			has_country_flag = nat_sec_rebels_@event_target:civwar_rebels
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_nationalist
+			event_target:civwar_rebels = {
+				ruler = { has_leader_flag = civil_war_ruler_nationalist }
+				has_country_flag = nat_sec_rebels_@event_target:civwar_rebels
 			}
 		}
 	}
@@ -562,7 +570,7 @@ country_event = {
 			NOT = { has_country_flag = rebs_help_eachother }
 			OR = {
 				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
+				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
 				NOT = { has_country_flag = exile_restored_country }
@@ -577,7 +585,7 @@ country_event = {
 			has_country_flag = rebs_help_eachother
 			OR = {
 				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
+				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
 				NOT = { has_country_flag = exile_restored_country }
@@ -592,7 +600,7 @@ country_event = {
 			NOT = { has_country_flag = rebs_help_eachother }
 			OR = {
 				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
+				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
@@ -608,7 +616,7 @@ country_event = {
 			has_country_flag = rebs_help_eachother
 			OR = {
 				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
+				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
@@ -624,7 +632,7 @@ country_event = {
 			NOT = { has_country_flag = rebs_help_eachother }
 			OR = {
 				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
+				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
 				is_imperial = yes
@@ -640,7 +648,7 @@ country_event = {
 			has_country_flag = rebs_help_eachother
 			OR = {
 				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
+				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
 				is_imperial = yes
@@ -832,7 +840,7 @@ country_event = {
 	desc = {
 		text = civcom.1105.nationalist.desc
 		trigger = {
-			event_target:nat_motherland_model = { NOT = { is_country_type = enclave_exiled_gov } }
+			event_target:nat_motherland_model = { is_exile_country = no }
 			event_target:civwar_rebels.ruler = {
 				has_leader_flag = civil_war_ruler_nationalist
 			}
@@ -842,7 +850,7 @@ country_event = {
 	desc = {
 		text = civcom.1105.nationalist.exile.reg.desc
 		trigger = {
-			event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
+			event_target:nat_motherland_model = { is_exile_country = yes }
 			event_target:civwar_rebels = {
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
 				is_imperial = no
@@ -853,7 +861,7 @@ country_event = {
 	desc = {
 		text = civcom.1105.nationalist.exile.imp.desc
 		trigger = {
-			event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov }
+			event_target:nat_motherland_model = { is_exile_country = yes }
 			event_target:civwar_rebels = {
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
 				is_imperial = yes
@@ -1122,6 +1130,10 @@ country_event = {
 			else_if = {
 				limit = { event_target:civwar_rebels = { has_country_flag = plan_rebel_country } }
 				get_declare_war_plan_rebellion = yes
+			}
+			else_if = {
+				limit = { event_target:civwar_rebels = { has_country_flag = sec_rebel_country } }
+				get_declare_war_sec_rebellion = yes
 			}
 			else_if = {
 				limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
@@ -2306,7 +2318,187 @@ country_event = {
 
 ###############
 
-### 5000 & 6000 Open
+### 5000 Open
+
+################
+#  Situations  #
+################
+
+# Faction Leader Discussion
+country_event = {
+	id = civcom.6000
+	title = civcom.6000.name
+	location = root.capital_scope
+	hide_window = no
+	is_triggered_only = yes
+
+	diplomatic = yes
+
+	desc = {
+		text = civcom.6000.corrupt.sector
+		trigger = {
+			event_target:mad_faction_leader = { has_trait = leader_trait_corrupt }
+			any_owned_sector = {
+				exists = leader
+				leader = { is_same_value = event_target:mad_faction_leader }
+			}
+		}
+	}
+
+	desc = {
+		text = civcom.6000.corrupt.unemployed
+		trigger = {
+			event_target:mad_faction_leader = { has_trait = leader_trait_corrupt }
+			NOT = {
+				any_owned_sector = {
+					exists = leader
+					leader = { is_same_value = event_target:mad_faction_leader }
+				}
+			}
+		}
+	}
+
+	desc = {
+		text = civcom.6000.normal
+		trigger = {
+			event_target:mad_faction_leader = {
+				NOT = { has_trait = leader_trait_corrupt }
+			}
+		}
+	}
+
+	picture_event_data = {
+		portrait = event_target:mad_faction_leader
+		planet_background = root.owner
+		graphical_culture = root.owner
+		city_level = root.owner
+		room = root.owner
+	}
+
+	#Discuss another matter (return to menu)
+	option = {
+		name = civcom.nevermind
+	}
+
+	# Corrupt - No Deal
+	option = {
+		name = civcom.6000.corrupt_no_deal
+		trigger = { event_target:mad_faction_leader = { has_trait = leader_trait_corrupt } }
+		hidden_effect = {
+			country_event = { id = civcom.6010 }
+		}
+	}
+
+	# Corrupt - Deal
+	option = {
+		name = civcom.6000.corrupt_deal
+		trigger = { event_target:mad_faction_leader = { has_trait = leader_trait_corrupt } }
+		hidden_effect = {
+			event_target:mad_faction_leader = { set_leader_flag = corrupt_fac_deal }
+			country_event = { id = civcom.6010 }
+		}
+	}
+
+	# More Faction Funding
+	option = {
+		name = civcom.6000.funding
+		hidden_effect = {
+			country_event = { id = civcom.6020 }
+		}
+	}
+
+	# Bribe leader
+	option = {
+		name = civcom.6000.bribe
+		hidden_effect = {
+			country_event = { id = civcom.6030 }
+		}
+	}
+
+	# Change in rulership - election/selection
+	option = {
+		name = civcom.6000.election
+		hidden_effect = {
+			country_event = { id = civcom.6040 }
+		}
+	}
+
+	# Make heir - imperial
+	option = {
+		name = civcom.6000.heir
+		hidden_effect = {
+			country_event = { id = civcom.6050 }
+		}
+	}
+}
+
+# Faction Corrupt Deal
+country_event = {
+	id = civcom.6010
+	title = civcom.6000.name
+	location = root.capital_scope
+	hide_window = no
+	is_triggered_only = yes
+
+	diplomatic = yes
+
+	desc = {
+		text = civcom.6010.sector.deal
+		trigger = {
+			event_target:mad_faction_leader = { has_leader_flag = corrupt_fac_deal }
+			any_owned_sector = {
+				exists = leader
+				leader = { is_same_value = event_target:mad_faction_leader }
+			}
+		}
+	}
+
+	desc = {
+		text = civcom.6010.unemployed.deal
+		trigger = {
+			event_target:mad_faction_leader = { has_leader_flag = corrupt_fac_deal }
+			NOT = {
+				any_owned_sector = {
+					exists = leader
+					leader = { is_same_value = event_target:mad_faction_leader }
+				}
+			}
+		}
+	}
+
+	desc = {
+		text = civcom.6010.no_deal
+		trigger = {
+			event_target:mad_faction_leader = { NOT = { has_leader_flag = corrupt_fac_deal } }
+		}
+	}
+
+	picture_event_data = {
+		portrait = event_target:mad_faction_leader
+		planet_background = root.owner
+		graphical_culture = root.owner
+		city_level = root.owner
+		room = root.owner
+	}
+
+	# Corrupt - No Deal
+	option = {
+		name = civcom.6010.corrupt_no_deal
+		trigger = { event_target:mad_faction_leader = { NOT = { has_leader_flag = corrupt_fac_deal } } }
+		hidden_effect = {
+			country_event = { id = civcom.6010 }
+		}
+	}
+
+	# Corrupt - Deal
+	option = {
+		name = civcom.6010.corrupt_deal
+		trigger = { event_target:mad_faction_leader = { has_leader_flag = corrupt_fac_deal } }
+		hidden_effect = {
+			country_event = { id = civcom.6010 }
+		}
+	}
+}
 
 ######################
 #  Traitor Captured  #
@@ -3145,9 +3337,9 @@ country_event = {
 	}
 }
 
-#######################
-# Government in Exile #
-#######################
+########################
+# Governments in Exile #
+########################
 
 # Country Destroyed - Seeking Host
 country_event = {
@@ -3189,12 +3381,10 @@ country_event = {
 			}
 
 			if = {
-				limit = { from = { NOT = { is_country_type = enclave_exiled_gov } } }
+				limit = { from = { NOT = { has_country_flag = switching_hosts } } }
 				create_exile_enclave_country = yes
-				log = "YES"
 			}
 			else = {
-				log = "NO"
 				from = { save_event_target_as = exile_new_host }
 				if = {
 					limit = { any_owned_planet = { NOT = { has_planet_flag = exiled_gov_host_planet } } }
@@ -3245,6 +3435,7 @@ country_event = {
 				}
 
 				event_target:exile_new_host = {
+					remove_country_flag = switching_hosts
 					random_owned_fleet = {
 						limit = { NOT = { is_same_value = event_target:new_capital_station } }
 						destroy_fleet = this
@@ -3255,7 +3446,7 @@ country_event = {
 	}
 }
 
-# Mercenary Enclave Greetings: Gatekeeper event
+# Exile Enclave Greetings: Gatekeeper event
 # Via on_custom_diplomacy | this = target country (player); from = country being contacted
 country_event = {
 	id = civcom.9005
@@ -3290,8 +3481,17 @@ country_event = {
 country_event = {
 	id = civcom.9100
 	title = civcom.9100.name
-	desc = civcom.9100.desc
 	is_triggered_only = yes
+
+	desc = {
+		text = civcom.9100.other.desc
+		trigger = { NOT = { event_target:exiled_gov_host = { is_same_empire = root } } }
+	}
+
+	desc = {
+		text = civcom.9100.host.desc
+		trigger = { event_target:exiled_gov_host = { is_same_empire = root } }
+	}
 
 	diplomatic = yes
 	custom_gui = "enclave_exiled_gov_window"
@@ -3310,7 +3510,7 @@ country_event = {
 					save_event_target_as = exiled_gov_enclave_system
 					if = {
 						limit = { exists = space_owner }
-						space_owner = { save_event_target_as = exiled_gov_patron }
+						space_owner = { save_event_target_as = exiled_gov_host }
 					}
 				}
 			}
@@ -3325,17 +3525,25 @@ country_event = {
 		default_hide_option = yes
 	}
 
+	# Give Land (Planet/Sector)
+	option = {
+		name = civcom.9100.land
+		trigger = {
+			NOT = { is_hostile = event_target:exiled_gov_enclave_country }
+			exists = event_target:exiled_gov_host
+		}
+		hidden_effect = {
+			country_event = { id = civcom.9200 }
+		}
+	}
+
 	# Host Panel
 	option = {
 		name = civcom.9100.host
-		custom_tooltip = mercenary_tt_patron
 		trigger = {
-			NOR = {
-				is_hostile = event_target:exiled_gov_enclave_country
-				#is_homicidal = yes
-			}
-			exists = event_target:exiled_gov_patron
-			event_target:exiled_gov_patron = { is_same_empire = root }
+			NOT = { is_hostile = event_target:exiled_gov_enclave_country }
+			exists = event_target:exiled_gov_host
+			event_target:exiled_gov_host = { is_same_empire = root }
 		}
 		hidden_effect = {
 			country_event = { id = civcom.9110 }
@@ -3370,11 +3578,10 @@ country_event = {
 	# Declare War on Behalf
 	option = {
 		name = civcom.9110.war
+		trigger = { # Still deciding whether to implement this
+			always = no
+		}
 		allow = {
-			custom_tooltip = {
-				fail_text = "Still Being Coded"
-				always = no # Still Coding
-			}
 			any_country = {
 				has_communications = root
 				is_country_type_with_subjects = yes
@@ -3566,6 +3773,563 @@ country_event = {
 		name = civcom.9130.terminate
 		hidden_effect = {
 			country_event = { id = civnat.1330 }
+		}
+	}
+}
+
+# Exile Enclave: Give Land
+# This = player country; event_target:exiled_gov_enclave_country = enclave country
+country_event = {
+	id = civcom.9200
+	base = civcom.9100
+	desc_clear = yes
+	option_clear = yes
+
+	desc = civcom.9200.desc
+
+	immediate = {
+		set_variable = { which = monthly_unity_prod value = 0 }
+
+		export_trigger_value_to_variable = {
+			trigger = resource_income_compare
+			parameters = { resource = unity }
+			variable = year_unity_prod
+			rounded = yes
+		}
+
+		set_variable = { which = two_year_unity_prod value = year_unity_prod }
+
+		multiply_variable = { which = year_unity_prod value = 12 }
+		multiply_variable = { which = two_year_unity_prod value = 24 }
+	}
+
+	#Discuss another matter (return to menu)
+	option = {
+		name = civcom.9100.back
+		hidden_effect = {
+			country_event = { id = civcom.9100 }
+		}
+	}
+
+	# Give them a planet
+	option = {
+		name = civcom.9200.planet
+		allow = {
+			custom_tooltip = {
+				fail_text = one_year_unity_fail_text
+				has_country_resource = { type = unity amount >= year_unity_prod }
+			}
+		}
+		hidden_effect = {
+			get_restoration_planets = yes
+			country_event = { id = civcom.9210 }
+		}
+	}
+
+	# Give them a Sector
+	option = {
+		name = civcom.9200.sector
+		allow = {
+			custom_tooltip = {
+				fail_text = two_year_unity_fail_text
+				has_country_resource = { type = unity amount >= two_year_unity_prod }
+			}
+		}
+		hidden_effect = {
+			get_restoration_sectors = yes
+			country_event = { id = civcom.9220 }
+		}
+	}
+}
+
+# Exile Enclave: Grant Planet
+# This = player country; event_target:exiled_gov_enclave_country = enclave country
+country_event = {
+	id = civcom.9210
+	base = civcom.9100
+	desc_clear = yes
+	option_clear = yes
+
+	desc = civcom.9210.desc
+
+	#Discuss another matter (return to menu)
+	option = {
+		name = civcom.9100.back
+		hidden_effect = {
+			country_event = { id = civcom.9100 }
+		}
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_1
+		trigger = { check_variable = { which = total_restoration_planets value >= 1 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_1 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_2
+		trigger = { check_variable = { which = total_restoration_planets value >= 2 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_2 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_3
+		trigger = { check_variable = { which = total_restoration_planets value >= 3 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_3 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_4
+		trigger = { check_variable = { which = total_restoration_planets value >= 4 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_4 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_5
+		trigger = { check_variable = { which = total_restoration_planets value >= 5 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_5 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_6
+		trigger = { check_variable = { which = total_restoration_planets value >= 6 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_6 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_7
+		trigger = { check_variable = { which = total_restoration_planets value >= 7 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_7 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_8
+		trigger = { check_variable = { which = total_restoration_planets value >= 8 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_8 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_9
+		trigger = { check_variable = { which = total_restoration_planets value >= 9 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_9 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_10
+		trigger = { check_variable = { which = total_restoration_planets value >= 10 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_10 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+	
+	option = {
+		name = civcom.9210.restoration_planet_11
+		trigger = { check_variable = { which = total_restoration_planets value >= 11 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_11 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_12
+		trigger = { check_variable = { which = total_restoration_planets value >= 12 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_12 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_13
+		trigger = { check_variable = { which = total_restoration_planets value >= 13 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_13 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_14
+		trigger = { check_variable = { which = total_restoration_planets value >= 14 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_14 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_15
+		trigger = { check_variable = { which = total_restoration_planets value >= 15 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_15 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_16
+		trigger = { check_variable = { which = total_restoration_planets value >= 16 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_16 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_17
+		trigger = { check_variable = { which = total_restoration_planets value >= 17 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_17 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_18
+		trigger = { check_variable = { which = total_restoration_planets value >= 18 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_18 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_19
+		trigger = { check_variable = { which = total_restoration_planets value >= 19 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_19 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9210.restoration_planet_20
+		trigger = { check_variable = { which = total_restoration_planets value >= 20 } }
+		add_resource = { unity = -1 mult = year_unity_prod }
+		hidden_effect = {
+			event_target:restoration_planet_20 = { exile_restore_planet_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	after = {
+		hidden_effect = {
+			clear_variable = year_unity_prod
+			clear_variable = two_year_unity_prod
+		}
+	}
+}
+
+# Exile Enclave: Grant sector
+# This = player country; event_target:exiled_gov_enclave_country = enclave country
+country_event = {
+	id = civcom.9220
+	base = civcom.9100
+	desc_clear = yes
+	option_clear = yes
+
+	desc = civcom.9220.desc
+
+	#Discuss another matter (return to menu)
+	option = {
+		name = civcom.9100.back
+		hidden_effect = {
+			country_event = { id = civcom.9100 }
+		}
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_1
+		trigger = { check_variable = { which = total_restoration_sectors value >= 1 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_1 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_2
+		trigger = { check_variable = { which = total_restoration_sectors value >= 2 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_2 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_3
+		trigger = { check_variable = { which = total_restoration_sectors value >= 3 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_3 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_4
+		trigger = { check_variable = { which = total_restoration_sectors value >= 4 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_4 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_5
+		trigger = { check_variable = { which = total_restoration_sectors value >= 5 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_5 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_6
+		trigger = { check_variable = { which = total_restoration_sectors value >= 6 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_6 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_7
+		trigger = { check_variable = { which = total_restoration_sectors value >= 7 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_7 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_8
+		trigger = { check_variable = { which = total_restoration_sectors value >= 8 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_8 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_9
+		trigger = { check_variable = { which = total_restoration_sectors value >= 9 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_9 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_10
+		trigger = { check_variable = { which = total_restoration_sectors value >= 10 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_10 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+	
+	option = {
+		name = civcom.9220.restoration_sector_11
+		trigger = { check_variable = { which = total_restoration_sectors value >= 11 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_11 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_12
+		trigger = { check_variable = { which = total_restoration_sectors value >= 12 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_12 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_13
+		trigger = { check_variable = { which = total_restoration_sectors value >= 13 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_13 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_14
+		trigger = { check_variable = { which = total_restoration_sectors value >= 14 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_14 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_15
+		trigger = { check_variable = { which = total_restoration_sectors value >= 15 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_15 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_16
+		trigger = { check_variable = { which = total_restoration_sectors value >= 16 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_16 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_17
+		trigger = { check_variable = { which = total_restoration_sectors value >= 17 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_17 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_18
+		trigger = { check_variable = { which = total_restoration_sectors value >= 18 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_18 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_19
+		trigger = { check_variable = { which = total_restoration_sectors value >= 19 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_19 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.9220.restoration_sector_20
+		trigger = { check_variable = { which = total_restoration_sectors value >= 20 } }
+		add_resource = { unity = -2 mult = year_unity_prod }
+		hidden_effect = {	
+			event_target:restoration_sector_20 = { exile_restore_sector_setup = yes }
+			exile_restoration_gen_effect = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	after = {
+		hidden_effect = {
+			clear_variable = year_unity_prod
+			clear_variable = two_year_unity_prod
 		}
 	}
 }

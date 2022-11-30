@@ -38,10 +38,32 @@ leader_event = {
 }
 
 country_event = {
-	id = civmisc.3000
+	id = civmisc.2100
 	hide_window = yes
 	is_triggered_only = yes
 
+	trigger = {
+		any_owned_leader = {
+			leader_class = civstrife_leader
+			leader_of_faction = no
+		}
+	}
+
+	immediate = {
+		every_owned_leader = {
+			limit = {
+				leader_class = civstrife_leader
+				leader_of_faction = no
+			}
+			kill_leader = { show_notification = no }
+		}
+	}
+}
+
+country_event = {
+	id = civmisc.3000
+	hide_window = yes
+	is_triggered_only = yes
 
 	immediate = {
 		export_trigger_value_to_variable = {
@@ -52,30 +74,6 @@ country_event = {
 		divide_variable = { which = Country_Birth_Date value = 360 }
 
 		change_variable = { which = Country_Birth_Date value = 2200 }
-	}
-}
-
-country_event = { # Test
-	id = civmisc.8000
-	hide_window = yes
-	is_triggered_only = yes
-
-	immediate = {
-		save_global_event_target_as = civwar_test_country
-	}
-}
-
-country_event = { # Test
-	id = civmisc.8010
-	hide_window = yes
-	is_triggered_only = yes
-
-	immediate = {
-		declare_war = {
-			target = event_target:civwar_test_country
-			name = "Test War"
-			attacker_war_goal = "wg_coup_independent"
-		}
 	}
 }
 

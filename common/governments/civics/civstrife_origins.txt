@@ -10,6 +10,7 @@ origin_civwar = {
 	}
 
 	modifier = {
+		planet_stability_add = 5
 		shipclass_military_build_cost_mult = -0.15
 		ships_upkeep_mult = -0.10
 		country_unity_produces_mult = 0.1
@@ -20,7 +21,7 @@ origin_civwar = {
 	}
 }
 
-origin_civ_rebellion = {
+origin_plan_rebellion = {
 	is_origin = yes
 	icon = "gfx/interface/icons/origins/origins_separatists.dds"
 
@@ -32,6 +33,7 @@ origin_civ_rebellion = {
 	}
 
 	modifier = {
+		planet_stability_add = 10
 		shipclass_military_build_cost_mult = -0.15
 		ships_upkeep_mult = -0.10
 		country_unity_produces_mult = 0.1
@@ -116,7 +118,52 @@ origin_exile_government = {
 	possible = {
 	}
 
+	random_weight = {
+		base = 0
+	}
+}
+
+origin_restored_government = {
+	is_origin = yes
+	icon = "gfx/interface/icons/origins/origins_narrow_escape.dds"
+
+	playable = {
+		always = no # Non-player origin
+	}
+
+	possible = {
+	}
+
 	modifier = {
+		envoys_add = 1
+		planet_stability_add = 5
+		country_unity_produces_mult = 0.15
+		country_war_exhaustion_mult = -0.2
+		planet_jobs_ruler_produces_mult = 0.05
+	}
+
+	random_weight = {
+		base = 0
+	}
+}
+
+origin_restored_successor_government = {
+	is_origin = yes
+	icon = "gfx/interface/icons/origins/origins_narrow_escape.dds"
+
+	playable = {
+		always = no # Non-player origin
+	}
+
+	possible = {
+	}
+
+	modifier = {
+		envoys_add = 1
+		planet_stability_add = 5
+		country_unity_produces_mult = 0.15
+		country_war_exhaustion_mult = -0.2
+		planet_jobs_ruler_produces_mult = 0.05
 	}
 
 	random_weight = {

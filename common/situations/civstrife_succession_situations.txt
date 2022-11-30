@@ -61,11 +61,11 @@ situation_civstrife_election = {
 	}
 
 	approach = {
-		name = approach_civstrife_election_do_nothing
+		name = approach_election_do_nothing
 		icon = GFX_situation_approach_scales
 		icon_background = GFX_situation_approach_bg_green
 		default = yes
-		allow = { NOT = { current_situation_approach = approach_civstrife_election_obstruct } }
+		allow = { NOT = { current_situation_approach = approach_election_obstruct } }
 		on_select = { custom_tooltip = election_nothing_tooltip }
 		resources = {
 			category = situations
@@ -84,7 +84,7 @@ situation_civstrife_election = {
 	}
 
 	approach = {
-		name = approach_civstrife_election_obstruct
+		name = approach_election_obstruct
 		icon = GFX_situation_approach_fist
 		icon_background = GFX_situation_approach_bg_yellow
 		default = yes
@@ -124,7 +124,7 @@ situation_civstrife_election = {
 		modifier = {
 			add = -5
 			desc = obstruction_hindering_investigation
-			current_situation_approach = approach_civstrife_election_obstruct
+			current_situation_approach = approach_election_obstruct
 		}
 	}
 }
@@ -191,11 +191,11 @@ situation_civstrife_selection = {
 	}
 
 	approach = {
-		name = approach_civstrife_election_do_nothing
+		name = approach_election_do_nothing
 		icon = GFX_situation_approach_scales
 		icon_background = GFX_situation_approach_bg_green
 		default = yes
-		allow = { NOT = { current_situation_approach = approach_civstrife_election_obstruct } }
+		allow = { NOT = { current_situation_approach = approach_election_obstruct } }
 		on_select = { custom_tooltip = election_nothing_tooltip }
 		resources = {
 			category = situations
@@ -214,7 +214,7 @@ situation_civstrife_selection = {
 	}
 
 	approach = {
-		name = approach_civstrife_election_obstruct
+		name = approach_election_obstruct
 		icon = GFX_situation_approach_fist
 		icon_background = GFX_situation_approach_bg_yellow
 		default = yes
@@ -254,7 +254,7 @@ situation_civstrife_selection = {
 		modifier = {
 			add = -5
 			desc = obstruction_hindering_investigation
-			current_situation_approach = approach_civstrife_election_obstruct
+			current_situation_approach = approach_election_obstruct
 		}
 	}
 }
@@ -344,11 +344,11 @@ situation_civstrife_succession = {
 	}
 
 	approach = {
-		name = approach_civstrife_succession_propaganda
+		name = approach_succession_propaganda
 		icon = GFX_situation_approach_influence
 		icon_background = GFX_situation_approach_bg_green
 		default = yes
-		allow = { NOT = { current_situation_approach = approach_civstrife_election_obstruct } }
+		allow = { NOT = { current_situation_approach = approach_election_obstruct } }
 		on_select = { custom_tooltip = succession_propaganda_tooltip }
 		resources = {
 			category = situations

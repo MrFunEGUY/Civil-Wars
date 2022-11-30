@@ -20,7 +20,7 @@ country_event = {
 		}
 		NOR = {
 			years_passed <= 20
-			has_ethic = ethic_gestalt_consciousness
+			is_gestalt = yes
 		}
 	}
 
@@ -569,7 +569,7 @@ situation_event = {
 		if = {
 			limit = {
 				has_situation_flag = corrupt_help
-				current_situation_approach = approach_civstrife_election_obstruct
+				current_situation_approach = approach_election_obstruct
 			}
 			random_list = {
 				80 = { set_situation_flag = found_nothing }
@@ -586,7 +586,7 @@ situation_event = {
 			}
 		}
 		else_if = {
-			limit = { current_situation_approach = approach_civstrife_election_obstruct }
+			limit = { current_situation_approach = approach_election_obstruct }
 			random_list = {
 				60 = { set_situation_flag = found_nothing }
 				30 = { set_situation_flag = found_truth }
@@ -755,7 +755,7 @@ situation_event = {
 				}
 			}
 			if = {
-				limit = { current_situation_approach = approach_civstrife_election_obstruct }
+				limit = { current_situation_approach = approach_election_obstruct }
 				random_list = {
 					75 = { }
 					25 = { set_situation_flag = dispute_party_wont_accept }
@@ -771,7 +771,7 @@ situation_event = {
 		else_if = {
 			limit = { has_situation_flag = found_inconclusive }
 			if = {
-				limit = { current_situation_approach = approach_civstrife_election_obstruct }
+				limit = { current_situation_approach = approach_election_obstruct }
 				random_list = {
 					60 = { }
 					40 = { set_situation_flag = dispute_party_wont_accept }

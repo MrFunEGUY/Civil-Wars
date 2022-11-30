@@ -18,8 +18,8 @@ country_event = { # Planetary Unrest counter on stability decrease and add separ
 	trigger = {
 		NOR = {
 			years_passed < 15
-			is_subject = yes
-			has_ethic = ethic_gestalt_consciousness
+			# is_subject = yes
+			is_gestalt = yes
 		}
 		OR = {
 			any_owned_planet = {
@@ -415,7 +415,7 @@ country_event = { # Planetary Calm counter on stability increase and remove sepa
 		NOR = {
 			years_passed < 15
 			is_subject = yes
-			# has_ethic = ethic_gestalt_consciousness
+			# is_gestalt = yes
 		}
 		any_owned_planet = { combined_planet_unrest_calm_check_gen = yes }
 	}
@@ -501,15 +501,15 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 			OR = {
 				AND = {
 					has_sector_flag = frontier_sector_@root
-					any_owned_planet = { NOT = { planet_stability <= 30 } }
+					NOT = { any_owned_planet = { planet_stability <= 30 } }
 				}
 				AND = {
 					has_sector_flag = integrated_sector_@root
-					any_owned_planet = { NOT = { planet_stability <= 25 } }
+					NOT = { any_owned_planet = { planet_stability <= 25 } }
 				}
 				AND = {
 					has_sector_flag = fundamental_sector_@root
-					any_owned_planet = { NOT = { planet_stability <= 20 } }
+					NOT = { any_owned_planet = { planet_stability <= 20 } }
 				}	
 			}
 		}
@@ -525,15 +525,15 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 					OR = {
 						AND = {
 							has_sector_flag = frontier_sector_@root
-							any_owned_planet = { NOT = { planet_stability <= 30 } }
+							NOT = { any_owned_planet = { planet_stability <= 30 } }
 						}
 						AND = {
 							has_sector_flag = integrated_sector_@root
-							any_owned_planet = { NOT = { planet_stability <= 25 } }
+							NOT = { any_owned_planet = { planet_stability <= 25 } }
 						}
 						AND = {
 							has_sector_flag = fundamental_sector_@root
-							any_owned_planet = { NOT = { planet_stability <= 20 } }
+							NOT = { any_owned_planet = { planet_stability <= 20 } }
 						}	
 					}
 				}
@@ -545,21 +545,15 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 					OR = {
 						AND = {
 							has_sector_flag = frontier_sector_@root
-							any_owned_planet = {
-								NOT = { planet_stability <= 30 }
-							}
+							NOT = { any_owned_planet = { planet_stability <= 30 } }
 						}
 						AND = {
 							has_sector_flag = integrated_sector_@root
-							any_owned_planet = {
-								NOT = { planet_stability <= 25 }
-							}
+							NOT = { any_owned_planet = { planet_stability <= 25 } }
 						}
 						AND = {
 							has_sector_flag = fundamental_sector_@root
-							any_owned_planet = {
-								NOT = { planet_stability <= 20 }
-							}
+							NOT = { any_owned_planet = { planet_stability <= 20 } }
 						}	
 					}
 				}
@@ -572,7 +566,7 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 					has_sector_flag = sector_sep_active
 					has_sector_flag = frontier_sector_@root
 					check_variable = { which = calm_tick value < 36 }
-					any_owned_planet = { NOT = { planet_stability <= 30 } }
+					NOT = { any_owned_planet = { planet_stability <= 30 } }
 				}
 			}
 			every_owned_sector = {
@@ -580,7 +574,7 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 					has_sector_flag = sector_sep_active
 					has_sector_flag = frontier_sector_@root
 					check_variable = { which = calm_tick value < 36 }
-					any_owned_planet = { NOT = { planet_stability <= 30 } }
+					NOT = { any_owned_planet = { planet_stability <= 30 } }
 				}
 				change_variable = { which = calm_tick value = 1 }
 			}
@@ -591,7 +585,7 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 					has_sector_flag = sector_sep_active
 					has_sector_flag = integrated_sector_@root
 					check_variable = { which = calm_tick value < 24 }
-					any_owned_planet = { NOT = { planet_stability <= 25 } }
+					NOT = { any_owned_planet = { planet_stability <= 25 } }
 				}
 			}
 			every_owned_sector = {
@@ -599,7 +593,7 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 					has_sector_flag = sector_sep_active
 					has_sector_flag = integrated_sector_@root
 					check_variable = { which = calm_tick value < 24 }
-					any_owned_planet = { NOT = { planet_stability <= 25 } }
+					NOT = { any_owned_planet = { planet_stability <= 25 } }
 				}
 				change_variable = { which = calm_tick value = 1 }
 			}
@@ -610,7 +604,7 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 					has_sector_flag = sector_sep_active
 					has_sector_flag = fundamental_sector_@root
 					check_variable = { which = calm_tick value < 12 }
-					any_owned_planet = { NOT = { planet_stability <= 20 } }
+					NOT = { any_owned_planet = { planet_stability <= 20 } }
 				}
 			}
 			every_owned_sector = {
@@ -618,7 +612,7 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 					has_sector_flag = sector_sep_active
 					has_sector_flag = fundamental_sector_@root
 					check_variable = { which = calm_tick value < 12 }
-					any_owned_planet = { NOT = { planet_stability <= 20 } }
+					NOT = { any_owned_planet = { planet_stability <= 20 } }
 				}
 				change_variable = { which = calm_tick value = 1 }
 			}
@@ -630,18 +624,18 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 					OR = {
 						AND = {
 							has_sector_flag = frontier_sector_@root
-							check_variable = { which = calm_tick value = 36 }
-							any_owned_planet = { NOT = { planet_stability <= 30 } }
+							check_variable = { which = calm_tick value >= 36 }
+							NOT = { any_owned_planet = { planet_stability <= 30 } }
 						}
 						AND = {
 							has_sector_flag = integrated_sector_@root
-							check_variable = { which = calm_tick value = 24 }
-							any_owned_planet = { NOT = { planet_stability <= 25 } }
+							check_variable = { which = calm_tick value >= 24 }
+							NOT = { any_owned_planet = { planet_stability <= 25 } }
 						}
 						AND = {
 							has_sector_flag = fundamental_sector_@root
-							check_variable = { which = calm_tick value = 12 }
-							any_owned_planet = { NOT = { planet_stability <= 20 } }
+							check_variable = { which = calm_tick value >= 12 }
+							NOT = { any_owned_planet = { planet_stability <= 20 } }
 						}	
 					}
 				}
@@ -652,18 +646,18 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 					OR = {
 						AND = {
 							has_sector_flag = frontier_sector_@root
-							check_variable = { which = calm_tick value = 36 }
-							any_owned_planet = { NOT = { planet_stability <= 30 } }
+							check_variable = { which = calm_tick value >= 36 }
+							NOT = { any_owned_planet = { planet_stability <= 30 } }
 						}
 						AND = {
 							has_sector_flag = integrated_sector_@root
-							check_variable = { which = calm_tick value = 24 }
-							any_owned_planet = { NOT = { planet_stability <= 25 } }
+							check_variable = { which = calm_tick value >= 24 }
+							NOT = { any_owned_planet = { planet_stability <= 25 } }
 						}
 						AND = {
 							has_sector_flag = fundamental_sector_@root
-							check_variable = { which = calm_tick value = 12 }
-							any_owned_planet = { NOT = { planet_stability <= 20 } }
+							check_variable = { which = calm_tick value >= 12 }
+							NOT = { any_owned_planet = { planet_stability <= 20 } }
 						}	
 					}
 				}
@@ -1488,7 +1482,7 @@ country_event = { # Create Separatists Corrupt Governor
 			if = {
 				limit = {
 					pop_percentage = {
-						percentage >= 0.25
+						percentage >= 0.35
 						limit = { has_pop_flag = sep_pop }
 						exclude = { can_think = no }
 					}
@@ -1502,7 +1496,7 @@ country_event = { # Create Separatists Corrupt Governor
 					}
 				}
 				random = {
-					chance = 15
+					chance = 5
 					owner = { country_event = { id = civsep.2215 days = 1 random = 359 } }
 				}
 			}
@@ -1515,7 +1509,7 @@ country_event = { # Create Separatists Corrupt Governor
 	}
 }
 
-planet_event = { # Create Separatists Corrupt Event
+planet_event = { # Create Separatists Corrupt Yearly Event
 	id = civsep.2210
 	hide_window = yes
 	is_triggered_only = yes
@@ -1532,6 +1526,11 @@ planet_event = { # Create Separatists Corrupt Event
 
 		set_variable = { which = num_sep_pops value = 0 }
 
+		every_owned_pop = {
+			limit = { has_pop_flag = sep_pop }
+			prev = { change_variable = { which = num_sep_pops value = 1 } }
+		}
+
 		if = {
 			limit = { check_variable = { which = num_sep_pops value = 0 } }
 			random_owned_pop = {
@@ -1546,8 +1545,8 @@ planet_event = { # Create Separatists Corrupt Event
 				random_owned_pop = {
 					limit = { pop_can_be_separatist_gen = yes }
 					random_list = {
-						75 = { }
-						25 = { set_pop_flag = sep_pop }
+						85 = { }
+						15 = { set_pop_flag = sep_pop }
 					}
 				}
 			}
@@ -1566,7 +1565,7 @@ country_event = { # Corrupt Governor Launch Rebellion Event
 			exists = leader
 			leader = { has_trait = leader_trait_corrupt }
 			pop_percentage = {
-				percentage >= 0.25
+				percentage >= 0.4
 				limit = { has_pop_flag = sep_pop }
 				exclude = { can_think = no }
 			}
@@ -1583,14 +1582,12 @@ country_event = { # Corrupt Governor Launch Rebellion Event
 
 	immediate = {
 
-		log = "TEST LOG ONE"
-
 		random_owned_sector = {
 			limit = {
 				exists = leader
 				leader = { has_trait = leader_trait_corrupt }
 				pop_percentage = {
-					percentage >= 0.25
+					percentage >= 0.4
 					limit = { has_pop_flag = sep_pop }
 					exclude = { can_think = no }
 				}
@@ -1623,7 +1620,7 @@ country_event = { # Corrupt Governor Launch Rebellion Event
 }
 
 #################
-# Sector Events
+# Sector Events #
 #################
 
 country_event = { # Sector Separatist Party Form Check
@@ -1845,8 +1842,9 @@ country_event = { # Start Isolated Sector Chains
 	}
 }
 
-###################
-# Situation Events
+####################
+# Situation Events #
+####################
 
 country_event = { # Check disapproving Factions every month
 	id = civsep.4000
@@ -1856,7 +1854,7 @@ country_event = { # Check disapproving Factions every month
 	trigger = {
 		is_country_type_with_subjects = yes
 		years_passed >= 15
-		NOT = { has_ethic = ethic_gestalt_consciousness }
+		is_gestalt = no
 		any_pop_faction = {
 			is_separatist_faction = yes
 			faction_approval < 0.20
@@ -1922,6 +1920,10 @@ situation_event = { # Spread Separatists Every Month
 	is_triggered_only = yes
 
 	trigger = {
+		OR = {
+			current_stage = reb_situation_2
+			situation_progress >= 80
+		}
 		target = {
 			any_owned_pop = {
 				planet = {
@@ -1943,7 +1945,7 @@ situation_event = { # Spread Separatists Every Month
 			}
 
 			if = {
-				limit = { root = { current_situation_approach = approach_civstrife_faction_pr } }
+				limit = { root = { current_situation_approach = approach_pr_campaign } }
 				random_list = {
 					50 = { multiply_variable = { which = maybe_seps value = 0.01 } }
 					30 = { multiply_variable = { which = maybe_seps value = 0.02 } }
@@ -1951,7 +1953,7 @@ situation_event = { # Spread Separatists Every Month
 				}
 			}
 			else_if = {
-				limit = { root = { current_situation_approach = approach_civstrife_faction_repression } }
+				limit = { root = { current_situation_approach = approach_faction_repression } }
 				random_list = {
 					70 = { multiply_variable = { which = maybe_seps value = 0.01 } }
 					30 = { multiply_variable = { which = maybe_seps value = 0.02 } }
@@ -2026,6 +2028,7 @@ situation_event = { # Planetary Revolt Initializer
 	is_triggered_only = yes
 
 	trigger = {
+		situation_progress >= 80
 		owner = {
 			any_owned_planet = {
 				is_under_colonization = no
@@ -2119,7 +2122,7 @@ situation_event = { # Planetary Revolt Event
 					}
 					owner = { get_systems_for_civwar = yes }
 					save_event_target_as = civil_war_planet
-					set_planet_flag = sep_planet_rebellion_@this
+					set_planet_flag = sep_planet_rebellion
 					set_timed_planet_flag = { flag = recent_sep_rebellion days = 720 }
 					save_event_target_as = rebellion_planet
 					get_separatist_war_leader = yes
@@ -2225,14 +2228,14 @@ situation_event = { # Sectoral Revolt Event
 							solar_system = { set_star_flag = civil_war_flip }
 							get_separatist_war_leader = yes
 							set_planet_flag = sep_sector_rebellion_@this
-							get_gen_plan_rebels = yes
+							get_sectoral_reb_number = yes
+							get_gen_sec_rebels = yes
 						}
 						set_sector_flag = sep_sector_rebellion_@event_target:civil_war_planet
 						save_event_target_as = sector_name_local
-						owner = { # Create a dummy leader to save the sector name for localisation
+						owner = { # Create a dummy leader to save the sector name for localisation, killed in comms cleanup
 							create_leader = {
 								class = civstrife_leader
-								# class = general
 								event_leader = yes
 								species = owner_main_species
 								name = random
@@ -2241,13 +2244,10 @@ situation_event = { # Sectoral Revolt Event
 										key = dummy_sector_leader
 										variable_string = "[event_target:sector_name_local.GetName]"
 									}
-									set_leader_flag = dummy_sector_leader_@event_target:civil_war_planet
-									set_leader_flag = dummy_sector_leader
 									set_leader_flag = dummy_leader
+									set_leader_flag = dummy_sector_leader
+									set_leader_flag = dummy_sector_leader_@event_target:civil_war_planet
 								}
-							}
-							last_created_leader = {
-								leader_event = { id = civmisc.2000 days = 180 }
 							}
 						}
 						root = { situation_event = { id = civsep.9030 } }
@@ -2562,6 +2562,80 @@ situation_event = { # Isolated Sector Leader Check
 	}
 }
 
+################
+# Slave Events #
+################
+
+situation_event = { # Slave Revolt Upkeep and Initializer
+	id = civsep.5000
+	hide_window = yes
+	is_triggered_only = yes
+
+
+	immediate = {
+
+		target = {
+			set_variable = { which = slave_sep_upkeep value = 0 }
+			every_owned_pop = {
+				limit = {
+					is_enslaved = yes
+					happiness < 60
+				}
+				prev = { change_variable = { which = slave_sep_upkeep value = 1 } }
+			}
+		}
+
+		if = {
+			limit = {
+				situation_progress >= 80
+				target = { NOT = { has_planet_flag = recent_slave_rebellion } }
+			}
+			random = {
+				chance = 5
+				situation_event = { id = civsep.5100 days = 1 random = 29 }
+			}
+		}
+	}
+}
+
+situation_event = { # Slave Revolt Event
+	id = civsep.5100
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		situation_progress >= 80
+		target = { NOT = { has_planet_flag = recent_slave_rebellion } }
+	}
+
+	immediate = {
+		target = {
+			set_variable = { which = fac_mil_support value = 0 }
+			random_owned_pop = {
+				limit = {
+					is_enslaved = yes
+					happiness < 60
+				}
+				save_event_target_as = leader_pop
+			}
+			every_owned_pop = {
+				limit = {
+					is_enslaved = yes
+					happiness < 60
+				}
+				prev = { change_variable = { which = fac_mil_support value = 1 } }
+			}
+			solar_system = {
+				set_star_flag = civil_war_flip
+				set_star_flag = civwar_planet
+			}
+			owner = { get_systems_for_civwar = yes }
+			get_plan_slave_rebels = yes
+			root = { situation_event = { id = civsep.9040 } }
+		}
+	}
+}
+
 ############
 # Messages #
 ############
@@ -2653,7 +2727,7 @@ situation_event = { # Planetary Separatists Strike
 	is_triggered_only = yes
 
 	option = {
-		name = civnat.9010.a
+		name = civcom.this_is_bad
 		ai_chance = { factor = 1 }
 	}
 }
@@ -2667,7 +2741,21 @@ situation_event = { # Sectoral Separatists Strike
 	is_triggered_only = yes
 
 	option = {
-		name = civnat.9010.a
+		name = civcom.this_is_bad
+		ai_chance = { factor = 1 }
+	}
+}
+
+situation_event = { # Slaves Strike
+	id = civsep.9040
+	picture = GFX_evt_open_revolt
+	title = civsep.9040.name
+	desc = civsep.9040.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = civcom.this_is_bad
 		ai_chance = { factor = 1 }
 	}
 }

@@ -26,6 +26,7 @@ country_event = {
 		OR = {
 			any_owned_leader = { has_leader_flag = leader_for_@FromFrom }
 			FromFrom = { has_planet_flag = balkan_war }
+			FromFrom = { has_planet_flag = slave_revolt }
 			FromFrom = { has_planet_flag = heir_planetary_rebellion }
 		}	
 	}
@@ -46,33 +47,16 @@ country_event = {
 
 		# get_rid_rebels_of = yes
 
+		# Planetary Rebellions
 		if = {
 			limit = { FromFrom = { has_planet_flag = ethic_planet_rebellion_@this } }
-			# set_country_flag = ethic_plan_rebels_@event_target:civwar_rebels
 			FromFrom = { remove_planet_flag = ethic_planet_rebellion_@this }
+			from = { set_country_flag = plan_rebel_country }
 		}
 		else_if = {
-			limit = { FromFrom = { has_planet_flag = ethic_sector_rebellion_@this } }
-			set_country_flag = ethic_sec_rebels_@event_target:civwar_rebels
-			FromFrom = { remove_planet_flag = ethic_sector_rebellion_@this }
-			random_owned_leader = {
-				limit = { has_leader_flag = dummy_sector_leader_@event_target:civwar_rebels.capital_scope }
-				save_global_event_target_as = sector_name_leader
-			}
-		}
-		else_if = {
-			limit = { FromFrom = { has_planet_flag = sep_planet_rebellion_@this } }
-			FromFrom = { remove_planet_flag = sep_planet_rebellion_@this }
-			# set_country_flag = sep_plan_rebels_@event_target:civwar_rebels
-		}
-		else_if = {
-			limit = { FromFrom = { has_planet_flag = sep_sector_rebellion_@this } }
-			FromFrom = { remove_planet_flag = sep_sector_rebellion_@this }
-			set_country_flag = sep_sec_rebels_@event_target:civwar_rebels
-			random_owned_leader = {
-				limit = { has_leader_flag = dummy_sector_leader_@event_target:civwar_rebels.capital_scope }
-				save_global_event_target_as = sector_name_leader
-			}
+			limit = { FromFrom = { has_planet_flag = sep_planet_rebellion } }
+			FromFrom = { remove_planet_flag = sep_planet_rebellion }
+			from = { set_country_flag = plan_rebel_country }
 		}
 		else_if = {
 			limit = { FromFrom = { has_planet_flag = nat_planet_rebellion_@this } }
@@ -80,18 +64,33 @@ country_event = {
 			set_country_flag = nat_plan_rebels_@event_target:civwar_rebels
 		}
 		else_if = {
-			limit = { FromFrom = { has_planet_flag = nat_sector_rebellion_@this } }
-			FromFrom = { remove_planet_flag = nat_sector_rebellion_@this }
-			set_country_flag = nat_sec_rebels_@event_target:civwar_rebels
-			random_owned_leader = {
-				limit = { has_leader_flag = dummy_sector_leader_@event_target:civwar_rebels.capital_scope }
-				save_global_event_target_as = sector_name_leader
-			}
-		}
-		else_if = {
 			limit = { FromFrom = { has_planet_flag = heir_planetary_rebellion } }
 			FromFrom = { remove_planet_flag = heir_planetary_rebellion }
-			set_country_flag = heir_rebel_country
+			from = { set_country_flag = heir_rebel_country }
+		}
+		else_if = {
+			limit = { FromFrom = { has_planet_flag = slave_revolt } }
+			FromFrom = { remove_planet_flag = slave_revolt }
+			from = { set_country_flag = plan_slave_rebel_country }
+		}
+		# Sectoral Rebellions
+		else_if = {
+			limit = { FromFrom = { has_planet_flag = ethic_sector_rebellion_@this } }
+			FromFrom = { remove_planet_flag = ethic_sector_rebellion_@this }
+			from = { set_country_flag = ethic_sec_rebels }
+			get_sector_name_leader = yes
+		}
+		else_if = {
+			limit = { FromFrom = { has_planet_flag = sep_sector_rebellion_@this } }
+			FromFrom = { remove_planet_flag = sep_sector_rebellion_@this }
+			from = { set_country_flag = sep_sec_rebels }
+			get_sector_name_leader = yes
+		}
+		else_if = {
+			limit = { FromFrom = { has_planet_flag = nat_sector_rebellion_@this } }
+			FromFrom = { remove_planet_flag = nat_sector_rebellion_@this }
+			from = { set_country_flag = nat_sec_rebels_@event_target:civwar_rebels }
+			get_sector_name_leader = yes
 		}
 
 		#####
@@ -134,14 +133,11 @@ country_event = {
 				save_event_target_as = nat_motherland_model
 			}
 			if = { # Query Motherland if possible
-				limit = { event_target:nat_motherland_model = { NOT = { is_country_type = enclave_exiled_gov } } }
+				limit = { event_target:nat_motherland_model = { is_exile_country = no } }
 				country_event = { id = civwar.2050 }
-				log = "NOT EXILE: [event_target:nat_motherland_model.GetName]"
 			}
-			else_if = { # If not second nat country and there is no queryable motherland, regular notification
-				limit = { event_target:nat_motherland_model = { is_country_type = enclave_exiled_gov } }
+			else = { # If not second nat country and there is no queryable motherland, regular notification
 				country_event = { id = civwar.2055 }
-				log = "EXILE: [event_target:nat_motherland_model.GetName]"
 			}
 		}
 		else_if = {
@@ -149,19 +145,22 @@ country_event = {
 			log = "4"
 			country_event = { id = civcom.3100 }
 		}
-		else = {
+		else_if = { # Purifiers and Slaves wont ask to become vassals
 			log = "5"
-			if = {
-				limit = { event_target:civwar_rebels = { is_homicidal = no } }
-				random_list = {
-					65 = { country_event = { id = civcom.1000 } }
-					35 = { country_event = { id = civcom.1005 } }
+			limit = {
+				OR = {
+					event_target:civwar_rebels = { is_homicidal = yes }
+					event_target:civwar_rebels = { has_country_flag = slave_rebel_country }
 				}
 			}
-			else = { # Purifiers wont ask for vassalization
-				country_event = { id = civcom.1000 }
+			country_event = { id = civcom.1000 }
+		}
+		else = {
+			log = "6"
+			random_list = {
+				65 = { country_event = { id = civcom.1000 } }
+				35 = { country_event = { id = civcom.1005 } }
 			}
-			
 		}
 	}
 
@@ -203,8 +202,8 @@ country_event = {
 				sector = { remove_sector_flag = ethic_sector_rebellion_@this }
 			}
 			else_if = {
-				limit = { has_planet_flag = sep_planet_rebellion_@this }
-				remove_planet_flag = sep_planet_rebellion_@this
+				limit = { has_planet_flag = sep_planet_rebellion }
+				remove_planet_flag = sep_planet_rebellion
 			}
 			else_if = {
 				limit = { has_planet_flag = sep_sector_rebellion_@this }
@@ -315,7 +314,7 @@ planet_event = {
 					has_planet_flag = small_civil_war
 					has_planet_flag = balkan_war
 					has_planet_flag = ethic_planet_rebellion_@this
-					has_planet_flag = sep_planet_rebellion_@this
+					has_planet_flag = sep_planet_rebellion
 					has_planet_flag = nat_planet_rebellion_@this
 				}
 			}
@@ -355,6 +354,16 @@ planet_event = {
 					chance = 35
 					root = { change_variable = { which = num_sep_pops value = 1 } }
 				}	
+			}
+		}
+		else_if = {
+			limit = { has_planet_flag = slave_revolt }
+			every_owned_pop = {
+				limit = {
+					is_enslaved = yes
+					happiness < 60
+				}
+				root = { change_variable = { which = num_sep_pops value = 1 } }	
 			}
 		}
 
@@ -481,7 +490,7 @@ planet_event = {
 	is_triggered_only = yes
 
 	option = {
-		name = civnat.9010.a
+		name = civcom.this_is_bad
 		ai_chance = { factor = 1 }
 	}
 }

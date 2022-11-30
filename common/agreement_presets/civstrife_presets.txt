@@ -80,6 +80,10 @@ preset_auto_state = {
 				key = subject_loyalty
 				value = subject_loyalty_effects
 			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
 			# ####
 			{
 				key = subject_ver_effects
@@ -99,7 +103,6 @@ preset_auto_state = {
 		base = 0
 	}
 }
-
 
 ##############
 # Overwrites #
@@ -141,6 +144,10 @@ preset_vassal = {
 				key = subject_loyalty
 				value = subject_loyalty_effects
 			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
 		}
 	}
 
@@ -148,13 +155,13 @@ preset_vassal = {
 		base = 100
 	}
 	subject_weight = {
-		base = 100
+		base = 25
 	}
 
 	potential = {
 		from = {
 			NOR = {
-				has_authority = auth_corporate
+				is_megacorp = yes
 				is_country_type = awakened_fallen_empire
 				has_civic = civic_inwards_perfection
 			}
@@ -209,6 +216,10 @@ preset_subsidiary = {
 				key = subject_loyalty
 				value = subject_loyalty_effects
 			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
 		}
 		resource_terms = {
 			{
@@ -223,12 +234,12 @@ preset_subsidiary = {
 	}
 
 	subject_weight = {
-		base = 90
+		base = 50
 	}
 
 	potential = {
 		NOT = { any_agreement = { agreement_preset = preset_auto_state } }
-		from = { has_authority = auth_corporate }
+		from = { is_megacorp = yes }
 		tech_unlocked_ratio = {
 			who = from
 			ratio >= @protectorate_tech_threshold
@@ -268,6 +279,10 @@ preset_protectorate = {
 				key = subject_loyalty
 				value = subject_loyalty_effects
 			}
+			{
+				key = protectorate
+				value = subject_is_protectorate
+			}
 		}
 	}
 
@@ -291,7 +306,7 @@ preset_protectorate = {
 		base = 200
 	}
 	subject_weight = {
-		base = 80
+		base = 50
 	}
 }
 
@@ -331,6 +346,10 @@ preset_tributary = {
 				key = subject_loyalty
 				value = subject_loyalty_effects
 			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
 		}
 		resource_terms = {
 			{
@@ -350,7 +369,7 @@ preset_tributary = {
 	potential = {
 		from = {
 			NOR = {
-				has_authority = auth_corporate
+				is_megacorp = yes
 				is_country_type = awakened_fallen_empire
 			}
 		}
@@ -404,6 +423,10 @@ preset_bulwark = {
 				key = subject_loyalty
 				value = subject_loyalty_effects
 			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
 		}
 	}
 
@@ -429,7 +452,7 @@ preset_bulwark = {
 	}
 
 	subject_weight = {
-		base =  @specialist_base_acceptance_value
+		base =  25
 		modifier = {
 			add = @specialist_aligned_ethics_value
 			is_militarist = yes
@@ -495,6 +518,10 @@ preset_scholarium = {
 				key = subject_loyalty
 				value = subject_loyalty_effects
 			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
 		}
 	}
 
@@ -516,7 +543,7 @@ preset_scholarium = {
 	}
 
 	subject_weight = {
-		base =  @specialist_base_acceptance_value
+		base =  @specialist_subject_base_acceptance_value
 		modifier = {
 			add = @specialist_aligned_ethics_value
 			is_materialist = yes
@@ -588,6 +615,10 @@ preset_prospectorium = {
 				key = subject_loyalty
 				value = subject_loyalty_effects
 			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
 		}
 	}
 
@@ -609,7 +640,7 @@ preset_prospectorium = {
 	}
 
 	subject_weight = {
-		base =  @specialist_base_acceptance_value
+		base =  @specialist_subject_base_acceptance_value
 		modifier = {
 			add = @specialist_aligned_ethics_value
 			is_pacifist = yes

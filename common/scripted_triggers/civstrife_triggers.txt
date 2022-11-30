@@ -875,6 +875,13 @@ is_nat_faction_allowed = {
 	# }
 }
 
+is_exile_country = {
+	OR = {
+		is_country_type = exile_country
+		is_country_type = enclave_exiled_gov
+	}
+}
+
 # For My Sanity
 
 get_sector_leader_test = {
@@ -950,10 +957,21 @@ is_faction_allowed = {
 			has_valid_civic = civic_parliamentary_system
 		}
 	}
-	NOT = { has_ethic = ethic_gestalt_consciousness }
+	is_gestalt = no
 	NOT = { has_country_flag = suppress_vanilla_factions }
 	# if = {
 	# 	limit = { is_regular_faction = yes }
 	# 	NOT = { has_country_flag = suppress_vanilla_factions }
 	# }
+}
+
+has_leader_upkeep = {
+	NOT = { leader_class = civstrife_leader }
+	exists = owner
+	OR = {
+		is_idle = yes
+		owner = {
+			NOT = { has_valid_civic = civic_feudal_realm }
+		}
+	}
 }
