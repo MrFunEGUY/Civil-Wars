@@ -20,6 +20,7 @@ planet_event = { ## Initial Event to create separatists from transferred planets
 
 	trigger = {
 		NOT = { has_modifier = planet_culture_shock }
+		exists = fromfrom
 		fromfrom = {
 			num_owned_planets > 0
 			is_country_type_with_subjects = yes
@@ -64,6 +65,7 @@ planet_event = { ## Initial Event to create separatists from destroyed countries
 
 	trigger = {
 		NOT = { has_modifier = planet_culture_shock }
+		exists = fromfrom
 		fromfrom = {
 			num_owned_planets = 0
 			is_country_type_with_subjects = yes
@@ -888,19 +890,6 @@ country_event = { # Hosted Gov In Exile restoration, on wg_restore_nation
 				set_owner = event_target:new_homeland
 				starbase = { set_owner = event_target:new_homeland }
 			}
-			every_system_within_border = {
-				limit = {
-					OR = {
-						has_star_flag = integrated_system_@root
-						has_star_flag = fundamental_system_@root
-					}
-				}
-				starbase = { set_owner = event_target:new_homeland }
-				every_system_planet = {
-					limit = { is_owned_by = event_target:restored_land_taken_from }
-					set_owner = event_target:new_homeland
-				}
-			}
 		}
 
 		event_target:new_homeland = {
@@ -1108,29 +1097,6 @@ country_event = { # Set Sector and System flags
 					has_planet_flag = fundamental_planet_@root
 				}
 			}
-			any_system_within_border = { # New Integrated Sector Systems
-				exists = sector
-				sector = { has_sector_flag = integrated_sector_@root }
-				NOT = { has_star_flag = integrated_system_@root }
-			}	
-			any_system_within_border = { # New Fundamental Sector Systems
-				exists = sector
-				sector = { has_sector_flag = fundamental_sector_@root }
-				NOT = { has_star_flag = fundamental_system_@root }
-			}
-			any_system_within_border = { # System Changed Sectors, should be rare
-				exists = sector
-				OR = {
-					AND = {
-						has_star_flag = integrated_system_@root
-						sector = { NOT = { has_sector_flag = integrated_sector_@root } }
-					}
-					AND = {
-						has_star_flag = fundamental_system_@root
-						sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
-					}
-				}
-			}
 			any_owned_planet = { # Planets Changed Sectors, should be rare
 				exists = sector
 				OR = {
@@ -1181,12 +1147,12 @@ country_event = { # Set Sector and System flags
 							}
 						}
 					}
-					every_owned_planet = { set_planet_flag = frontier_planet_@root }
 					set_sector_flag = frontier_sector_@root
+					every_owned_planet = { set_planet_flag = frontier_planet_@root }
 
-					every_system_within_border = { # Between 7 and 15 years to transform into an Integrated Sector
-						system_event = { id = civnat.2100 days = 2520 random = 5400 }
-					}	
+					# every_system_within_border = { # Between 7 and 15 years to transform into an Integrated Sector
+					# 	system_event = { id = civnat.2100 days = 2520 random = 5400 }
+					# }	
 				}
 				else_if = {
 					limit = { sector_capital = { has_planet_flag = frontier_planet_@root } }
@@ -1195,58 +1161,11 @@ country_event = { # Set Sector and System flags
 				else_if = {
 					limit = { sector_capital = { has_planet_flag = integrated_planet_@root } }
 					set_sector_flag = integrated_sector_@root
-					every_system_within_border = {
-						limit = { NOT = { has_star_flag = fundamental_system_@root } }
-						set_star_flag = integrated_system_@root
-					}
 				}
 				else_if = {
 					limit = { sector_capital = { has_planet_flag = fundamental_planet_@root } }
 					set_sector_flag = fundamental_sector_@root
-					every_system_within_border = {
-						if = {
-							limit = { has_star_flag = integrated_system_@root }
-							remove_star_flag = integrated_system_@root
-						}
-						set_star_flag = fundamental_system_@root
-					}
-					
 				}
-			}
-		}
-
-		if = { # For new systems in Integrated sector
-			limit = {
-				any_system_within_border = {
-					exists = sector
-					sector = { has_sector_flag = integrated_sector_@root }
-					NOT = { has_star_flag = integrated_system_@root }
-				}
-			}
-			every_system_within_border = {
-				limit = {
-					exists = sector
-					sector = { has_sector_flag = integrated_sector_@root }
-					NOT = { has_star_flag = integrated_system_@root }
-				}
-				set_star_flag = integrated_system_@root
-			}
-		}
-		if = { # For new systems in Fundamental sector
-			limit = {
-				any_system_within_border = {
-					exists = sector
-					sector = { has_sector_flag = fundamental_sector_@root }
-					NOT = { has_star_flag = fundamental_system_@root }
-				}
-			}
-			every_system_within_border = {
-				limit = {
-					exists = sector
-					sector = { has_sector_flag = fundamental_sector_@root }
-					NOT = { has_star_flag = fundamental_system_@root }
-				}
-				set_star_flag = fundamental_system_@root
 			}
 		}
 
@@ -1290,37 +1209,21 @@ country_event = { # Set Sector and System flags
 	}
 
 	after = {
-		if = {  # Planets Changed Sectors or Systems changed sectors, should be rare
+		if = {  # Planets Changed Sectors changed sectors
 			limit = {
-				OR = {
-					any_system_within_border = {
-						exists = sector
-						OR = {
-							AND = {
-								has_star_flag = integrated_system_@root
-								sector = { NOT = { has_sector_flag = integrated_sector_@root } }
-							}
-							AND = {
-								has_star_flag = fundamental_system_@root
-								sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
+				any_owned_planet = {
+					exists = sector
+					OR = {
+						AND = {
+							has_planet_flag = frontier_planet_@root
+							OR = {
+								sector = { has_sector_flag = integrated_sector_@root }
+								sector = { has_sector_flag = fundamental_sector_@root }
 							}
 						}
-					}
-					any_owned_planet = {
-						exists = sector
-						OR = {
-							AND = {
-								has_planet_flag = frontier_planet_@root
-								sector = { NOT = { has_sector_flag = frontier_sector_@root } }
-							}
-							AND = {
-								has_planet_flag = integrated_planet_@root
-								sector = { NOT = { has_sector_flag = integrated_sector_@root } }
-							}
-							AND = {
-								has_planet_flag = fundamental_planet_@root
-								sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
-							}
+						AND = {
+							has_planet_flag = integrated_planet_@root
+							sector = { has_sector_flag = fundamental_sector_@root }
 						}
 					}
 				}
@@ -1341,7 +1244,7 @@ country_event = { # Set Capital Sector as Fundamental on Game Start initializer
 	}
 
 	immediate = {
-		country_event = { id = civnat.2006 days = 360 } # Was getting issues with sectors existing yet
+		country_event = { id = civnat.2006 days = 270 } # Was getting issues with sectors existing yet
 	}
 }
 
@@ -1360,7 +1263,6 @@ country_event = { # Set Capital Sector as Fundamental after one year
 		capital_scope = {
 			set_planet_flag = fundamental_planet_@root
 			set_planet_flag = capital_planet_@root
-			solar_system = { set_star_flag = fundamental_system_@root }
 			if = {
 				limit = { exists = sector }
 				sector = {
@@ -1387,110 +1289,245 @@ country_event = { # Set Capital Sector as Fundamental after one year
 	}
 }
 
-system_event = { # Frontier Sector -> Integrated Sector
+planet_event = { # Set Planet Flag on Colonized
+	id = civnat.2010
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		owner = { is_country_type_with_subjects = yes }
+	}
+
+	immediate = {
+		if = {
+			limit = { exists = sector }
+			if = {
+				limit = { sector = { has_sector_flag = frontier_sector_@root.owner } }
+				set_planet_flag = frontier_planet_@root.owner
+				if = { # Between 7 and 15 years to transform into a Integrated Sector
+					limit = { sector = { NOT = { has_sector_flag = integrated_timer_set } } }
+					sector = { set_sector_flag = integrated_timer_set }
+					owner = { save_event_target_as = original_owner }
+					planet_event = { id = civnat.2015 days = 2520 random = 5400 }
+				}
+			}
+			else_if = {
+				limit = { sector = { has_sector_flag = integrated_sector_@root.owner } }
+				set_planet_flag = integrated_planet_@root.owner
+				if = { # Between 30 and 70 years to transform into a Fundamental Sector
+					limit = { sector = { NOT = { has_sector_flag = fundamental_timer_set } } }
+					sector = { set_sector_flag = fundamental_timer_set }
+					owner = { save_event_target_as = original_owner }
+					planet_event = { id = civnat.2020 days = 10800 random = 25200 }
+				}
+			}
+			else_if = {
+				limit = { sector = { has_sector_flag = fundamental_sector_@root.owner } }
+				set_planet_flag = fundamental_planet_@root.owner
+			}
+			else = {
+				sector = { set_sector_flag = frontier_sector_@root.owner }
+				set_planet_flag = frontier_planet_@root.owner
+			}
+		}
+		else = {
+			set_planet_flag = frontier_planet_@root.owner
+		}
+	}
+}
+
+planet_event = { # Frontier Planet + Sector -> Integrated Planet + Sector
+	id = civnat.2015
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		owner = { is_same_value = event_target:original_owner }
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				exists = sector
+				sector = { NOT = { has_sector_flag = integrated_sector_@root.owner } }
+				sector = { NOT = { has_sector_flag = fundamental_sector_@root.owner } }
+			}
+			if = {
+				limit = { sector = { has_sector_flag = frontier_sector_@root.owner } }
+				sector = { remove_sector_flag = frontier_sector_@root.owner }
+			}
+			set_planet_flag = integrated_planet_@root.owner
+			sector = {
+				remove_sector_flag = integrated_timer_set
+				set_sector_flag = integrated_sector_@root.owner
+				every_owned_planet = {
+					set_planet_flag = integrated_planet_@root.owner
+					if = {
+						limit = { has_planet_flag = frontier_planet_@root.owner }
+						remove_planet_flag = frontier_planet_@root.owner
+					}
+					if = {
+						limit = { has_planet_flag = fundamental_planet_@root.owner }
+						remove_planet_flag = fundamental_planet_@root.owner
+					}
+				}
+			}
+			owner = { save_event_target_as = original_owner }
+			
+			if = { # Between 30 and 70 years to transform into a Fundamental Sector
+				limit = { sector = { NOT = { has_sector_flag = fundamental_timer_set } } }
+				sector = { set_sector_flag = fundamental_timer_set }
+				planet_event = { id = civnat.2020 days = 10800 random = 25200 }
+			}
+		}
+		else_if = { # Sector deleted, try again in 6 months
+			limit = { NOT = { exists = sector } }
+			owner = { save_event_target_as = original_owner }
+			planet_event = { id = civnat.2015 days = 180 }
+		}
+	}
+}
+
+planet_event = { # Integrated Planet + Sector -> Fundamental Planet + Sector
+	id = civnat.2020
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		owner = { is_same_value = event_target:original_owner }
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				exists = sector
+				sector = { NOT = { has_sector_flag = frontier_sector_@root.owner } }
+				sector = { NOT = { has_sector_flag = fundamental_sector_@root.owner } }
+			}
+			if = {
+				limit = { sector = { has_sector_flag = integrated_sector_@root.owner } }
+				sector = { remove_sector_flag = integrated_sector_@root.owner }
+			}
+			set_planet_flag = fundamental_planet_@root.owner
+			sector = {
+				remove_sector_flag = fundamental_timer_set
+				set_sector_flag = fundamental_sector_@root.owner
+				every_owned_planet = {
+					set_planet_flag = fundamental_planet_@root.owner
+					if = {
+						limit = { has_planet_flag = frontier_planet_@root.owner }
+						remove_planet_flag = frontier_planet_@root.owner
+					}
+					if = {
+						limit = { has_planet_flag = integrated_planet_@root.owner }
+						remove_planet_flag = integrated_planet_@root.owner
+					}
+				}
+			}
+		}
+		else_if = { # Sector deleted, try again in 6 months
+			limit = { NOT = { exists = sector } }
+			owner = { save_event_target_as = original_owner }
+			planet_event = { id = civnat.2020 days = 180 }
+		}
+	}
+}
+
+#FromFrom = Former Owner (if any)
+#From = Country scope (new owner)
+#This = Planet scope
+planet_event = { # Get nat Flags when a planet changes owners
 	id = civnat.2100
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
-		exists = sector
-		sector.sector_capital = { # Check to make sure its the same as the original sector owner
-			has_planet_flag = frontier_planet_@root
+		exists = owner
+		owner = { is_country_type_with_subjects = yes }
+		NOR = {
+			has_planet_flag = frontier_planet_@root.owner
+			has_planet_flag = integrated_planet_@root.owner
+			has_planet_flag = fundamental_planet_@root.owner
 		}
 	}
 
 	immediate = {
-
-		sector = {
-			
-			remove_sector_flag = frontier_sector_@root
-			set_sector_flag = integrated_sector_@root
-			
-			every_owned_planet = {
-				set_planet_flag = integrated_planet_@root
+		if = {
+			limit = { exists = sector }
+			if = {
+				limit = { sector = { has_sector_flag = frontier_sector_@root.owner } }
+				set_planet_flag = frontier_planet_@root.owner
+			}
+			else_if = {
+				limit = { sector = { has_sector_flag = integrated_sector_@root.owner } }
+				set_planet_flag = integrated_planet_@root.owner
+			}
+			else_if = {
+				limit = { sector = { has_sector_flag = fundamental_sector_@root.owner } }
+				set_planet_flag = fundamental_planet_@root.owner
+			}
+			else = {
 				if = {
-					limit = { has_planet_flag = frontier_planet_@root }
-					remove_planet_flag = frontier_planet_@root
+					limit = { sector = { any_owned_planet = { has_planet_flag = fundamental_sector_@root.owner } } }
+					set_planet_flag = fundamental_planet_@root.owner
+					sector = { set_sector_flag = fundamental_sector_@root.owner }
+				}
+				else_if = {
+					limit = { sector = { any_owned_planet = { has_planet_flag = integrated_sector_@root.owner } } }
+					set_planet_flag = integrated_planet_@root.owner
+					sector = { set_sector_flag = integrated_sector_@root.owner }
+					
+				}
+				else = {
+					set_planet_flag = frontier_planet_@root.owner
+					sector = { set_sector_flag = frontier_sector_@root.owner }
 				}
 			}
-			every_system_within_border = { # Between 30 and 70 years to transform into a Fundamental Sector
-				system_event = { id = civnat.2200 days = 10800 random = 25200 }
-				set_star_flag = integrated_system_@root
+
+			if = {
+				limit = { sector = { has_sector_flag = frontier_sector_@root.owner } }
+				if = { # Between 7 and 15 years to transform into a Integrated Sector
+					limit = { sector = { NOT = { has_sector_flag = integrated_timer_set } } }
+					sector = { set_sector_flag = integrated_timer_set }
+					owner = { save_event_target_as = original_owner }
+					planet_event = { id = civnat.2015 days = 2520 random = 5400 }
+				}
 			}
+			else_if = {
+				limit = { sector = { has_sector_flag = integrated_sector_@root.owner } }
+				if = { # Between 30 and 70 years to transform into a Fundamental Sector
+					limit = { sector = { NOT = { has_sector_flag = fundamental_timer_set } } }
+					sector = { set_sector_flag = fundamental_timer_set }
+					owner = { save_event_target_as = original_owner }
+					planet_event = { id = civnat.2020 days = 10800 random = 25200 }
+				}
+			}
+		}
+		else = {
+			planet_event = { id = civnat.2100 days = 180 }
 		}
 	}
 }
 
-system_event = { # Integrated Sector -> Fundamental Sector
-	id = civnat.2200
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		exists = sector
-		sector.sector_capital = { # Check to make sure its the same as the original sector owner
-			has_planet_flag = integrated_planet_@root
-		}
-	}
-
-	immediate = {
-
-		sector = {
-			
-			remove_sector_flag = integrated_sector_@root
-			set_sector_flag = fundamental_sector_@root
-			
-			every_owned_planet = {
-				set_planet_flag = fundamental_planet_@root
-				if = {
-					limit = { has_planet_flag = integrated_planet_@root }
-					remove_planet_flag = integrated_planet_@root
-				}
-			}
-			every_system_within_border = {
-				limit = { has_star_flag = integrated_system_@root }
-				remove_star_flag = integrated_system_@root
-				set_star_flag = fundamental_system_@root
-			}
-		}
-	}
-}
-
-country_event = { # For planets and systems that have changed sectors, should be rare
+country_event = { # For planets that have changed sectors
 	id = civnat.2300
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
-		OR = {
-			any_system_within_border = {
-				exists = sector
-				OR = {
-					AND = {
-						has_star_flag = integrated_system_@root
-						sector = { NOT = { has_sector_flag = integrated_sector_@root } }
-					}
-					AND = {
-						has_star_flag = fundamental_system_@root
-						sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
+		any_owned_planet = {
+			exists = sector
+			OR = {
+				AND = {
+					has_planet_flag = frontier_planet_@root
+					OR = {
+						sector = { has_sector_flag = integrated_sector_@root }
+						sector = { has_sector_flag = fundamental_sector_@root }
 					}
 				}
-			}
-			any_owned_planet = {
-				exists = sector
-				OR = {
-					AND = {
-						has_planet_flag = frontier_planet_@root
-						sector = { NOT = { has_sector_flag = frontier_sector_@root } }
-					}
-					AND = {
-						has_planet_flag = integrated_planet_@root
-						sector = { NOT = { has_sector_flag = integrated_sector_@root } }
-					}
-					AND = {
-						has_planet_flag = fundamental_planet_@root
-						sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
-					}
+				AND = {
+					has_planet_flag = integrated_planet_@root
+					sector = { has_sector_flag = fundamental_sector_@root }
 				}
 			}
 		}
@@ -1498,55 +1535,120 @@ country_event = { # For planets and systems that have changed sectors, should be
 
 	immediate = {
 
-		every_system_within_border = {
+		if = {
 			limit = {
-				exists = sector
-				has_star_flag = integrated_system_@root
-				sector = { NOT = { has_sector_flag = integrated_sector_@root } }
+				any_owned_planet = {
+					exists = sector
+					has_planet_flag = frontier_planet_@root
+					OR = {
+						sector = { has_sector_flag = integrated_sector_@root }
+						sector = { has_sector_flag = fundamental_sector_@root }
+					}
+				}
 			}
-			if = {
-				limit = { sector = { has_sector_flag = fundamental_sector_@root } }
-				set_star_flag = fundamental_system_@root
+			every_owned_planet = {
+				limit = {
+					exists = sector
+					has_planet_flag = frontier_planet_@root
+					OR = {
+						sector = { has_sector_flag = integrated_sector_@root }
+						sector = { has_sector_flag = fundamental_sector_@root }
+					}
+				}
+				remove_planet_flag = frontier_planet_@root
+				if = {
+					limit = { sector = { has_sector_flag = integrated_sector_@root } }
+					set_planet_flag = integrated_planet_@root
+				}
+				else_if = {
+					limit = { sector = { has_sector_flag = fundamental_sector_@root } }
+					set_planet_flag = fundamental_planet_@root
+				}
 			}
-			remove_star_flag = integrated_system_@root
 		}
+		else_if = {
+			limit = {
+				any_owned_planet = {
+					exists = sector
+					has_planet_flag = integrated_planet_@root
+					sector = { has_sector_flag = fundamental_sector_@root }
+				}
+			}
+			every_owned_planet = {
+				limit = {
+					exists = sector
+					has_planet_flag = integrated_planet_@root
+					sector = { has_sector_flag = fundamental_sector_@root }
+				}
+				remove_planet_flag = integrated_planet_@root
+				set_planet_flag = fundamental_planet_@root
+			}
+		}
+	}
+}
 
-		every_system_within_border = {
-			limit = {
-				exists = sector
-				has_star_flag = fundamental_system_@root
-				sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
-			}
-			if = {
-				limit = { sector = { has_sector_flag = integrated_sector_@root } }
-				set_star_flag = integrated_system_@root
-			}
-			remove_star_flag = fundamental_system_@root
-		}
+planet_event = { # Get sector nat flag check every year
+	id = civnat.2310
+	hide_window = yes
+	is_triggered_only = yes
 
-		every_owned_planet = {
-			limit = {
-				exists = sector
-				has_planet_flag = frontier_planet_@root
-				sector = { NOT = { has_sector_flag = frontier_sector_@root } }
-			}
-			remove_planet_flag = frontier_planet_@root
+	trigger = {
+		exists = sector
+		is_sector_capital = yes
+		sector = {
+			NOT = { has_sector_flag = frontier_sector_@root.owner }
+			NOT = { has_sector_flag = integrated_sector_@root.owner }
+			NOT = { has_sector_flag = fundamental_sector_@root.owner }
 		}
-		every_owned_planet = {
-			limit = {
-				exists = sector
-				has_planet_flag = integrated_planet_@root
-				sector = { NOT = { has_sector_flag = integrated_sector_@root } }
+	}
+
+	immediate = {
+		if = {
+			limit = { sector = { any_owned_planet = { has_planet_flag = fundamental_planet_@root.owner } } }
+			if = {
+				limit = { NOT = { has_planet_flag = fundamental_planet_@root.owner } }
+				set_planet_flag = fundamental_planet_@root.owner
 			}
-			remove_planet_flag = integrated_planet_@root
+			sector = {
+				set_sector_flag = fundamental_sector_@root.owner
+				every_owned_planet = {
+					set_planet_flag = fundamental_planet_@root.owner
+					if = {
+						limit = { has_planet_flag = frontier_planet_@root.owner }
+						remove_planet_flag = frontier_planet_@root.owner
+					}
+					if = {
+						limit = { has_planet_flag = integrated_planet_@root.owner }
+						remove_planet_flag = integrated_planet_@root.owner
+					}
+				}
+			}
 		}
-		every_owned_planet = {
-			limit = {
-				exists = sector
-				has_planet_flag = fundamental_planet_@root
-				sector = { NOT = { has_sector_flag = fundamental_sector_@root } }
+		else_if = {
+			limit = { sector = { any_owned_planet = { has_planet_flag = integrated_planet_@root.owner } } }
+			if = {
+				limit = { NOT = { has_planet_flag = integrated_planet_@root.owner } }
+				set_planet_flag = integrated_planet_@root.owner
 			}
-			remove_planet_flag = fundamental_planet_@root
+			sector = {
+				set_sector_flag = integrated_sector_@root.owner
+				every_owned_planet = {
+					set_planet_flag = integrated_planet_@root.owner
+					if = {
+						limit = { has_planet_flag = frontier_planet_@root.owner }
+						remove_planet_flag = frontier_planet_@root.owner
+					}
+				}
+			}
+			
+			
+		}
+		else = {
+			sector = { set_sector_flag = frontier_sector_@root.owner }
+			if = {
+				limit = { NOT = { has_planet_flag = frontier_planet_@root.owner } }
+				set_planet_flag = frontier_planet_@root.owner
+			}
 		}
 	}
 }
@@ -2209,14 +2311,14 @@ country_event = { # Set new Separatist/Nationalist Faction Leader
 			}
 			owner = {
 				create_leader = {
-					class = civstrife_leader
+					class = ruler
 					species = event_target:nat_pop_species
 					name = random
 					leader_age_min = 25
 					leader_age_max = 55
 					traits = { trait = leader_trait_charismatic }
 					effect = {
-						set_leader_flag = nat_leader
+						set_leader_flag = sep_leader
 					}
 				}
 			}

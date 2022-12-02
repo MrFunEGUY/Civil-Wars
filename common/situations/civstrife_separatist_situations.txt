@@ -83,7 +83,6 @@ situation_civstrife_faction_sep_plan = {
 		name = approach_pr_campaign
 		icon = GFX_situation_approach_handshake
 		icon_background = GFX_situation_approach_bg_yellow
-		default = yes
 		on_select = { custom_tooltip = slowed_radical_tooltip }
 		resources = {
 			category = situations
@@ -106,7 +105,6 @@ situation_civstrife_faction_sep_plan = {
 		name = approach_faction_repression
 		icon = GFX_situation_approach_whip
 		icon_background = GFX_situation_approach_bg_yellow
-		default = yes
 		on_select = { custom_tooltip = slowed_radical_tooltip_2 }
 		resources = {
 			category = situations
@@ -141,11 +139,11 @@ situation_civstrife_faction_sep_plan = {
 	}
 
 	monthly_progress = {
-		base = 3
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -3
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 3
+			situation_progress < 80
 		}
 	}
 }
@@ -234,7 +232,6 @@ situation_civstrife_faction_sep_sec = {
 		name = approach_pr_campaign
 		icon = GFX_situation_approach_handshake
 		icon_background = GFX_situation_approach_bg_yellow
-		default = yes
 		on_select = { custom_tooltip = slowed_radical_tooltip }
 		resources = {
 			category = situations
@@ -257,7 +254,6 @@ situation_civstrife_faction_sep_sec = {
 		name = approach_faction_repression
 		icon = GFX_situation_approach_whip
 		icon_background = GFX_situation_approach_bg_yellow
-		default = yes
 		on_select = { custom_tooltip = slowed_radical_tooltip_2 }
 		resources = {
 			category = situations
@@ -292,11 +288,11 @@ situation_civstrife_faction_sep_sec = {
 	}
 
 	monthly_progress = {
-		base = 3
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -3
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 3
+			situation_progress < 80
 		}
 	}
 }
@@ -385,7 +381,6 @@ situation_civstrife_faction_iso_sep_sec = {
 		name = approach_pr_campaign
 		icon = GFX_situation_approach_handshake
 		icon_background = GFX_situation_approach_bg_yellow
-		default = yes
 		on_select = { custom_tooltip = slowed_radical_tooltip }
 		resources = {
 			category = situations
@@ -408,7 +403,6 @@ situation_civstrife_faction_iso_sep_sec = {
 		name = approach_faction_repression
 		icon = GFX_situation_approach_whip
 		icon_background = GFX_situation_approach_bg_yellow
-		default = yes
 		on_select = { custom_tooltip = slowed_radical_tooltip_2 }
 		resources = {
 			category = situations
@@ -443,10 +437,10 @@ situation_civstrife_faction_iso_sep_sec = {
 	}
 
 	monthly_progress = {
-		base = 2
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -2
+			desc = radicalisation_occurring
+			add = 2
 			situation_progress >= 80
 		}
 	}
@@ -498,6 +492,7 @@ situation_civstrife_sep_slaves = {
 		OR = {
 			NOT = { exists = target }
 			target = { is_capital = yes }
+			target = { planet_stability >= 60 }
 			target = { has_planet_flag = rebellion_suppressed }
 			target = {
 				pop_percentage = {
@@ -560,7 +555,6 @@ situation_civstrife_sep_slaves = {
 		name = approach_slave_repression
 		icon = GFX_situation_approach_whip
 		icon_background = GFX_situation_approach_bg_yellow
-		default = yes
 		resources = {
 			category = situations
 			upkeep = {
@@ -597,11 +591,11 @@ situation_civstrife_sep_slaves = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 		modifier = {
 			add = target.value:revolt_situation_low_stability_factor #0.2 for every point below 25 (so max 5)
@@ -721,7 +715,6 @@ situation_civstrife_faction_sep_nat = {
 		name = approach_pr_campaign
 		icon = GFX_situation_approach_handshake
 		icon_background = GFX_situation_approach_bg_yellow
-		default = yes
 		on_select = { custom_tooltip = slowed_radical_tooltip }
 		resources = {
 			category = situations
@@ -744,7 +737,6 @@ situation_civstrife_faction_sep_nat = {
 		name = approach_faction_repression
 		icon = GFX_situation_approach_whip
 		icon_background = GFX_situation_approach_bg_yellow
-		default = yes
 		on_select = { custom_tooltip = slowed_radical_tooltip_2 }
 		resources = {
 			category = situations
@@ -778,11 +770,11 @@ situation_civstrife_faction_sep_nat = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -884,7 +876,6 @@ situation_civstrife_faction_sep_ruler = {
 		name = approach_pr_campaign
 		icon = GFX_situation_approach_handshake
 		icon_background = GFX_situation_approach_bg_yellow
-		default = yes
 		on_select = { custom_tooltip = slowed_radical_tooltip }
 		resources = {
 			category = situations
@@ -907,7 +898,6 @@ situation_civstrife_faction_sep_ruler = {
 		name = approach_faction_repression
 		icon = GFX_situation_approach_whip
 		icon_background = GFX_situation_approach_bg_yellow
-		default = yes
 		on_select = { custom_tooltip = slowed_radical_tooltip_2 }
 		resources = {
 			category = situations
@@ -941,11 +931,11 @@ situation_civstrife_faction_sep_ruler = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }

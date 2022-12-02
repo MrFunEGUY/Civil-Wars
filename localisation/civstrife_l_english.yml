@@ -16,6 +16,10 @@
  civwar.2000.name: "§RSubject Requests Assistance!§!"
  civwar.2000.desc: "We're receiving an urgent distress call from our subject, the §H[civwar_originator.GetName]§!. It appears they may be experiencing a revolt of some kind."
 
+ # Inform Subject what happened
+ civwar.2005.name: "§RRebellion!§!"
+ civwar.2005.desc: "We're currently in the middle of a rebellion, and the rebels have taken some of our territory. Unfortunately, due to the nature of our agreement with the §Y[overlord.GetName]§!, it is ultimately up to them to decide whether or not we will fight for our territory."
+
  # Governor
  civwar.2010.name: "§RGovernor Declares Independence!§!"
  civwar.2010.desc: "Governor §H[civwar_rebels.Ruler.GetName]§! is demanding an audience."
@@ -418,11 +422,11 @@
 
  civcom.1105.nationalist.exile.imp.desc: "Greetings. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle] on a provisional basis§!.\n\nOur new state is modeled after §Your motherland§!, the original §Y[nat_motherland_model.GetName]§!, and I will relinquish power to our true leader, §Y[civwar_rebels.GetRulerTitle]§! §H[nat_motherland_model.ruler.GetName]§!, once our liberation is complete. In the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
 
- civcom.3100.norm.reg.desc: "Did you really think I would just stand by and let my birthright be stolen from me? During my time as heir, I made allies. There are many throughout the realm who support me. As such, I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
+ civcom.3100.norm.desc: "Did you really think I would just stand by and let my birthright be stolen from me? During my time as heir, I made allies. There are many throughout the realm who support me. As such, I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
 
  civcom.3100.ad.desc: "Did you really think I would just stand by and let you take what was promised to me? During my time as heir, I made allies. There are many throughout the realm who support me. As such, I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my what is rightfully mine."
 
-civcom.3100.norm.gov.desc: "The dismantling of the monarchy was treason. Did you really think I would just stand by and let my birthright be stolen from me? During my time as heir, I made allies. There are many throughout the realm who still support the monarchy. As such, I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
+ civcom.3100.norm.gov.desc: "The dismantling of the monarchy was treason. Did you really think I would just stand by and let my birthright be stolen from me? During my time as heir, I made allies. There are many throughout the realm who still support the monarchy. As such, I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
 
  civcom.3100.ad.gov.desc: "The dismantling of the monarchy was treason. Did you really think I would just stand by and let you take what was promised to me? During my time as heir, I made allies. There are many throughout the realm who stil support the monarchy. As such, I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my what is rightfully mine."
 
@@ -831,6 +835,7 @@ civcom.3100.norm.gov.desc: "The dismantling of the monarchy was treason. Did you
  civelect.2100.outraged.tooltip: "§H[owner.ruler.GetName]§! will be removed as §Y[owner.GetRulerTitle]§! the process for determining a new §Y[owner.GetRulerTitle]§! will take place."
  civelect.2100.unless: "I won't be the one leaving."
  civelect.2100.unless.tooltip: "The other faction leaders will be arrested, and §H[owner.ruler.GetName]§! will remain the §Y[owner.GetRulerTitle]§!."
+ civelect.2100.very_well: "Very Well."
 
  civelect.4000.name: "Separatist becomes [root.GetRulerTitle]"
  civelect.4000.plan.dem.desc: "With the last election stunningly resulting in §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! becoming §Y[root.GetRulerTitle]§!, they have promised to fulfill their campaign promise of having the §Y[ruler_sep_planet.GetName]§! secede from the §Y[root.GetName]§!."
@@ -1069,6 +1074,7 @@ civcom.3100.norm.gov.desc: "The dismantling of the monarchy was treason. Did you
  slave_situation_2_desc: "The slaves may erupt in rebellion at any moment."
 
  unsure_rebellion_timing: "We cannot be sure when a rebellion may take place, if at all."
+ radicalisation_occurring: "Radicalization is occurring."
 
  # Planetary Separatist Rebellion
  situation_civstrife_faction_sep_plan: "§P[Target.GetName]§!"

@@ -42,7 +42,7 @@ situation_civstrife_election = {
 			clear_variable = monthly_energy
 			clear_variable = monthly_unity
 		}
-		situation_event = { id = civelect.9000 }
+		owner = { country_event = { id = civelect.9000 } }
 	}
 
 	abort_trigger = {
@@ -87,7 +87,6 @@ situation_civstrife_election = {
 		name = approach_election_obstruct
 		icon = GFX_situation_approach_fist
 		icon_background = GFX_situation_approach_bg_yellow
-		default = yes
 		on_select = { custom_tooltip = election_obstruction_tooltip }
 		resources = {
 			category = situations
@@ -172,7 +171,7 @@ situation_civstrife_selection = {
 			clear_variable = monthly_energy
 			clear_variable = monthly_unity
 		}
-		situation_event = { id = civelect.9001 }
+		owner = { country_event = { id = civelect.9000 } }
 	}
 
 	abort_trigger = {
@@ -217,7 +216,6 @@ situation_civstrife_selection = {
 		name = approach_election_obstruct
 		icon = GFX_situation_approach_fist
 		icon_background = GFX_situation_approach_bg_yellow
-		default = yes
 		on_select = { custom_tooltip = election_obstruction_tooltip }
 		resources = {
 			category = situations

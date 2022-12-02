@@ -468,6 +468,20 @@ situation_event = { # Planetary Separatists Strike
 	}
 }
 
+country_event = { # Planetary Separatists Strike
+	id = civethic.9005
+	picture = GFX_evt_open_revolt
+	title = civsep.9020.name
+	desc = civsep.9020.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = civcom.this_is_bad
+		ai_chance = { factor = 1 }
+	}
+}
+
 situation_event = { # Sectoral Separatists Strike
 	id = civethic.9010
 	picture = GFX_evt_open_revolt

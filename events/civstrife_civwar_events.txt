@@ -258,19 +258,26 @@ country_event = { # Setup for Civil War
 			every_owned_fleet = { set_event_locked = no }
 
 			# Declare War
-			# Subject Civil War - Gov/General/Scientist
+			# Subject Civil War
 			if = {
 				limit = {
 					is_subject = yes
 					NOT = {
 						any_agreement = {
-							has_term_value = {
-								term = joins_subject_wars
-								value = joins_subject_wars_none
+							OR = {
+								has_term_value = {
+									term = joins_subject_wars
+									value = joins_subject_wars_none
+								}
+								has_term_value = {
+									term = joins_subject_wars
+									value = joins_subject_wars_offensive
+								}
 							}
 						}
 					}
 				}
+				country_event = { id = civwar.2005 }
 				overlord = { country_event = { id = civwar.2000 } }
 			}
 			# Governor
@@ -453,7 +460,7 @@ country_event = { # Setup for Planetary Rebellions
 			}
 		}
 		else_if = {
-			limit = { capital_scope = { has_planet_flag = ethic_sector_rebellion_@this } }
+			limit = { capital_scope = { has_planet_flag = ethic_sector_rebellion } }
 			capital_scope = { save_event_target_as = sector_capital_planet }
 			event_target:civwar_originator = {
 				random_owned_sector = {
@@ -467,7 +474,7 @@ country_event = { # Setup for Planetary Rebellions
 			}
 		}
 		else_if = {
-			limit = { capital_scope = { has_planet_flag = sep_sector_rebellion_@this } }
+			limit = { capital_scope = { has_planet_flag = sep_sector_rebellion } }
 			capital_scope = { save_event_target_as = sector_capital_planet }
 			event_target:civwar_originator = {
 				random_owned_sector = {
@@ -481,7 +488,7 @@ country_event = { # Setup for Planetary Rebellions
 			}
 		}
 		else_if = {
-			limit = { capital_scope = { has_planet_flag = nat_sector_rebellion_@this } }
+			limit = { capital_scope = { has_planet_flag = nat_sector_rebellion } }
 			capital_scope = { save_event_target_as = sector_capital_planet }
 			event_target:civwar_originator = {
 				random_owned_sector = {
@@ -612,6 +619,19 @@ country_event = { # Subject - Communications
 		hidden_effect = {
 			country_event = { id = civcom.1200 }
 		}
+	}
+}
+
+country_event = { # Subject - Informing them their overlord will decide
+	id = civwar.2005
+	picture = GFX_evt_civil_action
+	title = civwar.2005.name
+	desc = civwar.2005.desc
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = ON_SCREEN
 	}
 }
 
@@ -1582,7 +1602,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_heir_isolated } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_heir_isolated
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_heir_isolated
 			}
 		}
@@ -1590,7 +1609,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_governor_faction } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_governor_faction
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_governor
 			}
 		}
@@ -1598,7 +1616,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_governor_isolated } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_governor_isolated
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_governor_isolated
 			}
 		}
@@ -1606,7 +1623,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_governor_dispute } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_governor_dispute
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_governor_dispute
 			}
 		}
@@ -1614,7 +1630,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_admiral_faction } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_admiral_faction
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_admiral
 			}
 		}
@@ -1622,7 +1637,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_admiral_isolated } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_admiral_isolated
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_admiral_isolated
 			}
 		}
@@ -1630,7 +1644,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_admiral_dispute } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_admiral_dispute
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_admiral_dispute
 			}
 		}
@@ -1638,7 +1651,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_general_faction } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_general_faction
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_general
 			}
 		}
@@ -1646,7 +1658,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_general_isolated } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_general_isolated
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_general_isolated
 			}
 		}
@@ -1654,7 +1665,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_general_dispute } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_general_dispute
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_general_dispute
 			}
 		}
@@ -1662,7 +1672,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_scientist_faction } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_scientist_faction
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_scientist
 			}
 		}
@@ -1670,7 +1679,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_scientist_isolated } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_scientist_isolated
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_scientist_isolated
 			}
 		}
@@ -1678,7 +1686,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_scientist_dispute } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_scientist_dispute
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_scientist_dispute
 			}
 		}
@@ -1686,7 +1693,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_separatist_faction } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_separatist_faction
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_separatist
 			}
 		}
@@ -1694,7 +1700,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = civil_war_leader_nationalist_faction } }
 			ruler = {
 				remove_leader_flag = civil_war_leader_nationalist_faction
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_nationalist
 			}
 		}
@@ -1702,7 +1707,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = new_faction_ruler } }
 			ruler = {
 				remove_leader_flag = new_faction_ruler
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_new
 			}
 		}
@@ -1710,7 +1714,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = gen_iso_faction_leader } }
 			ruler = {
 				remove_leader_flag = gen_iso_faction_leader
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_new_isolated
 			}
 		}
@@ -1718,7 +1721,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = gov_changed_heir } }
 			ruler = {
 				remove_leader_flag = gov_changed_heir
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_heir_gov_changed
 			}
 		}
@@ -1727,7 +1729,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = appointed_heir } }
 			ruler = {
 				remove_leader_flag = appointed_heir
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_heir_disinherited
 				set_leader_flag = appointed_heir_ruler
 			}
@@ -1736,7 +1737,6 @@ country_event = { # Change leader flags to ruler flags
 			limit = { ruler = { has_leader_flag = true_born_heir } }
 			ruler = {
 				remove_leader_flag = true_born_heir
-				set_leader_flag = civil_war_ruler
 				set_leader_flag = civil_war_ruler_heir_true_born
 			}
 		}

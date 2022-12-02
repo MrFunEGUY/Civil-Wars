@@ -3,13 +3,11 @@
 situation_civstrife_faction_egal = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
 
 	on_start = {
-		add_situation_progress = 50
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -96,6 +94,8 @@ situation_civstrife_faction_egal = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -197,11 +197,11 @@ situation_civstrife_faction_egal = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -210,13 +210,11 @@ situation_civstrife_faction_egal = {
 situation_civstrife_faction_auth = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
 
 	on_start = {
-		add_situation_progress = 50
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -303,6 +301,8 @@ situation_civstrife_faction_auth = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -404,11 +404,11 @@ situation_civstrife_faction_auth = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -417,13 +417,11 @@ situation_civstrife_faction_auth = {
 situation_civstrife_faction_mil = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
 
 	on_start = {
-		add_situation_progress = 50
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -510,6 +508,8 @@ situation_civstrife_faction_mil = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -611,11 +611,11 @@ situation_civstrife_faction_mil = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -624,13 +624,11 @@ situation_civstrife_faction_mil = {
 situation_civstrife_faction_pac = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
 
 	on_start = {
-		add_situation_progress = 50
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -724,6 +722,8 @@ situation_civstrife_faction_pac = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -828,11 +828,11 @@ situation_civstrife_faction_pac = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -841,7 +841,6 @@ situation_civstrife_faction_pac = {
 situation_civstrife_faction_mat = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
@@ -933,6 +932,8 @@ situation_civstrife_faction_mat = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -1048,11 +1049,11 @@ situation_civstrife_faction_mat = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -1061,13 +1062,11 @@ situation_civstrife_faction_mat = {
 situation_civstrife_faction_spi = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
 
 	on_start = {
-		add_situation_progress = 50
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -1154,6 +1153,8 @@ situation_civstrife_faction_spi = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -1255,11 +1256,11 @@ situation_civstrife_faction_spi = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -1268,13 +1269,11 @@ situation_civstrife_faction_spi = {
 situation_civstrife_faction_phile = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
 
 	on_start = {
-		add_situation_progress = 50
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -1361,6 +1360,8 @@ situation_civstrife_faction_phile = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -1462,11 +1463,11 @@ situation_civstrife_faction_phile = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -1475,13 +1476,11 @@ situation_civstrife_faction_phile = {
 situation_civstrife_faction_phobe = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
 
 	on_start = {
-		add_situation_progress = 50
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -1568,6 +1567,8 @@ situation_civstrife_faction_phobe = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -1669,11 +1670,11 @@ situation_civstrife_faction_phobe = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -1682,13 +1683,11 @@ situation_civstrife_faction_phobe = {
 situation_civstrife_faction_soc = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
 
 	on_start = {
-		add_situation_progress = 50
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -1775,6 +1774,8 @@ situation_civstrife_faction_soc = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -1876,11 +1877,11 @@ situation_civstrife_faction_soc = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -1889,13 +1890,11 @@ situation_civstrife_faction_soc = {
 situation_civstrife_faction_cap = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
 
 	on_start = {
-		add_situation_progress = 50
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -1982,6 +1981,8 @@ situation_civstrife_faction_cap = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -2083,11 +2084,11 @@ situation_civstrife_faction_cap = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -2096,13 +2097,11 @@ situation_civstrife_faction_cap = {
 situation_civstrife_faction_indus = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
 
 	on_start = {
-		add_situation_progress = 50
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -2189,6 +2188,8 @@ situation_civstrife_faction_indus = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -2290,11 +2291,11 @@ situation_civstrife_faction_indus = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -2303,13 +2304,11 @@ situation_civstrife_faction_indus = {
 situation_civstrife_faction_eco = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
 
 	on_start = {
-		add_situation_progress = 50
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -2396,6 +2395,8 @@ situation_civstrife_faction_eco = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -2497,11 +2498,11 @@ situation_civstrife_faction_eco = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -2510,13 +2511,11 @@ situation_civstrife_faction_eco = {
 situation_civstrife_faction_elite = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
 
 	on_start = {
-		add_situation_progress = 50
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -2603,6 +2602,8 @@ situation_civstrife_faction_elite = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -2704,11 +2705,11 @@ situation_civstrife_faction_elite = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }
@@ -2717,13 +2718,11 @@ situation_civstrife_faction_elite = {
 situation_civstrife_faction_plur = {
 	picture = GFX_evt_civil_action
 	category = negative
-	start_value = 1
 
 	complete_icon = GFX_situation_outcome_revolt
 	complete_icon_frame = GFX_situation_outcome_frame_red
 
 	on_start = {
-		add_situation_progress = 50
 		target = {
 			set_variable = { which = num_sep_pops value = 0 }
 			set_variable = { which = sep_upkeep value = 0 }
@@ -2810,6 +2809,8 @@ situation_civstrife_faction_plur = {
 			}
 		}
 	}
+
+	start_value = 0
 
 	stages = {
 		reb_situation_1 = {
@@ -2911,11 +2912,11 @@ situation_civstrife_faction_plur = {
 	}
 
 	monthly_progress = {
-		base = 1
+		base = 0
 		modifier = {
-			desc = unsure_rebellion_timing
-			add = -1
-			situation_progress >= 80
+			desc = radicalisation_occurring
+			add = 1
+			situation_progress < 80
 		}
 	}
 }

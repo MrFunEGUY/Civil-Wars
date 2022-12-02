@@ -2227,7 +2227,7 @@ situation_event = { # Sectoral Revolt Event
 							save_event_target_as = civil_war_planet
 							solar_system = { set_star_flag = civil_war_flip }
 							get_separatist_war_leader = yes
-							set_planet_flag = sep_sector_rebellion_@this
+							set_planet_flag = sep_sector_rebellion
 							get_sectoral_reb_number = yes
 							get_gen_sec_rebels = yes
 						}
@@ -2235,7 +2235,7 @@ situation_event = { # Sectoral Revolt Event
 						save_event_target_as = sector_name_local
 						owner = { # Create a dummy leader to save the sector name for localisation, killed in comms cleanup
 							create_leader = {
-								class = civstrife_leader
+								class = ruler
 								event_leader = yes
 								species = owner_main_species
 								name = random
@@ -2295,7 +2295,7 @@ situation_event = { # Sectoral Revolt Event
 					}
 					owner = {
 						create_leader = {
-							class = civstrife_leader
+							class = ruler
 							species = event_target:civwar_species
 							name = random
 							skill = 5
@@ -2392,7 +2392,7 @@ situation_event = { # Sectoral Revolt Event
 				}
 
 				create_leader = {
-					class = civstrife_leader
+					class = ruler
 					event_leader = yes
 					species = owner_main_species
 					name = random
@@ -2541,7 +2541,7 @@ situation_event = { # Isolated Sector Leader Check
 			}
 			owner = {
 				create_leader = {
-					class = civstrife_leader
+					class = ruler
 					species = event_target:new_leader_species
 					name = random
 					skill = 5
@@ -2552,6 +2552,7 @@ situation_event = { # Isolated Sector Leader Check
 						trait = trait_ruler_deep_connections
 					}
 					effect = {
+						set_leader_flag = sep_leader
 						set_leader_flag = gen_iso_faction_leader
 						save_event_target_as = new_iso_faction_leader
 					}

@@ -3,41 +3,6 @@
 ### Civil Wars by MrFunEGUY ###
 ###############################
 
-
-#####################
-
-# Effect for tying heir's dummy country and mother country
-set_heir_country_flag = {
-		 if = { limit = { NOT = { exists = event_target:disinherited_heir_country_1 } } save_global_event_target_as = disinherited_heir_country_1 event_target:heir_mother_country.ruler = { set_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_1 } }
-	else_if = { limit = { NOT = { exists = event_target:disinherited_heir_country_2 } } save_global_event_target_as = disinherited_heir_country_2 event_target:heir_mother_country.ruler = { set_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_2 } }
-	else_if = { limit = { NOT = { exists = event_target:disinherited_heir_country_3 } } save_global_event_target_as = disinherited_heir_country_3 event_target:heir_mother_country.ruler = { set_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_3 } }
-	else_if = { limit = { NOT = { exists = event_target:disinherited_heir_country_4 } } save_global_event_target_as = disinherited_heir_country_4 event_target:heir_mother_country.ruler = { set_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_4 } }
-	else_if = { limit = { NOT = { exists = event_target:disinherited_heir_country_5 } } save_global_event_target_as = disinherited_heir_country_5 event_target:heir_mother_country.ruler = { set_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_5 } }
-	else_if = { limit = { NOT = { exists = event_target:disinherited_heir_country_6 } } save_global_event_target_as = disinherited_heir_country_6 event_target:heir_mother_country.ruler = { set_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_6 } }
-	else_if = { limit = { NOT = { exists = event_target:disinherited_heir_country_7 } } save_global_event_target_as = disinherited_heir_country_7 event_target:heir_mother_country.ruler = { set_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_7 } }
-	else_if = { limit = { NOT = { exists = event_target:disinherited_heir_country_8 } } save_global_event_target_as = disinherited_heir_country_8 event_target:heir_mother_country.ruler = { set_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_8 } }
-	else_if = { limit = { NOT = { exists = event_target:disinherited_heir_country_9 } } save_global_event_target_as = disinherited_heir_country_9 event_target:heir_mother_country.ruler = { set_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_9 } }
-	else_if = { limit = { NOT = { exists = event_target:disinherited_heir_country_10 } } save_global_event_target_as = disinherited_heir_country_10 event_target:heir_mother_country.ruler = { set_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_10 } }
-}
-
-# Effect for heir's dummy country and mother country
-get_heir_connection = {
-	from = {
-			 if = { limit = { has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_1 } event_target:disinherited_heir_country_1 = { save_event_target_as = heir_civil_war_dummy_country } }
-		else_if = { limit = { has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_2 } event_target:disinherited_heir_country_2 = { save_event_target_as = heir_civil_war_dummy_country } }
-		else_if = { limit = { has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_3 } event_target:disinherited_heir_country_3 = { save_event_target_as = heir_civil_war_dummy_country } }
-		else_if = { limit = { has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_4 } event_target:disinherited_heir_country_4 = { save_event_target_as = heir_civil_war_dummy_country } }
-		else_if = { limit = { has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_5 } event_target:disinherited_heir_country_5 = { save_event_target_as = heir_civil_war_dummy_country } }
-		else_if = { limit = { has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_6 } event_target:disinherited_heir_country_6 = { save_event_target_as = heir_civil_war_dummy_country } }
-		else_if = { limit = { has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_7 } event_target:disinherited_heir_country_7 = { save_event_target_as = heir_civil_war_dummy_country } }
-		else_if = { limit = { has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_8 } event_target:disinherited_heir_country_8 = { save_event_target_as = heir_civil_war_dummy_country } }
-		else_if = { limit = { has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_9 } event_target:disinherited_heir_country_9 = { save_event_target_as = heir_civil_war_dummy_country } }
-		else_if = { limit = { has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_10 } event_target:disinherited_heir_country_10 = { save_event_target_as = heir_civil_war_dummy_country } }
-	}
-}
-
-#####################
-
 # Set Installed Heir Setup
 set_installed_heir_gov = {
 	if = {
@@ -268,12 +233,12 @@ after_comms_cleanup_effect = {
 			remove_country_flag = sep_sec_rebels
 		}
 		else_if = {
-			limit = { has_country_flag = nat_plan_rebels_@event_target:civwar_rebels }
-			remove_country_flag = nat_plan_rebels_@event_target:civwar_rebels
+			limit = { has_country_flag = nat_plan_rebels }
+			remove_country_flag = nat_plan_rebels
 		}
 		else_if = {
-			limit = { has_country_flag = nat_sec_rebels_@event_target:civwar_rebels }
-			remove_country_flag = nat_sec_rebels_@event_target:civwar_rebels
+			limit = { has_country_flag = nat_sec_rebels }
+			remove_country_flag = nat_sec_rebels
 		}
 	}
 
@@ -384,7 +349,10 @@ after_comms_cleanup_effect = {
 		}
 	}
 	if = {
-		limit = { event_target:nat_motherland_model = { has_country_flag = motherland_will_join_@event_target:civwar_rebels } }
+		limit = {
+			exists = event_target:nat_motherland_model
+			event_target:nat_motherland_model = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
+		}
 		event_target:nat_motherland_model = {
 			remove_country_flag = motherland_will_join_@event_target:civwar_rebels
 			if = {
@@ -2482,7 +2450,7 @@ get_multi_sector_effect = {
 
 	if = {
 		limit = { check_variable = { which = total_reb_countries value > 1 } }
-		set_timed_country_flag { flag = rebs_help_eachother days = 180 }
+		set_timed_country_flag = { flag = rebs_help_eachother days = 180 }
 	}
 
 	every_owned_sector = {
@@ -2790,13 +2758,13 @@ get_sectoral_revolt_effect = {
 			solar_system = { set_star_flag = civil_war_flip }
 			if = {
 				limit = { root.target = { is_regular_faction = yes } }
-				set_planet_flag = ethic_sector_rebellion_@this
+				set_planet_flag = ethic_sector_rebellion
 				get_civil_war_leader = yes
 				get_ethic_plan_rebels = yes
 				sector = { set_sector_flag = ethic_sector_rebellion_@event_target:civil_war_planet }
 			}
 			else = {
-				set_planet_flag = nat_sector_rebellion_@this
+				set_planet_flag = nat_sector_rebellion
 				get_nationalist_war_leader = yes
 				get_nat_plan_rebels = yes
 				sector = { set_sector_flag = nat_sector_rebellion_@event_target:civil_war_planet }
@@ -2806,7 +2774,7 @@ get_sectoral_revolt_effect = {
 		
 		owner = { # Create a dummy leader to save the sector name for localisation
 			create_leader = {
-				class = civstrife_leader
+				class = ruler
 				event_leader = yes
 				species = owner_main_species
 				name = random
@@ -8268,7 +8236,7 @@ get_civil_war_leader = {
 		}
 		owner = {
 			create_leader = {
-				class = civstrife_leader
+				class = ruler
 				species = event_target:civwar_species
 				name = random
 				skill = 5
@@ -8374,7 +8342,7 @@ get_slave_war_leader = {
 # Create dummy party name leader
 create_party_name_leader = {
 	create_leader = {
-		class = civstrife_leader
+		class = ruler
 		event_leader = yes
 		species = owner_main_species
 		name = random
@@ -8625,9 +8593,7 @@ get_country_immediate_setup = {
 				limit = { has_fleet_flag = civil_war_fleet }
 				set_owner = root
 				if = { # If they are not in their seized territory, they stay as Admiral of their fleet
-					limit = {
-						solar_system.starbase = { is_owned_by = event_target:civwar_originator }
-					}
+					limit = { solar_system.starbase = { is_owned_by = event_target:civwar_originator } }
 					set_leader = root.ruler
 				}	
 			}
@@ -8762,14 +8728,14 @@ get_country_immediate_setup = {
 		set_female_ruler_title = "Khan"
 	}
 
-	if = {
-		limit {
-			event_target:civwar_originator = { has_country_flag = succession_mother_country }
-			has_country_flag = crisis_independent_@event_target:civwar_originator
-		}
-		# set_male_ruler_title = "Viceroy"
-		# set_female_ruler_title = "Viceroy"
-	}
+	# if = {
+	# 	limit {
+	# 		event_target:civwar_originator = { has_country_flag = succession_mother_country }
+	# 		has_country_flag = crisis_independent_@event_target:civwar_originator
+	# 	}
+	# 	set_male_ruler_title = "Viceroy"
+	# 	set_female_ruler_title = "Viceroy"
+	# }
 }
 
 get_country_after_setup = {
@@ -8881,6 +8847,7 @@ get_country_after_setup = {
 	}
 	if = {
 		limit = {
+			exists = event_target:civwar_party
 			event_target:civwar_party = { is_pop_faction_type = supremacist }
 			num_species = 1
 		}
@@ -10921,12 +10888,363 @@ get_iso_separatist_faction_sector = {
 	else_if = { limit = { NOT = { exists = event_target:sec_iso_separatist_30 } } save_global_event_target_as = sec_iso_separatist_30 }
 }
 
+####$$$$$$$
+
+# Defeated/Extinct Nations
+remove_nat_event_target = {
+		 if = { limit = { is_same_value = event_target:nat_separatist_1 } clear_global_event_target = nat_separatist_1 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_2 } clear_global_event_target = nat_separatist_2 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_3 } clear_global_event_target = nat_separatist_3 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_4 } clear_global_event_target = nat_separatist_4 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_5 } clear_global_event_target = nat_separatist_5 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_6 } clear_global_event_target = nat_separatist_6 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_7 } clear_global_event_target = nat_separatist_7 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_8 } clear_global_event_target = nat_separatist_8 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_9 } clear_global_event_target = nat_separatist_9 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_10 } clear_global_event_target = nat_separatist_10 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_11 } clear_global_event_target = nat_separatist_11 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_12 } clear_global_event_target = nat_separatist_12 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_13 } clear_global_event_target = nat_separatist_13 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_14 } clear_global_event_target = nat_separatist_14 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_15 } clear_global_event_target = nat_separatist_15 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_16 } clear_global_event_target = nat_separatist_16 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_17 } clear_global_event_target = nat_separatist_17 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_18 } clear_global_event_target = nat_separatist_18 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_19 } clear_global_event_target = nat_separatist_19 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_20 } clear_global_event_target = nat_separatist_20 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_21 } clear_global_event_target = nat_separatist_21 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_22 } clear_global_event_target = nat_separatist_22 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_23 } clear_global_event_target = nat_separatist_23 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_24 } clear_global_event_target = nat_separatist_24 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_25 } clear_global_event_target = nat_separatist_25 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_26 } clear_global_event_target = nat_separatist_26 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_27 } clear_global_event_target = nat_separatist_27 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_28 } clear_global_event_target = nat_separatist_28 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_29 } clear_global_event_target = nat_separatist_29 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_30 } clear_global_event_target = nat_separatist_30 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_31 } clear_global_event_target = nat_separatist_31 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_32 } clear_global_event_target = nat_separatist_32 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_33 } clear_global_event_target = nat_separatist_33 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_34 } clear_global_event_target = nat_separatist_34 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_35 } clear_global_event_target = nat_separatist_35 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_36 } clear_global_event_target = nat_separatist_36 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_37 } clear_global_event_target = nat_separatist_37 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_38 } clear_global_event_target = nat_separatist_38 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_39 } clear_global_event_target = nat_separatist_39 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_40 } clear_global_event_target = nat_separatist_40 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_41 } clear_global_event_target = nat_separatist_41 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_42 } clear_global_event_target = nat_separatist_42 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_43 } clear_global_event_target = nat_separatist_43 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_44 } clear_global_event_target = nat_separatist_44 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_45 } clear_global_event_target = nat_separatist_45 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_46 } clear_global_event_target = nat_separatist_46 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_47 } clear_global_event_target = nat_separatist_47 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_48 } clear_global_event_target = nat_separatist_48 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_49 } clear_global_event_target = nat_separatist_49 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_50 } clear_global_event_target = nat_separatist_50 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_51 } clear_global_event_target = nat_separatist_51 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_52 } clear_global_event_target = nat_separatist_52 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_53 } clear_global_event_target = nat_separatist_53 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_54 } clear_global_event_target = nat_separatist_54 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_55 } clear_global_event_target = nat_separatist_55 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_56 } clear_global_event_target = nat_separatist_56 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_57 } clear_global_event_target = nat_separatist_57 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_58 } clear_global_event_target = nat_separatist_58 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_59 } clear_global_event_target = nat_separatist_59 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_60 } clear_global_event_target = nat_separatist_60 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_61 } clear_global_event_target = nat_separatist_61 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_62 } clear_global_event_target = nat_separatist_62 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_63 } clear_global_event_target = nat_separatist_63 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_64 } clear_global_event_target = nat_separatist_64 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_65 } clear_global_event_target = nat_separatist_65 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_66 } clear_global_event_target = nat_separatist_66 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_67 } clear_global_event_target = nat_separatist_67 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_68 } clear_global_event_target = nat_separatist_68 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_69 } clear_global_event_target = nat_separatist_69 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_70 } clear_global_event_target = nat_separatist_70 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_71 } clear_global_event_target = nat_separatist_71 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_72 } clear_global_event_target = nat_separatist_72 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_73 } clear_global_event_target = nat_separatist_73 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_74 } clear_global_event_target = nat_separatist_74 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_75 } clear_global_event_target = nat_separatist_75 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_76 } clear_global_event_target = nat_separatist_76 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_77 } clear_global_event_target = nat_separatist_77 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_78 } clear_global_event_target = nat_separatist_78 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_79 } clear_global_event_target = nat_separatist_79 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_80 } clear_global_event_target = nat_separatist_80 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_81 } clear_global_event_target = nat_separatist_81 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_82 } clear_global_event_target = nat_separatist_82 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_83 } clear_global_event_target = nat_separatist_83 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_84 } clear_global_event_target = nat_separatist_84 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_85 } clear_global_event_target = nat_separatist_85 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_86 } clear_global_event_target = nat_separatist_86 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_87 } clear_global_event_target = nat_separatist_87 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_88 } clear_global_event_target = nat_separatist_88 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_89 } clear_global_event_target = nat_separatist_89 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_90 } clear_global_event_target = nat_separatist_90 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_91 } clear_global_event_target = nat_separatist_91 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_92 } clear_global_event_target = nat_separatist_92 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_93 } clear_global_event_target = nat_separatist_93 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_94 } clear_global_event_target = nat_separatist_94 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_95 } clear_global_event_target = nat_separatist_95 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_96 } clear_global_event_target = nat_separatist_96 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_97 } clear_global_event_target = nat_separatist_97 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_98 } clear_global_event_target = nat_separatist_98 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_99 } clear_global_event_target = nat_separatist_99 }
+	else_if = { limit = { is_same_value = event_target:nat_separatist_100 } clear_global_event_target = nat_separatist_100 }
+}
+
+# Get Separatist Faction for Planets, Generic
+remove_planet_event_target = {
+		 if = { limit = { is_same_value = event_target:plan_separatist_1 } clear_global_event_target = plan_separatist_1 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_2 } clear_global_event_target = plan_separatist_2 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_3 } clear_global_event_target = plan_separatist_3 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_4 } clear_global_event_target = plan_separatist_4 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_5 } clear_global_event_target = plan_separatist_5 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_6 } clear_global_event_target = plan_separatist_6 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_7 } clear_global_event_target = plan_separatist_7 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_8 } clear_global_event_target = plan_separatist_8 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_9 } clear_global_event_target = plan_separatist_9 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_10 } clear_global_event_target = plan_separatist_10 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_11 } clear_global_event_target = plan_separatist_11 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_12 } clear_global_event_target = plan_separatist_12 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_13 } clear_global_event_target = plan_separatist_13 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_14 } clear_global_event_target = plan_separatist_14 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_15 } clear_global_event_target = plan_separatist_15 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_16 } clear_global_event_target = plan_separatist_16 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_17 } clear_global_event_target = plan_separatist_17 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_18 } clear_global_event_target = plan_separatist_18 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_19 } clear_global_event_target = plan_separatist_19 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_20 } clear_global_event_target = plan_separatist_20 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_21 } clear_global_event_target = plan_separatist_21 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_22 } clear_global_event_target = plan_separatist_22 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_23 } clear_global_event_target = plan_separatist_23 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_24 } clear_global_event_target = plan_separatist_24 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_25 } clear_global_event_target = plan_separatist_25 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_26 } clear_global_event_target = plan_separatist_26 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_27 } clear_global_event_target = plan_separatist_27 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_28 } clear_global_event_target = plan_separatist_28 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_29 } clear_global_event_target = plan_separatist_29 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_30 } clear_global_event_target = plan_separatist_30 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_31 } clear_global_event_target = plan_separatist_31 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_32 } clear_global_event_target = plan_separatist_32 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_33 } clear_global_event_target = plan_separatist_33 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_34 } clear_global_event_target = plan_separatist_34 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_35 } clear_global_event_target = plan_separatist_35 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_36 } clear_global_event_target = plan_separatist_36 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_37 } clear_global_event_target = plan_separatist_37 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_38 } clear_global_event_target = plan_separatist_38 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_39 } clear_global_event_target = plan_separatist_39 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_40 } clear_global_event_target = plan_separatist_40 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_41 } clear_global_event_target = plan_separatist_41 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_42 } clear_global_event_target = plan_separatist_42 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_43 } clear_global_event_target = plan_separatist_43 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_44 } clear_global_event_target = plan_separatist_44 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_45 } clear_global_event_target = plan_separatist_45 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_46 } clear_global_event_target = plan_separatist_46 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_47 } clear_global_event_target = plan_separatist_47 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_48 } clear_global_event_target = plan_separatist_48 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_49 } clear_global_event_target = plan_separatist_49 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_50 } clear_global_event_target = plan_separatist_50 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_51 } clear_global_event_target = plan_separatist_51 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_52 } clear_global_event_target = plan_separatist_52 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_53 } clear_global_event_target = plan_separatist_53 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_54 } clear_global_event_target = plan_separatist_54 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_55 } clear_global_event_target = plan_separatist_55 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_56 } clear_global_event_target = plan_separatist_56 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_57 } clear_global_event_target = plan_separatist_57 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_58 } clear_global_event_target = plan_separatist_58 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_59 } clear_global_event_target = plan_separatist_59 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_60 } clear_global_event_target = plan_separatist_60 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_61 } clear_global_event_target = plan_separatist_61 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_62 } clear_global_event_target = plan_separatist_62 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_63 } clear_global_event_target = plan_separatist_63 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_64 } clear_global_event_target = plan_separatist_64 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_65 } clear_global_event_target = plan_separatist_65 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_66 } clear_global_event_target = plan_separatist_66 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_67 } clear_global_event_target = plan_separatist_67 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_68 } clear_global_event_target = plan_separatist_68 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_69 } clear_global_event_target = plan_separatist_69 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_70 } clear_global_event_target = plan_separatist_70 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_71 } clear_global_event_target = plan_separatist_71 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_72 } clear_global_event_target = plan_separatist_72 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_73 } clear_global_event_target = plan_separatist_73 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_74 } clear_global_event_target = plan_separatist_74 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_75 } clear_global_event_target = plan_separatist_75 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_76 } clear_global_event_target = plan_separatist_76 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_77 } clear_global_event_target = plan_separatist_77 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_78 } clear_global_event_target = plan_separatist_78 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_79 } clear_global_event_target = plan_separatist_79 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_80 } clear_global_event_target = plan_separatist_80 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_81 } clear_global_event_target = plan_separatist_81 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_82 } clear_global_event_target = plan_separatist_82 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_83 } clear_global_event_target = plan_separatist_83 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_84 } clear_global_event_target = plan_separatist_84 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_85 } clear_global_event_target = plan_separatist_85 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_86 } clear_global_event_target = plan_separatist_86 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_87 } clear_global_event_target = plan_separatist_87 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_88 } clear_global_event_target = plan_separatist_88 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_89 } clear_global_event_target = plan_separatist_89 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_90 } clear_global_event_target = plan_separatist_90 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_91 } clear_global_event_target = plan_separatist_91 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_92 } clear_global_event_target = plan_separatist_92 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_93 } clear_global_event_target = plan_separatist_93 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_94 } clear_global_event_target = plan_separatist_94 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_95 } clear_global_event_target = plan_separatist_95 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_96 } clear_global_event_target = plan_separatist_96 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_97 } clear_global_event_target = plan_separatist_97 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_98 } clear_global_event_target = plan_separatist_98 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_99 } clear_global_event_target = plan_separatist_99 }
+	else_if = { limit = { is_same_value = event_target:plan_separatist_100 } clear_global_event_target = plan_separatist_100 }
+}
+
+# Get Separatist Faction for Sectors
+remove_sector_event_target = {
+		 if = { limit = { is_same_value = event_target:sec_separatist_1 } clear_global_event_target = sec_separatist_1 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_2 } clear_global_event_target = sec_separatist_2 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_3 } clear_global_event_target = sec_separatist_3 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_4 } clear_global_event_target = sec_separatist_4 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_5 } clear_global_event_target = sec_separatist_5 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_6 } clear_global_event_target = sec_separatist_6 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_7 } clear_global_event_target = sec_separatist_7 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_8 } clear_global_event_target = sec_separatist_8 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_9 } clear_global_event_target = sec_separatist_9 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_10 } clear_global_event_target = sec_separatist_10 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_11 } clear_global_event_target = sec_separatist_11 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_12 } clear_global_event_target = sec_separatist_12 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_13 } clear_global_event_target = sec_separatist_13 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_14 } clear_global_event_target = sec_separatist_14 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_15 } clear_global_event_target = sec_separatist_15 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_16 } clear_global_event_target = sec_separatist_16 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_17 } clear_global_event_target = sec_separatist_17 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_18 } clear_global_event_target = sec_separatist_18 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_19 } clear_global_event_target = sec_separatist_19 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_20 } clear_global_event_target = sec_separatist_20 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_21 } clear_global_event_target = sec_separatist_21 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_22 } clear_global_event_target = sec_separatist_22 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_23 } clear_global_event_target = sec_separatist_23 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_24 } clear_global_event_target = sec_separatist_24 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_25 } clear_global_event_target = sec_separatist_25 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_26 } clear_global_event_target = sec_separatist_26 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_27 } clear_global_event_target = sec_separatist_27 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_28 } clear_global_event_target = sec_separatist_28 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_29 } clear_global_event_target = sec_separatist_29 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_30 } clear_global_event_target = sec_separatist_30 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_31 } clear_global_event_target = sec_separatist_31 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_32 } clear_global_event_target = sec_separatist_32 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_33 } clear_global_event_target = sec_separatist_33 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_34 } clear_global_event_target = sec_separatist_34 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_35 } clear_global_event_target = sec_separatist_35 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_36 } clear_global_event_target = sec_separatist_36 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_37 } clear_global_event_target = sec_separatist_37 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_38 } clear_global_event_target = sec_separatist_38 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_39 } clear_global_event_target = sec_separatist_39 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_40 } clear_global_event_target = sec_separatist_40 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_41 } clear_global_event_target = sec_separatist_41 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_42 } clear_global_event_target = sec_separatist_42 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_43 } clear_global_event_target = sec_separatist_43 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_44 } clear_global_event_target = sec_separatist_44 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_45 } clear_global_event_target = sec_separatist_45 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_46 } clear_global_event_target = sec_separatist_46 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_47 } clear_global_event_target = sec_separatist_47 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_48 } clear_global_event_target = sec_separatist_48 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_49 } clear_global_event_target = sec_separatist_49 }
+	else_if = { limit = { is_same_value = event_target:sec_separatist_50 } clear_global_event_target = sec_separatist_50 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_51 } clear_global_event_target = sec_separatist_51 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_52 } clear_global_event_target = sec_separatist_52 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_53 } clear_global_event_target = sec_separatist_53 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_54 } clear_global_event_target = sec_separatist_54 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_55 } clear_global_event_target = sec_separatist_55 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_56 } clear_global_event_target = sec_separatist_56 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_57 } clear_global_event_target = sec_separatist_57 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_58 } clear_global_event_target = sec_separatist_58 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_59 } clear_global_event_target = sec_separatist_59 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_60 } clear_global_event_target = sec_separatist_60 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_61 } clear_global_event_target = sec_separatist_61 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_62 } clear_global_event_target = sec_separatist_62 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_63 } clear_global_event_target = sec_separatist_63 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_64 } clear_global_event_target = sec_separatist_64 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_65 } clear_global_event_target = sec_separatist_65 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_66 } clear_global_event_target = sec_separatist_66 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_67 } clear_global_event_target = sec_separatist_67 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_68 } clear_global_event_target = sec_separatist_68 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_69 } clear_global_event_target = sec_separatist_69 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_70 } clear_global_event_target = sec_separatist_70 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_71 } clear_global_event_target = sec_separatist_71 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_72 } clear_global_event_target = sec_separatist_72 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_73 } clear_global_event_target = sec_separatist_73 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_74 } clear_global_event_target = sec_separatist_74 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_75 } clear_global_event_target = sec_separatist_75 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_76 } clear_global_event_target = sec_separatist_76 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_77 } clear_global_event_target = sec_separatist_77 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_78 } clear_global_event_target = sec_separatist_78 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_79 } clear_global_event_target = sec_separatist_79 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_80 } clear_global_event_target = sec_separatist_80 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_81 } clear_global_event_target = sec_separatist_81 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_82 } clear_global_event_target = sec_separatist_82 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_83 } clear_global_event_target = sec_separatist_83 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_84 } clear_global_event_target = sec_separatist_84 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_85 } clear_global_event_target = sec_separatist_85 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_86 } clear_global_event_target = sec_separatist_86 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_87 } clear_global_event_target = sec_separatist_87 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_88 } clear_global_event_target = sec_separatist_88 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_89 } clear_global_event_target = sec_separatist_89 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_90 } clear_global_event_target = sec_separatist_90 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_91 } clear_global_event_target = sec_separatist_91 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_92 } clear_global_event_target = sec_separatist_92 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_93 } clear_global_event_target = sec_separatist_93 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_94 } clear_global_event_target = sec_separatist_94 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_95 } clear_global_event_target = sec_separatist_95 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_96 } clear_global_event_target = sec_separatist_96 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_97 } clear_global_event_target = sec_separatist_97 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_98 } clear_global_event_target = sec_separatist_98 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_99 } clear_global_event_target = sec_separatist_99 }
+	# else_if = { limit = { is_same_value = event_target:sec_separatist_100 } clear_global_event_target = sec_separatist_100 }
+}
+
+# Get Isolationist Separatist Faction for Sectors
+remove_iso_sector_event_target = {
+	set_sector_flag = sector_sep_active
+		 if = { limit = { is_same_value = event_target:sec_iso_separatist_1 } clear_global_event_target = sec_iso_separatist_1 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_2 } clear_global_event_target = sec_iso_separatist_2 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_3 } clear_global_event_target = sec_iso_separatist_3 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_4 } clear_global_event_target = sec_iso_separatist_4 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_5 } clear_global_event_target = sec_iso_separatist_5 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_6 } clear_global_event_target = sec_iso_separatist_6 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_7 } clear_global_event_target = sec_iso_separatist_7 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_8 } clear_global_event_target = sec_iso_separatist_8 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_9 } clear_global_event_target = sec_iso_separatist_9 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_10 } clear_global_event_target = sec_iso_separatist_10 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_11 } clear_global_event_target = sec_iso_separatist_11 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_12 } clear_global_event_target = sec_iso_separatist_12 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_13 } clear_global_event_target = sec_iso_separatist_13 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_14 } clear_global_event_target = sec_iso_separatist_14 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_15 } clear_global_event_target = sec_iso_separatist_15 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_16 } clear_global_event_target = sec_iso_separatist_16 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_17 } clear_global_event_target = sec_iso_separatist_17 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_18 } clear_global_event_target = sec_iso_separatist_18 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_19 } clear_global_event_target = sec_iso_separatist_19 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_20 } clear_global_event_target = sec_iso_separatist_20 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_21 } clear_global_event_target = sec_iso_separatist_21 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_22 } clear_global_event_target = sec_iso_separatist_22 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_23 } clear_global_event_target = sec_iso_separatist_23 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_24 } clear_global_event_target = sec_iso_separatist_24 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_25 } clear_global_event_target = sec_iso_separatist_25 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_26 } clear_global_event_target = sec_iso_separatist_26 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_27 } clear_global_event_target = sec_iso_separatist_27 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_28 } clear_global_event_target = sec_iso_separatist_28 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_29 } clear_global_event_target = sec_iso_separatist_29 }
+	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_30 } clear_global_event_target = sec_iso_separatist_30 }
+}
+
+####$$$$$$$
+
 nat_faction_first_effect = {
 	set_pop_faction_flag = nat_faction
 	set_pop_faction_flag = nat_faction_@event_target:nat_country_loc
 	owner = {
 		create_leader = {
-			class = civstrife_leader
+			class = ruler
 			event_leader = yes
 			species = owner_main_species
 			name = "Dummy Leader"
@@ -10953,7 +11271,7 @@ nat_faction_second_effect = {
 	}
 	owner = {
 		create_leader = {
-			class = civstrife_leader
+			class = ruler
 			species = event_target:nat_pop_species
 			name = random
 			leader_age_min = 25
@@ -10968,15 +11286,15 @@ nat_faction_second_effect = {
 	pop_faction_event = { id = civnat.9000 }
 }
 
-nat_faction_destroy_effect = {
-	leader = { kill_leader = { show_notification = no } }
-}
+# faction_kill_leader_effect = {
+# 	root.leader = { kill_leader = { show_notification = no } }
+# }
 
 plan_faction_first_effect = {
 	set_pop_faction_flag = plan_faction
 	owner = {
 		create_leader = {
-			class = civstrife_leader
+			class = ruler
 			event_leader = yes
 			species = owner_main_species
 			name = "Dummy Leader"
@@ -11001,20 +11319,20 @@ plan_faction_second_effect = {
 	random_owned_pop = {
 		species = { save_global_event_target_as = nat_pop_species }
 	}
-	owner = {
-		create_leader = {
-			class = civstrife_leader
-			species = event_target:nat_pop_species
-			name = random
-			leader_age_min = 25
-			leader_age_max = 55
-			traits = { trait = leader_trait_charismatic }
-			effect = {
-				set_leader_flag = sep_leader
-			}
-		}
-	}
-	set_leader = last_created_leader
+	# owner = {
+	# 	create_leader = {
+	# 		class = ruler
+	# 		species = event_target:nat_pop_species
+	# 		name = random
+	# 		leader_age_min = 25
+	# 		leader_age_max = 55
+	# 		traits = { trait = leader_trait_charismatic }
+	# 		effect = {
+	# 			set_leader_flag = sep_leader
+	# 		}
+	# 	}
+	# }
+	# set_leader = last_created_leader
 	pop_faction_event = { id = civsep.9000 }
 }
 
@@ -11029,7 +11347,7 @@ sector_faction_first_effect = {
 	set_pop_faction_flag = sector_faction_@event_target:nat_country_loc
 	owner = {
 		create_leader = {
-			class = civstrife_leader
+			class = ruler
 			event_leader = yes
 			species = owner_main_species
 			name = "Dummy Leader"
@@ -11056,20 +11374,20 @@ sector_faction_second_effect = {
 	}
 	if = {
 		limit = { is_iso_sector_separatist_faction = no }
-		owner = {
-			create_leader = {
-				class = civstrife_leader
-				species = event_target:nat_pop_species
-				name = random
-				leader_age_min = 25
-				leader_age_max = 55
-				traits = { trait = leader_trait_charismatic }
-				effect = {
-					set_leader_flag = sep_leader
-				}
-			}
-		}
-		set_leader = last_created_leader
+		# owner = {
+		# 	create_leader = {
+		# 		class = ruler
+		# 		species = event_target:nat_pop_species
+		# 		name = random
+		# 		leader_age_min = 25
+		# 		leader_age_max = 55
+		# 		traits = { trait = leader_trait_charismatic }
+		# 		effect = {
+		# 			set_leader_flag = sep_leader
+		# 		}
+		# 	}
+		# }
+		# set_leader = last_created_leader
 		pop_faction_event = { id = civsep.9010 }
 	}
 	else = {
@@ -12702,14 +13020,32 @@ exile_restoration_gen_effect = {
 					limit = { is_under_colonization = no }
 				}
 			}
+			every_owned_planet = {
+				limit = {
+					is_under_colonization = no
+					habitability = { who = owner_main_species value >= 0 }
+				}
+				export_trigger_value_to_variable = {
+					trigger = habitability
+					parameters = { who = owner_main_species }
+					variable = new_planet_hab_percent
+				}
+			}
 			ordered_owned_planet = {
 				limit = { is_under_colonization = no }
 				position = 0
-				order_by = trigger:habitability
+				order_by = new_planet_hab_percent
 				set_capital = yes
 			}
+			every_owned_planet = {
+				limit = {
+					is_under_colonization = no
+					habitability = { who = owner_main_species value >= 0 }
+				}
+				clear_variable = new_planet_hab_percent
+			}
 			create_leader = {
-				class = civstrife_leader
+				class = ruler
 				event_leader = yes
 				species = owner_main_species
 				name = random
@@ -12730,7 +13066,7 @@ exile_restoration_gen_effect = {
 		}
 		else = {
 			create_leader = {
-				class = civstrife_leader
+				class = ruler
 				event_leader = yes
 				species = owner_main_species
 				name = random

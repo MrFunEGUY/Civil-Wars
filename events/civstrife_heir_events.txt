@@ -219,7 +219,7 @@ country_event = {
 			civics = event_target:heir_mother_country
 			flag = event_target:heir_mother_country
 			effect = {
-				set_country_flag = heir_exile_link_@root
+				set_country_flag = ruler_heir_connection_@event_target:heir_mother_country.ruler
 				save_event_target_as = heir_civil_war_dummy_country
 				event_target:disinherited_heir = { set_owner = event_target:heir_civil_war_dummy_country }
 				set_leader = event_target:disinherited_heir
@@ -233,11 +233,6 @@ country_event = {
 					variable_string = "[ruler.GetFirstName]"
 					variable_string = "[heir_mother_country.GetName]"
 				}
-				save_global_event_target_as = disinherited_heir_country_@root
-				event_target:heir_mother_country.ruler = {
-					set_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_1
-				}
-				set_heir_country_flag = yes
 			}
 		}
 
@@ -469,26 +464,16 @@ country_event = {
 
 	trigger = {
 		is_imperial = yes
-		from = {
-			leader_class = ruler
-			OR = {
-				has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_1
-				has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_2
-				has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_3
-				has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_4
-				has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_5
-				has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_6
-				has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_7
-				has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_8
-				has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_9
-				has_leader_flag = ruler_heir_connection_@event_target:disinherited_heir_country_10
-			}
-		}
+		any_country = { has_country_flag = ruler_heir_connection_@from }
+		from = { leader_class = ruler }
 	}
 
 	immediate = {
 
-		get_heir_connection = yes
+		random_country = {
+			limit = { has_country_flag = ruler_heir_connection_@from }
+			save_event_target_as = heir_civil_war_dummy_country
+		}
 
 		country_event = { id = civheir.2100 days = 2 random = 14 }
 	}

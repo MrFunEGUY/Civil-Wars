@@ -31,7 +31,7 @@ country_event = { # - Disputed Ruler Ascension, start situation
 		from = { save_event_target_as = crisis_dynasty_name }
 		clone_leader = {
 			target = from
-			class = civstrife_leader
+			class = ruler
 			effect = {
 				set_immortal = yes # So they dont die while we need them
 				set_leader_flag = dead_crisis_leader								
@@ -312,15 +312,17 @@ situation_event = { # Query Governor
 						leader = { save_event_target_as = crisis_sector_leader }
 					}
 					else = {
-						create_leader = { # Let's just say he's a deputy in charge
-							class = civstrife_leader
-							event_leader = yes
-							species = root.ruler
-							name = random
-							leader_age_min = 25
-							leader_age_max = 60
-							effect = {
-								save_event_target_as = crisis_sector_leader
+						owner = {
+							create_leader = { # Let's just say he's a deputy in charge
+								class = ruler
+								event_leader = yes
+								species = root.ruler
+								name = random
+								leader_age_min = 25
+								leader_age_max = 60
+								effect = {
+									save_event_target_as = crisis_sector_leader
+								}
 							}
 						}
 					}
@@ -333,7 +335,7 @@ situation_event = { # Query Governor
 					}
 					owner = {
 						create_leader = {
-							class = civstrife_leader
+							class = ruler
 							event_leader = yes
 							species = root.ruler
 							name = random

@@ -6,7 +6,7 @@
 
 namespace = civelect
 
-# Election dispute initialzer, called on_elected_ended
+# Election dispute initialzer initialzer, called on_elected_ended
 country_event = {
 	id = civelect.1000
 	hide_window = yes
@@ -14,6 +14,30 @@ country_event = {
 
 	trigger = {
 		is_imperial = no
+		exists = ruler.pop_faction
+		count_pop_faction = {
+			count > 1
+			limit = { is_regular_faction = yes } # For now, this will be corrected soon.
+		}
+		NOR = {
+			years_passed <= 20
+			is_gestalt = yes
+		}
+	}
+
+	immediate = {
+		country_event = { id = civelect.1005 days = 3 }
+	}
+}
+
+country_event = {
+	id = civelect.1005
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_imperial = no
+		exists = ruler.pop_faction
 		count_pop_faction = {
 			count > 1
 			limit = { is_regular_faction = yes } # For now, this will be corrected soon.
@@ -412,13 +436,13 @@ situation_event = {
 		trigger = { check_variable = { which = target.monthly_energy value > 0 } }
 		allow = {
 			owner = {
-				has_country_resource = { type = energy amount >= target.monthly_energy }
+				has_country_resource = { type = energy amount >= root.target.monthly_energy }
 			}
 		}
 		owner = {
 			add_resource = { # Should be 10% of Stockpile + 10% of Monthly Energy
 				energy = -1
-				mult = target.monthly_energy
+				mult = root.target.monthly_energy
 			}
 		}
 		hidden_effect = {
@@ -825,7 +849,7 @@ situation_event = {
 
 	option = {
 		name = civelect.2100.very_well
-		custom_tooltip = civelect.2100.very_well.tooltip
+		custom_tooltip = civelect.2100.outraged.tooltip
 		trigger = {
 			NOT = { has_situation_flag = dispute_party_wont_accept }
 			has_situation_flag = found_truth
@@ -1266,7 +1290,7 @@ country_event = {
 					}
 				}
 			}
-			situation_event = { id = civethic.9000 }
+			country_event = { id = civethic.9005 }
 		}
 	}
 }
@@ -1380,7 +1404,7 @@ country_event = {
 	}
 
 	option = {
-		text = civelect.4000.how
+		name = civelect.4000.how
 		hidden_effect = {
 			country_event = { id = civelect.4010 days = 14 random = 90 }
 		}
@@ -1465,7 +1489,7 @@ country_event = {
 	}
 
 	option = {
-		text = civelect.4010.ratify
+		name = civelect.4010.ratify
 		hidden_effect = {
 			ruler = { set_leader_flag = civil_war_leader_ratification }
 			ruler.species = { save_event_target_as = civwar_species }
@@ -1474,7 +1498,7 @@ country_event = {
 				limit = { ruler.pop_faction = { is_planetary_separatist_faction = yes } }
 				ruler.pop_faction = {
 					random_owned_pop = {
-						planet = { set_sector_flag = leader_planet }
+						planet = { set_planet_flag = leader_planet }
 					}
 				}
 			}
@@ -1590,7 +1614,7 @@ country_event = {
 	}
 
 	option = {
-		text = civelect.4010.no
+		name = civelect.4010.no
 		hidden_effect = {
 			ruler = { set_leader_flag = civil_war_leader_no_ratification }
 			ruler.species = { save_event_target_as = civwar_species }
@@ -1632,6 +1656,6 @@ country_event = {
 	}
 
 	option = {
-		text = GOOD
+		name = GOOD
 	}
 }

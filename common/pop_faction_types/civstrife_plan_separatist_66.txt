@@ -92,8 +92,8 @@ plan_separatist_66 = {
 		base = 100
 
 		modifier = {
-			factor = 0
-			NOT = { has_leader_flag = sep_leader }
+			factor = 0.0
+			is_event_leader = yes
 		}
 	}
 
@@ -400,7 +400,7 @@ plan_separatist_66 = {
 
 	on_destroy = {
 		# Allows planets to resume getting separatists, which in turn will allow this to re-form if necessary
-		faction_kill_leader_effect = yes
+		# faction_kill_leader_effect = yes
 		event_target:plan_separatist_66 = { remove_planet_flag = plan_sep_active }
 		clear_global_event_target = plan_separatist_66
 	}

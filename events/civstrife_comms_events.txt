@@ -344,7 +344,7 @@ country_event = {
 		trigger = {
 			event_target:civwar_rebels = {
 				ruler = { has_leader_flag = civil_war_ruler_nationalist }
-				has_country_flag = nat_sec_rebels_@event_target:civwar_rebels
+				has_country_flag = nat_sec_rebels
 			}
 		}
 	}
@@ -1059,7 +1059,10 @@ country_event = {
 
 	after = {
 		if = {
-			limit = { event_target:civwar_originator = { has_country_flag = subject_join_war } }
+			limit = {
+				exists = event_target:subject_war_join
+				event_target:civwar_originator = { has_country_flag = subject_join_war }
+			}
 			event_target:civwar_rebels = {
 				every_system_within_border = {
 					if = {
@@ -2324,181 +2327,181 @@ country_event = {
 #  Situations  #
 ################
 
-# Faction Leader Discussion
-country_event = {
-	id = civcom.6000
-	title = civcom.6000.name
-	location = root.capital_scope
-	hide_window = no
-	is_triggered_only = yes
+# # Faction Leader Discussion
+# country_event = {
+# 	id = civcom.6000
+# 	title = civcom.6000.name
+# 	location = root.capital_scope
+# 	hide_window = no
+# 	is_triggered_only = yes
 
-	diplomatic = yes
+# 	diplomatic = yes
 
-	desc = {
-		text = civcom.6000.corrupt.sector
-		trigger = {
-			event_target:mad_faction_leader = { has_trait = leader_trait_corrupt }
-			any_owned_sector = {
-				exists = leader
-				leader = { is_same_value = event_target:mad_faction_leader }
-			}
-		}
-	}
+# 	desc = {
+# 		text = civcom.6000.corrupt.sector
+# 		trigger = {
+# 			event_target:mad_faction_leader = { has_trait = leader_trait_corrupt }
+# 			any_owned_sector = {
+# 				exists = leader
+# 				leader = { is_same_value = event_target:mad_faction_leader }
+# 			}
+# 		}
+# 	}
 
-	desc = {
-		text = civcom.6000.corrupt.unemployed
-		trigger = {
-			event_target:mad_faction_leader = { has_trait = leader_trait_corrupt }
-			NOT = {
-				any_owned_sector = {
-					exists = leader
-					leader = { is_same_value = event_target:mad_faction_leader }
-				}
-			}
-		}
-	}
+# 	desc = {
+# 		text = civcom.6000.corrupt.unemployed
+# 		trigger = {
+# 			event_target:mad_faction_leader = { has_trait = leader_trait_corrupt }
+# 			NOT = {
+# 				any_owned_sector = {
+# 					exists = leader
+# 					leader = { is_same_value = event_target:mad_faction_leader }
+# 				}
+# 			}
+# 		}
+# 	}
 
-	desc = {
-		text = civcom.6000.normal
-		trigger = {
-			event_target:mad_faction_leader = {
-				NOT = { has_trait = leader_trait_corrupt }
-			}
-		}
-	}
+# 	desc = {
+# 		text = civcom.6000.normal
+# 		trigger = {
+# 			event_target:mad_faction_leader = {
+# 				NOT = { has_trait = leader_trait_corrupt }
+# 			}
+# 		}
+# 	}
 
-	picture_event_data = {
-		portrait = event_target:mad_faction_leader
-		planet_background = root.owner
-		graphical_culture = root.owner
-		city_level = root.owner
-		room = root.owner
-	}
+# 	picture_event_data = {
+# 		portrait = event_target:mad_faction_leader
+# 		planet_background = root.owner
+# 		graphical_culture = root.owner
+# 		city_level = root.owner
+# 		room = root.owner
+# 	}
 
-	#Discuss another matter (return to menu)
-	option = {
-		name = civcom.nevermind
-	}
+# 	#Discuss another matter (return to menu)
+# 	option = {
+# 		name = civcom.nevermind
+# 	}
 
-	# Corrupt - No Deal
-	option = {
-		name = civcom.6000.corrupt_no_deal
-		trigger = { event_target:mad_faction_leader = { has_trait = leader_trait_corrupt } }
-		hidden_effect = {
-			country_event = { id = civcom.6010 }
-		}
-	}
+# 	# Corrupt - No Deal
+# 	option = {
+# 		name = civcom.6000.corrupt_no_deal
+# 		trigger = { event_target:mad_faction_leader = { has_trait = leader_trait_corrupt } }
+# 		hidden_effect = {
+# 			country_event = { id = civcom.6010 }
+# 		}
+# 	}
 
-	# Corrupt - Deal
-	option = {
-		name = civcom.6000.corrupt_deal
-		trigger = { event_target:mad_faction_leader = { has_trait = leader_trait_corrupt } }
-		hidden_effect = {
-			event_target:mad_faction_leader = { set_leader_flag = corrupt_fac_deal }
-			country_event = { id = civcom.6010 }
-		}
-	}
+# 	# Corrupt - Deal
+# 	option = {
+# 		name = civcom.6000.corrupt_deal
+# 		trigger = { event_target:mad_faction_leader = { has_trait = leader_trait_corrupt } }
+# 		hidden_effect = {
+# 			event_target:mad_faction_leader = { set_leader_flag = corrupt_fac_deal }
+# 			country_event = { id = civcom.6010 }
+# 		}
+# 	}
 
-	# More Faction Funding
-	option = {
-		name = civcom.6000.funding
-		hidden_effect = {
-			country_event = { id = civcom.6020 }
-		}
-	}
+# 	# More Faction Funding
+# 	option = {
+# 		name = civcom.6000.funding
+# 		hidden_effect = {
+# 			country_event = { id = civcom.6020 }
+# 		}
+# 	}
 
-	# Bribe leader
-	option = {
-		name = civcom.6000.bribe
-		hidden_effect = {
-			country_event = { id = civcom.6030 }
-		}
-	}
+# 	# Bribe leader
+# 	option = {
+# 		name = civcom.6000.bribe
+# 		hidden_effect = {
+# 			country_event = { id = civcom.6030 }
+# 		}
+# 	}
 
-	# Change in rulership - election/selection
-	option = {
-		name = civcom.6000.election
-		hidden_effect = {
-			country_event = { id = civcom.6040 }
-		}
-	}
+# 	# Change in rulership - election/selection
+# 	option = {
+# 		name = civcom.6000.election
+# 		hidden_effect = {
+# 			country_event = { id = civcom.6040 }
+# 		}
+# 	}
 
-	# Make heir - imperial
-	option = {
-		name = civcom.6000.heir
-		hidden_effect = {
-			country_event = { id = civcom.6050 }
-		}
-	}
-}
+# 	# Make heir - imperial
+# 	option = {
+# 		name = civcom.6000.heir
+# 		hidden_effect = {
+# 			country_event = { id = civcom.6050 }
+# 		}
+# 	}
+# }
 
-# Faction Corrupt Deal
-country_event = {
-	id = civcom.6010
-	title = civcom.6000.name
-	location = root.capital_scope
-	hide_window = no
-	is_triggered_only = yes
+# # Faction Corrupt Deal
+# country_event = {
+# 	id = civcom.6010
+# 	title = civcom.6000.name
+# 	location = root.capital_scope
+# 	hide_window = no
+# 	is_triggered_only = yes
 
-	diplomatic = yes
+# 	diplomatic = yes
 
-	desc = {
-		text = civcom.6010.sector.deal
-		trigger = {
-			event_target:mad_faction_leader = { has_leader_flag = corrupt_fac_deal }
-			any_owned_sector = {
-				exists = leader
-				leader = { is_same_value = event_target:mad_faction_leader }
-			}
-		}
-	}
+# 	desc = {
+# 		text = civcom.6010.sector.deal
+# 		trigger = {
+# 			event_target:mad_faction_leader = { has_leader_flag = corrupt_fac_deal }
+# 			any_owned_sector = {
+# 				exists = leader
+# 				leader = { is_same_value = event_target:mad_faction_leader }
+# 			}
+# 		}
+# 	}
 
-	desc = {
-		text = civcom.6010.unemployed.deal
-		trigger = {
-			event_target:mad_faction_leader = { has_leader_flag = corrupt_fac_deal }
-			NOT = {
-				any_owned_sector = {
-					exists = leader
-					leader = { is_same_value = event_target:mad_faction_leader }
-				}
-			}
-		}
-	}
+# 	desc = {
+# 		text = civcom.6010.unemployed.deal
+# 		trigger = {
+# 			event_target:mad_faction_leader = { has_leader_flag = corrupt_fac_deal }
+# 			NOT = {
+# 				any_owned_sector = {
+# 					exists = leader
+# 					leader = { is_same_value = event_target:mad_faction_leader }
+# 				}
+# 			}
+# 		}
+# 	}
 
-	desc = {
-		text = civcom.6010.no_deal
-		trigger = {
-			event_target:mad_faction_leader = { NOT = { has_leader_flag = corrupt_fac_deal } }
-		}
-	}
+# 	desc = {
+# 		text = civcom.6010.no_deal
+# 		trigger = {
+# 			event_target:mad_faction_leader = { NOT = { has_leader_flag = corrupt_fac_deal } }
+# 		}
+# 	}
 
-	picture_event_data = {
-		portrait = event_target:mad_faction_leader
-		planet_background = root.owner
-		graphical_culture = root.owner
-		city_level = root.owner
-		room = root.owner
-	}
+# 	picture_event_data = {
+# 		portrait = event_target:mad_faction_leader
+# 		planet_background = root.owner
+# 		graphical_culture = root.owner
+# 		city_level = root.owner
+# 		room = root.owner
+# 	}
 
-	# Corrupt - No Deal
-	option = {
-		name = civcom.6010.corrupt_no_deal
-		trigger = { event_target:mad_faction_leader = { NOT = { has_leader_flag = corrupt_fac_deal } } }
-		hidden_effect = {
-			country_event = { id = civcom.6010 }
-		}
-	}
+# 	# Corrupt - No Deal
+# 	option = {
+# 		name = civcom.6010.corrupt_no_deal
+# 		trigger = { event_target:mad_faction_leader = { NOT = { has_leader_flag = corrupt_fac_deal } } }
+# 		hidden_effect = {
+# 			country_event = { id = civcom.6010 }
+# 		}
+# 	}
 
-	# Corrupt - Deal
-	option = {
-		name = civcom.6010.corrupt_deal
-		trigger = { event_target:mad_faction_leader = { has_leader_flag = corrupt_fac_deal } }
-		hidden_effect = {
-			country_event = { id = civcom.6010 }
-		}
-	}
-}
+# 	# Corrupt - Deal
+# 	option = {
+# 		name = civcom.6010.corrupt_deal
+# 		trigger = { event_target:mad_faction_leader = { has_leader_flag = corrupt_fac_deal } }
+# 		hidden_effect = {
+# 			country_event = { id = civcom.6010 }
+# 		}
+# 	}
+# }
 
 ######################
 #  Traitor Captured  #
@@ -3592,7 +3595,7 @@ country_event = {
 			}
 		}
 		hidden_effect = {
-			country_event = { id = civcom.9120 }
+			# country_event = { id = civcom.9120 }
 		}
 	}
 
@@ -3605,153 +3608,153 @@ country_event = {
 	}
 }
 
-# Exile Enclave: Go to War on Behalf
-# This = player country; event_target:exiled_gov_enclave_country = enclave country
-country_event = {
-	id = civcom.9120
-	base = civcom.9100
-	desc_clear = yes
-	option_clear = yes
+# # Exile Enclave: Go to War on Behalf
+# # This = player country; event_target:exiled_gov_enclave_country = enclave country
+# country_event = {
+# 	id = civcom.9120
+# 	base = civcom.9100
+# 	desc_clear = yes
+# 	option_clear = yes
 
-	desc = civcom.9120.desc
+# 	desc = civcom.9120.desc
 
-	# Nevermind
-	option = {
-		name = civcom.nevermind
-	}
+# 	# Nevermind
+# 	option = {
+# 		name = civcom.nevermind
+# 	}
 
-	# Terminate host relationship (tell them to find new host)
-	option = {
-		name = civcom.9120.target
-		hidden_effect = {
-			get_restoration_war_targets = yes
-		}
-	}
-}
+# 	# Terminate host relationship (tell them to find new host)
+# 	option = {
+# 		name = civcom.9120.target
+# 		hidden_effect = {
+# 			get_restoration_war_targets = yes
+# 		}
+# 	}
+# }
 
-# Exile Enclave: Choose War Target
-# This = player country; event_target:exiled_gov_enclave_country = enclave country
-country_event = {
-	id = civcom.9125
-	base = civcom.9100
-	desc_clear = yes
-	option_clear = yes
+# # Exile Enclave: Choose War Target
+# # This = player country; event_target:exiled_gov_enclave_country = enclave country
+# country_event = {
+# 	id = civcom.9125
+# 	base = civcom.9100
+# 	desc_clear = yes
+# 	option_clear = yes
 
-	desc = civcom.9120.desc
+# 	desc = civcom.9120.desc
 
-	# No valid target
-	option = {
-		name = civcom.9125.fail
-		trigger = { check_variable = { which = veru_total_subjects value = 0 } }
-	}
+# 	# No valid target
+# 	option = {
+# 		name = civcom.9125.fail
+# 		trigger = { check_variable = { which = veru_total_subjects value = 0 } }
+# 	}
 
-	option = {
-		name = civcom.nevermind
-		trigger = { check_variable = { which = veru_total_subjects value > 0 } }
-	}
+# 	option = {
+# 		name = civcom.nevermind
+# 		trigger = { check_variable = { which = veru_total_subjects value > 0 } }
+# 	}
 
-	# Now we show a list of the subject states to the player
-	option = {
-		name = civcom.9125.restoration_war_target_1
-		trigger = { check_variable = { which = veru_total_subjects value >= 1 } }
-		hidden_effect = {
-			event_target:restoration_war_target_1 = {
-				save_event_target_as = chosen_war_target
-			}
-			country_event = { id = veru.1050 }
-		}
-	}
-	option = {
-		name = civcom.9125.restoration_war_target_2
-		trigger = { check_variable = { which = veru_total_subjects value >= 2 } }
-		hidden_effect = {
-			event_target:restoration_war_target_2 = {
-				save_event_target_as = chosen_war_target
-			}
-			country_event = { id = veru.1050 }
-		}
-	}
-	option = {
-		name = civcom.9125.restoration_war_target_3
-		trigger = { check_variable = { which = veru_total_subjects value >= 3 } }
-		hidden_effect = {
-			event_target:restoration_war_target_3 = {
-				save_event_target_as = chosen_war_target
-			}
-			country_event = { id = veru.1050 }
-		}
-	}
-	option = {
-		name = civcom.9125.restoration_war_target_4
-		trigger = { check_variable = { which = veru_total_subjects value >= 4 } }
-		hidden_effect = {
-			event_target:restoration_war_target_4 = {
-				save_event_target_as = chosen_war_target
-			}
-			country_event = { id = veru.1050 }
-		}
-	}
-	option = {
-		name = civcom.9125.restoration_war_target_5
-		trigger = { check_variable = { which = veru_total_subjects value >= 5 } }
-		hidden_effect = {
-			event_target:restoration_war_target_5 = {
-				save_event_target_as = chosen_war_target
-			}
-			country_event = { id = veru.1050 }
-		}
-	}
-	option = {
-		name = civcom.9125.restoration_war_target_6
-		trigger = { check_variable = { which = veru_total_subjects value >= 6 } }
-		hidden_effect = {
-			event_target:restoration_war_target_6 = {
-				save_event_target_as = chosen_war_target
-			}
-			country_event = { id = veru.1050 }
-		}
-	}
-	option = {
-		name = civcom.9125.restoration_war_target_7
-		trigger = { check_variable = { which = veru_total_subjects value >= 7 } }
-		hidden_effect = {
-			event_target:restoration_war_target_7 = {
-				save_event_target_as = chosen_war_target
-			}
-			country_event = { id = veru.1050 }
-		}
-	}
-	option = {
-		name = civcom.9125.restoration_war_target_8
-		trigger = { check_variable = { which = veru_total_subjects value >= 8 } }
-		hidden_effect = {
-			event_target:restoration_war_target_8 = {
-				save_event_target_as = chosen_war_target
-			}
-			country_event = { id = veru.1050 }
-		}
-	}
-	option = {
-		name = civcom.9125.restoration_war_target_9
-		trigger = { check_variable = { which = veru_total_subjects value >= 9 } }
-		hidden_effect = {
-			event_target:restoration_war_target_9 = {
-				save_event_target_as = chosen_war_target
-			}
-			country_event = { id = veru.1050 }
-		}
-	}
-	option = {
-		name = civcom.9125.restoration_war_target_10
-		trigger = { check_variable = { which = veru_total_subjects value >= 10 } }
-		hidden_effect = {
-			event_target:restoration_war_target_10 = {
-				save_event_target_as = chosen_war_target
-			}
-			country_event = { id = veru.1050 }
-		}
-	}
-}
+# 	# Now we show a list of the subject states to the player
+# 	option = {
+# 		name = civcom.9125.restoration_war_target_1
+# 		trigger = { check_variable = { which = veru_total_subjects value >= 1 } }
+# 		hidden_effect = {
+# 			event_target:restoration_war_target_1 = {
+# 				save_event_target_as = chosen_war_target
+# 			}
+# 			country_event = { id = veru.1050 }
+# 		}
+# 	}
+# 	option = {
+# 		name = civcom.9125.restoration_war_target_2
+# 		trigger = { check_variable = { which = veru_total_subjects value >= 2 } }
+# 		hidden_effect = {
+# 			event_target:restoration_war_target_2 = {
+# 				save_event_target_as = chosen_war_target
+# 			}
+# 			country_event = { id = veru.1050 }
+# 		}
+# 	}
+# 	option = {
+# 		name = civcom.9125.restoration_war_target_3
+# 		trigger = { check_variable = { which = veru_total_subjects value >= 3 } }
+# 		hidden_effect = {
+# 			event_target:restoration_war_target_3 = {
+# 				save_event_target_as = chosen_war_target
+# 			}
+# 			country_event = { id = veru.1050 }
+# 		}
+# 	}
+# 	option = {
+# 		name = civcom.9125.restoration_war_target_4
+# 		trigger = { check_variable = { which = veru_total_subjects value >= 4 } }
+# 		hidden_effect = {
+# 			event_target:restoration_war_target_4 = {
+# 				save_event_target_as = chosen_war_target
+# 			}
+# 			country_event = { id = veru.1050 }
+# 		}
+# 	}
+# 	option = {
+# 		name = civcom.9125.restoration_war_target_5
+# 		trigger = { check_variable = { which = veru_total_subjects value >= 5 } }
+# 		hidden_effect = {
+# 			event_target:restoration_war_target_5 = {
+# 				save_event_target_as = chosen_war_target
+# 			}
+# 			country_event = { id = veru.1050 }
+# 		}
+# 	}
+# 	option = {
+# 		name = civcom.9125.restoration_war_target_6
+# 		trigger = { check_variable = { which = veru_total_subjects value >= 6 } }
+# 		hidden_effect = {
+# 			event_target:restoration_war_target_6 = {
+# 				save_event_target_as = chosen_war_target
+# 			}
+# 			country_event = { id = veru.1050 }
+# 		}
+# 	}
+# 	option = {
+# 		name = civcom.9125.restoration_war_target_7
+# 		trigger = { check_variable = { which = veru_total_subjects value >= 7 } }
+# 		hidden_effect = {
+# 			event_target:restoration_war_target_7 = {
+# 				save_event_target_as = chosen_war_target
+# 			}
+# 			country_event = { id = veru.1050 }
+# 		}
+# 	}
+# 	option = {
+# 		name = civcom.9125.restoration_war_target_8
+# 		trigger = { check_variable = { which = veru_total_subjects value >= 8 } }
+# 		hidden_effect = {
+# 			event_target:restoration_war_target_8 = {
+# 				save_event_target_as = chosen_war_target
+# 			}
+# 			country_event = { id = veru.1050 }
+# 		}
+# 	}
+# 	option = {
+# 		name = civcom.9125.restoration_war_target_9
+# 		trigger = { check_variable = { which = veru_total_subjects value >= 9 } }
+# 		hidden_effect = {
+# 			event_target:restoration_war_target_9 = {
+# 				save_event_target_as = chosen_war_target
+# 			}
+# 			country_event = { id = veru.1050 }
+# 		}
+# 	}
+# 	option = {
+# 		name = civcom.9125.restoration_war_target_10
+# 		trigger = { check_variable = { which = veru_total_subjects value >= 10 } }
+# 		hidden_effect = {
+# 			event_target:restoration_war_target_10 = {
+# 				save_event_target_as = chosen_war_target
+# 			}
+# 			country_event = { id = veru.1050 }
+# 		}
+# 	}
+# }
 
 # Exile Enclave: Stop Hosting Government
 # This = player country; event_target:exiled_gov_enclave_country = enclave country
