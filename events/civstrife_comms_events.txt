@@ -427,6 +427,15 @@ country_event = {
 					side = root
 				}
 			}
+			event_target:subject_war_join = {
+				every_war_participant = {
+					limit = {
+						NOT = { is_war_leader = yes }
+						NOT = { is_same_value = event_target:civwar_originator }
+					}
+					prev = { remove_war_participant = prev }
+				}
+			}
 		}
 	}
 }
