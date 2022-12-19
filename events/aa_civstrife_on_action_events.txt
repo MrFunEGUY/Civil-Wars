@@ -46,6 +46,15 @@ country_event = {
 				}
 			}
 		}
+
+		# Expanded Espionage and Diplomacy compat
+		# Territory unclaimed if original owner dies # E
+		every_system = {
+			limit = { has_star_flag = original_owner_is@root }
+			remove_star_flag = has_original_owner
+			remove_star_flag = original_owner_is@root
+		}
+
 		# if = {
 		# 	limit = {
 		# 		is_subject = no

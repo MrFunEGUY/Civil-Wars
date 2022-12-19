@@ -934,7 +934,7 @@ country_event = {
 					NOT = {
 						any_owned_planet = {
 							OR = {
-								has_planet_flag = ongoing_revolt
+								has_ground_combat = yes
 								solar_system = { is_capital_system = yes }
 							}
 						}
@@ -975,7 +975,7 @@ country_event = {
 					NOT = {
 						any_owned_planet = {
 							OR = {
-								has_planet_flag = ongoing_revolt
+								has_ground_combat = yes
 								solar_system = { is_capital_system = yes }
 							}
 						}
@@ -1185,13 +1185,10 @@ country_event = {
 				random_owned_planet = {
 					limit = {
 						solar_system = { is_capital_system = no }
-						NOT = { has_planet_flag = ongoing_revolt }
+						has_ground_combat = no
 					}
 					save_event_target_as = civil_war_planet
-					solar_system = {
-						set_star_flag = civil_war_flip
-						set_star_flag = civwar_planet
-					}
+					solar_system = { set_timed_star_flag = { flag = civwar_planet days = 90 } }
 					every_owned_pop = {
 						limit = {
 							exists = pop_faction
@@ -1199,7 +1196,6 @@ country_event = {
 						}
 						root.target = { change_variable = { which = fac_mil_support value = 1 } }
 					}
-					owner = { get_systems_for_civwar = yes }
 					set_planet_flag = small_civil_war
 					set_planet_flag = disputed_election_war
 					create_rebels = {
@@ -1252,15 +1248,12 @@ country_event = {
 					ordered_owned_planet = {
 						limit = {
 							solar_system = { is_capital_system = no }
-							NOT = { has_planet_flag = ongoing_revolt }
+							has_ground_combat = no
 						}
 						position = 0
 						order_by = fac_sep_percentage
 						save_event_target_as = civil_war_planet
-						solar_system = {
-							set_star_flag = civil_war_flip
-							set_star_flag = civwar_planet
-						}
+						solar_system = { set_timed_star_flag = { flag = civwar_planet days = 90 } }
 						every_owned_pop = {
 							limit = {
 								exists = pop_faction
@@ -1268,7 +1261,6 @@ country_event = {
 							}
 							event_target:dispute_party = { change_variable = { which = fac_mil_support value = 1 } }
 						}							
-						owner = { get_systems_for_civwar = yes }
 						set_planet_flag = balkan_war
 						create_rebels = {
 							name = random

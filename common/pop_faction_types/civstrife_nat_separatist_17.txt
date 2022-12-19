@@ -20,6 +20,7 @@ nat_separatist_17 = {
 	is_potential = {
 		is_faction_allowed = yes
 		exists = event_target:nat_separatist_17
+		count_owned_pop = { limit = { has_pop_flag = sep_pop_nat_@event_target:nat_separatist_17 } count >= 5 }
 	}
 
 	parameters = {
@@ -39,9 +40,10 @@ nat_separatist_17 = {
 	can_join_faction = {
 		has_pop_flag = sep_pop_nat_@event_target:nat_separatist_17
 		has_pop_flag = sep_pop_nat
-		is_shackled_robot = no
+		happiness < 60
 		can_think = yes
 		pop_was_saved = no
+		is_shackled_robot = no
 		owner = {
 			NOT = { is_same_value = event_target:nat_separatist_17 }
 			OR = {
@@ -55,21 +57,16 @@ nat_separatist_17 = {
 	}
 
 	attraction = {
-		base = 100
+		base = 80
 
 		modifier = {
-			factor = 0
-			happiness >= 70
-		}
-
-		modifier = {
-			factor = 0.55
+			factor = 0.25
 			has_citizenship_type = { type = citizenship_full }
 		}
 
 		modifier = {
 			factor = 1.05
-			happiness <= 0.6
+			happiness < 0.6
 			happiness > 0.5
 		}
 

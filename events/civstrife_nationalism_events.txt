@@ -484,20 +484,33 @@ country_event = { # Gov In Exile restoration, when released peacefully
 
 		# Notifications to other countries
 		if = {	# If they had a Govenment-In-Exile
-			limit = { is_subject = yes }
-			overlord = {
-				save_global_event_target_as = exile_host
-				country_event = { id = civnat.9210 }
+			limit = {
+				is_country_type = enclave_exiled_gov
+				any_owned_fleet = {
+					is_ship_size = enclave_mercenary_station
+					solar_system = { exists = space_owner }
+				}
+			}
+			random_owned_fleet = {
+				limit =  {
+					any_owned_fleet = {
+						is_ship_size = enclave_mercenary_station
+						solar_system = { exists = space_owner }
+					}
+				}
+				solar_system.space_owner = {
+					save_global_event_target_as = exile_host
+					country_event = { id = civnat.9210 }
+				}
 			}
 			every_playable_country = {
-				limit = {
-					NOT = { any_subject = { is_same_value = root } }
-				}
+				limit = { has_communications = prev }
 				country_event = { id = civnat.9200 }
 			}
 		}
 		else = {
 			every_playable_country = {
+				limit = { has_communications = prev }
 				country_event = { id = civnat.9230 }
 			}
 		}
@@ -627,20 +640,33 @@ country_event = { # Gov In Exile restoration, on war won
 
 			# Notifications to other countries
 			if = {	# If they had a Govenment-In-Exile
-				limit = { is_subject = yes }
-				overlord = {
-					save_global_event_target_as = exile_host
-					country_event = { id = civnat.9210 }
+				limit = {
+					is_country_type = enclave_exiled_gov
+					any_owned_fleet = {
+						is_ship_size = enclave_mercenary_station
+						solar_system = { exists = space_owner }
+					}
+				}
+				random_owned_fleet = {
+					limit =  {
+						any_owned_fleet = {
+							is_ship_size = enclave_mercenary_station
+							solar_system = { exists = space_owner }
+						}
+					}
+					solar_system.space_owner = {
+						save_global_event_target_as = exile_host
+						country_event = { id = civnat.9210 }
+					}
 				}
 				every_playable_country = {
-					limit = {
-						NOT = { any_subject = { is_same_value = root } }
-					}
+					limit = { has_communications = prev }
 					country_event = { id = civnat.9200 }
 				}
 			}
 			else = {
 				every_playable_country = {
+					limit = { has_communications = prev }
 					country_event = { id = civnat.9230 }
 				}
 			}
@@ -781,20 +807,33 @@ country_event = { # Gov In Exile restoration, on status quo
 
 			# Notifications to other countries
 			if = {	# If they had a Govenment-In-Exile
-				limit = { is_subject = yes }
-				overlord = {
-					save_global_event_target_as = exile_host
-					country_event = { id = civnat.9210 }
+				limit = {
+					is_country_type = enclave_exiled_gov
+					any_owned_fleet = {
+						is_ship_size = enclave_mercenary_station
+						solar_system = { exists = space_owner }
+					}
+				}
+				random_owned_fleet = {
+					limit =  {
+						any_owned_fleet = {
+							is_ship_size = enclave_mercenary_station
+							solar_system = { exists = space_owner }
+						}
+					}
+					solar_system.space_owner = {
+						save_global_event_target_as = exile_host
+						country_event = { id = civnat.9210 }
+					}
 				}
 				every_playable_country = {
-					limit = {
-						NOT = { any_subject = { is_same_value = root } }
-					}
+					limit = { has_communications = prev }
 					country_event = { id = civnat.9200 }
 				}
 			}
 			else = {
 				every_playable_country = {
+					limit = { has_communications = prev }
 					country_event = { id = civnat.9230 }
 				}
 			}
@@ -1149,10 +1188,6 @@ country_event = { # Set Sector and System flags
 					}
 					set_sector_flag = frontier_sector_@root
 					every_owned_planet = { set_planet_flag = frontier_planet_@root }
-
-					# every_system_within_border = { # Between 7 and 15 years to transform into an Integrated Sector
-					# 	system_event = { id = civnat.2100 days = 2520 random = 5400 }
-					# }	
 				}
 				else_if = {
 					limit = { sector_capital = { has_planet_flag = frontier_planet_@root } }
@@ -1304,11 +1339,11 @@ planet_event = { # Set Planet Flag on Colonized
 			if = {
 				limit = { sector = { has_sector_flag = frontier_sector_@root.owner } }
 				set_planet_flag = frontier_planet_@root.owner
-				if = { # Between 7 and 15 years to transform into a Integrated Sector
+				if = { # Between 15 and 30 years to transform into a Integrated Sector
 					limit = { sector = { NOT = { has_sector_flag = integrated_timer_set } } }
 					sector = { set_sector_flag = integrated_timer_set }
 					owner = { save_event_target_as = original_owner }
-					planet_event = { id = civnat.2015 days = 2520 random = 5400 }
+					planet_event = { id = civnat.2015 days = 5400 random = 10800 }
 				}
 			}
 			else_if = {
@@ -1486,11 +1521,11 @@ planet_event = { # Get nat Flags when a planet changes owners
 
 			if = {
 				limit = { sector = { has_sector_flag = frontier_sector_@root.owner } }
-				if = { # Between 7 and 15 years to transform into a Integrated Sector
+				if = { # Between 15 and 30 years to transform into a Integrated Sector
 					limit = { sector = { NOT = { has_sector_flag = integrated_timer_set } } }
 					sector = { set_sector_flag = integrated_timer_set }
 					owner = { save_event_target_as = original_owner }
-					planet_event = { id = civnat.2015 days = 2520 random = 5400 }
+					planet_event = { id = civnat.2015 days = 5400 random = 10800 }
 				}
 			}
 			else_if = {
@@ -1886,6 +1921,133 @@ country_event = { # Set and Remove Citizenship flags for species
 			}
 		}
 		
+	}
+}
+
+planet_event = { # Set Planet Sectoral Modifiers
+	id = civnat.2600
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = owner
+		owner = { is_gestalt = no }
+		owner = { is_country_type_with_subjects = yes }
+		OR = {
+			AND = {
+				OR = {
+					has_planet_flag = frontier_planet_@root.owner
+					has_planet_flag = integrated_planet_@root.owner
+					has_planet_flag = fundamental_planet_@root.owner
+				}
+				NOR = {
+					has_modifier = planet_frontier_sector
+					has_modifier = planet_integrated_sector
+					has_modifier = planet_fundamental_sector
+				}
+			}
+			AND = {
+				has_planet_flag = frontier_planet_@root.owner
+				NOT = { has_modifier = planet_frontier_sector }
+			}
+			AND = {
+				has_planet_flag = integrated_planet_@root.owner
+				NOT = { has_modifier = planet_integrated_sector }
+			}
+			AND = {
+				has_planet_flag = fundamental_planet_@root.owner
+				NOT = { has_modifier = planet_fundamental_sector }
+			}
+		}
+		
+	}
+
+	immediate = {
+		if = {
+			limit = { has_planet_flag = frontier_planet_@root.owner }
+			add_modifier = { modifier = planet_frontier_sector days = -1 }
+			if = {
+				limit = { has_modifier = planet_integrated_sector }
+				remove_modifier = planet_integrated_sector
+			}
+			if = {
+				limit = { has_modifier = planet_fundamental_sector }
+				remove_modifier = planet_fundamental_sector
+			}
+		}
+		else_if = {
+			limit = { has_planet_flag = integrated_planet_@root.owner }
+			add_modifier = { modifier = planet_integrated_sector days = -1 }
+			if = {
+				limit = { has_modifier = planet_frontier_sector }
+				remove_modifier = planet_frontier_sector
+			}
+			if = {
+				limit = { has_modifier = planet_fundamental_sector }
+				remove_modifier = planet_fundamental_sector
+			}
+		}
+		else_if = {
+			limit = { has_planet_flag = fundamental_planet_@root.owner }
+			add_modifier = { modifier = planet_fundamental_sector days = -1 }
+			if = {
+				limit = { has_modifier = planet_frontier_sector }
+				remove_modifier = planet_frontier_sector
+			}
+			if = {
+				limit = { has_modifier = planet_integrated_sector }
+				remove_modifier = planet_integrated_sector
+			}
+		}
+	}
+}
+
+planet_event = { # Remove Planet Sectoral Modifiers from Gestalt
+	id = civnat.2605
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = owner
+		owner = { is_gestalt = yes }
+		OR = {
+			has_modifier = planet_frontier_sector
+			has_modifier = planet_integrated_sector
+			has_modifier = planet_fundamental_sector
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = { has_modifier = planet_frontier_sector }
+			remove_modifier = planet_frontier_sector
+		}
+		else_if = {
+			limit = { has_modifier = planet_integrated_sector }
+			remove_modifier = planet_integrated_sector
+		}
+		else_if = {
+			limit = { has_modifier = planet_fundamental_sector }
+			remove_modifier = planet_fundamental_sector
+		}
+	}
+}
+
+country_event = { # Set Initial Nat Timer on country create
+	id = civnat.2700
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			is_country_type = rebel
+			is_country_type_with_subjects = yes
+		}
+		
+	}
+
+	immediate = {
+		set_timed_country_flag = { flag = civstrife_nat_timer days = 10800 }
 	}
 }
 

@@ -401,8 +401,11 @@ plan_separatist_58 = {
 	on_destroy = {
 		# Allows planets to resume getting separatists, which in turn will allow this to re-form if necessary
 		# faction_kill_leader_effect = yes
-		event_target:plan_separatist_58 = { remove_planet_flag = plan_sep_active }
-		clear_global_event_target = plan_separatist_58
+		if = {
+			limit = { exists = event_target:plan_separatist_58 }
+			event_target:plan_separatist_58 = { remove_planet_flag = plan_sep_active }
+			clear_global_event_target = plan_separatist_58
+		}
 	}
 
 	actions = {}

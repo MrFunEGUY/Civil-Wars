@@ -26,46 +26,99 @@ country_event = { # Check disapproving Factions every month
 			is_gestalt = yes
 			has_country_flag = recent_civil_war
 		}
-		OR = {
-			AND = {
-				is_democracy = yes
-				any_pop_faction = {
-					is_regular_faction = yes
-					NOT = { has_pop_faction_flag = faction_sep_situation }
-					OR = {
-						NOT = { exists = leader }
-						leader = { NOT = { is_same_value = root.ruler } }
-					}
+		any_pop_faction = {
+			NOT = { has_pop_faction_flag = faction_rebelled }
+			NOT = { has_pop_faction_flag = faction_sep_situation }
+			OR = {
+				NOT = { exists = leader }
+				leader = { NOT = { is_same_value = root.ruler } }
+			}
+			OR = {
+				AND = {
+					is_pacifist_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_PAC } }
+				}
+				AND = {
+					is_militarist_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_MIL } }
+				}
+				AND = {
+					is_materialist_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_MAT } }
+				}
+				AND = {
+					is_spiritualist_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_SPI } }
+				}
+				AND = {
+					is_egalitarian_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_EGAL } }
+				}
+				AND = {
+					is_authoritarian_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_AUTH } }
+				}
+				AND = {
+					is_xenophile_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_XENO } }
+				}
+				AND = {
+					is_xenophobe_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_PHOBE } }
+				}
+				AND = {
+					is_ecologist_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_ECO } }
+				}
+				AND = {
+					is_industrial_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_INDUS } }
+				}
+				AND = {
+					is_socialism_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_SOC } }
+				}
+				AND = {
+					is_capitalism_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_CAP } }
+				}
+				AND = {
+					is_pluralist_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_PLUR } }
+				}
+				AND = {
+					is_elitist_faction = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_ELITE } }
+				}
+			}
+			OR = {
+				AND = {
+					owner  = { is_democracy = yes }
 					OR = {
 						AND = {
-							owner  = { is_democracy = yes }
-							OR = {
-								AND = {
-									owner = { is_ai = no }
-									support >= 0.2
-									faction_approval <= 0.35
-								}
-								AND = {
-									owner = { is_ai = yes }
-									support >= 0.35
-									faction_approval <= 0.2
-								}
-							}
+							owner = { is_ai = no }
+							support > 0.2
+							faction_approval < 0.35
 						}
 						AND = {
-							owner  = { is_democracy = no }
-							OR = {
-								AND = {
-									owner = { is_ai = no }
-									support >= 0.15
-									faction_approval <= 0.40
-								}
-								AND = {
-									owner = { is_ai = yes }
-									support >= 0.3
-									faction_approval <= 0.25
-								}
-							}
+							owner = { is_ai = yes }
+							support > 0.3
+							faction_approval < 0.3
+						}
+					}
+				}
+				AND = {
+					owner  = { is_democracy = no }
+					OR = {
+						AND = {
+							owner = { is_ai = no }
+							support > 0.15
+							faction_approval < 0.4
+						}
+						AND = {
+							owner = { is_ai = yes }
+							support > 0.25
+							faction_approval < 0.35
 						}
 					}
 				}
@@ -77,19 +130,83 @@ country_event = { # Check disapproving Factions every month
 		random_pop_faction = {
 			limit = {
 				is_regular_faction = yes
+				NOT = { has_pop_faction_flag = faction_rebelled }
+				NOT = { has_pop_faction_flag = faction_sep_situation }
+				OR = {
+					NOT = { exists = leader }
+					leader = { NOT = { is_same_value = root.ruler } }
+				}
+				OR = {
+					AND = {
+						is_pacifist_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_PAC } }
+					}
+					AND = {
+						is_militarist_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_MIL } }
+					}
+					AND = {
+						is_materialist_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_MAT } }
+					}
+					AND = {
+						is_spiritualist_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_SPI } }
+					}
+					AND = {
+						is_egalitarian_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_EGAL } }
+					}
+					AND = {
+						is_authoritarian_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_AUTH } }
+					}
+					AND = {
+						is_xenophile_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_XENO } }
+					}
+					AND = {
+						is_xenophobe_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_PHOBE } }
+					}
+					AND = {
+						is_ecologist_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_ECO } }
+					}
+					AND = {
+						is_industrial_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_INDUS } }
+					}
+					AND = {
+						is_socialism_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_SOC } }
+					}
+					AND = {
+						is_capitalism_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_CAP } }
+					}
+					AND = {
+						is_pluralist_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_PLUR } }
+					}
+					AND = {
+						is_elitist_faction = yes
+						owner = { NOT = { has_country_flag = civ_war_recent_ELITE } }
+					}
+				}
 				OR = {
 					AND = {
 						owner  = { is_democracy = yes }
 						OR = {
 							AND = {
 								owner = { is_ai = no }
-								support >= 0.2
-								faction_approval <= 0.35
+								support > 0.2
+								faction_approval < 0.35
 							}
 							AND = {
 								owner = { is_ai = yes }
-								support >= 0.35
-								faction_approval <= 0.2
+								support > 0.3
+								faction_approval < 0.3
 							}
 						}
 					}
@@ -98,21 +215,16 @@ country_event = { # Check disapproving Factions every month
 						OR = {
 							AND = {
 								owner = { is_ai = no }
-								support >= 0.15
-								faction_approval <= 0.40
+								support > 0.15
+								faction_approval < 0.4
 							}
 							AND = {
 								owner = { is_ai = yes }
-								support >= 0.3
-								faction_approval <= 0.25
+								support > 0.25
+								faction_approval < 0.35
 							}
 						}
 					}
-				}
-				NOT = { has_pop_faction_flag = faction_sep_situation }
-				OR = {
-					NOT = { exists = leader }
-					leader = { NOT = { is_same_value = root.ruler } }
 				}
 			}
 			set_pop_faction_flag = faction_sep_situation
@@ -254,7 +366,7 @@ situation_event = { # Spread Faction Separatists Every Month
 	trigger = {
 		OR = {
 			current_stage = reb_situation_2
-			situation_progress >= 80
+			situation_progress >= 90
 		}
 		target = {
 			any_owned_pop = {
@@ -461,6 +573,10 @@ situation_event = { # Planetary Separatists Strike
 	desc = civsep.9020.desc
 	hide_window = no
 	is_triggered_only = yes
+
+	trigger = {
+		exists = event_target:civil_war_planet
+	}
 
 	option = {
 		name = civcom.this_is_bad

@@ -25,11 +25,14 @@ situation_civstrife_faction_sep_plan = {
 	}
 
 	on_abort = {
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = gen_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = gen_sep_upkeep
+		if = {
+			limit = { exists = target }
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = gen_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = gen_sep_upkeep
+			}
 		}
 	}
 
@@ -37,6 +40,7 @@ situation_civstrife_faction_sep_plan = {
 		OR = {
 			NOT = { exists = target }
 			target = { faction_approval >= 0.2 }
+			target = { has_pop_faction_flag = faction_rebelled }
 			target = { any_owned_pop = { planet = { is_capital = yes } } }
 			target = { any_owned_pop = { planet = { has_planet_flag = rebellion_suppressed } } }
 		}
@@ -53,7 +57,7 @@ situation_civstrife_faction_sep_plan = {
 		reb_situation_2 = {
 			icon = GFX_situation_stage_2
 			icon_background = GFX_situation_stage_frame_red
-			end = 80
+			end = 90
 		}
 		reb_situation_3 = {
 			icon = GFX_situation_stage_3
@@ -122,7 +126,6 @@ situation_civstrife_faction_sep_plan = {
 			owner = { is_egalitarian = no }
 			situation_progress >= 30
 		}
-		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -143,7 +146,7 @@ situation_civstrife_faction_sep_plan = {
 		modifier = {
 			desc = radicalisation_occurring
 			add = 3
-			situation_progress < 80
+			situation_progress < 90
 		}
 	}
 }
@@ -174,11 +177,14 @@ situation_civstrife_faction_sep_sec = {
 	}
 
 	on_abort = {
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = gen_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = gen_sep_upkeep
+		if = {
+			limit = { exists = target }
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = gen_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = gen_sep_upkeep
+			}
 		}
 	}
 
@@ -186,6 +192,7 @@ situation_civstrife_faction_sep_sec = {
 		OR = {
 			NOT = { exists = target }
 			target = { faction_approval >= 0.2 }
+			target = { has_pop_faction_flag = faction_rebelled }
 			target = { any_owned_pop = { planet = { is_capital = yes } } }
 			target = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
 		}
@@ -202,7 +209,7 @@ situation_civstrife_faction_sep_sec = {
 		reb_situation_2 = {
 			icon = GFX_situation_stage_2
 			icon_background = GFX_situation_stage_frame_red
-			end = 80
+			end = 90
 		}
 		reb_situation_3 = {
 			icon = GFX_situation_stage_3
@@ -271,7 +278,6 @@ situation_civstrife_faction_sep_sec = {
 			owner = { is_egalitarian = no }
 			situation_progress >= 30
 		}
-		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -292,7 +298,7 @@ situation_civstrife_faction_sep_sec = {
 		modifier = {
 			desc = radicalisation_occurring
 			add = 3
-			situation_progress < 80
+			situation_progress < 90
 		}
 	}
 }
@@ -323,18 +329,20 @@ situation_civstrife_faction_iso_sep_sec = {
 	}
 
 	on_abort = {
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = gen_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = gen_sep_upkeep
+		if = {
+			limit = { exists = target }
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = gen_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = gen_sep_upkeep
+			}
 		}
 	}
 
 	abort_trigger = {
 		OR = {
 			NOT = { exists = target }
-			target = { faction_approval >= 0.2 }
 			target = { any_owned_pop = { sector = { any_owned_planet = { is_capital = yes } } } }
 			target = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
 		}
@@ -351,7 +359,7 @@ situation_civstrife_faction_iso_sep_sec = {
 		reb_situation_2 = {
 			icon = GFX_situation_stage_2
 			icon_background = GFX_situation_stage_frame_red
-			end = 80
+			end = 90
 		}
 		reb_situation_3 = {
 			icon = GFX_situation_stage_3
@@ -420,7 +428,6 @@ situation_civstrife_faction_iso_sep_sec = {
 			owner = { is_egalitarian = no }
 			situation_progress >= 30
 		}
-		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -441,24 +448,24 @@ situation_civstrife_faction_iso_sep_sec = {
 		modifier = {
 			desc = radicalisation_occurring
 			add = 2
-			situation_progress >= 80
+			situation_progress < 90
 		}
 	}
 }
 
-# Separatist Slaves
-situation_civstrife_sep_slaves = {
+# Separatist Slaves Planet
+situation_civstrife_sep_slaves_plan = {
 	picture = GFX_evt_night_raid
 	category = negative
 
 	desc = {
-		text = situation_civstrife_sep_slaves_unrest_desc
-		trigger = { situation_progress < 80 }
+		text = situation_civstrife_sep_slaves_plan_unrest_desc
+		trigger = { situation_progress < 90 }
 	}
 
 	desc = {
-		text = situation_civstrife_sep_slaves_crisis_desc
-		trigger = { situation_progress >= 80 }
+		text = situation_civstrife_sep_slaves_plan_crisis_desc
+		trigger = { situation_progress >= 90 }
 	}
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -486,6 +493,23 @@ situation_civstrife_sep_slaves = {
 	}
 
 	on_abort = {
+		if = {
+			limit = { exists = target }
+			target = {
+				if = {
+					limit = { has_planet_flag = plan_slave_sep_active }
+					remove_planet_flag = plan_slave_sep_active
+				}
+				if = {
+					limit = { is_variable_set = slave_revolt_tick }
+					clear_variable = slave_revolt_tick
+				}
+				if = {
+					limit = { is_variable_set = slave_calm_tick }
+					clear_variable = slave_calm_tick
+				}
+			}
+		}
 	}
 
 	abort_trigger = {
@@ -494,14 +518,47 @@ situation_civstrife_sep_slaves = {
 			target = { is_capital = yes }
 			target = { planet_stability >= 60 }
 			target = { has_planet_flag = rebellion_suppressed }
-			target = {
-				pop_percentage = {
-					percentage < 0.25
-					limit = {
-						is_enslaved = yes
-						happiness < 60
+			target = { has_planet_flag = recent_slave_rebellion }
+			target = { NOT = { has_planet_flag = plan_slave_sep_active } }
+			OR = {
+				AND = {
+					target = {
+						has_planet_flag = frontier_planet_@root.owner
+						pop_percentage = {
+							percentage <= 0.15
+							limit = {
+								is_enslaved = yes
+								happiness < 60
+							}
+							exclude = { can_think = no }
+						}
 					}
-					exclude = { can_think = no }
+				}
+				AND = {
+					target = {
+						has_planet_flag = integrated_planet_@root.owner
+						pop_percentage = {
+							percentage <= 0.2
+							limit = {
+								is_enslaved = yes
+								happiness < 60
+							}
+							exclude = { can_think = no }
+						}
+					}
+				}
+				AND = {
+					target = {
+						has_planet_flag = fundamental_planet_@root.owner
+						pop_percentage = {
+							percentage <= 0.25
+							limit = {
+								is_enslaved = yes
+								happiness < 60
+							}
+							exclude = { can_think = no }
+						}
+					}
 				}
 			}
 		}
@@ -517,7 +574,7 @@ situation_civstrife_sep_slaves = {
 				planet_stability_add = -5
 				pop_happiness = -0.05
 			}
-			end = 80
+			end = 90
 		}
 		slave_situation_2 = {
 			icon = GFX_situation_stage_2
@@ -578,7 +635,7 @@ situation_civstrife_sep_slaves = {
 
 	on_monthly = {
 		events = {
-			civsep.5000			# Upkeep and Initializer
+			civsep.5200			# Upkeep and Initializer
 	    }
 	    random_events = {
 			85 = 0
@@ -595,23 +652,252 @@ situation_civstrife_sep_slaves = {
 		modifier = {
 			desc = radicalisation_occurring
 			add = 1
-			situation_progress < 80
+			situation_progress < 90
 		}
 		modifier = {
 			add = target.value:revolt_situation_low_stability_factor #0.2 for every point below 25 (so max 5)
 			desc = STRING_LOW_STABILITY
-			situation_progress < 80
+			situation_progress < 90
 			target = { planet_stability < @stabilitylevel2 }
 		}
 		modifier = {
 			add = 2
 			desc = STRING_PURGING
-			situation_progress < 80
+			situation_progress < 90
 			target = {
 				has_current_purge = yes
 				any_owned_pop = {
 					is_being_purged = yes
 					NOT = { has_purge_type = { type = purge_neutering } }
+				}
+			}
+		}
+	}
+}
+
+# Separatist Slaves Planet
+situation_civstrife_sep_slaves_sec = {
+	picture = GFX_evt_night_raid
+	category = negative
+
+	desc = {
+		text = situation_civstrife_sep_slaves_sec_unrest_desc
+		trigger = { situation_progress < 90 }
+	}
+
+	desc = {
+		text = situation_civstrife_sep_slaves_sec_crisis_desc
+		trigger = { situation_progress >= 90 }
+	}
+
+	complete_icon = GFX_situation_outcome_revolt
+	complete_icon_frame = GFX_situation_outcome_frame_red
+
+	on_start = {
+		target = {
+			set_variable = { which = slave_sep_upkeep value = 0 }
+			every_owned_planet = {
+				every_owned_pop = {
+					limit = {
+						is_enslaved = yes
+						happiness < 60
+					}
+					prevprev = { change_variable = { which = slave_sep_upkeep value = 1 } }
+				}
+			}
+		}
+	}
+
+	on_progress_complete = {
+		custom_tooltip = situation_civstrife_slave_end
+	}
+
+	on_fail = {
+		custom_tooltip = situation_civstrife_slave_failed
+	}
+
+	on_abort = {
+		if = {
+			limit = { exists = target }
+			target = {
+				if = {
+					limit = { has_sector_flag = plan_slave_sep_active }
+					remove_sector_flag = plan_slave_sep_active
+				}
+				if = {
+					limit = { sector_capital = { is_variable_set = slave_calm_tick } }
+					sector_capital = { clear_variable = sec_slave_calm_tick }
+				}
+			}
+		}
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = { exists = target }
+			target = { any_owned_planet = { is_capital = yes } }
+			target = { has_sector_flag = recent_slave_rebellion }
+			target = { NOT = { has_sector_flag = sec_slave_sep_active } }
+			target.sector_capital = { has_planet_flag = recent_sector_slave_rebellion }
+			target = {
+				NOT = {
+					any_owned_planet = {
+						any_owned_pop = { is_enslaved = yes }
+						planet_stability < 60
+					}
+				}
+			}
+			OR = {
+				AND = {
+					target = {
+						has_sector_flag = frontier_sector_@root.owner
+						pop_percentage = {
+							percentage <= 0.15
+							limit = {
+								is_enslaved = yes
+								happiness < 60
+							}
+							exclude = { can_think = no }
+						}
+					}
+				}
+				AND = {
+					target = {
+						has_sector_flag = integrated_sector_@root.owner
+						pop_percentage = {
+							percentage <= 0.2
+							limit = {
+								is_enslaved = yes
+								happiness < 60
+							}
+							exclude = { can_think = no }
+						}
+					}
+				}
+				AND = {
+					target = {
+						has_sector_flag = fundamental_sector_@root.owner
+						pop_percentage = {
+							percentage <= 0.25
+							limit = {
+								is_enslaved = yes
+								happiness < 60
+							}
+							exclude = { can_think = no }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	start_value = 0
+
+	stages = {
+		slave_situation_1 = {
+			icon = GFX_situation_stage_1
+			icon_background = GFX_situation_stage_frame_blue
+			target_modifier = {
+				planet_stability_add = -5
+				pop_happiness = -0.05
+			}
+			end = 90
+		}
+		slave_situation_2 = {
+			icon = GFX_situation_stage_2
+			icon_background = GFX_situation_stage_frame_red
+			on_first_enter = {
+				#Sabotage
+				target.sector_capital = { planet_event = { id = unrest.156 } }
+			}
+			target_modifier = {
+				planet_stability_add = -15
+				pop_happiness = -0.1
+			}
+			end = 100
+		}
+	}
+
+	approach = {
+		name = approach_do_nothing
+		icon = GFX_situation_approach_suspicious
+		icon_background = GFX_situation_approach_bg_red
+		default = yes
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 0.5
+				multiplier = target.slave_sep_upkeep
+			}
+		}
+		ai_weight = {
+			base = 1
+		}
+	}
+
+	approach = {
+		name = approach_slave_repression
+		icon = GFX_situation_approach_whip
+		icon_background = GFX_situation_approach_bg_yellow
+		resources = {
+			category = situations
+			upkeep = {
+				unity = 1.5
+				energy = 0.5
+				multiplier = target.slave_sep_upkeep
+			}
+		}
+		target_modifier = {
+			pop_cat_ruler_happiness = 0.05
+			pop_cat_slave_happiness = -0.1
+			job_soldier_stability_add = 1
+			planet_army_build_speed_mult = 0.5
+			planet_building_stronghold_build_speed_mult = 0.5
+			planet_soldiers_energy_upkeep_add = 2
+		}
+		ai_weight = {
+			base = 2
+		}
+	}
+
+	on_monthly = {
+		events = {
+			civsep.5200			# Upkeep and Initializer
+	    }
+	    random_events = {
+			85 = 0
+			3 = unrest.101
+			3 = unrest.105
+			3 = unrest.110
+			3 = unrest.157
+			3 = unrest.159
+		}
+	}
+
+	monthly_progress = {
+		base = 0
+		modifier = {
+			desc = radicalisation_occurring
+			add = 3
+			situation_progress < 90
+		}
+		modifier = {
+			add = target.sector_capital.value:revolt_situation_low_stability_factor #0.2 for every point below 25 (so max 5)
+			desc = STRING_LOW_STABILITY
+			situation_progress < 90
+			target.sector_capital = { planet_stability < @stabilitylevel2 }			
+		}
+		modifier = {
+			add = 2
+			desc = STRING_PURGING
+			situation_progress < 90
+			target = {
+				any_owned_planet = {
+					has_current_purge = yes
+					any_owned_pop = {
+						is_being_purged = yes
+						NOT = { has_purge_type = { type = purge_neutering } }
+					}
 				}
 			}
 		}
@@ -671,6 +957,7 @@ situation_civstrife_faction_sep_nat = {
 		OR = {
 			NOT = { exists = target }
 			target = { faction_approval >= 0.2 }
+			target = { has_pop_faction_flag = faction_rebelled }
 		}
 	}
 
@@ -685,7 +972,7 @@ situation_civstrife_faction_sep_nat = {
 		reb_situation_2 = {
 			icon = GFX_situation_stage_2
 			icon_background = GFX_situation_stage_frame_red
-			end = 80
+			end = 90
 		}
 		reb_situation_3 = {
 			icon = GFX_situation_stage_3
@@ -754,7 +1041,6 @@ situation_civstrife_faction_sep_nat = {
 			owner = { is_egalitarian = no }
 			situation_progress >= 30
 		}
-		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -774,7 +1060,7 @@ situation_civstrife_faction_sep_nat = {
 		modifier = {
 			desc = radicalisation_occurring
 			add = 1
-			situation_progress < 80
+			situation_progress < 90
 		}
 	}
 }
@@ -846,7 +1132,7 @@ situation_civstrife_faction_sep_ruler = {
 		reb_situation_2 = {
 			icon = GFX_situation_stage_2
 			icon_background = GFX_situation_stage_frame_red
-			end = 80
+			end = 90
 		}
 		reb_situation_3 = {
 			icon = GFX_situation_stage_3
@@ -915,7 +1201,6 @@ situation_civstrife_faction_sep_ruler = {
 			owner = { is_egalitarian = no }
 			situation_progress >= 30
 		}
-		potential = { owner = { is_egalitarian = no } }
 	}
 
 	on_monthly = {
@@ -935,7 +1220,7 @@ situation_civstrife_faction_sep_ruler = {
 		modifier = {
 			desc = radicalisation_occurring
 			add = 1
-			situation_progress < 80
+			situation_progress < 90
 		}
 	}
 }

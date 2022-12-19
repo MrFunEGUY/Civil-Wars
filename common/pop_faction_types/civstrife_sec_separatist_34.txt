@@ -38,6 +38,7 @@ sec_separatist_34 = {
 	}
 
 	can_join_faction = {
+		exists = sector
 		sector = {
 			is_same_value = event_target:sec_separatist_34
 			has_sector_flag = sector_sep_active
@@ -374,8 +375,11 @@ sec_separatist_34 = {
 	on_destroy = {
 		# Allows planets to resume getting separatists, which in turn will allow this to re-form if necessary
 		# faction_kill_leader_effect = yes
-		event_target:sec_separatist_34 = { remove_sector_flag = sector_sep_active }
-		clear_global_event_target = sec_separatist_34
+		if = {
+			limit = { exists = event_target:sec_separatist_34 }
+			event_target:sec_separatist_34 = { remove_sector_flag = sector_sep_active }
+			clear_global_event_target = sec_separatist_34
+		}
 	}
 
 	actions = {}

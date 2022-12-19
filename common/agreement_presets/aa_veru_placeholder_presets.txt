@@ -1,0 +1,1197 @@
+# This file contains presets that are selectable when proposing an Agreement.
+# The terms of the preset are defined as key/value pairs.
+# Would be nice to make scripting of the key/value pairs less verbose, but that requires some more work with serialization.
+
+# Example:
+#
+# name_of_preset = {
+# 	term_data = {
+# 		discrete_terms = {						# The default discrete terms of this preset
+# 			{
+# 				key = name_of_term				# The term name, as defined in agreement_terms
+# 				value = name_of_term_value		# The term value to use, as defined in agreement_term_values
+# 			}
+# 			{
+# 				key = name_of_other_term
+# 				value = name_of_other_term_value
+# 			}
+# 		}
+#		resource_terms = {
+#			{
+#				key = name_of_resource_term_value # The resource term value to use, as defined in agreement_term_values
+#				value = <number>				# subsidy percentage
+#			}
+#		}
+# 	}
+# }
+
+@protectorate_tech_threshold = 0.4
+@protectorate_tech_switch = 0.5
+
+@specialist_base_acceptance_value = 50
+@specialist_subject_base_acceptance_value = 50
+@specialist_aligned_ethics_value = 50
+@specialist_unaligned_ethics_value = -50
+
+###############
+# VER Vassals #
+###############
+
+# Pacifist
+preset_verdevolved = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+		modifier = {
+			factor = 0.3
+			NOR = {
+				is_pacifist = yes
+				has_valid_civic = civic_machine_servitor
+			}
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_fanatic_pacifist
+		}
+		modifier = {
+			factor = 3
+			has_valid_civic = civic_agrarian_idyll
+		}
+	}
+	subject_weight = {
+		base = 100
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Militarist
+preset_verfoederatus = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+		modifier = {
+			factor = 0.3
+			is_militarist = no
+		}
+		modifier = {
+			factor = 1
+			has_ethic = ethic_militarist
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_fanatic_militarist
+		}
+		modifier = {
+			factor = 3
+			has_valid_civic = civic_warrior_culture
+		}
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Spiritualist
+preset_verdisciple = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+		modifier = {
+			factor = 0
+			is_materialist = yes
+		}
+		modifier = {
+			factor = 0.3
+			is_spiritualist = no
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_fanatic_spiritualist
+		}
+		modifier = {
+			factor = 3
+			has_valid_civic = civic_exalted_priesthood
+		}
+		modifier = {
+			factor = 10
+			has_ai_personality = evangelising_zealots
+		}
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Materialist
+preset_verjrpartner = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+		modifier = {
+			factor = 0
+			is_spiritualist = yes
+		}
+		modifier = {
+			factor = 0.3
+			is_materialist = no
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_fanatic_materialist
+		}
+		modifier = {
+			factor = 3
+			has_valid_civic = civic_technocracy
+		}
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Xenophobe
+preset_verserf = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+		modifier = {
+			factor = 0
+			OR = {
+				is_egalitarian = yes
+				is_xenophile = yes
+			}
+		}
+		modifier = {
+			factor = 0.1
+			is_xenophobe = no
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_fanatic_xenophobe
+		}
+		modifier = {
+			factor = 3
+			has_valid_civic = civic_slaver_guilds
+		}
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Authoritarian
+preset_verpuppet = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+		modifier = {
+			factor = 0
+			is_egalitarian = yes
+		}
+		modifier = {
+			factor = 0.2
+			is_authoritarian = no
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_fanatic_authoritarian
+		}
+		modifier = {
+			factor = 3
+			has_valid_civic = civic_shadow_council
+		}
+		modifier = {
+			factor = 0.5
+			is_xenophile = yes
+		}
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Blood Tributary
+preset_verblood = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+#############
+
+# Hive Mind
+preset_verappendage = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Organic subjects of machine intelligences
+preset_verorganic = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Mechanic subjects of machine intelligences
+preset_verparallel = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+#############
+
+# Brand Loyalty
+preset_verdevotee = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+		modifier = {
+			factor = 0
+			is_materialist = yes
+		}
+		modifier = {
+			factor = 0.1
+			is_spiritualist = no
+		}
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_spiritualist
+		}
+		modifier = {
+			factor = 1.75
+			has_ethic = ethic_fanatic_spiritualist
+		}
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Criminal Heritage
+preset_verkobun = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+		modifier = {
+			factor = 0
+			is_egalitarian = yes
+		}
+		modifier = {
+			factor = 0.2
+			is_authoritarian = no
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_fanatic_authoritarian
+		}
+		modifier = {
+			factor = 3
+			has_valid_civic = civic_shadow_council
+		}
+		modifier = {
+			factor = 0.5
+			is_xenophile = yes
+		}
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Gospel of the Masses
+preset_verworshipper = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+		modifier = {
+			factor = 0
+			is_materialist = yes
+		}
+		modifier = {
+			factor = 0.1
+			is_spiritualist = no
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_spiritualist
+		}
+		modifier = {
+			factor = 3
+			has_ethic = ethic_fanatic_spiritualist
+		}
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Indentured Assets
+preset_verdebtor = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+		modifier = {
+			factor = 0.25
+			any_subject = {
+				any_agreement = { agreement_preset = preset_verdebtor }
+			}
+		}
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Subscriber
+preset_versubscriber = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+		modifier = {
+			factor = 0.1
+			NOR = {
+				is_pacifist = yes
+				has_valid_civic = civic_machine_servitor
+			}
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_fanatic_pacifist
+		}
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Naval Contractors, Private Military Companies
+preset_verarmsdealer = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+		modifier = {
+			factor = 0.1
+			is_militarist = no
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_fanatic_militarist
+		}
+		modifier = {
+			factor = 3
+			has_valid_civic = civic_warrior_culture
+		}
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}
+
+# Private Prospectors
+preset_versubcontractor = {
+	icon = "GFX_diplomacy_status_is_vassal"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_defensive
+			}
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+			{
+				key = protectorate
+				value = subject_is_not_protectorate
+			}
+		}
+	}
+
+	overlord_weight = {
+		base = 100
+		modifier = {
+			factor = 0
+			is_spiritualist = yes
+		}
+		modifier = {
+			factor = 0.3
+			is_materialist = no
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_fanatic_materialist
+		}
+		modifier = {
+			factor = 3
+			has_valid_civic = civic_technocracy
+		}
+	}
+	subject_weight = {
+		base = 0
+	}
+
+	potential = {
+		always = no
+	}
+}

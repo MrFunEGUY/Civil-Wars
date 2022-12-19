@@ -41,9 +41,7 @@ wg_civwar = {
 		hidden_effect = {
 			from = {
 				every_system_within_border = {
-					limit = {
-						exists = starbase
-					}
+					limit = { exists = starbase }
 					starbase = { set_owner = root }
 				}
 			}
@@ -59,97 +57,29 @@ wg_civwar = {
 				}
 			} 
 			every_war_participant = {
-				limit = {
-					is_war_leader = no
-				}
-				prev = {
-					remove_war_participant = prev
-				}
-			}
-		}
-		from = {
-			every_system_within_border = {
-				limit = {
-					NOT = { root = { has_claim = prev } }
-				}
-				add_claims = { who = root }
-			}
-		}
-	}
-
-	ai_weight = {
-		weight = 100
-	}
-}
-
-wg_civwar_subject = {
-	casus_belli = cb_event
-
-	hide_if_no_cb = yes
-	set_defender_wargoal = wg_civwar_rebel
-
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
-
-	surrender_acceptance = -300
-
-	potential = {
-		always = no # event only
-	}
-
-	possible = {
-		always = yes
-	}
-
-	on_status_quo = {
-		custom_tooltip = civil_war_status_quo_tooltip
-		from = {
-			add_monthly_resource_mult = {
-				resource = unity
-				value = @tier4materialreward
-				min = @tier4materialmin
-			}
-		}
-	}
-
-	on_accept = {
-		custom_tooltip = civil_war_won_subject_tooltip
-		add_monthly_resource_mult = {
-			resource = unity
-			value = @tier1materialreward
-			min = @tier1materialmin
-		}
-		hidden_effect = {
-			from = {
-				every_system_within_border = {
-					limit = {
-						exists = starbase
-					}
-					starbase = { set_owner = root }
-				}
-			}
-		}
-	}
-
-	on_wargoal_set = {
-		random_war = {
-			limit = {
-				using_war_goal = {
-					type = wg_civwar_subject
-					owner = root
-				}
-			}
-			every_war_participant = {
-				limit = {
-					NOT = { is_war_leader = yes }
-				}
+				limit = { is_war_leader = no }
 				prev = { remove_war_participant = prev }
 			}
-			set_war_flag = subject_war
-			save_global_event_target_as = subject_war_join
+		}
+		if = {
+			limit = { has_country_flag = subject_civwar_timed_flag }
+			random_war = {
+				limit = {
+					using_war_goal = {
+						type = wg_civwar
+						owner = root
+					}
+				}
+				set_timed_war_flag = { flag = war_for_subject_join days = 2 }
+			}
+		}
+		else = {
+			from = {
+				every_system_within_border = {
+					limit = { NOT = { root = { has_claim = prev } } }
+					add_claims = { who = root }
+				}
+			}
 		}
 	}
 
@@ -222,20 +152,28 @@ wg_planet_rebellion = {
 				}
 			}
 			every_war_participant = {
-				limit = {
-					is_war_leader = no
-				}
-				prev = {
-					remove_war_participant = prev
-				}
+				limit = { is_war_leader = no }
+				prev = { remove_war_participant = prev }
 			}
 		}
-		from = {
-			every_system_within_border = {
+		if = {
+			limit = { has_country_flag = subject_planwar_timed_flag }
+			random_war = {
 				limit = {
-					NOT = { root = { has_claim = prev } }
+					using_war_goal = {
+						type = wg_planet_rebellion
+						owner = root
+					}
 				}
-				add_claims = { who = root }
+				set_timed_war_flag = { flag = war_for_subject_join days = 2 }
+			}
+		}
+		else = {
+			from = {
+				every_system_within_border = {
+					limit = { NOT = { root = { has_claim = prev } } }
+					add_claims = { who = root }
+				}
 			}
 		}
 	}
@@ -253,9 +191,7 @@ wg_planet_rebellion = {
 					set_timed_planet_flag = { flag = rebellion_suppressed days = 1800 }
 				}
 				every_system_within_border = {
-					limit = {
-						exists = starbase
-					}
+					limit = { exists = starbase }
 					every_system_planet = {
 						limit = {
 							is_owned_by = prevprev
@@ -348,9 +284,7 @@ wg_natwar = {
 		hidden_effect = {
 			from = {
 				every_system_within_border = {
-					limit = {
-						exists = starbase
-					}
+					limit = { exists = starbase }
 					starbase = { set_owner = root }
 				}
 			}
@@ -361,102 +295,34 @@ wg_natwar = {
 		random_war = {
 			limit = {
 				using_war_goal = {
-					type = wg_civwar
+					type = wg_natwar
 					owner = root
 				}
 			} 
 			every_war_participant = {
-				limit = {
-					is_war_leader = no
-				}
-				prev = {
-					remove_war_participant = prev
-				}
-			}
-		}
-		from = {
-			every_system_within_border = {
-				limit = {
-					NOT = { root = { has_claim = prev } }
-				}
-				add_claims = { who = root }
-			}
-		}
-	}
-
-	ai_weight = {
-		weight = 100
-	}
-}
-
-wg_natwar_subject = {
-	casus_belli = cb_event
-
-	hide_if_no_cb = yes
-	set_defender_wargoal = wg_natwar_rebel
-
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
-
-	surrender_acceptance = -300
-
-	potential = {
-		always = no # event only
-	}
-
-	possible = {
-		always = yes
-	}
-
-	on_status_quo = {
-		custom_tooltip = civil_war_status_quo_tooltip
-		from = {
-			add_monthly_resource_mult = {
-				resource = unity
-				value = @tier4materialreward
-				min = @tier4materialmin
-			}
-		}
-	}
-
-	on_accept = {
-		custom_tooltip = civil_war_won_subject_tooltip
-		add_monthly_resource_mult = {
-			resource = unity
-			value = @tier1materialreward
-			min = @tier1materialmin
-		}
-		hidden_effect = {
-			from = {
-				every_system_within_border = {
-					limit = {
-						exists = starbase
-					}
-					starbase = { set_owner = root }
-				}
-			}
-		}
-	}
-
-	on_wargoal_set = {
-		random_war = {
-			limit = {
-				using_war_goal = {
-					type = wg_natwar_subject
-					owner = root
-				}
-			}
-			every_war_participant = {
-				limit = {
-					NOT = { is_war_leader = yes }
-				}
+				limit = { is_war_leader = no }
 				prev = { remove_war_participant = prev }
 			}
-			set_war_flag = subject_war
-			save_global_event_target_as = subject_war_join
+		}
+		if = {
+			limit = { has_country_flag = subject_natwar_timed_flag }
+			random_war = {
+				limit = {
+					using_war_goal = {
+						type = wg_natwar
+						owner = root
+					}
+				}
+				set_timed_war_flag = { flag = war_for_subject_join days = 2 }
+			}
+		}
+		else = {
+			from = {
+				every_system_within_border = {
+					limit = { NOT = { root = { has_claim = prev } } }
+					add_claims = { who = root }
+				}
+			}
 		}
 	}
 
@@ -598,27 +464,33 @@ wg_civwar_heir = {
 				}
 			}
 			every_war_participant = {
-				limit = {
-					is_war_leader = no
-				}
-				prev = {
-					remove_war_participant = prev
-				}
+				limit = { is_war_leader = no }
+				prev = { remove_war_participant = prev }
 			}
 		}
-		from = {
+		if = {
+			limit = { has_country_flag = subject_heirwar_timed_flag }
+			random_war = {
+				limit = {
+					using_war_goal = {
+						type = wg_civwar_heir
+						owner = root
+					}
+				}
+				set_timed_war_flag = { flag = war_for_subject_join days = 2 }
+			}
+		}
+		else = {
+			from = {
+				every_system_within_border = {
+					limit = { NOT = { root = { has_claim = prev } } }
+					add_claims = { who = root }
+				}
+			}
 			every_system_within_border = {
-				limit = {
-					NOT = { root = { has_claim = prev } }
-				}
-				add_claims = { who = root }
+				limit = { NOT = { from = { has_claim = prev } } }
+				add_claims = { who = from }
 			}
-		}
-		every_system_within_border = {
-			limit = {
-				NOT = { from = { has_claim = prev } }
-			}
-			add_claims = { who = from }
 		}
 	}
 
@@ -757,16 +629,12 @@ wg_coup_independent = {
 			} 
 			every_war_participant = {
 				limit = { is_war_leader = no }
-				prev = {
-					remove_war_participant = prev
-				}
+				prev = { remove_war_participant = prev }
 			}
 		}
 		from = {
 			every_system_within_border = {
-				limit = {
-					NOT = { root = { has_claim = prev } }
-				}
+				limit = { NOT = { root = { has_claim = prev } } }
 				add_claims = { who = root }
 			}
 		}
@@ -845,9 +713,7 @@ wg_coup_fealty = { # Currently Unused
 	on_wargoal_set = {
 		from = {
 			every_system_within_border = {
-				limit = {
-					NOT = { root = { has_claim = prev } }
-				}
+				limit = { NOT = { root = { has_claim = prev } } }
 				add_claims = { who = root }
 			}
 		}
@@ -1069,6 +935,127 @@ wg_retrieve_traitor_heir = {
 				limit = { has_leader_flag = heir_traitor_@root }
 				save_global_event_target_as = traitorous_heir
 			}
+		}
+	}
+
+	ai_weight = {
+		weight = 100
+	}
+}
+
+# Slave Uprising
+
+wg_slave_uprising = {
+	casus_belli = cb_event
+
+	hide_if_no_cb = yes
+	set_defender_wargoal = wg_slave_uprising_rebel
+
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+
+	surrender_acceptance = -300
+
+	potential = {
+		always = no # event only
+	}
+
+	possible = {
+		always = yes
+	}
+
+	on_status_quo = {
+		custom_tooltip = slave_war_status_quo_tooltip
+		from = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier5materialreward
+				min = @tier5materialmin
+			}
+		}
+	}
+
+	on_accept = {
+		custom_tooltip = slave_war_won_tooltip
+		hidden_effect = {
+			from = {
+				every_system_within_border = {
+					limit = { exists = starbase }
+					starbase = { set_owner = root }
+				}
+			}
+		}
+	}
+
+	on_wargoal_set = {
+		random_war = {
+			limit = {
+				using_war_goal = {
+					type = wg_slave_uprising
+					owner = root
+				}
+			} 
+			every_war_participant = {
+				limit = { is_war_leader = no }
+				prev = { remove_war_participant = prev }
+			}
+		}
+		if = {
+			limit = { has_country_flag = subject_slavewar_timed_flag }
+			random_war = {
+				limit = {
+					using_war_goal = {
+						type = wg_slave_uprising
+						owner = root
+					}
+				}
+				set_timed_war_flag = { flag = war_for_subject_join days = 2 }
+			}
+		}
+		else = {
+			from = {
+				every_system_within_border = {
+					limit = { NOT = { root = { has_claim = prev } } }
+					add_claims = { who = root }
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 100
+	}
+}
+
+wg_slave_uprising_rebel = {
+	casus_belli = cb_event
+
+	hide_if_no_cb = yes
+
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+
+	surrender_acceptance = -300
+
+	potential = {
+		always = no # event only
+	}
+	possible = {
+		always = yes
+	}
+
+	on_accept = {
+		custom_tooltip = slave_war_lost_tooltip
+		add_monthly_resource_mult = {
+			resource = unity
+			value = @tier5materialreward
+			min = @tier5materialmin
 		}
 	}
 

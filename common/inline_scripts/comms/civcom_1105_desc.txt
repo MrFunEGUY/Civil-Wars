@@ -1,0 +1,69 @@
+# Civil War With Vassalization Descriptions
+
+desc = {
+	text = civcom.1105.governor.desc
+	trigger = {
+		event_target:civwar_rebels.ruler = {
+			has_leader_flag = civil_war_ruler_governor
+		}
+	}
+}
+
+desc = {
+	text = civcom.1105.admiral.desc
+	trigger = {
+		event_target:civwar_rebels.ruler = {
+			has_leader_flag = civil_war_ruler_admiral
+		}
+	}
+}
+
+desc = {
+	text = civcom.1105.general.desc
+	trigger = {
+		event_target:civwar_rebels.ruler = {
+			has_leader_flag = civil_war_ruler_general
+		}
+	}
+}
+
+desc = {
+	text = civcom.1105.scientist.desc
+	trigger = {
+		event_target:civwar_rebels.ruler = {
+			has_leader_flag = civil_war_ruler_scientist
+		}
+	}
+}
+
+desc = {
+	text = civcom.1105.nationalist.desc
+	trigger = {
+		event_target:nat_motherland_model = { is_exile_country = no }
+		event_target:civwar_rebels.ruler = {
+			has_leader_flag = civil_war_ruler_nationalist
+		}
+	}
+}
+
+desc = {
+	text = civcom.1105.nationalist.exile.reg.desc
+	trigger = {
+		event_target:nat_motherland_model = { is_exile_country = yes }
+		event_target:civwar_rebels = {
+			ruler = { has_leader_flag = civil_war_ruler_nationalist }
+			is_imperial = no
+		}
+	}
+}
+
+desc = {
+	text = civcom.1105.nationalist.exile.imp.desc
+	trigger = {
+		event_target:nat_motherland_model = { is_exile_country = yes }
+		event_target:civwar_rebels = {
+			ruler = { has_leader_flag = civil_war_ruler_nationalist }
+			is_imperial = yes
+		}
+	}
+}

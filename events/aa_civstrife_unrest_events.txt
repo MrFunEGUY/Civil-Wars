@@ -4,7 +4,7 @@ namespace = unrest
 
 ###### These events have been repurposed:
 
-planet_event = { # Now only for slave revolts
+planet_event = { # Never Fires
 	id = unrest.50
 	is_triggered_only = yes
 	hide_window = yes
@@ -15,56 +15,44 @@ planet_event = { # Now only for slave revolts
 	}
 
 	trigger = {
-		planet_stability < @stabilitylevel2
-		num_pops >= 10
-		pop_percentage = {
-			percentage >= 0.4
-			limit = {
-				is_enslaved = yes
-				happiness < 60
-			}
-			exclude = { can_think = no }
-		}
-		has_orbital_bombardment = no
-		exists = owner
-		owner = {
-			is_country_type = default
-			NOT = { any_situation = { has_situation_flag = slave_sit_@root } }
-		}
-		NOR = {
-			has_planet_flag = 3_year_owner_change_flag
-			has_planet_flag = recent_revolt_attempt
-		}
-		is_doomsday_planet = no
-		exists = controller
-		controller = { is_same_value = root.owner }
-		OR = {
-			owner = { is_gestalt = yes }
-			any_owned_species = { species_has_happiness_with_owner = root.owner }
-		}
+		always = no
+		# planet_stability < @stabilitylevel2
+		# num_pops >= 10
+		# pop_percentage = {
+		# 	percentage >= 0.4
+		# 	limit = {
+		# 		is_enslaved = yes
+		# 		happiness < 60
+		# 	}
+		# 	exclude = { can_think = no }
+		# }
+		# has_orbital_bombardment = no
+		# exists = owner
+		# owner = {
+		# 	is_country_type = default
+		# 	NOT = { any_situation = { has_situation_flag = slave_sit_@root } }
+		# }
+		# NOR = {
+		# 	has_planet_flag = 3_year_owner_change_flag
+		# 	has_planet_flag = recent_revolt_attempt
+		# }
+		# is_doomsday_planet = no
+		# exists = controller
+		# controller = { is_same_value = root.owner }
+		# OR = {
+		# 	owner = { is_gestalt = yes }
+		# 	any_owned_species = { species_has_happiness_with_owner = root.owner }
+		# }
 		# check_variable_arithmetic = { #will the revolt actually tick up?
 		# 	which = value:potential_revolt_situation_monthly_progress_estimation
 		# 	value > 0
 		# }
 	}
 
-	immediate = {
-		# set_timed_planet_flag = { # This doesnt work with the culture shock limit below, vanilla bug
-		# 	flag = unrest_timer
-		# 	days = 360
-		# }
-
-		if = { #Getting an impossible to prevent revolt due to culture shock is a bit harsh. (Planet can start with no jobs, for instance)
-			limit = { has_culture_shock = yes }
-			planet_event = { id = unrest.54 days = 1880 random = 180 } #at least 8 years after owner change (including the 3 years via 3_year_owner_change_flag)
-		}
-		else = {
-			planet_event = { id = unrest.54 days = 300 random = 59 } #definitely within the next year
-		}
-	}
+	immediate = {}
 }
 
-planet_event = { # Get Slave Revolt Planet
+planet_event = { # Never Fires
 	id = unrest.54
 	is_triggered_only = yes
 	hide_window = yes
@@ -75,146 +63,41 @@ planet_event = { # Get Slave Revolt Planet
 	}
 
 	trigger = {
-		planet_stability < @stabilitylevel2
-		num_pops >= 10
-		pop_percentage = {
-			percentage >= 0.4
-			limit = {
-				is_enslaved = yes
-				happiness < 60
-			}
-			exclude = { can_think = no }
-		}
-		has_orbital_bombardment = no
-		exists = owner
-		owner = {
-			is_country_type = default
-			NOT = { any_situation = { has_situation_flag = slave_sit_@root } }
-		}
-		NOR = {
-			has_planet_flag = 3_year_owner_change_flag
-			has_planet_flag = recent_revolt_attempt
-		}
-		is_doomsday_planet = no
-		exists = controller
-		controller = { is_same_value = root.owner }
-		OR = {
-			owner = { is_gestalt = yes }
-			any_owned_species = { species_has_happiness_with_owner = root.owner }
-		}
+		always = no
+		# planet_stability < @stabilitylevel2
+		# num_pops >= 10
+		# pop_percentage = {
+		# 	percentage >= 0.4
+		# 	limit = {
+		# 		is_enslaved = yes
+		# 		happiness < 60
+		# 	}
+		# 	exclude = { can_think = no }
+		# }
+		# has_orbital_bombardment = no
+		# exists = owner
+		# owner = {
+		# 	is_country_type = default
+		# 	NOT = { any_situation = { has_situation_flag = slave_sit_@root } }
+		# }
+		# NOR = {
+		# 	has_planet_flag = 3_year_owner_change_flag
+		# 	has_planet_flag = recent_revolt_attempt
+		# }
+		# is_doomsday_planet = no
+		# exists = controller
+		# controller = { is_same_value = root.owner }
+		# OR = {
+		# 	owner = { is_gestalt = yes }
+		# 	any_owned_species = { species_has_happiness_with_owner = root.owner }
+		# }
 		# check_variable_arithmetic = { #will the revolt actually tick up?
 		# 	which = value:potential_revolt_situation_monthly_progress_estimation
 		# 	value > 0
 		# }
 	}
 
-	immediate = {
-
-		set_variable = { which = num_slave_rebels value = 0 }
-
-		every_owned_pop = {
-			limit = {
-				is_enslaved = yes
-				happiness < 60
-			}
-			prev = { change_variable = { which = num_slave_rebels value = 1 } }
-		}
-
-		set_timed_planet_flag = {
-			flag = unrest_timer
-			days = 30
-		}
-
-		if = {
-			limit = { #Extra safety because it's possible for two planets to fire this delayed event on the same day and it will check the trigger before either of them can fire (as of March 2022)
-				NOT = { owner = { any_situation = { is_situation_type = situation_civstrife_sep_slaves } } }
-			}
-			owner = { #Generally, one would expect the strongest planet to be the center of the revolt
-				#Use case here is if you conquer a whole bunch of enemy planets at once.
-				ordered_owned_planet = {
-					position = 0
-					order_by = num_slave_rebels
-					limit = {
-						has_planet_flag = unrest_timer
-						planet_stability < @stabilitylevel2
-						has_orbital_bombardment = no
-						has_ground_combat = no
-						NOR = {
-							has_planet_flag = 3_year_owner_change_flag
-							has_planet_flag = recent_revolt_attempt
-						}
-						exists = controller
-						controller = { is_same_value = root.owner }
-						OR = {
-							owner = { is_gestalt = yes }
-							any_owned_species = { species_has_happiness_with_owner = root.owner }
-						}
-						# check_variable_arithmetic = { #will the revolt actually tick up?
-						# 	which = value:potential_revolt_situation_monthly_progress_estimation
-						# 	value > 0
-						# }
-					}
-					planet_event = { id = unrest.55 }
-				}
-			}
-		}
-	}
-
-	after = {
-		clear_variable = num_slave_rebels
-	}
-}
-
-planet_event = { # Slave Situation start event
-	id = unrest.55
-	title = unrest.55.name
-	desc = {
-		trigger = {
-			owner = { is_gestalt = no }
-		}
-		text = unrest.55.desc.slave
-	}
-	desc = {
-		trigger = {
-			owner = { is_gestalt = yes }
-		}
-		text = unrest.55.desc.gestalt_standard
-	}
-	picture = GFX_evt_night_raid
-	show_sound = {
-		sound = advisor_notification_planet_in_revolt
-		sound_is_advisor = yes
-	}
-	location = root
-	is_triggered_only = yes
-	situation = event_target:new_situation
-
-	immediate = {
-		owner = {
-			start_situation = {
-				type = situation_civstrife_sep_slaves
-				target = root
-				effect = {
-					save_event_target_as = new_situation
-					set_situation_flag = slave_revolt
-					set_situation_flag = slave_sit_@root
-				}
-			}
-		}
-	}
-
-	option = {
-		name = unrest.55.A
-
-		tooltip = {
-			owner = {
-				start_situation = {
-					type = situation_civstrife_sep_slaves
-					target = root
-				}
-			}
-		}
-	}
+	immediate = {}
 }
 
 situation_event = { ### Stability Revolt - Faction Check - currently unused
@@ -519,7 +402,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 # These events are still important and are used.
 ### Random events
 
-# Unrest: Terror
+# # Unrest: Terror
 situation_event = {
 	id = unrest.101
 	title = unrest.101.name
@@ -537,26 +420,26 @@ situation_event = {
 			is_country_type_with_subjects = yes
 			is_gestalt = no
 		}
-		target = {
-			any_owned_pop = {
-				planet = {
-					exists = controller
-					controller = { is_same_value = root.owner }
-					planet_stability < @stabilitylevel2
-					NOT = { has_planet_flag = recent_unrest_event }
-					has_orbital_bombardment = no
-					has_ground_combat = no
+		OR = {
+			AND = {
+				NOT = { is_situation_type = situation_civstrife_sep_slaves_sec }
+				target = {
+					any_owned_pop = {
+						planet = {
+							exists = controller
+							controller = { is_same_value = root.owner }
+							planet_stability < @stabilitylevel2
+							NOT = { has_planet_flag = recent_unrest_event }
+							has_orbital_bombardment = no
+							has_ground_combat = no
+						}
+					}	
 				}
-			}	
-		}
-	}
-
-	immediate = {
-		set_timed_situation_flag = { flag = random_event_happened days = 360 }
-		target = {
-			random_owned_pop = {
-				limit = {
-					planet = {
+			}
+			AND = {
+				is_situation_type = situation_civstrife_sep_slaves_sec
+				target = {
+					any_owned_planet = {
 						exists = controller
 						controller = { is_same_value = root.owner }
 						planet_stability < @stabilitylevel2
@@ -565,7 +448,27 @@ situation_event = {
 						has_ground_combat = no
 					}
 				}
-				planet = {
+			}
+		}
+	}
+
+	immediate = {
+		set_timed_situation_flag = { flag = random_event_happened days = 360 }
+		if = {
+			limit = { NOT = { is_situation_type = situation_civstrife_sep_slaves_sec } }
+			
+		}
+		else = {
+			target = {
+				random_owned_planet = {
+					limit = {
+						exists = controller
+						controller = { is_same_value = root.owner }
+						planet_stability < @stabilitylevel2
+						NOT = { has_planet_flag = recent_unrest_event }
+						has_orbital_bombardment = no
+						has_ground_combat = no
+					}
 					add_modifier = {
 						modifier = minor_terrorist_action
 						days = 3600 # 10 years
@@ -578,6 +481,7 @@ situation_event = {
 				}
 			}
 		}
+		
 	}
 
 	option = {
@@ -611,26 +515,26 @@ situation_event = {
 			is_country_type_with_subjects = yes
 			is_gestalt = no
 		}
-		target = {
-			any_owned_pop = {
-				planet = {
-					exists = controller
-					controller = { is_same_value = root.owner }
-					planet_stability < @stabilitylevel2
-					NOT = { has_planet_flag = recent_unrest_event }
-					has_orbital_bombardment = no
-					has_ground_combat = no
+		OR = {
+			AND = {
+				NOT = { is_situation_type = situation_civstrife_sep_slaves_sec }
+				target = {
+					any_owned_pop = {
+						planet = {
+							exists = controller
+							controller = { is_same_value = root.owner }
+							planet_stability < @stabilitylevel2
+							NOT = { has_planet_flag = recent_unrest_event }
+							has_orbital_bombardment = no
+							has_ground_combat = no
+						}
+					}	
 				}
-			}	
-		}
-	}
-
-	immediate = {
-		set_timed_situation_flag = { flag = random_event_happened days = 360 }
-		target = {
-			random_owned_pop = {
-				limit = {
-					planet = {
+			}
+			AND = {
+				is_situation_type = situation_civstrife_sep_slaves_sec
+				target = {
+					any_owned_planet = {
 						exists = controller
 						controller = { is_same_value = root.owner }
 						planet_stability < @stabilitylevel2
@@ -639,7 +543,51 @@ situation_event = {
 						has_ground_combat = no
 					}
 				}
-				planet = {
+			}
+		}
+	}
+
+	immediate = {
+		set_timed_situation_flag = { flag = random_event_happened days = 360 }
+		if = {
+			limit = { NOT = { is_situation_type = situation_civstrife_sep_slaves_sec } }
+			target = {
+				random_owned_pop = {
+					limit = {
+						planet = {
+							exists = controller
+							controller = { is_same_value = root.owner }
+							planet_stability < @stabilitylevel2
+							NOT = { has_planet_flag = recent_unrest_event }
+							has_orbital_bombardment = no
+							has_ground_combat = no
+						}
+					}
+					planet = {
+						add_modifier = {
+							modifier = major_terrorist_action
+							days = 7200 # 20 years
+						}
+						set_timed_planet_flag = {
+							flag = recent_unrest_event
+							days = @unrest_event_cooldown
+						}
+						save_event_target_as = target_planet
+					}
+				}
+			}
+		}
+		else = {
+			target = {
+				random_owned_planet = {
+					limit = {
+						exists = controller
+						controller = { is_same_value = root.owner }
+						planet_stability < @stabilitylevel2
+						NOT = { has_planet_flag = recent_unrest_event }
+						has_orbital_bombardment = no
+						has_ground_combat = no
+					}
 					add_modifier = {
 						modifier = major_terrorist_action
 						days = 7200 # 20 years
@@ -652,6 +600,7 @@ situation_event = {
 				}
 			}
 		}
+		
 	}
 
 	option = {
@@ -671,7 +620,7 @@ situation_event = {
 situation_event = {
 	id = unrest.110
 	title = unrest.110.name
-	desc = unrest.110.desc
+	desc = unrest.110.civstrife.desc
 	picture = GFX_evt_announcement
 	show_sound = event_announcement
 	location = root.target
@@ -685,27 +634,133 @@ situation_event = {
 			is_country_type = default
 			is_gestalt = no
 		}
-		target = {
-			exists = controller
-			controller = { is_same_value = root.owner }
-			planet_stability < @stabilitylevel2
-			planet_stability >= @stabilitylevel1
-			NOT = { has_planet_flag = recent_unrest_event }
-			has_orbital_bombardment = no
-			has_ground_combat = no
+		OR = {
+			AND = {
+				is_faction_based_situation = yes
+				target = {
+					any_owned_pop = {
+						planet = {
+							exists = controller
+							controller = { is_same_value = root.owner }
+							planet_stability < @stabilitylevel2
+							planet_stability >= @stabilitylevel1
+							NOT = { has_planet_flag = recent_unrest_event }
+							has_orbital_bombardment = no
+							has_ground_combat = no
+						}
+					}
+					
+				}
+			}
+			AND = {
+				OR = {
+					is_situation_type = situation_civstrife_election
+					is_situation_type = situation_civstrife_selection
+					is_situation_type = situation_civstrife_succession
+					is_situation_type = situation_civstrife_sep_slaves_sec
+				}
+				target = {
+					any_owned_planet = {
+						exists = controller
+						controller = { is_same_value = root.owner }
+						planet_stability < @stabilitylevel2
+						planet_stability >= @stabilitylevel1
+						NOT = { has_planet_flag = recent_unrest_event }
+						has_orbital_bombardment = no
+						has_ground_combat = no
+					}
+				}
+			}
+			AND = {
+				is_situation_type = situation_civstrife_sep_slaves_plan
+				target = {
+					exists = controller
+					controller = { is_same_value = root.owner }
+					planet_stability < @stabilitylevel2
+					planet_stability >= @stabilitylevel1
+					NOT = { has_planet_flag = recent_unrest_event }
+					has_orbital_bombardment = no
+					has_ground_combat = no
+				}
+			}
 		}
 	}
 
 	immediate = {
 		set_situation_flag = random_event_happened
-		target = {
-			add_modifier = {
-				modifier = riots_averted
-				days = 3600 # 10 years
+
+		if = {
+			limit = { is_faction_based_situation = yes }
+			target = {
+				random_owned_pop = {
+					limit = {
+						planet = {
+							exists = controller
+							controller = { is_same_value = root.owner }
+							planet_stability < @stabilitylevel2
+							planet_stability >= @stabilitylevel1
+							NOT = { has_planet_flag = recent_unrest_event }
+							has_orbital_bombardment = no
+							has_ground_combat = no
+						}
+					}
+					planet = {
+						save_event_target_as = riot_avert_planet
+						add_modifier = {
+							modifier = riots_averted
+							days = 3600 # 10 years
+						}
+						set_timed_planet_flag = {
+							flag = recent_unrest_event
+							days = @unrest_event_cooldown
+						}
+					}
+				}
 			}
-			set_timed_planet_flag = {
-				flag = recent_unrest_event
-				days = @unrest_event_cooldown
+		}
+		else_if = {
+			limit = {
+				OR = {
+					is_situation_type = situation_civstrife_election
+					is_situation_type = situation_civstrife_selection
+					is_situation_type = situation_civstrife_succession
+					is_situation_type = situation_civstrife_sep_slaves_sec
+				}
+			}
+			target = {
+				random_owned_planet = {
+					limit = {
+						exists = controller
+						controller = { is_same_value = root.owner }
+						planet_stability < @stabilitylevel2
+						planet_stability >= @stabilitylevel1
+						NOT = { has_planet_flag = recent_unrest_event }
+						has_orbital_bombardment = no
+						has_ground_combat = no
+					}
+					save_event_target_as = riot_avert_planet
+					add_modifier = {
+						modifier = riots_averted
+						days = 3600 # 10 years
+					}
+					set_timed_planet_flag = {
+						flag = recent_unrest_event
+						days = @unrest_event_cooldown
+					}
+				}
+			}
+		}
+		else = {
+			target = {
+				save_event_target_as = riot_avert_planet
+				add_modifier = {
+					modifier = riots_averted
+					days = 3600 # 10 years
+				}
+				set_timed_planet_flag = {
+					flag = recent_unrest_event
+					days = @unrest_event_cooldown
+				}
 			}
 		}
 	}
@@ -765,14 +820,34 @@ situation_event = {
 		has_situation_flag = slave_revolt
 		NOT = { has_situation_flag = slave_riots }
 		owner = { is_country_type = default }
-		target = {
-			exists = controller
-			controller = { is_same_value = root.owner }
-			planet_stability < @stabilitylevel2
-			NOT = { has_planet_flag = recent_unrest_event }
-			has_orbital_bombardment = no
-			has_ground_combat = no
+		OR = {
+			AND = {
+				is_situation_type = situation_civstrife_sep_slaves_plan
+				target = {
+					exists = controller
+					controller = { is_same_value = root.owner }
+					planet_stability < @stabilitylevel2
+					NOT = { has_planet_flag = recent_unrest_event }
+					has_orbital_bombardment = no
+					has_ground_combat = no
+				}
+			}
+			AND = {
+				is_situation_type = situation_civstrife_sep_slaves_sec
+				target = {
+					any_owned_planet = {
+						exists = controller
+						controller = { is_same_value = root.owner }
+						any_owned_pop = { is_enslaved = yes }
+						planet_stability < @stabilitylevel2
+						NOT = { has_planet_flag = recent_unrest_event }
+						has_orbital_bombardment = no
+						has_ground_combat = no
+					}
+				}
+			}
 		}
+		
 	}
 
 	is_triggered_only = yes
@@ -824,13 +899,31 @@ situation_event = {
 		has_situation_flag = slave_revolt
 		NOT = { has_situation_flag = slave_hunger_strikes }
 		owner = { is_country_type = default }
-		target = {
-			exists = controller
-			controller = { is_same_value = root.owner }
-			planet_stability < @stabilitylevel2
-			NOT = { has_planet_flag = recent_unrest_event }
-			has_orbital_bombardment = no
-			has_ground_combat = no
+		OR = {
+			AND = {
+				is_situation_type = situation_civstrife_sep_slaves_plan
+				target = {
+					exists = controller
+					controller = { is_same_value = root.owner }
+					planet_stability < @stabilitylevel2
+					NOT = { has_planet_flag = recent_unrest_event }
+					has_orbital_bombardment = no
+					has_ground_combat = no
+				}
+			}
+			AND = {
+				is_situation_type = situation_civstrife_sep_slaves_sec
+				target = {
+					any_owned_planet = {
+						exists = controller
+						controller = { is_same_value = root.owner }
+						planet_stability < @stabilitylevel2
+						NOT = { has_planet_flag = recent_unrest_event }
+						has_orbital_bombardment = no
+						has_ground_combat = no
+					}
+				}
+			}
 		}
 	}
 
@@ -867,4 +960,22 @@ situation_event = {
 			}
 		}
 	}
+}
+
+######## SECESSION/NATIONALIST REVOLT HAPPENS ##########
+
+situation_event = {
+	id = unrest.4200
+	# title = unrest.4200.name
+	# situation = this
+	# force_open = yes
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		always = no
+	}
+
+	immediate = {}
 }

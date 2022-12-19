@@ -1,0 +1,145 @@
+# Rebellion Without Vassalization Descriptions
+
+desc = {
+	text = civcom.1000.governor.plan.desc
+	trigger = {
+		event_target:civwar_rebels = {
+			has_country_flag = plan_rebel_country
+			ruler = { has_leader_flag = civil_war_ruler_governor }
+		}
+	}
+}
+
+desc = {
+	text = civcom.1000.admiral.plan.desc
+	trigger = {
+		event_target:civwar_rebels = {
+			has_country_flag = plan_rebel_country
+			ruler = { has_leader_flag = civil_war_ruler_admiral }
+		}
+	}
+}
+
+desc = {
+	text = civcom.1000.general.plan.desc
+	trigger = {
+		event_target:civwar_rebels = {
+			has_country_flag = plan_rebel_country
+			ruler = { has_leader_flag = civil_war_ruler_general }
+		}
+	}
+}
+
+desc = {
+	text = civcom.1000.scientist.plan.desc
+	trigger = {
+		event_target:civwar_rebels = {
+			has_country_flag = plan_rebel_country
+			ruler = { has_leader_flag = civil_war_ruler_scientist }
+		}
+	}
+}
+
+desc = { # For Balkanization
+	text = civcom.1000.newleader.plan.desc
+	trigger = {
+		event_target:civwar_rebels = {
+			has_country_flag = plan_rebel_country
+			ruler = { has_leader_flag = civil_war_ruler_new }
+		}
+	}
+}
+
+desc = {
+	text = civcom.1000.separatist.plan.desc
+	trigger = {
+		event_target:civwar_rebels = {
+			has_country_flag = plan_rebel_country
+			ruler = { has_leader_flag = civil_war_ruler_separatist }
+		}
+	}
+}
+
+desc = {
+	text = civcom.1000.slaves.plan.desc
+	trigger = {
+		event_target:civwar_rebels = { has_country_flag = plan_slave_rebel_country }
+	}
+}
+
+desc = {
+	text = civcom.1000.governor.sec.desc
+	trigger = {
+		event_target:civwar_rebels = {
+			has_country_flag = ethic_sec_rebels
+			ruler = { has_leader_flag = civil_war_ruler_governor }
+		}
+	}
+}
+
+desc = {
+	text = civcom.1000.admiral.sec.desc
+	trigger = {
+		event_target:civwar_rebels = {
+			has_country_flag = ethic_sec_rebels
+			ruler = { has_leader_flag = civil_war_ruler_admiral }
+		}
+	}
+}
+
+desc = {
+	text = civcom.1000.general.sec.desc
+	trigger = {
+		event_target:civwar_rebels = {
+			has_country_flag = ethic_sec_rebels
+			ruler = { has_leader_flag = civil_war_ruler_general }
+		}
+	}
+}
+
+desc = {
+	text = civcom.1000.scientist.sec.desc
+	trigger = {
+		event_target:civwar_rebels = {
+			has_country_flag = ethic_sec_rebels
+			ruler = { has_leader_flag = civil_war_ruler_scientist }
+		}
+	}
+}
+
+desc = {
+	text = civcom.1000.separatist.sec.desc
+	trigger = {
+		event_target:civwar_rebels = {
+			has_country_flag = sep_sec_rebels
+			ruler = { has_leader_flag = civil_war_ruler_separatist }
+		}
+	}
+}
+
+desc = {
+	text = civcom.1000.slaves.sec.desc
+	trigger = {
+		event_target:civwar_rebels = { has_country_flag = sec_slave_rebel_country }
+	}
+}
+
+desc = {
+	text = civcom.1000.nationalist.support.desc
+	trigger = {
+		any_country = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
+		event_target:civwar_rebels.ruler = {
+			has_leader_flag = civil_war_ruler_nationalist
+		}
+	}
+}
+
+desc = {
+	text = civcom.1000.nationalist.no_support.desc
+	trigger = {
+		any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+		event_target:civwar_rebels.ruler = {
+			has_leader_flag = civil_war_ruler_nationalist
+		}
+	}
+}

@@ -128,6 +128,13 @@ country_event = { # Set Birthday
 	hide_window = yes
 	is_triggered_only = yes
 
+	trigger = {
+		OR = {
+			is_country_type = rebel
+			is_country_type_with_subjects = yes
+		}
+	}
+
 	immediate = {
 		export_trigger_value_to_variable = {
 			trigger = days_passed

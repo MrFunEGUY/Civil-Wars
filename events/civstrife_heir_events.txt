@@ -19,6 +19,7 @@ country_event = {
 		num_owned_planets > 1
 		is_imperial = yes
 		exists = event_target:disinherited_heir
+		is_country_type_with_subjects = yes
 	}
 
 	immediate = {
@@ -39,6 +40,7 @@ country_event = {
 
 	trigger = {
 		exists = event_target:disinherited_heir
+		is_country_type_with_subjects = yes
 	}
 
 	immediate = {
@@ -309,6 +311,7 @@ country_event = {
 
 	trigger = {
 		exists = event_target:disinherited_heir
+		is_country_type_with_subjects = yes
 	}
 
 	immediate = {
@@ -326,6 +329,10 @@ country_event = {
 	id = civheir.3010
 	hide_window = yes
 	is_triggered_only = yes
+
+	trigger = {
+		is_country_type_with_subjects = yes
+	}
 	
 	immediate = {
 
@@ -777,6 +784,7 @@ country_event = {
 
 	trigger = {
 		from = { has_leader_flag = appointed_heir }
+		is_country_type_with_subjects = yes
 	}
 
 	immediate = {
