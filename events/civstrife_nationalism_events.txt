@@ -1726,11 +1726,11 @@ country_event = { # Set and Remove Citizenship flags for species
 				}
 				AND = {
 					has_citizenship_type = { type = citizenship_organic_trophy country = root }
-					NOT = { has_pop_flag = bio_tropy_of_@root }
+					NOT = { has_pop_flag = bio_trophy_of_@root }
 				}
 				AND = {
 					NOT = { has_citizenship_type = { type = citizenship_organic_trophy country = root } }
-					has_pop_flag = bio_tropy_of_@root
+					has_pop_flag = bio_trophy_of_@root
 				}
 				AND = {
 					has_citizenship_type = { type = citizenship_purge country = root }
@@ -1857,7 +1857,7 @@ country_event = { # Set and Remove Citizenship flags for species
 					NOT = { has_modifier = pop_recently_conquered }
 					planet = { NOT = { has_modifier = planet_culture_shock } }
 					has_citizenship_type = { type = citizenship_organic_trophy }
-					NOT = { has_pop_flag = bio_tropy_of_@root }
+					NOT = { has_pop_flag = bio_trophy_of_@root }
 				}
 			}
 			every_owned_pop = {
@@ -1865,24 +1865,24 @@ country_event = { # Set and Remove Citizenship flags for species
 					NOT = { has_modifier = pop_recently_conquered }
 					planet = { NOT = { has_modifier = planet_culture_shock } }
 					has_citizenship_type = { type = citizenship_organic_trophy }
-					NOT = { has_pop_flag = bio_tropy_of_@root }
+					NOT = { has_pop_flag = bio_trophy_of_@root }
 				}
-				set_pop_flag = bio_tropy_of_@root
+				set_pop_flag = bio_trophy_of_@root
 			}
 		}
 		if = {
 			limit = {
 				any_owned_pop = {
 					NOT = { has_citizenship_type = { type = citizenship_organic_trophy } }
-					has_pop_flag = bio_tropy_of_@root
+					has_pop_flag = bio_trophy_of_@root
 				}
 			}
 			every_owned_pop = {
 				limit = {
 					NOT = { has_citizenship_type = { type = citizenship_organic_trophy } }
-					has_pop_flag = bio_tropy_of_@root
+					has_pop_flag = bio_trophy_of_@root
 				}
-				remove_pop_flag = bio_tropy_of_@root
+				remove_pop_flag = bio_trophy_of_@root
 			}
 		}
 

@@ -12,8 +12,19 @@ imperialist = {
 	resources = {
 		category = pop_factions
 		produces = {
-			unity = 0.5
-		}
+            trigger = {
+                owner = {
+                	OR = {
+                		years_passed > 10
+                		AND = {
+                			days_passed > 30
+                			has_valid_civic = civic_parliamentary_system
+                		}
+                	}
+                }
+            }
+            unity = 0.5
+        }
 	}
 
 	#Note: number of potential or actual members is checked by POP_FACTION_MIN_POTENTIAL_MEMBERS define

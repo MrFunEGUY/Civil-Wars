@@ -3,7 +3,7 @@
 action_form_commercial_pact = {
 	icon = "GFX_diplomacy_status_commercial_pact"
 	diplo_view_acceptance_icon = yes
-	should_notify_all_communications = yes
+	should_notify_all_communications = no
 	requires_actor_independence = no
 	requires_recipient_independence = no
 	AI_acceptance_base_value = -50
@@ -520,7 +520,10 @@ action_form_migration_pact = {
 			}
 		}
 		if = {
-			limit = { from = { has_valid_civic = civic_pompous_purists } }
+			limit = {
+				from = { has_valid_civic = civic_pompous_purists }
+				NOT = { root = { is_overlord_to = from } }
+			}
 			if = {
 				limit = {
 					has_intel = {

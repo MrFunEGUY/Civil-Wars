@@ -34,7 +34,7 @@ set_installed_heir_gov = {
 # Set Installed Leader Setup
 set_installed_traitor_gov = {
 	if = {
-		limit = { is_autocracy = no }
+		limit = { is_imp_or_dict = no }
 		if = {
 			limit = { is_megacorp = yes }
 			get_remove_civics = yes
