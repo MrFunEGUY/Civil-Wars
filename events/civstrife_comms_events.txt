@@ -430,7 +430,7 @@ country_event = {
 			event_target:subject_war_join = {
 				every_war_participant = {
 					limit = {
-						NOT = { is_war_leader = yes }
+						is_war_leader = no
 						NOT = { is_same_value = event_target:civwar_originator }
 					}
 					prev = { remove_war_participant = prev }

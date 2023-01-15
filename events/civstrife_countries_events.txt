@@ -2182,10 +2182,7 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 				last_created_country = { num_species = 1 }
 			}
 			last_created_country = {
-				random_list = {
-					90 = { }
-					10 = { force_add_civic = civic_fanatic_purifiers }
-				}
+				random = { chance = 10 force_add_civic = civic_fanatic_purifiers }
 			}
 		}
 	}

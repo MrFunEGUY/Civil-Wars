@@ -195,7 +195,7 @@ nat_separatist_85 = {
 				any_owned_fleet = {
 					is_ship_size = enclave_mercenary_station
 					exists = solar_system.space_owner
-					solar_system.space_owner = { is_same_value = root.owner }
+					solar_system.space_owner = { is_same_empire = root.owner }
 				}
 			}
 		}

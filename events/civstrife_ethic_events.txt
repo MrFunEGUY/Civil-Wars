@@ -500,10 +500,7 @@ pop_event = { # Remove Ethic Separatist Event
 
 	immediate = {
 
-		random_list = {
-			40 = { }
-			60 = { remove_pop_flag = sep_pop_ethic }
-		}
+		random = { chance = 60 remove_pop_flag = sep_pop_ethic }
 	}
 }
 
@@ -531,10 +528,10 @@ country_event = { # Set timer flag
 	immediate = {
 		if = {
 			limit = { fromfrom = { using_war_goal = { type = wg_civwar owner = root } } }
-			set_timed_country_flag = { flag = recent_civil_war days = 720 }
+			set_timed_country_flag = { flag = recent_civil_war years = 2 }
 		}
 		else = {
-			from = { set_timed_country_flag = { flag = recent_civil_war days = 720 } }
+			from = { set_timed_country_flag = { flag = recent_civil_war years = 2 } }
 		}
 	}
 }
@@ -558,7 +555,7 @@ country_event = { # Set timer flag
 
 	immediate = {
 		fromfrom = {
-			set_timed_country_flag = { flag = recent_civil_war days = 720 }
+			set_timed_country_flag = { flag = recent_civil_war years = 2 }
 		}
 	}
 }

@@ -17,7 +17,7 @@ country_event = { # Setup for Civil War
 
 	immediate = {
 
-		set_timed_country_flag = { flag = civwar_country days = 90 }
+		set_timed_country_flag = { flag = civwar_country months = 3 }
 
 		# saving civwar and host as event targets
 		save_event_target_as = civwar_rebels
@@ -449,7 +449,7 @@ country_event = { # Setup for Planetary Rebellions
 						limit = {
 							exists = starbase
 							starbase = { is_owned_by = event_target:civwar_originator }
-							NOT = { any_system_planet = { is_capital = yes } }
+							NOT = { is_capital_system = yes }
 							OR = {
 								root = { has_country_flag = heir_rebel_country }
 								NOT = { any_system_planet = { is_owned_by = event_target:civwar_originator } }
@@ -1492,7 +1492,7 @@ situation_event = { # Revolt/Civil War Event
 				random = {
 					chance = 45
 					# chance = 100
-					root.target = { set_timed_pop_faction_flag = { flag = faction_rebelled days = 1800 } }
+					root.target = { set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 } }
 					get_war_type_flag = yes
 					save_event_target_as = civwar_originator
 					get_civil_war_number = yes
@@ -1545,7 +1545,7 @@ situation_event = { # Revolt/Civil War Event
 				random = {
 					chance = 20
 					# chance = 100
-					root.target = { set_timed_pop_faction_flag = { flag = faction_rebelled days = 1800 } }
+					root.target = { set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 } }
 					get_war_type_flag = yes
 					save_event_target_as = civwar_originator
 					get_civil_war_number = yes
@@ -1579,7 +1579,7 @@ situation_event = { # Revolt/Civil War Event
 				random = {
 					chance = 20
 					# chance = 100
-					root.target = { set_timed_pop_faction_flag = { flag = faction_rebelled days = 1800 } }
+					root.target = { set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 } }
 					get_war_type_flag = yes
 					save_event_target_as = civwar_originator
 					get_planetary_revolt_effect = yes

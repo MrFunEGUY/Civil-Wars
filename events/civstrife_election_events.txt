@@ -780,26 +780,17 @@ situation_event = {
 			}
 			if = {
 				limit = { current_situation_approach = approach_election_obstruct }
-				random_list = {
-					75 = { }
-					25 = { set_situation_flag = dispute_party_wont_accept }
-				}
+				random = { chance = 25 set_situation_flag = dispute_party_wont_accept }
 			}
 			else = {
-				random_list = {
-					85 = { }
-					15 = { set_situation_flag = dispute_party_wont_accept }
-				}
+				random = { chance = 15 set_situation_flag = dispute_party_wont_accept }
 			}
 		}
 		else_if = {
 			limit = { has_situation_flag = found_inconclusive }
 			if = {
 				limit = { current_situation_approach = approach_election_obstruct }
-				random_list = {
-					60 = { }
-					40 = { set_situation_flag = dispute_party_wont_accept }
-				}
+				random = { chance = 40 set_situation_flag = dispute_party_wont_accept }
 			}
 			else = {
 				set_situation_flag = dispute_party_wont_accept
@@ -914,7 +905,7 @@ country_event = {
 			save_event_target_as = dispute_party
 		}
 
-		set_timed_country_flag = { flag = dispute_civwar days = 60 }
+		set_timed_country_flag = { flag = dispute_civwar months = 2 }
 		save_event_target_as = civwar_originator
 		get_civil_war_number = yes
 		if = { # 2 Sectors, other Sector will revolt
@@ -1188,7 +1179,7 @@ country_event = {
 						has_ground_combat = no
 					}
 					save_event_target_as = civil_war_planet
-					solar_system = { set_timed_star_flag = { flag = civwar_planet days = 90 } }
+					solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
 					every_owned_pop = {
 						limit = {
 							exists = pop_faction
@@ -1253,7 +1244,7 @@ country_event = {
 						position = 0
 						order_by = fac_sep_percentage
 						save_event_target_as = civil_war_planet
-						solar_system = { set_timed_star_flag = { flag = civwar_planet days = 90 } }
+						solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
 						every_owned_pop = {
 							limit = {
 								exists = pop_faction

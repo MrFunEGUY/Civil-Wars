@@ -1050,59 +1050,41 @@ planet_event = { # Create Separatists Yearly Event
 						happiness <= 65
 						happiness > 50
 					}
-					random_list = {
-						75 = { }
-						25 = { set_pop_flag = sep_pop }
-					}
+					random = { chance = 25 set_pop_flag = sep_pop }
 				}
 				else_if = {
 					limit = {
 						happiness <= 50
 						happiness > 40
 					}
-					random_list = {
-						60 = { }
-						40 = { set_pop_flag = sep_pop }
-					}
+					random = { chance = 40 set_pop_flag = sep_pop }
 				}
 				else_if = {
 					limit = {
 						happiness <= 40
 						happiness > 30
 					}
-					random_list = {
-						50 = { }
-						50 = { set_pop_flag = sep_pop }
-					}
+					random = { chance = 50 set_pop_flag = sep_pop }
 				}
 				else_if = {
 					limit = {
 						happiness <= 30
 						happiness > 20
 					}
-					random_list = {
-						40 = { }
-						60 = { set_pop_flag = sep_pop }
-					}
+					random = { chance = 60 set_pop_flag = sep_pop }
 				}
 				else_if = {
 					limit = {
 						happiness <= 20
 						happiness > 10
 					}
-					random_list = {
-						30 = { }
-						70 = { set_pop_flag = sep_pop }
-					}
+					random = { chance = 70 set_pop_flag = sep_pop }
 				}
 				else_if = {
 					limit = {
 						happiness <= 10
 					}
-					random_list = {
-						20 = { }
-						80 = { set_pop_flag = sep_pop }
-					}
+					random = { chance = 80 set_pop_flag = sep_pop }
 				}
 			}
 		}
@@ -1205,10 +1187,7 @@ pop_event = { # Remove Separatists Annually
 
 	immediate = {
 
-		random_list = {
-			40 = { }
-			60 = { remove_pop_flag = sep_pop }
-		}
+		random = { chance = 60 remove_pop_flag = sep_pop }
 	}
 }
 
@@ -1321,10 +1300,7 @@ planet_event = { # Create Separatists Corrupt Yearly Event
 				count = num_sep_pops
 				random_owned_pop = {
 					limit = { pop_can_be_separatist_gen = yes }
-					random_list = {
-						85 = { }
-						15 = { set_pop_flag = sep_pop }
-					}
+					random = { chance = 15 set_pop_flag = sep_pop }
 				}
 			}
 		}
@@ -1385,7 +1361,7 @@ country_event = { # Corrupt Governor Launch Rebellion Event
 				species = { save_event_target_as = civwar_species }
 			}
 			owner = {
-				set_timed_country_flag = { flag = corrupt_rebellion days = 180 }
+				set_timed_country_flag = { flag = corrupt_rebellion months = 6 }
 				save_event_target_as = civwar_originator
 				get_civil_war_number = yes
 				country_event = { id = civwarcountry.1070 }
@@ -1955,7 +1931,7 @@ situation_event = { # Planetary Revolt Event
 					chance = 10
 					# chance = 100
 					root.target = {
-						set_timed_pop_faction_flag = { flag = faction_rebelled days = 1800 }
+						set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 }
 						set_variable = { which = fac_mil_support value = 0 }
 						save_event_target_as = civwar_party
 					}
@@ -1966,10 +1942,10 @@ situation_event = { # Planetary Revolt Event
 						}
 						root.target = { change_variable = { which = fac_mil_support value = 1 } }
 					}
-					solar_system = { set_timed_star_flag = { flag = civwar_planet days = 90 } }
+					solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
 					save_event_target_as = civil_war_planet
 					set_planet_flag = sep_planet_rebellion
-					set_timed_planet_flag = { flag = recent_sep_rebellion days = 720 }
+					set_timed_planet_flag = { flag = recent_sep_rebellion years = 2 }
 					save_event_target_as = rebellion_planet
 					get_separatist_war_leader = yes
 					get_gen_plan_rebels = yes
@@ -2062,7 +2038,7 @@ situation_event = { # Sectoral Revolt Event
 						chance = 10
 						# chance = 100
 						root.target = {
-							set_timed_pop_faction_flag = { flag = faction_rebelled days = 1800 }
+							set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 }
 							set_variable = { which = fac_mil_support value = 0 }
 							save_event_target_as = civwar_party
 						}
@@ -3112,7 +3088,7 @@ situation_event = { # Slave Revolt Event
 					}
 					save_event_target_as = leader_pop
 				}
-				solar_system = { set_timed_star_flag = { flag = civwar_planet days = 90 } }
+				solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
 				get_plan_slave_rebels = yes
 				root = { situation_event = { id = civsep.9100 } }
 			}
@@ -3138,7 +3114,7 @@ situation_event = { # Slave Revolt Event
 				}
 				
 				sector_capital = {
-					solar_system = { set_timed_star_flag = { flag = civwar_planet days = 90 } }
+					solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
 					get_sec_slave_rebels = yes
 					root = { situation_event = { id = civsep.9210 } }
 				}

@@ -1579,13 +1579,13 @@ make_succession_crisis_dynast_country = {
 
 created_civwar_country_effect = {
 	establish_communications_no_message = root # If this isnt done here, a message will still pop up as of 3.5
-	set_timed_country_flag = { flag = civwar_rebel_timer days = 90 }
+	set_timed_country_flag = { flag = civwar_rebel_timer months = 3 }
 	save_event_target_as = civwar_rebels
 	country_event = { id = civwar.1000 }
 }
 
 created_civwar_rebel_country_effect = {
-	set_timed_country_flag = { flag = civwar_rebel_timer days = 90 }
+	set_timed_country_flag = { flag = civwar_rebel_timer months = 3 }
 	save_event_target_as = civwar_rebels
 	event_target:civil_war_planet = {
 		planet_event = { id = civplan.2000 }
@@ -1787,7 +1787,7 @@ get_multi_sector_effect = {
 
 	if = {
 		limit = { check_variable = { which = total_reb_countries value > 1 } }
-		set_timed_country_flag = { flag = rebs_help_eachother days = 180 }
+		set_timed_country_flag = { flag = rebs_help_eachother months = 6 }
 	}
 
 	every_owned_sector = {
@@ -1934,7 +1934,7 @@ get_small_civwar_effect = {
 				has_ground_combat = no
 			}
 			save_event_target_as = civil_war_planet
-			solar_system = { set_timed_star_flag = { flag = civwar_planet days = 90 } }
+			solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
 			every_owned_pop = {
 				limit = {
 					exists = pop_faction
@@ -1999,7 +1999,7 @@ get_small_civwar_effect = {
 				position = 0
 				order_by = fac_sep_percentage
 				save_event_target_as = civil_war_planet
-				solar_system = { set_timed_star_flag = { flag = civwar_planet days = 90 } }
+				solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
 				every_owned_pop = {
 					limit = {
 						exists = pop_faction
@@ -2163,7 +2163,7 @@ get_planetary_revolt_effect = {
 			root.target = { change_variable = { which = fac_mil_support value = 1 } }
 		}
 		save_event_target_as = civil_war_planet
-		solar_system = { set_timed_star_flag = { flag = civwar_planet days = 90 } }
+		solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
 		if = {
 			limit = { root.target = { is_regular_faction = yes } }
 			set_planet_flag = ethic_planet_rebellion_@this
@@ -2398,59 +2398,59 @@ set_recent_civwar_flag = {
 	root.target = {
 		if = {
 			limit = { is_pacifist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_PAC days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_PAC years = 15 } }
 		}
 		else_if = {
 			limit = { is_militarist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_MIL days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_MIL years = 15 } }
 		}
 		else_if = {
 			limit = { is_materialist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_MAT days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_MAT years = 15 } }
 		}
 		else_if = {
 			limit = { is_spiritualist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_SPI days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_SPI years = 15 } }
 		}
 		else_if = {
 			limit = { is_egalitarian_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_EGAL days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_EGAL years = 15 } }
 		}
 		else_if = {
 			limit = { is_authoritarian_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_AUTH days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_AUTH years = 15 } }
 		}
 		else_if = {
 			limit = { is_xenophile_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_XENO days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_XENO years = 15 } }
 		}
 		else_if = {
 			limit = { is_xenophobe_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_PHOBE days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_PHOBE years = 15 } }
 		}
 		else_if = {
 			limit = { is_ecologist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_ECO days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_ECO years = 15 } }
 		}
 		else_if = {
 			limit = { is_industrial_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_INDUS days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_INDUS years = 15 } }
 		}
 		else_if = {
 			limit = { is_socialism_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_SOC days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_SOC years = 15 } }
 		}
 		else_if = {
 			limit = { is_capitalism_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_CAP days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_CAP years = 15 } }
 		}
 		else_if = {
 			limit = { is_pluralist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_PLUR days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_PLUR years = 15 } }
 		}
 		else_if = {
 			limit = { is_elitist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_ELITE days = 5400 } }
+			owner = { set_timed_country_flag = { flag = civ_war_recent_ELITE years = 15 } }
 		}
 	}
 }
@@ -6249,8 +6249,7 @@ get_nat_plan_rebels = {
 		limit = {
 			event_target:nat_motherland_model = { is_exile_country = yes }
 			NOT = {
-				any_country = {
-					is_country_type = default
+				any_playable_country = {
 					has_country_flag = exile_link_@event_target:nat_motherland_model
 				}
 			}
@@ -6300,7 +6299,7 @@ get_plan_slave_rebels = {
 
 	save_event_target_as = civil_war_planet
 	set_planet_flag = plan_slave_revolt
-	set_timed_planet_flag = { flag = recent_slave_rebellion days = 1800 }
+	set_timed_planet_flag = { flag = recent_slave_rebellion years = 5 }
 
 	get_planetary_slave_reb_number = yes
 
@@ -6438,7 +6437,7 @@ get_sec_slave_rebels = {
 
 	save_event_target_as = civil_war_planet
 	set_planet_flag = sec_slave_revolt
-	set_timed_planet_flag = { flag = recent_sector_slave_rebellion days = 1800 }
+	set_timed_planet_flag = { flag = recent_sector_slave_rebellion years = 5 }
 
 	sector = {
 		save_event_target_as = sector_name_local
@@ -7307,10 +7306,7 @@ get_country_after_setup = {
 			event_target:civwar_party = { is_pop_faction_type = supremacist }
 			num_species = 1
 		}
-		random_list = {
-			90 = { }
-			10 = { force_add_civic = civic_fanatic_purifiers }
-		}
+		random = { chance = 10 force_add_civic = civic_fanatic_purifiers }
 	}
 
 	add_intel = {
@@ -7343,11 +7339,11 @@ get_remove_seps_after = {
 get_war_type_flag = {
 	if = {
 		limit = { root = { is_situation_type = situation_civstrife_faction_sep_nat } }
-		set_timed_country_flag = { flag = nat_mother_civwar days = 360 }
+		set_timed_country_flag = { flag = nat_mother_civwar years = 1 }
 	}
 	else_if = {
 		limit = { root.target = { is_regular_faction = yes } }
-		set_timed_country_flag = { flag = ethic_civwar days = 360 }
+		set_timed_country_flag = { flag = ethic_civwar years = 1 }
 	}
 }
 
@@ -11406,7 +11402,7 @@ get_restoration_planets = {
 			is_occupied_flag = no
 			is_under_colonization = no
 			has_orbital_bombardment = no
-			solar_system = { NOT = { any_system_planet = { is_capital = yes } } }
+			solar_system = { NOT = { is_capital_system = yes } }
 		}
 		set_planet_flag = restoration_planet
 		prev = { change_variable = { which = total_restoration_planets value = 1 } }
@@ -11912,7 +11908,7 @@ exile_restoration_gen_effect = {
 		# If nationalists elsewhere exist for a country that then is restored, switch them to be nationalists for the new restored country
 		every_galaxy_pop = {
 			limit = { has_pop_flag = sep_pop_nat_@prev }
-			add_modifier = { modifier = "restoration_of_motherland" days = 5400 }
+			add_modifier = { modifier = "restoration_of_motherland" years = 15 }
 		}
 
 		# Science

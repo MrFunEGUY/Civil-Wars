@@ -128,7 +128,7 @@ planet_event = { ## Initial Event to create separatists from destroyed countries
 
 		every_galaxy_pop = {
 			limit = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country }
-			add_modifier = { modifier = "death_of_motherland" days = 5400 }
+			add_modifier = { modifier = "death_of_motherland" years = 15 }
 		}
 
 		get_nat_seps = yes
@@ -411,7 +411,7 @@ country_event = { # Gov In Exile restoration, when released peacefully
 			limit = { has_pop_flag = sep_pop_nat_@root }
 			remove_pop_flag = sep_pop_nat_@root
 			set_pop_flag = sep_pop_nat_@event_target:new_homeland
-			add_modifier = { modifier = "restoration_of_motherland" days = 5400 }
+			add_modifier = { modifier = "restoration_of_motherland" years = 15 }
 		}
 
 		every_galaxy_pop = {
@@ -567,7 +567,7 @@ country_event = { # Gov In Exile restoration, on war won
 				limit = { has_pop_flag = sep_pop_nat_@prev }
 				remove_pop_flag = sep_pop_nat_@prev
 				set_pop_flag = sep_pop_nat_@event_target:new_homeland
-				add_modifier = { modifier = "restoration_of_motherland" days = 5400 }
+				add_modifier = { modifier = "restoration_of_motherland" years = 15 }
 			}
 
 			every_galaxy_pop = {
@@ -724,7 +724,7 @@ country_event = { # Gov In Exile restoration, on status quo
 				limit = { has_pop_flag = sep_pop_nat_@prev }
 				remove_pop_flag = sep_pop_nat_@prev
 				set_pop_flag = sep_pop_nat_@event_target:new_homeland
-				add_modifier = { modifier = "restoration_of_motherland" days = 5400 }
+				add_modifier = { modifier = "restoration_of_motherland" years = 15 }
 			}
 
 			every_galaxy_pop = {
@@ -941,7 +941,7 @@ country_event = { # Hosted Gov In Exile restoration, on wg_restore_nation
 				limit = { has_pop_flag = sep_pop_nat_@event_target:restored_country }
 				remove_pop_flag = sep_pop_nat_@event_target:restored_country
 				set_pop_flag = sep_pop_nat_@event_target:new_homeland
-				add_modifier = { modifier = "restoration_of_motherland" days = 5400 }
+				add_modifier = { modifier = "restoration_of_motherland" years = 15 }
 			}
 
 			every_galaxy_pop = {
@@ -1076,11 +1076,10 @@ country_event = { # Gov In Exile Enclave destroyed
 			save_event_target_as = exile_destroyer
 			country_event = { id = civnat.9300 }
 		}
-		every_country = {
+		every_playable_country = {
 			limit = {
-				is_country_type = default
 				has_communications = ROOT
-				NOT = { is_country = event_target:exile_destroyer }
+				NOT = { is_same_empire = event_target:exile_destroyer }
 			}
 			country_event = { id = civnat.9300 }
 		}
@@ -1377,7 +1376,7 @@ planet_event = { # Frontier Planet + Sector -> Integrated Planet + Sector
 	is_triggered_only = yes
 
 	trigger = {
-		owner = { is_same_value = event_target:original_owner }
+		is_owned_by = event_target:original_owner
 	}
 
 	immediate = {
@@ -1429,7 +1428,7 @@ planet_event = { # Integrated Planet + Sector -> Fundamental Planet + Sector
 	is_triggered_only = yes
 
 	trigger = {
-		owner = { is_same_value = event_target:original_owner }
+		is_owned_by = event_target:original_owner
 	}
 
 	immediate = {
@@ -2047,7 +2046,7 @@ country_event = { # Set Initial Nat Timer on country create
 	}
 
 	immediate = {
-		set_timed_country_flag = { flag = civstrife_nat_timer days = 10800 }
+		set_timed_country_flag = { flag = civstrife_nat_timer years = 30 }
 	}
 }
 

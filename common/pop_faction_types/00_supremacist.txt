@@ -49,10 +49,7 @@ supremacist = {
 		is_shackled_robot = no
 		can_think = yes
 		owner = {
-			NOR = {
-				has_ethic = ethic_pacifist
-				has_ethic = ethic_fanatic_pacifist
-			}
+			is_pacifist = no
 		}
 		is_same_species = owner_species
 	}
@@ -254,8 +251,7 @@ supremacist = {
 			owner = {
 				NOR = {
 					num_migration_pacts > 0
-					any_country = {
-						is_country_type = default
+					any_playable_country = {
 						has_communications = root.owner
 						OR = {
 							has_diplo_migration_treaty = root.owner
@@ -544,15 +540,15 @@ supremacist = {
 			}
 
 			effect = {
-				add_modifier = { modifier = embraced_faction days = 3600 }
+				add_modifier = { modifier = embraced_faction years = 10 }
 				parameter:empire = {
 					shift_ethic = ethic_xenophobe
 					hidden_effect = {
 						every_pop_faction = { # embraces xenophobe ethos
 							limit = { is_pop_faction_type = isolationist }
-							add_modifier = { modifier = embraced_faction days = 3600	}
+							add_modifier = { modifier = embraced_faction years = 10	}
 						}
-						add_modifier = { modifier = embraced_faction_timer days = 3600 }
+						add_modifier = { modifier = embraced_faction_timer years = 10 }
 						every_pop_faction = {
 							limit = {
 								NOR = {
@@ -560,7 +556,7 @@ supremacist = {
 									is_pop_faction_type = isolationist # same ethos
 								}
 							}
-							add_modifier = { modifier = embraced_another_faction days = 3600 }
+							add_modifier = { modifier = embraced_another_faction years = 10 }
 						}
 					}
 				}

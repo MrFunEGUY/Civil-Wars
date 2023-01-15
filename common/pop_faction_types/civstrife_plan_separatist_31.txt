@@ -108,11 +108,7 @@ plan_separatist_31 = {
 
 		potential = {
 			exists = event_target:plan_separatist_31
-			event_target:plan_separatist_31 = {
-				owner = {
-					is_same_value = root.owner
-				}
-			}
+			event_target:plan_separatist_31 = { is_owned_by = root.owner }
 		}
 
 		trigger = {
@@ -184,7 +180,7 @@ plan_separatist_31 = {
 			exists = event_target:plan_separatist_31
 			event_target:plan_separatist_31 = {
 				owner = {
-					is_same_value = root.owner
+					is_same_empire = root.owner
 				}
 				count_owned_pop = {
 					limit = {
@@ -228,7 +224,7 @@ plan_separatist_31 = {
 			exists = event_target:plan_separatist_31
 			event_target:plan_separatist_31 = {
 				owner = {
-					is_same_value = root.owner
+					is_same_empire = root.owner
 				}
 				count_owned_pop = {
 					limit = {
@@ -272,7 +268,7 @@ plan_separatist_31 = {
 			exists = event_target:plan_separatist_31
 			event_target:plan_separatist_31 = {
 				owner = {
-					is_same_value = root.owner
+					is_same_empire = root.owner
 				}
 				count_owned_pop = {
 					limit = {
@@ -314,11 +310,7 @@ plan_separatist_31 = {
 
 		potential = {
 			exists = event_target:plan_separatist_31
-			event_target:plan_separatist_31 = {
-				owner = {
-					is_same_value = root.owner
-				}
-			}
+			event_target:plan_separatist_31 = { is_owned_by = root.owner }
 		}
 
 		trigger = {
@@ -347,7 +339,7 @@ plan_separatist_31 = {
 			exists = event_target:plan_separatist_31
 			event_target:plan_separatist_31 = {
 				owner = {
-					is_same_value = root.owner
+					is_same_empire = root.owner
 					has_technology = tech_planetary_shield_generator
 				}
 			}
@@ -373,11 +365,7 @@ plan_separatist_31 = {
 			has_global_flag = cultural_overhaul_active
 
 			exists = event_target:plan_separatist_31
-			event_target:plan_separatist_31 = {
-				owner = {
-					is_same_value = root.owner
-				}
-			}
+			event_target:plan_separatist_31 = { is_owned_by = root.owner }
 		}
 
 		trigger = {

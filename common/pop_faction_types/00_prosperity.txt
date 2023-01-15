@@ -73,10 +73,8 @@ prosperity = {
 		modifier = {
 			factor = 1.5
 
-			OR = {
-				has_ethic = ethic_pacifist
-				has_ethic = ethic_fanatic_pacifist
-			}
+			
+			is_pacifist = yes
 		}
 
 		# Should really check for citizenship instead
@@ -410,14 +408,14 @@ prosperity = {
 			}
 
 			effect = {
-				add_modifier = { modifier = embraced_faction days = 3600 }
+				add_modifier = { modifier = embraced_faction years = 10 }
 				parameter:empire = {
 					shift_ethic = ethic_pacifist
 					hidden_effect = {
-						add_modifier = { modifier = embraced_faction_timer days = 3600 }
+						add_modifier = { modifier = embraced_faction_timer years = 10 }
 						every_pop_faction = {
 							limit = { NOT = { is_same_value = root } }
-							add_modifier = { modifier = embraced_another_faction days = 3600 }
+							add_modifier = { modifier = embraced_another_faction years = 10 }
 						}
 					}
 				}

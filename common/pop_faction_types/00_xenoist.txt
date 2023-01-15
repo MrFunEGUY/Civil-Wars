@@ -420,8 +420,7 @@ xenoist = {
 					NOT = { has_communications = prev}
 					OR = {
 						is_country_type = default
-						is_country_type = fallen_empire
-						is_country_type = awakened_fallen_empire
+						is_fallen_empire = yes
 					}
 				}
 			}
@@ -653,14 +652,14 @@ xenoist = {
 			}
 
 			effect = {
-				add_modifier = { modifier = embraced_faction days = 3600 }
+				add_modifier = { modifier = embraced_faction years = 10 }
 				parameter:empire = {
 					shift_ethic = ethic_xenophile
 					hidden_effect = {
-						add_modifier = { modifier = embraced_faction_timer days = 3600 }
+						add_modifier = { modifier = embraced_faction_timer years = 10 }
 						every_pop_faction = {
 							limit = { NOT = { is_same_value = root } }
-							add_modifier = { modifier = embraced_another_faction days = 3600 }
+							add_modifier = { modifier = embraced_another_faction years = 10 }
 						}
 					}
 				}

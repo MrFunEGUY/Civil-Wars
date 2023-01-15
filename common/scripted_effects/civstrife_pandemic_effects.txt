@@ -80,22 +80,20 @@ remove_sector_modifiers_effect = {
 	if = {
 		limit = {
 			target.sector = {
-				any_system_within_border = {
-					any_system_planet = {
-						OR = {
+				any_planet_within_border = {
+					OR = {
 							has_modifier = sectoral_pandemic_1
 							has_modifier = sectoral_pandemic_2
 							has_modifier = sectoral_pandemic_3
 							has_modifier = sectoral_pandemic_4
 						}
-					}
 				}
 			}
 		}
 		if = {
 			limit = {
 				target.sector = {
-					any_system_within_border = { any_system_planet = { has_modifier = sectoral_pandemic_1 } }
+					any_planet_within_border = { has_modifier = sectoral_pandemic_1 }
 				}
 			}
 			target.sector = {
@@ -110,7 +108,7 @@ remove_sector_modifiers_effect = {
 		else_if = {
 			limit = {
 				target.sector = {
-					any_system_within_border = { any_system_planet = { has_modifier = sectoral_pandemic_2 } }
+					any_planet_within_border = { has_modifier = sectoral_pandemic_2 }
 				}
 			}
 			target.sector = {
@@ -125,7 +123,7 @@ remove_sector_modifiers_effect = {
 		else_if = {
 			limit = {
 				target.sector = {
-					any_system_within_border = { any_system_planet = { has_modifier = sectoral_pandemic_3 } }
+					any_planet_within_border = { has_modifier = sectoral_pandemic_3 }
 				}
 			}
 			target.sector = {
@@ -140,7 +138,7 @@ remove_sector_modifiers_effect = {
 		else_if = {
 			limit = {
 				target.sector = {
-					any_system_within_border = { any_system_planet = { has_modifier = sectoral_pandemic_4 } }
+					any_planet_within_border = { has_modifier = sectoral_pandemic_4 }
 				}
 			}
 			target.sector = {

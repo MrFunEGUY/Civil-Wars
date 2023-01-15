@@ -206,9 +206,9 @@
 # 				target.sector.leader = { NOT = { has_leader_flag = gov_pandemic_decided } }
 # 				target = { NOT = { has_planet_flag = pandemic_quarantine  } }
 # 			}
-# 			set_timed_situation_flag = { flag = gov_quarantine_check days = 90 }
+# 			set_timed_situation_flag = { flag = gov_quarantine_check months = 3 }
 # 			target.sector.leader = {
-# 				set_timed_leader_flag = { flag = gov_pandemic_decided days = 360 }
+# 				set_timed_leader_flag = { flag = gov_pandemic_decided years = 1 }
 # 				if = {
 # 					limit = { has_level <= 2 }
 # 					random_list = {
@@ -627,9 +627,9 @@
 # 				target.sector.leader = { NOT = { has_leader_flag = gov_pandemic_decided } }
 # 				target.sector = { NOT = { has_sector_flag = pandemic_quarantine  } }
 # 			}
-# 			set_timed_situation_flag = { flag = gov_quarantine_check days = 90 }
+# 			set_timed_situation_flag = { flag = gov_quarantine_check months = 3 }
 # 			target.sector.leader = {
-# 				set_timed_leader_flag = { flag = gov_pandemic_decided days = 360 }
+# 				set_timed_leader_flag = { flag = gov_pandemic_decided years = 1 }
 # 				if = {
 # 					limit = { has_level <= 2 }
 # 					random_list = {
@@ -1522,13 +1522,13 @@
 # 	is_triggered_only = yes
 
 # 	trigger = {
-# 		owner.species = {
+# 		owner_species = {
 # 			has_species_flag = pandemic_species
 # 		}
 # 		any_country = {
 # 			has_migration_access = root.owner
 # 			any_owned_species = {
-# 				is_same_species = root.owner.species
+# 				is_same_species = root.owner_species
 # 				NOT = { has_species_flag = pandemic_species }
 # 			}
 # 		}
@@ -1543,14 +1543,14 @@
 # 					limit = {
 # 						has_migration_access = root.owner
 # 						any_owned_species = {
-# 							is_same_species = root.owner.species
+# 							is_same_species = root.owner_species
 # 							NOT = { has_species_flag = pandemic_species }
 # 						}
 # 					}
 # 					random_owned_pop = {
 # 						limit = {
 # 							species = {
-# 								is_same_species = root.owner.species
+# 								is_same_species = root.owner_species
 # 								NOT = { has_species_flag = pandemic_species }
 # 							}
 # 						}
@@ -1599,10 +1599,10 @@
 
 # 		if = {
 # 			limit = { situation_progress >= 50 }
-# 			set_timed_situation_flag = { flag = cured_by_progress days = 30 }
+# 			set_timed_situation_flag = { flag = cured_by_progress months = 1 }
 # 		}
 # 		else = {
-# 			set_timed_situation_flag = { flag = big_eureka_progress days = 30 }
+# 			set_timed_situation_flag = { flag = big_eureka_progress months = 1 }
 # 		}
 # 	}
 # }

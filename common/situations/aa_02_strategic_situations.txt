@@ -81,7 +81,7 @@ situation_planetary_revolt = {
 						has_modifier = instability_join_revolt
 						planet_stability < @[ stabilitylevel2 + 10 ]
 						exists = controller
-						controller = { is_same_value = root.owner }
+						controller = { is_same_empire = root.owner }
 						has_ground_combat = no
 						has_orbital_bombardment = no
 					}
@@ -92,7 +92,7 @@ situation_planetary_revolt = {
 						has_modifier = instability_join_revolt
 						planet_stability < @[ stabilitylevel2 + 10 ]
 						exists = controller
-						controller = { is_same_value = root.owner }
+						controller = { is_same_empire = root.owner }
 						has_ground_combat = no
 						has_orbital_bombardment = no
 					}
@@ -103,7 +103,7 @@ situation_planetary_revolt = {
 			target = {
 				set_timed_planet_flag = {
 					flag = recent_revolt_attempt
-					days = 5400
+					years = 15
 				}
 			}
 			owner = {
@@ -111,7 +111,7 @@ situation_planetary_revolt = {
 					limit = { has_modifier = instability_join_revolt }
 					set_timed_planet_flag = {
 						flag = recent_revolt_attempt
-						days = 5400
+						years = 15
 					}
 				}
 			}
@@ -134,7 +134,7 @@ situation_planetary_revolt = {
 				}
 				set_timed_planet_flag = {
 					flag = recent_revolt_attempt
-					days = 5400
+					years = 15
 				}
 			}
 			owner = {
@@ -142,7 +142,7 @@ situation_planetary_revolt = {
 					limit = { has_modifier = instability_join_revolt }
 					set_timed_planet_flag = {
 						flag = recent_revolt_attempt
-						days = 5400
+						years = 15
 					}
 				}
 			}
@@ -164,8 +164,8 @@ situation_planetary_revolt = {
 		# }
 		# OR = {
 		# 	NOT = { exists = target.owner }
-		# 	target.owner = { NOT = { is_same_value = root.owner } }
-		# 	target.controller = { NOT = { is_same_value = root.owner } }
+		# 	target.owner = { NOT = { is_same_empire = root.owner } }
+		# 	target.controller = { NOT = { is_same_empire = root.owner } }
 		# }
 	}
 
@@ -500,7 +500,7 @@ situation_planetary_revolt = {
 					has_modifier = instability_join_revolt
 					planet_stability < @[ stabilitylevel2 + 10 ]
 					exists = controller
-					controller = { is_same_value = root.owner }
+					controller = { is_same_empire = root.owner }
 				}
 			}
 		}
