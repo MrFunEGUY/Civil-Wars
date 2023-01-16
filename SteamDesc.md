@@ -34,12 +34,13 @@ Autonomous States can never be integrated.
 
 [h1]Notes:[/h1]
 
-Your  empire capital and full core sector will never rebel under any circumstances. Planets (not the capital) in the core sector can be taken by Scientists and Generals in some Civil Wars, though.
+- Siutations do not progress past 80 progress, and that is normal. At that point, you should be aware that a rebellion could occur at any moment.
+
+- Your  empire capital and full core sector will never rebel under any circumstances. Planets (not the capital) in the core sector can still be taken by rebellions and wars, however.
+
+- Subjects can have all of the wars added by this mod. If this happens to a subject who is not allowed to independnely wage war, you will be given the choice of taking over the war for your subject, letting your subject wage the war on their own, or letting the rebels become independent of both you and your subject. If you are a subject of this kind, you will be informed that your overlord will make the decision.
 
 --
-
-Subjects can have Civil Wars. If this happens, you will be given the choice of taking over the war for your subject, letting your subject wage the war on their own, or letting the rebels become independent of both you and your subject.
-
 
 [url=https://steamcommunity.com/workshop/filedetails/discussion/2434790082/3041607712767736149/]Base Chance of Occurring[/url]
 
@@ -65,6 +66,8 @@ Subjects can have Civil Wars. If this happens, you will be given the choice of t
 
 [h1]Compatibility:[/h1]
 
+- If using my [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2183551683]Vassals Expanded and Reworked - FunEFork[/url] mod, place this mod before it in the load order.
+
 Fully compatible with:
 - Any of the Ethics and Civics Overhauls ([url=https://steamcommunity.com/sharedfiles/filedetails/?id=2387799348]Redux[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1100284147]Classic[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2517213262]Bug Branch[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2379954995]Revolutions[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2810254780]Infinity[/url], etc.)
 
@@ -81,7 +84,9 @@ Fully compatible with:
 
 - Chinese translation by [url=https://steamcommunity.com/profiles/76561198840278562]Del[/url]. Thank you!
 
-- Thumbnail Image: [url=https://www.artstation.com/artwork/A9do5V]Urban Combat by Richard Yang[/url]
+- German translation by [url=https://steamcommunity.com/profiles/76561198028539261]Heinrich Honkler[/url]. Thank you!
+
+- Thumbnail Image: [i][url=https://www.artstation.com/artwork/A9do5V]Urban Combat[/url][/i] by Richard Yang
 
 
 [hr][/hr]
@@ -120,4 +125,4 @@ Fully compatible with:
 
 For the best support, find me at [b]#mrfuneguys-mods[/b] on the Stellaris Modding Den Discord:
 
-[url=https://discord.gg/REvVK2fjJF][img]https://i.imgur.com/4Und3QN.png[/img][/url]
+[url=https://discord.gg/REvVK2fjJF][img]https://i.imgur.com/jZkBbLR.png[/img][/url]

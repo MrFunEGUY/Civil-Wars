@@ -52,6 +52,7 @@ supremacist = {
 			is_pacifist = no
 		}
 		is_same_species = owner_species
+		has_culture_shock = no
 	}
 
 	attraction = {
@@ -243,7 +244,10 @@ supremacist = {
 			exists = owner
 			owner = {
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
-				num_communications > 2
+				any_first_contact = {
+                    is_site_completed = yes
+                    contact_country = { is_country_type = default }
+                }
 			}
 		}
 

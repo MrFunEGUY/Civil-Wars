@@ -48,6 +48,7 @@ prosperity = {
 	can_join_faction = {
 		is_shackled_robot = no
 		can_think = yes
+		has_culture_shock = no
 	}
 
 	attraction = {
@@ -199,7 +200,10 @@ prosperity = {
 		potential = {
 			exists = owner
 			owner = {
-				num_communications > 2
+				any_first_contact = {
+                    is_site_completed = yes
+                    contact_country = { is_country_type = default }
+                }
 			}
 		}
 

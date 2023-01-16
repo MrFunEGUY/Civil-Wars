@@ -49,6 +49,7 @@ imperialist = {
 	can_join_faction = {
 		is_shackled_robot = no
 		can_think = yes
+		has_culture_shock = no
 	}
 
 	attraction = {
@@ -196,7 +197,10 @@ imperialist = {
 		potential = {
 			exists = owner
 			owner = {
-				num_communications > 2
+				any_first_contact = {
+                    is_site_completed = yes
+                    contact_country = { is_country_type = default }
+                }
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				num_rivals < 2
 			}
@@ -220,7 +224,10 @@ imperialist = {
 		potential = {
 			exists = owner
 			owner = {
-				num_communications > 2
+				any_first_contact = {
+                    is_site_completed = yes
+                    contact_country = { is_country_type = default }
+                }
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				num_rivals = 2
 			}
@@ -244,7 +251,10 @@ imperialist = {
 		potential = {
 			exists = owner
 			owner = {
-				num_communications > 2
+				any_first_contact = {
+                    is_site_completed = yes
+                    contact_country = { is_country_type = default }
+                }
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				num_rivals > 2
 			}
@@ -268,7 +278,10 @@ imperialist = {
 		potential = {
 			exists = owner
 			owner = {
-				num_communications > 2
+				any_first_contact = {
+                    is_site_completed = yes
+                    contact_country = { is_country_type = default }
+                }
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 			}
 		}
