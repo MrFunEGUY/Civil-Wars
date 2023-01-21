@@ -39,7 +39,6 @@ situation_civstrife_faction_sep_plan = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = target }
-			target = { faction_approval >= 0.2 }
 			target = { has_pop_faction_flag = faction_rebelled }
 			target = { any_owned_pop = { planet = { is_capital = yes } } }
 			target = { any_owned_pop = { planet = { has_planet_flag = rebellion_suppressed } } }
@@ -147,6 +146,27 @@ situation_civstrife_faction_sep_plan = {
 			desc = radicalisation_occurring
 			add = 3
 			situation_progress < 90
+			NOT = { target = { faction_approval >= 0.2 } }
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -1
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -2
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -0.5
+			target = { faction_approval >= 0.2 }
 		}
 	}
 }
@@ -191,7 +211,6 @@ situation_civstrife_faction_sep_sec = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = target }
-			target = { faction_approval >= 0.2 }
 			target = { has_pop_faction_flag = faction_rebelled }
 			target = { any_owned_pop = { planet = { is_capital = yes } } }
 			target = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
@@ -299,6 +318,27 @@ situation_civstrife_faction_sep_sec = {
 			desc = radicalisation_occurring
 			add = 3
 			situation_progress < 90
+			NOT = { target = { faction_approval >= 0.2 } }
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -1
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -2
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -0.5
+			target = { faction_approval >= 0.2 }
 		}
 	}
 }
@@ -448,6 +488,20 @@ situation_civstrife_faction_iso_sep_sec = {
 		modifier = {
 			desc = radicalisation_occurring
 			add = 2
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.75
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -1.25
+			current_situation_approach = approach_faction_repression
 			situation_progress < 90
 		}
 	}
@@ -654,12 +708,14 @@ situation_civstrife_sep_slaves_plan = {
 			add = 1
 			situation_progress < 90
 		}
+
 		modifier = {
 			add = target.value:revolt_situation_low_stability_factor #0.2 for every point below 25 (so max 5)
 			desc = STRING_LOW_STABILITY
 			situation_progress < 90
 			target = { planet_stability < @stabilitylevel2 }
 		}
+
 		modifier = {
 			add = 2
 			desc = STRING_PURGING
@@ -671,6 +727,13 @@ situation_civstrife_sep_slaves_plan = {
 					NOT = { has_purge_type = { type = purge_neutering } }
 				}
 			}
+		}
+
+		modifier = {
+			desc = approach_slave_repression
+			add = -0.25
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
 		}
 	}
 }
@@ -881,12 +944,14 @@ situation_civstrife_sep_slaves_sec = {
 			add = 3
 			situation_progress < 90
 		}
+
 		modifier = {
 			add = target.sector_capital.value:revolt_situation_low_stability_factor #0.2 for every point below 25 (so max 5)
 			desc = STRING_LOW_STABILITY
 			situation_progress < 90
 			target.sector_capital = { planet_stability < @stabilitylevel2 }			
 		}
+
 		modifier = {
 			add = 2
 			desc = STRING_PURGING
@@ -900,6 +965,13 @@ situation_civstrife_sep_slaves_sec = {
 					}
 				}
 			}
+		}
+
+		modifier = {
+			desc = approach_slave_repression
+			add = -0.25
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
 		}
 	}
 }
@@ -956,7 +1028,6 @@ situation_civstrife_faction_sep_nat = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = target }
-			target = { faction_approval >= 0.2 }
 			target = { has_pop_faction_flag = faction_rebelled }
 		}
 	}
@@ -1061,6 +1132,27 @@ situation_civstrife_faction_sep_nat = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			NOT = { target = { faction_approval >= 0.2 } }
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -0.5
+			target = { faction_approval >= 0.2 }
 		}
 	}
 }
@@ -1115,10 +1207,7 @@ situation_civstrife_faction_sep_ruler = {
 	}
 
 	abort_trigger = {
-		OR = {
-			NOT = { exists = target }
-			target = { faction_approval >= 0.2 }
-		}
+		NOT = { exists = target }
 	}
 
 	start_value = 0
@@ -1218,9 +1307,15 @@ situation_civstrife_faction_sep_ruler = {
 	monthly_progress = {
 		base = 0
 		modifier = {
-			desc = radicalisation_occurring
+			desc = situation_civstrife_faction_sep_ruler
 			add = 1
 			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -0.5
+			target = { faction_approval >= 0.2 }
 		}
 	}
 }

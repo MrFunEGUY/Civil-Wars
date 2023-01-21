@@ -1750,6 +1750,60 @@ is_iso_sector_event_target = {
 	}
 }
 
+rebel_is_former_leader = {
+	OR = {
+		has_trait = leader_trait_corrupt
+		has_leader_flag = civil_war_ruler_governor
+		has_leader_flag = civil_war_ruler_governor_isolated
+		has_leader_flag = civil_war_ruler_governor_dispute
+		###
+		has_leader_flag = civil_war_ruler_admiral
+		has_leader_flag = civil_war_ruler_admiral_isolated
+		has_leader_flag = civil_war_ruler_admiral_dispute
+		###
+		has_leader_flag = civil_war_ruler_general
+		has_leader_flag = civil_war_ruler_general_isolated
+		has_leader_flag = civil_war_ruler_general_dispute
+		###
+		has_leader_flag = civil_war_ruler_scientist
+		has_leader_flag = civil_war_ruler_scientist_isolated
+		has_leader_flag = civil_war_ruler_scientist_dispute
+	}
+}
+
+rebel_was_governor = {
+	OR = {
+		has_trait = leader_trait_corrupt
+		has_leader_flag = civil_war_ruler_governor
+		has_leader_flag = civil_war_ruler_governor_isolated
+		has_leader_flag = civil_war_ruler_governor_dispute
+	}
+}
+
+rebel_was_admiral = {
+	OR = {
+		has_leader_flag = civil_war_ruler_admiral
+		has_leader_flag = civil_war_ruler_admiral_isolated
+		has_leader_flag = civil_war_ruler_admiral_dispute
+	}
+}
+
+rebel_was_general = {
+	OR = {
+		has_leader_flag = civil_war_ruler_general
+		has_leader_flag = civil_war_ruler_general_isolated
+		has_leader_flag = civil_war_ruler_general_dispute
+	}
+}
+
+rebel_was_scientist = {
+	OR = {
+		has_leader_flag = civil_war_ruler_scientist
+		has_leader_flag = civil_war_ruler_scientist_isolated
+		has_leader_flag = civil_war_ruler_scientist_dispute
+	}
+}
+
 pop_can_be_separatist_gen = {
 
 	pop_has_happiness = yes
@@ -2551,6 +2605,53 @@ is_faction_based_situation = {
 	}
 }
 
+is_faction_happy_situation = {
+	OR = {
+		AND = {
+			owner = { is_democracy = yes }
+			target = {
+				OR = {
+					AND = {
+						owner = { is_ai = no }
+						OR = {
+							support < 0.2
+							faction_approval > 0.35
+						}	
+					}
+					AND = {
+						owner = { is_ai = yes }
+						OR = {
+							support < 0.3
+							faction_approval > 0.3
+						}	
+					}
+				}
+			}
+		}
+		AND = {
+			owner = { is_democracy = no }
+			target = {
+				OR = {
+					AND = {
+						owner = { is_ai = no }
+						OR = {
+							support < 0.15
+							faction_approval > 0.4
+						}	
+					}
+					AND = {
+						owner = { is_ai = yes }
+						OR = {
+							support < 0.25
+							faction_approval > 0.35
+						}	
+					}
+				}
+			}
+		}
+	}
+}
+
 is_nat_faction_allowed = {
 	# count_owned_pop = { # Note: define POP_FACTION_MIN_POTENTIAL_MEMBERS does this now!
 	# 	count >= 5
@@ -2642,24 +2743,4 @@ is_faction_allowed = {
 	# }
 	NOT = { has_ethic = ethic_gestalt_consciousness }
 	NOT = { has_country_flag = suppress_vanilla_factions }
-	NOR = {
-		has_modifier = banned_egalitarian
-		has_modifier = banned_authoritarian
-		has_modifier = banned_militarist
-		has_modifier = banned_pacifist
-		has_modifier = banned_materialist
-		has_modifier = banned_spiritualist
-		has_modifier = banned_socialism
-		has_modifier = banned_capitalim
-	}
 }
-
-# has_leader_upkeep = {
-# 	exists = owner
-# 	OR = {
-# 		is_idle = yes
-# 		owner = {
-# 			NOT = { has_valid_civic = civic_feudal_realm }
-# 		}
-# 	}
-# }

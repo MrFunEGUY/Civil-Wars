@@ -2273,37 +2273,10 @@ country_event = {
 	}
 
 	desc = {
-		text = civcom.8000.governor.desc
+		text = civcom.8000.desc
 		trigger = {
 			event_target:defeated_traitor = {
 				has_leader_flag = civil_war_ruler_governor
-			}
-		}
-	}
-
-	desc = {
-		text = civcom.8000.admiral.desc
-		trigger = {
-			event_target:defeated_traitor = {
-				has_leader_flag = civil_war_ruler_admiral
-			}
-		}
-	}
-
-	desc = {
-		text = civcom.8000.general.desc
-		trigger = {
-			event_target:defeated_traitor = {
-				has_leader_flag = civil_war_ruler_general
-			}
-		}
-	}
-
-	desc = {
-		text = civcom.8000.scientist.desc
-		trigger = {
-			event_target:defeated_traitor = {
-				has_leader_flag = civil_war_ruler_scientist
 			}
 		}
 	}
@@ -2312,7 +2285,7 @@ country_event = {
 	option = {
 		name = civcom.8000.a
 		hidden_effect = {
-			set_country_flag = traitor_already_asked
+			set_country_flag = traitor_already_asked@event_target:defeated_traitor
 			event_target:traitor_home_country = {
 				country_event = { id = civend.5000 }
 			}
@@ -2341,10 +2314,16 @@ country_event = {
 	option = {
 		name = civcom.8000.b
 		hidden_effect = {
-			country_event = { id = civcom.8010 }
 			every_country = {
-				limit = { has_country_flag = traitor_already_asked }
-				remove_country_flag = traitor_already_asked
+				limit = { has_country_flag = traitor_already_asked@event_target:defeated_traitor }
+				remove_country_flag = traitor_already_asked@event_target:defeated_traitor
+			}
+			event_target:defeated_traitor = {
+				set_owner = root
+				set_leader_flag = traitor_@event_target:traitor_home_country
+			}
+			event_target:traitor_home_country = {
+				country_event = { id = civend.5002 days = 14 random = 360 }
 			}
 		}
 		ai_chance = {
@@ -2369,153 +2348,6 @@ country_event = {
 				factor = 2
 				opinion = { who = event_target:civwar_originator value < 0 }	
 			}
-		}
-	}
-}
-
-# Traitor Asylum Granted
-country_event = {
-	id = civcom.8010
-	title = civcom.7000.name
-	desc = civcom.8010.desc
-	location = root.capital_scope
-	hide_window = no
-	is_triggered_only = yes
-
-	diplomatic = yes
-
-	picture_event_data = {
-		portrait = event_target:defeated_traitor
-		planet_background = root.owner
-		graphical_culture = root.owner
-		city_level = root.owner
-		room = root.owner
-	}
-
-	# Governor
-	option = {
-		name = civcom.8010.a
-		ai_chance = { factor = 5 }
-		hidden_effect = {
-			clone_leader = {
-				target = event_target:defeated_traitor
-				class = governor
-				traits = {
-					trait = random_trait
-					trait = random_trait
-					trait = random_trait
-				}
-				effect = {
-					save_global_event_target_as = defeated_traitor_asylum
-				}
-			}
-			event_target:defeated_traitor_asylum = {
-				set_leader_flag = traitor_@event_target:traitor_home_country
-			}
-			event_target:defeated_traitor = {
-				set_leader_flag = dead_ruler
-				kill_leader = { show_notification = no }
-			}
-			event_target:traitor_home_country = {
-				country_event = { id = civend.5002 days = 14 random = 360 }
-			}
-		}
-	}
-
-	# Admiral
-	option = {
-		name = civcom.8010.b
-		ai_chance = { factor = 5 }
-		hidden_effect = {
-			clone_leader = {
-				target = event_target:defeated_traitor
-				class = admiral
-				traits = {
-					trait = random_trait
-					trait = random_trait
-					trait = random_trait
-				}
-				effect = {
-					save_global_event_target_as = defeated_traitor_asylum
-				}
-			}
-			event_target:defeated_traitor_asylum = {
-				set_leader_flag = traitor_@event_target:traitor_home_country
-			}
-			event_target:defeated_traitor = {
-				set_leader_flag = dead_ruler
-				kill_leader = { show_notification = no }
-			}
-			event_target:traitor_home_country = {
-				country_event = { id = civend.5012 days = 14 random = 360 }
-			}
-		}
-	}
-
-	# General
-	option = {
-		name = civcom.8010.c
-		ai_chance = { factor = 3 }
-		hidden_effect = {
-			clone_leader = {
-				target = event_target:defeated_traitor
-				class = general
-				traits = {
-					trait = random_trait
-					trait = random_trait
-					trait = random_trait
-				}
-				effect = {
-					save_global_event_target_as = defeated_traitor_asylum
-				}
-			}
-			event_target:defeated_traitor_asylum = {
-				set_leader_flag = traitor_@event_target:traitor_home_country
-			}
-			event_target:defeated_traitor = {
-				set_leader_flag = dead_ruler
-				kill_leader = { show_notification = no }
-			}
-			event_target:traitor_home_country = {
-				country_event = { id = civend.5002 days = 14 random = 360 }
-			}
-		}
-	}
-
-	# Scientist
-	option = {
-		name = civcom.8010.d
-		ai_chance = { factor = 2 }
-		hidden_effect = {
-			clone_leader = {
-				target = event_target:defeated_traitor
-				class = scientist
-				traits = {
-					trait = random_trait
-					trait = random_trait
-					trait = random_trait
-				}
-				effect = {
-					save_global_event_target_as = defeated_traitor_asylum
-				}
-			}
-			event_target:defeated_traitor_asylum = {
-				set_leader_flag = traitor_@event_target:traitor_home_country
-			}
-			event_target:defeated_traitor = {
-				set_leader_flag = dead_ruler
-				kill_leader = { show_notification = no }
-			}
-			event_target:traitor_home_country = {
-				country_event = { id = civend.5002 days = 14 random = 360 }
-			}
-		}
-	}
-
-	after = {
-		add_intel = {
-			who = event_target:traitor_home_country
-			amount = 10
 		}
 	}
 }

@@ -12,84 +12,34 @@ desc = {
 }
 
 desc = {
-	text = civcom.1100.governor.desc
+	text = civcom.1100.leader.desc
 	trigger = {
 		NOR = {
 			has_country_flag = rebs_help_eachother
 			has_country_flag = corrupt_rebellion
 		}
 		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_governor
+			OR = {
+				has_leader_flag = civil_war_ruler_governor
+				has_leader_flag = civil_war_ruler_admiral
+				has_leader_flag = civil_war_ruler_general
+				has_leader_flag = civil_war_ruler_scientist
+			}
 		}
 	}
 }
 
 desc = {
-	text = civcom.1100.mult.governor.desc
+	text = civcom.1100.mult.leader.desc
 	trigger = {
 		has_country_flag = rebs_help_eachother
 		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_governor
-		}
-	}
-}
-
-desc = {
-	text = civcom.1100.admiral.desc
-	trigger = {
-		NOT = { has_country_flag = rebs_help_eachother }
-		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_admiral
-		}
-	}
-}
-
-desc = {
-	text = civcom.1100.mult.admiral.desc
-	trigger = {
-		has_country_flag = rebs_help_eachother
-		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_admiral
-		}
-	}
-}
-
-desc = {
-	text = civcom.1100.general.desc
-	trigger = {
-		NOT = { has_country_flag = rebs_help_eachother }
-		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_general
-		}
-	}
-}
-
-desc = {
-	text = civcom.1100.mult.general.desc
-	trigger = {
-		has_country_flag = rebs_help_eachother
-		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_general
-		}
-	}
-}
-
-desc = {
-	text = civcom.1100.scientist.desc
-	trigger = {
-		NOT = { has_country_flag = rebs_help_eachother }
-		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_scientist
-		}
-	}
-}
-
-desc = {
-	text = civcom.1100.mult.scientist.desc
-	trigger = {
-		has_country_flag = rebs_help_eachother
-		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_scientist
+			OR = {
+				has_leader_flag = civil_war_ruler_governor
+				has_leader_flag = civil_war_ruler_admiral
+				has_leader_flag = civil_war_ruler_general
+				has_leader_flag = civil_war_ruler_scientist
+			}
 		}
 	}
 }
@@ -211,37 +161,16 @@ desc = { # Restored Country, Old Dynasty will take over, other states as well
 }
 
 desc = {
-	text = civcom.1100.governor.iso.sec.desc
+	text = civcom.1100.leader.iso.sec.desc
 	trigger = {
 		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_governor_isolated
-		}
-	}
-}
-
-desc = {
-	text = civcom.1100.admiral.iso.sec.desc
-	trigger = {
-		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_admiral_isolated
-		}
-	}
-}
-
-desc = {
-	text = civcom.1100.general.iso.sec.desc
-	trigger = {
-		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_general_isolated
-		}
-	}
-}
-
-desc = {
-	text = civcom.1100.scientist.iso.sec.desc
-	trigger = {
-		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_scientist_isolated
+			OR = {
+				has_leader_flag = civil_war_ruler_governor_isolated
+				has_leader_flag = civil_war_ruler_admiral_isolated
+				has_leader_flag = civil_war_ruler_general_isolated
+				has_leader_flag = civil_war_ruler_scientist_isolated
+			}
+			
 		}
 	}
 }

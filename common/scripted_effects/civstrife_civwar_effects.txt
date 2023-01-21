@@ -1629,8 +1629,8 @@ get_multi_sector_effect = {
 				}
 			}
 			pop_percentage = {
-				percentage >= 0.25
-				# percentage > 0
+				# percentage >= 0.25
+				percentage > 0
 				limit = {
 					exists = pop_faction
 					pop_faction = { is_same_value = root.target }
@@ -6766,7 +6766,7 @@ create_party_name_leader = {
 			save_event_target_as = civwar_party_name_leader
 		}
 	}
-	last_created_leader = { leader_event = { id = civmisc.2000 days = 720 } }
+	last_created_leader = { leader_event = { id = civleader.1000 days = 720 } }
 }
 
 # Create dummy sector name leader
@@ -6787,7 +6787,7 @@ create_sector_name_leader = {
 				set_leader_flag = dummy_leader
 			}
 		}
-		last_created_leader = { leader_event = { id = civmisc.2000 days = 180 } }
+		last_created_leader = { leader_event = { id = civleader.1000 days = 180 } }
 	}
 }
 
@@ -9286,7 +9286,7 @@ get_traitor_outcome = {
 					is_overlord_to = root
 					is_custodial_to = root
 					is_homicidal = yes
-					has_country_flag = traitor_already_asked
+					has_country_flag = traitor_already_asked@event_target:defeated_traitor
 				}
 			}
 		}
@@ -10067,7 +10067,7 @@ nat_faction_first_effect = {
 			key = dummy_sep_leader
 			variable_string = "\\[Root.GetName]"
 		}
-		leader_event = { id = civmisc.2000 days = 180 }
+		leader_event = { id = civleader.1000 days = 180 }
 	}
 }
 
@@ -10117,7 +10117,7 @@ plan_faction_first_effect = {
 			key = dummy_sep_leader
 			variable_string = "\\[Root.GetName]"
 		}
-		leader_event = { id = civmisc.2000 days = 180 }
+		leader_event = { id = civleader.1000 days = 180 }
 	}
 }
 
@@ -10170,7 +10170,7 @@ sector_faction_first_effect = {
 			key = dummy_sep_leader
 			variable_string = "\\[Root.GetName]"
 		}
-		leader_event = { id = civmisc.2000 days = 180 }
+		leader_event = { id = civleader.1000 days = 180 }
 	}
 }
 
@@ -11867,7 +11867,7 @@ exile_restoration_gen_effect = {
 					save_event_target_as = dummy_old_name_leader
 				}
 			}
-			last_created_leader = { leader_event = { id = civmisc.2000 days = 180 } }
+			last_created_leader = { leader_event = { id = civleader.1000 days = 180 } }
 			capital_scope = { set_name = random }
 			set_name = random
 			set_country_flag = nat_country_new_name
@@ -11888,7 +11888,7 @@ exile_restoration_gen_effect = {
 					save_event_target_as = dummy_old_name_leader
 				}
 			}
-			last_created_leader = { leader_event = { id = civmisc.2000 days = 180 } }
+			last_created_leader = { leader_event = { id = civleader.1000 days = 180 } }
 			capital_scope = { set_name = random }
 			set_name = random
 			set_country_flag = nat_country_new_name
@@ -12071,7 +12071,6 @@ get_remove_civics = {
 
 ######################
 
-# Remove All Civics 
 get_faction_leader_replace = {
 	random_owned_leader = {
 		limit = { leader_of_faction = no }
@@ -12104,3 +12103,5 @@ get_ship_delete_effect = {
 		set_variable = { which = ship_count value = 0 }
 	}
 }
+
+######################

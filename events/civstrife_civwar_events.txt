@@ -276,58 +276,14 @@ country_event = { # Setup for Civil War
 				country_event = { id = civwar.2005 }
 				overlord = { country_event = { id = civwar.2000 } }
 			}
-			# Governor
+			# Governor/Admiral/Scientist/General
 			else_if = {
 				limit = {
 					event_target:civwar_rebels.ruler = {
-						OR = {
-							has_trait = leader_trait_corrupt
-							has_leader_flag = civil_war_ruler_governor
-							has_leader_flag = civil_war_ruler_governor_isolated
-							has_leader_flag = civil_war_ruler_governor_dispute
-						}
+						rebel_is_former_leader = yes
 					}
 				}
 				country_event = { id = civwar.2010 }
-			}
-			# Admiral
-			else_if = {
-				limit = {
-					event_target:civwar_rebels.ruler = {
-						OR = {
-							has_leader_flag = civil_war_ruler_admiral
-							has_leader_flag = civil_war_ruler_admiral_isolated
-							has_leader_flag = civil_war_ruler_admiral_dispute
-						}
-					}
-				}
-				country_event = { id = civwar.2020 }
-			}
-			# General
-			else_if = {
-				limit = {
-					event_target:civwar_rebels.ruler = {
-						OR = {
-							has_leader_flag = civil_war_ruler_general
-							has_leader_flag = civil_war_ruler_general_isolated
-							has_leader_flag = civil_war_ruler_general_dispute
-						}
-					}
-				}
-				country_event = { id = civwar.2030 }
-			}
-			# Scientist
-			else_if = {
-				limit = {
-					event_target:civwar_rebels.ruler = {
-						OR = {
-							has_leader_flag = civil_war_ruler_scientist
-							has_leader_flag = civil_war_ruler_scientist_isolated
-							has_leader_flag = civil_war_ruler_scientist_dispute
-						}
-					}
-				}
-				country_event = { id = civwar.2040 }
 			}
 			# Nationalist
 			else_if = {
@@ -666,7 +622,7 @@ country_event = { # Subject - Informing them their overlord will decide
 	}
 }
 
-country_event = { # Governor - Communications
+country_event = { # Former Leader - Communications
 	id = civwar.2010
 	picture = GFX_evt_civil_action
 	title = civwar.2010.name
@@ -674,144 +630,21 @@ country_event = { # Governor - Communications
 	hide_window = no
 	is_triggered_only = yes
 
-	option = {
-		name = ON_SCREEN_REBELS
-		hidden_effect = {
-			# Regular Governor, didnt get multiple sectors, may ask to become a vassal
-			if = {
-				limit = {
-					NOR = {
-						any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
-						event_target:civil_war_leader = { has_trait = leader_trait_corrupt }
-						event_target:civil_war_leader = { has_leader_flag = civil_war_ruler_governor_isolated }
-						event_target:civwar_rebels = {
-							check_variable = {
-								which = num_mil_pops
-								value >= root.num_mil_pops
-							}
-						}
-						event_target:civwar_rebels = {
-							check_variable = {
-								which = total_empire_size
-								value >= root.total_empire_size
-							}
-						}
-					}
-				}
-				random_list = {
-					85 = { country_event = { id = civcom.1100 } }
-					15 = { country_event = { id = civcom.1105 } }
-				}
-			}
-			else = {
-				country_event = { id = civcom.1100 }
-			}
-		}
-		ai_chance = { factor = 1 }
+	trigger = {
+		exists = event_target:civwar_rebels
 	}
-}
-
-country_event = { # Admiral - Communications
-	id = civwar.2020
-	picture = GFX_evt_civil_action
-	title = civwar.2020.name
-	desc = civwar.2020.desc
-	hide_window = no
-	is_triggered_only = yes
 
 	option = {
 		name = ON_SCREEN_REBELS
 		hidden_effect = {
 			if = {
-				limit = {
-					NOR = {
-						any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
-						event_target:civil_war_leader = { has_leader_flag = civil_war_ruler_admiral_isolated }
-						event_target:civwar_rebels = {
-							check_variable = {
-								which = num_mil_pops
-								value >= root.num_mil_pops
-							}
-						}
-						event_target:civwar_rebels = {
-							check_variable = {
-								which = total_empire_size
-								value >= root.total_empire_size
-							}
-						}
-					}
-				}
-				random_list = {
-					85 = { country_event = { id = civcom.1100 } }
-					15 = { country_event = { id = civcom.1105 } }
-				}
-			}
-			else = {
-				country_event = { id = civcom.1100 }
-			}
-		}
-	}
-}
-
-country_event = { # General - Communications
-	id = civwar.2030
-	picture = GFX_evt_civil_action
-	title = civwar.2030.name
-	desc = civwar.2030.desc
-	hide_window = no
-	is_triggered_only = yes
-
-	option = {
-		name = ON_SCREEN_REBELS
-		hidden_effect = {
-			if = {
-				limit = {
-					NOR = {
-						any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
-						event_target:civil_war_leader = { has_leader_flag = civil_war_ruler_general_isolated }
-						event_target:civwar_rebels = {
-							check_variable = {
-								which = num_mil_pops
-								value >= root.num_mil_pops
-							}
-						}
-						event_target:civwar_rebels = {
-							check_variable = {
-								which = total_empire_size
-								value >= root.total_empire_size
-							}
-						}
-					}
-				}
-				random_list = {
-					85 = { country_event = { id = civcom.1100 } }
-					15 = { country_event = { id = civcom.1105 } }
-				}
-			}
-			else = {
-				country_event = { id = civcom.1100 }
-			}
-		}
-	}
-}
-
-country_event = { # Scientist - Communications
-	id = civwar.2040
-	picture = GFX_evt_civil_action
-	title = civwar.2040.name
-	desc = civwar.2040.desc
-	hide_window = no
-	is_triggered_only = yes
-
-	option = {
-		name = ON_SCREEN_REBELS
-		hidden_effect = {
-			hidden_effect = {
-				if = {
+				limit = { event_target:civwar_rebels.ruler = { rebel_was_governor = yes } }
+				if = { # Regular Governor, didnt get multiple sectors, may ask to become a vassal
 					limit = {
 						NOR = {
 							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
-							event_target:civil_war_leader = { has_leader_flag = civil_war_ruler_scientist_isolated }
+							event_target:civwar_rebels.ruler = { has_trait = leader_trait_corrupt }
+							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_governor_isolated }
 							event_target:civwar_rebels = {
 								check_variable = {
 									which = num_mil_pops
@@ -831,11 +664,95 @@ country_event = { # Scientist - Communications
 						15 = { country_event = { id = civcom.1105 } }
 					}
 				}
-				else = {
-					country_event = { id = civcom.1100 }
+				else = { country_event = { id = civcom.1100 } }
+			}
+			else_if = {
+				limit = { event_target:civwar_rebels.ruler = { rebel_was_admiral = yes } }
+				log = "ADMIRAL DID FIRE"
+				if = {
+					limit = {
+						NOR = {
+							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
+							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_admiral_isolated }
+							event_target:civwar_rebels = {
+								check_variable = {
+									which = num_mil_pops
+									value >= root.num_mil_pops
+								}
+							}
+							event_target:civwar_rebels = {
+								check_variable = {
+									which = total_empire_size
+									value >= root.total_empire_size
+								}
+							}
+						}
+					}
+					random_list = {
+						85 = { country_event = { id = civcom.1100 } }
+						15 = { country_event = { id = civcom.1105 } }
+					}
 				}
+				else = { country_event = { id = civcom.1100 } }
+			}
+			else_if = {
+				limit = { event_target:civwar_rebels.ruler = { rebel_was_general = yes } }
+				if = {
+					limit = {
+						NOR = {
+							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
+							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_general_isolated }
+							event_target:civwar_rebels = {
+								check_variable = {
+									which = num_mil_pops
+									value >= root.num_mil_pops
+								}
+							}
+							event_target:civwar_rebels = {
+								check_variable = {
+									which = total_empire_size
+									value >= root.total_empire_size
+								}
+							}
+						}
+					}
+					random_list = {
+						85 = { country_event = { id = civcom.1100 } }
+						15 = { country_event = { id = civcom.1105 } }
+					}
+				}
+				else = { country_event = { id = civcom.1100 } }
+			}
+			else_if = {
+				limit = { event_target:civwar_rebels.ruler = { rebel_was_scientist = yes } }
+				if = {
+					limit = {
+						NOR = {
+							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
+							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_scientist_isolated }
+							event_target:civwar_rebels = {
+								check_variable = {
+									which = num_mil_pops
+									value >= root.num_mil_pops
+								}
+							}
+							event_target:civwar_rebels = {
+								check_variable = {
+									which = total_empire_size
+									value >= root.total_empire_size
+								}
+							}
+						}
+					}
+					random_list = {
+						85 = { country_event = { id = civcom.1100 } }
+						15 = { country_event = { id = civcom.1105 } }
+					}
+				}
+				else = { country_event = { id = civcom.1100 } }
 			}
 		}
+		ai_chance = { factor = 1 }
 	}
 }
 
@@ -885,6 +802,10 @@ country_event = { # Nationalist - Communications
 	hide_window = no
 	is_triggered_only = yes
 
+	trigger = {
+		exists = event_target:civwar_rebels
+	}
+
 	option = {
 		name = ON_SCREEN_REBELS
 		hidden_effect = {
@@ -927,6 +848,10 @@ country_event = { # New Leader/Separatist - Communications
 	hide_window = no
 	is_triggered_only = yes
 
+	trigger = {
+		exists = event_target:civwar_rebels
+	}
+
 	option = {
 		name = ON_SCREEN_REBELS
 		hidden_effect = {
@@ -967,6 +892,10 @@ country_event = { # Heir - Communications
 	hide_window = no
 	is_triggered_only = yes
 
+	trigger = {
+		exists = event_target:civwar_rebels
+	}
+
 	option = {
 		name = ON_SCREEN_REBELS
 		hidden_effect = {
@@ -983,6 +912,10 @@ country_event = { # Former Heir - Communications
 	desc = civwar.2065.desc
 	hide_window = no
 	is_triggered_only = yes
+
+	trigger = {
+		exists = event_target:civwar_rebels
+	}
 
 	option = {
 		name = ON_SCREEN_REBELS
@@ -1407,8 +1340,8 @@ situation_event = { # Revolt/Civil War Event
 						solar_system = { is_capital_system = no }
 					}
 					pop_percentage = { # Civil War
-						percentage >= 0.25
-						# percentage > 0
+						# percentage >= 0.25
+						percentage > 0
 						limit = {
 							exists = pop_faction
 							pop_faction = { is_same_value = root.target }
@@ -1473,8 +1406,8 @@ situation_event = { # Revolt/Civil War Event
 			if = { # Potential Multi Planet/Sector Civil War
 				limit = {
 					pop_percentage = { 
-						percentage >= 0.25
-						# percentage > 0
+						# percentage >= 0.25
+						percentage > 0
 						limit = {
 							exists = pop_faction
 							pop_faction = { is_same_value = root.target }

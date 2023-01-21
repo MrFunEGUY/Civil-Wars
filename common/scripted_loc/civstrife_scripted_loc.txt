@@ -1,0 +1,20 @@
+# Get Honorific
+defined_text = { # Leader scope
+	name = GetRebelRulerClass
+	text = {
+		trigger = { rebel_was_scientist = yes }
+		localization_key = leader.was.scientist
+	}
+	text = {
+		trigger = { rebel_was_admiral = yes }
+		localization_key = leader.was.admiral
+	}
+	text = {
+		trigger = { rebel_was_general = yes }
+		localization_key = leader.was.general
+	}
+	text = {
+		trigger = { rebel_was_governor = yes }
+		localization_key = leader.was.governor
+	}
+}

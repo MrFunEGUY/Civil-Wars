@@ -34,6 +34,19 @@ situation_civstrife_faction_egal = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = ethic_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
+		}
 	}
 
 	on_abort = {
@@ -42,6 +55,13 @@ situation_civstrife_faction_egal = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -50,48 +70,6 @@ situation_civstrife_faction_egal = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_EGAL }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -202,6 +180,27 @@ situation_civstrife_faction_egal = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }
@@ -241,6 +240,19 @@ situation_civstrife_faction_auth = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = ethic_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
+		}
 	}
 
 	on_abort = {
@@ -249,6 +261,13 @@ situation_civstrife_faction_auth = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -257,48 +276,6 @@ situation_civstrife_faction_auth = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_AUTH }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -409,6 +386,27 @@ situation_civstrife_faction_auth = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }
@@ -448,6 +446,19 @@ situation_civstrife_faction_mil = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = ethic_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
+		}
 	}
 
 	on_abort = {
@@ -456,6 +467,13 @@ situation_civstrife_faction_mil = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -464,48 +482,6 @@ situation_civstrife_faction_mil = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_MIL }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -616,6 +592,27 @@ situation_civstrife_faction_mil = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }
@@ -661,6 +658,13 @@ situation_civstrife_faction_pac = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -670,6 +674,13 @@ situation_civstrife_faction_pac = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -678,48 +689,6 @@ situation_civstrife_faction_pac = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_PAC }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -833,6 +802,27 @@ situation_civstrife_faction_pac = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }
@@ -872,6 +862,19 @@ situation_civstrife_faction_mat = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = ethic_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
+		}
 	}
 
 	on_abort = {
@@ -880,6 +883,13 @@ situation_civstrife_faction_mat = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -888,48 +898,6 @@ situation_civstrife_faction_mat = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_MAT }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -1054,6 +1022,27 @@ situation_civstrife_faction_mat = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }
@@ -1093,6 +1082,19 @@ situation_civstrife_faction_spi = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = ethic_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
+		}
 	}
 
 	on_abort = {
@@ -1101,6 +1103,13 @@ situation_civstrife_faction_spi = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -1109,48 +1118,6 @@ situation_civstrife_faction_spi = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_SPI }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -1261,6 +1228,27 @@ situation_civstrife_faction_spi = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }
@@ -1300,6 +1288,19 @@ situation_civstrife_faction_phile = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = ethic_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
+		}
 	}
 
 	on_abort = {
@@ -1308,6 +1309,13 @@ situation_civstrife_faction_phile = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -1316,48 +1324,6 @@ situation_civstrife_faction_phile = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_XENO }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -1468,6 +1434,27 @@ situation_civstrife_faction_phile = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }
@@ -1507,6 +1494,19 @@ situation_civstrife_faction_phobe = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = ethic_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
+		}
 	}
 
 	on_abort = {
@@ -1515,6 +1515,13 @@ situation_civstrife_faction_phobe = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -1523,48 +1530,6 @@ situation_civstrife_faction_phobe = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_PHOBE }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -1675,6 +1640,27 @@ situation_civstrife_faction_phobe = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }
@@ -1714,6 +1700,19 @@ situation_civstrife_faction_soc = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = ethic_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
+		}
 	}
 
 	on_abort = {
@@ -1722,6 +1721,13 @@ situation_civstrife_faction_soc = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -1730,48 +1736,6 @@ situation_civstrife_faction_soc = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_SOC }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -1882,6 +1846,27 @@ situation_civstrife_faction_soc = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }
@@ -1921,6 +1906,19 @@ situation_civstrife_faction_cap = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = ethic_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
+		}
 	}
 
 	on_abort = {
@@ -1929,6 +1927,13 @@ situation_civstrife_faction_cap = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -1937,48 +1942,6 @@ situation_civstrife_faction_cap = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_CAP }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -2089,6 +2052,27 @@ situation_civstrife_faction_cap = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }
@@ -2128,6 +2112,19 @@ situation_civstrife_faction_indus = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = ethic_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
+		}
 	}
 
 	on_abort = {
@@ -2136,6 +2133,13 @@ situation_civstrife_faction_indus = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -2144,48 +2148,6 @@ situation_civstrife_faction_indus = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_INDUS }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -2296,6 +2258,27 @@ situation_civstrife_faction_indus = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }
@@ -2335,6 +2318,19 @@ situation_civstrife_faction_eco = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = ethic_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
+		}
 	}
 
 	on_abort = {
@@ -2343,6 +2339,13 @@ situation_civstrife_faction_eco = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -2351,48 +2354,6 @@ situation_civstrife_faction_eco = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_ECO }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -2503,6 +2464,27 @@ situation_civstrife_faction_eco = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }
@@ -2542,6 +2524,19 @@ situation_civstrife_faction_elite = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = ethic_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
+		}
 	}
 
 	on_abort = {
@@ -2550,6 +2545,13 @@ situation_civstrife_faction_elite = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -2558,48 +2560,6 @@ situation_civstrife_faction_elite = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_ELITE }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -2710,6 +2670,27 @@ situation_civstrife_faction_elite = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }
@@ -2749,6 +2730,19 @@ situation_civstrife_faction_plur = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		target = {
+			remove_pop_faction_flag = faction_sep_situation
+			clear_variable = ethic_sep_chance
+			clear_variable = num_sep_pops
+			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
+		}
 	}
 
 	on_abort = {
@@ -2757,6 +2751,13 @@ situation_civstrife_faction_plur = {
 			clear_variable = ethic_sep_chance
 			clear_variable = num_sep_pops
 			clear_variable = sep_upkeep
+			if = {
+				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					remove_pop_faction_flag = sep_pop_ethic
+				}
+			}
 		}
 	}
 
@@ -2765,48 +2766,6 @@ situation_civstrife_faction_plur = {
 			NOT = { exists = root.target }
 			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_PLUR }
-			AND = {
-				owner = { is_democracy = yes }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.2
-								faction_approval > 0.35
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.3
-								faction_approval > 0.3
-							}	
-						}
-					}
-				}
-			}
-			AND = {
-				owner = { is_democracy = no }
-				target = {
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							OR = {
-								support < 0.15
-								faction_approval > 0.4
-							}	
-						}
-						AND = {
-							owner = { is_ai = yes }
-							OR = {
-								support < 0.25
-								faction_approval > 0.35
-							}	
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -2917,6 +2876,27 @@ situation_civstrife_faction_plur = {
 			desc = radicalisation_occurring
 			add = 1
 			situation_progress < 90
+			is_faction_happy_situation = no
+		}
+
+		modifier = {
+			desc = approach_pr_campaign
+			add = -0.25
+			current_situation_approach = approach_pr_campaign
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = approach_faction_repression
+			add = -0.5
+			current_situation_approach = approach_faction_repression
+			situation_progress < 90
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -2
+			is_faction_happy_situation = yes
 		}
 	}
 }

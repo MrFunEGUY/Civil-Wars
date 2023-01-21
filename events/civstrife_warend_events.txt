@@ -67,11 +67,11 @@ country_event = {
 	immediate = {
 
 		from.ruler = {
-			save_event_target_as = defeated_traitor
+			save_event_target_as = defeated_traitor_1
 		}
 
 		clone_leader = {
-			target = event_target:defeated_traitor
+			target = event_target:defeated_traitor_1
 			class = ruler
 			effect = {
 				save_event_target_as = defeated_traitor
@@ -250,7 +250,7 @@ country_event = {
 			get_traitor_outcome = yes
 		}
 
-		set_timed_country_flag = { flag = traitor_already_asked days = 10 }
+		set_timed_country_flag = { flag = traitor_already_asked@event_target:defeated_traitor days = 10 }
 	}
 }
 
@@ -281,7 +281,7 @@ country_event = {
 						has_overlord = root
 						is_custodial_to = root
 						is_homicidal = yes
-						has_country_flag = traitor_already_asked
+						has_country_flag = traitor_already_asked@event_target:defeated_traitor
 					}
 				}
 			}
@@ -296,7 +296,7 @@ country_event = {
 						has_overlord = root
 						is_custodial_to = root
 						is_homicidal = yes
-						has_country_flag = traitor_already_asked
+						has_country_flag = traitor_already_asked@event_target:defeated_traitor
 					}
 				}
 				country_event = { id = civend.5001 }
@@ -393,7 +393,7 @@ country_event = {
 						is_custodial_to = root
 						is_homicidal = yes
 						has_overlord = root
-						has_country_flag = traitor_already_asked
+						has_country_flag = traitor_already_asked@event_target:defeated_traitor
 					}
 				}
 			}
@@ -408,7 +408,7 @@ country_event = {
 						is_custodial_to = root
 						is_homicidal = yes
 						has_overlord = root
-						has_country_flag = traitor_already_asked
+						has_country_flag = traitor_already_asked@event_target:defeated_traitor
 					}
 				}
 				country_event = { id = civend.5001 }

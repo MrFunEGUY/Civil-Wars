@@ -1,41 +1,18 @@
 # Rebellion With Vassalization Descriptions
 
 desc = {
-	text = civcom.1005.governor.plan.desc
+	text = civcom.1005.leader.plan.desc
 	trigger = {
 		event_target:civwar_rebels = {
-			ruler = { has_leader_flag = civil_war_ruler_governor }
 			has_country_flag = plan_rebel_country
-		}
-	}
-}
-
-desc = {
-	text = civcom.1005.admiral.plan.desc
-	trigger = {
-		event_target:civwar_rebels = {
-			ruler = { has_leader_flag = civil_war_ruler_admiral }
-			has_country_flag = plan_rebel_country
-		}
-	}
-}
-
-desc = {
-	text = civcom.1005.general.plan.desc
-	trigger = {
-		event_target:civwar_rebels = {
-			ruler = { has_leader_flag = civil_war_ruler_general }
-			has_country_flag = plan_rebel_country
-		}
-	}
-}
-
-desc = {
-	text = civcom.1005.scientist.plan.desc
-	trigger = {
-		event_target:civwar_rebels = {
-			ruler = { has_leader_flag = civil_war_ruler_scientist }
-			has_country_flag = plan_rebel_country
+			ruler = {
+				OR = {
+					has_leader_flag = civil_war_ruler_governor
+					has_leader_flag = civil_war_ruler_admiral
+					has_leader_flag = civil_war_ruler_general
+					has_leader_flag = civil_war_ruler_scientist
+				}
+			}
 		}
 	}
 }
@@ -44,8 +21,8 @@ desc = {
 	text = civcom.1005.separatist.plan.desc
 	trigger = {
 		event_target:civwar_rebels = {
-			ruler = { has_leader_flag = civil_war_ruler_separatist }
 			has_country_flag = plan_rebel_country
+			ruler = { has_leader_flag = civil_war_ruler_separatist }
 		}
 	}
 }
@@ -54,48 +31,25 @@ desc = {
 	text = civcom.1005.nationalist.desc
 	trigger = {
 		event_target:civwar_rebels = {
-			ruler = { has_leader_flag = civil_war_ruler_nationalist }
 			has_country_flag = plan_rebel_country
+			ruler = { has_leader_flag = civil_war_ruler_nationalist }
 		}
 	}
 }
 
 desc = {
-	text = civcom.1005.governor.sec.desc
+	text = civcom.1005.leader.sec.desc
 	trigger = {
 		event_target:civwar_rebels = {
 			has_country_flag = ethic_sec_rebels
-			ruler = { has_leader_flag = civil_war_ruler_governor }
-		}
-	}
-}
-
-desc = {
-	text = civcom.1005.admiral.sec.desc
-	trigger = {
-		event_target:civwar_rebels = {
-			has_country_flag = ethic_sec_rebels
-			ruler = { has_leader_flag = civil_war_ruler_admiral }
-		}
-	}
-}
-
-desc = {
-	text = civcom.1005.general.sec.desc
-	trigger = {
-		event_target:civwar_rebels = {
-			has_country_flag = ethic_sec_rebels
-			ruler = { has_leader_flag = civil_war_ruler_general }
-		}
-	}
-}
-
-desc = {
-	text = civcom.1005.scientist.sec.desc
-	trigger = {
-		event_target:civwar_rebels = {
-			has_country_flag = ethic_sec_rebels
-			ruler = { has_leader_flag = civil_war_ruler_scientist }
+			ruler = {
+				OR = {
+					has_leader_flag = civil_war_ruler_governor
+					has_leader_flag = civil_war_ruler_admiral
+					has_leader_flag = civil_war_ruler_general
+					has_leader_flag = civil_war_ruler_scientist
+				}
+			}
 		}
 	}
 }
@@ -104,8 +58,8 @@ desc = {
 	text = civcom.1005.separatist.sec.desc
 	trigger = {
 		event_target:civwar_rebels = {
-			ruler = { has_leader_flag = civil_war_ruler_separatist }
 			has_country_flag = sep_sec_rebels
+			ruler = { has_leader_flag = civil_war_ruler_separatist }
 		}
 	}
 }
@@ -114,8 +68,8 @@ desc = {
 	text = civcom.1005.nationalist.sec.desc
 	trigger = {
 		event_target:civwar_rebels = {
-			ruler = { has_leader_flag = civil_war_ruler_nationalist }
 			has_country_flag = nat_sec_rebels
+			ruler = { has_leader_flag = civil_war_ruler_nationalist }
 		}
 	}
 }
