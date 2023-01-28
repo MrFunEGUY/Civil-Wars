@@ -319,6 +319,7 @@ situation_civstrife_faction_sep_sec = {
 			add = 3
 			situation_progress < 90
 			NOT = { target = { faction_approval >= 0.2 } }
+			NOT = { target = { any_owned_pop = { sector = { combined_sector_calm_tick_check = yes } } } }
 		}
 
 		modifier = {
@@ -339,6 +340,12 @@ situation_civstrife_faction_sep_sec = {
 			desc = modifier_faction_is_happy
 			add = -0.5
 			target = { faction_approval >= 0.2 }
+		}
+
+		modifier = {
+			desc = modifier_faction_is_happy
+			add = -3
+			target = { any_owned_pop = { sector = { combined_sector_calm_tick_check = yes } } }
 		}
 	}
 }

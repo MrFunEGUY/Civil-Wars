@@ -144,14 +144,13 @@ on_ruler_set = {
 	}
 }
 
-# Executed when a ruler has been removed
-# From = Previous Ruler
-# This = Country
-on_ruler_removed = {
+#This = destroyed country
+#From = optional, destroyer (country)
+on_country_destroyed = {
 	events = {
+		civnat.1010				# Initialize Separatism on Planets taken - Destroyed Country
 	}
 }
-
 # THIS = Espionage operation
 on_operation_cancelled = {
 	events = {
@@ -240,7 +239,6 @@ on_leader_unassigned = {
 on_planet_transfer = {
 	events = {
 		civnat.1000				# Initialize Separatism on Planets taken
-		civnat.1010				# Initialize Separatism on Planets taken - Destroyed Country
 		civnat.2100				# Get nat Flags when a planet changes owners
 	}
 }

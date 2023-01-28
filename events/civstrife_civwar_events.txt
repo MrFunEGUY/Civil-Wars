@@ -643,8 +643,10 @@ country_event = { # Former Leader - Communications
 					limit = {
 						NOR = {
 							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
-							event_target:civwar_rebels.ruler = { has_trait = leader_trait_corrupt }
-							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_governor_isolated }
+							event_target:civwar_rebels.ruler = {
+								has_trait = leader_trait_corrupt
+								has_leader_flag = civil_war_ruler_governor_isolated
+							}
 							event_target:civwar_rebels = {
 								check_variable = {
 									which = num_mil_pops
@@ -668,7 +670,6 @@ country_event = { # Former Leader - Communications
 			}
 			else_if = {
 				limit = { event_target:civwar_rebels.ruler = { rebel_was_admiral = yes } }
-				log = "ADMIRAL DID FIRE"
 				if = {
 					limit = {
 						NOR = {
@@ -844,7 +845,7 @@ country_event = { # New Leader/Separatist - Communications
 	id = civwar.2060
 	picture = GFX_evt_civil_action
 	title = civwar.2060.name
-	desc = civwar.2060.desc
+	desc = civwar.2055.desc
 	hide_window = no
 	is_triggered_only = yes
 
@@ -888,7 +889,7 @@ country_event = { # Heir - Communications
 	id = civwar.2065
 	picture = GFX_evt_civil_action
 	title = civwar.2065.name
-	desc = civwar.2065.desc
+	desc = civwar.2055.desc
 	hide_window = no
 	is_triggered_only = yes
 
@@ -909,7 +910,7 @@ country_event = { # Former Heir - Communications
 	id = civwar.2066
 	picture = GFX_evt_civil_action
 	title = civwar.2066.name
-	desc = civwar.2065.desc
+	desc = civwar.2055.desc
 	hide_window = no
 	is_triggered_only = yes
 
@@ -1340,8 +1341,8 @@ situation_event = { # Revolt/Civil War Event
 						solar_system = { is_capital_system = no }
 					}
 					pop_percentage = { # Civil War
-						# percentage >= 0.25
-						percentage > 0
+						percentage >= 0.25
+						# percentage > 0
 						limit = {
 							exists = pop_faction
 							pop_faction = { is_same_value = root.target }
@@ -1406,8 +1407,8 @@ situation_event = { # Revolt/Civil War Event
 			if = { # Potential Multi Planet/Sector Civil War
 				limit = {
 					pop_percentage = { 
-						# percentage >= 0.25
-						percentage > 0
+						percentage >= 0.25
+						# percentage > 0
 						limit = {
 							exists = pop_faction
 							pop_faction = { is_same_value = root.target }

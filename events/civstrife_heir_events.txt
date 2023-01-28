@@ -425,42 +425,6 @@ country_event = {
 }
 
 #################
-# Communications
-
-# Disinherited Heir - Communications
-country_event = {
-	id = civheir.5000
-	picture = GFX_evt_civil_action
-	title = civheir.5000.name
-	desc = civheir.5000.desc
-	hide_window = no
-	is_triggered_only = yes
-
-	option = {
-		name = ON_SCREEN_REBELS
-		ai_chance = {
-			factor = 1
-		}
-		hidden_effect = {
-			if = {
-				limit = {
-					is_subject = no
-				}
-				country_event = { id = civcom.3100 }
-			}
-			else_if = {
-				limit = {
-					is_subject = yes
-				}
-				overlord = {
-					country_event = { id = civcom.1100 }
-				}
-			}
-		}
-	}
-}
-
-#################
 # Leader Stuff
 
 # Dead disinherited Heir mother country ruler, civil war with disinherited heir

@@ -2291,16 +2291,19 @@ combined_sector_calm_tick_check = {
 		AND = {
 			has_sector_flag = frontier_sector_@root
 			NOT = {
-				any_owned_planet = {
-					OR = {
-						planet_stability <= 30
-						AND = {
-							planet_crime  >= 60
-							OR = {
-								NOT = { exists = sector.leader }
-								AND = {
-									exists = sector.leader
-									sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+				count_owned_planet = {
+					count > 1
+					limit = {
+						OR = {
+							planet_stability <= 30
+							AND = {
+								planet_crime  >= 60
+								OR = {
+									NOT = { exists = sector.leader }
+									AND = {
+										exists = sector.leader
+										sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+									}
 								}
 							}
 						}
@@ -2311,16 +2314,19 @@ combined_sector_calm_tick_check = {
 		AND = {
 			has_sector_flag = integrated_sector_@root
 			NOT = {
-				any_owned_planet = {
-					OR = {
-						planet_stability <= 25
-						AND = {
-							planet_crime  >= 70
-							OR = {
-								NOT = { exists = sector.leader }
-								AND = {
-									exists = sector.leader
-									sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+				count_owned_planet = {
+					count > 1
+					limit = {
+						OR = {
+							planet_stability <= 25
+							AND = {
+								planet_crime  >= 70
+								OR = {
+									NOT = { exists = sector.leader }
+									AND = {
+										exists = sector.leader
+										sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+									}
 								}
 							}
 						}
@@ -2331,16 +2337,19 @@ combined_sector_calm_tick_check = {
 		AND = {
 			has_sector_flag = fundamental_sector_@root
 			NOT = {
-				any_owned_planet = {
-					OR = {
-						planet_stability <= 20
-						AND = {
-							planet_crime  >= 80
-							OR = {
-								NOT = { exists = sector.leader }
-								AND = {
-									exists = sector.leader
-									sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+				count_owned_planet = {
+					count > 1
+					limit = {
+						OR = {
+							planet_stability <= 20
+							AND = {
+								planet_crime  >= 80
+								OR = {
+									NOT = { exists = sector.leader }
+									AND = {
+										exists = sector.leader
+										sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+									}
 								}
 							}
 						}
@@ -2358,7 +2367,7 @@ combined_sector_calm_retick_check = {
 	}
 	OR = {
 		AND = {
-			has_sector_flag = frontier_sector_@root
+			has_sector_flag = frontier_sector_@this.owner
 			any_owned_planet = {
 				OR = {
 					planet_stability < 30
@@ -2376,7 +2385,7 @@ combined_sector_calm_retick_check = {
 			}
 		}
 		AND = {
-			has_sector_flag = integrated_sector_@root
+			has_sector_flag = integrated_sector_@this.owner
 			any_owned_planet = {
 				OR = {
 					planet_stability < 25
@@ -2394,7 +2403,7 @@ combined_sector_calm_retick_check = {
 			}
 		}
 		AND = {
-			has_sector_flag = fundamental_sector_@root
+			has_sector_flag = fundamental_sector_@this.owner
 			any_owned_planet = {
 				OR = {
 					planet_stability < 20

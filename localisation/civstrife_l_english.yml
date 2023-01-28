@@ -26,49 +26,37 @@
 
  # Nationalists
  civwar.2055.name: "§RNationalists Declare Independence!§!"
- civwar.2055.desc: "§H[civwar_rebels.Ruler.GetName]§! is demanding an audience."
 
   # New Leader
  civwar.2060.name: "§RSeparatists Declare Independence!§!"
- civwar.2060.desc: "§H[civwar_rebels.Ruler.GetName]§! is demanding an audience."
 
  # Heir
  civwar.2065.name: "§RHeir Declares Independence!§!"
- civwar.2065.desc: "§H[civwar_rebels.Ruler.GetName]§! is demanding an audience."
 
  # Former Heir
- civwar.2066.name: "§RFormer Heir Declares Independence!§!"
+ civwar.2066.name: "§RFormer Heir Seizes Territory!§!"
+
+ civwar.2055.desc: "§H[civwar_rebels.Ruler.GetName]§! is demanding an audience."
 
  # Civil War Request Help from Neighbors
  civwar.2100.name: "Neighboring Rebels Request Audience"
  civwar.2100.desc: "A delegation claiming to represent the government of the §Y[civwar_rebels.GetName]§!, an apparent breakaway state of the §Y[civwar_originator.GetName]§!, is requesting an audience."
  civwar.2100.deny.desc: "Deny them an audience."
 
- # Heir Civil War
- civheir.5000.name: "§RFormer Heir Seizes Territory!§!"
- civheir.5000.desc: "§H[civwar_rebels.Ruler.GetName]§!, the former heir, is demanding an audience."
-
  ON_SCREEN_REBELS: "What!? On screen!"
-
- # Scripted Locs
- leader.was.scientist: "Scientist"
- leader.was.admiral: "Admiral"
- leader.was.general: "General"
- leader.was.governor: "Governor"
- leader.was.leader: "Leader"
 
  # Planetary Rebellion
 
  civplan.9000.name: "§RHeir's Forces Strike!§!"
  civplan.9000.desc: "The forces of the former §Yheir§!, §H[civwar_rebels.ruler.GetName]§!, have mobilized on §Y[civil_war_planet.GetName]§! and are attempting to seize the planet!"
 
- civplan.9020.name: "§YSeparatists Defeated!§!"
- civplan.9020.desc: "Our military forces on §Y[rebellion_planet.GetName]§! were able to quash the separatist uprising. With the uprising on the planet put down, the separatists attempting to seize the surrounding systems quickly surrendered."
- civplan.9020.a: "Excellent."
-
  civplan.9010.name: "§YHeir's Forces Defeated!§!"
  civplan.9010.desc: "Our military forces on §Y[rebellion_planet.GetName]§! were able to quash the separatist uprising instigated by §H[defeated_traitor.GetName]§!, the former §Yheir§!."
  civplan.9010.a: "Excellent."
+
+ civplan.9020.name: "§YSeparatists Defeated!§!"
+ civplan.9020.desc: "Our military forces on §Y[rebellion_planet.GetName]§! were able to quash the separatist uprising. With the uprising on the planet put down, the separatists attempting to seize the surrounding systems quickly surrendered."
+ civplan.9020.a: "Excellent."
 
  # Origins
 
@@ -1510,6 +1498,37 @@
  unrest.55.A: "They must be dealt with."
 
  unrest.156.desc:1 "In a vicious act of defiance, the slaves on §Y[Root.GetName]§! have destroyed work facilities with the help of homemade explosives. Though the detonations took place at night, they lured their unsuspecting work leaders to the location by triggering the alarm system. The attack was well coordinated and flawlessly executed. Whoever the guilty are, they must have planned it for months."
+
+ # Preset blocked terms
+ not_allowed_for_protectorate:0 "$TRIGGER_FAIL$Not allowed for §YProtectorates§!."
+ not_allowed_for_tributary: "$TRIGGER_FAIL$Not allowed for §YTributaries§!."
+ not_allowed_for_bulwark: "$TRIGGER_FAIL$Not allowed for §YBulwarks§!."
+ not_allowed_for_scholarium: "$TRIGGER_FAIL$Not allowed for §YScholaria§!."
+ not_allowed_for_prospectorium: "$TRIGGER_FAIL$Not allowed for §YProspectoria§!."
+ not_allowed_for_verappendage: "$TRIGGER_FAIL$Not allowed for §Y$preset_verappendage$s§!."
+ not_allowed_for_verdevolved: "$TRIGGER_FAIL$Not allowed for §Y$preset_verdevolved$s§!."
+ not_allowed_for_verdisciple: "$TRIGGER_FAIL$Not allowed for §Y$preset_verdisciple$s§!."
+ not_allowed_for_verfoederatus: "$TRIGGER_FAIL$Not allowed for §YFoederati§!."
+ not_allowed_for_verjrpartner: "$TRIGGER_FAIL$Not allowed for §Y$preset_verjrpartner$s§!."
+ not_allowed_for_verpuppet: "$TRIGGER_FAIL$Not allowed for §Y$preset_verpuppet$s§!."
+ not_allowed_for_verserf: "$TRIGGER_FAIL$Not allowed for §Y$preset_verserf$s§!."
+ not_allowed_for_verorganic: "$TRIGGER_FAIL$Not allowed for §Y$preset_verorganic$s§!."
+ not_allowed_for_verparallel: "$TRIGGER_FAIL$Not allowed for §Y$preset_verparallel$s§!."
+ not_allowed_for_verblood: "$TRIGGER_FAIL$Not allowed for §Y$preset_verblood$s§!."
+ not_allowed_for_verdevotee: "$TRIGGER_FAIL$Not allowed for §Y$preset_verdevotee$s§!."
+ not_allowed_for_verkobun: "$TRIGGER_FAIL$Not allowed for §Y$preset_verkobun$s§!."
+ not_allowed_for_versupplier: "$TRIGGER_FAIL$Not allowed for §Y$preset_versupplier$s§!."
+ not_allowed_for_verworshipper: "$TRIGGER_FAIL$Not allowed for §Y$preset_verworshipper$s§!."
+ not_allowed_for_verdebtor: "$TRIGGER_FAIL$Not allowed for §Y$preset_verdebtor$s§!."
+ not_allowed_for_versubscriber: "$TRIGGER_FAIL$Not allowed for §Y$preset_versupplier$s§!."
+ not_allowed_for_verarmsdealer: "$TRIGGER_FAIL$Not allowed for §Y$preset_verarmsdealer$s§!."
+ not_allowed_for_versubcontractor: "$TRIGGER_FAIL$Not allowed for §Y$preset_versubcontractor$s§!."
+ not_allowed_for_megacorp: "$TRIGGER_FAIL$Not allowed for §YMegacorps§!."
+ not_allowed_for_auto_state: "$TRIGGER_FAIL$Not allowed for §YAutonomous States§!."
+
+ ACTION_RECIPIENT_NOT_YOUR_CORP:1 "$TRIGGER_FAIL$§RBranch Offices can only be built on Megacorporations if they are our subsidiary.§!"
+
+ federation_actor_no_separate_treaties_empire:0 "§Y$law_category_separate_treaties_empire$§! §Ris §Y$treaties_separate_no$§! by Imperial decree - we cannot have treaties with nations who are not members of our empire.§!"
 
  ### Event Overwrites But not technically overwrites
  civ_action.62.name: "End of the [gov_in_exile.GetName]"

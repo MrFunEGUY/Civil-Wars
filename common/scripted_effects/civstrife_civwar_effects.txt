@@ -1629,8 +1629,8 @@ get_multi_sector_effect = {
 				}
 			}
 			pop_percentage = {
-				# percentage >= 0.25
-				percentage > 0
+				percentage >= 0.25
+				# percentage > 0
 				limit = {
 					exists = pop_faction
 					pop_faction = { is_same_value = root.target }
@@ -12096,6 +12096,10 @@ get_ship_delete_effect = {
 				limit = {
 		    		is_ship_class = shipclass_military
 		    		is_modded_ship = no
+		    	}
+		    	if = {
+		    		limit = { exists = leader }
+		    		leader = { unassign_leader = this }
 		    	}
 		    	delete_ship = THIS
 			}

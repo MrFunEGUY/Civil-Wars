@@ -22,7 +22,7 @@ planet_event = { ## Initial Event to create separatists from transferred planets
 		NOT = { has_modifier = planet_culture_shock }
 		exists = fromfrom
 		fromfrom = {
-			num_owned_planets > 0
+			# num_owned_planets > 0
 			is_country_type_with_subjects = yes
 			NOT = { is_overlord_to = from }
 			NOT = { has_country_flag = civstrife_nat_timer }
@@ -52,31 +52,18 @@ planet_event = { ## Initial Event to create separatists from transferred planets
 
 		get_nat_seps = yes
 	}
-
-	after = {
-		from = { country_event = { id = civnat.1200 } }
-	}
 }
 
-planet_event = { ## Initial Event to create separatists from destroyed countries.
+#This = destroyed country
+#From = optional, destroyer (country)
+country_event = { ## Initial Event to create nationalists from destroyed countries.
 	id = civnat.1010
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
-		NOT = { has_modifier = planet_culture_shock }
-		exists = fromfrom
-		fromfrom = {
-			num_owned_planets = 0
-			is_country_type_with_subjects = yes
-			NOT = { is_overlord_to = from }
-			NOT = { has_country_flag = civstrife_nat_timer }
-			NOT = { has_country_flag = quick_fix_flag }
-		}
-		from = {
-			is_country_type_with_subjects = yes
-			NOT = { has_country_flag = destroyed_timed_flag_@fromfrom }
-		}
+		is_country_type_with_subjects = yes
+		NOT = { has_country_flag = civstrife_nat_timer }
 		any_owned_pop = {
 			OR = {
 				has_pop_flag = citizen_of_@fromfrom
@@ -87,30 +74,26 @@ planet_event = { ## Initial Event to create separatists from destroyed countries
 
 	immediate = {
 
-		from = { # So this event only fires once, as it's fired for every system captured otherwise.
-			set_timed_country_flag = { flag = destroyed_timed_flag_@fromfrom days = 2 }
-		}
-
-		fromfrom.species = { # For some reason, this doesnt work during country creation and needs to be done after
+		species = { # For some reason, this doesnt work during country creation and needs to be done after
 			save_event_target_as = original_nation_species
 		}
 
 		# Create Exile Government
 		create_country = {
-			name = fromfrom
+			name = root
 			type = exile_country
 			species = event_target:original_nation_species
 			ignore_initial_colony_error = yes
 			day_zero_contact = no
-			authority = fromfrom
-			ethos = fromfrom
+			authority = root
+			ethos = root
 			origin = origin_exile_government
-			civics = fromfrom
-			flag = fromfrom
+			civics = root
+			flag = root
 			effect = {
 				copy_techs_from = { target = root }
-				set_leader = fromfrom.ruler
-				set_graphical_culture = fromfrom
+				set_leader = root.ruler
+				set_graphical_culture = root
 				save_event_target_as = nat_pops_country
 				get_separatist_faction_nat = yes
 				# This needs to be done or the species will be the ruler species, very odd.
@@ -118,24 +101,20 @@ planet_event = { ## Initial Event to create separatists from destroyed countries
 			}
 		}
 
-		set_timed_planet_flag = { flag = nat_pops_planet_@event_target:nat_pops_country days = 30 }
-
 		from = { set_timed_country_flag = { flag = destroyed_country_nat_@event_target:nat_pops_country days = 30 } }
 
-		fromfrom = { save_event_target_as = old_nat_country }
+		save_event_target_as = old_nat_country
 
 		get_nat_change_flags = yes
 
 		every_galaxy_pop = {
 			limit = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country }
-			add_modifier = { modifier = "death_of_motherland" years = 15 }
+			add_modifier = { modifier = "death_of_motherland" years = 20 }
 		}
-
-		get_nat_seps = yes
 	}
 
 	after = {
-		from = { country_event = { id = civnat.1200 } }
+		event_target:nat_pops_country = { country_event = { id = civnat.1200 } }
 	}
 }
 
@@ -144,50 +123,37 @@ country_event = { # Shop for home for Govenment-In-Exile
 	hide_window = yes
 	is_triggered_only = yes
 
-	trigger = {
-		# Because every planet is going to fire this event. Is there a better way?
-		NOT = { has_country_flag = nat_process_@event_target:nat_pops_country }
-	}
-
 	immediate = {
-
-		set_timed_country_flag = { flag = nat_process_@event_target:nat_pops_country days = 10 }
 		
-		event_target:nat_pops_country = {
-			if = {
-				limit = { is_country_type = exile_country }
-				if = { # Govenment-In-Exile, will shop around 
-					limit = {
-						is_unfriendly = no
-						any_country = {
-							is_subject = no
-							is_unfriendly = no
-							is_country_type_with_subjects = yes
-							has_communications = event_target:nat_pops_country
-							any_owned_pop = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country }
-							NOR = {
-								is_same_value = root
-								is_same_value = event_target:nat_pops_country
-							}
-						}
+		if = { # Govenment-In-Exile, will shop around 
+			limit = {
+				is_unfriendly = no
+				any_country = {
+					is_subject = no
+					is_unfriendly = no
+					is_country_type_with_subjects = yes
+					has_communications = event_target:nat_pops_country
+					any_owned_pop = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country }
+					NOR = {
+						is_same_value = root
+						is_same_value = event_target:nat_pops_country
 					}
-					root = { set_country_flag = exile_already_asked_@event_target:nat_pops_country }
-					country_event = { id = civnat.1300 }
-				}
-				# else_if = {
-				# 	limit = {
-				# 		NOT = { any_country = { any_owned_pop = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country } } }
-				# 	}
-				# 	# destroy_country = yes
-				# }
-				else = {
-					# Keep around for localisation reasons
-					# No Gov In Exile, because no countries willing to take them in
-					# Can still be revived in the future
-					# Good to keep around for localisation reasons regardless
 				}
 			}
-		}		
+			root = { set_country_flag = exile_already_asked_@event_target:nat_pops_country }
+			country_event = { id = civnat.1300 }
+		}
+		
+		# Keep around for localisation reasons
+		# No Gov In Exile, because no countries willing to take them in
+		# Can still be revived in the future
+
+		# else_if = {
+		# 	limit = {
+		# 		NOT = { any_country = { any_owned_pop = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country } } }
+		# 	}
+		# 	# destroy_country = yes
+		# }		
 	}
 }
 
