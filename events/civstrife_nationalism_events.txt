@@ -178,17 +178,16 @@ country_event = { # Gov In Exile Requst Hosting
 			}
 			random_country = {
 				limit = {
-					# is_unfriendly = no
-					# has_communications = root
-					# is_country_type_with_subjects = yes
-					# NOR = {
-					# 	is_same_value = root
-					# 	has_country_flag = exile_already_asked_@root
-					# }
-					has_country_flag = TEST_TEST
+					is_unfriendly = no
+					has_communications = root
+					is_country_type_with_subjects = yes
+					NOR = {
+						is_same_value = root
+						has_country_flag = exile_already_asked_@root
+					}
+					# has_country_flag = TEST_TEST
 				}
-				country_event = { id = civcom.9000 }
-				# country_event = { id = civcom.9000 days = 5 random = 40 }
+				country_event = { id = civcom.9000 days = 5 random = 40 }
 			}
 		}
 

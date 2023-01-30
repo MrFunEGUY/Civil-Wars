@@ -1858,7 +1858,7 @@ frontier_planet_slave_tick_check = {
 	pop_percentage = {
 		percentage > 0.3
 		limit = {
-			is_enslaved = yes
+			is_enslaved_or_purged = yes
 			happiness < 60
 		}
 		exclude = { can_think = no }
@@ -1896,7 +1896,7 @@ integrated_planet_slave_tick_check = {
 	pop_percentage = {
 		percentage > 0.4
 		limit = {
-			is_enslaved = yes
+			is_enslaved_or_purged = yes
 			happiness < 60
 		}
 		exclude = { can_think = no }
@@ -1934,7 +1934,7 @@ fundamental_planet_slave_tick_check = {
 	pop_percentage = {
 		percentage > 0.5
 		limit = {
-			is_enslaved = yes
+			is_enslaved_or_purged = yes
 			happiness < 60
 		}
 		exclude = { can_think = no }
@@ -1969,11 +1969,13 @@ frontier_planet_unrest_tick_check = {
 		count >= 3
 	}
 	if = { # So a slave rebellion is preferred over a geneneral separatist rebellion
-		limit = { any_owned_pop = { is_enslaved = yes } }
+		limit = {
+			any_owned_pop = { is_enslaved_or_purged = yes }
+		}
 		pop_percentage = {
 			percentage <= 0.3
 			limit = {
-				is_enslaved = yes
+				is_enslaved_or_purged = yes
 				happiness < 60
 			}
 			exclude = { can_think = no }
@@ -2022,11 +2024,13 @@ integrated_planet_unrest_tick_check = {
 		count >= 5
 	}
 	if = { # So a slave rebellion is preferred over a geneneral separatist rebellion
-		limit = { any_owned_pop = { is_enslaved = yes } }
+		limit = {
+			any_owned_pop = { is_enslaved_or_purged = yes }
+		}
 		pop_percentage = {
 			percentage <= 0.4
 			limit = {
-				is_enslaved = yes
+				is_enslaved_or_purged = yes
 				happiness < 60
 			}
 			exclude = { can_think = no }
@@ -2075,11 +2079,13 @@ fundamental_planet_unrest_tick_check = {
 		count >= 10
 	}
 	if = { # So a slave rebellion is preferred over a geneneral separatist rebellion
-		limit = { any_owned_pop = { is_enslaved = yes } }
+		limit = {
+			any_owned_pop = { is_enslaved_or_purged = yes }
+		}
 		pop_percentage = {
 			percentage <= 0.5
 			limit = {
-				is_enslaved = yes
+				is_enslaved_or_purged = yes
 				happiness < 60
 			}
 			exclude = { can_think = no }
@@ -2620,52 +2626,53 @@ is_faction_happy_situation = {
 			owner = { is_democracy = yes }
 			target = {
 				OR = {
-					AND = {
-						owner = { is_ai = no }
-						OR = {
-							support < 0.2
-							faction_approval > 0.35
-						}	
-					}
-					AND = {
-						owner = { is_ai = yes }
-						OR = {
-							support < 0.3
-							faction_approval > 0.3
-						}	
-					}
+					support < 0.2
+					faction_approval > 0.35
 				}
+				# OR = {
+				# 	AND = {
+				# 		owner = { is_ai = no }
+				# 		OR = {
+				# 			support < 0.2
+				# 			faction_approval > 0.35
+				# 		}	
+				# 	}
+				# 	AND = {
+				# 		owner = { is_ai = yes }
+				# 		OR = {
+				# 			support < 0.3
+				# 			faction_approval > 0.3
+				# 		}	
+				# 	}
+				# }
 			}
 		}
 		AND = {
 			owner = { is_democracy = no }
 			target = {
 				OR = {
-					AND = {
-						owner = { is_ai = no }
-						OR = {
-							support < 0.15
-							faction_approval > 0.4
-						}	
-					}
-					AND = {
-						owner = { is_ai = yes }
-						OR = {
-							support < 0.25
-							faction_approval > 0.35
-						}	
-					}
+					support < 0.15
+					faction_approval > 0.4
 				}
+				# OR = {
+				# 	AND = {
+				# 		owner = { is_ai = no }
+				# 		OR = {
+				# 			support < 0.15
+				# 			faction_approval > 0.4
+				# 		}	
+				# 	}
+				# 	AND = {
+				# 		owner = { is_ai = yes }
+				# 		OR = {
+				# 			support < 0.25
+				# 			faction_approval > 0.35
+				# 		}	
+				# 	}
+				# }
 			}
 		}
 	}
-}
-
-is_nat_faction_allowed = {
-	# count_owned_pop = { # Note: define POP_FACTION_MIN_POTENTIAL_MEMBERS does this now!
-	# 	count >= 5
-	# 	limit = { has_pop_flag = sep_pop_nat }
-	# }
 }
 
 is_exile_country = {
@@ -2676,6 +2683,13 @@ is_exile_country = {
 }
 
 # For My Sanity
+
+is_enslaved_or_purged = {
+	OR = {
+		is_enslaved = yes
+		is_being_purged = yes
+	}
+}
 
 get_sector_leader_test = {
 	exists = solar_system

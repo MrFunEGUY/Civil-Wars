@@ -496,6 +496,7 @@ joins_overlord_wars_all = {
 
 joins_subject_wars_none = {
 	term = joins_subject_wars
+	loyalty_change = -10
 	activate_effect = {
 		set_rule_join_subject_wars = none
 	}
@@ -793,7 +794,7 @@ subject_can_not_do_diplomacy = {
 
 subject_can_do_diplomacy_but_not_vote = {
 	term = subject_diplomacy
-	loyalty_change = 0
+	loyalty_change = -5
 	activate_effect = {
 		set_rule_can_subject_vote = no
 		set_rule_can_subject_do_diplomacy = yes

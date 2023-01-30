@@ -333,8 +333,8 @@ country_event = { # Setup for Civil War
 			}
 		}
 
-		# Create Armies, needs to be done later so pops are set
-		country_event = { id = civwar.3100 days = 1 }
+		# # Create Armies, needs to be done later so pops are set
+		# country_event = { id = civwar.3100 days = 1 }
 	}
 }
 
@@ -1131,7 +1131,7 @@ country_event = { # Destroy Fleets
 	}
 }
 
-country_event = { # Create Armies, needs to be done later so pops have changed ownership
+country_event = { # Create Armies, needs to be done later so pops have changed ownership ?
 	id = civwar.3100
 	hide_window = yes
 	is_triggered_only = yes
@@ -1148,6 +1148,13 @@ country_event = { # Create Armies, needs to be done later so pops have changed o
 						chance = 35
 						prev = { change_variable = { which = num_sep_pops value = 1 } }
 					}
+				}
+			}
+			else_if = {
+				limit = { root = { has_origin = origin_nationalist_rebellion } }
+				every_owned_pop = {
+					limit = { has_pop_flag = sep_pop_nat_@event_target:nat_motherland_model }
+					prev = { change_variable = { which = num_sep_pops value = 1 } }
 				}
 			}
 			else = {

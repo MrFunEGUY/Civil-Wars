@@ -838,7 +838,7 @@ situation_event = {
 					any_owned_planet = {
 						exists = controller
 						controller = { is_same_empire = root.owner }
-						any_owned_pop = { is_enslaved = yes }
+						any_owned_pop = { is_enslaved_or_purged = yes }
 						planet_stability < @stabilitylevel2
 						NOT = { has_planet_flag = recent_unrest_event }
 						has_orbital_bombardment = no

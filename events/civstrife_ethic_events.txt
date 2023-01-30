@@ -94,33 +94,37 @@ country_event = { # Check disapproving Factions every month
 			OR = {
 				AND = {
 					owner  = { is_democracy = yes }
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							support > 0.2
-							faction_approval < 0.35
-						}
-						AND = {
-							owner = { is_ai = yes }
-							support > 0.3
-							faction_approval < 0.3
-						}
-					}
+					support > 0.2
+					faction_approval < 0.35
+					# OR = {
+					# 	AND = {
+					# 		owner = { is_ai = no }
+					# 		support > 0.2
+					# 		faction_approval < 0.35
+					# 	}
+					# 	AND = {
+					# 		owner = { is_ai = yes }
+					# 		support > 0.3
+					# 		faction_approval < 0.3
+					# 	}
+					# }
 				}
 				AND = {
 					owner  = { is_democracy = no }
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							support > 0.15
-							faction_approval < 0.4
-						}
-						AND = {
-							owner = { is_ai = yes }
-							support > 0.25
-							faction_approval < 0.35
-						}
-					}
+					support > 0.15
+					faction_approval < 0.4
+					# OR = {
+					# 	AND = {
+					# 		owner = { is_ai = no }
+					# 		support > 0.15
+					# 		faction_approval < 0.4
+					# 	}
+					# 	AND = {
+					# 		owner = { is_ai = yes }
+					# 		support > 0.25
+					# 		faction_approval < 0.35
+					# 	}
+					# }
 				}
 			}
 		}

@@ -537,7 +537,7 @@ situation_civstrife_sep_slaves_plan = {
 			set_variable = { which = slave_sep_upkeep value = 0 }
 			every_owned_pop = {
 				limit = {
-					is_enslaved = yes
+					is_enslaved_or_purged = yes
 					happiness < 60
 				}
 				prev = { change_variable = { which = slave_sep_upkeep value = 1 } }
@@ -588,7 +588,7 @@ situation_civstrife_sep_slaves_plan = {
 						pop_percentage = {
 							percentage <= 0.15
 							limit = {
-								is_enslaved = yes
+								is_enslaved_or_purged = yes
 								happiness < 60
 							}
 							exclude = { can_think = no }
@@ -601,7 +601,7 @@ situation_civstrife_sep_slaves_plan = {
 						pop_percentage = {
 							percentage <= 0.2
 							limit = {
-								is_enslaved = yes
+								is_enslaved_or_purged = yes
 								happiness < 60
 							}
 							exclude = { can_think = no }
@@ -614,7 +614,7 @@ situation_civstrife_sep_slaves_plan = {
 						pop_percentage = {
 							percentage <= 0.25
 							limit = {
-								is_enslaved = yes
+								is_enslaved_or_purged = yes
 								happiness < 60
 							}
 							exclude = { can_think = no }
@@ -745,7 +745,7 @@ situation_civstrife_sep_slaves_plan = {
 	}
 }
 
-# Separatist Slaves Planet
+# Separatist Slaves Sector
 situation_civstrife_sep_slaves_sec = {
 	picture = GFX_evt_night_raid
 	category = negative
@@ -769,7 +769,7 @@ situation_civstrife_sep_slaves_sec = {
 			every_owned_planet = {
 				every_owned_pop = {
 					limit = {
-						is_enslaved = yes
+						is_enslaved_or_purged = yes
 						happiness < 60
 					}
 					prevprev = { change_variable = { which = slave_sep_upkeep value = 1 } }
@@ -812,7 +812,7 @@ situation_civstrife_sep_slaves_sec = {
 			target = {
 				NOT = {
 					any_owned_planet = {
-						any_owned_pop = { is_enslaved = yes }
+						any_owned_pop = { is_enslaved_or_purged = yes }
 						planet_stability < 60
 					}
 				}
@@ -824,7 +824,7 @@ situation_civstrife_sep_slaves_sec = {
 						pop_percentage = {
 							percentage <= 0.15
 							limit = {
-								is_enslaved = yes
+								is_enslaved_or_purged = yes
 								happiness < 60
 							}
 							exclude = { can_think = no }
@@ -837,7 +837,7 @@ situation_civstrife_sep_slaves_sec = {
 						pop_percentage = {
 							percentage <= 0.2
 							limit = {
-								is_enslaved = yes
+								is_enslaved_or_purged = yes
 								happiness < 60
 							}
 							exclude = { can_think = no }
@@ -850,7 +850,7 @@ situation_civstrife_sep_slaves_sec = {
 						pop_percentage = {
 							percentage <= 0.25
 							limit = {
-								is_enslaved = yes
+								is_enslaved_or_purged = yes
 								happiness < 60
 							}
 							exclude = { can_think = no }
@@ -1034,6 +1034,7 @@ situation_civstrife_faction_sep_nat = {
 
 	abort_trigger = {
 		OR = {
+			target.owner = { num_owned_planets = 1 }
 			NOT = { exists = target }
 			target = { has_pop_faction_flag = faction_rebelled }
 		}

@@ -2672,7 +2672,7 @@ country_event = { # Sectoral Slave Situation Form Check
 					pop_percentage = {
 						percentage >= 0.3
 						limit = {
-							is_enslaved = yes
+							is_enslaved_or_purged = yes
 							happiness < 60
 						}
 						exclude = { can_think = no }
@@ -2683,7 +2683,7 @@ country_event = { # Sectoral Slave Situation Form Check
 					pop_percentage = {
 						percentage >= 0.4
 						limit = {
-							is_enslaved = yes
+							is_enslaved_or_purged = yes
 							happiness < 60
 						}
 						exclude = { can_think = no }
@@ -2694,7 +2694,7 @@ country_event = { # Sectoral Slave Situation Form Check
 					pop_percentage = {
 						percentage >= 0.5
 						limit = {
-							is_enslaved = yes
+							is_enslaved_or_purged = yes
 							happiness < 60
 						}
 						exclude = { can_think = no }
@@ -2717,7 +2717,7 @@ country_event = { # Sectoral Slave Situation Form Check
 						pop_percentage = {
 							percentage >= 0.3
 							limit = {
-								is_enslaved = yes
+								is_enslaved_or_purged = yes
 								happiness < 60
 							}
 							exclude = { can_think = no }
@@ -2728,7 +2728,7 @@ country_event = { # Sectoral Slave Situation Form Check
 						pop_percentage = {
 							percentage >= 0.4
 							limit = {
-								is_enslaved = yes
+								is_enslaved_or_purged = yes
 								happiness < 60
 							}
 							exclude = { can_think = no }
@@ -2739,7 +2739,7 @@ country_event = { # Sectoral Slave Situation Form Check
 						pop_percentage = {
 							percentage >= 0.5
 							limit = {
-								is_enslaved = yes
+								is_enslaved_or_purged = yes
 								happiness < 60
 							}
 							exclude = { can_think = no }
@@ -2787,7 +2787,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 					NOT = {
 						any_owned_planet = {
 							planet_stability <= 25
-							any_owned_pop = { is_enslaved = yes }
+							any_owned_pop = { is_enslaved_or_purged = yes }
 						}
 					}
 				}
@@ -2796,7 +2796,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 					NOT = {
 						any_owned_planet = {
 							planet_stability <= 20
-							any_owned_pop = { is_enslaved = yes }
+							any_owned_pop = { is_enslaved_or_purged = yes }
 						}
 					}
 				}
@@ -2805,7 +2805,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 					NOT = {
 						any_owned_planet = {
 							planet_stability <= 15
-							any_owned_pop = { is_enslaved = yes }
+							any_owned_pop = { is_enslaved_or_purged = yes }
 						}
 					}
 				}	
@@ -2826,7 +2826,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 							NOT = {
 								any_owned_planet = {
 									planet_stability <= 25
-									any_owned_pop = { is_enslaved = yes }
+									any_owned_pop = { is_enslaved_or_purged = yes }
 								}
 							}
 						}
@@ -2835,7 +2835,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 							NOT = {
 								any_owned_planet = {
 									planet_stability <= 20
-									any_owned_pop = { is_enslaved = yes }
+									any_owned_pop = { is_enslaved_or_purged = yes }
 								}
 							}
 						}
@@ -2844,7 +2844,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 							NOT = {
 								any_owned_planet = {
 									planet_stability <= 15
-									any_owned_pop = { is_enslaved = yes }
+									any_owned_pop = { is_enslaved_or_purged = yes }
 								}
 							}
 						}	
@@ -2861,7 +2861,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 							NOT = {
 								any_owned_planet = {
 									planet_stability <= 25
-									any_owned_pop = { is_enslaved = yes }
+									any_owned_pop = { is_enslaved_or_purged = yes }
 								}
 							}
 						}
@@ -2870,7 +2870,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 							NOT = {
 								any_owned_planet = {
 									planet_stability <= 20
-									any_owned_pop = { is_enslaved = yes }
+									any_owned_pop = { is_enslaved_or_purged = yes }
 								}
 							}
 						}
@@ -2879,7 +2879,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 							NOT = {
 								any_owned_planet = {
 									planet_stability <= 15
-									any_owned_pop = { is_enslaved = yes }
+									any_owned_pop = { is_enslaved_or_purged = yes }
 								}
 							}
 						}	
@@ -3019,7 +3019,7 @@ situation_event = { # Slave Revolt Upkeep and Initializer
 				set_variable = { which = slave_sep_upkeep value = 0 }
 				every_owned_pop = {
 					limit = {
-						is_enslaved = yes
+						is_enslaved_or_purged = yes
 						happiness < 60
 					}
 					prev = { change_variable = { which = slave_sep_upkeep value = 1 } }
@@ -3032,7 +3032,7 @@ situation_event = { # Slave Revolt Upkeep and Initializer
 				every_owned_planet = {
 					every_owned_pop = {
 						limit = {
-							is_enslaved = yes
+							is_enslaved_or_purged = yes
 							happiness < 60
 						}
 						prevprev = { change_variable = { which = slave_sep_upkeep value = 1 } }
@@ -3076,14 +3076,14 @@ situation_event = { # Slave Revolt Event
 				set_variable = { which = fac_mil_support value = 0 }
 				every_owned_pop = {
 					limit = {
-						is_enslaved = yes
+						is_enslaved_or_purged = yes
 						happiness < 60
 					}
 					prev = { change_variable = { which = fac_mil_support value = 1 } }
 				}
 				random_owned_pop = {
 					limit = {
-						is_enslaved = yes
+						is_enslaved_or_purged = yes
 						happiness < 60
 					}
 					save_event_target_as = leader_pop
@@ -3099,16 +3099,16 @@ situation_event = { # Slave Revolt Event
 				every_owned_planet = {
 					every_owned_pop = {
 						limit = {
-							is_enslaved = yes
+							is_enslaved_or_purged = yes
 							happiness < 60
 						}
 						prevprev = { change_variable = { which = fac_mil_support value = 1 } }
 					}
 				}
 				random_owned_planet = {
-					limit = { any_owned_pop = { is_enslaved = yes } }
+					limit = { any_owned_pop = { is_enslaved_or_purged = yes } }
 					random_owned_pop = {
-						limit = { is_enslaved = yes }
+						limit = { is_enslaved_or_purged = yes }
 						save_event_target_as = leader_pop
 					}
 				}
