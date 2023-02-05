@@ -94,7 +94,14 @@ sec_separatist_12 = {
 
 		modifier = {
 			factor = 0.0
-			is_event_leader = yes
+			OR = {
+				is_event_leader = yes
+				has_leader_flag = appointed_heir
+				AND = {
+					owner = { is_imperial = yes }
+					is_same_value = owner.heir
+				}
+			}
 		}
 	}
 

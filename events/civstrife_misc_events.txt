@@ -134,3 +134,29 @@ country_event = { # Set Birthday
 		change_variable = { which = Country_Birth_Date value = 2200 }
 	}
 }
+
+
+# 4000 Leaders
+country_event = { # Set Corrupt Governor Flag
+	id = civmisc.4000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type_with_subjects = yes
+		any_owned_leader = {
+			has_trait = leader_trait_corrupt
+			NOT = { has_leader_flag = corrupt_governor }
+		}
+	}
+
+	immediate = {
+		every_owned_leader = {
+			limit = {
+				has_trait = leader_trait_corrupt
+				NOT = { has_leader_flag = corrupt_governor }
+			}
+			set_leader_flag = corrupt_governor
+		}
+	}
+}

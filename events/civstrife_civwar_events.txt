@@ -50,13 +50,10 @@ country_event = { # Setup for Civil War
 				}
 			}
 			set_leader = event_target:rebel_leader
-			ruler = {
-				if = {
-					limit = { has_leader_flag = corrupt_governor }
-					add_trait = leader_trait_corrupt
-				}
+			if = {
+				limit = { ruler = { has_leader_flag = corrupt_governor } }
+				ruler = { add_trait = leader_trait_corrupt }
 			}
-
 		}
 		else_if = {
 			limit = { exists = event_target:crisis_sector_leader }
@@ -362,17 +359,10 @@ country_event = { # Setup for Planetary Rebellions
 					prevprev = { change_variable = { which = total_faction_pops value = 1 } }
 				}
 			}
-			random_owned_leader = {
-				limit = { has_leader_flag = leader_for_@root.capital_scope }
-				save_event_target_as = rebel_leader_won
-				if = {
-					limit = { NOT = { has_leader_flag = civil_war_leader_separatist_faction } }
-				}
-			}
 			if = {
-				limit = { any_owned_leader = { has_leader_flag = dummy_party_leader_@event_target:rebel_leader_won } }
+				limit = { any_owned_leader = { has_leader_flag = dummy_party_leader_@event_target:civwar_rebels.ruler } }
 				random_owned_leader = {
-					limit = { has_leader_flag = dummy_party_leader_@event_target:rebel_leader_won }
+					limit = { has_leader_flag = dummy_party_leader_@event_target:civwar_rebels.ruler }
 					set_owner = root
 					save_event_target_as = civwar_party_name_leader
 				}
@@ -523,51 +513,6 @@ country_event = { # Setup for Planetary Rebellions
 					}
 				}
 			}
-		}
-
-		# Set Leader
-		if = {
-			limit = {
-				event_target:civwar_originator = {
-					any_owned_leader = { is_same_value = event_target:rebel_leader_won }
-				}
-			}
-			set_leader = event_target:rebel_leader_won
-			ruler = {
-				if = {
-					limit = { has_leader_flag = corrupt_governor }
-					add_trait = leader_trait_corrupt
-				}
-				add_random_leader_trait = yes
-				add_random_leader_trait = yes
-			}
-		}
-		else_if = {
-			limit = {
-				OR = {
-					event_target:civwar_rebels = { has_country_flag = heir_rebel_country }
-					event_target:civwar_originator = { has_country_flag = heir_mother_country }
-				}
-			}
-			# Leader set when rebellion starts to avoid needing global event targets
-		}
-		else = {
-			random_owned_pop = {
-				limit = { has_pop_flag = sep_pop_ethic }
-				species = { save_event_target_as = civwar_species }
-			}
-			create_leader = {
-				class = ruler
-				species = event_target:civwar_species
-				name = random
-				skill = 5
-				traits = { trait = trait_ruler_deep_connections }
-				effect = {
-					save_event_target_as = new_rebel_leader
-					set_leader_flag = new_faction_ruler
-				}
-			}
-			set_leader = event_target:new_rebel_leader
 		}
 
 		get_country_immediate_setup = yes

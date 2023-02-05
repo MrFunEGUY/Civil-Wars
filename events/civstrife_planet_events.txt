@@ -22,19 +22,24 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		from = { is_country_type = rebel }
-		OR = {
-			any_owned_leader = { has_leader_flag = leader_for_@FromFrom }
-			FromFrom = { has_planet_flag = balkan_war }
-			FromFrom = { has_planet_flag = plan_slave_revolt }
-			FromFrom = { has_planet_flag = sec_slave_revolt }
-			FromFrom = { has_planet_flag = heir_planetary_rebellion }
+		from = {
+			is_country_type = rebel
+			OR = {
+				has_origin = origin_heir_rebellion
+				has_origin = origin_civwar
+				has_origin = origin_plan_rebellion
+				has_origin = origin_sec_rebellion
+				has_origin = origin_civstrife_slave_rebellion
+				has_origin = origin_nationalist_rebellion
+			}
 		}
 	}
 
 	immediate = {
 
 		save_event_target_as = civwar_originator
+
+		log = "civplan.1000 ACTIVAT"
 
 		FromFrom = {
 			set_owner = root.from
@@ -196,13 +201,16 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		from = { is_country_type = rebel }
-		OR = {
-			any_owned_leader = { has_leader_flag = leader_for_@FromFrom }
-			FromFrom = { has_planet_flag = balkan_war }
-			FromFrom = { has_planet_flag = plan_slave_revolt }
-			FromFrom = { has_planet_flag = sec_slave_revolt }
-			FromFrom = { has_planet_flag = heir_planetary_rebellion }
+		from = {
+			is_country_type = rebel
+			OR = {
+				has_origin = origin_heir_rebellion
+				has_origin = origin_civwar
+				has_origin = origin_plan_rebellion
+				has_origin = origin_sec_rebellion
+				has_origin = origin_civstrife_slave_rebellion
+				has_origin = origin_nationalist_rebellion
+			}
 		}
 	}
 
@@ -265,22 +273,16 @@ country_event = {
 
 		if = {
 			limit = {
-				any_owned_leader = {
-					has_leader_flag = leader_for_@FromFrom
-					NOR = {
-						has_leader_flag = civil_war_leader_separatist_faction
-						has_leader_flag = civil_war_leader_nationalist_faction
+				from.ruler = {
+					OR = {
+						has_leader_flag = civil_war_leader_governor_faction
+						has_leader_flag = civil_war_leader_admiral_faction
+						has_leader_flag = civil_war_leader_general_faction
+						has_leader_flag = civil_war_leader_scientist_faction
 					}
 				}
 			}
-			random_owned_leader = {
-				limit = {
-					has_leader_flag = leader_for_@FromFrom
-					NOR = {
-						has_leader_flag = civil_war_leader_separatist_faction
-						has_leader_flag = civil_war_leader_nationalist_faction
-					}
-				}
+			from.ruler = {
 				if = {
 					limit = { has_leader_flag = civil_war_leader_governor_faction }
 					remove_leader_flag = civil_war_leader_governor_faction

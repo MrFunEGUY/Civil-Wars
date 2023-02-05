@@ -41,7 +41,10 @@ desc = {
 	text = civcom.1005.leader.sec.desc
 	trigger = {
 		event_target:civwar_rebels = {
-			has_country_flag = ethic_sec_rebels
+			OR = {
+				has_country_flag = ethic_sec_rebels
+				has_country_flag = sep_sec_rebels
+			}
 			ruler = {
 				OR = {
 					has_leader_flag = civil_war_ruler_governor

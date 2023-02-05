@@ -42,6 +42,10 @@ situation_civstrife_faction_sep_plan = {
 			target = { has_pop_faction_flag = faction_rebelled }
 			target = { any_owned_pop = { planet = { is_capital = yes } } }
 			target = { any_owned_pop = { planet = { has_planet_flag = rebellion_suppressed } } }
+			target = {
+				exists = leader
+				leader = { has_leader_flag = appointed_heir }
+			}
 		}
 	}
 
@@ -214,6 +218,10 @@ situation_civstrife_faction_sep_sec = {
 			target = { has_pop_faction_flag = faction_rebelled }
 			target = { any_owned_pop = { planet = { is_capital = yes } } }
 			target = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
+			target = {
+				exists = leader
+				leader = { has_leader_flag = appointed_heir }
+			}
 		}
 	}
 
