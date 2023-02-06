@@ -36,6 +36,9 @@ l_german:
  civwar.2065.name: "§RErbe erklärt seine Unabhängigkeit!§!"
  civwar.2065.desc: "§H[civwar_rebels.Ruler.GetName]§! verlangt eine Audienz."
 
+ # Former Ruler, Secession
+ civwar.2067.name: "§REhemalige [root.GetRulerTitle] Beschlagnahmt Territorium!§!"
+
  # Former Heir
  civwar.2066.name: "§REhemaliger Erbe erklärt seine Unabhängigkeit!§!"
 
@@ -43,6 +46,11 @@ l_german:
  civwar.2100.name: "Benachbarte Rebellen bitten um Audienz"
  civwar.2100.desc: "Eine Delegation, die behauptet, die Regierung von §Y[civwar_rebels.GetName]§! zu vertreten, einem scheinbar abtrünnigen Staat des §Y[civwar_originator.GetName]§!, bittet um eine Audienz."
  civwar.2100.deny.desc: "Verweigern Sie ihnen eine Audienz."
+
+ # Notification of Formal Secession
+ civwar.2200.name: "Sezession Abgeschlossen"
+ civwar.2200.plan.desc: "In a speech before the nation today, [root.GetRulerTitle] §H[civwar_rebels.ruler.GetName]§! announced that, in accordance with their election win, the people of §Y[civwar_rebels.capital_scope.GetName]§! now have a new state of their own, the §H[civwar_rebels.GetName]§!. §H[civwar_rebels.ruler.GetName]§! announced that they will lead this new state, and officially resigned from office."
+ civwar.2200.sec.desc: "In a speech before the nation today, [root.GetRulerTitle] §H[civwar_rebels.ruler.GetName]§! announced that, in accordance with their election win, the people of the §Y[sector_name_leader.GetName]§! sector now have a new state of their own, the §H[civwar_rebels.GetName]§!. §H[civwar_rebels.ruler.GetName]§! announced that they will lead this new state, and officially resigned from office."
 
  ON_SCREEN_REBELS: "Was? Auf den Bildschirm!"
 
@@ -109,6 +117,9 @@ l_german:
 
  origin_civstrife_slave_rebellion: "Sklavenaufstand"
  origin_civstrife_slave_rebellion_desc: "Diese Nation wurde von Sklaven gegründet, die sich tapfer erhoben und ihre Unterdrücker stürzten."
+
+ origin_civsecession: "Politische Sezession"
+ origin_civsecession_desc: "Dieser Staat wurde gegründet, nachdem sein Volk auf friedlichem Wege durch legale politische Verfahren seine Unabhängigkeit erlangt hatte."
 
  # Opinion Modifiers
  opinion_civwar: "Erklärte Unabhängigkeit von uns"
@@ -377,6 +388,9 @@ l_german:
  civcom.1100.dispute.other.desc: "Sie haben den §Y[civwar_party_name_leader.GetName]§! gezwungen, Maßnahmen zu ergreifen, und das haben wir getan. Wir konnten Ihren Betrug nicht durchgehen lassen. Das wäre ein Affront gegen unsere Würde gewesen. Jetzt bin ich der §Y[civwar_rebels.GetRulerTitle]§!, wie es sich gehört. Ich leite einen neuen Staat, den §H[civwar_rebels.GetName]§!, der geschaffen wurde, um die wahren Werte des Volkes §Y[root.GetAdj]§! zu vertreten. Es wäre in unser aller Interesse, wenn Sie unsere Souveränität friedlich akzeptieren würden. Wir wollen nicht noch mehr [root.GetAdj]-Blut vergießen."
 
  civcom.1100.dispute.corp.desc: "Sie haben den §Y[civwar_party_name_leader.GetName]§! gezwungen, Maßnahmen zu ergreifen, und das haben wir getan. Wir konnten Ihren Betrug nicht durchgehen lassen. Das wäre auf lange Sicht nicht rentabel gewesen. Jetzt bin ich der §Y[civwar_rebels.GetRulerTitle]§!, so wie es mir zusteht. Ich leite eine neue Körperschaft, die §H[civwar_rebels.GetName]§!, die gegründet wurde, um die wahren Interessen des Volkes von §Y[root.GetAdj]§! zu vertreten. Es wäre in unser aller Interesse, wenn Sie unsere Souveränität friedlich akzeptieren würden. Wir wollen nicht noch mehr [root.GetAdj]-Blut vergießen."
+
+ civcom.1100.secession.dem.desc: "The people of the §H[root.GetName]§! fairly and legally voted to allow my people to secede. No bureaucratic shenanigans were going to stop us at that point. Using my legal authority as §Y[root.GetRulerTitle]§!, I've done what I can to ensure the success of the secession of the §H[civwar_rebels.GetName]§!. You should not try to fight this, as this was legally done. War can stil be averted."
+ civcom.1100.secession.not_dem.desc: "I legally secured the position of §Y[root.GetRulerTitle]§!, which by all rights should have allowed me to lead the secession of my people. No bureaucratic shenanigans were going to stop us at that point. Using my legal authority as §Y[root.GetRulerTitle]§!, I've done what I can to ensure the success of the secession of the §H[civwar_rebels.GetName]§!. You should not try to fight this, as this was legally done. War can stil be averted."
 
 
  ############## With Vassalization

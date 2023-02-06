@@ -97,8 +97,8 @@ plan_separatist_22 = {
 				is_event_leader = yes
 				has_leader_flag = appointed_heir
 				AND = {
-					owner = { is_imperial = yes }
-					is_same_value = owner.heir
+					leader_class = ruler
+					NOT = { has_leader_flag = sep_won_election }
 				}
 			}
 		}

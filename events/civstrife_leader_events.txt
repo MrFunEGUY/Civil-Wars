@@ -20,66 +20,66 @@ leader_event = { # Kill Dummy Leaders
 	}
 }
 
-# country_event = { #### All - on_game_start_country - Set Reign Begin Date Flags
-# 	id = civleader.1000
-# 	hide_window = yes
-# 	is_triggered_only = yes
+country_event = { # Set Corrupt Governor Flag
+	id = civleader.2000
+	hide_window = yes
+	is_triggered_only = yes
 
-# 	trigger = {
-# 		is_regular_empire = yes
-# 	}
+	trigger = {
+		is_country_type_with_subjects = yes
+		any_owned_leader = {
+			has_trait = leader_trait_corrupt
+			NOT = { has_leader_flag = corrupt_governor }
+		}
+	}
 
-# 	immediate = { # Consider adding event that lets you set term start date for auths
-# 		ruler = {
-# 			set_variable = { which = stints_as_ruler value = 1 }
-# 			get_ruler_term_begin_number = { COUNT = this.stints_as_ruler }
-# 		}
-# 	}
-# }
+	immediate = {
+		every_owned_leader = {
+			limit = {
+				has_trait = leader_trait_corrupt
+				NOT = { has_leader_flag = corrupt_governor }
+			}
+			set_leader_flag = corrupt_governor
+		}
+	}
+}
 
-# country_event = { #### All - on_ruler_set - Set Reign Begin Date Flags
-# 	id = civleader.1001
-# 	hide_window = yes
-# 	is_triggered_only = yes
+# on_ruler_set
+# Executed as new ruler has been set
+# This = Country
+country_event = { # Set Corrupt Ruler Trait
+	id = civleader.2005
+	hide_window = yes
+	is_triggered_only = yes
 
-# 	trigger = {
-# 		is_regular_empire = yes
-# 	}
+	trigger = {
+		ruler = {
+			has_leader_flag = corrupt_governor
+			NOT = { has_trait = leader_trait_corrupt }
+		}
+	}
 
-# 	immediate = {
-# 		if = {
-# 			limit = { NOT = { is_variable_set = stints_as_ruler } } # In case of authority switches
-# 			ruler = {
-# 				set_variable = { which = stints_as_ruler value = 1 }
-# 				get_ruler_term_begin_number = { COUNT = this.stints_as_ruler }
-# 			}
-# 		}
-# 		else = {
-# 			ruler = {
-# 				change_variable = { which = stints_as_ruler value = 1 }
-# 				get_ruler_term_begin_number = { COUNT = this.stints_as_ruler }
-# 			}
-# 		}
-# 	}
-# }
+	immediate = {
+		ruler = { add_trait = leader_trait_corrupt }
+	}
+}
 
-# # Executed when a ruler has been removed
-# # From = Previous Ruler
-# # This = Country
-# country_event = { #### ALL - on_ruler_removed - Set Reign End Date Flags
-# 	id = civleader.1100
-# 	hide_window = yes
-# 	is_triggered_only = yes
+# on_ruler_set
+# Executed as new ruler has been set
+# This = Country
+country_event = { # Set Sep Won Election Flag
+	id = civleader.2100
+	hide_window = yes
+	is_triggered_only = yes
 
-# 	trigger = {
-# 		is_regular_empire = yes
-# 		from = {
-# 			is_real_leader = yes
-# 			leader_class = ruler
-# 		}
-# 	}
+	trigger = {
+		ruler = {
+			exists = pop_faction
+			pop_faction = { is_separatist_faction = yes }
+		}
+	}
 
-# 	immediate = {
-# 		from = { get_ruler_term_end_number = { COUNT = this.stints_as_ruler } }
-# 	}
-# }
+	immediate = {
+		ruler = { set_timed_leader_flag = { flag = sep_won_election years = 7 } }
+	}
+}

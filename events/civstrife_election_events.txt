@@ -1296,7 +1296,7 @@ country_event = {
 			pop_faction = {
 				OR = {
 					is_separatist_faction = yes
-					is_nationalist_faction = yes
+					# is_nationalist_faction = yes
 				}
 			} 
 		}
@@ -1410,7 +1410,7 @@ country_event = {
 			pop_faction = {
 				OR = {
 					is_separatist_faction = yes
-					is_nationalist_faction = yes
+					# is_nationalist_faction = yes
 				}
 			} 
 		}
@@ -1419,7 +1419,6 @@ country_event = {
 	desc = {
 		text = civelect.4010.plan.desc
 		trigger = {
-			has_democratic_elections = yes
 			ruler.pop_faction = { is_planetary_separatist_faction = yes }
 		}
 	}
@@ -1427,7 +1426,6 @@ country_event = {
 	desc = {
 		text = civelect.4010.sec.desc
 		trigger = {
-			has_democratic_elections = yes
 			ruler.pop_faction = {
 				OR = {
 					is_sector_separatist_faction = yes
@@ -1440,7 +1438,6 @@ country_event = {
 	desc = {
 		text = civelect.4010.nat.desc
 		trigger = {
-			has_democratic_elections = no
 			ruler.pop_faction = { is_nationalist_faction = yes }
 		}
 	}
@@ -1477,15 +1474,19 @@ country_event = {
 			ruler = { set_leader_flag = civil_war_leader_ratification }
 			ruler.species = { save_event_target_as = civwar_species }
 			save_event_target_as = civwar_originator
-			if = {
+			if = { # Planetary Secession
 				limit = { ruler.pop_faction = { is_planetary_separatist_faction = yes } }
 				ruler.pop_faction = {
+					save_event_target_as = civwar_party
 					random_owned_pop = {
-						planet = { set_planet_flag = leader_planet }
+						planet = { set_planet_flag = secession_planet }
 					}
 				}
+				set_country_flag = peaceful_secession
+				make_ruler_secession_country = yes
+
 			}
-			else_if = {
+			else_if = { # Sector Secession
 				limit = {
 					ruler.pop_faction = {
 						OR = {
@@ -1495,104 +1496,112 @@ country_event = {
 					}
 				}
 				ruler.pop_faction = {
+					save_event_target_as = civwar_party
 					random_owned_pop = {
-						sector = { set_sector_flag = leader_sector }
+						sector = {
+							set_sector_flag = leader_sector
+							save_event_target_as = sector_name_local
+							sector_capital = { save_event_target_as = civil_war_planet }
+						}
 					}
 				}
-				make_isolated_sector_country = yes # Pretty sure this works fine
+				set_country_flag = peaceful_secession
+				create_sector_name_leader = yes
+				make_ruler_secession_country = yes
 			}
-			else_if = {
-				limit = { ruler.pop_faction = { is_nationalist_faction = yes } }
-				if = {
-					limit = {
-						num_sectors > 1
-						any_owned_sector = { # Nats arent in core sector
-							NOT = { any_system_within_border = { is_capital_system = yes } }
-							pop_percentage = {
-								percentage >= 0.50
-								limit = {
-									exists = pop_faction
-									pop_faction = { is_same_value = root.ruler.pop_faction }
-								}
-								exclude = { can_think = no }
-							}
-						}
-					}
-					random_owned_sector = {
-						limit = {
-							NOT = { any_system_within_border = { is_capital_system = yes } }
-							pop_percentage = {
-								percentage >= 0.50
-								limit = {
-									exists = pop_faction
-									pop_faction = { is_same_value = root.ruler.pop_faction }
-								}
-								exclude = { can_think = no }
-							}
-						}
-						set_sector_flag = leader_sector
-					}
-					make_isolated_sector_country = yes # Pretty sure this works fine
-				}
-				else = {
-					every_owned_planet = {
-						limit = {
-							any_owned_pop = {
-								exists = pop_faction
-								pop_faction = { is_same_value = root.ruler.pop_faction }
-							}
-						}
-						set_variable = { which = fac_sep_percentage value = 0 }
-						set_variable = { which = total_plan_pops value = 0 }
-						every_owned_pop = {
-							if = {
-								limit = {
-									exists = pop_faction
-									pop_faction = { is_same_value = root.target }
-								}
-								prev = { change_variable = { which = fac_sep_percentage value = 1 } }
-							}
-							prev = { change_variable = { which = total_plan_pops value = 1 } }
-						}
-						divide_variable = {
-							which = fac_sep_percentage
-							value = total_plan_pops
-						}
-						multiply_variable = { # Needs to be done to ensure accurate ordering
-							which = fac_sep_percentage
-							value = 100
-						}
-					}
-					ordered_owned_planet = {
-						limit = {
-							any_owned_pop = {
-								exists = pop_faction
-								pop_faction = { is_same_value = root.ruler.pop_faction }
-							}
-						}
-						position = 0
-						order_by = fac_sep_percentage
-						set_planet_flag = nat_leader_planet
-						root.ruler = { set_leader_flag = leader_for_@prev }
-					}
-					every_owned_planet = {
-						limit = {
-							OR = {
-								is_variable_set = fac_sep_percentage
-								is_variable_set = total_plan_pops
-							}
-						}
-						if = {
-							limit = { is_variable_set = fac_sep_percentage }
-							clear_variable = fac_sep_percentage
-						}
-						if = {
-							limit = { is_variable_set = total_plan_pops }
-							clear_variable = total_plan_pops
-						}
-					}
-				}
-			}
+			# else_if = { # Nationalist Secession
+			# 	limit = { ruler.pop_faction = { is_nationalist_faction = yes } }
+			# 	if = {
+			# 		limit = {
+			# 			num_sectors > 1
+			# 			any_owned_sector = { # Nats arent in core sector
+			# 				NOT = { any_system_within_border = { is_capital_system = yes } }
+			# 				pop_percentage = {
+			# 					percentage >= 0.50
+			# 					limit = {
+			# 						exists = pop_faction
+			# 						pop_faction = { is_same_value = root.ruler.pop_faction }
+			# 					}
+			# 					exclude = { can_think = no }
+			# 				}
+			# 			}
+			# 		}
+			# 		random_owned_sector = {
+			# 			limit = {
+			# 				NOT = { any_system_within_border = { is_capital_system = yes } }
+			# 				pop_percentage = {
+			# 					percentage >= 0.50
+			# 					limit = {
+			# 						exists = pop_faction
+			# 						pop_faction = { is_same_value = root.ruler.pop_faction }
+			# 					}
+			# 					exclude = { can_think = no }
+			# 				}
+			# 			}
+			# 			set_sector_flag = leader_sector
+			# 		}
+			# 		make_ruler_secession_nat_sec_country = yes
+			# 	}
+			# 	else = {
+			# 		every_owned_planet = {
+			# 			limit = {
+			# 				any_owned_pop = {
+			# 					exists = pop_faction
+			# 					pop_faction = { is_same_value = root.ruler.pop_faction }
+			# 				}
+			# 			}
+			# 			set_variable = { which = fac_sep_percentage value = 0 }
+			# 			set_variable = { which = total_plan_pops value = 0 }
+			# 			every_owned_pop = {
+			# 				if = {
+			# 					limit = {
+			# 						exists = pop_faction
+			# 						pop_faction = { is_same_value = root.target }
+			# 					}
+			# 					prev = { change_variable = { which = fac_sep_percentage value = 1 } }
+			# 				}
+			# 				prev = { change_variable = { which = total_plan_pops value = 1 } }
+			# 			}
+			# 			divide_variable = {
+			# 				which = fac_sep_percentage
+			# 				value = total_plan_pops
+			# 			}
+			# 			multiply_variable = { # Needs to be done to ensure accurate ordering
+			# 				which = fac_sep_percentage
+			# 				value = 100
+			# 			}
+			# 		}
+			# 		ordered_owned_planet = {
+			# 			limit = {
+			# 				any_owned_pop = {
+			# 					exists = pop_faction
+			# 					pop_faction = { is_same_value = root.ruler.pop_faction }
+			# 				}
+			# 			}
+			# 			position = 0
+			# 			order_by = fac_sep_percentage
+			# 			set_planet_flag = nat_leader_planet
+			# 			root.ruler = { set_leader_flag = leader_for_@prev }
+			# 			make_ruler_secession_nat_plan_country = yes
+			# 		}
+			# 		every_owned_planet = {
+			# 			limit = {
+			# 				OR = {
+			# 					is_variable_set = fac_sep_percentage
+			# 					is_variable_set = total_plan_pops
+			# 				}
+			# 			}
+			# 			if = {
+			# 				limit = { is_variable_set = fac_sep_percentage }
+			# 				clear_variable = fac_sep_percentage
+			# 			}
+			# 			if = {
+			# 				limit = { is_variable_set = total_plan_pops }
+			# 				clear_variable = total_plan_pops
+			# 			}
+			# 		}
+			# 	}
+			# }
 		}
 	}
 
@@ -1601,7 +1610,39 @@ country_event = {
 		hidden_effect = {
 			ruler = { set_leader_flag = civil_war_leader_no_ratification }
 			ruler.species = { save_event_target_as = civwar_species }
-			save_event_target_as = civwar_originator
+			get_civil_war_number = yes
+			if = { # Planetary Secession
+				limit = { ruler.pop_faction = { is_planetary_separatist_faction = yes } }
+				ruler.pop_faction = {
+					save_event_target_as = civwar_party
+					random_owned_pop = {
+						planet = { set_planet_flag = secession_planet }
+					}
+				}
+				make_ruler_secession_country = yes
+			}
+			else_if = { # Sector Secession
+				limit = {
+					ruler.pop_faction = {
+						OR = {
+							is_sector_separatist_faction = yes
+							is_iso_sector_separatist_faction = yes
+						}
+					}
+				}
+				ruler.pop_faction = {
+					save_event_target_as = civwar_party
+					random_owned_pop = {
+						sector = {
+							set_sector_flag = leader_sector
+							save_event_target_as = sector_name_local
+							sector_capital = { save_event_target_as = civil_war_planet }
+						}
+					}
+				}
+				create_sector_name_leader = yes
+				make_ruler_secession_country = yes
+			}
 		}
 	}
 }

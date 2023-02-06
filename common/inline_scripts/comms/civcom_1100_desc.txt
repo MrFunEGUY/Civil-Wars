@@ -3,10 +3,9 @@
 desc = {
 	text = civcom.1100.corrupt.desc
 	trigger = {
-		has_country_flag = corrupt_rebellion
 		event_target:civwar_rebels = {
+			has_country_flag = corrupt_rebellion
 			NOT = { has_country_flag = election_dispute_country }
-			ruler = { has_leader_flag = civil_war_ruler_governor }				
 		}
 	}
 }
@@ -14,16 +13,16 @@ desc = {
 desc = {
 	text = civcom.1100.leader.desc
 	trigger = {
-		NOR = {
-			has_country_flag = rebs_help_eachother
-			has_country_flag = corrupt_rebellion
-		}
-		event_target:civwar_rebels.ruler = {
-			OR = {
-				has_leader_flag = civil_war_ruler_governor
-				has_leader_flag = civil_war_ruler_admiral
-				has_leader_flag = civil_war_ruler_general
-				has_leader_flag = civil_war_ruler_scientist
+		NOT = { has_country_flag = rebs_help_eachother }
+		event_target:civwar_rebels = {
+			NOT = { has_country_flag = corrupt_rebellion }
+			ruler = {
+				OR = {
+					has_leader_flag = civil_war_ruler_governor
+					has_leader_flag = civil_war_ruler_admiral
+					has_leader_flag = civil_war_ruler_general
+					has_leader_flag = civil_war_ruler_scientist
+				}
 			}
 		}
 	}
@@ -189,6 +188,22 @@ desc = {
 		event_target:civwar_rebels.ruler = {
 			has_leader_flag = civil_war_ruler_heir_isolated
 		}
+	}
+}
+
+desc = {
+	text = civcom.1100.secession.dem.desc
+	trigger = {
+		has_democratic_elections = yes
+		event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_secession }
+	}
+}
+
+desc = {
+	text = civcom.1100.secession.not_dem.desc
+	trigger = {
+		has_democratic_elections = no
+		event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_secession }
 	}
 }
 

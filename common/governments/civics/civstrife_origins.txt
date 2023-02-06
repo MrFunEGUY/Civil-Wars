@@ -283,3 +283,25 @@ origin_civstrife_slave_rebellion = {
 		base = 0
 	}
 }
+
+origin_civsecession = {
+	is_origin = yes
+	icon = "gfx/interface/icons/origins/origins_separatists.dds"
+
+	playable = {
+		always = no # Non-player origin
+	}
+
+	possible = {
+	}
+
+	modifier = {
+		planet_stability_add = 5
+		country_unity_produces_mult = 0.2
+		planet_jobs_ruler_produces_mult = 0.1
+	}
+
+	random_weight = {
+		base = 0
+	}
+}

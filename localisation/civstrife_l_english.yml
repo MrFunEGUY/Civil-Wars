@@ -36,12 +36,22 @@
  # Former Heir
  civwar.2066.name: "§RFormer Heir Seizes Territory!§!"
 
+ # Former Ruler, Secession
+ civwar.2067.name: "§RFormer [root.GetRulerTitle] Seizes Territory!§!"
+
  civwar.2055.desc: "§H[civwar_rebels.Ruler.GetName]§! is demanding an audience."
 
  # Civil War Request Help from Neighbors
  civwar.2100.name: "Neighboring Rebels Request Audience"
  civwar.2100.desc: "A delegation claiming to represent the government of the §Y[civwar_rebels.GetName]§!, an apparent breakaway state of the §Y[civwar_originator.GetName]§!, is requesting an audience."
- civwar.2100.deny.desc: "Deny them an audience."
+ civwar.2100.deny: "Deny them an audience."
+
+ # Notification of Formal Secession
+ civwar.2200.name: "Secession Complete"
+ civwar.2200.plan.desc: "In a speech before the nation today, [root.GetRulerTitle] §H[civwar_rebels.ruler.GetName]§! announced that, in accordance with their election win, §Y[civwar_rebels.capital_scope.GetName]§! and the surrounding systems have been reorganized into a new state, the §H[civwar_rebels.GetName]§!. §H[civwar_rebels.ruler.GetName]§! announced that they will lead this new state, and officially resigned from office."
+ civwar.2200.sec.desc: "In a speech before the nation today, [root.GetRulerTitle] §H[civwar_rebels.ruler.GetName]§! announced that in accordance with their election win, the §Y[sector_name_leader.GetName]§! sector has been reorganized into a new state, the §H[civwar_rebels.GetName]§!. §H[civwar_rebels.ruler.GetName]§! announced that they will lead this new state, and officially resigned from office."
+
+ civcom.2200.resp: "We'll be better off without them."
 
  ON_SCREEN_REBELS: "What!? On screen!"
 
@@ -61,19 +71,19 @@
  # Origins
 
  origin_civwar: "Separatist State"
- origin_civwar_desc: "This nation was formed after political disagreements led to their secession from another nation."
+ origin_civwar_desc: "This state was formed after political disagreements led to their secession from another nation."
 
  origin_plan_rebellion: "Planetary Rebellion"
- origin_plan_rebellion_desc: "This nation was formed from a planet that seceded from a larger empire."
+ origin_plan_rebellion_desc: "This state was formed from a planet that seceded from a larger empire."
 
  origin_sec_rebellion: "Sectoral Rebellion"
- origin_sec_rebellion_desc: "This nation was formed from a sector that seceded from a larger empire."
+ origin_sec_rebellion_desc: "This state was formed from a sector that seceded from a larger empire."
 
  origin_coup_successor: "Disputed Successor"
  origin_coup_successor_desc: "Amid a sucession crisis, an extended member of the royal family managed to garner enough support to claim the throne."
 
  origin_coup_independent: "Disputed Fealty"
- origin_coup_independent_desc: "The imperial dynasty of this nation were once just one among many great noble houses in another empire. However, a sucession crisis led the house to declare their independence, claiming that they owned no fealty to a pretender."
+ origin_coup_independent_desc: "The imperial dynasty of this state were once just one among many great noble houses in another empire. However, a sucession crisis led the house to declare their independence, claiming that they owned no fealty to a pretender."
 
  origin_disinherited_heir: "Disinherited Heir"
  origin_disinherited_heir_desc: "This heir was exiled, but is awaiting the oppurtunity to strike back."
@@ -91,7 +101,7 @@
  origin_nationalist_rebellion_desc: "This state was brought about by nationalists who restored their homeland."
 
  origin_nationalist_restoration: "Nationalist Restoration"
- origin_nationalist_restoration_desc: "This nation originally lost all their territory. However, they were then granted land by another empire."
+ origin_nationalist_restoration_desc: "This state originally lost all their territory. However, they were then granted land by another empire."
 
  origin_disinherited_heir: "Disinherited Heir"
  origin_disinherited_heir_desc: "This is a dummy origin for the disinherited heir."
@@ -100,10 +110,13 @@
  origin_heir_rebellion_desc: "This country was founded by a disinherited heir who claimed that the territory rightfully belonged to them."
 
  origin_isolated_rebellion: "Isolated Territory"
- origin_isolated_rebellion_desc: "This nation was formed from territory that found their motherland to be too distant to effectively rule over them."
+ origin_isolated_rebellion_desc: "This state was formed from territory that found their motherland to be too distant to effectively rule over them."
 
  origin_civstrife_slave_rebellion: "Slave Uprising"
- origin_civstrife_slave_rebellion_desc: "This nation was formed by slaves that valiantly rose up and overthrew their oppressors."
+ origin_civstrife_slave_rebellion_desc: "This state was formed by slaves that valiantly rose up and overthrew their oppressors."
+
+ origin_civsecession: "Political Secession"
+ origin_civsecession_desc: "This state was formed after their people gained their independence peacefully through legal political procedures."
 
  # Opinion Modifiers
  opinion_civwar: "Declared Independence From Us"
@@ -372,6 +385,9 @@
  civcom.1100.dispute.other.desc: "You forced the §Y[civwar_party_name_leader.GetName]§! to take action, and so we did. We couldn't let your fraud stand. To do so would've been an affront to our dignity. Now, I am the §Y[civwar_rebels.GetRulerTitle]§!, as I rightfully should have been. I lead a new state, the §H[civwar_rebels.GetName]§!, which was created to represent the true values of the §Y[root.GetAdj]§! people. It would be in everyone's best interest if you accepted our sovereignty peacefully. We don't want to spill any more [root.GetAdj] blood."
 
  civcom.1100.dispute.corp.desc: "You forced the §Y[civwar_party_name_leader.GetName]§! to take action, and so we did. We couldn't let your fraud stand. To do so wouldn't have been profitable in the long run. Now, I am the §Y[civwar_rebels.GetRulerTitle]§!, as I rightfully should have been. I lead a new corporation, the §H[civwar_rebels.GetName]§!, which was created to represent the true interests of the §Y[root.GetAdj]§! people. It would be in everyone's best interest if you accepted our sovereignty peacefully. We don't want to spill any more [root.GetAdj] blood."
+
+ civcom.1100.secession.dem.desc: "The people of the §H[root.GetName]§! fairly and legally voted to allow my people to secede. No bureaucratic shenanigans were going to stop us at that point. Using my legal authority as §Y[root.GetRulerTitle]§!, I've done what I can to ensure the success of the secession of the §H[civwar_rebels.GetName]§!. You should not try to fight this, as this was legally done. War can stil be averted."
+ civcom.1100.secession.not_dem.desc: "I legally secured the position of §Y[root.GetRulerTitle]§!, which by all rights should have allowed me to lead the secession of my people. No bureaucratic shenanigans were going to stop us at that point. Using my legal authority as §Y[root.GetRulerTitle]§!, I've done what I can to ensure the success of the secession of the §H[civwar_rebels.GetName]§!. You should not try to fight this, as this was legally done. War can stil be averted."
 
 
  ############## With Vassalization
@@ -794,9 +810,9 @@
  civelect.2100.very_well: "Very Well."
 
  civelect.4000.name: "Separatist becomes [root.GetRulerTitle]"
- civelect.4000.plan.dem.desc: "With the last election stunningly resulting in §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! becoming §Y[root.GetRulerTitle]§!, they have promised to fulfill their campaign promise of having the §Y[ruler_sep_planet.GetName]§! secede from the §Y[root.GetName]§!."
- civelect.4000.sec.dem.desc: "With the last election stunningly resulting in §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! becoming §Y[root.GetRulerTitle]§!, they have promised to fulfill their campaign promise of having the §Y[ruler_sep_sector.GetName]§! sector secede from the §Y[root.GetName]§!."
- civelect.4000.nat.dem.desc: "With the last election stunningly resulting in §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! becoming §Y[root.GetRulerTitle]§!, they have promised to fulfill their campaign promise of creating a new state for their people."
+ civelect.4000.plan.dem.desc: "With the last election stunningly resulting in §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! becoming our §Y[root.GetRulerTitle]§!, they have promised to fulfill their campaign promise of having the §Y[ruler_sep_planet.GetName]§! secede from the §Y[root.GetName]§!."
+ civelect.4000.sec.dem.desc: "With the last election stunningly resulting in §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! becoming our §Y[root.GetRulerTitle]§!, they have promised to fulfill their campaign promise of having the §Y[ruler_sep_sector.GetName]§! sector secede from the §Y[root.GetName]§!."
+ civelect.4000.nat.dem.desc: "With the last election stunningly resulting in §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! becoming our §Y[root.GetRulerTitle]§!, they have promised to fulfill their campaign promise of creating a new state for their people."
 
  civelect.4000.plan.other.desc: "With §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! somehow managing to secure enough support to become §Y[root.GetRulerTitle]§!, they have promised to fulfill their promise of having the §Y[ruler_sep_planet.GetName]§! secede from the §Y[root.GetName]§!."
  civelect.4000.sec.other.desc: "With §H[Ruler.GetName]§! of the §Y[root.ruler.pop_faction.GetName]§! somehow managing to secure enough support to become §Y[root.GetRulerTitle]§!, they have promised to fulfill their promise of having the §Y[ruler_sep_sector.GetName]§! sector secede from the §Y[root.GetName]§!."
@@ -804,12 +820,13 @@
 
  civelect.4000.how: "How could this happen?"
 
+ civelect.4010.name: "The Secession"
  civelect.4010.plan.desc: "§Y[root.GetRulerTitle]§! §H[Ruler.GetName]§! has drawn up all the plans for the secession of §Y[ruler_sep_planet.GetName]§!. The new state will take control all systems connected to the §Y[ruler_sep_planet.solar_system.GetName]§! system. All that needs to happen now is the ratification of the document, giving it the force of law. Will ratification of the document be allowed?"
  civelect.4010.sec.desc: "§Y[root.GetRulerTitle]§! §H[Ruler.GetName]§! has drawn up all the plans for the secession of the §Y[ruler_sep_sector.GetName]§! sector. Due to a sector having it's own administration, it will be as simple as transferring over that administration to the new government. All that needs to happen now is the ratification of the document, giving it the force of law. Will ratification of the document be allowed?"
  civelect.4010.nat.desc: "§Y[root.GetRulerTitle]§! §H[Ruler.GetName]§! has drawn up all the plans to create a new state for their people. All that needs to happen now is the ratification of the document, giving it the force of law. Will ratification of the document be allowed?"
 
- civelect.4010.ratify: "Ratify the document."
- civelect.4010.no: "Stop it's ratification."
+ civelect.4010.ratify: "Ratify the secession."
+ civelect.4010.no: "Stop the secession."
 
  civelect.9000.name: "Investigation Cancelled"
  civelect.9000.dem.desc: "Due to the fact that a new election is being held, the investigation into the conduct of the prior election has been cancelled."

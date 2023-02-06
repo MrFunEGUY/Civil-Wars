@@ -434,10 +434,6 @@ after_comms_cleanup_effect = {
 		remove_country_flag = ethic_civwar
 	}
 	else_if = {
-		limit = { has_country_flag = corrupt_rebellion }
-		remove_country_flag = corrupt_rebellion
-	}
-	else_if = {
 		limit = { has_country_flag = succession_mother_country }
 		remove_country_flag = succession_mother_country
 	}
@@ -2249,6 +2245,98 @@ make_succession_crisis_dynast_country = {
 	}
 
 	set_country_flag = succession_crisis_mom_@last_created_country
+}
+
+make_ruler_secession_country = {
+
+	save_event_target_as = civwar_originator
+
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_global_flag = cultural_overhaul_active }
+				has_global_flag = bug_branch_active # Bug Branch changes EC ethic names, makes it not easily compatible
+			}
+		}
+		random_list = {
+			# Authoritarian
+			10 = { country_event = { id = civwarsecession.1000 } }
+			# Egalitarian
+			20 = { country_event = { id = civwarsecession.1005 } }
+			# Militarist
+			20 = { country_event = { id = civwarsecession.1010 } }
+			# Pacifist
+			10 = { country_event = { id = civwarsecession.1015 } }
+			# Materialist
+			10 = { country_event = { id = civwarsecession.1020 } }
+			# Spiritualist
+			10 = { country_event = { id = civwarsecession.1025 } }
+			# Xenophile
+			10 = { country_event = { id = civwarsecession.1030 } }
+			# Xenophobe
+			10 = { country_event = { id = civwarsecession.1035 } }
+		}
+	}
+	else_if = {
+		limit = {
+			has_global_flag = cultural_overhaul_active
+			has_global_flag = cultural_overhaul_redux_active
+		}
+		random_list = {
+			# Authoritarian
+			10 = { country_event = { id = civwarsecession.1000 } }
+			# Egalitarian
+			10 = { country_event = { id = civwarsecession.1005 } }
+			# Militarist
+			10 = { country_event = { id = civwarsecession.1010 } }
+			# Pacifist
+			10 = { country_event = { id = civwarsecession.1015 } }
+			# Materialist
+			10 = { country_event = { id = civwarsecession.1020 } }
+			# Spiritualist
+			10 = { country_event = { id = civwarsecession.1025 } }
+			# Xenophile
+			10 = { country_event = { id = civwarsecession.1030 } }
+			# Xenophobe
+			10 = { country_event = { id = civwarsecession.1035 } }
+			# Socialist
+			10 = { country_event = { id = civwarsecession.1040 } }
+			# Capitalist
+			10 = { country_event = { id = civwarsecession.1045 } }
+		}
+	}
+	else = {
+		random_list = {
+			# Authoritarian
+			5 = { country_event = { id = civwarsecession.1000 } }
+			# Egalitarian
+			10 = { country_event = { id = civwarsecession.1005 } }
+			# Militarist
+			10 = { country_event = { id = civwarsecession.1010 } }
+			# Pacifist
+			5 = { country_event = { id = civwarsecession.1015 } }
+			# Materialist
+			5 = { country_event = { id = civwarsecession.1020 } }
+			# Spiritualist
+			5 = { country_event = { id = civwarsecession.1025 } }
+			# Xenophile
+			5 = { country_event = { id = civwarsecession.1030 } }
+			# Xenophobe
+			10 = { country_event = { id = civwarsecession.1035 } }
+			# Socialist
+			10 = { country_event = { id = civwarsecession.1040 } }
+			# Capitalist
+			5 = { country_event = { id = civwarsecession.1045 } }
+			# Industrialist
+			10 = { country_event = { id = civwarsecession.1050 } }
+			# Ecologist
+			5 = { country_event = { id = civwarsecession.1055 } }
+			# Elitist
+			5 = { country_event = { id = civwarsecession.1060 } }
+			# Pluralist
+			10 = { country_event = { id = civwarsecession.1065 } }
+		}
+	}
 }
 
 ##########
@@ -8628,7 +8716,7 @@ create_sector_name_leader = {
 get_sector_name_leader = {
 	random_owned_leader = {
 		limit = { has_leader_flag = dummy_sector_leader_@event_target:civwar_rebels.capital_scope }
-		save_global_event_target_as = sector_name_leader
+		save_event_target_as = sector_name_leader
 	}
 }
 
