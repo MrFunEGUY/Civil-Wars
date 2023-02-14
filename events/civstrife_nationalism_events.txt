@@ -123,17 +123,13 @@ country_event = { # Shop for home for Govenment-In-Exile
 		
 		if = { # Govenment-In-Exile, will shop around 
 			limit = {
-				is_unfriendly = no
+				is_homicidal = no
 				any_country = {
 					is_subject = no
-					is_unfriendly = no
+					is_homicidal = no
 					is_country_type_with_subjects = yes
 					has_communications = event_target:nat_pops_country
-					any_owned_pop = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country }
-					NOR = {
-						is_same_value = root
-						is_same_value = event_target:nat_pops_country
-					}
+					NOT = { is_same_value = root }
 					# has_country_flag = test_test
 				}
 			}
@@ -164,10 +160,9 @@ country_event = { # Gov In Exile Requst Hosting
 			limit = {
 				any_country = {
 					is_subject = no
-					is_unfriendly = no
+					is_homicidal = no
 					is_country_type_with_subjects = yes
 					has_communications = root
-					is_country_type_with_subjects = yes
 					NOR = {
 						is_same_value = root
 						has_country_flag = exile_already_asked_@root
@@ -178,10 +173,9 @@ country_event = { # Gov In Exile Requst Hosting
 			random_country = {
 				limit = {
 					is_subject = no
-					is_unfriendly = no
+					is_homicidal = no
 					is_country_type_with_subjects = yes
 					has_communications = root
-					is_country_type_with_subjects = yes
 					NOR = {
 						is_same_value = root
 						has_country_flag = exile_already_asked_@root
@@ -211,7 +205,7 @@ country_event = { # Gov In Exile cannot find host, dissolves
 		}
 
 		if = {
-			limit = { is_exile_country = yes }
+			limit = { is_country_type = enclave_exiled_gov }
 			random_owned_fleet = { destroy_fleet = this }
 
 			save_event_target_as = old_nat_country
@@ -1342,6 +1336,7 @@ planet_event = { # Frontier Planet + Sector -> Integrated Planet + Sector
 	is_triggered_only = yes
 
 	trigger = {
+		exists = event_target:original_owner
 		is_owned_by = event_target:original_owner
 	}
 
@@ -1394,6 +1389,7 @@ planet_event = { # Integrated Planet + Sector -> Fundamental Planet + Sector
 	is_triggered_only = yes
 
 	trigger = {
+		exists = event_target:original_owner
 		is_owned_by = event_target:original_owner
 	}
 

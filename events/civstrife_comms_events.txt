@@ -2258,6 +2258,7 @@ country_event = {
 country_event = {
 	id = civcom.8000
 	title = civcom.7000.name
+	desc = civcom.8000.desc
 	location = root.capital_scope
 	hide_window = no
 	is_triggered_only = yes
@@ -2270,15 +2271,6 @@ country_event = {
 		graphical_culture = root.owner
 		city_level = root.owner
 		room = root.owner
-	}
-
-	desc = {
-		text = civcom.8000.desc
-		trigger = {
-			event_target:defeated_traitor = {
-				has_leader_flag = civil_war_ruler_governor
-			}
-		}
 	}
 
 	# Deny them asylum

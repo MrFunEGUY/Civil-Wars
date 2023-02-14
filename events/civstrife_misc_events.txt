@@ -134,3 +134,21 @@ country_event = { # Set Birthday
 		change_variable = { which = Country_Birth_Date value = 2200 }
 	}
 }
+
+country_event = { # Destroy bad exiles, temp fix
+	id = civmisc.9000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_exile_country = yes
+		OR = {
+			is_homicidal = yes
+			has_valid_civic = civic_criminal_heritage
+		}
+	}
+
+	immediate = {
+		destroy_country = yes
+	}
+}

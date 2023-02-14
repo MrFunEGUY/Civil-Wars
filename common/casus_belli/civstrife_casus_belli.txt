@@ -97,31 +97,3 @@ cb_fealty_war = {
 		}
 	}
 }
-
-cb_exile_territory = {
-	show_in_diplomacy = yes
-	show_notification = yes
-	potential = {
-		is_country_type_with_subjects = yes
-		any_subject = {
-			is_country_type = exile_country
-			from = {
-				any_planet_within_border = {
-					OR = {
-						has_planet_flag = integrated_planet_@prevprev
-						has_planet_flag = fundamental_planet_@prevprev
-					}
-				}
-			}
-		}
-	}
-	is_valid = {
-		NOR = {
-			is_overlord_to = FROM
-			is_in_federation_with = from
-			has_defensive_pact = from
-			has_non_aggression_pact = from
-		}
-		has_total_war_cb = no
-	}
-}

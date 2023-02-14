@@ -55,7 +55,7 @@ resolution_restore_nation_1 = {
 		from = { is_galactic_emperor = no }
 		from = { is_galactic_custodian = no }
 		is_country_type_with_subjects = yes
-		event_target:nat_separatist_1 = { is_country_type = exile_country }
+		event_target:nat_separatist_1 = { is_country_type = enclave_exiled_gov }
 		any_planet_within_border = { has_planet_flag = fundamental_planet_@event_target:nat_separatist_1 }
 		NOT = { has_country_flag = declared_crisis }
 	}
