@@ -50,7 +50,6 @@ imperialist = {
 	can_join_faction = {
 		is_shackled_robot = no
 		can_think = yes
-		has_culture_shock = no
 	}
 
 	attraction = {
@@ -81,6 +80,26 @@ imperialist = {
 
 	leader = {
 		base = 100
+		
+		modifier = {
+			factor = 0.5
+			leader_class = scientist
+		}
+		
+		modifier = {
+			factor = 0.5
+			leader_class = governor
+		}
+		
+		modifier = {
+			factor = 2
+			leader_class = general
+		}
+		
+		modifier = {
+			factor = 2
+			leader_class = admiral
+		}
 
 		modifier = {
 			factor = 0.0
@@ -187,7 +206,7 @@ imperialist = {
 		}
 	}
 
-	demand = {
+demand = {
 		title = "IMPERIALIST_RIVALS1"
 		unfulfilled_title = "IMPERIALIST_FEW_RIVALS1"
 		desc = "IMPERIALIST_RIVALS_DESC1"
@@ -198,12 +217,21 @@ imperialist = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				num_communications > 0
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				num_rivals < 2
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+					relative_power = {
+                        who = root
+                        category = all
+                        value > pathetic
+                    }
+                    NOT = {
+                        is_in_federation_with = prev
+                    }
+				}
 			}
 		}
 
@@ -225,10 +253,21 @@ imperialist = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				count_relation = {
+					limit = { 
+						has_communications = root.owner
+						is_country_type = default
+						relative_power = {
+							who = root
+							category = all
+							value > pathetic
+						}
+						NOT = {
+							is_in_federation_with = prev
+						}
+					}
+					count >= 2
+				}
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				num_rivals = 2
 			}
@@ -252,10 +291,21 @@ imperialist = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				count_relation = {
+					limit = { 
+						has_communications = root.owner
+						is_country_type = default
+						relative_power = {
+							who = root
+							category = all
+							value > pathetic
+						}
+						NOT = {
+							is_in_federation_with = prev
+						}
+					}
+					count > 2
+				}
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				num_rivals > 2
 			}
@@ -279,10 +329,10 @@ imperialist = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+				}
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 			}
 		}

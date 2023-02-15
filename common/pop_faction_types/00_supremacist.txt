@@ -53,7 +53,6 @@ supremacist = {
 			is_pacifist = no
 		}
 		is_same_species = owner_species
-		has_culture_shock = no
 	}
 
 	attraction = {
@@ -83,6 +82,11 @@ supremacist = {
 		modifier = {
 			factor = 0.5
 			leader_class = scientist
+		}
+		
+		modifier = {
+			factor = 2
+			leader_class = governor
 		}
 
 		modifier = {
@@ -157,7 +161,10 @@ supremacist = {
 		potential = {
 			exists = owner
 			owner = {
-				num_communications > 0
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+				}
 			}
 		}
 
@@ -245,10 +252,10 @@ supremacist = {
 			exists = owner
 			owner = {
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+				}
 			}
 		}
 

@@ -46,7 +46,6 @@ totalitarian = {
 		is_shackled_robot = no
 		is_being_purged = no
 		can_think = yes
-		has_culture_shock = no
 	}
 
 	attraction = {
@@ -218,10 +217,10 @@ totalitarian = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+				}
 			}
 		}
 

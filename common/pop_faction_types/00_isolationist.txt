@@ -56,7 +56,6 @@ isolationist = {
 				is_pacifist = yes
 			}
 		}
-		has_culture_shock = no
 	}
 
 	attraction = {
@@ -102,6 +101,16 @@ isolationist = {
 
 	leader = {
 		base = 100
+		
+		modifier = {
+			factor = 0.5
+			leader_class = scientist
+		}
+		
+		modifier = {
+			factor = 2
+			leader_class = governor
+		}
 
 		modifier = {
 			factor = 0.0
@@ -168,10 +177,10 @@ isolationist = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+				}
 				any_war = { is_war_participant = { who = prev side = attackers } }
 			}
 		}
@@ -194,7 +203,10 @@ isolationist = {
 		potential = {
 			exists = owner
 			owner = {
-				num_communications > 0
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+				}
 			}
 		}
 
@@ -216,10 +228,10 @@ isolationist = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+				}
 			}
 		}
 
@@ -251,10 +263,10 @@ isolationist = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+				}
 				count_playable_country = {
 					limit = {
 						OR = {
@@ -288,10 +300,10 @@ isolationist = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+				}
 				count_playable_country = {
 					limit = {
 						OR = {
@@ -339,10 +351,10 @@ isolationist = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+				}
 				count_playable_country = {
 					limit = {
 						OR = {
@@ -381,7 +393,10 @@ isolationist = {
 		potential = {
 			exists = owner
 			owner = {
-				num_communications > 0
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+				}
 			}
 		}
 
@@ -405,7 +420,10 @@ isolationist = {
 		potential = {
 			exists = owner
 			owner = {
-				num_communications > 0
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+				}
 				years_of_peace = {
 					value > 9
 				}
@@ -432,7 +450,10 @@ isolationist = {
 		potential = {
 			exists = owner
 			owner = {
-				num_communications > 0
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+				}
 				years_of_peace = {
 					value > 24
 				}
