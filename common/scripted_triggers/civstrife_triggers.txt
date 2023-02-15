@@ -2126,7 +2126,7 @@ fundamental_planet_slave_untick_check = {
 }
 
 frontier_planet_unrest_untick_check = {
-	has_planet_flag = frontier_planet_@root
+	has_planet_flag = frontier_planet_@root.owner
 	planet_stability >= 30
 	OR = {
 		planet_crime < 60
@@ -2138,7 +2138,7 @@ frontier_planet_unrest_untick_check = {
 }
 
 integrated_planet_unrest_untick_check = {
-	has_planet_flag = integrated_planet_@root
+	has_planet_flag = integrated_planet_@root.owner
 	planet_stability >= 25
 	OR = {
 		planet_crime < 70
@@ -2150,7 +2150,7 @@ integrated_planet_unrest_untick_check = {
 }
 
 fundamental_planet_unrest_untick_check = {
-	has_planet_flag = fundamental_planet_@root
+	has_planet_flag = fundamental_planet_@root.owner
 	planet_stability >= 20
 	OR = {
 		planet_crime < 80
@@ -2299,7 +2299,7 @@ combined_sector_calm_tick_check = {
 			}
 		}
 		AND = {
-			has_sector_flag = frontier_sector_@root
+			has_sector_flag = frontier_sector_@root.owner
 			NOT = {
 				count_owned_planet = {
 					count > 1
@@ -2322,7 +2322,7 @@ combined_sector_calm_tick_check = {
 			}
 		}
 		AND = {
-			has_sector_flag = integrated_sector_@root
+			has_sector_flag = integrated_sector_@root.owner
 			NOT = {
 				count_owned_planet = {
 					count > 1
@@ -2345,7 +2345,7 @@ combined_sector_calm_tick_check = {
 			}
 		}
 		AND = {
-			has_sector_flag = fundamental_sector_@root
+			has_sector_flag = fundamental_sector_@root.owner
 			NOT = {
 				count_owned_planet = {
 					count > 1

@@ -33,10 +33,32 @@ origin_plan_rebellion = {
 	}
 
 	modifier = {
-		planet_stability_add = 10
+		planet_stability_add = 5
 		shipclass_military_build_cost_mult = -0.15
 		ships_upkeep_mult = -0.10
 		country_unity_produces_mult = 0.1
+	}
+
+	random_weight = {
+		base = 0
+	}
+}
+
+origin_sec_rebellion = {
+	is_origin = yes
+	icon = "gfx/interface/icons/origins/origins_separatists.dds"
+
+	playable = {
+		always = no # Non-player origin
+	}
+
+	possible = {
+	}
+
+	modifier = {
+		planet_stability_add = 5
+		shipclass_military_build_cost_mult = -0.2
+		country_unity_produces_mult = 0.05
 	}
 
 	random_weight = {
@@ -205,7 +227,7 @@ origin_nationalist_rebellion = {
 	}
 
 	modifier = {
-		planet_stability_add = 10
+		planet_stability_add = 5
 		pop_government_ethic_attraction = 0.15
 		shipclass_military_build_cost_mult = -0.1
 		country_unity_produces_mult = 0.2
@@ -228,7 +250,7 @@ origin_nationalist_restoration = {
 	}
 
 	modifier = {
-		planet_stability_add = 10
+		planet_stability_add = 5
 		pop_government_ethic_attraction = 0.25
 		country_unity_produces_mult = 0.2
 	}

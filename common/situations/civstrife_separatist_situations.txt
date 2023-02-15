@@ -153,7 +153,7 @@ situation_civstrife_faction_sep_plan = {
 			desc = radicalisation_occurring
 			add = 3
 			situation_progress < 90
-			NOT = { target = { faction_approval >= 0.2 } }
+			NOT = { target = { any_owned_pop = { planet = { combined_planet_unrest_calm_check = yes } } } }
 		}
 
 		modifier = {
@@ -171,9 +171,10 @@ situation_civstrife_faction_sep_plan = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
-			add = -0.5
-			target = { faction_approval >= 0.2 }
+			desc = faction_derad
+			add = -1
+			situation_progress > 10
+			target = { any_owned_pop = { planet = { combined_planet_unrest_calm_check = yes } } }
 		}
 	}
 }
@@ -332,7 +333,6 @@ situation_civstrife_faction_sep_sec = {
 			desc = radicalisation_occurring
 			add = 3
 			situation_progress < 90
-			NOT = { target = { faction_approval >= 0.2 } }
 			NOT = { target = { any_owned_pop = { sector = { combined_sector_calm_tick_check = yes } } } }
 		}
 
@@ -351,14 +351,9 @@ situation_civstrife_faction_sep_sec = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
-			add = -0.5
-			target = { faction_approval >= 0.2 }
-		}
-
-		modifier = {
-			desc = modifier_faction_is_happy
-			add = -3
+			desc = faction_derad
+			add = -1
+			situation_progress > 10
 			target = { any_owned_pop = { sector = { combined_sector_calm_tick_check = yes } } }
 		}
 	}
@@ -1169,12 +1164,6 @@ situation_civstrife_faction_sep_nat = {
 			add = -0.5
 			current_situation_approach = approach_faction_repression
 			situation_progress < 90
-		}
-
-		modifier = {
-			desc = modifier_faction_is_happy
-			add = -0.5
-			target = { faction_approval >= 0.2 }
 		}
 	}
 }

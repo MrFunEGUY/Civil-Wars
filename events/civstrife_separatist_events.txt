@@ -118,7 +118,6 @@ country_event = { # Planetary Decrease unrest Counter
 				}
 			}
 		}
-		
 	}
 
 	immediate = {
@@ -143,7 +142,7 @@ country_event = { # Planetary Decrease unrest Counter
 			}
 			if = {
 				limit = {
-					check_variable = { which = revolt_tick value = 1 }
+					check_variable = { which = revolt_tick value = 0 }
 					OR = {
 						frontier_planet_unrest_untick_check = yes
 						integrated_planet_unrest_untick_check = yes
@@ -155,7 +154,6 @@ country_event = { # Planetary Decrease unrest Counter
 			else_if = {
 				limit = {
 					check_variable = { which = revolt_tick value < 12 }
-					check_variable = { which = revolt_tick value > 0 }
 					OR = {
 						frontier_planet_unrest_untick_check = yes
 						integrated_planet_unrest_untick_check = yes
@@ -164,22 +162,11 @@ country_event = { # Planetary Decrease unrest Counter
 				}
 				subtract_variable = { which = revolt_tick value = 1 }
 			}
-			else_if = {
-				limit = {
-					check_variable = { which = revolt_tick value = 0 }
-					OR = {
-						frontier_planet_unrest_untick_check = yes
-						integrated_planet_unrest_untick_check = yes
-						fundamental_planet_unrest_untick_check = yes
-					}
-				}
-				clear_variable = revolt_tick
-			}
 		}
 	}
 }
 
-country_event = { # Planetary Calm counter Counter
+country_event = { # Planetary Calm Counter
 	id = civsep.1020
 	hide_window = yes
 	is_triggered_only = yes
@@ -188,8 +175,7 @@ country_event = { # Planetary Calm counter Counter
 		any_owned_planet = {
 			num_pops > 0
 			combined_planet_unrest_calm_check = yes
-		}
-		
+		}	
 	}
 
 	immediate = {
@@ -1667,13 +1653,13 @@ country_event = { # Check disapproving Factions every month
 		is_gestalt = no
 		any_pop_faction = {
 			is_separatist_faction = yes
-			OR = {
-				is_iso_sector_separatist_faction = yes
-				AND = {
-					faction_approval < 0.20
-					is_iso_sector_separatist_faction = no
-				}
-			}
+			# OR = {
+			# 	is_iso_sector_separatist_faction = yes
+			# 	AND = {
+			# 		faction_approval < 0.20
+			# 		is_iso_sector_separatist_faction = no
+			# 	}
+			# }
 			NOT = { has_pop_faction_flag = faction_rebelled }
 			NOT = { has_pop_faction_flag = faction_sep_situation }
 		}
@@ -1683,13 +1669,13 @@ country_event = { # Check disapproving Factions every month
 		random_pop_faction = {
 			limit = {
 				is_separatist_faction = yes
-				OR = {
-					is_iso_sector_separatist_faction = yes
-					AND = {
-						faction_approval < 0.20
-						is_iso_sector_separatist_faction = no
-					}
-				}
+				# OR = {
+				# 	is_iso_sector_separatist_faction = yes
+				# 	AND = {
+				# 		faction_approval < 0.20
+				# 		is_iso_sector_separatist_faction = no
+				# 	}
+				# }
 				NOT = { has_pop_faction_flag = faction_rebelled }
 				NOT = { has_pop_faction_flag = faction_sep_situation }
 			}

@@ -56,7 +56,6 @@ isolationist = {
 				is_pacifist = yes
 			}
 		}
-		has_culture_shock = no
 	}
 
 	attraction = {
@@ -81,15 +80,11 @@ isolationist = {
 
 		modifier = {
 			factor = 1.5
-
-			
 			is_xenophobe = yes
 		}
 
 		modifier = {
 			factor = 0.25
-
-			
 			is_militarist = yes
 		}
 
@@ -98,6 +93,11 @@ isolationist = {
 		#	factor = 1.25
 		#	NOT = { is_same_species = owner_species }
 		#}
+
+		modifier = {
+			factor = 0
+			planet = { has_modifier = planet_culture_shock }
+		}
 	}
 
 	leader = {

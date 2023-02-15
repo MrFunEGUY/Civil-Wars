@@ -53,7 +53,6 @@ supremacist = {
 			is_pacifist = no
 		}
 		is_same_species = owner_species
-		has_culture_shock = no
 	}
 
 	attraction = {
@@ -74,6 +73,11 @@ supremacist = {
 			from = {
 				NOT = { exists = leader }
 			}
+		}
+
+		modifier = {
+			factor = 0
+			planet = { has_modifier = planet_culture_shock }
 		}
 	}
 

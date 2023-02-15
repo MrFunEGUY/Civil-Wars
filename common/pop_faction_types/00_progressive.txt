@@ -58,7 +58,6 @@ progressive = {
 	can_join_faction = {
 		is_shackled_robot = no
 		can_think = yes
-		has_culture_shock = no
 	}
 
 	attraction = {
@@ -84,7 +83,12 @@ progressive = {
 		# Should really check for citizenship instead
 		modifier = {
 			factor = 0.25
-			NOT = { is_same_species = owner_species }
+			has_citizenship_rights = no
+		}
+
+		modifier = {
+			factor = 0
+			planet = { has_modifier = planet_culture_shock }
 		}
 	}
 

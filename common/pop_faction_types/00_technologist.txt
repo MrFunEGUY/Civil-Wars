@@ -56,7 +56,6 @@ technologist = {
 		NOT = {
 			has_ethic = ethic_spiritualist
 		}
-		has_culture_shock = no
 	}
 
 	attraction = {
@@ -82,6 +81,11 @@ technologist = {
 		modifier = {
 			factor = 2.0
 			is_robot_pop = yes
+		}
+
+		modifier = {
+			factor = 0
+			planet = { has_modifier = planet_culture_shock }
 		}
 	}
 
