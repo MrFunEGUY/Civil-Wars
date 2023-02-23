@@ -98,6 +98,15 @@ country_event = {
 			get_sector_name_leader = yes
 		}
 
+		if = {
+			limit = { any_owned_leader = { has_leader_flag = dummy_party_leader_@FromFrom } }
+			random_owned_leader = {
+				limit = { has_leader_flag = dummy_party_leader_@FromFrom }
+				save_event_target_as = civwar_party_name_leader
+				leader_event = { id = civleader.1000 days = 90 }
+			}
+		}
+
 		#####
 	
 		if = {
@@ -166,7 +175,12 @@ country_event = {
 			# log = "5"
 			limit = {
 				OR = {
-					event_target:civwar_rebels = { is_homicidal = yes }
+					event_target:civwar_rebels = {
+						AND = {
+							is_homicidal = yes
+							is_organic_zealots = no
+						}
+					}
 					event_target:civwar_rebels = { has_country_flag = plan_slave_rebel_country }
 					event_target:civwar_rebels = { has_country_flag = sec_slave_rebel_country }
 				}

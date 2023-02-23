@@ -54,11 +54,14 @@ country_event = {
 						is_country_type_with_subjects = yes
 						# is_country_type = primitive
 					}
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
+					}
 					NOR = {
 						is_loyal_to = root
 						is_overlord_to = root
 						is_custodial_to = root
-						is_homicidal = yes
 						is_fallen_empire = yes
 					}
 				}
@@ -81,11 +84,14 @@ country_event = {
 						is_country_type_with_subjects = yes
 						# is_country_type = primitive
 					}
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
+					}
 					NOR = {
 						is_loyal_to = root
 						is_overlord_to = root
 						is_custodial_to = root
-						is_homicidal = yes
 						is_fallen_empire = yes
 					}
 				}
@@ -343,13 +349,16 @@ country_event = {
 				any_country = {
 					is_country_type_with_subjects = yes
 					has_communications = root
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
+					}
 					NOR = {
 						is_loyal_to = root
 						is_overlord_to = root
 						has_overlord = root
 						is_custodial_to = root
 						is_same_value = root
-						is_homicidal = yes
 						has_country_flag = traitor_heir_already_asked
 					}
 				}
@@ -358,12 +367,15 @@ country_event = {
 				limit = {
 					is_country_type_with_subjects = yes
 					has_communications = root
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
+					}
 					NOR = {
 						is_loyal_to = root
 						is_overlord_to = root
 						is_custodial_to = root
 						is_same_value = root
-						is_homicidal = yes
 						has_country_flag = traitor_heir_already_asked
 					}
 				}
@@ -498,10 +510,11 @@ country_event = {
 						is_country_type_with_subjects = yes
 						# is_country_type = primitive
 					}
-					NOR = {
-						is_homicidal = yes
-						is_fallen_empire = yes
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
 					}
+					is_fallen_empire = no
 				}
 			}
 			random_list = {
@@ -520,10 +533,11 @@ country_event = {
 								is_country_type_with_subjects = yes
 								# is_country_type = primitive
 							}
-							NOR = {
-								is_homicidal = yes
-								is_fallen_empire = yes
+							OR = {
+								is_homicidal = no
+								is_organic_zealots = yes
 							}
+							is_fallen_empire = no
 						}
 						save_event_target_as = heir_hiding_foreign
 					}
@@ -551,10 +565,11 @@ country_event = {
 						is_country_type_with_subjects = yes
 						# is_country_type = primitive
 					}
-					NOR = {
-						is_homicidal = yes
-						is_fallen_empire = yes
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
 					}
+					is_fallen_empire = no
 				}
 			}
 			# Heir was hiding out in a foreign empire
@@ -565,10 +580,11 @@ country_event = {
 						is_country_type_with_subjects = yes
 						# is_country_type = primitive
 					}
-					NOR = {
-						is_homicidal = yes
-						is_fallen_empire = yes
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
 					}
+					is_fallen_empire = no
 				}
 				save_event_target_as = heir_hiding_foreign
 			}

@@ -2549,6 +2549,16 @@ country_event = {
 	hide_window = no
 	is_triggered_only = yes
 
+	desc = {
+		text = civcom.9000.regular
+		trigger = { NOT = { has_country_flag = overlord_of_@from } }
+	}
+
+	desc = {
+		text = civcom.9000.subject
+		trigger = { has_country_flag = overlord_of_@from }
+	}
+
 	diplomatic = yes
 
 	picture_event_data = {
@@ -2557,6 +2567,13 @@ country_event = {
 		graphical_culture = root
 		city_level = root
 		room = root.ruler
+	}
+
+	immediate = {
+		if = {
+			limit = { has_country_flag = overlord_of_@from }
+			remove_country_flag = overlord_of_@from
+		}
 	}
 
 	# Deny Hosting Them

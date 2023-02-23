@@ -75,7 +75,7 @@ country_event = { # Check disapproving Factions every month
 					owner = { NOT = { has_country_flag = civ_war_recent_INDUS } }
 				}
 				AND = {
-					is_socialism_faction = yes
+					is_socialist_faction = yes
 					owner = { NOT = { has_country_flag = civ_war_recent_SOC } }
 				}
 				AND = {
@@ -183,7 +183,7 @@ country_event = { # Check disapproving Factions every month
 						owner = { NOT = { has_country_flag = civ_war_recent_INDUS } }
 					}
 					AND = {
-						is_socialism_faction = yes
+						is_socialist_faction = yes
 						owner = { NOT = { has_country_flag = civ_war_recent_SOC } }
 					}
 					AND = {
@@ -311,7 +311,7 @@ country_event = { # Check disapproving Factions every month
 				}
 			}
 			else_if = {
-				limit = { is_socialism_faction = yes }
+				limit = { is_socialist_faction = yes }
 				owner = {
 					start_situation = {
 						type = situation_civstrife_faction_soc

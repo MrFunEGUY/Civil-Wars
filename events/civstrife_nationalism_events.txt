@@ -22,8 +22,7 @@ planet_event = { ## Initial Event to create separatists from transferred planets
 		NOT = { has_modifier = planet_culture_shock }
 		exists = fromfrom
 		fromfrom = {
-			# num_owned_planets > 0
-			is_country_type_with_subjects = yes
+			is_regular_empire = yes
 			NOT = { is_overlord_to = from }
 			NOT = { has_country_flag = civstrife_nat_timer }
 		}
@@ -62,7 +61,7 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 	is_triggered_only = yes
 
 	trigger = {
-		is_country_type_with_subjects = yes
+		is_regular_empire = yes
 		NOT = { has_country_flag = civstrife_nat_timer }
 	}
 
@@ -95,6 +94,8 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 			}
 		}
 
+		every_owned_leader = { set_owner = event_target:nat_pops_country }
+
 		from = { set_timed_country_flag = { flag = destroyed_country_nat_@event_target:nat_pops_country days = 30 } }
 
 		save_event_target_as = old_nat_country
@@ -106,6 +107,11 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 		every_galaxy_pop = {
 			limit = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country }
 			add_modifier = { modifier = "death_of_motherland" years = 20 }
+		}
+
+		if = {
+			limit = { is_subject = yes }
+			overlord = { set_timed_country_flag = { flag = overlord_of_@event_target:nat_pops_country days = 100 } }
 		}
 	}
 
@@ -120,13 +126,24 @@ country_event = { # Shop for home for Govenment-In-Exile
 	is_triggered_only = yes
 
 	immediate = {
-		
-		if = { # Govenment-In-Exile, will shop around 
+
+		 # Govenment-In-Exile, will shop around 
+		if = {
+			limit = { any_country = { has_country_flag = overlord_of_@root } }
+			country_event = { id = civnat.1300 }
+		}
+		else_if = {
 			limit = {
-				is_homicidal = no
+				OR = {
+					is_homicidal = no
+					is_organic_zealots = yes
+				}
 				any_country = {
 					is_subject = no
-					is_homicidal = no
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
+					}
 					is_country_type_with_subjects = yes
 					has_communications = event_target:nat_pops_country
 					NOT = { is_same_value = root }
@@ -157,10 +174,21 @@ country_event = { # Gov In Exile Requst Hosting
 	immediate = {
 
 		if = {
+			limit = { any_country = { has_country_flag = overlord_of_@root } }
+			random_country = {
+				limit = { has_country_flag = overlord_of_@root }
+				country_event = { id = civcom.9000 days = 2 random = 10 }
+			}
+		}
+
+		else_if = {
 			limit = {
 				any_country = {
 					is_subject = no
-					is_homicidal = no
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
+					}
 					is_country_type_with_subjects = yes
 					has_communications = root
 					NOR = {
@@ -173,7 +201,10 @@ country_event = { # Gov In Exile Requst Hosting
 			random_country = {
 				limit = {
 					is_subject = no
-					is_homicidal = no
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
+					}
 					is_country_type_with_subjects = yes
 					has_communications = root
 					NOR = {
@@ -851,10 +882,6 @@ country_event = { # Hosted Gov In Exile restoration, on wg_restore_nation
 							has_communications = root
 							has_communications = root.overlord
 							is_same_value = root.overlord
-							intel_level = {
-								level > low
-								system = root.capital_scope.solar_system
-							}
 						}
 					}
 					establish_communications_no_message = event_target:new_homeland
@@ -2004,7 +2031,6 @@ country_event = { # Set Initial Nat Timer on country create
 			is_country_type = rebel
 			is_country_type_with_subjects = yes
 		}
-		
 	}
 
 	immediate = {

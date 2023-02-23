@@ -275,12 +275,15 @@ country_event = {
 				any_country = {
 					is_country_type_with_subjects = yes
 					has_communications = root
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
+					}
 					NOR = {
 						is_loyal_to = root
 						is_overlord_to = root
 						has_overlord = root
 						is_custodial_to = root
-						is_homicidal = yes
 						has_country_flag = traitor_already_asked@event_target:defeated_traitor
 					}
 				}
@@ -290,12 +293,15 @@ country_event = {
 				limit = {
 					is_country_type_with_subjects = yes
 					has_communications = root
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
+					}
 					NOR = {
 						is_loyal_to = root
 						is_overlord_to = root
 						has_overlord = root
 						is_custodial_to = root
-						is_homicidal = yes
 						has_country_flag = traitor_already_asked@event_target:defeated_traitor
 					}
 				}
@@ -387,11 +393,14 @@ country_event = {
 				any_country = {
 					is_country_type_with_subjects = yes
 					has_communications = root
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
+					}
 					NOR = {
 						is_loyal_to = root
 						is_overlord_to = root
 						is_custodial_to = root
-						is_homicidal = yes
 						has_overlord = root
 						has_country_flag = traitor_already_asked@event_target:defeated_traitor
 					}
@@ -402,11 +411,14 @@ country_event = {
 				limit = {
 					is_country_type_with_subjects = yes
 					has_communications = root
+					OR = {
+						is_homicidal = no
+						is_organic_zealots = yes
+					}
 					NOR = {
 						is_loyal_to = root
 						is_overlord_to = root
 						is_custodial_to = root
-						is_homicidal = yes
 						has_overlord = root
 						has_country_flag = traitor_already_asked@event_target:defeated_traitor
 					}

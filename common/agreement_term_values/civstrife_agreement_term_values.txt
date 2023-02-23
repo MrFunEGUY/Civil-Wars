@@ -389,8 +389,8 @@ joins_overlord_wars_none = {
 			NOT = { agreement_preset = preset_subsidiary }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verfoederatus
-			NOT = { agreement_preset = preset_verfoederatus }
+			fail_text = not_allowed_for_ver_foederatus
+			NOT = { agreement_preset = preset_ver_foederatus }
 		}
 	}
 }
@@ -425,6 +425,18 @@ joins_overlord_wars_defensive = {
 			fail_text = not_allowed_for_auto_state
 			NOT = { agreement_preset = preset_auto_state }
 		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_foederatus
+			NOT = { agreement_preset = preset_ver_foederatus }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_satellite
+			NOT = { agreement_preset = preset_ver_satellite }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_condo
+			NOT = { agreement_preset = preset_ver_condo }
+		}
 	}
 }
 
@@ -457,6 +469,30 @@ joins_overlord_wars_offensive = {
 		custom_tooltip = {
 			fail_text = not_allowed_for_auto_state
 			NOT = { agreement_preset = preset_auto_state }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_foederatus
+			NOT = { agreement_preset = preset_ver_foederatus }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_satellite
+			NOT = { agreement_preset = preset_ver_satellite }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_jrpartner
+			NOT = { agreement_preset = preset_ver_jrpartner }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_devolved
+			NOT = { agreement_preset = preset_ver_devolved }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_condo
+			NOT = { agreement_preset = preset_ver_condo }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_neocolony
+			NOT = { agreement_preset = preset_ver_neocolony }
 		}
 	}
 }
@@ -491,6 +527,22 @@ joins_overlord_wars_all = {
 			fail_text = not_allowed_for_auto_state
 			NOT = { agreement_preset = preset_auto_state }
 		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_satellite
+			NOT = { agreement_preset = preset_ver_satellite }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_jrpartner
+			NOT = { agreement_preset = preset_ver_jrpartner }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_devolved
+			NOT = { agreement_preset = preset_ver_devolved }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_condo
+			NOT = { agreement_preset = preset_ver_condo }
+		}
 	}
 }
 
@@ -519,38 +571,35 @@ joins_subject_wars_none = {
 		}
 		custom_tooltip = {
 			fail_text = not_allowed_for_feudal_society
-			OR = {
-				NOT = { owner = { has_civic = civic_feudal_realm } }
-				agreement_preset = preset_auto_state
-			}
+			NOT = { owner = { has_civic = civic_feudal_realm } }
 		}
 		custom_tooltip = {
 			fail_text = not_allowed_for_subsidiary
 			NOT = { agreement_preset = preset_subsidiary }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verdevolved
-			NOT = { agreement_preset = preset_verdevolved }
+			fail_text = not_allowed_for_ver_devolved
+			NOT = { agreement_preset = preset_ver_devolved }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verfoederatus
-			NOT = { agreement_preset = preset_verfoederatus }
+			fail_text = not_allowed_for_ver_organic
+			NOT = { agreement_preset = preset_ver_organic }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verjrpartner
-			NOT = { agreement_preset = preset_verjrpartner }
+			fail_text = not_allowed_for_ver_satellite
+			NOT = { agreement_preset = preset_ver_satellite }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verdisciple
-			NOT = { agreement_preset = preset_verdisciple }
+			fail_text = not_allowed_for_ver_foederatus
+			NOT = { agreement_preset = preset_ver_foederatus }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verpuppet
-			NOT = { agreement_preset = preset_verpuppet }
+			fail_text = not_allowed_for_ver_neocolony
+			NOT = { agreement_preset = preset_ver_neocolony }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verorganic
-			NOT = { agreement_preset = preset_verorganic }
+			fail_text = not_allowed_for_ver_blood
+			NOT = { agreement_preset = preset_ver_blood }
 		}
 	}
 }
@@ -573,8 +622,12 @@ joins_subject_wars_defensive = {
 			NOT = { agreement_preset = preset_auto_state }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verserf
-			NOT = { agreement_preset = preset_verserf }
+			fail_text = not_allowed_for_ver_foederatus
+			NOT = { agreement_preset = preset_ver_foederatus }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_condo
+			NOT = { agreement_preset = preset_ver_condo }
 		}
 	}
 }
@@ -609,24 +662,36 @@ joins_subject_wars_offensive = {
 			NOT = { agreement_preset = preset_auto_state }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verfoederatus
-			NOT = { agreement_preset = preset_verfoederatus }
+			fail_text = not_allowed_for_ver_devolved
+			NOT = { agreement_preset = preset_ver_devolved }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verdevolved
-			NOT = { agreement_preset = preset_verdevolved }
+			fail_text = not_allowed_for_ver_foederatus
+			NOT = { agreement_preset = preset_ver_foederatus }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verjrpartner
-			NOT = { agreement_preset = preset_verjrpartner }
+			fail_text = not_allowed_for_ver_organic
+			NOT = { agreement_preset = preset_ver_organic }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verfoederatus
-			NOT = { agreement_preset = preset_verfoederatus }
+			fail_text = not_allowed_for_ver_satellite
+			NOT = { agreement_preset = preset_ver_satellite }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verorganic
-			NOT = { agreement_preset = preset_verorganic }
+			fail_text = not_allowed_for_ver_condo
+			NOT = { agreement_preset = preset_ver_condo }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_puppet
+			NOT = { agreement_preset = preset_ver_puppet }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_neocolony
+			NOT = { agreement_preset = preset_ver_neocolony }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_blood
+			NOT = { agreement_preset = preset_ver_blood }
 		}
 	}
 }
@@ -653,12 +718,16 @@ joins_subject_wars_all = {
 			NOT = { agreement_preset = preset_auto_state }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verserf
-			NOT = { agreement_preset = preset_verserf }
+			fail_text = not_allowed_for_ver_organic
+			NOT = { agreement_preset = preset_ver_organic }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verorganic
-			NOT = { agreement_preset = preset_verorganic }
+			fail_text = not_allowed_for_ver_condo
+			NOT = { agreement_preset = preset_ver_condo }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_satellite
+			NOT = { agreement_preset = preset_ver_satellite }
 		}
 	}
 }
@@ -703,32 +772,20 @@ subject_can_be_integrated = {
 			NOT = { agreement_preset = preset_auto_state }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verdevolved
-			NOT = { agreement_preset = preset_verdevolved }
+			fail_text = not_allowed_for_ver_devolved
+			NOT = { agreement_preset = preset_ver_devolved }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verpuppet
-			NOT = { agreement_preset = preset_verpuppet }
+			fail_text = not_allowed_for_ver_organic
+			NOT = { agreement_preset = preset_ver_organic }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verjrpartner
-			NOT = { agreement_preset = preset_verjrpartner }
+			fail_text = not_allowed_for_ver_foederatus
+			NOT = { agreement_preset = preset_ver_foederatus }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verfoederatus
-			NOT = { agreement_preset = preset_verfoederatus }
-		}
-		custom_tooltip = {
-			fail_text = not_allowed_for_verserf
-			NOT = { agreement_preset = preset_verserf }
-		}
-		custom_tooltip = {
-			fail_text = not_allowed_for_verblood
-			NOT = { agreement_preset = preset_verblood }
-		}
-		custom_tooltip = {
-			fail_text = not_allowed_for_verorganic
-			NOT = { agreement_preset = preset_verorganic }
+			fail_text = not_allowed_for_ver_condo
+			NOT = { agreement_preset = preset_ver_condo }
 		}
 	}
 }
@@ -744,8 +801,8 @@ subject_can_not_be_integrated = {
 	}
 	possible = {
 		custom_tooltip = {
-			fail_text = not_allowed_for_verappendage
-			NOT = { agreement_preset = preset_verappendage }
+			fail_text = not_allowed_for_ver_appendage
+			NOT = { agreement_preset = preset_ver_appendage }
 		}
 	}
 }
@@ -786,8 +843,16 @@ subject_can_not_do_diplomacy = {
 			NOT = { agreement_preset = preset_auto_state }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verdevolved
-			NOT = { agreement_preset = preset_verdevolved }
+			fail_text = not_allowed_for_ver_devolved
+			NOT = { agreement_preset = preset_ver_devolved }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_condo
+			NOT = { agreement_preset = preset_ver_condo }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_foederatus
+			NOT = { agreement_preset = preset_ver_foederatus }
 		}
 	}
 }
@@ -881,20 +946,28 @@ subject_can_do_diplomacy_but_not_vote = {
 			}
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verserf
-			NOT = { agreement_preset = preset_verserf }
+			fail_text = not_allowed_for_ver_organic
+			NOT = { agreement_preset = preset_ver_organic }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verorganic
-			NOT = { agreement_preset = preset_verorganic }
-		}
-		custom_tooltip = {
-			fail_text = not_allowed_for_verparallel
-			NOT = { agreement_preset = preset_verparallel }
+			fail_text = not_allowed_for_ver_parallel
+			NOT = { agreement_preset = preset_ver_parallel }
 		}
 		custom_tooltip = {
 			fail_text = not_allowed_for_auto_state
 			NOT = { agreement_preset = preset_auto_state }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_satellite
+			NOT = { agreement_preset = preset_ver_satellite }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_condo
+			NOT = { agreement_preset = preset_ver_condo }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_puppet
+			NOT = { agreement_preset = preset_ver_puppet }
 		}
 	}
 }
@@ -915,16 +988,20 @@ subject_can_do_diplomacy = {
 			not_allowed_for_galcom_resolution_trigger = { RESOLUTION = resolution_bureaucraticsurveillance_personal_oversight }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verserf
-			NOT = { agreement_preset = preset_verserf }
+			fail_text = not_allowed_for_ver_organic
+			NOT = { agreement_preset = preset_ver_organic }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verorganic
-			NOT = { agreement_preset = preset_verorganic }
+			fail_text = not_allowed_for_ver_parallel
+			NOT = { agreement_preset = preset_ver_parallel }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verparallel
-			NOT = { agreement_preset = preset_verparallel }
+			fail_text = not_allowed_for_ver_satellite
+			NOT = { agreement_preset = preset_ver_satellite }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_puppet
+			NOT = { agreement_preset = preset_ver_puppet }
 		}
 	}
 }
@@ -968,12 +1045,20 @@ subject_cannot_expand = {
 			NOT = { owner = { has_civic = civic_franchising } }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verdevolved
-			NOT = { agreement_preset = preset_verdevolved }
+			fail_text = not_allowed_for_ver_devolved
+			NOT = { agreement_preset = preset_ver_devolved }
 		}
 		custom_tooltip = {
 			fail_text = not_allowed_for_auto_state
 			NOT = { agreement_preset = preset_auto_state }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_satellite
+			NOT = { agreement_preset = preset_ver_satellite }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_condo
+			NOT = { agreement_preset = preset_ver_condo }
 		}
 	}
 }
@@ -1021,10 +1106,6 @@ subject_can_expand = {
 				NOT = { owner = { has_ai_personality = imperial_origin_overlord_ai } }
 			}
 		}
-		custom_tooltip = {
-			fail_text = not_allowed_for_verserf
-			NOT = { agreement_preset = preset_verserf }
-		}
 	}
 }
 
@@ -1063,6 +1144,10 @@ subject_holdings_limit_2 = {
 			fail_text = not_allowed_for_auto_state
 			NOT = { agreement_preset = preset_auto_state }
 		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_condo
+			NOT = { agreement_preset = preset_ver_condo }
+		}
 	}
 	potential = {
 		has_overlord_dlc = yes
@@ -1089,12 +1174,16 @@ subject_holdings_limit_3 = {
 			}
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verdevolved
-			NOT = { agreement_preset = preset_verdevolved }
+			fail_text = not_allowed_for_ver_devolved
+			NOT = { agreement_preset = preset_ver_devolved }
 		}
 		custom_tooltip = {
 			fail_text = not_allowed_for_auto_state
 			NOT = { agreement_preset = preset_auto_state }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_condo
+			NOT = { agreement_preset = preset_ver_condo }
 		}
 	}
 	potential = {
@@ -1122,12 +1211,16 @@ subject_holdings_limit_4 = {
 			}
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_verdevolved
-			NOT = { agreement_preset = preset_verdevolved }
+			fail_text = not_allowed_for_ver_devolved
+			NOT = { agreement_preset = preset_ver_devolved }
 		}
 		custom_tooltip = {
 			fail_text = not_allowed_for_auto_state
 			NOT = { agreement_preset = preset_auto_state }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_ver_condo
+			NOT = { agreement_preset = preset_ver_condo }
 		}
 	}
 	potential = {
@@ -1171,10 +1264,6 @@ subject_loyalty_effects = {
 	potential = {
 		NOT = { agreement_preset = preset_auto_state }
 	}
-
-	# target_modifier = {
-	# 	diplo_weight_mult = -0.5
-	# }
 
 	activate_effect = {
 		target = { save_event_target_as = new_subject }

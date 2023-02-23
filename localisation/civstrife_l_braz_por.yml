@@ -21,8 +21,8 @@ l_braz_por:
  civwar.2005.desc: "We're currently in the middle of a rebellion, and the rebels have taken some of our territory. Unfortunately, due to the nature of our agreement with the §Y[overlord.GetName]§!, it is ultimately up to them to decide whether or not we will fight for our territory."
 
  # Former Governor/Admiral/General/Scientist
- civwar.2010.name: "§R[event_target:civwar_rebels.ruler.GetRebelRulerClass] Declares Independence!§!"
- civwar.2010.desc: "[event_target:civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§! is demanding an audience."
+ civwar.2010.name: "§R[civwar_rebels.ruler.GetRebelRulerClass] Declares Independence!§!"
+ civwar.2010.desc: "[civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§! is demanding an audience."
 
  # Nationalists
  civwar.2055.name: "§RNationalists Declare Independence!§!"
@@ -166,6 +166,10 @@ l_braz_por:
 
  exile_tt_patron:0 "The §YHost§! of an enclave can help them develop or requisition a fleet that is already hired."
 
+ gov_exile_enclave: "$enclave_exiled_gov$"
+
+ RT_EXILE_LEADER: "Exiled Government Head"
+
  # Subject Types
  preset_auto_state: "Autonomous State"
  preset_auto_state_desc: "Autonomous States are completely diplomatically independent of their overlords. They provide a tribute in exchange for the right to operate as a sovereign nation."
@@ -270,14 +274,15 @@ l_braz_por:
  # Government-in-Exile
 
  civcom.9000.name: "The Government-in-Exile of the §Y[from.GetName]§!"
- civcom.9000.desc: "Greetings, esteemed §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. I am §Y[from.GetRulerTitle]§! §H[from.ruler.GetName]§!, leader of the §Y[from.GetName]§!. As you may already be aware, our territory has been completely conquered by foreign forces. In the interests of the §Y[from.GetSpeciesAdj]§! people, our leadership has formed a §HGovernment-in-Exile§!. However, this government will be unable to function unless we have someplace to operate. The purpose of my audience with you today is to request that you host us."
+ civcom.9000.regular: "Greetings, esteemed §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. I am §H[from.ruler.GetName]§!, leader of the §Y[from.GetName]§!. As you may already be aware, our territory has been completely conquered by foreign forces. In the interests of the §Y[from.GetSpeciesAdj]§! people, our leadership has formed a §HGovernment-in-Exile§!. However, this government will be unable to function unless we have a space to operate. The purpose of my audience with you today is to request that you host us."
+ civcom.9000.subject: "Greetings, §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. I, §H[from.ruler.GetName]§!, as the former leader of your ever-loyal subject the §Y[from.GetName]§!, request asylum for our government. As you doubtless aware, our territory has been completely conquered by enemy forces. In the interests of the §Y[from.GetSpeciesAdj]§! people, our leadership has formed a §HGovernment-in-Exile§!. However, this government will be unable to function unless we have a space to operate. We trust that as our former benefactor, you will be able to host us."
 
  civcom.9000.deny: "We can't host you."
  civcom.9000.host: "We will host you."
 
  civcom.9100.name: "The Government-in-Exile of the §Y[exiled_gov_enclave_country.GetName]§!"
- civcom.9100.other.desc: "Greetings. I am §Y[exiled_gov_enclave_country.GetRulerTitle]§! §H[exiled_gov_enclave_country.ruler.GetName]§!, leader of the §Y[exiled_gov_enclave_country.GetName]§!.\n\nAs you may already be aware, our territory has been completely conquered by foreign forces. In the best interests of the §Y[exiled_gov_enclave_country.GetSpeciesAdj]§! people, our leadership has formed a §HGovernment-in-Exile§!."
- civcom.9100.host.desc: "Greetings. I am §Y[exiled_gov_enclave_country.GetRulerTitle]§! §H[exiled_gov_enclave_country.ruler.GetName]§!, leader of the §Y[exiled_gov_enclave_country.GetName]§! in exile.\n\nIs there anything I can do for our gracious host?"
+ civcom.9100.other.desc: "Greetings. I am §H[exiled_gov_enclave_country.ruler.GetName]§!, leader of the §Y[exiled_gov_enclave_country.GetName]§!.\n\nAs you may already be aware, our territory has been completely conquered by foreign forces. In the best interests of the §Y[exiled_gov_enclave_country.GetSpeciesAdj]§! people, our leadership has formed a §HGovernment-in-Exile§!."
+ civcom.9100.host.desc: "Greetings. I am §H[exiled_gov_enclave_country.ruler.GetName]§!, leader of the §Y[exiled_gov_enclave_country.GetName]§! in exile.\n\nIs there anything I can do for our gracious host?"
 
  civcom.9100.back: "We'd like to discuss another matter."
 

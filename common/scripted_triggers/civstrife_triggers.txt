@@ -1831,6 +1831,10 @@ get_cit_res_thrall = {
 	}
 }
 
+#####################################################
+########## Planet and Sector Rebellion Check Triggers
+#####################################################
+
 frontier_planet_slave_tick_check = {
 	is_capital = no
 	is_colony = yes
@@ -2302,7 +2306,7 @@ combined_sector_calm_tick_check = {
 			has_sector_flag = frontier_sector_@root.owner
 			NOT = {
 				count_owned_planet = {
-					count > 1
+					count >= 1
 					limit = {
 						OR = {
 							planet_stability <= 30
@@ -2325,7 +2329,7 @@ combined_sector_calm_tick_check = {
 			has_sector_flag = integrated_sector_@root.owner
 			NOT = {
 				count_owned_planet = {
-					count > 1
+					count >= 1
 					limit = {
 						OR = {
 							planet_stability <= 25
@@ -2348,7 +2352,7 @@ combined_sector_calm_tick_check = {
 			has_sector_flag = fundamental_sector_@root.owner
 			NOT = {
 				count_owned_planet = {
-					count > 1
+					count >= 1
 					limit = {
 						OR = {
 							planet_stability <= 20
@@ -2454,7 +2458,9 @@ combined_sector_slave_calm_retick_check = {
 	}
 }
 
-# Faction Triggers
+###########################
+########## Faction Triggers
+###########################
 
 is_pacifist_faction = {
 	OR = {
@@ -2521,27 +2527,45 @@ is_xenophobe_faction = {
 }
 
 is_ecologist_faction = {
- 	is_pop_faction_type = environmentalists
+	OR = {
+		is_pop_faction_type = environmentalists		# Regular
+		is_pop_faction_type = environmentalist		# Bug Branch
+	}
 }
 
 is_industrial_faction = {
- 	is_pop_faction_type = manufacturers
+	OR = {
+		is_pop_faction_type = manufacturers		# Regular
+		is_pop_faction_type = industrialist		# Bug Branch
+	}
 }
 
-is_socialism_faction = {
-	is_pop_faction_type = socialists
+is_socialist_faction = {
+	OR = {
+		is_pop_faction_type = socialists	# Regular
+		is_pop_faction_type = socialist		# Bug Branch
+	}
 }
 
 is_capitalism_faction = {
-	is_pop_faction_type = bankers
+	OR = {
+		is_pop_faction_type = bankers			# Regular
+		is_pop_faction_type = capitalist		# Bug Branch
+	}
 }
 
 is_pluralist_faction = {
- 	is_pop_faction_type = labourites
+	OR = {
+		is_pop_faction_type = labourites 	# Evolved
+		is_pop_faction_type = populist 		# Bug Branch
+	}
 }
 
 is_elitist_faction = {
- 	is_pop_faction_type = conservatives
+	OR = {
+		is_pop_faction_type = conservatives 	# Evolved
+		is_pop_faction_type = conservative 		# Bug Branch
+	}
 }
 
 # Ethics and Civics Overwrites/Backups
@@ -2559,20 +2583,12 @@ is_socialism = {
 	}
 }
 
-# is_socialist = {
-# 	is_socialism = yes
-# }
-
 is_capitalism = {
 	OR = {
 		has_ethic = ethic_fanatic_capitalism
 		has_ethic = ethic_capitalism
 	}
 }
-
-# is_capitalist = {
-# 	is_capitalism = yes
-# }
 
 is_pluralist = {
  	OR = {
@@ -2684,6 +2700,11 @@ is_exile_country = {
 		is_country_type = exile_country
 		is_country_type = enclave_exiled_gov
 	}
+}
+
+is_auto_state = {
+	is_subject = yes
+	any_agreement = { agreement_preset = preset_auto_state }
 }
 
 # For My Sanity

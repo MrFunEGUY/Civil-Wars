@@ -168,10 +168,7 @@ isolationist = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				num_communications > 2
 				any_war = { is_war_participant = { who = prev side = attackers } }
 			}
 		}
@@ -216,10 +213,7 @@ isolationist = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				num_communications > 2
 			}
 		}
 
@@ -251,10 +245,7 @@ isolationist = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				num_communications > 2
 				count_playable_country = {
 					limit = {
 						OR = {
@@ -288,10 +279,7 @@ isolationist = {
 		potential = {
 			exists = owner
 			owner = {
-				any_first_contact = {
-                    is_site_completed = yes
-                    contact_country = { is_country_type = default }
-                }
+				num_communications > 2
 				count_playable_country = {
 					limit = {
 						OR = {

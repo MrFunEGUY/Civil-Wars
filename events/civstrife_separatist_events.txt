@@ -1919,6 +1919,7 @@ situation_event = { # Planetary Revolt Event
 						set_variable = { which = fac_mil_support value = 0 }
 						save_event_target_as = civwar_party
 					}
+					create_party_name_leader = yes
 					every_owned_pop = {
 						limit = {
 							exists = pop_faction
@@ -1981,8 +1982,8 @@ situation_event = { # Sectoral Revolt Event
 			any_owned_sector = {
 				NOT = { any_owned_planet = { has_ground_combat = yes } }
 				pop_percentage = {
-					percentage >= 0.25
-					# percentage > 0
+					# percentage >= 0.25
+					percentage > 0
 					limit = {
 						exists = pop_faction
 						pop_faction = {
@@ -2005,8 +2006,8 @@ situation_event = { # Sectoral Revolt Event
 					limit = {
 						NOT = { any_owned_planet = { has_ground_combat = yes } }
 						pop_percentage = {
-							percentage >= 0.25
-							# percentage > 0
+							# percentage >= 0.25
+							percentage > 0
 							limit = {
 								exists = pop_faction
 								pop_faction = {
@@ -2019,8 +2020,8 @@ situation_event = { # Sectoral Revolt Event
 					}
 
 					random = {
-						chance = 10
-						# chance = 100
+						# chance = 10
+						chance = 100
 						root.target = {
 							set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 }
 							set_variable = { which = fac_mil_support value = 0 }
@@ -2037,6 +2038,7 @@ situation_event = { # Sectoral Revolt Event
 						}
 						sector_capital = {
 							save_event_target_as = civil_war_planet
+							owner = { create_party_name_leader = yes }
 							get_separatist_war_leader = yes
 							set_planet_flag = sep_sector_rebellion
 							get_sectoral_reb_number = yes
@@ -2131,6 +2133,7 @@ situation_event = { # Sectoral Revolt Event
 				}
 
 				create_party_name_leader = yes
+				last_created_leader = { leader_event = { id = civleader.1000 days = 720 } }
 
 				save_event_target_as = civwar_originator
 

@@ -39,16 +39,12 @@ preset_auto_state = {
 		forced_initial_loyalty = -50
 		discrete_terms = {
 			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
 				key = subject_integration
 				value = subject_can_not_be_integrated
-			}
-			{
-				key = joins_overlord_wars
-				value = joins_overlord_wars_none
-			}
-			{
-				key = joins_subject_wars
-				value = joins_subject_wars_none
 			}
 			{
 				key = subject_diplomacy
@@ -58,7 +54,7 @@ preset_auto_state = {
 				key = subject_expand
 				value = subject_can_expand
 			}
-			# ####
+			####
 			# {
 			# 	key = subject_ver_ruler
 			# 	value = subject_ver_ruler_restricted
@@ -68,6 +64,10 @@ preset_auto_state = {
 			# 	value = subject_ver_government_restricted
 			# }
 			# {
+			# 	key = subject_ver_policy
+			# 	value = subject_ver_policy_restricted
+			# }
+			# {
 			# 	key = subject_ver_naming
 			# 	value = subject_ver_naming_restricted
 			# }
@@ -75,7 +75,25 @@ preset_auto_state = {
 			# 	key = subject_ver_capital
 			# 	value = subject_ver_capital_restricted
 			# }
-			# ####
+			####
+			{
+				key = joins_overlord_wars
+				value = joins_overlord_wars_none
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_none
+			}
+			####
+			# {
+			# 	key = subject_ver_proxy
+			# 	value = subject_ver_proxy_restricted
+			# }
+			####
+			{
+				key = subject_holdings_limit
+				value = subject_holdings_limit_0
+			}
 			{
 				key = subject_loyalty
 				value = subject_loyalty_effects
@@ -84,7 +102,7 @@ preset_auto_state = {
 				key = protectorate
 				value = subject_is_not_protectorate
 			}
-			# ####
+			####
 			{
 				key = subject_ver_effects
 				value = subject_auto_state_effect
@@ -93,8 +111,7 @@ preset_auto_state = {
 	}
 
 	potential = {
-		is_subject = yes
-		any_agreement = { agreement_preset = preset_auto_state }
+		is_auto_state = yes
 	}
 
 	overlord_weight = {

@@ -21,8 +21,8 @@ l_german:
  civwar.2005.desc: "Wir befinden uns derzeit inmitten einer Rebellion und die Rebellen haben einen Teil unseres Territoriums eingenommen. Leider ist es aufgrund der Art unserer Vereinbarung mit  §Y[overlord.GetName]§! letztlich deren Entscheidung, ob sie für unser Gebiet kämpfen oder nicht."
 
  # Governor/Admiral/General/Scientist
- civwar.2010.name: "§R[event_target:civwar_rebels.ruler.GetRebelRulerClass] erklärt seine Unabhängigkeit!§!"
- civwar.2010.desc: "[event_target:civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§! verlangt eine Audienz."
+ civwar.2010.name: "§R[civwar_rebels.ruler.GetRebelRulerClass] erklärt seine Unabhängigkeit!§!"
+ civwar.2010.desc: "[civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§! verlangt eine Audienz."
 
  # Nationalists
  civwar.2055.name: "§RNationalisten erklären ihre Unabhängigkeit!§!"
@@ -171,6 +171,10 @@ l_german:
 
  exile_tt_patron:0 "Der §YGastgeber§! einer Enklave kann ihnen helfen, eine Flotte zu bauen oder anzufordern, die bereits angemietet ist."
 
+ gov_exile_enclave: "$enclave_exiled_gov$"
+
+ RT_EXILE_LEADER: "Exiled Government Head"
+
  # Subject Types
  preset_auto_state: "Autonomer Staat"
  preset_auto_state_desc: "Autonome Staaten sind diplomatisch völlig unabhängig von ihren Oberherren. Sie zahlen einen Tribut und erhalten im Gegenzug das Recht, als souveräne Nation zu agieren."
@@ -275,14 +279,17 @@ l_german:
  # Government-in-Exile
 
  civcom.9000.name: "Die Exilregierung von §Y[from.GetName]§!"
- civcom.9000.desc: "Greetings, esteemed §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. I am §Y[from.GetRulerTitle]§! §H[from.ruler.GetName]§!, leader of the §Y[from.GetName]§!. As you may already be aware, our territory has been completely conquered by foreign forces. In the interests of the §Y[from.GetSpeciesAdj]§! people, our leadership has formed a §HGovernment-in-Exile§!. However, this government will be unable to function unless we have someplace to operate. The purpose of my audience with you today is to request that you host us."
+ civcom.9000.regular: "Seid gegrüßt, geschätzter §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§! Ich bin §H[von.Herrscher.HolName]§!, Anführer der §Y[von.HolName]§! Wie Sie vielleicht schon wissen, wurde unser Gebiet vollständig von fremden Mächten erobert. Im Interesse des §Y[von.GetSpeciesAdj]§! Volkes hat unsere Führung eine §HGovernment-in-Exile§! gebildet. Diese Regierung wird jedoch nicht funktionieren können, wenn wir keinen Raum zum Arbeiten haben. Der Zweck meiner heutigen Audienz bei Ihnen ist es, Sie zu bitten, uns aufzunehmen."
+ civcom.9000.subject: "Greetings, §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. Ich, §H[von.Herrscher.HolName]§!, als ehemaliger Anführer Eures stets loyalen Untertanen §Y[von.HolName]§! bitte um Asyl für unsere Regierung. Wie Sie zweifelsohne wissen, wurde unser Territorium von feindlichen Truppen vollständig erobert. Im Interesse des §Y[von.GetSpeciesAdj]§! Volkes hat unsere Führung eine §HGovernment-in-Exile§! gebildet. Diese Regierung wird jedoch nicht funktionieren können, wenn wir keinen Raum zum Arbeiten haben. Wir vertrauen darauf, dass Sie als unser früherer Wohltäter in der Lage sein werden, uns aufzunehmen."
+
+Übersetzt mit www.DeepL.com/Translator (kostenlose Version)
 
  civcom.9000.deny: "Wir können Sie nicht aufnehmen."
  civcom.9000.host: "Wir nehmen Sie auf."
 
  civcom.9100.name: "Die Exilregierung von §Y[exiled_gov_enclave_country.GetName]§!"
- civcom.9100.other.desc: "Seid gegrüßt. Ich bin §Y[exiled_gov_enclave_country.GetRulerTitle]§! §H[exiled_gov_enclave_country.GetName]§!, Anführer der §Y[exiled_gov_enclave_country.GetName]§!.\n\nWie Ihr vielleicht schon wisst, wurde unser Territorium von fremden Mächten vollständig erobert. Im besten Interesse des §Y[exiled_gov_enclave_country.GetSpeciesAdj]§! Volkes hat unsere Führung eine §HGovernment-in-Exile§! gebildet."
- civcom.9100.host.desc: "Seid gegrüßt. Ich bin §Y[exiled_gov_enclave_country.GetRulerTitle]§! §H[exiled_gov_enclave_country.GetName]§!, Anführer des §Y[exiled_gov_enclave_country.GetName]§! im Exil.\n\n Gibt es etwas, was ich für unseren gnädigen Gastgeber tun kann?"
+ civcom.9100.other.desc: "Seid gegrüßt. Ich bin §H[exiled_gov_enclave_country.GetName]§!, Anführer der §Y[exiled_gov_enclave_country.GetName]§!.\n\nWie Ihr vielleicht schon wisst, wurde unser Territorium von fremden Mächten vollständig erobert. Im besten Interesse des §Y[exiled_gov_enclave_country.GetSpeciesAdj]§! Volkes hat unsere Führung eine §HGovernment-in-Exile§! gebildet."
+ civcom.9100.host.desc: "Seid gegrüßt. Ich bin §H[exiled_gov_enclave_country.GetName]§!, Anführer des §Y[exiled_gov_enclave_country.GetName]§! im Exil.\n\n Gibt es etwas, was ich für unseren gnädigen Gastgeber tun kann?"
 
  civcom.9100.back: "Wir möchten ein anderes Thema besprechen."
 
