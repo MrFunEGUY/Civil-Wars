@@ -606,6 +606,10 @@ make_nat_war_country = {
 			effect = {
 				set_country_flag = exile_restored_country
 				set_country_flag = exile_link_@event_target:nat_motherland_model
+				if = {
+					limit = { event_target:nat_motherland_model = { has_country_flag = was_purifier } }
+					force_add_civic = civic_fanatic_purifiers
+				}
 				created_civwar_country_effect = yes
 			}
 		}
@@ -624,6 +628,10 @@ make_nat_war_country = {
 			civics = event_target:nat_motherland_model
 			flag = random
 			effect = {
+				if = {
+					limit = { event_target:nat_motherland_model = { has_country_flag = was_purifier } }
+					force_add_civic = civic_fanatic_purifiers
+				}
 				created_civwar_country_effect = yes
 			}
 		}

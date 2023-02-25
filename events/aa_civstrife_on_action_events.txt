@@ -103,19 +103,40 @@ country_event = {
 	is_triggered_only = yes
 
 	desc = {
+		text = civ_action.62.desc.reg
 		trigger = {
 			event_target:gov_in_exile = {
-				NOT = { has_country_flag = already_exiled }
+				NOR = {
+					has_country_flag = already_exiled
+					has_country_flag = integrated_subject
+					has_country_flag = was_purifier
+				}
 			}
 		}
-		text = civ_action.62.desc.reg
 	}
 
 	desc = {
+		text = civ_action.62.desc.homicidal
+		trigger = {
+			event_target:gov_in_exile = {
+				NOT = { has_country_flag = integrated_subject }
+				has_country_flag = was_purifier
+			}
+		}
+	}
+
+	desc = {
+		text = civ_action.62.desc.integrated
+		trigger = {
+			event_target:gov_in_exile = { has_country_flag = integrated_subject }
+		}
+	}
+
+	desc = {
+		text = civ_action.62.desc.already
 		trigger = {
 			event_target:gov_in_exile = { has_country_flag = already_exiled }
 		}
-		text = civ_action.62.desc.already
 	}
 
 	option = {
@@ -209,8 +230,29 @@ observer_event = {
 		text = civ_action.62.desc.reg
 		trigger = {
 			event_target:gov_in_exile = {
-				NOT = { has_country_flag = already_exiled }
+				NOR = {
+					has_country_flag = already_exiled
+					has_country_flag = integrated_subject
+					has_country_flag = was_purifier
+				}
 			}
+		}
+	}
+
+	desc = {
+		text = civ_action.62.desc.homicidal
+		trigger = {
+			event_target:gov_in_exile = {
+				NOT = { has_country_flag = integrated_subject }
+				has_country_flag = was_purifier
+			}
+		}
+	}
+
+	desc = {
+		text = civ_action.62.desc.integrated
+		trigger = {
+			event_target:gov_in_exile = { has_country_flag = integrated_subject }
 		}
 	}
 

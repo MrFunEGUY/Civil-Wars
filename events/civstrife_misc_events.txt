@@ -135,23 +135,15 @@ country_event = { # Set Birthday
 	}
 }
 
-country_event = { # Destroy bad exiles, temp fix
-	id = civmisc.9000
+# fires when a country finishes being integrated
+# This = overlord
+# From = subject
+country_event = { # Set Birthday
+	id = civmisc.4000
 	hide_window = yes
 	is_triggered_only = yes
 
-	trigger = {
-		is_exile_country = yes
-		OR = {
-			AND = {
-				is_homicidal = yes
-				is_organic_zealots = no
-			}
-			has_valid_civic = civic_criminal_heritage
-		}
-	}
-
 	immediate = {
-		destroy_country = yes
+		from = { set_country_flag = integrated_subject }
 	}
 }

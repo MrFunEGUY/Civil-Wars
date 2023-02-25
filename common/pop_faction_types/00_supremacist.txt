@@ -167,7 +167,10 @@ supremacist = {
 
 		trigger = {
 			owner = {
-				has_federation = no
+				OR = {
+					has_federation = no
+					federation = { has_federation_type = vf_ef_federation }
+				}
 			}
 		}
 	}

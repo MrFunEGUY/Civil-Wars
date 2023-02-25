@@ -61,7 +61,10 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 	is_triggered_only = yes
 
 	trigger = {
-		is_regular_empire = yes
+		OR = {
+			is_regular_empire = yes
+			is_country_type = enclave_exiled_gov
+		}
 		NOT = { has_country_flag = civstrife_nat_timer }
 	}
 
@@ -91,6 +94,10 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 				get_separatist_faction_nat = yes
 				# This needs to be done or the species will be the ruler species, very odd.
 				change_species = event_target:original_nation_species
+				if = {
+					limit = { root = { has_country_flag = integrated_subject } }
+					set_country_flag = integrated_subject
+				}
 			}
 		}
 
@@ -104,9 +111,20 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 
 		from = { set_country_flag = exile_already_asked_@event_target:nat_pops_country }
 
-		every_galaxy_pop = {
-			limit = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country }
-			add_modifier = { modifier = "death_of_motherland" years = 20 }
+		if = {
+			limit = {
+				is_homicidal = yes
+				is_organic_zealots = no
+			}
+			event_target:nat_pops_country = { set_country_flag = was_purifier }
+		}
+
+		if = {
+			limit = { NOT = { is_country_type = enclave_exiled_gov } }
+			every_galaxy_pop = {
+				limit = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country }
+				add_modifier = { modifier = "death_of_motherland" years = 20 }
+			}
 		}
 
 		if = {
@@ -116,7 +134,16 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 	}
 
 	after = {
-		event_target:nat_pops_country = { country_event = { id = civnat.1200 } }
+		event_target:nat_pops_country = {
+			if = {
+				limit = { NOT = { has_country_flag = integrated_subject } }
+				country_event = { id = civnat.1200 }
+			}
+			else = {
+				from = { save_event_target_as = overlord_country }
+				country_event = { id = civnat.1310 }
+			}
+		}
 	}
 }
 
@@ -152,17 +179,9 @@ country_event = { # Shop for home for Govenment-In-Exile
 			}
 			country_event = { id = civnat.1300 }
 		}
-		
-		# Keep around for localisation reasons
-		# No Gov In Exile, because no countries willing to take them in
-		# Can still be revived in the future
-
-		# else_if = {
-		# 	limit = {
-		# 		NOT = { any_country = { any_owned_pop = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country } } }
-		# 	}
-		# 	# destroy_country = yes
-		# }		
+		else = {
+			country_event = { id = civnat.1310 }
+		}	
 	}
 }
 
@@ -271,6 +290,10 @@ country_event = { # Gov In Exile cannot find host, dissolves
 				limit = {
 					has_communications = root
 					NOT = { is_same_value = root }
+					OR = {
+						NOT = { exists = event_target:overlord_country }
+						NOT = { is_same_value = event_target:overlord_country }
+					}
 				}
 				country_event = { id = civ_action.62 }
 			}
@@ -283,6 +306,10 @@ country_event = { # Gov In Exile cannot find host, dissolves
 				limit = {
 					has_communications = root
 					NOT = { is_same_value = root }
+					OR = {
+						NOT = { exists = event_target:overlord_country }
+						NOT = { is_same_value = event_target:overlord_country }
+					}
 				}
 				country_event = { id = civ_action.63 }
 			}

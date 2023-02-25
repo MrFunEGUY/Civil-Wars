@@ -10,6 +10,10 @@ namespace = civend
 #   Civil Wars   #
 ##################
 
+# A war has been won
+# Root = Winner Warleader
+# From = Loser Warleader
+# FromFrom = War
 # Initializer, normal Civil Wars
 country_event = {
 	id = civend.1000
@@ -17,6 +21,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		fromfrom = { NOT = { has_war_flag = subject_war } }
 		OR = {
 			fromfrom = {
 				OR = {
@@ -214,6 +219,10 @@ country_event = {
 	}
 }
 
+# A war has been won
+# Root = Winner Warleader
+# From = Loser Warleader
+# FromFrom = War
 # Initializer, subject Civil Wars
 country_event = {
 	id = civend.2000
@@ -221,10 +230,50 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		fromfrom = {
-			using_war_goal = {
-				type = wg_civwar
-				owner = root
+		OR = {
+			fromfrom = {
+				OR = {
+					using_war_goal = {
+						type = wg_civwar
+						owner = root
+					}
+					using_war_goal = {
+						type = wg_civwar_heir
+						owner = root
+					}
+					using_war_goal = {
+						type = wg_coup_successor
+						owner = root
+					}
+					using_war_goal = {
+						type = wg_coup_independent
+						owner = root
+					}
+					using_war_goal = {
+						type = wg_coup_successor
+						owner = root
+					}
+					using_war_goal = {
+						type = wg_coup_fealty
+						owner = root
+					}
+				}
+			}
+			AND = {
+				fromfrom = {
+					using_war_goal = {
+						type = wg_planet_rebellion
+						owner = root
+					}
+				}
+				from.ruler = {
+					NOR = {
+						has_leader_flag = civil_war_ruler_separatist
+						has_leader_flag = civil_war_ruler_nationalist
+						has_leader_flag = civil_war_ruler_new
+					}
+				}
+			}
 			}
 			any_war_participant = {
 				has_country_flag = subject_for_traitor_@from

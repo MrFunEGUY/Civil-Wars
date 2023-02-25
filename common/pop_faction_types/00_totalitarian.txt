@@ -318,7 +318,10 @@ totalitarian = {
 		}
 
 		trigger = {
-			owner.federation = { has_federation_type = hegemony_federation }
+			OR = {
+				owner.federation = { has_federation_type = hegemony_federation }
+				owner.federation = { has_federation_type = vf_ef_federation }
+			}
 		}
 	}
 

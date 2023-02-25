@@ -2544,7 +2544,6 @@ country_event = {
 country_event = {
 	id = civcom.9000
 	title = civcom.9000.name
-	desc = civcom.9000.desc
 	location = root.capital_scope
 	hide_window = no
 	is_triggered_only = yes
@@ -2569,12 +2568,12 @@ country_event = {
 		room = root.ruler
 	}
 
-	immediate = {
-		if = {
-			limit = { has_country_flag = overlord_of_@from }
-			remove_country_flag = overlord_of_@from
-		}
-	}
+	# immediate = {
+	# 	if = {
+	# 		limit = { has_country_flag = overlord_of_@from }
+	# 		remove_country_flag = overlord_of_@from
+	# 	}
+	# }
 
 	# Deny Hosting Them
 	option = {
@@ -2658,6 +2657,13 @@ country_event = {
 					}
 				}
 			}
+		}
+	}
+
+	after = {
+		if = {
+			limit = { has_country_flag = overlord_of_@from }
+			remove_country_flag = overlord_of_@from
 		}
 	}
 }

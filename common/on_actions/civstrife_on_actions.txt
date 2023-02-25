@@ -13,12 +13,6 @@ on_game_start_country = {
 	}
 }
 
-on_monthly_pulse = {
-	events = {
-		civmisc.9000			# Change GiE Subjects to Enclaves
-	}
-}
-
 # this = country
 on_monthly_pulse_country = {
 	events = {
@@ -56,9 +50,6 @@ on_monthly_pulse_country = {
 		civplan.4010			# Planet Sector Malus Removal
 
 		civleader.2000			# Set Corrupt Governor Flag
-
-		###### TEMP
-		civmisc.9000			# Fix for bad exclaves
 	}
 }
 
@@ -295,5 +286,14 @@ on_country_created = {
 on_custom_diplomacy = {
 	events = {
 		civcom.9005 # Exiled Government Enclave
+	}
+}
+
+# fires when a country finishes being integrated
+# This = overlord
+# From = subject
+on_subject_integrated = {
+	events = {
+		civmisc.4000				# Set flag so no GiE forms
 	}
 }
