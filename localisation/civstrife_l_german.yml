@@ -54,6 +54,37 @@ l_german:
 
  civcom.2200.resp: "Wir werden ohne sie besser dran sein."
 
+ # Spieler Subjekt Overlord civwar Interaktionen
+ civwar.2300.name: "Overlord verwickelt in Bürgerkrieg"
+ civwar.2300_1.desc: "Es scheint, dass unser Overlord, der §H[overlord.GetName]§!, in einen Bürgerkrieg verwickelt ist. Diese Situation bietet einige einzigartige Möglichkeiten für unser Imperium. Wie werden wir auf diese Situation reagieren?"
+ civwar.2300_more.desc: "Es scheint, dass unser Overlord, der §H[overlord.GetName]§!, in einen Bürgerkrieg verwickelt ist. Diese Situation bietet einige einzigartige Möglichkeiten für unser Reich und die anderen Untertanen unseres Oberherrn. Wie werden wir auf diese Situation reagieren?"
+
+ civwar.2300.nothing: "Wir werden nichts tun."
+
+ civwar.2300.independence: "§Ich erkläre die Unabhängigkeit§!."
+ independence_effect: "Wir werden §Yden Krieg§! gegen unseren Oberherrn für unsere Unabhängigkeit erklären. Wenn einer der Untertanen unseres Oberherrn bereits in einen Unabhängigkeitskrieg verwickelt ist, werden wir stattdessen diesem Krieg beitreten."
+ 
+ civwar.2300.help_overlord: "§YHelp Overlord§!, abhängig von unserer §HUnabhängigkeit§!"
+ help_overlord_effect: "Wir werden unseren Overlord, den §H[overlord.GetName]§!, fragen, ob er unsere Unterstützung im Krieg wünscht. Wenn sie zustimmen, werden wir dem Krieg beitreten. Wenn unser Oberherr den Krieg erfolgreich gewinnt, wird uns unsere Unabhängigkeit gewährt."
+
+ civwar.2300.help_rebels: "§YHelp Rebels§!, Sicherung unserer §HIndependence§!"
+ help_rebels_effect: "Wir werden den Rebellen bei ihrem Abspaltungsversuch helfen. Wenn wir erfolgreich sind, wird unsere Unabhängigkeit vom §H[overlord.GetName]§! anerkannt werden."
+ 
+ civwar.2300.fealty_rebels: "§YSwear Fealty§! to the §H[rebel_borders_subject.GetName]§!"
+ fealty_rebels_effect: "Wir werden den §H[rebel_borders_subject.GetName]§! die Treue schwören und uns ihnen bei ihrem Sezessionsversuch anschließen."
+ 
+ civwar.2300.join_overlord: "§YJoin Overlord§!, ohne eine Gegenleistung zu verlangen."
+ join_overlord_effect: "Wir schließen uns unserem Overlord in seinem Krieg an und verlangen keine Gegenleistung."
+
+ civcom.2300.resp: "Wir werden ohne sie besser dran sein."
+
+ civwar.2310.name: "Overlord nimmt Angebot an"
+ civwar.2310.desc: "Unser Overlord, der §H[overlord.GetName]§!, hat unser Angebot angenommen. Sollte dieser Krieg gewonnen werden, werden wir unsere Unabhängigkeit erlangen."
+
+ civwar.2315.name: "Oberbefehlshaber lehnt Angebot ab"
+ civwar.2315.desc: "Unser Oberherr, der §H[Overlord.GetName]§!, hat unser Angebot abgelehnt."
+ civwar.2315.fools: "Sie sind Narren."
+
  ON_SCREEN_REBELS: "Was? Auf den Bildschirm!"
 
  # Scripted Locs
@@ -134,6 +165,17 @@ l_german:
  opinion_received_traitor: "Beherbergte Verräter"
  opinion_restored_nats: "Baute unsere Nation wieder auf"
 
+ opinion_supported_rebellion: "Unterstützte unsere Rebellion"
+
+ opinion_gives_5_ships: "$opinion_supported_rebellion$"
+ opinion_gives_10_ships: "$opinion_supported_rebellion$"
+ opinion_gives_15_ships: "$opinion_supported_rebellion$"
+ opinion_gives_20_ships: "$opinion_supported_rebellion$"
+ opinion_gives_25_ships: "$opinion_supported_rebellion$"
+ opinion_gives_small_resources: "$opinion_supported_rebellion$"
+ opinion_gives_medium_resources: "$opinion_supported_rebellion$"
+ opinion_gives_large_resources: "$opinion_supported_rebellion$"
+
  # Army Names
  civwar_defense_army: "Separatistische Verteidigungsmiliz"
  civwar_defense_army_desc: "Diese Verteidigungsmiliz ist bereit, ihren Planeten zu verteidigen, um ihre Revolution zu schützen."
@@ -162,6 +204,8 @@ l_german:
  foreign_support: "Ausländische Unterstützung"
  death_of_motherland: "Das Heimatland wurde zerstört"
  restoration_of_motherland: "Das Heimatland ist wieder aufgebaut"
+ faction_happy_no_support: "Fraktion ist entweder zufrieden oder kann Radikalisierung nicht unterstützen"
+ heir_leads_faction: "§Y[root.owner.GetHeirTitle]§! §H[root.owner.heir.GetName]§! führt die §Y[target.GetName]§!"
 
  # Enclaves
  enclave_exiled_gov: "Exilregierung"
@@ -178,12 +222,11 @@ l_german:
  # Subject Types
  preset_auto_state: "Autonomer Staat"
  preset_auto_state_desc: "Autonome Staaten sind diplomatisch völlig unabhängig von ihren Oberherren. Sie zahlen einen Tribut und erhalten im Gegenzug das Recht, als souveräne Nation zu agieren."
- # preset_auto_state_desc: "Autonome Staaten sind diplomatisch völlig unabhängig von ihren Oberherren. Sie zahlen einen Tribut und erhalten im Gegenzug das Recht, als souveräne Nation zu agieren. \n\nCan Expand: £trigger_yes£\nCan Wage War: £trigger_yes£\nProtected: £trigger_no£\nJoins Overlord's Wars: £trigger_no£\nCan Integrate: £trigger_no£\nOverlord £influence£ §HInfluence§!: §R-0.2§!\nTribute: §Y15%§! £energy£ §HEnergy§!, £minerals£ §HMinerals§!, £food£ §HFood§!, £alloys£ §HAlloys§!, £consumer_goods£ §HConsumer Goods§!, £volatile_motes£ §HVolatile Motes§!, £exotic_gases£ §HExotic Gases§!, £rare_crystals£ §HRare Crystals§!, and £minor_artifacts£ §HMinor Artifacts§!"
  preset_auto_state_flavor_desc: "Autonome Staaten sind diplomatisch völlig unabhängig von ihren Oberherren. Sie zahlen Tribut und erhalten im Gegenzug das Recht, als souveräne Nation zu agieren."
 
  not_allowed_for_auto_state: "$TRIGGER_FAIL$Nicht gestattet für §YAutonomer Staat§!."
 
- autostate_extra_overlord: "Monatlich: £influence£ §R-0.25§"
+ autostate_extra_overlord: "Monatlich: £influence£ §R-0.25§!"
 
  subject_auto_state_effect: "$preset_auto_state$"
 
@@ -281,8 +324,6 @@ l_german:
  civcom.9000.name: "Die Exilregierung von §Y[from.GetName]§!"
  civcom.9000.regular: "Seid gegrüßt, geschätzter §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§! Ich bin §H[von.Herrscher.HolName]§!, Anführer der §Y[von.HolName]§! Wie Sie vielleicht schon wissen, wurde unser Gebiet vollständig von fremden Mächten erobert. Im Interesse des §Y[von.GetSpeciesAdj]§! Volkes hat unsere Führung eine §HGovernment-in-Exile§! gebildet. Diese Regierung wird jedoch nicht funktionieren können, wenn wir keinen Raum zum Arbeiten haben. Der Zweck meiner heutigen Audienz bei Ihnen ist es, Sie zu bitten, uns aufzunehmen."
  civcom.9000.subject: "Greetings, §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. Ich, §H[von.Herrscher.HolName]§!, als ehemaliger Anführer Eures stets loyalen Untertanen §Y[von.HolName]§! bitte um Asyl für unsere Regierung. Wie Sie zweifelsohne wissen, wurde unser Territorium von feindlichen Truppen vollständig erobert. Im Interesse des §Y[von.GetSpeciesAdj]§! Volkes hat unsere Führung eine §HGovernment-in-Exile§! gebildet. Diese Regierung wird jedoch nicht funktionieren können, wenn wir keinen Raum zum Arbeiten haben. Wir vertrauen darauf, dass Sie als unser früherer Wohltäter in der Lage sein werden, uns aufzunehmen."
-
-Übersetzt mit www.DeepL.com/Translator (kostenlose Version)
 
  civcom.9000.deny: "Wir können Sie nicht aufnehmen."
  civcom.9000.host: "Wir nehmen Sie auf."
@@ -467,6 +508,8 @@ l_german:
  civcom.4120.5: "Wir geben Ihnen etwa §Y5%§! unserer Schiffe."
  civcom.4120.10: "Wir geben Ihnen etwa §Y10%§! unserer Schiffe."
  civcom.4120.15: "Wir geben Ihnen etwa §Y15%§! unserer Schiffe."
+ civcom.4120.20: "Wir geben Ihnen etwa §Y20%§! unserer Schiffe."
+ civcom.4120.25: "Wir geben Ihnen etwa §Y25%§! unserer Schiffe."
  
  civcom.4125.norm.desc: "Sie sind ein wahrer Verbündeter. Wir werden diesen Krieg jetzt sicher gewinnen."
  civcom.4125.nat.desc: "Wir wissen diese Hilfe sehr zu schätzen. Wir wussten, dass wir auf die Unterstützung unseres Heimatlandes zählen können."
@@ -481,6 +524,29 @@ l_german:
  civcom.1200.b.tooltip: "Unsere Untertanen werden Krieg führen, um ihr Gebiet ohne unsere Hilfe wieder zu vereinigen."
  civcom.1200.c: "Wir werden sie gehen lassen."
  civcom.1200.c.tooltip: "Der rebellierende Sektor wird sich von unserem Einfluss und damit auch von uns unabhängig machen."
+
+ civcom.5000.name: "Sekretär [civil_war_secretary.GetName]"
+ civcom.5000.subs_help: "[root.GetRulerTitle] §Y[root.GetRulerName]§!, nachdem wir von unserem Bürgerkrieg gehört haben, haben einige unserer Vasallen mitgeteilt, dass sie bereit sind, uns §Yzu helfen§! unser Territorium zurückzuerobern. Dies ist jedoch davon abhängig, dass wir ihnen ihre Unabhängigkeit gewähren§! §Sollten wir siegen§!. Möchten Sie ihre Hilfe in Anspruch nehmen?"
+ civcom.5000.subs_rebel: "[root.GetRulerTitle] §Y[root.GetRulerName]§!, nachdem wir von unserem Bürgerkrieg gehört haben, haben sich einige unserer Vasallen dem Feind angeschlossen, wahrscheinlich mit dem Versprechen der Unabhängigkeit. Wir müssen den Krieg gewinnen, um unsere Souveränität über sie wiederherzustellen."
+ civcom.5000.subs_join: "[root.GetRulerTitle] §Y[root.GetRulerName]§!, nachdem sie von unserem Bürgerkrieg gehört haben, haben einige unserer Vasallen erklärt, dass sie uns §Y helfen werden§! den Krieg zu gewinnen. Und was noch besser ist, sie haben dies getan, ohne eine Gegenleistung zu verlangen."
+ civcom.5000.subs_join_rebels: "Einige unserer Vasallen haben sich für den Feind entschieden, weil sie glauben, dass sie die wahren Erben ihres Vertrages sind."
+ civcom.5000.subs_help_rebel: "[root.GetRulerTitle] §Y[root.GetRulerName]§! einige unserer Vasallen haben sich, nachdem sie von unserem Bürgerkrieg gehört haben, für den Feind entschieden, wahrscheinlich mit dem Versprechen der Unabhängigkeit. Wir müssen den Krieg gewinnen, um unsere Oberhoheit über sie wiederzuerlangen. Einige unserer anderen Vasallen haben jedoch mitgeteilt, dass sie bereit sind, uns zu helfen, unser Territorium zurückzuerobern und die rebellischen Vasallen niederzuschlagen, im Austausch für ihre Unabhängigkeit. §Ysollten wir siegen§!. Wollt ihr ihre Hilfe?"
+ civcom.5000.subs_help_join: "[root.GetRulerTitle] §Y[root.GetRulerName]§!, nachdem sie von unserem Bürgerkrieg gehört haben, haben einige unserer Vasallen erklärt, dass sie uns §Y helfen§! werden, den Krieg zu gewinnen, ohne eine Gegenleistung zu verlangen. Einige unserer anderen Vasallen haben jedoch mitgeteilt, dass sie nur bereit sind, dem Krieg beizutreten, wenn sie dafür ihre Unabhängigkeit erhalten. §Sollten wir siegen§!. Wollt Ihr ihre Unterstützung?"
+ civcom.5000.subs_rebel_join: "[root.GetRulerTitle] §Y[root.GetRulerName]§!, nachdem wir von unserem Bürgerkrieg gehört haben, haben sich einige unserer Vasallen dem Feind angeschlossen, wahrscheinlich mit dem Versprechen der Unabhängigkeit. Wir müssen den Krieg gewinnen, um unsere Oberhoheit über sie wiederzuerlangen. Einige unserer anderen Vasallen haben jedoch erklärt, dass sie uns helfen werden, den Krieg zu gewinnen, ohne dafür eine Gegenleistung zu verlangen."
+ civcom.5000.subs_help_rebel_join: "[root.GetRulerTitle] §Y[root.GetRulerName]§! haben sich einige unserer Vasallen, nachdem sie von unserem Bürgerkrieg gehört haben, dem Feind angeschlossen, wahrscheinlich mit dem Versprechen der Unabhängigkeit. Wir müssen den Krieg gewinnen, um unsere Oberhoheit über sie wiederzuerlangen. Einige unserer anderen Vasallen haben jedoch erklärt, dass sie uns helfen werden, den Krieg zu gewinnen, ohne dafür eine Gegenleistung zu verlangen. Darüber hinaus haben andere Vasallen mitgeteilt, dass sie bereit sind, uns zu helfen, unser Territorium zurückzuerobern und die rebellischen Vasallen niederzuschlagen, im Austausch für ihre Unabhängigkeit. §Sollten wir siegen§!. Wollt Ihr ihre Hilfe?"
+
+ civcom.5000.finished: "Das wird alles sein."
+ civcom.5000.subject_1: "§Y[event_target:helper_subject_1.GetName]§!"
+ civcom.5000.subject_2: "§Y[event_target:helper_subject_2.GetName]§!"
+ civcom.5000.subject_3: "§Y[event_target:helper_subject_3.GetName]§!"
+ civcom.5000.subject_4: "§Y[event_target:helper_subject_4.GetName]§!"
+ civcom.5000.subject_5: "§Y[event_target:helper_subject_5.GetName]§!"
+ civcom.5000.subject_6: "§Y[event_target:helper_subject_6.GetName]§!"
+ civcom.5000.subject_7: "§Y[event_target:helper_subject_7.GetName]§!"
+ civcom.5000.subject_8: "§Y[event_target:helper_subject_8.GetName]§!"
+ civcom.5000.subject_9: "§Y[event_target:helper_subject_9.GetName]§!"
+ civcom.5000.subject_10: "§Y[event_target:helper_subject_10.GetName]§!"
+ civcom.5000.refresh: "Vasallenliste aktualisieren"
 
  ## Situation Communications ##
  ##############################
@@ -507,7 +573,7 @@ l_german:
  civcom.7000.name: "[defeated_traitor.GetName]"
  civcom.8100.name: "[disinherited_heir.GetName]"
  
- civcom.7000.desc: "..."
+ civcom.7000.desc: .".."
 
  civcom.7001.desc: "Und doch stehe ich zu meinem Handeln. Alles, was ich getan habe, war gerecht."
 
@@ -773,6 +839,8 @@ l_german:
  situation_civstrife_succession_type: "Nachfolgekrise"
  situation_civstrife_succession_desc: "§Y[owner.GetRulerTitle]§! §H[owner.ruler.GetName]§! hat den Thron bestiegen, ohne jemals offiziell zum Erben ernannt worden zu sein. Dies hat das Reich in eine prekäre Situation gebracht, in der verschiedene andere versuchen, ihren Anspruch auf den Thron geltend zu machen."
  situation_civstrife_succession_monthly_change_tooltip: "Die Krise nähert sich einer Lösung."
+
+ succession_crisis_is_difficult: "Wir befinden uns mitten in einer Nachfolgekrise"
 
  approach_succession_propaganda: "Propaganda-Kampagne"
  succession_propaganda_tooltip: "Wir werden alles in unserer Macht Stehende tun, um das Volk und wichtige Beamte innerhalb des Reiches davon zu überzeugen, dass wir der einzig legitime §Y[owner.GetRulerTitle]§! sind."
@@ -1266,9 +1334,6 @@ civelect.2100.fraud.other.desc: "Die Untersuchung der Behauptungen des §Y[dispu
  war_goal_wg_natwar_rebel: "Nationalistischer Aufstand"
  war_goal_wg_natwar_rebel_desc: "Der Krieg wird um die Souveränität eines Volkes geführt."
 
- war_goal_wg_restore_nation: "Wiederherstellung der Nation"
- war_goal_wg_restore_nation_desc: "Es wird Krieg geführt, um das Territorium einer untergegangenen Nation wiederherzustellen."
-
  war_goal_wg_planet_rebellion: "Planetarische Rebellion"
  war_goal_wg_planet_rebellion_desc: "Der Krieg wird um die Unabhängigkeit eines Planeten geführt."
 
@@ -1441,6 +1506,9 @@ civelect.2100.fraud.other.desc: "Die Untersuchung der Behauptungen des §Y[dispu
  ################
  # Faction Events
 
+ civnat.8000.name: "End of the [nat_gone.GetName]"
+ civnat.8000.desc: "After being destroyed by their enemies, the remnants of the leadership of the §Y[nat_gone.GetName]§! had formed a government-in-exile. However, the diaspora was difficult for the [nat_gone.GetAdj], and their culture is now virtually extinct. Accepting that they would be unable to reestablish their state, even if their territory was retaken, the government-in-exile has announced their formal dissolution and the end of the §Y[nat_gone.GetName]§!."
+
  # Faction Leader Titles
  civstrife_leader: "Anführer"
  default_civstrife_leader: "Anführer"
@@ -1530,11 +1598,42 @@ civelect.2100.fraud.other.desc: "Die Untersuchung der Behauptungen des §Y[dispu
  unrest.55.name: "§YSklaven organisieren sich§! auf [Root.GetName]"
  unrest.55.desc.standard: "Die monatelangen Unruhen und die Instabilität auf §Y[Root.GetName]§! haben dazu geführt, dass die örtliche Bevölkerung unsere Fähigkeit, den Planeten wirksam zu regieren, in Frage stellt. Jetzt wird ihr Widerstand immer dreister, und Dissidenten fordern offen ihre Unabhängigkeit. Eine Machtdemonstration könnte notwendig sein, wenn wir die Kontrolle über die Kolonie behalten wollen."
  unrest.55.desc.slave:0 "Heimliche nächtliche Sklaventreffen, erhöhter Widerstand gegen Aufseher und fehlende Waren können nur eines bedeuten. Die Sklaven auf §Y[Root.GetName]§! radikalisieren sich, verbreiten Uneinigkeit und Zwietracht unter ihresgleichen - und Angst in der übrigen Bevölkerung. Es gibt sogar Rufe nach Freiheit - nach Unabhängigkeit vom §Y[owner.GetName]§! Eine Machtdemonstration könnte notwendig sein, wenn wir die Kontrolle über die Kolonie behalten wollen."
- unrest.55.desc.gestalt_standard: "Die vereinzelte Bevölkerung von §Y[Root.GetName]§! weigert sich, die Kontrolle durch unsere [Owner.GetGovernmentName] zu akzeptieren. Jetzt wird ihr Trotz immer dreister, und Dissidenten organisieren offen eine Bewegung in Richtung "Unabhängigkeit". Eine Machtdemonstration könnte notwendig sein, wenn wir die Kontrolle über die Kolonie behalten wollen."
+ unrest.55.desc.gestalt_standard: "Die vereinzelte Bevölkerung von §Y[Root.GetName]§! weigert sich, die Kontrolle durch unsere [Owner.GetGovernmentName] zu akzeptieren. Jetzt wird ihr Trotz immer dreister, und Dissidenten organisieren offen eine Bewegung in Richtung "Unabhängigkeit." Eine Machtdemonstration könnte notwendig sein, wenn wir die Kontrolle über die Kolonie behalten wollen."
  unrest.55.desc.gestalt_breakaway_gestalt: "Abweichende Elemente auf §Y[Root.GetName]§! erweisen sich für unsere [Owner.GetGovernmentName] als immer schwieriger zu kontrollieren. Wenn es uns nicht gelingt, ihre unabhängigen Gedanken auszulöschen und die Kontrolle wiederherzustellen, könnte es für uns schwierig werden, die Kontrolle über die Kolonie zu behalten."
  unrest.55.A: "Man muss sich mit ihnen befassen."
 
  unrest.156.desc:1 "In einem bösartigen Akt des Trotzes haben die Sklaven auf §Y[Root.GetName]§! mit Hilfe von selbstgebautem Sprengstoff Arbeitseinrichtungen zerstört. Obwohl die Detonationen nachts stattfanden, lockten sie ihre ahnungslosen Arbeitsleiter an den Ort, indem sie die Alarmanlage auslösten. Der Anschlag war gut koordiniert und einwandfrei ausgeführt. Wer auch immer die Schuldigen sind, sie müssen ihn seit Monaten geplant haben."
+
+ # Preset blocked terms
+ not_allowed_for_protectorate:0 "$TRIGGER_FAIL$Not allowed for §YProtectorates§!."
+ not_allowed_for_tributary: "$TRIGGER_FAIL$Not allowed for §YTributaries§!."
+ not_allowed_for_bulwark: "$TRIGGER_FAIL$Not allowed for §YBulwarks§!."
+ not_allowed_for_scholarium: "$TRIGGER_FAIL$Not allowed for §YScholaria§!."
+ not_allowed_for_prospectorium: "$TRIGGER_FAIL$Not allowed for §YProspectoria§!."
+ not_allowed_for_verappendage: "$TRIGGER_FAIL$Not allowed for §Y$preset_verappendage$s§!."
+ not_allowed_for_verdevolved: "$TRIGGER_FAIL$Not allowed for §Y$preset_verdevolved$s§!."
+ not_allowed_for_verdisciple: "$TRIGGER_FAIL$Not allowed for §Y$preset_verdisciple$s§!."
+ not_allowed_for_verfoederatus: "$TRIGGER_FAIL$Not allowed for §YFoederati§!."
+ not_allowed_for_verjrpartner: "$TRIGGER_FAIL$Not allowed for §Y$preset_verjrpartner$s§!."
+ not_allowed_for_verpuppet: "$TRIGGER_FAIL$Not allowed for §Y$preset_verpuppet$s§!."
+ not_allowed_for_verserf: "$TRIGGER_FAIL$Not allowed for §Y$preset_verserf$s§!."
+ not_allowed_for_verorganic: "$TRIGGER_FAIL$Not allowed for §Y$preset_verorganic$s§!."
+ not_allowed_for_verparallel: "$TRIGGER_FAIL$Not allowed for §Y$preset_verparallel$s§!."
+ not_allowed_for_verblood: "$TRIGGER_FAIL$Not allowed for §Y$preset_verblood$s§!."
+ not_allowed_for_verdevotee: "$TRIGGER_FAIL$Not allowed for §Y$preset_verdevotee$s§!."
+ not_allowed_for_verkobun: "$TRIGGER_FAIL$Not allowed for §Y$preset_verkobun$s§!."
+ not_allowed_for_versupplier: "$TRIGGER_FAIL$Not allowed for §Y$preset_versupplier$s§!."
+ not_allowed_for_verworshipper: "$TRIGGER_FAIL$Not allowed for §Y$preset_verworshipper$s§!."
+ not_allowed_for_verdebtor: "$TRIGGER_FAIL$Not allowed for §Y$preset_verdebtor$s§!."
+ not_allowed_for_versubscriber: "$TRIGGER_FAIL$Not allowed for §Y$preset_versupplier$s§!."
+ not_allowed_for_verarmsdealer: "$TRIGGER_FAIL$Not allowed for §Y$preset_verarmsdealer$s§!."
+ not_allowed_for_versubcontractor: "$TRIGGER_FAIL$Not allowed for §Y$preset_versubcontractor$s§!."
+ not_allowed_for_megacorp: "$TRIGGER_FAIL$Not allowed for §YMegacorps§!."
+ not_allowed_for_separatist: "$TRIGGER_FAIL$Not allowed for §Ystates that have seceded from our empire§!."
+
+ ACTION_RECIPIENT_NOT_YOUR_CORP:1 "$TRIGGER_FAIL$§RBranch Offices can only be built on Megacorporations if they are our subsidiary.§!"
+
+ federation_actor_no_separate_treaties_empire:0 "§Y$law_category_separate_treaties_empire$§! §Ris §Y$treaties_separate_no$§! by Imperial decree - we cannot have treaties with nations who are not members of our empire.§!"
 
  ### Event Overwrites But not technically overwrites
  civ_action.62.name: "Ende der [gov_in_exile.GetName]"
@@ -1561,7 +1660,28 @@ civelect.2100.fraud.other.desc: "Die Untersuchung der Behauptungen des §Y[dispu
  ##############
  # Other
 
- civcom.random: "AI Random"
+ civstrife_menu_name: "Bürgerkriege"
+
+ civstrife.modmenu.title: "Bürgerkriegsstatistiken"
+ civstrife.modmenu.desc: "§Y[global_event_country.total_gal_civstrife_events]§! = Bürgerkriegsereignisse insgesamt \n§Y[global_event_country.total_gal_civil_wars]§! = Bürgerkriege insgesamt \n§Y[global_event_country.total_gal_plan_rebs]§! = Gesamte planetarische Rebellionen \n§Y[global_event_country.total_gal_nat_events]§! = Nationalistische Rebellionen insgesamt"
+
+ ethic_socialism: "Socialist"
+ ethic_fanatic_socialism: "Fanatic Socialist"
+
+ ethic_capitalism: "Capitalist"
+ ethic_fanatic_capitalism: "Fanatic Capitalist"
+
+ ethic_industrial: "Industrialist"
+ ethic_fanatic_industrial: "Fanatic Industrialist"
+
+ ethic_green: "Ecologist"
+ ethic_fanatic_green: "Fanatic Ecologist"
+
+ ethic_elitist: "Elitist"
+ ethic_fanatic_elitist: "Fanatic Elitist"
+
+ ethic_pluralist: "Pluralist"
+ ethic_fanatic_pluralist: "Fanatic Pluralist"
 
  ##################
  ###   Unused   ###
@@ -1587,6 +1707,6 @@ civelect.2100.fraud.other.desc: "Die Untersuchung der Behauptungen des §Y[dispu
 
  # unrest.55.name: "Revolte braut sich zusammen auf[Root.GetName]"
  # unrest.55.desc.standard: "Die Bevölkerung von [Root.GetName] ist schon seit einiger Zeit unzufrieden mit unserer Herrschaft. Jetzt wird ihr Trotz immer dreister, und Dissidenten fordern offen die Unabhängigkeit von [Root.GetName]. Eine Machtdemonstration könnte notwendig sein, wenn wir die Kontrolle über die Kolonie behalten wollen."
- # unrest.55.desc.gestalt_standard: "Die vereinzelte Bevölkerung von [Root.GetName] weigert sich, die Kontrolle durch unseren [Owner.GetGovernmentName] zu akzeptieren. Jetzt wird ihr Widerstand immer dreister, und Dissidenten organisieren offen eine Bewegung zur "Unabhängigkeit". Eine Machtdemonstration könnte notwendig sein, wenn wir die Kontrolle über die Kolonie behalten wollen."
+ # unrest.55.desc.gestalt_standard: "Die vereinzelte Bevölkerung von [Root.GetName] weigert sich, die Kontrolle durch unseren [Owner.GetGovernmentName] zu akzeptieren. Jetzt wird ihr Widerstand immer dreister, und Dissidenten organisieren offen eine Bewegung zur "Unabhängigkeit." Eine Machtdemonstration könnte notwendig sein, wenn wir die Kontrolle über die Kolonie behalten wollen."
  # unrest.55.desc.gestalt_breakaway_gestalt: "Abweichende Elemente auf [Root.GetName] erweisen sich für unseren [Owner.GetGovernmentName] als immer schwieriger zu kontrollieren. Wenn es uns nicht gelingt, ihre unabhängigen Gedanken auszulöschen und die Kontrolle wiederherzustellen, könnte es für uns schwierig werden, die Kontrolle über die Kolonie zu behalten."
  # unrest.55.A: "Man muss sich mit ihnen auseinandersetzen."

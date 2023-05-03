@@ -70,89 +70,133 @@ set_installed_traitor_gov = {
 	}
 }
 
-after_comms_cleanup_effect = {
+after_comms_cleanup_effect = { # root is event_target:civwar_originator
 
-	event_target:civwar_rebels = {
-		# Unlock Fleets, needs to be here for some reason
-		every_owned_fleet = { set_event_locked = no }
+	if = {
+		limit = { exists = event_target:civwar_rebels }
+		event_target:civwar_rebels = {
+			# Unlock Fleets, needs to be here for some reason
+			every_owned_fleet = { set_event_locked = no }
 
-		if = {
-			limit = { prev = { any_situation = { is_situation_type = situation_civstrife_succession } } }
 			if = {
-				limit = { has_country_flag = crisis_successor_@root }
-				declare_war = {
-					target = root
-					name = "Succession Conflict"
-					attacker_war_goal = "wg_coup_successor"
-					effect = {
-						set_name = {
-							key = NAME_succession_conflict
-							variable_string = "\\[This.MainAttacker.GetAdj]"
-						}
-					}
-				}
-				root = {
-					every_system_within_border = {
-						limit = { NOT = { prevprev = { has_claim = prev } } }
-						add_claims = { who = prevprev }
-					}
-				}
+				limit = { prev = { any_situation = { is_situation_type = situation_civstrife_succession } } }
 				if = {
-					limit = {
-						any_country = {
-							NOT = { is_same_value = prev }
-							NOT = { is_at_war_with = prev }
-							has_country_flag = crisis_successor_@root
-						}
-					}
-					every_country = {
-						limit = {
-							NOT = { is_same_value = prev }
-							NOT = { is_at_war_with = prev }
-							has_country_flag = crisis_successor_@root
-						}
-						declare_war = {
-							target = prev
-							name = "Succession Conflict"
-							attacker_war_goal = "wg_coup_successor"
-							effect = {
-								set_name = {
-									key = NAME_succession_conflict
-									variable_string = "\\[This.MainAttacker.GetAdj]"
+					limit = { has_country_flag = crisis_successor_@root }
+					declare_war = {
+						target = root
+						name = "Succession Conflict"
+						attacker_war_goal = "wg_coup_successor"
+						effect = {
+							set_name = {
+								key = NAME_succession_conflict
+								variable_string = "\\[This.MainAttacker.GetAdj]"
+							}
+							every_war_participant = {
+								limit = {
+									has_overlord = root
+									is_war_leader = no
 								}
+								prev = { remove_war_participant = prev }
 							}
 						}
+					}
+					root = {
 						every_system_within_border = {
 							limit = { NOT = { prevprev = { has_claim = prev } } }
 							add_claims = { who = prevprev }
 						}
-						prev = {
+					}
+					if = {
+						limit = {
+							any_country = {
+								NOT = { is_same_value = prev }
+								NOT = { is_at_war_with = prev }
+								has_country_flag = crisis_successor_@root
+							}
+						}
+						every_country = {
+							limit = {
+								NOT = { is_same_value = prev }
+								NOT = { is_at_war_with = prev }
+								has_country_flag = crisis_successor_@root
+							}
+							declare_war = {
+								target = prev
+								name = "Succession Conflict"
+								attacker_war_goal = "wg_coup_successor"
+								effect = {
+									set_name = {
+										key = NAME_succession_conflict
+										variable_string = "\\[This.MainAttacker.GetAdj]"
+									}
+									every_war_participant = {
+										limit = {
+											has_overlord = root
+											is_war_leader = no
+										}
+										prev = { remove_war_participant = prev }
+									}
+								}
+							}
 							every_system_within_border = {
 								limit = { NOT = { prevprev = { has_claim = prev } } }
 								add_claims = { who = prevprev }
 							}
+							prev = {
+								every_system_within_border = {
+									limit = { NOT = { prevprev = { has_claim = prev } } }
+									add_claims = { who = prevprev }
+								}
+							}
+						}
+					}
+					if = {
+						limit = {
+							any_country = {
+								NOT = { is_same_value = prev }
+								NOT = { is_at_war_with = prev }
+								has_country_flag = crisis_independent_@root
+							}
+						}
+						every_country = {
+							limit = {
+								NOT = { is_same_value = prev }
+								NOT = { is_at_war_with = prev }
+								has_country_flag = crisis_independent_@root
+							}
+							every_system_within_border = {
+								limit = { NOT = { prevprev = { has_claim = prev } } }
+								add_claims = { who = prevprev }
+							}
+							prev = {
+								declare_war = {
+									target = prev
+									name = "Fealty War"
+									attacker_war_goal = "wg_coup_independent"
+									effect = {
+										set_name = {
+											key = NAME_fealty_war
+											variable_string = "\\[This.MainDefender.Ruler.GetName]"
+										}
+										every_war_participant = {
+											limit = {
+												has_overlord = root
+												is_war_leader = no
+											}
+											prev = { remove_war_participant = prev }
+										}
+									}
+								}
+							}
+							
 						}
 					}
 				}
-				if = {
-					limit = {
-						any_country = {
-							NOT = { is_same_value = prev }
-							NOT = { is_at_war_with = prev }
-							has_country_flag = crisis_independent_@root
-						}
-					}
-					every_country = {
-						limit = {
-							NOT = { is_same_value = prev }
-							NOT = { is_at_war_with = prev }
-							has_country_flag = crisis_independent_@root
-						}
-						every_system_within_border = {
-							limit = { NOT = { prevprev = { has_claim = prev } } }
-							add_claims = { who = prevprev }
-						}
-						prev = {
+				else_if = {
+					limit = { has_country_flag = crisis_independent_@root }
+					root = {
+						if = {
+							limit = { NOT = { has_country_flag = crisis_subject } }
 							declare_war = {
 								target = prev
 								name = "Fealty War"
@@ -162,88 +206,92 @@ after_comms_cleanup_effect = {
 										key = NAME_fealty_war
 										variable_string = "\\[This.MainDefender.Ruler.GetName]"
 									}
+									every_war_participant = {
+										limit = {
+											has_overlord = root
+											is_war_leader = no
+										}
+										prev = { remove_war_participant = prev }
+									}
 								}
 							}
 						}
-						
+					}
+					if = {
+						limit = {
+							any_country = {
+								NOT = { is_at_war_with = prev }
+								has_country_flag = crisis_successor_@root
+							}
+						}
+						every_country = {
+							limit = {
+								NOT = { is_at_war_with = prev }
+								has_country_flag = crisis_successor_@root
+							}
+							declare_war = {
+								target = prev
+								name = "Fealty War"
+								attacker_war_goal = "wg_coup_independent"
+								effect = {
+									set_name = {
+										key = NAME_succession_conflict
+										variable_string = "\\[This.MainAttacker.GetAdj]"
+									}
+									every_war_participant = {
+										limit = {
+											has_overlord = root
+											is_war_leader = no
+										}
+										prev = { remove_war_participant = prev }
+									}
+								}
+							}
+						}
 					}
 				}
 			}
 			else_if = {
-				limit = { has_country_flag = crisis_independent_@root }
-				root = {
-					if = {
-						limit = { NOT = { has_country_flag = crisis_subject } }
-						declare_war = {
-							target = prev
-							name = "Fealty War"
-							attacker_war_goal = "wg_coup_independent"
-							effect = {
-								set_name = {
-									key = NAME_fealty_war
-									variable_string = "\\[This.MainDefender.Ruler.GetName]"
-								}
-							}
-						}
-					}
+				limit = {
+					prev = { NOT = { any_situation = { is_situation_type = situation_civstrife_succession } } }
+					any_country = { has_country_flag = crisis_successor_@root }
 				}
-				if = {
-					limit = {
-						any_country = {
-							NOT = { is_at_war_with = prev }
-							has_country_flag = crisis_successor_@root
-						}
-					}
-					every_country = {
-						limit = {
-							NOT = { is_at_war_with = prev }
-							has_country_flag = crisis_successor_@root
-						}
-						declare_war = {
-							target = prev
-							name = "Fealty War"
-							attacker_war_goal = "wg_coup_independent"
-							effect = {
-								set_name = {
-									key = NAME_succession_conflict
-									variable_string = "\\[This.MainAttacker.GetAdj]"
-								}
-							}
-						}
-					}
+				every_country = {
+					limit = { has_country_flag = crisis_successor_@root }
+					remove_country_flag = crisis_successor_@root
 				}
 			}
-		}
-		else_if = {
-			limit = {
-				prev = { NOT = { any_situation = { is_situation_type = situation_civstrife_succession } } }
-				any_country = { has_country_flag = crisis_successor_@root }
+			if = {
+				limit = { has_country_flag = ethic_sec_rebels }
+				remove_country_flag = ethic_sec_rebels
 			}
-			every_country = {
-				limit = { has_country_flag = crisis_successor_@root }
-				remove_country_flag = crisis_successor_@root
+			else_if = {
+				limit = { has_country_flag = sep_sec_rebels }
+				remove_country_flag = sep_sec_rebels
 			}
-		}
-		if = {
-			limit = { has_country_flag = ethic_sec_rebels }
-			remove_country_flag = ethic_sec_rebels
-		}
-		else_if = {
-			limit = { has_country_flag = sep_sec_rebels }
-			remove_country_flag = sep_sec_rebels
-		}
-		else_if = {
-			limit = { has_country_flag = nat_plan_rebels }
-			remove_country_flag = nat_plan_rebels
-		}
-		else_if = {
-			limit = { has_country_flag = nat_sec_rebels }
-			remove_country_flag = nat_sec_rebels
+			else_if = {
+				limit = { has_country_flag = nat_plan_rebels }
+				remove_country_flag = nat_plan_rebels
+			}
+			else_if = {
+				limit = { has_country_flag = nat_sec_rebels }
+				remove_country_flag = nat_sec_rebels
+			}
+
+			if = {
+				limit = {
+					is_at_war = yes
+					is_overlord = yes
+				}
+				every_subject = { join_war = event_target:civwar_rebels }
+			}
 		}
 	}
+	
 
 	if = { # Request assistance from neighbors
 		limit = {
+			exists = event_target:civwar_rebels
 			event_target:civwar_rebels = { is_at_war_with = event_target:civwar_originator }
 			any_country = {
 				is_unfriendly = no
@@ -356,6 +404,7 @@ after_comms_cleanup_effect = {
 	}
 	if = {
 		limit = {
+			exists = event_target:civwar_rebels
 			exists = event_target:nat_motherland_model
 			event_target:nat_motherland_model = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
 		}
@@ -377,7 +426,10 @@ after_comms_cleanup_effect = {
 	}
 
 	if = {
-		limit = { any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels } }
+		limit = {
+			exists = event_target:civwar_rebels
+			any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+		}
 		random_country = {
 			limit = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
 			remove_country_flag = motherland_wont_join_@event_target:civwar_rebels
@@ -388,11 +440,16 @@ after_comms_cleanup_effect = {
 		every_country = {
 			limit = {
 				has_country_flag = ally_reb_@event_target:civwar_originator
-				NOT = { is_same_value = event_target:civwar_rebels }
+				NOT = {
+					exists = event_target:civwar_rebels
+					is_same_value = event_target:civwar_rebels
+				}
 			}
-			remove_country_flag = ally_reb_@event_target:civwar_originator
 			if = {
-				limit = { event_target:civwar_rebels = { is_at_war = yes } }
+				limit = {
+					exists = event_target:civwar_rebels
+					event_target:civwar_rebels = { is_at_war = yes }
+				}
 				join_war = event_target:civwar_rebels
 			}
 			else = {
@@ -402,27 +459,22 @@ after_comms_cleanup_effect = {
 				}
 			}
 		}
-		event_target:civwar_rebels = {
-			remove_country_flag = ally_reb_@event_target:civwar_originator
-			if = {
-				limit = {
-					is_at_war = no
-					NOT = { has_truce = event_target:civwar_originator }
+		if = {
+			limit = {  exists = event_target:civwar_rebels }
+			event_target:civwar_rebels = {
+				if = {
+					limit = {
+						is_at_war = no
+						NOT = { has_truce = event_target:civwar_originator }
+					}
+					set_truce = {
+						target = event_target:civwar_originator
+						type = liberation
+					}
 				}
-				set_truce = {
-					target = event_target:civwar_originator
-					type = liberation
-				}
-			}
-			if = {
-				limit = { has_country_flag = leader_ask_motherland_@event_target:civwar_originator }
-				remove_country_flag = leader_ask_motherland_@event_target:civwar_originator
-			}
-			if = {
-				limit = { has_country_flag = leader_reb_@event_target:civwar_originator }
-				remove_country_flag = leader_reb_@event_target:civwar_originator
 			}
 		}
+		
 	}
 
 	if = {
@@ -439,15 +491,6 @@ after_comms_cleanup_effect = {
 	}
 
 	if = {
-		limit = { has_country_flag = crisis_subject }
-		event_target:civwar_rebels = {
-			set_male_ruler_title = "Viceroy"
-			set_female_ruler_title = "Viceroy"
-		}
-		remove_country_flag = crisis_subject
-	}
-
-	if = {
 		limit = { any_owned_leader = { has_leader_flag = dummy_sector_leader } }
 		random_owned_leader = {
 			limit = { has_leader_flag = dummy_sector_leader }
@@ -455,39 +498,165 @@ after_comms_cleanup_effect = {
 		}
 	}
 	if = {
-		limit = { any_owned_leader = { has_leader_flag = dummy_party_leader_@event_target:civwar_party } }
+		limit = {
+			exists = event_target:civwar_party_name_leader
+			any_owned_leader = { is_same_value = event_target:civwar_party_name_leader }
+		}
 		random_owned_leader = {
-			limit = { has_leader_flag = dummy_party_leader_@event_target:civwar_party }
+			limit = { is_same_value = event_target:civwar_party_name_leader }
 			kill_leader = { show_notification = no }
 		}
 	}
 
 	if = {
-		limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_isolated } }
-		event_target:civwar_originator = {
-
-			ruler = { save_event_target_as = crisis_dynasty_name }
-			
-			create_leader = {
-				class = ruler
-				species = event_target:civwar_originator.ruler.species
-				name = random
-				skill = 5
-				leader_age_min = 13
-				leader_age_max = 30
-				effect = {
-					save_event_target_as = new_heir
-					set_name = {
-						key = append_dynasty_name
-						variable_string = "\\[This.GetFirstName]"
-						variable_string = "\\[event_target:crisis_dynasty_name.GetName]"
-					}
+		limit = {
+			exists = event_target:civwar_rebels
+			event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_isolated }
+		}
+		ruler = { save_event_target_as = crisis_dynasty_name }
+		
+		create_leader = {
+			class = ruler
+			species = event_target:civwar_originator.ruler.species
+			name = random
+			skill = 5
+			leader_age_min = 13
+			leader_age_max = 30
+			effect = {
+				save_event_target_as = new_heir
+				set_name = {
+					key = append_dynasty_name
+					variable_string = "\\[This.GetFirstName]"
+					variable_string = "\\[event_target:crisis_dynasty_name.GetName]"
 				}
 			}
-			# Need to change heirs
-			set_heir = event_target:new_heir
+		}
+		# Need to change heirs
+		set_heir = event_target:new_heir
+	}
+
+	if = {
+		limit = { is_variable_set = num_subjects }
+		clear_variable = num_subjects
+	}
+
+	if = {
+		limit = {
+			exists = event_target:civwar_rebels
+			is_at_war_with = event_target:civwar_rebels
+			any_subject = {
+				OR = {
+					has_country_flag = subject_helps_rebels_@root
+					has_country_flag = subject_helps_overlord_@root
+					has_country_flag = subject_joins_overlord_@root
+				}
+			}
+		}
+		event_target:civwar_rebels = {
+			random_war = { save_event_target_as = civwar_for_subs }
+		}
+		get_subject_decisions_effect = yes
+		# if = {
+		# 	limit = { NOT = { has_country_flag = subject_after_effects_timer } }
+		# 	set_timed_country_flag = { flag = subject_after_effects_timer years = 1 }
+		# 	get_subject_decisions_effect = yes
+		# }
+	}
+}
+
+get_subject_decisions_effect = {
+	log = "IS THIS HAPP"
+	if = { # Succession Conflict stuff
+		limit = {
+			any_country = {
+				exists = overlord
+				overlord = {
+					is_at_war = yes
+					is_succession_country = yes
+				}
+				NOT = { is_at_war = yes }
+				# has_country_flag = subject_joins_rebels_@root
+			}
+		}
+		log = "EFFECT HAPPENING RIGHT"
+		every_country = {
+			limit = {
+				exists = overlord
+				overlord = {
+					is_at_war = yes
+					is_succession_country = yes
+				}
+				NOT = { is_at_war = yes }
+				# has_country_flag = subject_joins_rebels_@root
+			}
+			overlord = { save_event_target_as = sub_overlord }
+			join_war = event_target:sub_overlord
 		}
 	}
+	
+	if = {
+		limit = { any_subject = { has_country_flag = subject_helps_rebels_@root } }
+		every_subject = {
+			limit = { has_country_flag = subject_helps_rebels_@root }
+			if = {
+				limit = {
+					any_country = {
+						is_at_war_with = overlord
+						is_succession_country = yes
+					}
+				}
+				random_country = {
+					limit = { has_country_flag = borders_the_subject_@prev }
+					save_event_target_as = event_target:civwar_rebels
+					random_war = { save_event_target_as = civwar_for_subs }
+				}
+				set_subject_of = {
+					who = event_target:civwar_rebels
+					preset = preset_tributary
+				}
+				join_war_on_side = {
+					war = event_target:civwar_for_subs
+					side = event_target:civwar_rebels
+				}
+			}
+			else = {
+				set_subject_of = {
+					who = event_target:civwar_rebels
+					preset = preset_tributary
+				}
+				join_war_on_side = {
+					war = event_target:civwar_for_subs
+					side = event_target:civwar_rebels
+				}
+			}
+		}
+	}
+	if = {
+		limit = { any_subject = { has_country_flag = subject_joins_overlord_@root } }
+		every_subject = {
+			limit = { has_country_flag = subject_joins_overlord_@root }
+			if = {
+				limit = {
+					any_country = {
+						is_at_war_with = prev.overlord
+						is_succession_country = yes
+					}
+				}
+				random_country = {
+					limit = {
+						is_at_war_with = prev.overlord
+						is_succession_country = yes
+					}
+					random_war = { save_event_target_as = civwar_for_subs }
+				}
+			}
+			join_war_on_side = {
+				war = event_target:civwar_for_subs
+				side = attackers
+			}
+		}
+	}
+	country_event = { id = civcom.5000 days = 1 random = 5 }
 }
 
 get_motherland_effect = {
@@ -665,7 +834,7 @@ make_isolated_sector_country = {
 	}
 	else = {
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			if = {
 				limit = { has_global_flag = cultural_overhaul_active }
 				if = { # Imperial governments usually make imperial govenrments
@@ -716,7 +885,7 @@ make_isolated_sector_country = {
 								origin = origin_isolated_rebellion
 								civics = random
 								flag = random
-								authority = auth_democratic_dictatorship
+								authority = auth_dict_democratic
 								effect = {
 									created_civwar_country_effect = yes
 								}
@@ -840,7 +1009,7 @@ make_isolated_sector_country = {
 								origin = origin_isolated_rebellion
 								civics = random
 								flag = random
-								authority = auth_democratic_dictatorship
+								authority = auth_dict_democratic
 								effect = {
 									created_civwar_country_effect = yes
 								}
@@ -964,7 +1133,7 @@ make_isolated_sector_country = {
 								origin = origin_isolated_rebellion
 								civics = random
 								flag = random
-								authority = auth_democratic_dictatorship
+								authority = auth_dict_democratic
 								effect = {
 									created_civwar_country_effect = yes
 								}
@@ -1071,7 +1240,7 @@ make_isolated_sector_country = {
 								origin = origin_isolated_rebellion
 								civics = random
 								flag = random
-								authority = auth_democratic_dictatorship
+								authority = auth_dict_democratic
 								effect = {
 									created_civwar_country_effect = yes
 								}
@@ -1180,7 +1349,7 @@ make_isolated_sector_country = {
 								origin = origin_isolated_rebellion
 								civics = random
 								flag = random
-								authority = auth_democratic_dictatorship
+								authority = auth_dict_democratic
 								effect = {
 									created_civwar_country_effect = yes
 								}
@@ -1287,7 +1456,7 @@ make_isolated_sector_country = {
 								origin = origin_isolated_rebellion
 								civics = random
 								flag = random
-								authority = auth_democratic_dictatorship
+								authority = auth_dict_democratic
 								effect = {
 									created_civwar_country_effect = yes
 								}
@@ -1394,7 +1563,7 @@ make_isolated_sector_country = {
 								origin = origin_isolated_rebellion
 								civics = random
 								flag = random
-								authority = auth_democratic_dictatorship
+								authority = auth_dict_democratic
 								effect = {
 									created_civwar_country_effect = yes
 								}
@@ -1501,7 +1670,7 @@ make_isolated_sector_country = {
 								origin = origin_isolated_rebellion
 								civics = random
 								flag = random
-								authority = auth_democratic_dictatorship
+								authority = auth_dict_democratic
 								effect = {
 									created_civwar_country_effect = yes
 								}
@@ -2198,7 +2367,8 @@ make_succession_crisis_gov_country = {
 		set_sector_flag = leader_sector
 	}
 
-	save_event_target_as = civwar_originator
+	# It gets lost along the way, poor thing
+	save_global_event_target_as = civwar_originator
 
 	set_country_flag = succession_mother_country
 
@@ -2232,6 +2402,9 @@ make_succession_crisis_dynast_country = {
 	}
 
 	save_event_target_as = civwar_originator
+
+	# It gets lost along the way, poor thing
+	save_global_event_target_as = civwar_originator
 
 	set_country_flag = succession_mother_country
 
@@ -2448,9 +2621,11 @@ get_multi_sector_effect = {
 		limit = {
 			NOT = {
 				any_owned_planet = {
+					num_pops >= 1
 					OR = {
 						is_capital = yes
 						has_ground_combat = yes
+						is_occupied_flag = yes
 					}
 				}
 			}
@@ -2571,12 +2746,9 @@ get_multi_sector_effect = {
 								}
 							}
 						}
-						sector = {
-							set_sector_flag = rebel_sector_@event_target:rebel_sector_leader
-							set_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader
-						}
-						set_sector_flag = follower_sector
 						set_sector_flag = counted_sector
+						set_sector_flag = rebel_sector_@event_target:rebel_sector_leader
+						set_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader
 					}
 				}
 			}
@@ -2590,6 +2762,9 @@ get_multi_sector_effect = {
 	}
 	else = {
 		get_nationalist_war_leader = yes
+		event_target:global_event_country = {
+			change_variable = { which = total_gal_nat_events value = 1 }	
+		}
 	}
 
 	random_owned_leader = {
@@ -2606,7 +2781,6 @@ get_multi_sector_effect = {
 	last_created_leader = { leader_event = { id = civleader.1000 days = 720 } }
 
 	set_variable = { which = total_reb_countries value = 0 }
-
 	every_owned_sector = {
 		limit = { has_sector_flag = leader_sector }
 		prev = { change_variable = { which = total_reb_countries value = 1 } }
@@ -2703,6 +2877,9 @@ get_two_sector_effect = {
 	}
 	else = {
 		get_nationalist_war_leader = yes
+		event_target:global_event_country = {
+			change_variable = { which = total_gal_nat_events value = 1 }	
+		}
 	}
 
 	random_owned_leader = {
@@ -2758,8 +2935,12 @@ get_small_civwar_effect = {
 		limit = { num_owned_planets = 2 }
 		random_owned_planet = {
 			limit = {
-				solar_system = { is_capital_system = no }
-				has_ground_combat = no
+				is_under_colonization = no
+				NOR = {
+					is_capital = yes
+					has_ground_combat = yes
+					is_occupied_flag = yes
+				}
 			}
 			save_event_target_as = civil_war_planet
 			solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
@@ -2781,6 +2962,9 @@ get_small_civwar_effect = {
 				set_planet_flag = nat_planet_rebellion_@this # Such that Balkanization doesnt result in a bunch of wars numbered different civil wars at the same time
 				get_nat_plan_rebels = yes
 				get_nationalist_war_leader = yes
+				event_target:global_event_country = {
+					change_variable = { which = total_gal_nat_events value = 1 }	
+				}
 			}
 		}
 	}
@@ -2788,7 +2972,14 @@ get_small_civwar_effect = {
 		set_variable = { which = total_faction_pops value = 0 }
 		set_variable = { which = maybe_rebel_planets value = 0 }
 		every_owned_planet = {
-			limit = { solar_system = { is_capital_system = no } }
+			limit = {
+				is_under_colonization = no
+				NOR = {
+					is_capital = yes
+					has_ground_combat = yes
+					is_occupied_flag = yes
+				}
+			}
 			set_variable = { which = fac_sep_percentage value = 0 }
 			every_owned_pop = {
 				limit = {
@@ -2879,6 +3070,16 @@ get_sectoral_revolt_effect = {
 	last_created_leader = { leader_event = { id = civleader.1000 days = 720 } }
 	random_owned_sector = {
 		limit = {
+			NOT = {
+				any_owned_planet = {
+					is_under_colonization = no
+					OR = {
+						is_capital = yes
+						has_ground_combat = yes
+						is_occupied_flag = yes
+					}
+				}
+			}
 			pop_percentage = {
 				percentage >= 0.25
 				# percentage > 0
@@ -2888,14 +3089,6 @@ get_sectoral_revolt_effect = {
 					has_pop_flag = sep_pop
 				}
 				exclude = { can_think = no }
-			}
-			NOT = {
-				any_owned_planet = {
-					OR = {
-						has_ground_combat = yes
-						solar_system = { is_capital_system = yes }
-					}
-				}
 			}
 		}
 		save_event_target_as = saved_sector
@@ -2928,6 +3121,9 @@ get_sectoral_revolt_effect = {
 				get_nationalist_war_leader = yes
 				get_nat_plan_rebels = yes
 				sector = { set_sector_flag = nat_sector_rebellion_@event_target:civil_war_planet }
+				event_target:global_event_country = {
+					change_variable = { which = total_gal_nat_events value = 1 }	
+				}
 			}
 		}
 		
@@ -2954,19 +3150,25 @@ get_sectoral_revolt_effect = {
 			}
 		}
 	}
+	event_target:global_event_country = {
+		change_variable = { which = total_gal_sector_rebs value = 1 }
+		subtract_variable = { which = total_gal_civil_wars value = 1 } # Count Sector Rebs Separately
+	}
 }
 
 get_planetary_revolt_effect = {
 	random_owned_planet = {
 		limit = {
-			solar_system = { is_capital_system = no }
+			is_under_colonization = no
+			is_capital = no
+			has_ground_combat = no
+			is_occupied_flag = no
 			sector = {
 				NOR = {
 					has_sector_flag = nat_sector_rebellion_@sector_capital
 					has_sector_flag = ethic_sector_rebellion_@sector_capital
 				}
 			}
-			has_ground_combat = no
 			pop_percentage = {
 				percentage >= 0.25
 				# percentage > 0
@@ -3018,6 +3220,9 @@ get_planetary_revolt_effect = {
 						}
 					}
 				}
+			}
+			event_target:global_event_country = {
+				change_variable = { which = total_gal_nat_events value = 1 }	
 			}
 		}
 	}
@@ -3339,7 +3544,7 @@ get_ethic_plan_rebels = {
 	else_if = { # Egalitarians
 		limit = { root.target = { is_egalitarian_faction = yes } }
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			if = {
 				limit = { has_global_flag = cultural_overhaul_active }
 				random_list = {
@@ -3497,7 +3702,7 @@ get_ethic_plan_rebels = {
 	else_if = { # Militarists
 		limit = { root.target = { is_militarist_faction = yes } }
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			if = {
 				limit = { has_global_flag = cultural_overhaul_active }
 				random_list = {
@@ -3562,7 +3767,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-							authority = auth_democratic_dictatorship
+							authority = auth_dict_democratic
 							ethos = { 
 								ethic = ethic_fanatic_militarist
 								ethic = random
@@ -3672,7 +3877,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-							authority = auth_democratic_dictatorship
+							authority = auth_dict_democratic
 							ethos = { 
 								ethic = ethic_fanatic_militarist
 								ethic = random
@@ -3906,7 +4111,7 @@ get_ethic_plan_rebels = {
 	else_if = { # Pacifists
 		limit = { root.target = { is_pacifist_faction = yes } }
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			if = {
 				limit = { has_global_flag = cultural_overhaul_active }
 				random_list = {
@@ -3971,7 +4176,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-							authority = auth_democratic_dictatorship
+							authority = auth_dict_democratic
 							ethos = { 
 								ethic = ethic_fanatic_pacifist
 								ethic = random
@@ -4081,7 +4286,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-							authority = auth_democratic_dictatorship
+							authority = auth_dict_democratic
 							ethos = { 
 								ethic = ethic_fanatic_pacifist
 								ethic = random
@@ -4315,7 +4520,7 @@ get_ethic_plan_rebels = {
 	else_if = { # Materialists
 		limit = { root.target = { is_materialist_faction = yes } }
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			if = {
 				limit = { has_global_flag = cultural_overhaul_active }
 				random_list = {
@@ -4380,7 +4585,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-							authority = auth_democratic_dictatorship
+							authority = auth_dict_democratic
 							ethos = { 
 								ethic = ethic_fanatic_materialist
 								ethic = random
@@ -4490,7 +4695,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-							authority = auth_democratic_dictatorship
+							authority = auth_dict_democratic
 							ethos = { 
 								ethic = ethic_fanatic_materialist
 								ethic = random
@@ -4724,7 +4929,7 @@ get_ethic_plan_rebels = {
 	else_if = { # Spiritualists
 		limit = { root.target = { is_spiritualist_faction = yes } }
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			if = {
 				limit = { has_global_flag = cultural_overhaul_active }
 				random_list = {
@@ -4789,7 +4994,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-							authority = auth_democratic_dictatorship
+							authority = auth_dict_democratic
 							ethos = { 
 								ethic = ethic_fanatic_spiritualist
 								ethic = random
@@ -4899,7 +5104,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-							authority = auth_democratic_dictatorship
+							authority = auth_dict_democratic
 							ethos = { 
 								ethic = ethic_fanatic_spiritualist
 								ethic = random
@@ -5133,7 +5338,7 @@ get_ethic_plan_rebels = {
 	else_if = { # Xenophiles
 		limit = { root.target = { is_xenophile_faction = yes } }
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			if = {
 				limit = { has_global_flag = cultural_overhaul_active }
 				random_list = {
@@ -5198,7 +5403,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-							authority = auth_democratic_dictatorship
+							authority = auth_dict_democratic
 							ethos = { 
 								ethic = ethic_fanatic_xenophile
 								ethic = random
@@ -5308,7 +5513,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-							authority = auth_democratic_dictatorship
+							authority = auth_dict_democratic
 							ethos = { 
 								ethic = ethic_fanatic_xenophile
 								ethic = random
@@ -5542,7 +5747,7 @@ get_ethic_plan_rebels = {
 	else_if = { # Xenophobes
 		limit = { root.target = { is_xenophobe_faction = yes } }
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			if = {
 				limit = { has_global_flag = cultural_overhaul_active }
 				random_list = {
@@ -5607,7 +5812,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-							authority = auth_democratic_dictatorship
+							authority = auth_dict_democratic
 							ethos = { 
 								ethic = ethic_fanatic_xenophobe
 								ethic = random
@@ -5717,7 +5922,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-							authority = auth_democratic_dictatorship
+							authority = auth_dict_democratic
 							ethos = { 
 								ethic = ethic_fanatic_xenophobe
 								ethic = random
@@ -5934,7 +6139,7 @@ get_ethic_plan_rebels = {
 	else_if = { # Socialists
 		limit = { root.target = { is_socialist_faction = yes } }
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			random_list = {
 				5 = {
 					create_rebels = {
@@ -5997,7 +6202,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-						authority = auth_democratic_dictatorship
+						authority = auth_dict_democratic
 						ethos = { 
 							ethic = ethic_fanatic_socialism
 							ethic = random
@@ -6159,7 +6364,7 @@ get_ethic_plan_rebels = {
 	else_if = { # Capitalists
 		limit = { root.target = { is_capitalism_faction = yes } }
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			random_list = {
 				5 = {
 					create_rebels = {
@@ -6222,7 +6427,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-						authority = auth_democratic_dictatorship
+						authority = auth_dict_democratic
 						ethos = { 
 							ethic = ethic_fanatic_capitalism
 							ethic = random
@@ -6384,7 +6589,7 @@ get_ethic_plan_rebels = {
 	else_if = { # Industrialists
 		limit = { root.target = { is_industrial_faction = yes } }
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			random_list = {
 				5 = {
 					create_rebels = {
@@ -6447,7 +6652,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-						authority = auth_democratic_dictatorship
+						authority = auth_dict_democratic
 						ethos = { 
 							ethic = ethic_fanatic_industrial
 							ethic = random
@@ -6609,7 +6814,7 @@ get_ethic_plan_rebels = {
 	else_if = { # Ecologists
 		limit = { root.target = { is_ecologist_faction = yes } }
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			random_list = {
 				5 = {
 					create_rebels = {
@@ -6672,7 +6877,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-						authority = auth_democratic_dictatorship
+						authority = auth_dict_democratic
 						ethos = { 
 							ethic = ethic_fanatic_green
 							ethic = random
@@ -6834,7 +7039,7 @@ get_ethic_plan_rebels = {
 	else_if = { # Elitists
 		limit = { root.target = { is_elitist_faction = yes } }
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			random_list = {
 				5 = {
 					create_rebels = {
@@ -6897,7 +7102,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-						authority = auth_democratic_dictatorship
+						authority = auth_dict_democratic
 						ethos = { 
 							ethic = ethic_fanatic_elitist
 							ethic = random
@@ -7059,7 +7264,7 @@ get_ethic_plan_rebels = {
 	else_if = { # Pluralists
 		limit = { root.target = { is_pluralist_faction = yes } }
 		if = {
-			limit = { has_global_flag = more_authorities_activated }
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			random_list = {
 				5 = {
 					create_rebels = {
@@ -7122,7 +7327,7 @@ get_ethic_plan_rebels = {
 						origin = origin_civwar
 						civics = random
 						flag = random
-						authority = auth_democratic_dictatorship
+						authority = auth_dict_democratic
 						ethos = { 
 							ethic = ethic_fanatic_pluralist
 							ethic = random
@@ -7288,7 +7493,7 @@ get_gen_plan_rebels = {
 	get_planetary_reb_number = yes
 
 	if = {
-		limit = { has_global_flag = more_authorities_activated }
+		limit = { has_global_flag = cultural_overhaul_funefork_active }
 		if = {
 			limit = { has_global_flag = cultural_overhaul_active }
 			random_list = {
@@ -7370,7 +7575,7 @@ get_gen_plan_rebels = {
 						origin = origin_plan_rebellion
 						civics = random
 						flag = random
-						authority = auth_democratic_dictatorship
+						authority = auth_dict_democratic
 						ethos = { 
 							ethic = ethic_fanatic_militarist
 							ethic = random
@@ -7496,7 +7701,7 @@ get_gen_plan_rebels = {
 						origin = origin_plan_rebellion
 						civics = random
 						flag = random
-						authority = auth_democratic_dictatorship
+						authority = auth_dict_democratic
 						ethos = { 
 							ethic = ethic_fanatic_militarist
 							ethic = random
@@ -7691,7 +7896,7 @@ get_gen_plan_rebels = {
 get_gen_sec_rebels = {
 
 	if = {
-		limit = { has_global_flag = more_authorities_activated }
+		limit = { has_global_flag = cultural_overhaul_funefork_active }
 		if = {
 			limit = { has_global_flag = cultural_overhaul_active }
 			random_list = {
@@ -7770,7 +7975,7 @@ get_gen_sec_rebels = {
 						origin = origin_sec_rebellion
 						civics = random
 						flag = random
-						authority = auth_democratic_dictatorship
+						authority = auth_dict_democratic
 						ethos = { 
 							ethic = ethic_fanatic_militarist
 							ethic = random
@@ -7893,7 +8098,7 @@ get_gen_sec_rebels = {
 						origin = origin_sec_rebellion
 						civics = random
 						flag = random
-						authority = auth_democratic_dictatorship
+						authority = auth_dict_democratic
 						ethos = { 
 							ethic = ethic_fanatic_militarist
 							ethic = random
@@ -8164,7 +8369,7 @@ get_plan_slave_rebels = {
 	get_planetary_slave_reb_number = yes
 
 	if = {
-		limit = { has_global_flag = more_authorities_activated }
+		limit = { has_global_flag = cultural_overhaul_funefork_active }
 		if = {
 			limit = { has_global_flag = cultural_overhaul_active }
 			random_list = {
@@ -8341,7 +8546,7 @@ get_sec_slave_rebels = {
 	get_sectoral_slave_reb_number = yes
 
 	if = {
-		limit = { has_global_flag = more_authorities_activated }
+		limit = { has_global_flag = cultural_overhaul_funefork_active }
 		if = {
 			limit = { has_global_flag = cultural_overhaul_active }
 			random_list = {
@@ -9004,35 +9209,31 @@ get_country_immediate_setup = {
 		    			is_ship_size = giga_planet_behemoth
 		    			is_ship_size = giga_systemcraft
 		    			# Engineers of Life
-		    			is_ship_size = eng_imp_stellar_devourer
-		    			is_ship_size = eng_imp_dimensional_horror
-		    			is_ship_size = eng_imp_space_dragon
-		    			is_ship_size = eng_imp_space_dragon_baby
-		    			is_ship_size = eng_imp_leviathan_01_voidspawn
-		    			is_ship_size = eng_imp_void_cloud_lesser
-		    			is_ship_size = eng_imp_void_cloud
-		    			is_ship_size = eng_imp_corrupted_avatar
-		    			is_ship_size = eng_imp_shardlings
-		    			is_ship_size = eng_imp_shards
-		    			is_ship_size = eng_imp_quintessence
-		    			is_ship_size = eng_imp_crystal_station_large
-		    			is_ship_size = eng_imp_space_whale_calf
-		    			is_ship_size = eng_imp_space_whale_cow
-		    			is_ship_size = eng_imp_space_whale_bull
-		    			is_ship_size = eng_imp_leviathan_01_elder_tiyanki
-		    			is_ship_size = eng_imp_amoeba
-		    			is_ship_size = eng_imp_mother
-		    			is_ship_size = eng_imp_cente
+		    			# is_ship_size = eng_imp_stellar_devourer
+		    			# is_ship_size = eng_imp_dimensional_horror
+		    			# is_ship_size = eng_imp_space_dragon
+		    			# is_ship_size = eng_imp_space_dragon_baby
+		    			# is_ship_size = eng_imp_leviathan_01_voidspawn
+		    			# is_ship_size = eng_imp_void_cloud_lesser
+		    			# is_ship_size = eng_imp_void_cloud
+		    			# is_ship_size = eng_imp_corrupted_avatar
+		    			# is_ship_size = eng_imp_shardlings
+		    			# is_ship_size = eng_imp_shards
+		    			# is_ship_size = eng_imp_quintessence
+		    			# is_ship_size = eng_imp_crystal_station_large
+		    			# is_ship_size = eng_imp_space_whale_calf
+		    			# is_ship_size = eng_imp_space_whale_cow
+		    			# is_ship_size = eng_imp_space_whale_bull
+		    			# is_ship_size = eng_imp_leviathan_01_elder_tiyanki
+		    			# is_ship_size = eng_imp_amoeba
+		    			# is_ship_size = eng_imp_mother
+		    			# is_ship_size = eng_imp_cente
 					}
 				}
 				fleet = {
-					random_list = {
-						60 = { # The rebels get your big toy.
-							set_owner = event_target:civwar_rebels
-						}
-						40 = {
-							# The rebels couldn't pull it off
-						}
+					random = {
+						chance = 45
+						set_owner = event_target:civwar_rebels
 					}
 				}
 			}
@@ -9054,7 +9255,7 @@ get_country_immediate_setup = {
 					name = random
 					class = scientist
 					sub_type = survey
-					species = event_target:civwar_species
+					species = owner_main_species
 				}
 			}
 			set_leader = last_created_leader
@@ -9196,7 +9397,7 @@ get_country_after_setup = {
 		limit = { event_target:civwar_originator = { has_country_flag = crisis_subject } }
 		set_subject_of = {
 			who = event_target:civwar_originator
-			preset = preset_auto_state
+			preset = preset_tributary
 		}
 	}
 
@@ -11140,83 +11341,6 @@ get_declare_war_subject = {
 	remove_country_flag = entered_war_as_attacker
 }
 
-# Coup declare war effect
-get_coup_wars = {
-	# 1 Sector Rebels - Successor State
-	if = {
-		limit = {
-			check_variable = { which = total_rebel_countries value = 1 }
-			is_at_war_with = event_target:disputed_heir_country_1
-		}
-		country_event = { id = civcom.3000 }
-	}
-	# 1 Sector Rebels - Independent Kingdom
-	else_if = {
-		limit = {
-			check_variable = { which = total_rebel_countries value = 1 }
-			NOT = { is_at_war_with = event_target:disputed_heir_country_1 }
-		}
-		country_event = { id = civcom.3010 }
-	}
-	# Multiple Sectors Rebel - 1 Successor State
-	else_if = {
-		limit = {
-			check_variable = { which = total_rebel_countries value > 1 }
-			count_country = {
-				count = 1
-				limit = { has_country_flag = crisis_successor_@root }
-			}
-		}
-		country_event = { id = civcom.3020 }
-	}
-	# Multiple Sectors Rebel - Multiple Successor States - At Least 1 Independent Kingdom
-	else_if = {
-		limit = {
-			check_variable = { which = total_rebel_countries value > 1 }
-			count_country = {
-				count > 1
-				limit = {
-					has_country_flag = crisis_successor_@root
-					is_at_war_with = root
-				}
-			}
-			count_country = {
-				count >= 1
-				limit = { has_country_flag = coup_independent_@root }
-			}
-		}
-		country_event = { id = civcom.3030 }
-	}
-	# Multiple Sectors Rebel - All Successor States
-	else_if = {
-		limit = {
-			check_variable = { which = total_rebel_countries value > 1 }
-			count_country = {
-				count > 1
-				limit = {
-					has_country_flag = crisis_successor_@root
-					is_at_war_with = root
-				}
-			}
-			# NOT = { any_country = { has_country_flag = coup_independent_@root } }
-		}
-		country_event = { id = civcom.3040 }
-	}
-	# Multiple Sectors Rebel - All Independent Kingdoms
-	else_if = {
-		limit = {
-			check_variable = { which = total_rebel_countries value > 1 }
-			count_country = {
-				count > 1
-				limit = { has_country_flag = coup_independent_@root }
-			}
-			# NOT = { any_country = { has_country_flag = crisis_successor_@root } }
-		}
-		country_event = { id = civcom.3050 }
-	}
-	remove_country_flag = entered_war_as_attacker
-}
-
 #####################
 
 get_traitor_outcome = {
@@ -11260,7 +11384,7 @@ get_traitor_outcome = {
 					# Captured by special forces
 					85 = { set_country_flag = captured_normally }
 				}
-				country_event = { id = civend.1004 }
+				country_event = { id = civend.1004 days = 5 }
 			}
 		}
 	}
@@ -11506,6 +11630,15 @@ get_separatist_faction_planet = {
 
 # Get Separatist Faction for Sectors
 get_separatist_faction_sector = {
+	every_owned_planet = {
+		limit = { has_planet_flag = plan_sep_active }
+		remove_planet_flag = plan_sep_active
+		clear_variable = revolt_tick
+		if = {
+			limit = { is_variable_set = calm_tick }
+			clear_variable = calm_tick
+		}
+	}
 	set_sector_flag = sector_sep_active
 		 if = { limit = { NOT = { exists = event_target:sec_separatist_1 } } save_global_event_target_as = sec_separatist_1 }
 	else_if = { limit = { NOT = { exists = event_target:sec_separatist_2 } } save_global_event_target_as = sec_separatist_2 }
@@ -11611,6 +11744,15 @@ get_separatist_faction_sector = {
 
 # Get Isolationist Separatist Faction for Sectors
 get_iso_separatist_faction_sector = {
+	every_owned_planet = {
+		limit = { has_planet_flag = plan_sep_active }
+		remove_planet_flag = plan_sep_active
+		clear_variable = revolt_tick
+		if = {
+			limit = { is_variable_set = calm_tick }
+			clear_variable = calm_tick
+		}
+	}
 	set_sector_flag = sector_sep_active
 		 if = { limit = { NOT = { exists = event_target:sec_iso_separatist_1 } } save_global_event_target_as = sec_iso_separatist_1 }
 	else_if = { limit = { NOT = { exists = event_target:sec_iso_separatist_2 } } save_global_event_target_as = sec_iso_separatist_2 }
@@ -11644,7 +11786,7 @@ get_iso_separatist_faction_sector = {
 	else_if = { limit = { NOT = { exists = event_target:sec_iso_separatist_30 } } save_global_event_target_as = sec_iso_separatist_30 }
 }
 
-####$$$$$$$
+###########
 
 # Defeated/Extinct Nations
 remove_nat_event_target = {
@@ -11993,7 +12135,7 @@ remove_iso_sector_event_target = {
 	else_if = { limit = { is_same_value = event_target:sec_iso_separatist_30 } clear_global_event_target = sec_iso_separatist_30 }
 }
 
-####$$$$$$$
+###########
 
 nat_faction_first_effect = {
 	set_pop_faction_flag = nat_faction
@@ -12035,6 +12177,7 @@ nat_faction_second_effect = {
 			traits = { trait = leader_trait_charismatic }
 			effect = {
 				set_leader_flag = sep_leader
+				set_leader_flag = dummy_leader
 			}
 		}
 	}
@@ -12042,9 +12185,9 @@ nat_faction_second_effect = {
 	pop_faction_event = { id = civnat.9000 }
 }
 
-# faction_kill_leader_effect = {
-# 	root.leader = { kill_leader = { show_notification = no } }
-# }
+faction_kill_leader_effect = {
+	leader = { kill_leader = { show_notification = no } }
+}
 
 plan_faction_first_effect = {
 	set_pop_faction_flag = plan_faction
@@ -13122,7 +13265,7 @@ get_dispute_faction = {
 
 create_exile_enclave_country = {
 	save_event_target_as = hosting_country
-	set_country_flag = exile_already_asked_@from # So that if they release the GiE subject, they do not get asked to host again
+	set_country_flag = exile_already_asked_@from # So that if they release the GiE, they do not get asked to host again
 
 	from = { save_event_target_as = old_nat_country }
 
@@ -13173,7 +13316,7 @@ create_exile_enclave_country = {
 					set_owner = prev
 					create_ship = {
 						name = "Exiled Government Headquarters"
-						design = "NAME_Mercenary_Enclave_Station_5"
+						design = "NAME_Mercenary_Enclave_Station_1"
 						graphical_culture = event_target:old_nat_country
 					}
 					set_location = {
@@ -13867,10 +14010,23 @@ exile_restoration_gen_effect = {
 			}
 		}
 
-		# If nationalists elsewhere exist for a country that then is restored, make them happy
+		# If nationalists elsewhere exist for a country that then is restored, make them happy and potentially resettle them
 		every_galaxy_pop = {
 			limit = { has_pop_flag = sep_pop_nat_@event_target:new_homeland }
 			add_modifier = { modifier = "restoration_of_motherland" years = 15 }
+			if = {
+				limit = {
+					has_citizenship_rights = yes
+					has_migration_control = { type = no }
+				}
+				random = {
+					chance = 75
+					resettle_pop = {
+						pop = this
+						planet = event_target:new_homeland.capital_scope
+					}
+				}
+			}
 		}
 
 		# Science
@@ -13939,7 +14095,7 @@ exile_restoration_gen_effect = {
 				count = 3
 				create_pop = {
 					species = owner_main_species
-					ethos = event_target:new_homeland
+					ethos = random
 				}
 			}
 		}
@@ -14071,3 +14227,271 @@ get_ship_delete_effect = {
 }
 
 ######################
+
+get_helper_subjects_effect = {
+	# If there are more then 10 subjects, more should appear every time one is chosen
+
+	set_variable = { which = helper_subjects value = 0 }
+
+	# Count how many valid Subject States there are
+	every_subject = {
+		limit = {
+			has_country_flag = subject_helps_overlord_@root
+			NOT = {
+				any_war = {
+					OR = {
+						using_war_goal = { type = wg_civwar owner = root }
+						using_war_goal = { type = wg_natwar owner = root }
+						using_war_goal = { type = wg_civwar_heir owner = root }
+						using_war_goal = { type = wg_coup_successor owner = root }
+						using_war_goal = { type = wg_coup_independent owner = root }
+					}
+				}
+			}
+		}
+		set_country_flag = helper_sub_country
+		overlord = { change_variable = { which = helper_subjects value = 1 } }
+	}
+
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 1 } }
+		random_subject = {
+			limit = {
+				has_country_flag = helper_sub_country
+				NOT = { exists = event_target:helper_subject_1 }
+			}
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_1
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 2 } }
+		random_subject = {
+			limit = {
+				has_country_flag = helper_sub_country
+				NOT = { exists = event_target:helper_subject_2 }
+			}
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_2
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 3 } }
+		random_subject = {
+			limit = {
+				has_country_flag = helper_sub_country
+				NOT = { exists = event_target:helper_subject_3 }
+			}
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_3
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 4 } }
+		random_subject = {
+			limit = {
+				has_country_flag = helper_sub_country
+				NOT = { exists = event_target:helper_subject_4 }
+			}
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_4
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 5 } }
+		random_subject = {
+			limit = {
+				has_country_flag = helper_sub_country
+				NOT = { exists = event_target:helper_subject_5 }
+			}
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_5
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 6 } }
+		random_subject = {
+			limit = {
+				has_country_flag = helper_sub_country
+				NOT = { exists = event_target:helper_subject_6 }
+			}
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_6
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 7 } }
+		random_subject = {
+			limit = {
+				has_country_flag = helper_sub_country
+				NOT = { exists = event_target:helper_subject_7 }
+			}
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_7
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 8 } }
+		random_subject = {
+			limit = {
+				has_country_flag = helper_sub_country
+				NOT = { exists = event_target:helper_subject_8 }
+			}
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_8
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 9 } }
+		random_subject = {
+			limit = {
+				has_country_flag = helper_sub_country
+				NOT = { exists = event_target:helper_subject_9 }
+			}
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_9
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 10 } }
+		random_subject = {
+			limit = {
+				has_country_flag = helper_sub_country
+				NOT = { exists = event_target:helper_subject_10 }
+			}
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_10
+		}
+	}
+}
+
+get_helper_subjects_effect_refresh = {
+	set_variable = { which = helper_subjects value = 0 }
+
+	# Count how many valid Subject States there are
+	every_subject = {
+		limit = {
+			has_country_flag = subject_helps_overlord_@root
+			NOT = {
+				any_war = {
+					OR = {
+						using_war_goal = { type = wg_civwar owner = root }
+						using_war_goal = { type = wg_natwar owner = root }
+						using_war_goal = { type = wg_civwar_heir owner = root }
+						using_war_goal = { type = wg_coup_successor owner = root }
+						using_war_goal = { type = wg_coup_independent owner = root }
+					}
+				}
+			}
+		}
+		set_country_flag = helper_sub_country
+		overlord = { change_variable = { which = helper_subjects value = 1 } }
+	}
+
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 1 } }
+		random_subject = {
+			limit = { has_country_flag = helper_sub_country }
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_1
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 2 } }
+		random_subject = {
+			limit = { has_country_flag = helper_sub_country }
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_2
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 3 } }
+		random_subject = {
+			limit = { has_country_flag = helper_sub_country }
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_3
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 4 } }
+		random_subject = {
+			limit = { has_country_flag = helper_sub_country }
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_4
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 5 } }
+		random_subject = {
+			limit = { has_country_flag = helper_sub_country }
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_5
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 6 } }
+		random_subject = {
+			limit = { has_country_flag = helper_sub_country }
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_6
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 7 } }
+		random_subject = {
+			limit = { has_country_flag = helper_sub_country }
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_7
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 8 } }
+		random_subject = {
+			limit = { has_country_flag = helper_sub_country }
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_8
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 9 } }
+		random_subject = {
+			limit = { has_country_flag = helper_sub_country }
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_9
+		}
+	}
+	if = {
+		limit = { check_variable = { which = helper_subjects value >= 10 } }
+		random_subject = {
+			limit = { has_country_flag = helper_sub_country }
+			remove_country_flag = helper_sub_country
+			save_event_target_as = helper_subject_10
+		}
+	}
+}
+
+######
+
+destroy_succession_crisis = {
+	if = {
+		limit = {
+			any_owned_sector = {
+				has_sector_flag = succession_crisis_rebel_sector
+				NOT = { has_sector_flag = succesion_crisis_talked }
+			}
+		}
+		event_target:succession_crisis_sit = {
+			situation_event = { id = civroyal.1120 }
+		}
+	}
+	else = {
+		event_target:succession_crisis_sit = { destroy_situation = this }
+		random_owned_leader = {
+			limit = { has_leader_flag = dead_crisis_leader }
+			kill_leader = { show_notification = no }
+		}
+		clear_global_event_target = civwar_originator
+		get_subject_decisions_effect = yes
+	}
+	after_comms_cleanup_effect = yes
+}

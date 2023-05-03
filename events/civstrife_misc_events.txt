@@ -23,6 +23,33 @@ event = { # Set Global Flag
 	}
 }
 
+# New Dynamic Mod Menu support.
+event = {
+	id = civmisc.1100
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		dmm_register_mod = {
+			DMM_NAME = civstrife_menu_name
+			DMM_FLAG = civil_strife_mod_menu_flag
+		}
+	}
+}
+
+country_event = {
+	id = civmisc.1101
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+        from = { has_leader_flag = civil_strife_mod_menu_flag }
+    }
+
+	immediate = {
+		country_event = { id = civmisc.5000 }
+	}
+}
+
 country_event = { # Kill old Dummy faction Leaders
 	id = civmisc.2100
 	hide_window = yes
@@ -145,5 +172,19 @@ country_event = { # Set Birthday
 
 	immediate = {
 		from = { set_country_flag = integrated_subject }
+	}
+}
+
+# Mod Menu support.
+country_event = {
+	id = civmisc.5000
+	title = civstrife.modmenu.title
+	desc = civstrife.modmenu.desc
+	picture = GFX_evt_open_revolt
+	hide_window = no
+	is_triggered_only = yes
+
+	option = {
+		name = OK
 	}
 }

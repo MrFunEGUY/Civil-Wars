@@ -1,7 +1,7 @@
 
 # Faction Separatism - Egalitarian
 situation_civstrife_faction_egal = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -181,6 +181,7 @@ situation_civstrife_faction_egal = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -198,16 +199,22 @@ situation_civstrife_faction_egal = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }
 
 # Faction Separatism - Authoritarian
 situation_civstrife_faction_auth = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -387,6 +394,7 @@ situation_civstrife_faction_auth = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -404,16 +412,22 @@ situation_civstrife_faction_auth = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }
 
 # Faction Separatism - Militarist
 situation_civstrife_faction_mil = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -593,6 +607,7 @@ situation_civstrife_faction_mil = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -610,16 +625,22 @@ situation_civstrife_faction_mil = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }
 
 # Faction Separatism - Pacifist
 situation_civstrife_faction_pac = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -803,6 +824,7 @@ situation_civstrife_faction_pac = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -820,16 +842,22 @@ situation_civstrife_faction_pac = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }
 
 # Faction Separatism - Materialist
 situation_civstrife_faction_mat = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -994,7 +1022,7 @@ situation_civstrife_faction_mat = {
 		icon = GFX_situation_approach_handshake
 		icon_background = GFX_situation_approach_bg_green
 		on_select = {
-			hidden_effect = { situation_event = { id = civwar.5100 } }
+			# hidden_effect = { situation_event = { id = civwar.5100 } }
 		}
 		ai_weight = {
 			base = 0
@@ -1023,6 +1051,7 @@ situation_civstrife_faction_mat = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -1040,16 +1069,22 @@ situation_civstrife_faction_mat = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }
 
 # Faction Separatism - Spiritualist
 situation_civstrife_faction_spi = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -1229,6 +1264,7 @@ situation_civstrife_faction_spi = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -1246,16 +1282,22 @@ situation_civstrife_faction_spi = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }
 
 # Faction Separatism - Xenophile
 situation_civstrife_faction_phile = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -1435,6 +1477,7 @@ situation_civstrife_faction_phile = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -1452,16 +1495,22 @@ situation_civstrife_faction_phile = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }
 
 # Faction Separatism - Xenophobe
 situation_civstrife_faction_phobe = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -1641,6 +1690,7 @@ situation_civstrife_faction_phobe = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -1658,16 +1708,22 @@ situation_civstrife_faction_phobe = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }
 
 # Faction Separatism - Socialist
 situation_civstrife_faction_soc = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -1847,6 +1903,7 @@ situation_civstrife_faction_soc = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -1864,16 +1921,22 @@ situation_civstrife_faction_soc = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }
 
 # Faction Separatism - Capitalist
 situation_civstrife_faction_cap = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -2053,6 +2116,7 @@ situation_civstrife_faction_cap = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -2070,16 +2134,22 @@ situation_civstrife_faction_cap = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }
 
 # Faction Separatism - Industrialist
 situation_civstrife_faction_indus = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -2259,6 +2329,7 @@ situation_civstrife_faction_indus = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -2276,16 +2347,22 @@ situation_civstrife_faction_indus = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }
 
 # Faction Separatism - Environmentalist
 situation_civstrife_faction_eco = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -2465,6 +2542,7 @@ situation_civstrife_faction_eco = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -2482,16 +2560,22 @@ situation_civstrife_faction_eco = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }
 
 # Faction Separatism - Elitist
 situation_civstrife_faction_elite = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -2671,6 +2755,7 @@ situation_civstrife_faction_elite = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -2688,16 +2773,22 @@ situation_civstrife_faction_elite = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }
 
 # Faction Separatism - Pluralist
 situation_civstrife_faction_plur = {
-	picture = GFX_evt_civil_action
+	picture = GFX_evt_assembly_fight
 	category = negative
 
 	complete_icon = GFX_situation_outcome_revolt
@@ -2877,6 +2968,7 @@ situation_civstrife_faction_plur = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
+			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -2894,9 +2986,15 @@ situation_civstrife_faction_plur = {
 		}
 
 		modifier = {
-			desc = modifier_faction_is_happy
+			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
+		}
+
+		modifier = {
+			desc = heir_leads_faction
+			add = -5
+			target.leader = { is_heir = yes }
 		}
 	}
 }

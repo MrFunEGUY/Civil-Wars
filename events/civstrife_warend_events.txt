@@ -10,18 +10,20 @@ namespace = civend
 #   Civil Wars   #
 ##################
 
-# A war has been won
-# Root = Winner Warleader
-# From = Loser Warleader
-# FromFrom = War
+
 # Initializer, normal Civil Wars
 country_event = {
 	id = civend.1000
 	hide_window = yes
 	is_triggered_only = yes
 
+	# A war has been won
+	# Root = Winner Warleader
+	# From = Loser Warleader
+	# FromFrom = War
+
 	trigger = {
-		fromfrom = { NOT = { has_war_flag = subject_war } }
+		NOT = { any_subject = { has_country_flag = subject_for_traitor_@from } }
 		OR = {
 			fromfrom = {
 				OR = {
@@ -71,9 +73,7 @@ country_event = {
 
 	immediate = {
 
-		from.ruler = {
-			save_event_target_as = defeated_traitor_1
-		}
+		from.ruler = { save_event_target_as = defeated_traitor_1 }
 
 		clone_leader = {
 			target = event_target:defeated_traitor_1
@@ -169,7 +169,7 @@ country_event = {
 	title = civend.1003.name
 	desc = civend.1003.desc
 	picture = GFX_evt_ship_travel
-	location = event_target:civwar_rebels
+	location = root.capital_scope
 	hide_window = no
 	is_triggered_only = yes
 	
@@ -187,7 +187,7 @@ country_event = {
 	id = civend.1004
 	title = civend.1004.name
 	picture = GFX_evt_surrender
-	location = event_target:civwar_rebels
+	location = root.capital_scope
 	hide_window = no
 	is_triggered_only = yes
 
@@ -219,17 +219,19 @@ country_event = {
 	}
 }
 
-# A war has been won
-# Root = Winner Warleader
-# From = Loser Warleader
-# FromFrom = War
 # Initializer, subject Civil Wars
 country_event = {
 	id = civend.2000
 	hide_window = yes
 	is_triggered_only = yes
 
+	# A war has been won
+	# Root = Winner Warleader
+	# From = Loser Warleader
+	# FromFrom = War
+
 	trigger = {
+		any_subject = { has_country_flag = subject_for_traitor_@from }
 		OR = {
 			fromfrom = {
 				OR = {
@@ -274,32 +276,289 @@ country_event = {
 					}
 				}
 			}
-			}
-			any_war_participant = {
-				has_country_flag = subject_for_traitor_@from
-			}
 		}
 	}
 
 	immediate = {
 
-		fromfrom = {
-			random_attacker = {
-				limit = { has_country_flag = subject_for_traitor_@from }
-				remove_country_flag = subject_for_traitor_@from
-				save_event_target_as = traitor_subject_country
-			}
+		random_subject = {
+			limit = { has_country_flag = subject_for_traitor_@from }
+			remove_country_flag = subject_for_traitor_@from
+			save_event_target_as = traitor_subject_country
 		}
 
-		from = {
-			ruler = { save_event_target_as = defeated_traitor }
-		}
+		from.ruler = { save_event_target_as = defeated_traitor_1 }
 
 		event_target:traitor_subject_country = {
+			clone_leader = {
+				target = event_target:defeated_traitor_1
+				class = ruler
+				effect = {
+					save_event_target_as = defeated_traitor
+					set_leader_flag = dummy_leader
+				}
+			}
 			get_traitor_outcome = yes
 		}
 
 		set_timed_country_flag = { flag = traitor_already_asked@event_target:defeated_traitor days = 10 }
+	}
+}
+
+########
+
+# Set subjects who assisted in civwar free
+country_event = {
+	id = civend.3000
+	hide_window = yes
+	is_triggered_only = yes
+
+	# A war has been won
+	# Root = Winner Warleader
+	# From = Loser Warleader
+	# FromFrom = War
+
+	trigger = {
+		fromfrom = {
+			OR = {
+				using_war_goal = { type = wg_civwar owner = root }
+				using_war_goal = { type = wg_natwar owner = root }
+				using_war_goal = { type = wg_civwar_heir owner = root }
+				using_war_goal = { type = wg_coup_successor owner = root }
+				using_war_goal = { type = wg_coup_independent owner = root }
+			}
+			any_attacker = {
+				has_overlord = root
+				NOT = { has_country_flag = sub_joins_overlord }
+			}
+		}
+	}
+
+	immediate = {
+		fromfrom = {
+			every_attacker = {
+				limit = {
+					has_overlord = root
+					NOT = { has_country_flag = sub_joins_overlord }
+				}
+				set_subject_of = { who = none }
+			}
+		}
+	}
+}
+
+# Set subjects who assisted in civwar free on rebel side
+country_event = {
+	id = civend.3005
+	hide_window = yes
+	is_triggered_only = yes
+
+	# A war has been won
+	# Root = Winner Warleader
+	# From = Loser Warleader
+	# FromFrom = War
+
+	trigger = {
+		is_overlord = yes
+		fromfrom = {
+			OR = {
+				using_war_goal = { type = wg_civwar_rebel owner = root }
+				using_war_goal = { type = wg_natwar_rebel owner = root }
+				using_war_goal = { type = wg_civwar_heir_rebel owner = root }
+				using_war_goal = { type = wg_coup_successor_opponent owner = root }
+				using_war_goal = { type = wg_coup_independent_opponent owner = root }
+			}
+		}
+	}
+
+	immediate = {
+		every_subject = {
+			limit = { has_country_flag = helped_rebels_sub }
+			remove_country_flag = helped_rebels_sub
+			set_subject_of = { who = none }
+		}
+	}
+}
+
+# Set rebel pledged subjects back as subjects if we win
+country_event = {
+	id = civend.3010
+	hide_window = yes
+	is_triggered_only = yes
+
+	# A war has been won
+	# Root = Winner Warleader
+	# From = Loser Warleader
+	# FromFrom = War
+
+	trigger = {
+		# There are cases where this implemtation can be a little weird, but fuck you
+		from = { is_overlord = yes }
+		fromfrom = {
+			OR = {
+				using_war_goal = { type = wg_civwar owner = root }
+				using_war_goal = { type = wg_natwar owner = root }
+				using_war_goal = { type = wg_civwar_heir owner = root }
+				using_war_goal = { type = wg_coup_successor owner = root }
+				using_war_goal = { type = wg_coup_independent owner = root }
+			}
+		}
+	}
+
+	immediate = {
+		from = {
+			every_subject = {
+				set_subject_of = {
+					who = root
+					preset = preset_vassal
+				}
+			}
+		}
+	}
+}
+
+# Set Rebel helper Subjects back as subjects 
+country_event = {
+	id = civend.3020
+	hide_window = yes
+	is_triggered_only = yes
+
+	# A war has been won
+	# Root = Winner Warleader
+	# From = Loser Warleader
+	# FromFrom = War
+
+	trigger = {
+		from = {
+			is_overlord = yes
+			any_subject = { has_country_flag = helped_rebels_sub }
+		}
+		fromfrom = {
+			OR = {
+				using_war_goal = { type = wg_civwar owner = root }
+				using_war_goal = { type = wg_natwar owner = root }
+				using_war_goal = { type = wg_civwar_heir owner = root }
+				using_war_goal = { type = wg_coup_successor owner = root }
+				using_war_goal = { type = wg_coup_independent owner = root }
+			}
+		}
+	}
+
+	immediate = {
+		from = {
+			every_subject = {
+				limit = { has_country_flag = helped_rebels_sub }
+				remove_country_flag = helped_rebels_sub
+				set_subject_of = {
+					who = root
+					preset = preset_vassal
+				}
+			}
+		}
+	}
+}
+
+# Remove joiner flag
+country_event = {
+	id = civend.3030
+	hide_window = yes
+	is_triggered_only = yes
+
+	# A war has been won
+	# Root = Winner Warleader
+	# From = Loser Warleader
+	# FromFrom = War
+
+	trigger = {
+		fromfrom = {
+			OR = {
+				using_war_goal = { type = wg_civwar owner = root }
+				using_war_goal = { type = wg_natwar owner = root }
+				using_war_goal = { type = wg_civwar_heir owner = root }
+				using_war_goal = { type = wg_coup_successor owner = root }
+				using_war_goal = { type = wg_coup_independent owner = root }
+			}
+			any_attacker = { has_country_flag = sub_joins_overlord }
+		}
+	}
+
+	immediate = {
+		fromfrom = {
+			every_attacker = {
+				limit = { has_country_flag = sub_joins_overlord }
+				remove_country_flag = sub_joins_overlord
+			}
+		}
+	}
+}
+
+# Remove joiner flag
+country_event = {
+	id = civend.3031
+	hide_window = yes
+	is_triggered_only = yes
+
+	# A war has been won
+	# Root = Winner Warleader
+	# From = Loser Warleader
+	# FromFrom = War
+
+	trigger = {
+		fromfrom = {
+			OR = {
+				using_war_goal = { type = wg_civwar_rebel owner = root }
+				using_war_goal = { type = wg_natwar_rebel owner = root }
+				using_war_goal = { type = wg_civwar_heir_rebel owner = root }
+				using_war_goal = { type = wg_coup_successor_opponent owner = root }
+				using_war_goal = { type = wg_coup_independent_opponent owner = root }
+			}
+			any_attacker = { has_country_flag = sub_joins_overlord }
+		}
+	}
+
+	immediate = {
+		fromfrom = {
+			every_attacker = {
+				limit = { has_country_flag = sub_joins_overlord }
+				remove_country_flag = sub_joins_overlord
+			}
+		}
+	}
+}
+
+# Remove joiner flag
+country_event = {
+	id = civend.3032
+	hide_window = yes
+	is_triggered_only = yes
+
+	# A status quo has been signed
+	# Root = Actor
+	# From = Recipient
+	# FromFrom = Main Attacker
+	# FromFromFrom = Main Defender
+	# FromFromFromFrom = War
+
+	trigger = {
+		FromFromFromFrom = {
+			OR = {
+				using_war_goal = { type = wg_civwar owner = root }
+				using_war_goal = { type = wg_natwar owner = root }
+				using_war_goal = { type = wg_civwar_heir owner = root }
+				using_war_goal = { type = wg_coup_successor owner = root }
+				using_war_goal = { type = wg_coup_independent owner = root }
+			}
+			any_attacker = { has_country_flag = sub_joins_overlord }
+		}
+	}
+
+	immediate = {
+		FromFromFromFrom = {
+			every_attacker = {
+				limit = { has_country_flag = sub_joins_overlord }
+				remove_country_flag = sub_joins_overlord
+			}
+		}
 	}
 }
 

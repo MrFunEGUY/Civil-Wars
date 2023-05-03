@@ -21,8 +21,8 @@ country_event = { # Check disapproving Factions every month
 			count > 1
 			limit = { is_regular_faction = yes }
 		}
-		years_passed >= 15
-		NOT = {
+		# years_passed >= 15
+		NOR = {
 			is_gestalt = yes
 			has_country_flag = recent_civil_war
 		}
@@ -31,7 +31,10 @@ country_event = { # Check disapproving Factions every month
 			NOT = { has_pop_faction_flag = faction_sep_situation }
 			OR = {
 				NOT = { exists = leader }
-				leader = { NOT = { is_same_value = root.ruler } }
+				leader = {
+					is_heir = no
+					NOT = { is_same_value = root.ruler }
+				}
 			}
 			OR = {
 				AND = {
@@ -94,38 +97,33 @@ country_event = { # Check disapproving Factions every month
 			OR = {
 				AND = {
 					owner = { is_democracy = yes }
-					support > 0.2
-					faction_approval < 0.35
-					# OR = {
-					# 	AND = {
-					# 		owner = { is_ai = no }
-					# 		support > 0.2
-					# 		faction_approval < 0.35
-					# 	}
-					# 	AND = {
-					# 		owner = { is_ai = yes }
-					# 		support > 0.3
-					# 		faction_approval < 0.3
-					# 	}
-					# }
+					OR = {
+						AND = {
+							owner = { is_ai = no }
+							support > 0.2
+							faction_approval < 0.35
+						}
+						AND = {
+							owner = { is_ai = yes }
+							support > 0.2
+							faction_approval < 0.3
+						}
+					}
 				}
 				AND = {
 					owner = { is_democracy = no }
-					# support > 0.15
-					support > 0.2
-					faction_approval < 0.4
-					# OR = {
-					# 	AND = {
-					# 		owner = { is_ai = no }
-					# 		support > 0.15
-					# 		faction_approval < 0.4
-					# 	}
-					# 	AND = {
-					# 		owner = { is_ai = yes }
-					# 		support > 0.25
-					# 		faction_approval < 0.35
-					# 	}
-					# }
+					OR = {
+						AND = {
+							owner = { is_ai = no }
+							support > 0.15
+							faction_approval < 0.4
+						}
+						AND = {
+							owner = { is_ai = yes }
+							support > 0.2
+							faction_approval < 0.4
+						}
+					}
 				}
 			}
 		}
@@ -139,7 +137,10 @@ country_event = { # Check disapproving Factions every month
 				NOT = { has_pop_faction_flag = faction_sep_situation }
 				OR = {
 					NOT = { exists = leader }
-					leader = { NOT = { is_same_value = root.ruler } }
+					leader = {
+						is_heir = no
+						NOT = { is_same_value = root.ruler }
+					}
 				}
 				OR = {
 					AND = {
@@ -202,38 +203,33 @@ country_event = { # Check disapproving Factions every month
 				OR = {
 					AND = {
 						owner = { is_democracy = yes }
-						support > 0.2
-						faction_approval < 0.35
-						# OR = {
-						# 	AND = {
-						# 		owner = { is_ai = no }
-						# 		support > 0.2
-						# 		faction_approval < 0.35
-						# 	}
-						# 	AND = {
-						# 		owner = { is_ai = yes }
-						# 		support > 0.3
-						# 		faction_approval < 0.3
-						# 	}
-						# }
+						OR = {
+							AND = {
+								owner = { is_ai = no }
+								support > 0.2
+								faction_approval < 0.35
+							}
+							AND = {
+								owner = { is_ai = yes }
+								support > 0.2
+								faction_approval < 0.3
+							}
+						}
 					}
 					AND = {
 						owner = { is_democracy = no }
-						# support > 0.15
-						support > 0.2
-						faction_approval < 0.4
-						# OR = {
-						# 	AND = {
-						# 		owner = { is_ai = no }
-						# 		support > 0.15
-						# 		faction_approval < 0.4
-						# 	}
-						# 	AND = {
-						# 		owner = { is_ai = yes }
-						# 		support > 0.25
-						# 		faction_approval < 0.35
-						# 	}
-						# }
+						OR = {
+							AND = {
+								owner = { is_ai = no }
+								support > 0.15
+								faction_approval < 0.4
+							}
+							AND = {
+								owner = { is_ai = yes }
+								support > 0.2
+								faction_approval < 0.4
+							}
+						}
 					}
 				}
 			}
@@ -538,10 +534,10 @@ country_event = { # Set timer flag
 	immediate = {
 		if = {
 			limit = { fromfrom = { using_war_goal = { type = wg_civwar owner = root } } }
-			set_timed_country_flag = { flag = recent_civil_war years = 2 }
+			set_timed_country_flag = { flag = recent_civil_war years = 3 }
 		}
 		else = {
-			from = { set_timed_country_flag = { flag = recent_civil_war years = 2 } }
+			from = { set_timed_country_flag = { flag = recent_civil_war years = 3 } }
 		}
 	}
 }
@@ -565,7 +561,7 @@ country_event = { # Set timer flag
 
 	immediate = {
 		fromfrom = {
-			set_timed_country_flag = { flag = recent_civil_war years = 2 }
+			set_timed_country_flag = { flag = recent_civil_war years = 3 }
 		}
 	}
 }

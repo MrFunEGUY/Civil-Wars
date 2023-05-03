@@ -110,21 +110,7 @@ country_event = {
 		#####
 	
 		if = {
-			limit = {
-				is_subject = yes
-				any_agreement = {
-					OR = {
-						has_term_value = {
-							term = joins_subject_wars
-							value = joins_subject_wars_all
-						}
-						has_term_value = {
-							term = joins_subject_wars
-							value = joins_subject_wars_defensive
-						}
-					}
-				}
-			}
+			limit = { overlord_protects_subject = yes }
 			overlord = { country_event = { id = civwar.2000 } }
 			# log = "1"
 		}
@@ -492,7 +478,7 @@ country_event = {
 
 	trigger = {
 		any_owned_planet = {
-			num_pops > 0
+			num_pops >= 1
 			NOT = { exists = sector }
 			NOT = { has_modifier = planet_no_sector }
 		}

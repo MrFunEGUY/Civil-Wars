@@ -106,28 +106,7 @@ preset_ver_neocolony = {
 # Blood Tributary
 preset_ver_blood = {
 	potential = {
-		OR = {
-			is_subject = no
-			any_agreement = {
-				NOR = {
-					agreement_preset = preset_protectorate
-					agreement_preset = preset_tributary
-					agreement_preset = preset_auto_state
-				}
-			}
-		}
-		from = {
-			is_gestalt = no
-			OR = {
-				has_valid_civic = civic_barbaric_despoilers
-				has_valid_civic = civic_slaver_guilds
-				has_valid_civic = civic_indentured_assets
-			}
-			count_subject = {
-				count <= 1
-				limit = { is_ver_blood = yes }
-			}
-		}
+		always = no
 	}
 }
 
@@ -141,14 +120,14 @@ preset_verappendage = {
 }
 
 # Organic subjects of machine intelligences
-preset_verorganic = {
+preset_ver_organic = {
 	potential = {
 		always = no
 	}
 }
 
 # Mechanic subjects of machine intelligences
-preset_verparallel = {
+preset_ver_parallel = {
 	potential = {
 		always = no
 	}

@@ -1079,12 +1079,9 @@ country_event = {
 									}
 								}
 							}
-							sector = {
-								set_sector_flag = rebel_sector_@event_target:rebel_sector_leader
-								set_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader
-							}
-							set_sector_flag = follower_sector
 							set_sector_flag = counted_sector
+							set_sector_flag = rebel_sector_@event_target:rebel_sector_leader
+							set_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader
 						}
 					}
 				}

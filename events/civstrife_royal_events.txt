@@ -6,27 +6,28 @@
 
 namespace = civroyal
 
-country_event = { # - Disputed Ruler Ascension, start situation
+country_event = { # Disputed Ruler Ascension, start situation
 	id = civroyal.1000
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
-		num_sectors >= 2
+		num_sectors > 1
 		is_imperial = yes
-		from = { is_same_value = root.ruler }
+		from = {
+			leader_class = ruler
+			has_leader_flag = is_imperial_ruler
+		}
 		NOR = {
 			exists = heir
 			exists = event_target:disinherited_heir
-			years_passed <= 30
+			# years_passed <= 30
 			has_country_flag = succ_crisis_popup
 			any_situation = { is_situation_type = situation_civstrife_succession }
 		}
 	}
 
 	immediate = {
-
-		# log = "Royal 1000"
 
 		from = { save_event_target_as = crisis_dynasty_name }
 		clone_leader = {
@@ -110,7 +111,7 @@ country_event = { # Governors/Dynasts are considering rebellion, start situation
 	}
 }
 
-situation_event = { # - Send Message out to governors to ask if they are loyal
+situation_event = { # Send Message out to governors to ask if they are loyal
 	id = civroyal.1100
 	hide_window = yes
 	is_triggered_only = yes
@@ -126,7 +127,7 @@ situation_event = { # - Send Message out to governors to ask if they are loyal
 	}
 }
 
-situation_event = { # - Send Message out to governors to ask if they are loyal
+situation_event = { # Send Message out to governors to ask if they are loyal
 	id = civroyal.1105
 	hide_window = no
 	title = civroyal.1105.name
@@ -303,7 +304,7 @@ situation_event = { # Query Governor
 					has_sector_flag = succession_crisis_rebel_sector
 					NOT = { has_sector_flag = succesion_crisis_talked }
 				}
-				set_sector_flag = succesion_crisis_talked
+				set_timed_sector_flag = { flag = succesion_crisis_talked years = 1 }
 				save_event_target_as = crisis_sector
 				if = {
 					limit = { has_sector_flag = governor_rebel_sector }
@@ -345,7 +346,7 @@ situation_event = { # Query Governor
 								set_name = {
 									key = append_dynasty_name
 									variable_string = "[This.GetFirstName]"
-									variable_string = "[event_target:crisis_dynasty_name.GetName]"
+									variable_string = "[crisis_dynasty_name.GetName]"
 								}
 								save_event_target_as = crisis_sector_leader
 							}
@@ -356,6 +357,42 @@ situation_event = { # Query Governor
 				owner = { country_event = { id = civcom.3000 days = 2 random = 10 } }
 			}
 		}
+	}
+}
+
+country_event = { # Governors/Dynasts are considering rebellion, start situation
+	id = civroyal.1200
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_at_war = yes
+		is_succession_country = yes
+		is_country_type_with_subjects = yes
+		any_subject = { is_at_war = no }
+	}
+
+	immediate = {
+		every_subject = {
+			limit = { is_at_war = no }
+			join_war = overlord
+		}
+	}
+}
+
+########
+
+country_event = { # Imperial Ruler Set Flag
+	id = civroyal.2000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_imperial = yes
+	}
+
+	immediate = {
+		ruler = { set_leader_flag = is_imperial_ruler }
 	}
 }
 

@@ -48,10 +48,41 @@ l_japanese:
 
  # Notification of Formal Secession
  civwar.2200.name: "Secession Complete"
- civwar.2200.plan.desc: "In a speech before the nation today, [root.GetRulerTitle] §H[civwar_rebels.ruler.GetName]§! announced that, in accordance with their election win, the people of §Y[civwar_rebels.capital_scope.GetName]§! now have a new state of their own, the §H[civwar_rebels.GetName]§!. §H[civwar_rebels.ruler.GetName]§! announced that they will lead this new state, and officially resigned from office."
+ civwar.2200.plan.desc: "In a speech before the nation today, [root.GetRulerTitle] §H[civwar_rebels.ruler.GetName]§! announced that, in accordance with their election win, §Y[civwar_rebels.capital_scope.GetName]§! and the surrounding systems have been reorganized into a new state, the §H[civwar_rebels.GetName]§!. §H[civwar_rebels.ruler.GetName]§! announced that they will lead this new state, and officially resigned from office."
  civwar.2200.sec.desc: "In a speech before the nation today, [root.GetRulerTitle] §H[civwar_rebels.ruler.GetName]§! announced that in accordance with their election win, the §Y[sector_name_leader.GetName]§! sector has been reorganized into a new state, the §H[civwar_rebels.GetName]§!. §H[civwar_rebels.ruler.GetName]§! announced that they will lead this new state, and officially resigned from office."
 
  civcom.2200.resp: "We'll be better off without them."
+
+ # Player Subject overlord civwar interactions
+ civwar.2300.name: "Overlord Embroiled in Civil War"
+ civwar.2300_1.desc: "It appears that our overlord, the §H[overlord.GetName]§!, have found themselves embroiled in a civil war. This situation presents some unique opportunities for our empire. How are we going to respond to this situation?"
+ civwar.2300_more.desc: "It appears that our overlord, the §H[overlord.GetName]§!, have found themselves embroiled in a civil war. This situation presents some unique opportunities for our empire, and that of our overlord's other subjects. How are we going to respond to this situation?"
+
+ civwar.2300.nothing: "We will do nothing."
+
+ civwar.2300.independence: "§YDeclare Independence§!."
+ independence_effect: "We will §Ydeclare war§! against our overlord for our independence. If any of our overlord's subjects are already involved in an Independence War, we will join that war instead."
+ 
+ civwar.2300.help_overlord: "§YHelp Overlord§!, contingent upon our §HIndependence§!"
+ help_overlord_effect: "We will ask our overlord, the §H[overlord.GetName]§!, if they would like our assistance in the war. If they accept, we will join the war. If our overlord successfully wins the war, we will be granted our independence."
+
+ civwar.2300.help_rebels: "§YHelp Rebels§!, securing our §HIndependence§!"
+ help_rebels_effect: "We will help the rebels in their secession attempt. If we are successful, our independence will be acknowledged by the §H[overlord.GetName]§!."
+ 
+ civwar.2300.fealty_rebels: "§YSwear Fealty§! to the §H[rebel_borders_subject.GetName]§!"
+ fealty_rebels_effect: "We will swear fealty to the §H[rebel_borders_subject.GetName]§! and join them in their secession attempt."
+ 
+ civwar.2300.join_overlord: "§YJoin Overlord§!, asking for nothing in return."
+ join_overlord_effect: "We will join our overlord in their war, asking for nothing."
+
+ civcom.2300.resp: "We'll be better off without them."
+
+ civwar.2310.name: "Overlord Accepts Offer"
+ civwar.2310.desc: "Our overlord, the §H[overlord.GetName]§!, has accepted our offer. Should this war be won, we will gain our independence."
+
+ civwar.2315.name: "Overlord Rejects Offer"
+ civwar.2315.desc: "Our overlord, the §H[overlord.GetName]§!, has rejected our offer."
+ civwar.2315.fools: "They are fools."
 
  ON_SCREEN_REBELS: "What!? On screen!"
 
@@ -129,6 +160,15 @@ l_japanese:
  opinion_received_traitor: "Harbored Traitor"
  opinion_restored_nats: "Restored our Nation"
 
+ opinion_supported_rebellion: "Supported our Rebellion"
+
+ opinion_gives_5_ships: "$opinion_supported_rebellion$"
+ opinion_gives_10_ships: "$opinion_supported_rebellion$"
+ opinion_gives_15_ships: "$opinion_supported_rebellion$"
+ opinion_gives_small_resources: "$opinion_supported_rebellion$"
+ opinion_gives_medium_resources: "$opinion_supported_rebellion$"
+ opinion_gives_large_resources: "$opinion_supported_rebellion$"
+
  # Army Names
  civwar_defense_army: "Separatist Defense Militia"
  civwar_defense_army_desc: "This Defense Militia is ready to defend their planet to protect their revolution."
@@ -157,6 +197,8 @@ l_japanese:
  foreign_support: "Foreign Support"
  death_of_motherland: "Motherland has been destroyed"
  restoration_of_motherland: "Motherland has been restored"
+ faction_happy_no_support: "Faction is either content or cannot support radicalization"
+ heir_leads_faction: "§Y[root.owner.GetHeirTitle]§! §H[root.owner.heir.GetName]§! leads the §Y[target.GetName]§!"
 
  # Enclaves
  enclave_exiled_gov: "Government-in-Exile"
@@ -172,21 +214,20 @@ l_japanese:
 
  # Subject Types
  preset_auto_state: "Autonomous State"
- preset_auto_state_desc: "Autonomous States are completely diplomatically independent of their overlords. They provide a tribute in exchange for the right to operate as a sovereign nation."
- # preset_auto_state_desc: "Autonomous States are completely diplomatically independent of their overlords. They provide a tribute in exchange for the right to operate as a sovereign nation.\n\nCan Expand: £trigger_yes£\nCan Wage War: £trigger_yes£\nProtected: £trigger_no£\nJoins Overlord's Wars: £trigger_no£\nCan Integrate: £trigger_no£\nOverlord £influence£ §HInfluence§!: §R-0.2§!\nTribute: §Y15%§! £energy£ §HEnergy§!, £minerals£ §HMinerals§!, £food£ §HFood§!, £alloys£ §HAlloys§!, £consumer_goods£ §HConsumer Goods§!, £volatile_motes£ §HVolatile Motes§!, £exotic_gases£ §HExotic Gases§!, £rare_crystals£ §HRare Crystals§!, and £minor_artifacts£ §HMinor Artifacts§!"
- preset_auto_state_flavor_desc: "Autonomous States are completely diplomatically independent of their overlords. They provide tribute in exchange for the right to operate as a sovereign nation."
+ preset_auto_state_desc: "Autonomous States are completely diplomatically independent of their overlords. They provide a tribute in exchange for the right to operate as a functionally sovereign nation."
+ preset_auto_state_flavor_desc: "Autonomous States are completely diplomatically independent of their overlords. They provide tribute in exchange for the right to operate as a functionally sovereign nation."
 
- not_allowed_for_auto_state: "$TRIGGER_FAIL$Not allowed for §YAutonomous States§!."
-
- autostate_extra_overlord: "Monthly: £influence£ §R-0.25§"
+ autostate_extra_overlord: "Monthly: £influence£ §R-0.25!"
 
  subject_auto_state_effect: "$preset_auto_state$"
 
  # Fail Texts
  resource_fail_text: "§RWe do not have enough resources.§!"
- war_leader_engaged: "§RLeader is engaged in ongoing operations and cannot be dismissed.§R"
+ war_leader_engaged: "§RLeader is engaged in ongoing operations and cannot be dismissed.§!"
  two_year_unity_fail_text: "§RRequires§! §Y[Root.year_unity_prod]§! £unity£ §YUnity§!"
  one_year_unity_fail_text: "§RRequires§! §Y[Root.two_year_unity_prod]§! £unity£ §YUnity§!"
+ no_border_overlord_or_rebels: "§RWe do not border our overlord or the rebels.§!"
+ no_border_rebels: "§RWe do not border the rebels.§!"
 
  ##################
  # Communications #
@@ -217,14 +258,14 @@ l_japanese:
  civcom.1000.nationalist.sec.support.desc: "$civcom.1000.nationalist.support.desc$"
  civcom.1000.nationalist.sec.no_support.desc: "$civcom.1000.nationalist.no_support.desc$"
 
- civcom.1005.leader.plan.desc: "Greetings. You knew me as [civwar_rebels.Ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people of §Y[civwar_rebels.capital_scope.GetName]§! have had enough. I am a mere [civwar_rebels.Ruler.GetRebelRulerClass] no longer. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
- civcom.1005.separatist.plan.desc: "Greetings. My name is §H[civwar_rebels.Ruler.GetName]§!, and I represent the people of §Y[civwar_rebels.capital_scope.GetName]§!, who have long been left neglected and impoverished by your government. Now, they have chosen me to lead the §H[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!.\n\nWe recognize the odds of us holding this planet in a war are slim. However, we have the resources to make any potential war long and costly. Therefore, in the interest of preventing further bloodshed, we're willing to forgo declaring complete independence.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
+ civcom.1005.leader.plan.desc: "Greetings. You knew me as [civwar_rebels.Ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people of §Y[civwar_rebels.capital_scope.GetName]§! have had enough. I am a mere [civwar_rebels.Ruler.GetRebelRulerClass] no longer. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy being guaranteed, in perpetuity."
+ civcom.1005.separatist.plan.desc: "Greetings. My name is §H[civwar_rebels.Ruler.GetName]§!, and I represent the people of §Y[civwar_rebels.capital_scope.GetName]§!, who have long been left neglected and impoverished by your government. Now, they have chosen me to lead the §H[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!.\n\nWe recognize the odds of us holding this planet in a war are slim. However, we have the resources to make any potential war long and costly. Therefore, in the interest of preventing further bloodshed, we're willing to forgo declaring complete independence.\n\nWe're willing to pay you tribute in exchange for our autonomy being guaranteed, in perpetuity."
  civcom.1005.nationalist.desc: "$civcom.1000.nationalist.no_support.desc"
- civcom.1000.newleader.plan.desc: "Greetings. My name is §H[civwar_rebels.Ruler.GetName]§!, a former member of the §Y[civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people have had enough. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
+ civcom.1000.newleader.plan.desc: "Greetings. My name is §H[civwar_rebels.Ruler.GetName]§!, a former member of the §Y[civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people have had enough. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy being guaranteed, in perpetuity."
 
- civcom.1005.leader.sec.desc: "Greetings. You knew me as [civwar_rebels.Ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people of the §Y[sector_name_leader.GetName]§! sector have had enough. I am a mere [civwar_rebels.Ruler.GetRebelRulerClass] no longer. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
- civcom.1005.separatist.sec.desc: "Greetings. My name is §H[civwar_rebels.Ruler.GetName]§!, and I represent the people of the §Y[sector_name_leader.GetName]§! sector, who have long been left neglected and impoverished by your government. Now, they have chosen me to lead the §H[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!.\n\nHowever, in the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
- civcom.1005.nationalist.sec.desc: "Greetings. My name is §H[civwar_rebels.Ruler.GetName]§!, a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, as §Y[civwar_rebels.GetRulerTitle]§!, I lead a new §Y[nat_motherland_model.GetAdj]§! state, the §H[civwar_rebels.GetName]§!.\n\nOur new state is modeled after §Your motherland§!, the §Y[nat_motherland_model.GetName]§!. I have the support of the people of my nation, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
+ civcom.1005.leader.sec.desc: "Greetings. You knew me as [civwar_rebels.Ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people of the §Y[sector_name_leader.GetName]§! sector have had enough. I am a mere [civwar_rebels.Ruler.GetRebelRulerClass] no longer. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy being guaranteed, in perpetuity."
+ civcom.1005.separatist.sec.desc: "Greetings. My name is §H[civwar_rebels.Ruler.GetName]§!, and I represent the people of the §Y[sector_name_leader.GetName]§! sector, who have long been left neglected and impoverished by your government. Now, they have chosen me to lead the §H[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!.\n\nHowever, in the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy being guaranteed, in perpetuity."
+ civcom.1005.nationalist.sec.desc: "Greetings. My name is §H[civwar_rebels.Ruler.GetName]§!, a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, as §Y[civwar_rebels.GetRulerTitle]§!, I lead a new §Y[nat_motherland_model.GetAdj]§! state, the §H[civwar_rebels.GetName]§!.\n\nOur new state is modeled after §Your motherland§!, the §Y[nat_motherland_model.GetName]§!. I have the support of the people of my nation, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy being guaranteed, in perpetuity."
 
 
  civcom.1000.war: "This is treason. We will reunite our nation. This means war."
@@ -232,7 +273,7 @@ l_japanese:
 
  civcom.1005.a: "This is treason. We will reunite our nation. This means war."
  civcom.1005.vassal: "Interesting. We accept your offer."
- civcom.1005.vassal.tooltip: "The §H[civwar_rebels.GetName]§! will become an §YAutonomous State§! within our nation. They will pay us §Y15% of all their resources§!. They will be able to expand and declare war. They won't be required to help us in our wars, and will also be responsible for their own defense. They will cost us 0.2 £influence£ §HInfluence§! per month. §RWe will never be able to integrate them.§!"
+ civcom.1005.vassal.tooltip: "The §H[civwar_rebels.GetName]§! will become a §YTributary§!. \n§RWe will never be able to integrate them.§!"
 
  civcom.2000.norm.desc: "We knew this was the most likely outcome, and we are prepared to defend our independence."
  civcom.2000.heir.desc: "I knew this was the course you would most likely take, seeing as you have a tendency to make poor decisions. Ever more the reason that I should lead."
@@ -264,7 +305,7 @@ l_japanese:
  civcom.2120.a: "So be it."
  civcom.5052.a: "Be gone."
 
- civcom.1105.desc: "I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.Ruler.GetName]§! and I lead the newly-formed §H[civwar_rebels.GetName]§!. We've routed your forces, securing this planet and the surrounding systems. No longer will the people of §Y[rebellion_planet.GetName]§! be neglected and left impoverished by your government.\n\nWe recognize the odds of us holding this planet in a war are slim. However, we have the resources to make any potential war long and costly. Therefore, in the interest of preventing further bloodshed, we're willing to forgo declaring complete independence.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
+ civcom.1105.desc: "I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.Ruler.GetName]§! and I lead the newly-formed §H[civwar_rebels.GetName]§!. We've routed your forces, securing this planet and the surrounding systems. No longer will the people of §Y[rebellion_planet.GetName]§! be neglected and left impoverished by your government.\n\nWe recognize the odds of us holding this planet in a war are slim. However, we have the resources to make any potential war long and costly. Therefore, in the interest of preventing further bloodshed, we're willing to forgo declaring complete independence.\n\nWe're willing to pay you tribute in exchange for our autonomy being guaranteed, in perpetuity."
 
  civcom.1105.a: "This is treason. We will reunite our nation. This means war."
  civcom.1105.b: "Interesting. We accept your offer."
@@ -358,9 +399,17 @@ l_japanese:
 
  # civcom.1100.desc: "Greetings. You knew me as Governor §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people have had enough. I am a mere Governor no longer. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves. I recommend that your government accept this, so that we can prevent any further bloodshed."
 
- civcom.5010.desc: "Greetings. You knew me as Scientist §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people have had enough. I am a mere Scientist no longer. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves. I recommend that your government accept this, so that we can prevent any further bloodshed."
+ rebel_overlord_text_1: "\nAdditionally, the §Y[stolen_subject_1.GetName]§!, your former subject, has sworn fealty to us. They will join us in fighting against you, should you attempt it."
+ rebel_overlord_text_2: "\nAdditionally, your former subjects the §Y[stolen_subject_1.GetName]§! and the §Y[stolen_subject_2.GetName]§! have sworn fealty to us. They will join us in fighting against you, should you attempt it."
+ rebel_overlord_text_3: "\nAdditionally, your former subjects the §Y[stolen_subject_1.GetName]§!, the §Y[stolen_subject_2.GetName]§!, and the §Y[stolen_subject_3.GetName]§! have sworn fealty to us. They will join us in fighting against you, should you attempt it."
+ rebel_overlord_text_4: "\nAdditionally, your former subjects the §Y[stolen_subject_1.GetName]§!, the §Y[stolen_subject_2.GetName]§!, the §Y[stolen_subject_3.GetName]§!, and the §Y[stolen_subject_4.GetName]§! have sworn fealty to us. They will join us in fighting against you, should you attempt it."
+ rebel_overlord_text_5: "\nAdditionally, your former subjects the §Y[stolen_subject_1.GetName]§!, the §Y[stolen_subject_2.GetName]§!, the §Y[stolen_subject_3.GetName]§!, the §Y[stolen_subject_4.GetName]§!, and the §Y[stolen_subject_5.GetName]§! have sworn fealty to us. They will join us in fighting against you, should you attempt it."
+ rebel_overlord_text_more: "\nAdditionally, your former subjects the §Y[stolen_subject_1.GetName]§!, the §Y[stolen_subject_2.GetName]§!, the §Y[stolen_subject_3.GetName]§!, the §Y[stolen_subject_4.GetName]§!, the §Y[stolen_subject_5.GetName]§!, and some more of your former subjects have sworn fealty to us. They will join us in fighting against you, should you attempt it."
 
- civcom.5020.desc: "Greetings. You knew me as General §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people have had enough. I am a mere General no longer. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves. I recommend that your government accept this, so that we can prevent any further bloodshed."
+ all_subjects_rebel_1: "\nFurther, it seems that with this discord you've forced upon us, the §Y[free_subject.GetName]§! has taken the oppurtunity §Pto rebel§!. I suggest you worry about putting them down, as opposed to worrying about us."
+ all_subjects_rebel_more: "\nFurther, it seems that with this discord you've forced upon us, your subjects have taken the oppurtunity §Pto rebel§!. I suggest you worry about putting them down, as opposed to worrying about us."
+ all_subjects_rebel_plus_fealty_more: "\nFurther, it seems that with this discord you've forced upon us, your other subjects have taken the oppurtunity §Pto rebel§!. I suggest you worry about putting them down, as opposed to worrying about us."
+ some_subjects_rebel: "\nFurther, it seems that with this discord you've forced upon us, §Ysome of your subjects§! have taken the oppurtunity §Pto rebel§!. I suggest you worry about putting them down, as opposed to worrying about us."
 
  civcom.1100.corrupt.desc: "Greetings. It's become clear to me that the people of our nation would be better off under my guidance. I am the leader that they need. As such, I am a mere Governor no longer. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I've spent years gathering the support necessary to achieve this, and I won't let you stand in my way. I recommend that your government accept this, so that we can prevent any further bloodshed."
 
@@ -397,11 +446,11 @@ l_japanese:
 
  ############## With Vassalization
 
- civcom.1105.leader.desc: "Greetings. You knew me as [civwar_rebels.Ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people have had enough. I am a mere [civwar_rebels.Ruler.GetRebelRulerClass] no longer. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
+ civcom.1105.leader.desc: "Greetings. You knew me as [civwar_rebels.Ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people have had enough. I am a mere [civwar_rebels.Ruler.GetRebelRulerClass] no longer. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy being guaranteed, in perpetuity."
 
- civcom.1105.nationalist.exile.reg.desc: "Greetings. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!.\n\nOur new state is modeled after §Your motherland§!, the original §Y[nat_motherland_model.GetName]§!. In the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
+ civcom.1105.nationalist.exile.reg.desc: "Greetings. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!.\n\nOur new state is modeled after §Your motherland§!, the original §Y[nat_motherland_model.GetName]§!. In the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy being guaranteed, in perpetuity."
 
- civcom.1105.nationalist.exile.imp.desc: "Greetings. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle] on a provisional basis§!.\n\nOur new state is modeled after §Your motherland§!, the original §Y[nat_motherland_model.GetName]§!, and I will relinquish power to our true leader, §Y[civwar_rebels.GetRulerTitle]§! §H[nat_motherland_model.ruler.GetName]§!, once our liberation is complete. In the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you §Y15% of all of our resources§! in exchange for our autonomy being guaranteed, in perpetuity."
+ civcom.1105.nationalist.exile.imp.desc: "Greetings. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle] on a provisional basis§!.\n\nOur new state is modeled after §Your motherland§!, the original §Y[nat_motherland_model.GetName]§!, and I will relinquish power to our true leader, §Y[civwar_rebels.GetRulerTitle]§! §H[nat_motherland_model.ruler.GetName]§!, once our liberation is complete. In the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy being guaranteed, in perpetuity."
 
  civcom.3100.norm.desc: "Did you really think I would just stand by and let my birthright be stolen from me? During my time as heir, I made allies. There are many throughout the realm who support me. As such, I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
 
@@ -425,7 +474,7 @@ l_japanese:
  #####
 
  civcom.1200.name: "[civwar_originator.GetRulerTitle] §H[civwar_originator.ruler.GetName]§! of the §Y[civwar_originator.GetName]§!"
- civcom.1200.desc: "Greetings my esteemed, §Y[Root.GetRulerTitle]§!. I come before you today to request aid in maintaining the stability of my realm. A group of separatists led by a former [civwar_rebels.Ruler.GetRebelRulerClass] have managed to seize control over some of our territory. They have declared themselves independent from both the §Y[civwar_originator.GetName]§! and the §Y[root.GetName]§!. If this is allowed to stand, the rebels may attempt to take more territory in the future. If you want to retain overlordship of the territory they've seized and ensure that they pose no future threat, we need to crush their rebellion."
+ civcom.1200.desc: "Greetings my esteemed, §Y[Root.GetRulerTitle]§!. I come before you today to request aid in maintaining the stability of my realm. A group of separatists led by a former §Y[civwar_rebels.Ruler.GetRebelRulerClass]§! have managed to seize control over some of our territory. They have declared themselves independent from both the §Y[civwar_originator.GetName]§! and the §Y[root.GetName]§!. If this is allowed to stand, the rebels may attempt to take more territory in the future. If you want to retain overlordship of the territory they've seized and ensure that they pose no future threat, we need to crush their rebellion."
 
  #####
 
@@ -456,6 +505,8 @@ l_japanese:
  civcom.4120.5: "We'll give you around §Y5%§! of our ships."
  civcom.4120.10: "We'll give you around §Y10%§! of our ships."
  civcom.4120.15: "We'll give you around §Y15%§! of our ships."
+ civcom.4120.20: "We'll give you around §Y20%§! of our ships."
+ civcom.4120.25: "We'll give you around §Y25%§! of our ships."
  
  civcom.4125.norm.desc: "You are a true ally. We'll surely win this war now."
  civcom.4125.nat.desc: "We greatly appreciate the assistance. We knew we would be able to count on our motherland for support."
@@ -468,6 +519,29 @@ l_japanese:
  civcom.1200.a.tooltip: "We'll lead the war to reunite our subject's territory."
  civcom.1200.b: "We'll let them go."
  civcom.1200.b.tooltip: "The rebels will become independent from us and our subject."
+
+ civcom.5000.name: "Secretary [civil_war_secretary.GetName]"
+ civcom.5000.subs_help: "[root.GetRulerTitle] §Y[root.GetRulerName]§!, upon hearing of our civil war, some of our vassals have sent word that they are willing to §Yhelp us§! retake our territory. However, this is contingent upon us §Pgranting them their independence§! §Yshould we prevail§!. Would you like their assistance?"
+ civcom.5000.subs_rebel: "[root.GetRulerTitle] §Y[root.GetRulerName]§!, upon hearing of our civil war, some of our vassals have declared for the enemy, likely with the promise of independence. We will need to win the war in order to reassert our suzreinty over them."
+ civcom.5000.subs_join: "[root.GetRulerTitle] §Y[root.GetRulerName]§!, upon hearing of our civil war, some of our vassals have declared that they will §Yhelp us§! win the war. Better yet, they've done this without asking for anything in return."
+ civcom.5000.subs_join_rebels: "Some of our vassals have declared for the enemy, believing them to be the true inheritors of their contract."
+ civcom.5000.subs_help_rebel: "[root.GetRulerTitle] §Y[root.GetRulerName]§!, upon hearing of our civil war, some of our vassals have declared for the enemy, likely with the promise of independence. We will need to win the war in order to reassert our suzreinty over them. However, some of our other vassals have sent word that they are willing to §Yhelp us§! retake our territory and put down the rebellious vassals §Pin exchange for their independence§! §Yshould we prevail§!. Would you like their assistance?"
+ civcom.5000.subs_help_join: "[root.GetRulerTitle] §Y[root.GetRulerName]§!, upon hearing of our civil war, some of our vassals have declared that they will §Yhelp us§! win the war, asking for nothing in return. However, some of our other vassals have sent word that they are only willing to join the war §Pin exchange for their independence§! §Yshould we prevail§!. Would you like their assistance?"
+ civcom.5000.subs_rebel_join: "[root.GetRulerTitle] §Y[root.GetRulerName]§!, upon hearing of our civil war, some of our vassals have declared for the enemy, likely with the promise of independence. We will need to win the war in order to reassert our suzreinty over them. However, some of our other vassals have declared that they will §Yhelp us§! win the war, asking for nothing in return."
+ civcom.5000.subs_help_rebel_join: "[root.GetRulerTitle] §Y[root.GetRulerName]§!, upon hearing of our civil war, some of our vassals have declared for the enemy, likely with the promise of independence. We will need to win the war in order to reassert our suzreinty over them. However, some of our other vassals have declared that they will §Yhelp us§! win the war, asking for nothing in return. Further still, other vassals have sent word that they are willing to §Yhelp us§! retake our territory and put down the rebellious vassals §Pin exchange for their independence§! §Yshould we prevail§!. Would you like their assistance?"
+
+ civcom.5000.finished: "That will be all."
+ civcom.5000.subject_1: "§Y[event_target:helper_subject_1.GetName]§!"
+ civcom.5000.subject_2: "§Y[event_target:helper_subject_2.GetName]§!"
+ civcom.5000.subject_3: "§Y[event_target:helper_subject_3.GetName]§!"
+ civcom.5000.subject_4: "§Y[event_target:helper_subject_4.GetName]§!"
+ civcom.5000.subject_5: "§Y[event_target:helper_subject_5.GetName]§!"
+ civcom.5000.subject_6: "§Y[event_target:helper_subject_6.GetName]§!"
+ civcom.5000.subject_7: "§Y[event_target:helper_subject_7.GetName]§!"
+ civcom.5000.subject_8: "§Y[event_target:helper_subject_8.GetName]§!"
+ civcom.5000.subject_9: "§Y[event_target:helper_subject_9.GetName]§!"
+ civcom.5000.subject_10: "§Y[event_target:helper_subject_10.GetName]§!"
+ civcom.5000.refresh: "Refresh Subject List"
 
  ## Situation Communications ##
  ##############################
@@ -683,7 +757,7 @@ l_japanese:
  civcom.3010.war: "This is treason against your [root.GetRulerTitle]. This means war."
  civcom.3010.go: "The [root.GetName] doesn't need you."
 
- civcom.3015.desc: "We can let history decide who the pretender is. I am coming for my birthright."
+ civcom.3015.desc: "History will decide who the pretender was. I am coming for my birthright."
 
  civcom.3015.life: "This mistake will cost you your life."
 
@@ -754,6 +828,8 @@ l_japanese:
  situation_civstrife_succession_type: "Succession Crisis"
  situation_civstrife_succession_desc: "§Y[owner.GetRulerTitle]§! §H[owner.ruler.GetName]§! ascended to the throne without ever being officially annointed as heir. This has left the realm in a precarious situation, with various others attempting to assert their claim to the throne."
  situation_civstrife_succession_monthly_change_tooltip: "The crisis is progressing towards a resolution."
+
+ succession_crisis_is_difficult: "We are in the midst of a Succession Crisis"
 
  approach_succession_propaganda: "Propaganda Campaign"
  succession_propaganda_tooltip: "We will do everything in our power to convince the people and important officials within the realm that we are the only legitimate §Y[owner.GetRulerTitle]§!."
@@ -1230,8 +1306,6 @@ l_japanese:
 
  casus_belli_cb_fealty_war: "Treason"
  
- casus_belli_cb_exile_territory: "Rightful Ownership"
-
  war_goal_wg_civwar: "Civil War"
  war_goal_wg_civwar_desc: "War is waged over the independence of various systems."
 
@@ -1243,9 +1317,6 @@ l_japanese:
 
  war_goal_wg_natwar_rebel: "Nationalist Uprising"
  war_goal_wg_natwar_rebel_desc: "War is waged for the sovereignty of a people."
-
- war_goal_wg_restore_nation: "Restore Nation"
- war_goal_wg_restore_nation_desc: "War is waged to restore the territory of an extinct nation."
 
  war_goal_wg_planet_rebellion: "Planetary Rebellion"
  war_goal_wg_planet_rebellion_desc: "War is waged for the independence of a planet."
@@ -1284,7 +1355,7 @@ l_japanese:
  war_goal_wg_civwar_heir_rebel_desc: "$war_goal_wg_civwar_heir_desc$"
 
  # Tooltips
- civil_war_won_tooltip: "§Y[Root.GetName]§! will regain control of all territory lost to §Y[From.GetName]§!.\n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!."
+ civil_war_won_tooltip: "§Y[Root.GetName]§! will regain control of all territory lost to §Y[From.GetName]§!.\n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!.\nIf any of our §Ysubjects§! assisted us, they will §Ybecome independent§!.\nIf any of our §Ysubjects§! assisted in the rebellion, we will §Yreassert our suzerainty over them§!."
 
  civil_war_won_subject_tooltip: "§YOur subject§! will regain control of all territory lost to the §Y[From.GetName]§!.\n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!."
 
@@ -1425,6 +1496,9 @@ l_japanese:
  ################
  # Faction Events
 
+ civnat.8000.name: "End of the [nat_gone.GetName]"
+ civnat.8000.desc: "After being destroyed by their enemies, the remnants of the leadership of the §Y[nat_gone.GetName]§! had formed a government-in-exile. However, the diaspora was difficult for the [nat_gone.GetAdj], and their culture is now virtually extinct. Accepting that they would be unable to reestablish their state, even if their territory was retaken, the government-in-exile has announced their formal dissolution and the end of the §Y[nat_gone.GetName]§!."
+
  # Faction Leader Titles
  civstrife_leader: "Leader"
  default_civstrife_leader: "Leader"
@@ -1516,7 +1590,7 @@ l_japanese:
  unrest.55.desc.standard: "Months of turmoil and instability on §Y[Root.GetName]§! have made the local populace begin to question our ability to effectively govern the planet. Now their defiance is becoming ever more brazen, and dissidents are openly calling for independence. A show of authority may be necessary if we are to keep control of the colony."
  unrest.55.desc.slave:0 "Clandestine slave meetings at night, raised levels of defiance towards superiors and missing goods can mean only one thing. The slaves on §Y[Root.GetName]§! are radicalizing, spreading dissent and discord among their peers - and fear to the rest of the population. There are even whisperings of freedom - of independence from the §Y[owner.GetName]§!. A show of authority may be necessary if we are to keep control of the colony."
  unrest.55.desc.gestalt_standard: "The singleton populace of §Y[Root.GetName]§! refuses to accept the control of our [Owner.GetGovernmentName]. Now their defiance is becoming ever more brazen, and dissidents are openly organizing a movement towards "independence." A show of authority may be necessary if we are to keep control of the colony."
- unrest.55.desc.gestalt_breakaway_gestalt: "Deviant elements on §Y[Root.GetName]§! are proving ever harder for our [Owner.GetGovernmentName] to control. Unless we can snuff out their independent thoughts and re-establish control, it may be difficult for us to keep control of the colony."
+ unrest.55.desc.gestalt_breakaway_gestalt: "Deviant elements on §Y[Root.GetName]§! are proving ever harder for our [Owner.GetGovernmentName] to control. Unless we can snuff out their independent thoughts and reestablish control, it may be difficult for us to keep control of the colony."
  unrest.55.A: "They must be dealt with."
 
  unrest.156.desc:1 "In a vicious act of defiance, the slaves on §Y[Root.GetName]§! have destroyed work facilities with the help of homemade explosives. Though the detonations took place at night, they lured their unsuspecting work leaders to the location by triggering the alarm system. The attack was well coordinated and flawlessly executed. Whoever the guilty are, they must have planned it for months."
@@ -1546,7 +1620,7 @@ l_japanese:
  not_allowed_for_verarmsdealer: "$TRIGGER_FAIL$Not allowed for §Y$preset_verarmsdealer$s§!."
  not_allowed_for_versubcontractor: "$TRIGGER_FAIL$Not allowed for §Y$preset_versubcontractor$s§!."
  not_allowed_for_megacorp: "$TRIGGER_FAIL$Not allowed for §YMegacorps§!."
- not_allowed_for_auto_state: "$TRIGGER_FAIL$Not allowed for §YAutonomous States§!."
+ not_allowed_for_separatist: "$TRIGGER_FAIL$Not allowed for §Ystates that have seceded from our empire§!."
 
  ACTION_RECIPIENT_NOT_YOUR_CORP:1 "$TRIGGER_FAIL$§RBranch Offices can only be built on Megacorporations if they are our subsidiary.§!"
 
@@ -1562,6 +1636,7 @@ l_japanese:
  civ_action.63.desc.reg: "After being destroyed by their enemies, the remnants of the leadership of the ancient precursor state known as the §Y[gov_in_exile.GetName]§! formed a government-in-exile. However, being unable to find a nation willing to host them, the government-in-exile has officially announced their dissolution. How this will affect the political climate of the galaxy remains to be seen."
  civ_action.63.desc.already: "After being destroyed by their enemies, the remnants of the leadership of the ancient precursor state known as the §Y[gov_in_exile.GetName]§! formed a government-in-exile. However, the nation that was hosting them has now also been destroyed. Unable to find another nation willing to hose them, the government-in-exile has officially announced their dissolution. How this will affect the political climate of the galaxy remains to be seen."
 
+
  civ_action.6210.name: "Government in Exile - [from.GetName]"
  civ_action.6210.desc: "After being destroyed by their enemies, the remnants of the leadership of the §Y[from.GetName]§! formed a government-in-exile. Now, the §Y[hosting_country.GetName]§! has agreed to host them. How this will affect the political climate of the galaxy remains to be seen."
  civ_action.6310.name: "$action.6210.name$"
@@ -1576,7 +1651,10 @@ l_japanese:
  ##############
  # Other
 
- civcom.random: "AI Random"
+ civstrife_menu_name: "Civil Wars"
+
+ civstrife.modmenu.title: "Civil Wars Stats"
+ civstrife.modmenu.desc: "§Y[global_event_country.total_gal_civstrife_events]§! = Total Civil Wars Events \n§Y[global_event_country.total_gal_civil_wars]§! = Total Civil Wars \n§Y[global_event_country.total_gal_plan_rebs]§! = Total Planetary Rebellions \n§Y[global_event_country.total_gal_nat_events]§! = Total Nationalist Rebellions"
 
  ethic_socialism: "Socialist"
  ethic_fanatic_socialism: "Fanatic Socialist"
@@ -1621,5 +1699,5 @@ l_japanese:
  # unrest.55.name: "Revolt Brewing on [Root.GetName]"
  # unrest.55.desc.standard: "The populace of [Root.GetName] has been discontent with our rule for some time now. Now their defiance is becoming ever more brazen, and dissidents are openly calling for independence from the [Root.GetName]. A show of authority may be necessary if we are to keep control of the colony."
  # unrest.55.desc.gestalt_standard: "The singleton populace of [Root.GetName] refuses to accept the control of our [Owner.GetGovernmentName]. Now their defiance is becoming ever more brazen, and dissidents are openly organizing a movement towards "independence." A show of authority may be necessary if we are to keep control of the colony."
- # unrest.55.desc.gestalt_breakaway_gestalt: "Deviant elements on [Root.GetName] are proving ever harder for our [Owner.GetGovernmentName] to control. Unless we can snuff out their independent thoughts and re-establish control, it may be difficult for us to keep control of the colony."
+ # unrest.55.desc.gestalt_breakaway_gestalt: "Deviant elements on [Root.GetName] are proving ever harder for our [Owner.GetGovernmentName] to control. Unless we can snuff out their independent thoughts and reestablish control, it may be difficult for us to keep control of the colony."
  # unrest.55.A: "They will have to be dealt with."

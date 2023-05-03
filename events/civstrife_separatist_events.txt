@@ -1366,37 +1366,34 @@ country_event = { # Sector Separatist Party Form Check
 	is_triggered_only = yes
 
 	trigger = {
-		if = {
-			limit = {
-				any_owned_sector = {
-					NOT = { any_owned_planet = { is_capital = yes } }
-					NOT = { has_sector_flag = sector_sep_active }
-					any_owned_planet = { has_planet_flag = plan_sep_active }
-					OR = {
-						AND = {
-							has_sector_flag = frontier_sector_@root
-							pop_percentage = {
-								percentage >= 0.3
-								limit = { has_pop_flag = sep_pop }
-								exclude = { can_think = no }
-							}
-						}
-						AND = {
-							has_sector_flag = integrated_sector_@root
-							pop_percentage = {
-								percentage >= 0.4
-								limit = { has_pop_flag = sep_pop }
-								exclude = { can_think = no }
-							}
-						}
-						AND = {
-							has_sector_flag = fundamental_sector_@root
-							pop_percentage = {
-								percentage >= 0.5
-								limit = { has_pop_flag = sep_pop }
-								exclude = { can_think = no }
-							}
-						}
+		any_owned_sector = {
+			NOT = { any_owned_planet = { is_capital = yes } }
+			NOT = { has_sector_flag = sector_sep_active }
+			NOT = { is_variable_set = isolated_sector_year }
+			any_owned_planet = { has_planet_flag = plan_sep_active }
+			OR = {
+				AND = {
+					has_sector_flag = frontier_sector_@root
+					pop_percentage = {
+						percentage >= 0.3
+						limit = { has_pop_flag = sep_pop }
+						exclude = { can_think = no }
+					}
+				}
+				AND = {
+					has_sector_flag = integrated_sector_@root
+					pop_percentage = {
+						percentage >= 0.4
+						limit = { has_pop_flag = sep_pop }
+						exclude = { can_think = no }
+					}
+				}
+				AND = {
+					has_sector_flag = fundamental_sector_@root
+					pop_percentage = {
+						percentage >= 0.5
+						limit = { has_pop_flag = sep_pop }
+						exclude = { can_think = no }
 					}
 				}
 			}
@@ -1435,15 +1432,6 @@ country_event = { # Sector Separatist Party Form Check
 							exclude = { can_think = no }
 						}
 					}
-				}
-			}
-			every_owned_planet = {
-				limit = { has_planet_flag = plan_sep_active }
-				remove_planet_flag = plan_sep_active
-				clear_variable = revolt_tick
-				if = {
-					limit = { is_variable_set = calm_tick }
-					clear_variable = calm_tick
 				}
 			}
 			get_separatist_faction_sector = yes
@@ -1497,54 +1485,28 @@ country_event = { # Find isolated sectors
 			}
 			else = {
 				if = {
-					limit = { NOT = { is_variable_set = lonely_sector_year } }
-					set_variable = { which = lonely_sector_year value = 1 }
+					limit = { NOT = { is_variable_set = isolated_sector_year } }
+					set_variable = { which = isolated_sector_year value = 1 }
 				}
 				else = {
-					change_variable = { which = lonely_sector_year value = 1 }
+					change_variable = { which = isolated_sector_year value = 1 }
 				}
 			}
 		}
 
-		if = {	# After 2 years of being connected, remove lonely sector variables. This needs to be before the next if statement
+		if = {	# After being connected, remove lonely sector variables. Look further into this, and make it such that the time is dependent on how long the sector was isolated
 			limit = {
 				any_owned_sector = {
 					has_sector_flag = can_access_capital
-					is_variable_set = lonely_sector_year
-					is_variable_set = unlonely_sector_year
+					is_variable_set = isolated_sector_year
 				}
 			}
 			every_owned_sector = {
 				limit = {
 					has_sector_flag = can_access_capital
-					is_variable_set = lonely_sector_year
-					is_variable_set = unlonely_sector_year
+					is_variable_set = isolated_sector_year
 				}
-				clear_variable = lonely_sector_year
-				clear_variable = unlonely_sector_year
-				if = {
-					limit = { has_sector_flag = sector_sep_active }
-					remove_sector_flag = sector_sep_active
-					save_event_target_as = separatists_disband_sector
-					root = { country_event = { id = civsep.9016 } }
-				}
-			}
-		}
-
-		if = {
-			limit = {
-				any_owned_sector = {
-					has_sector_flag = can_access_capital
-					is_variable_set = lonely_sector_year
-					NOT = { is_variable_set = unlonely_sector_year }
-				}
-			}
-			every_owned_sector = {
-				limit = {
-					has_sector_flag = can_access_capital
-					is_variable_set = lonely_sector_year
-					NOT = { is_variable_set = unlonely_sector_year }
-				}
+				clear_variable = isolated_sector_year
 				if = {
 					limit = { has_sector_flag = sector_sep_active }
 					remove_sector_flag = sector_sep_active
@@ -1567,8 +1529,8 @@ country_event = { # Find isolated sectors
 			limit = {
 				any_owned_sector = {
 					NOT = { has_sector_flag = sector_sep_active }
-					is_variable_set = lonely_sector_year
-					check_variable = { which = lonely_sector_year value >= 5 }
+					is_variable_set = isolated_sector_year
+					check_variable = { which = isolated_sector_year value >= 5 }
 				}
 			}
 			country_event = { id = civsep.3110 }
@@ -1585,8 +1547,8 @@ country_event = { # Start Isolated Sector Chains
 		is_country_type_with_subjects = yes
 		any_owned_sector = {
 			NOT = { has_sector_flag = sector_sep_active }
-			is_variable_set = lonely_sector_year
-			check_variable = { which = lonely_sector_year value >= 5 }
+			is_variable_set = isolated_sector_year
+			check_variable = { which = isolated_sector_year value >= 5 }
 		}
 	}
 
@@ -1594,13 +1556,13 @@ country_event = { # Start Isolated Sector Chains
 		every_owned_sector = {
 			limit = {
 				NOT = { has_sector_flag = sector_sep_active }
-				is_variable_set = lonely_sector_year
-				check_variable = { which = lonely_sector_year value >= 5 }
+				is_variable_set = isolated_sector_year
+				check_variable = { which = isolated_sector_year value >= 5 }
 			}
 			if = {
 				limit = {
-					check_variable = { which = lonely_sector_year value >= 5 }
-					check_variable = { which = lonely_sector_year value < 10 }
+					check_variable = { which = isolated_sector_year value >= 5 }
+					check_variable = { which = isolated_sector_year value < 10 }
 				}
 				random = {
 					chance = 15
@@ -1609,8 +1571,8 @@ country_event = { # Start Isolated Sector Chains
 			}
 			else_if = {
 				limit = {
-					check_variable = { which = lonely_sector_year value >= 10 }
-					check_variable = { which = lonely_sector_year value < 15 }
+					check_variable = { which = isolated_sector_year value >= 10 }
+					check_variable = { which = isolated_sector_year value < 15 }
 				}
 				random = {
 					chance = 20
@@ -1619,8 +1581,8 @@ country_event = { # Start Isolated Sector Chains
 			}
 			else_if = {
 				limit = {
-					check_variable = { which = lonely_sector_year value >= 15 }
-					check_variable = { which = lonely_sector_year value < 20 }
+					check_variable = { which = isolated_sector_year value >= 15 }
+					check_variable = { which = isolated_sector_year value < 20 }
 				}
 				random = {
 					chance = 25
@@ -1628,7 +1590,7 @@ country_event = { # Start Isolated Sector Chains
 				}
 			}
 			else_if = {
-				limit = { check_variable = { which = lonely_sector_year value >= 20 } }
+				limit = { check_variable = { which = isolated_sector_year value >= 20 } }
 				random = {
 					chance = 30
 					get_iso_separatist_faction_sector = yes
@@ -1648,36 +1610,39 @@ country_event = { # Check disapproving Factions every month
 	is_triggered_only = yes
 
 	trigger = {
-		is_country_type_with_subjects = yes
+		is_regular_empire = yes
 		years_passed >= 15
-		is_gestalt = no
 		any_pop_faction = {
+			count_owned_pop = { count >= 5 }
 			is_separatist_faction = yes
-			# OR = {
-			# 	is_iso_sector_separatist_faction = yes
-			# 	AND = {
-			# 		faction_approval < 0.20
-			# 		is_iso_sector_separatist_faction = no
-			# 	}
-			# }
 			NOT = { has_pop_faction_flag = faction_rebelled }
 			NOT = { has_pop_faction_flag = faction_sep_situation }
+			OR = {
+				NOT = { exists = leader }
+				AND = {
+					leader = { is_heir = no }
+					is_iso_sector_separatist_faction = no
+				}
+				is_iso_sector_separatist_faction = yes
+			}
 		}
 	}
 
 	immediate = {
 		random_pop_faction = {
 			limit = {
+				count_owned_pop = { count >= 5 }
 				is_separatist_faction = yes
-				# OR = {
-				# 	is_iso_sector_separatist_faction = yes
-				# 	AND = {
-				# 		faction_approval < 0.20
-				# 		is_iso_sector_separatist_faction = no
-				# 	}
-				# }
 				NOT = { has_pop_faction_flag = faction_rebelled }
 				NOT = { has_pop_faction_flag = faction_sep_situation }
+				OR = {
+					NOT = { exists = leader }
+					AND = {
+						leader = { is_heir = no }
+						is_iso_sector_separatist_faction = no
+					}
+					is_iso_sector_separatist_faction = yes
+				}
 			}
 			if = {
 				limit = {
@@ -1840,8 +1805,9 @@ situation_event = { # Planetary Revolt Initializer
 		owner = {
 			any_owned_planet = {
 				is_under_colonization = no
-				solar_system = { is_capital_system = no }
+				is_capital = no
 				has_ground_combat = no
+				is_occupied_flag = no
 				pop_percentage = {
 					percentage >= 0.25
 					limit = {
@@ -1872,8 +1838,9 @@ situation_event = { # Planetary Revolt Event
 		owner = {
 			any_owned_planet = {
 				is_under_colonization = no
-				solar_system = { is_capital_system = no }
+				is_capital = no
 				has_ground_combat = no
+				is_occupied_flag = no
 				pop_percentage = {
 					percentage >= 0.25
 					# percentage > 0
@@ -1888,6 +1855,12 @@ situation_event = { # Planetary Revolt Event
 				}
 			}
 		}
+		root.target = {
+			OR = {
+				NOT = { exists = leader }
+				leader = { is_heir = no }
+			}
+		}
 	}
 
 	immediate = {
@@ -1895,8 +1868,9 @@ situation_event = { # Planetary Revolt Event
 			random_owned_planet = {
 				limit = {
 					is_under_colonization = no
-					solar_system = { is_capital_system = no }
+					is_capital = no
 					has_ground_combat = no
+					is_occupied_flag = no
 					pop_percentage = {
 						percentage >= 0.25
 						# percentage > 0
@@ -1919,7 +1893,7 @@ situation_event = { # Planetary Revolt Event
 						set_variable = { which = fac_mil_support value = 0 }
 						save_event_target_as = civwar_party
 					}
-					create_party_name_leader = yes
+					owner = { create_party_name_leader = yes }
 					every_owned_pop = {
 						limit = {
 							exists = pop_faction
@@ -1950,7 +1924,16 @@ situation_event = { # Sectoral Revolt Initializer
 		situation_progress >= 90
 		owner = {
 			any_owned_sector = {
-				NOT = { any_owned_planet = { has_ground_combat = yes } }
+				NOT = {
+					any_owned_planet = {
+						is_under_colonization = no
+						OR = {
+							is_capital = yes
+							has_ground_combat = yes
+							is_occupied_flag = yes
+						}
+					}
+				}
 				pop_percentage = {
 					percentage >= 0.25
 					limit = {
@@ -1962,6 +1945,16 @@ situation_event = { # Sectoral Revolt Initializer
 					}
 					exclude = { can_think = no }
 				}
+			}
+		}
+		root.target = {
+			OR = {
+				NOT = { exists = leader }
+				AND = {
+					leader = { is_heir = no }
+					is_iso_sector_separatist_faction = no
+				}
+				is_iso_sector_separatist_faction = yes
 			}
 		}
 	}
@@ -1980,10 +1973,19 @@ situation_event = { # Sectoral Revolt Event
 		situation_progress >= 90
 		owner = {
 			any_owned_sector = {
-				NOT = { any_owned_planet = { has_ground_combat = yes } }
+				NOT = {
+					any_owned_planet = {
+						is_under_colonization = no
+						OR = {
+							is_capital = yes
+							has_ground_combat = yes
+							is_occupied_flag = yes
+						}
+					}
+				}
 				pop_percentage = {
-					# percentage >= 0.25
-					percentage > 0
+					percentage >= 0.25
+					# percentage > 0
 					limit = {
 						exists = pop_faction
 						pop_faction = {
@@ -2004,10 +2006,19 @@ situation_event = { # Sectoral Revolt Event
 			owner = {
 				random_owned_sector = {
 					limit = {
-						NOT = { any_owned_planet = { has_ground_combat = yes } }
+						NOT = {
+							any_owned_planet = {
+								is_under_colonization = no
+								OR = {
+									is_capital = yes
+									has_ground_combat = yes
+									is_occupied_flag = yes
+								}
+							}
+						}
 						pop_percentage = {
-							# percentage >= 0.25
-							percentage > 0
+							percentage >= 0.25
+							# percentage > 0
 							limit = {
 								exists = pop_faction
 								pop_faction = {
@@ -2020,8 +2031,8 @@ situation_event = { # Sectoral Revolt Event
 					}
 
 					random = {
-						# chance = 10
-						chance = 100
+						chance = 10
+						# chance = 100
 						root.target = {
 							set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 }
 							set_variable = { which = fac_mil_support value = 0 }
@@ -2171,7 +2182,7 @@ situation_event = { # Sectoral Revolt Event
 				if = {
 					limit = {
 						any_owned_sector = {
-							is_variable_set = lonely_sector_year
+							is_variable_set = isolated_sector_year
 							any_system_within_border = {
 								closest_system = {
 									limit = {
@@ -2189,7 +2200,7 @@ situation_event = { # Sectoral Revolt Event
 						every_owned_sector = {
 							limit = {
 								NOT = { has_sector_flag = counted_sector }
-								is_variable_set = lonely_sector_year
+								is_variable_set = isolated_sector_year
 								any_system_within_border = {
 									closest_system = {
 										limit = {
@@ -2396,6 +2407,9 @@ country_event = { # Slave Unrest Counter
 		is_country_type_with_subjects = yes
 		NOT = { years_passed < 15 }
 		any_owned_planet = {
+			is_capital = no
+			has_ground_combat = no
+			is_occupied_flag = no
 			num_pops > 0
 			OR = {
 				frontier_planet_slave_tick_check = yes
@@ -2409,6 +2423,9 @@ country_event = { # Slave Unrest Counter
 	immediate = {
 		every_owned_planet = {
 			limit = {
+				is_capital = no
+				has_ground_combat = no
+				is_occupied_flag = no
 				num_pops > 0
 				OR = {
 					frontier_planet_slave_tick_check = yes

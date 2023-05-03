@@ -20,7 +20,7 @@ country_event = {
 	diplomatic = yes
 
 	# Descriptions
-	inline_script = "comms/civcom_1000_desc"
+	inline_script = "comms/rebellion_no_vas_desc"
 
 	picture_event_data = {
 		portrait = event_target:civwar_rebels.ruler
@@ -96,7 +96,7 @@ country_event = {
 	diplomatic = yes
 
 	# Descriptions
-	inline_script = "comms/civcom_1005_desc"
+	inline_script = "comms/rebellion_with_vas_desc"
 
 	immediate = {
 		get_motherland_effect = yes
@@ -196,9 +196,71 @@ country_event = {
 	diplomatic = yes
 
 	# Descriptions
-	inline_script = "comms/civcom_1100_desc"
+	inline_script = "comms/civil_war_no_vas"
 
 	immediate = {
+		event_target:civwar_rebels = {
+			if = {
+				limit = { is_overlord = yes }
+				if = {
+					limit = { subjects >= 1 }
+					random_subject = {
+						save_event_target_as = stolen_subject_1
+						set_country_flag = counted_stolen_sub
+					}
+					root = { set_variable = { which = stolen_subjects value = 1 } }
+				}
+				if = {
+					limit = { subjects >= 2 }
+					random_subject = {
+						limit = { NOT = { has_country_flag = counted_stolen_sub } }
+						save_event_target_as = stolen_subject_2
+						set_country_flag = counted_stolen_sub
+					}
+					root = { set_variable = { which = stolen_subjects value = 2 } }
+				}
+				if = {
+					limit = { subjects >= 3 }
+					random_subject = {
+						limit = { NOT = { has_country_flag = counted_stolen_sub } }
+						save_event_target_as = stolen_subject_3
+						set_country_flag = counted_stolen_sub
+					}
+					root = { set_variable = { which = stolen_subjects value = 3 } }
+				}
+				if = {
+					limit = { subjects >= 4 }
+					random_subject = {
+						limit = { NOT = { has_country_flag = counted_stolen_sub } }
+						save_event_target_as = stolen_subject_4
+						set_country_flag = counted_stolen_sub
+					}
+					root = { set_variable = { which = stolen_subjects value = 4 } }
+				}
+				if = {
+					limit = { subjects >= 5 }
+					random_subject = {
+						limit = { NOT = { has_country_flag = counted_stolen_sub } }
+						save_event_target_as = stolen_subject_5
+						set_country_flag = counted_stolen_sub
+					}
+					root = { set_variable = { which = stolen_subjects value = 5 } }
+				}
+				every_subject = { remove_country_flag = counted_stolen_sub }
+			}
+		}
+		if = {
+			limit = {
+				count_country = {
+					count = 1
+					limit = { has_country_flag = subject_free_from_@root }
+				}
+			}
+			random_country = {
+				limit = { has_country_flag = subject_free_from_@root }
+				save_event_target_as = free_subject
+			}
+		}
 		get_motherland_effect = yes		
 	}	
 
@@ -258,7 +320,7 @@ country_event = {
 	diplomatic = yes
 
 	# Descriptions
-	inline_script = "comms/civcom_1105_desc"
+	inline_script = "comms/civil_war_with_vas"
 
 	immediate = {
 		get_motherland_effect = yes
@@ -406,20 +468,8 @@ country_event = {
 			limit = { any_war = { has_war_flag = war_for_subject_join } }
 			random_war = {
 				limit = { has_war_flag = war_for_subject_join }
+				remove_war_flag = war_for_subject_join
 				save_event_target_as = subject_war_join
-			}
-			event_target:civwar_rebels = {
-				every_system_within_border = {
-					if = {
-						limit = { root = { has_claim = prev } }
-						remove_claims = { who = root }
-					}
-					add_claims = {
-						who = event_target:civwar_originator
-						num_of_claims = 10
-						show_notification = no
-					}
-				}
 			}
 			event_target:civwar_originator = {
 				join_war_on_side = {
@@ -434,6 +484,31 @@ country_event = {
 						NOT = { is_same_value = event_target:civwar_originator }
 					}
 					prev = { remove_war_participant = prev }
+				}
+			}
+		}
+		event_target:civwar_originator = { after_comms_cleanup_effect = yes }
+		if = {
+			limit = { exists = event_target:subject_war_join }
+			event_target:subject_war_join = {
+				every_war_participant = {
+					limit = {
+						NOR = {
+							is_same_value = root
+							is_same_value = event_target:civwar_originator
+						}
+					}
+					every_system_within_border = {
+						if = {
+							limit = { root = { has_claim = prev } }
+							remove_claims = { who = root }
+						}
+						add_claims = {
+							who = event_target:civwar_originator
+							num_of_claims = 10
+							show_notification = no
+						}
+					}
 				}
 			}
 		}
@@ -543,7 +618,7 @@ country_event = {
 		event_target:civwar_rebels = {
 			set_subject_of = {
 				who = root
-				preset = preset_auto_state
+				preset = preset_tributary
 			}
 		}
 	}
@@ -758,25 +833,7 @@ country_event = {
 	after = {
 		hidden_effect = {
 			make_succession_crisis_gov_country = yes
-			if = {
-				limit = {
-					any_owned_sector = {
-						has_sector_flag = succession_crisis_rebel_sector
-						NOT = { has_sector_flag = succesion_crisis_talked }
-					}
-				}
-				event_target:succession_crisis_sit = {
-					situation_event = { id = civroyal.1120 }
-				}
-			}
-			else = {
-				event_target:succession_crisis_sit = { destroy_situation = this }
-				random_owned_leader = {
-					limit = { has_leader_flag = dead_crisis_leader }
-					kill_leader = { show_notification = no }
-				}
-			}
-			after_comms_cleanup_effect = yes
+			destroy_succession_crisis = yes
 		}
 	}
 }
@@ -809,27 +866,8 @@ country_event = {
 	after = {
 		hidden_effect = {
 			make_succession_crisis_dynast_country = yes
-			if = {
-				limit = {
-					any_owned_sector = {
-						has_sector_flag = succession_crisis_rebel_sector
-						NOT = { has_sector_flag = succesion_crisis_talked }
-					}
-				}
-				event_target:succession_crisis_sit = {
-					situation_event = { id = civroyal.1120 }
-				}
-			}
-			else = {
-				event_target:succession_crisis_sit = { destroy_situation = this }
-				random_owned_leader = {
-					limit = { has_leader_flag = dead_crisis_leader }
-					kill_leader = { show_notification = no }
-				}
-			}
-			after_comms_cleanup_effect = yes
+			destroy_succession_crisis = yes
 		}
-		
 	}
 }
 
@@ -959,25 +997,7 @@ country_event = {
 
 	after = {
 		hidden_effect = {
-			if = {
-				limit = {
-					any_owned_sector = {
-						has_sector_flag = succession_crisis_rebel_sector
-						NOT = { has_sector_flag = succesion_crisis_talked }
-					}
-				}
-				event_target:succession_crisis_sit = {
-					situation_event = { id = civroyal.1120 }
-				}
-			}
-			else = {
-				event_target:succession_crisis_sit = { destroy_situation = this }
-				random_owned_leader = {
-					limit = { has_leader_flag = dead_crisis_leader }
-					kill_leader = { show_notification = no }
-				}
-			}
-			after_comms_cleanup_effect = yes
+			destroy_succession_crisis = yes
 		}
 	}
 }
@@ -1145,12 +1165,12 @@ country_event = {
 			factor = 1
 
 			modifier = {
-				factor = 1
+				factor = 0.5
 				has_rival = event_target:civwar_originator
 			}
 
 			modifier = {
-				factor = 1
+				factor = 0.25
 				is_at_war_with = event_target:civwar_originator
 			}
 
@@ -1231,11 +1251,11 @@ country_event = {
 
 			modifier = {
 				factor = 0
-				is_at_war_with = event_target:civwar_originator
+				is_at_war = yes
 			}
 
 			modifier = {
-				factor = 1
+				factor = 1.1
 				opinion = { who = event_target:civwar_originator value < 0 }
 			}
 		}
@@ -1270,24 +1290,8 @@ country_event = {
 										is_in_federation_with = event_target:civwar_originator
 										AND = {
 											exists = overlord
-											OR = {
-												overlord = { is_same_value = event_target:civwar_rebels }
-												AND = {
-													overlord = { is_same_value = event_target:civwar_originator }
-													any_agreement = {
-														OR = {
-															has_term_value = {
-																term = joins_overlord_wars
-																value = joins_overlord_wars_defensive
-															}
-															has_term_value = {
-																term = joins_overlord_wars
-																value = joins_overlord_wars_all
-															}
-														}
-													}
-												}
-											}
+											overlord = { is_same_value = event_target:civwar_originator }
+											overlord_protects_subject = yes
 										}
 									}
 								}
@@ -1316,12 +1320,12 @@ country_event = {
 
 			modifier = {
 				factor = 0
-				is_at_war_with = event_target:civwar_originator
+				is_at_war = yes
 			}
 
 			modifier = {
 				factor = 0
-				opinion = { who = event_target:civwar_originator value > 0 }
+				opinion = { who = event_target:civwar_originator value > -50 }
 			}
 		}
 	}
@@ -1429,6 +1433,10 @@ country_event = {
 				consumer_goods = 500
 				alloys = 500
 			}
+			add_opinion_modifier = {
+				who = prev
+				modifier = opinion_gives_small_resources
+			}
 		}
 		add_resource = {
 			energy = -1000
@@ -1458,6 +1466,10 @@ country_event = {
 				consumer_goods = 1500
 				alloys = 1500
 			}
+			add_opinion_modifier = {
+				who = prev
+				modifier = opinion_gives_medium_resources
+			}
 		}
 		add_resource = {
 			energy = -3000
@@ -1486,6 +1498,10 @@ country_event = {
 				food = 5000
 				consumer_goods = 2500
 				alloys = 2500
+			}
+			add_opinion_modifier = {
+				who = prev
+				modifier = opinion_gives_small_resources
 			}
 		}
 		add_resource = {
@@ -1555,6 +1571,13 @@ country_event = {
 			}
 
 			get_ship_delete_effect = { PERCENT = 5 }
+
+			event_target:civwar_rebels = {
+				add_opinion_modifier = {
+					who = prev
+					modifier = opinion_gives_5_ships
+				}
+			}
 		}
 		ai_chance = { factor = 5 }
 	}
@@ -1581,6 +1604,13 @@ country_event = {
 			}
 
 			get_ship_delete_effect = { PERCENT = 10 }
+
+			event_target:civwar_rebels = {
+				add_opinion_modifier = {
+					who = prev
+					modifier = opinion_gives_10_ships
+				}
+			}
 		}
 		ai_chance = {
 			factor = 3
@@ -1614,6 +1644,93 @@ country_event = {
 			}
 
 			get_ship_delete_effect = { PERCENT = 15 }
+
+			event_target:civwar_rebels = {
+				add_opinion_modifier = {
+					who = prev
+					modifier = opinion_gives_15_ships
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+
+			modifier = {
+				factor = 3
+				has_rival = event_target:civwar_originator
+			}
+		}
+	}
+
+	option = {
+		name = civcom.4120.20
+		hidden_effect = {
+
+			export_trigger_value_to_variable = {
+				trigger = used_naval_capacity_percent
+				variable = twenty_percent_naval_cap
+			}
+
+			multiply_variable = {
+				which = twenty_percent_naval_cap
+				value = 0.2
+			}
+
+			create_fleet_from_naval_cap = twenty_percent_naval_cap
+
+			last_created_fleet = {
+				set_owner = event_target:civwar_rebels
+				set_location = event_target:civwar_rebels.capital_scope
+			}
+
+			get_ship_delete_effect = { PERCENT = 20 }
+
+			event_target:civwar_rebels = {
+				add_opinion_modifier = {
+					who = prev
+					modifier = opinion_gives_20_ships
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+
+			modifier = {
+				factor = 3
+				has_rival = event_target:civwar_originator
+			}
+		}
+	}
+
+	option = {
+		name = civcom.4120.25
+		hidden_effect = {
+
+			export_trigger_value_to_variable = {
+				trigger = used_naval_capacity_percent
+				variable = twenty_five_percent_naval_cap
+			}
+
+			multiply_variable = {
+				which = twenty_five_percent_naval_cap
+				value = 0.25
+			}
+
+			create_fleet_from_naval_cap = twenty_five_percent_naval_cap
+
+			last_created_fleet = {
+				set_owner = event_target:civwar_rebels
+				set_location = event_target:civwar_rebels.capital_scope
+			}
+
+			get_ship_delete_effect = { PERCENT = 25 }
+
+			event_target:civwar_rebels = {
+				add_opinion_modifier = {
+					who = prev
+					modifier = opinion_gives_25_ships
+				}
+			}
 		}
 		ai_chance = {
 			factor = 1
@@ -1693,187 +1810,428 @@ country_event = {
 
 ###############
 
-### 5000 Open
+# Subjects Overlord Interaction
+country_event = {
+	id = civcom.5000
+	title = civcom.5000.name
+	location = root.capital_scope
+	hide_window = no
+	is_triggered_only = yes
 
-################
-#  Situations  #
-################
+	diplomatic = yes
 
-# # Faction Leader Discussion
-# country_event = {
-# 	id = civcom.6000
-# 	title = civcom.6000.name
-# 	location = root.capital_scope
-# 	hide_window = no
-# 	is_triggered_only = yes
+	# Descriptions
+	inline_script = "comms/civil_war_subject_interaction"
 
-# 	diplomatic = yes
+	picture_event_data = {
+		portrait = event_target:civil_war_secretary
+		planet_background = root.owner
+		graphical_culture = root.owner
+		city_level = root.owner
+		room = root.owner
+	}
 
-# 	desc = {
-# 		text = civcom.6000.corrupt.sector
-# 		trigger = {
-# 			event_target:mad_faction_leader = { has_trait = leader_trait_corrupt }
-# 			any_owned_sector = {
-# 				exists = leader
-# 				leader = { is_same_value = event_target:mad_faction_leader }
-# 			}
-# 		}
-# 	}
+	trigger = {
+		is_at_war = yes # Lazy, but fuck you for now
+	}
 
-# 	desc = {
-# 		text = civcom.6000.corrupt.unemployed
-# 		trigger = {
-# 			event_target:mad_faction_leader = { has_trait = leader_trait_corrupt }
-# 			NOT = {
-# 				any_owned_sector = {
-# 					exists = leader
-# 					leader = { is_same_value = event_target:mad_faction_leader }
-# 				}
-# 			}
-# 		}
-# 	}
+	immediate = {
+		if = {
+			limit = { NOT = { exists = event_target:civil_war_secretary } }
+			create_leader = {
+				class = ruler
+				species = owner_main_species
+				name = random
+				skill = 5
+				effect = {
+					save_event_target_as = civil_war_secretary
+				}
+			}
+			last_created_leader = { leader_event = { id = civleader.1000 days = 60 } }
+		}
+		get_helper_subjects_effect = yes
+	}
 
-# 	desc = {
-# 		text = civcom.6000.normal
-# 		trigger = {
-# 			event_target:mad_faction_leader = {
-# 				NOT = { has_trait = leader_trait_corrupt }
-# 			}
-# 		}
-# 	}
+	option = {
+		name = civcom.5000.finished
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				check_variable = { which = combined_rebel_power_ratio value < 0.8 }
+			}
+		}
+	}
 
-# 	picture_event_data = {
-# 		portrait = event_target:mad_faction_leader
-# 		planet_background = root.owner
-# 		graphical_culture = root.owner
-# 		city_level = root.owner
-# 		room = root.owner
-# 	}
+	option = {
+		name = civcom.5000.subject_1
+		trigger = {
+			check_variable = { which = helper_subjects value >= 1 }
+			event_target:helper_subject_1 = {
+				NOT = {
+					any_war = {
+						OR = {
+							using_war_goal = { type = wg_civwar owner = root }
+							using_war_goal = { type = wg_natwar owner = root }
+							using_war_goal = { type = wg_civwar_heir owner = root }
+							using_war_goal = { type = wg_coup_successor owner = root }
+							using_war_goal = { type = wg_coup_independent owner = root }
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			event_target:helper_subject_1 = {
+				join_war_on_side = {
+					war = event_target:civwar_for_subs
+					side = root
+				}
+			}
+			country_event = { id = civcom.5000 }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				check_variable = { which = combined_rebel_power_ratio value >= 0.8 }
+			}
+		}
+	}
+	option = {
+		name = civcom.5000.subject_2
+		trigger = {
+			check_variable = { which = helper_subjects value >= 2 }
+			event_target:helper_subject_2 = {
+				NOT = {
+					any_war = {
+						OR = {
+							using_war_goal = { type = wg_civwar owner = root }
+							using_war_goal = { type = wg_natwar owner = root }
+							using_war_goal = { type = wg_civwar_heir owner = root }
+							using_war_goal = { type = wg_coup_successor owner = root }
+							using_war_goal = { type = wg_coup_independent owner = root }
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			event_target:helper_subject_2 = {
+				join_war_on_side = {
+					war = event_target:civwar_for_subs
+					side = root
+				}
+			}
+			country_event = { id = civcom.5000 }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				check_variable = { which = combined_rebel_power_ratio value >= 0.8 }
+			}
+		}
+	}
+	option = {
+		name = civcom.5000.subject_3
+		trigger = {
+			check_variable = { which = helper_subjects value >= 3 }
+			event_target:helper_subject_3 = {
+				NOT = {
+					any_war = {
+						OR = {
+							using_war_goal = { type = wg_civwar owner = root }
+							using_war_goal = { type = wg_natwar owner = root }
+							using_war_goal = { type = wg_civwar_heir owner = root }
+							using_war_goal = { type = wg_coup_successor owner = root }
+							using_war_goal = { type = wg_coup_independent owner = root }
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			event_target:helper_subject_3 = {
+				join_war_on_side = {
+					war = event_target:civwar_for_subs
+					side = root
+				}
+			}
+			country_event = { id = civcom.5000 }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				check_variable = { which = combined_rebel_power_ratio value >= 0.8 }
+			}
+		}
+	}
+	option = {
+		name = civcom.5000.subject_4
+		trigger = {
+			check_variable = { which = helper_subjects value >= 4 }
+			event_target:helper_subject_4 = {
+				NOT = {
+					any_war = {
+						OR = {
+							using_war_goal = { type = wg_civwar owner = root }
+							using_war_goal = { type = wg_natwar owner = root }
+							using_war_goal = { type = wg_civwar_heir owner = root }
+							using_war_goal = { type = wg_coup_successor owner = root }
+							using_war_goal = { type = wg_coup_independent owner = root }
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			event_target:helper_subject_4 = {
+				join_war_on_side = {
+					war = event_target:civwar_for_subs
+					side = root
+				}
+			}
+			country_event = { id = civcom.5000 }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				check_variable = { which = combined_rebel_power_ratio value >= 0.8 }
+			}
+		}
+	}
+	option = {
+		name = civcom.5000.subject_5
+		trigger = {
+			check_variable = { which = helper_subjects value >= 5 }
+			event_target:helper_subject_5 = {
+				NOT = {
+					any_war = {
+						OR = {
+							using_war_goal = { type = wg_civwar owner = root }
+							using_war_goal = { type = wg_natwar owner = root }
+							using_war_goal = { type = wg_civwar_heir owner = root }
+							using_war_goal = { type = wg_coup_successor owner = root }
+							using_war_goal = { type = wg_coup_independent owner = root }
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			event_target:helper_subject_5 = {
+				join_war_on_side = {
+					war = event_target:civwar_for_subs
+					side = root
+				}
+			}
+			country_event = { id = civcom.5000 }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				check_variable = { which = combined_rebel_power_ratio value >= 0.8 }
+			}
+		}
+	}
+	option = {
+		name = civcom.5000.subject_6
+		trigger = {
+			check_variable = { which = helper_subjects value >= 6 }
+			event_target:helper_subject_6 = {
+				NOT = {
+					any_war = {
+						OR = {
+							using_war_goal = { type = wg_civwar owner = root }
+							using_war_goal = { type = wg_natwar owner = root }
+							using_war_goal = { type = wg_civwar_heir owner = root }
+							using_war_goal = { type = wg_coup_successor owner = root }
+							using_war_goal = { type = wg_coup_independent owner = root }
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			event_target:helper_subject_6 = {
+				join_war_on_side = {
+					war = event_target:civwar_for_subs
+					side = root
+				}
+			}
+			country_event = { id = civcom.5000 }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				check_variable = { which = combined_rebel_power_ratio value >= 0.8 }
+			}
+		}
+	}
+	option = {
+		name = civcom.5000.subject_7
+		trigger = {
+			check_variable = { which = helper_subjects value >= 7 }
+			event_target:helper_subject_7 = {
+				NOT = {
+					any_war = {
+						OR = {
+							using_war_goal = { type = wg_civwar owner = root }
+							using_war_goal = { type = wg_natwar owner = root }
+							using_war_goal = { type = wg_civwar_heir owner = root }
+							using_war_goal = { type = wg_coup_successor owner = root }
+							using_war_goal = { type = wg_coup_independent owner = root }
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			event_target:helper_subject_7 = {
+				join_war_on_side = {
+					war = event_target:civwar_for_subs
+					side = root
+				}
+			}
+			country_event = { id = civcom.5000 }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				check_variable = { which = combined_rebel_power_ratio value >= 0.8 }
+			}
+		}
+	}
+	option = {
+		name = civcom.5000.subject_8
+		trigger = {
+			check_variable = { which = helper_subjects value >= 8 }
+			event_target:helper_subject_8 = {
+				NOT = {
+					any_war = {
+						OR = {
+							using_war_goal = { type = wg_civwar owner = root }
+							using_war_goal = { type = wg_natwar owner = root }
+							using_war_goal = { type = wg_civwar_heir owner = root }
+							using_war_goal = { type = wg_coup_successor owner = root }
+							using_war_goal = { type = wg_coup_independent owner = root }
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			event_target:helper_subject_8 = {
+				join_war_on_side = {
+					war = event_target:civwar_for_subs
+					side = root
+				}
+			}
+			country_event = { id = civcom.5000 }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				check_variable = { which = combined_rebel_power_ratio value >= 0.8 }
+			}
+		}
+	}
+	option = {
+		name = civcom.5000.subject_9
+		trigger = {
+			check_variable = { which = helper_subjects value >= 9 }
+			event_target:helper_subject_9 = {
+				NOT = {
+					any_war = {
+						OR = {
+							using_war_goal = { type = wg_civwar owner = root }
+							using_war_goal = { type = wg_natwar owner = root }
+							using_war_goal = { type = wg_civwar_heir owner = root }
+							using_war_goal = { type = wg_coup_successor owner = root }
+							using_war_goal = { type = wg_coup_independent owner = root }
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			event_target:helper_subject_9 = {
+				join_war_on_side = {
+					war = event_target:civwar_for_subs
+					side = root
+				}
+			}
+			country_event = { id = civcom.5000 }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				check_variable = { which = combined_rebel_power_ratio value >= 0.8 }
+			}
+		}
+	}
+	option = {
+		name = civcom.5000.subject_10
+		trigger = {
+			check_variable = { which = helper_subjects value >= 10 }
+			event_target:helper_subject_10 = {
+				NOT = {
+					any_war = {
+						OR = {
+							using_war_goal = { type = wg_civwar owner = root }
+							using_war_goal = { type = wg_natwar owner = root }
+							using_war_goal = { type = wg_civwar_heir owner = root }
+							using_war_goal = { type = wg_coup_successor owner = root }
+							using_war_goal = { type = wg_coup_independent owner = root }
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			event_target:helper_subject_10 = {
+				join_war_on_side = {
+					war = event_target:civwar_for_subs
+					side = root
+				}
+			}
+			country_event = { id = civcom.5000 }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				check_variable = { which = combined_rebel_power_ratio value >= 0.8 }
+			}
+		}
+	}
 
-# 	#Discuss another matter (return to menu)
-# 	option = {
-# 		name = civcom.nevermind
-# 	}
+	option = {
+		name = civcom.5000.refresh
+		trigger = {
+			check_variable = { which = helper_subjects value > 10 }
+		}
+		hidden_effect = {
+			get_helper_subjects_effect_refresh = yes
+			country_event = { id = civcom.5000 }
+		}
+	}
 
-# 	# Corrupt - No Deal
-# 	option = {
-# 		name = civcom.6000.corrupt_no_deal
-# 		trigger = { event_target:mad_faction_leader = { has_trait = leader_trait_corrupt } }
-# 		hidden_effect = {
-# 			country_event = { id = civcom.6010 }
-# 		}
-# 	}
-
-# 	# Corrupt - Deal
-# 	option = {
-# 		name = civcom.6000.corrupt_deal
-# 		trigger = { event_target:mad_faction_leader = { has_trait = leader_trait_corrupt } }
-# 		hidden_effect = {
-# 			event_target:mad_faction_leader = { set_leader_flag = corrupt_fac_deal }
-# 			country_event = { id = civcom.6010 }
-# 		}
-# 	}
-
-# 	# More Faction Funding
-# 	option = {
-# 		name = civcom.6000.funding
-# 		hidden_effect = {
-# 			country_event = { id = civcom.6020 }
-# 		}
-# 	}
-
-# 	# Bribe leader
-# 	option = {
-# 		name = civcom.6000.bribe
-# 		hidden_effect = {
-# 			country_event = { id = civcom.6030 }
-# 		}
-# 	}
-
-# 	# Change in rulership - election/selection
-# 	option = {
-# 		name = civcom.6000.election
-# 		hidden_effect = {
-# 			country_event = { id = civcom.6040 }
-# 		}
-# 	}
-
-# 	# Make heir - imperial
-# 	option = {
-# 		name = civcom.6000.heir
-# 		hidden_effect = {
-# 			country_event = { id = civcom.6050 }
-# 		}
-# 	}
-# }
-
-# # Faction Corrupt Deal
-# country_event = {
-# 	id = civcom.6010
-# 	title = civcom.6000.name
-# 	location = root.capital_scope
-# 	hide_window = no
-# 	is_triggered_only = yes
-
-# 	diplomatic = yes
-
-# 	desc = {
-# 		text = civcom.6010.sector.deal
-# 		trigger = {
-# 			event_target:mad_faction_leader = { has_leader_flag = corrupt_fac_deal }
-# 			any_owned_sector = {
-# 				exists = leader
-# 				leader = { is_same_value = event_target:mad_faction_leader }
-# 			}
-# 		}
-# 	}
-
-# 	desc = {
-# 		text = civcom.6010.unemployed.deal
-# 		trigger = {
-# 			event_target:mad_faction_leader = { has_leader_flag = corrupt_fac_deal }
-# 			NOT = {
-# 				any_owned_sector = {
-# 					exists = leader
-# 					leader = { is_same_value = event_target:mad_faction_leader }
-# 				}
-# 			}
-# 		}
-# 	}
-
-# 	desc = {
-# 		text = civcom.6010.no_deal
-# 		trigger = {
-# 			event_target:mad_faction_leader = { NOT = { has_leader_flag = corrupt_fac_deal } }
-# 		}
-# 	}
-
-# 	picture_event_data = {
-# 		portrait = event_target:mad_faction_leader
-# 		planet_background = root.owner
-# 		graphical_culture = root.owner
-# 		city_level = root.owner
-# 		room = root.owner
-# 	}
-
-# 	# Corrupt - No Deal
-# 	option = {
-# 		name = civcom.6010.corrupt_no_deal
-# 		trigger = { event_target:mad_faction_leader = { NOT = { has_leader_flag = corrupt_fac_deal } } }
-# 		hidden_effect = {
-# 			country_event = { id = civcom.6010 }
-# 		}
-# 	}
-
-# 	# Corrupt - Deal
-# 	option = {
-# 		name = civcom.6010.corrupt_deal
-# 		trigger = { event_target:mad_faction_leader = { has_leader_flag = corrupt_fac_deal } }
-# 		hidden_effect = {
-# 			country_event = { id = civcom.6010 }
-# 		}
-# 	}
-# }
+	after = {
+		hidden_effect = {
+			# If there are more then 10 subjects, more should appear every time one is chosen
+			get_helper_subjects_effect = yes
+		}
+	}
+}
 
 ######################
 #  Traitor Captured  #
@@ -2292,12 +2650,12 @@ country_event = {
 
 			modifier = {
 				factor = 0.2
-				is_at_war_with = event_target:civwar_originator	
+				is_at_war_with = event_target:traitor_home_country	
 			}
 
 			modifier = {
 				factor = 1.25
-				opinion = { who = event_target:civwar_originator value > 0 }	
+				opinion = { who = event_target:traitor_home_country value > 0 }	
 			}
 		}
 	}
@@ -2328,17 +2686,17 @@ country_event = {
 
 			modifier = {
 				factor = 2
-				has_rival = event_target:civwar_originator	
+				has_rival = event_target:traitor_home_country	
 			}
 
 			modifier = {
 				factor = 2
-				is_at_war_with = event_target:civwar_originator	
+				is_at_war_with = event_target:traitor_home_country	
 			}
 
 			modifier = {
 				factor = 2
-				opinion = { who = event_target:civwar_originator value < 0 }	
+				opinion = { who = event_target:traitor_home_country value < 0 }	
 			}
 		}
 	}
@@ -2568,13 +2926,6 @@ country_event = {
 		room = root.ruler
 	}
 
-	# immediate = {
-	# 	if = {
-	# 		limit = { has_country_flag = overlord_of_@from }
-	# 		remove_country_flag = overlord_of_@from
-	# 	}
-	# }
-
 	# Deny Hosting Them
 	option = {
 		name = civcom.9000.deny
@@ -2633,7 +2984,7 @@ country_event = {
 						set_owner = event_target:exile_new_host
 						create_ship = {
 							name = "Exiled Government Headquarters"
-							design = "NAME_Mercenary_Enclave_Station_5"
+							design = "NAME_Mercenary_Enclave_Station_1"
 							graphical_culture = from
 						}
 						set_location = {

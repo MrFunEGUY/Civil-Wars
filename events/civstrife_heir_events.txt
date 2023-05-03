@@ -448,7 +448,7 @@ country_event = {
 	trigger = {
 		is_imperial = yes
 		any_country = { has_country_flag = ruler_heir_connection_@from }
-		from = { leader_class = ruler }
+		from = { is_same_value = root.leader }
 	}
 
 	immediate = {
@@ -657,6 +657,7 @@ country_event = {
 	trigger = {
 		is_imperial = yes
 		exists = heir
+		is_country_type_with_subjects = yes
 	}
 
 	immediate = {

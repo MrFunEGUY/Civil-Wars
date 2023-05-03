@@ -303,7 +303,6 @@ situation_civstrife_succession = {
 				}
 			}
 		}
-		
 	}
 
 	on_fail = { }
@@ -346,7 +345,6 @@ situation_civstrife_succession = {
 		icon = GFX_situation_approach_influence
 		icon_background = GFX_situation_approach_bg_green
 		default = yes
-		allow = { NOT = { current_situation_approach = approach_election_obstruct } }
 		on_select = { custom_tooltip = succession_propaganda_tooltip }
 		resources = {
 			category = situations
@@ -385,7 +383,7 @@ situation_civstrife_succession = {
 
 		modifier = {
 			add = -13
-			desc = crisis_is_difficult
+			desc = succession_crisis_is_difficult
 			current_stage = succession_stage_2
 		}
 	}

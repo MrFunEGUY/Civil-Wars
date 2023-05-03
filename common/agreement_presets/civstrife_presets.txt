@@ -166,6 +166,11 @@ preset_vassal = {
 				key = protectorate
 				value = subject_is_not_protectorate
 			}
+			####
+			{
+				key = subject_ver_effects
+				value = subject_no_ver_effect
+			}
 		}
 	}
 
@@ -184,13 +189,7 @@ preset_vassal = {
 				has_civic = civic_inwards_perfection
 			}
 		}
-		NOR = {
-			has_civic = civic_inwards_perfection
-			AND = {
-				is_subject = yes
-				any_agreement = { agreement_preset = preset_auto_state }
-			}
-		}
+		NOT = { has_civic = civic_inwards_perfection }
 		OR = {
 			from = { has_origin = origin_imperial_vassal_overlord }
 			tech_unlocked_ratio = {
@@ -241,6 +240,11 @@ preset_subsidiary = {
 				key = protectorate
 				value = subject_is_not_protectorate
 			}
+			####
+			{
+				key = subject_ver_effects
+				value = subject_no_ver_effect
+			}
 		}
 		resource_terms = {
 			{
@@ -259,10 +263,6 @@ preset_subsidiary = {
 	}
 
 	potential = {
-		NAND = {
-			is_subject = yes
-			any_agreement = { agreement_preset = preset_auto_state }
-		}
 		from = { is_megacorp = yes }
 		tech_unlocked_ratio = {
 			who = from
@@ -373,6 +373,11 @@ preset_tributary = {
 				key = protectorate
 				value = subject_is_not_protectorate
 			}
+			####
+			{
+				key = subject_ver_effects
+				value = subject_no_ver_effect
+			}
 		}
 		resource_terms = {
 			{
@@ -391,14 +396,8 @@ preset_tributary = {
 
 	potential = {
 		from = {
-			NOR = {
-				is_megacorp = yes
-				is_country_type = awakened_fallen_empire
-			}
-		}
-		NAND = {
-			is_subject = yes
-			any_agreement = { agreement_preset = preset_auto_state }
+			is_megacorp = no
+			NOT = { is_country_type = awakened_fallen_empire }
 		}
 		tech_unlocked_ratio = {
 			who = from
@@ -453,6 +452,11 @@ preset_bulwark = {
 				key = protectorate
 				value = subject_is_not_protectorate
 			}
+			####
+			{
+				key = subject_ver_effects
+				value = subject_no_ver_effect
+			}
 		}
 	}
 
@@ -494,10 +498,6 @@ preset_bulwark = {
 		NOR = {
 			has_civic = civic_inwards_perfection
 			FROM = { has_civic = civic_inwards_perfection }
-			AND = {
-				is_subject = yes
-				any_agreement = { agreement_preset = preset_auto_state }
-			}
 		}
 		OR = {
 			FROM = { has_origin = origin_imperial_vassal_overlord }
@@ -551,6 +551,11 @@ preset_scholarium = {
 				key = protectorate
 				value = subject_is_not_protectorate
 			}
+			####
+			{
+				key = subject_ver_effects
+				value = subject_no_ver_effect
+			}
 		}
 	}
 
@@ -588,10 +593,6 @@ preset_scholarium = {
 		NOR = {
 			has_civic = civic_inwards_perfection
 			FROM = { has_civic = civic_inwards_perfection }
-			AND = {
-				is_subject = yes
-				any_agreement = { agreement_preset = preset_auto_state }
-			}
 		}
 		OR = {
 			FROM = { has_origin = origin_imperial_vassal_overlord }
@@ -651,6 +652,11 @@ preset_prospectorium = {
 				key = protectorate
 				value = subject_is_not_protectorate
 			}
+			####
+			{
+				key = subject_ver_effects
+				value = subject_no_ver_effect
+			}
 		}
 	}
 
@@ -688,10 +694,6 @@ preset_prospectorium = {
 		NOR = {
 			has_civic = civic_inwards_perfection
 			FROM = { has_civic = civic_inwards_perfection }
-			AND = {
-				is_subject = yes
-				any_agreement = { agreement_preset = preset_auto_state }
-			}
 		}
 		OR = {
 			FROM = { has_origin = origin_imperial_vassal_overlord }

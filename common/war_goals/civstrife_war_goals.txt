@@ -71,7 +71,6 @@ wg_civwar = {
 					}
 				}
 				set_timed_war_flag = { flag = war_for_subject_join days = 2 }
-				set_war_flag = subject_war
 			}
 		}
 		else = {
@@ -167,7 +166,6 @@ wg_planet_rebellion = {
 					}
 				}
 				set_timed_war_flag = { flag = war_for_subject_join days = 2 }
-				set_war_flag = subject_war
 			}
 		}
 		else = {
@@ -316,7 +314,6 @@ wg_natwar = {
 					}
 				}
 				set_timed_war_flag = { flag = war_for_subject_join days = 2 }
-				set_war_flag = subject_war
 			}
 		}
 		else = {
@@ -360,51 +357,6 @@ wg_natwar_rebel = {
 			resource = unity
 			value = @tier5materialreward
 			min = @tier5materialmin
-		}
-	}
-
-	ai_weight = {
-		weight = 100
-	}
-}
-
-wg_restore_nation = {		# Might be Done
-	casus_belli = cb_exile_territory
-
-	hide_if_no_cb = yes
-
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
-
-	surrender_acceptance = -100
-
-	potential = {
-		always = yes
-	}
-	possible = {
-		always = yes
-	}
-
-	on_accept = {
-		custom_tooltip = restore_territory_won_tooltip
-	}
-
-	on_wargoal_set = {
-		random_subject = {
-			limit = {
-				from = {
-					any_planet_within_border = {
-						OR = {
-							has_planet_flag = integrated_planet_@prevprev
-							has_planet_flag = fundamental_planet_@prevprev
-						}
-					}
-				}
-			}
-			set_country_flag = restore_war_@from
 		}
 	}
 
@@ -481,7 +433,6 @@ wg_civwar_heir = {
 					}
 				}
 				set_timed_war_flag = { flag = war_for_subject_join days = 2 }
-				set_war_flag = subject_war
 			}
 		}
 		else = {
@@ -1017,7 +968,6 @@ wg_slave_uprising = {
 					}
 				}
 				set_timed_war_flag = { flag = war_for_subject_join days = 2 }
-				set_war_flag = subject_war
 			}
 		}
 		else = {

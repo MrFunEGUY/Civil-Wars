@@ -3,7 +3,7 @@ has_democratic_elections = {
 	OR = {
 		has_authority = auth_democratic
 		has_authority = auth_strict_democratic
-		has_authority = auth_democratic_dictatorship
+		has_authority = auth_dict_democratic
 		####
 		has_authority = auth_direct_democratic
 		has_authority = auth_bugged_direct_democratic
@@ -1750,6 +1750,13 @@ is_iso_sector_event_target = {
 	}
 }
 
+is_succession_country = {
+	OR = {
+		has_origin = origin_coup_successor
+		has_origin = origin_coup_independent
+	}
+}
+
 rebel_is_former_leader = {
 	OR = {
 		has_trait = leader_trait_corrupt
@@ -1962,11 +1969,13 @@ frontier_planet_unrest_tick_check = {
 	NOT = { has_modifier = planet_culture_shock }
 	NOT = { has_planet_flag = recent_sep_rebellion }
 	NOT = { has_planet_flag = rebellion_suppressed }
-	if = {
-		limit = { exists = sector }
+	OR = {
+		NOT = { exists = sector }
 		sector = {
-			NOT = { has_sector_flag = sector_sep_active }
-			NOT = { has_sector_flag = sec_slave_sep_active }
+			NOR = {
+				has_sector_flag = sector_sep_active
+				has_sector_flag = sec_slave_sep_active
+			}
 		}
 	}
 	count_owned_pop = {
@@ -1977,9 +1986,7 @@ frontier_planet_unrest_tick_check = {
 		count >= 3
 	}
 	if = { # So a slave rebellion is preferred over a geneneral separatist rebellion
-		limit = {
-			any_owned_pop = { is_enslaved_or_purged = yes }
-		}
+		limit = { any_owned_pop = { is_enslaved_or_purged = yes } }
 		pop_percentage = {
 			percentage <= 0.3
 			limit = {
@@ -2017,11 +2024,13 @@ integrated_planet_unrest_tick_check = {
 	NOT = { has_modifier = planet_culture_shock }
 	NOT = { has_planet_flag = recent_sep_rebellion }
 	NOT = { has_planet_flag = rebellion_suppressed }
-	if = {
-		limit = { exists = sector }
+	OR = { # Shouldn't be as relevant for non-Frontier Sectors
+		NOT = { exists = sector }
 		sector = {
-			NOT = { has_sector_flag = sector_sep_active }
-			NOT = { has_sector_flag = sec_slave_sep_active }
+			NOR = {
+				has_sector_flag = sector_sep_active
+				has_sector_flag = sec_slave_sep_active
+			}
 		}
 	}
 	count_owned_pop = {
@@ -2072,11 +2081,13 @@ fundamental_planet_unrest_tick_check = {
 	NOT = { has_modifier = planet_culture_shock }
 	NOT = { has_planet_flag = recent_sep_rebellion }
 	NOT = { has_planet_flag = rebellion_suppressed }
-	if = {
-		limit = { exists = sector }
+	OR = { # Shouldn't be as relevant for non-Frontier Sectors
+		NOT = { exists = sector }
 		sector = {
-			NOT = { has_sector_flag = sector_sep_active }
-			NOT = { has_sector_flag = sec_slave_sep_active }
+			NOR = {
+				has_sector_flag = sector_sep_active
+				has_sector_flag = sec_slave_sep_active
+			}
 		}
 	}
 	count_owned_pop = {
@@ -2702,11 +2713,6 @@ is_exile_country = {
 	}
 }
 
-is_auto_state = {
-	is_subject = yes
-	any_agreement = { agreement_preset = preset_auto_state }
-}
-
 # For My Sanity
 
 is_enslaved_or_purged = {
@@ -2743,26 +2749,26 @@ is_modded_ship = {
 		is_ship_size = space_whale_2
 		is_ship_size = space_whale_3
 		is_ship_size = space_whale_4
-		# Engineers of Life
-		is_ship_size = eng_imp_stellar_devourer
-		is_ship_size = eng_imp_dimensional_horror
-		is_ship_size = eng_imp_space_dragon
-		is_ship_size = eng_imp_space_dragon_baby
-		is_ship_size = eng_imp_leviathan_01_voidspawn
-		is_ship_size = eng_imp_void_cloud_lesser
-		is_ship_size = eng_imp_void_cloud
-		is_ship_size = eng_imp_corrupted_avatar
-		is_ship_size = eng_imp_shardlings
-		is_ship_size = eng_imp_shards
-		is_ship_size = eng_imp_quintessence
-		is_ship_size = eng_imp_crystal_station_large
-		is_ship_size = eng_imp_space_whale_calf
-		is_ship_size = eng_imp_space_whale_cow
-		is_ship_size = eng_imp_space_whale_bull
-		is_ship_size = eng_imp_leviathan_01_elder_tiyanki
-		is_ship_size = eng_imp_amoeba
-		is_ship_size = eng_imp_mother
-		is_ship_size = eng_imp_cente
+		# Engineers of Life # Dead Mod
+		# is_ship_size = eng_imp_stellar_devourer
+		# is_ship_size = eng_imp_dimensional_horror
+		# is_ship_size = eng_imp_space_dragon
+		# is_ship_size = eng_imp_space_dragon_baby
+		# is_ship_size = eng_imp_leviathan_01_voidspawn
+		# is_ship_size = eng_imp_void_cloud_lesser
+		# is_ship_size = eng_imp_void_cloud
+		# is_ship_size = eng_imp_corrupted_avatar
+		# is_ship_size = eng_imp_shardlings
+		# is_ship_size = eng_imp_shards
+		# is_ship_size = eng_imp_quintessence
+		# is_ship_size = eng_imp_crystal_station_large
+		# is_ship_size = eng_imp_space_whale_calf
+		# is_ship_size = eng_imp_space_whale_cow
+		# is_ship_size = eng_imp_space_whale_bull
+		# is_ship_size = eng_imp_leviathan_01_elder_tiyanki
+		# is_ship_size = eng_imp_amoeba
+		# is_ship_size = eng_imp_mother
+		# is_ship_size = eng_imp_cente
 	}
 }
 

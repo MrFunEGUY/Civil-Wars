@@ -12,6 +12,47 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		if = {
+			limit = {
+				exists = from
+			}
+			from = {
+				save_global_event_target_as = destroyer_country
+			}
+		}
+		# If the MSI got destroyed by someone else, payback empires will get a follow-up
+		# after action.62
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = payback_stole_revenge
+					has_origin = origin_slavers
+				}
+			}
+			every_playable_country = {
+				limit = {
+					has_origin = origin_payback
+					NOT = { is_same_value = event_target:destroyer_country }
+				}
+				set_country_flag = payback_stolen_revenge
+			}
+		}
+		# If MSI gets destroyed by Payback, fire the on_war_won event after the country destroyed notification
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = payback_stole_revenge
+					has_origin = origin_slavers
+				}
+				event_target:destroyer_country = {
+					has_origin = origin_payback
+					has_event_chain = payback_make_them_pay_swords_chain
+					is_at_war_with = prev
+				}
+			}
+			event_target:destroyer_country = { set_country_flag = payback_killed_MSI }
+		}
+		
 		every_subject = {
 			set_subject_of = {
 				who = none
@@ -147,6 +188,15 @@ country_event = {
 		name = "action.62.memorialist.a"
 		exclusive_trigger = {
 			is_memorialist_empire = yes
+		}
+	}
+
+	after = {
+		if = {
+			limit = {
+				has_country_flag = payback_stolen_revenge
+			}
+			country_event = { id = origin.4070 days = 15 }
 		}
 	}
 }

@@ -60,6 +60,11 @@ nat_separatist_94 = {
 		base = 80
 
 		modifier = {
+			factor = 0
+			happiness >= 0.7
+		}
+
+		modifier = {
 			factor = 0.25
 			has_citizenship_type = { type = citizenship_full }
 		}
@@ -420,7 +425,7 @@ nat_separatist_94 = {
 		nat_faction_second_effect = yes
 	}
 
-	# on_destroy = { faction_kill_leader_effect = yes }
+	on_destroy = { faction_kill_leader_effect = yes }
 
 	actions = {}
 }

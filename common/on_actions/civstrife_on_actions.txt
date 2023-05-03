@@ -3,12 +3,29 @@
 on_game_start = {
 	events = {
 		civmisc.1000   			# Set Global Flag
+		civmisc.1100			# DMM Support
+	}
+}
+
+# No scope, like on_game_start
+# Does not run when loading MP saves due to OOS concerns
+on_single_player_save_game_load = {
+	events = {
+		civmisc.1100			# DMM Support
+	}
+}
+
+dmm_mod_selected = {
+	events = {
+		civmisc.1101			# DMM
 	}
 }
 
 # this = country
 on_game_start_country = {
 	events = {
+		civstats.1000			# Set Global Stats
+		civroyal.2000			# Set Imperial Ruler Flag
 		civnat.2005				# Set Capital Fundamental Sector on Game Start
 	}
 }
@@ -50,6 +67,8 @@ on_monthly_pulse_country = {
 		civplan.4010			# Planet Sector Malus Removal
 
 		civleader.2000			# Set Corrupt Governor Flag
+
+		civroyal.1200			# Fix Succession Country Bullshit
 	}
 }
 
@@ -65,6 +84,7 @@ on_yearly_pulse_country = {
 		civnat.2006				# Set Capital Sector as Fundamental on Game Start, and yearly for new empires
 		civnat.3000				# Spread Nationalism Initial Trigger
 		civnat.3020				# Remove Nationalism Initial Trigger
+		civnat.3100				# Destroy GiE if no Nats left
 		civnat.5000				# Give Claims to Fundamental land that has been lost
 
 		civsep.2200				# Create Corrupt Governor Separatists Yearly Initializer
@@ -135,6 +155,7 @@ on_planet_defenders_win = {
 # This = Country
 on_ruler_set = {
 	events = {
+		civroyal.2000			# Set Imperial Ruler Flag
 		civwar.9200				# Remove Civil War flags from leaders who become rulers
 		
 		civleader.2005			# Set Corrupt Ruler Trait
@@ -166,6 +187,12 @@ on_war_won = {
 	events = {
 		civend.1000				# Initializer for opposing leaders, normal Civil Wars
 		civend.2000				# Initializer for opposing leaders, subject Civil Wars
+		civend.3000				# Subjects who helped in Civ War become independent
+		civend.3005				# Subjects who helped rebels in Civ War become independent
+		civend.3010				# Subjects who pledged to rebels in Civ War become subjects again
+		civend.3020				# Subjects who helped rebels in Civ War become subjects again
+		civend.3030				# Remove joiner flag
+		civend.3031				# Remove joiner flag
 		civend.8000				# Traitorous Leader Installed at end of war
 		civnat.1341				# Gov In Exile restoration on war won
 		civethic.6000			# Set Recent Civil War Flag
@@ -181,6 +208,7 @@ on_war_won = {
 on_status_quo = {
 	events = {
 		civnat.1342				# Gov In Exile restoration on status quo
+		civend.3032				# Remove joiner flag
 		civethic.6010			# Set Recent Civil War Flag
 	}
 }

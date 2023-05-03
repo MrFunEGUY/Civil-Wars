@@ -1,6 +1,7 @@
-has_civil_wars_mod = {
+
+has_civic_organic_zealots_active = {
 	optimize_memory
-	always = yes
+	always = no
 }
 
 # this = country
@@ -13,4 +14,12 @@ is_organic_zealots = {
 is_valid_organic_zealots = {
 	optimize_memory
 	has_valid_civic = civic_organic_zealots
+}
+
+is_heir = {
+	OR = {
+		has_leader_flag = appointed_heir
+		has_leader_flag = dynastic_heir
+		is_same_value = root.owner.heir
+	}
 }
