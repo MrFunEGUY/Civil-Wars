@@ -4,18 +4,9 @@ desc = {
 	trigger = {
 
 		success_text = {
-			text = civcom.1100.corrupt.desc
-			event_target:civwar_rebels = {
-				has_country_flag = corrupt_rebellion
-				NOT = { has_country_flag = election_dispute_country }
-			}
-		}
-
-		success_text = {
 			text = civcom.1100.leader.desc
 			NOT = { has_country_flag = rebs_help_eachother }
 			event_target:civwar_rebels = {
-				NOT = { has_country_flag = corrupt_rebellion }
 				ruler = {
 					OR = {
 						has_leader_flag = civil_war_ruler_governor

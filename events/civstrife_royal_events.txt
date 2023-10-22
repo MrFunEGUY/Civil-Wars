@@ -15,7 +15,7 @@ country_event = { # Disputed Ruler Ascension, start situation
 		num_sectors > 1
 		is_imperial = yes
 		from = {
-			leader_class = ruler
+			is_ruler = yes
 			has_leader_flag = is_imperial_ruler
 		}
 		NOR = {
@@ -32,7 +32,7 @@ country_event = { # Disputed Ruler Ascension, start situation
 		from = { save_event_target_as = crisis_dynasty_name }
 		clone_leader = {
 			target = from
-			class = ruler
+			class = random_ruler
 			effect = {
 				set_immortal = yes # So they dont die while we need them
 				set_leader_flag = dead_crisis_leader								
@@ -156,8 +156,8 @@ situation_event = { # Send Message out to governors to ask if they are loyal
 					limit = {
 						NOT = { any_system_within_border = { is_capital_system = yes } }
 						OR = {
-							NOT = { exists = leader }
-							leader = { NOT = { has_leader_flag = appointed_heir } } # An heir wants a larger stable realm to inherit
+							NOT = { exists = sector_capital.leader }
+							sector_capital.leader = { NOT = { has_leader_flag = appointed_heir } } # An heir wants a larger stable realm to inherit
 						}
 					}
 					if = {
@@ -226,7 +226,7 @@ situation_event = { # Rebel Sectors Exist
 					limit = { has_sector_flag = succession_crisis_rebel_sector }
 					if = {
 						limit = {
-							exists = leader
+							exists = sector_capital.leader
 							owner = { NOT = { has_civic = civic_adoptive_dynasties } }
 						}
 						random_list = {
@@ -309,13 +309,13 @@ situation_event = { # Query Governor
 				if = {
 					limit = { has_sector_flag = governor_rebel_sector }
 					if = {
-						limit = { exists = leader }
-						leader = { save_event_target_as = crisis_sector_leader }
+						limit = { exists = sector_capital.leader }
+						sector_capital.leader = { save_event_target_as = crisis_sector_leader }
 					}
 					else = {
 						owner = {
 							create_leader = { # Let's just say he's a deputy in charge
-								class = ruler
+								class = random_ruler
 								event_leader = yes
 								species = root.ruler
 								name = random
@@ -331,12 +331,12 @@ situation_event = { # Query Governor
 				}
 				else = {
 					if = {
-						limit = { exists = leader }
-						leader = { save_event_target_as = switched_dynast_loyalty }
+						limit = { exists = sector_capital.leader }
+						sector_capital.leader = { save_event_target_as = switched_dynast_loyalty }
 					}
 					owner = {
 						create_leader = {
-							class = ruler
+							class = random_ruler
 							event_leader = yes
 							species = root.ruler
 							name = random
@@ -399,55 +399,55 @@ country_event = { # Imperial Ruler Set Flag
 #####
 
 # Disputed Heritage Event
-country_event = {
-	id = civroyal.9000
-	hide_window = yes
-	is_triggered_only = yes
+# country_event = {
+# 	id = civroyal.9000
+# 	hide_window = yes
+# 	is_triggered_only = yes
 
-	trigger = {
-		exists = heir
-		num_sectors > 1
-		heir = { NOT = { has_leader_flag = appointed_heir } }
-	}
+# 	trigger = {
+# 		exists = heir
+# 		num_sectors > 1
+# 		heir = { NOT = { has_leader_flag = appointed_heir } }
+# 	}
 
-	immediate = {
-		random = {
-			chance = 2
-			heir = { add_trait = trait_disputed_heritage }
-			country_event = { id = civroyal.9010 }
-		}
-	}
-}
+# 	immediate = {
+# 		random = {
+# 			chance = 2
+# 			heir = { add_trait = trait_disputed_heritage }
+# 			country_event = { id = civroyal.9010 }
+# 		}
+# 	}
+# }
 
 # Disputed Heir Notification
-country_event = {
-	id = civroyal.9010
-	title = civroyal.9010.name
-	desc = civroyal.9010.desc
-	picture = GFX_evt_smear_campaign
-	hide_window = no
-	is_triggered_only = yes
+# country_event = {
+# 	id = civroyal.9010
+# 	title = civroyal.9010.name
+# 	desc = civroyal.9010.desc
+# 	picture = GFX_evt_smear_campaign
+# 	hide_window = no
+# 	is_triggered_only = yes
 
-	# This is outrageous!
-	option = {
-		name = civroyal.9010.a
-	}
+# 	# This is outrageous!
+# 	option = {
+# 		name = civroyal.9010.a
+# 	}
 
-	# Rumors have merit, maybe we should disinherit
-	option = {
-		name = civroyal.9010.b
-		hidden_effect = {
-			heir = { save_global_event_target_as = disinherited_heir_first }
-			clone_leader = {
-				target = event_target:disinherited_heir_first
-				class = ruler
-				effect = { save_global_event_target_as = disinherited_heir }
-			}
-			event_target:disinherited_heir_first = {
-				set_leader_flag = dead_ruler
-				kill_leader = { show_notification = no }
-			}
-			country_event = { id = civheir.1000 }
-		}
-	}
-}
+# 	# Rumors have merit, maybe we should disinherit
+# 	option = {
+# 		name = civroyal.9010.b
+# 		hidden_effect = {
+# 			heir = { save_global_event_target_as = disinherited_heir_first }
+# 			clone_leader = {
+# 				target = event_target:disinherited_heir_first
+# 				class = random_ruler
+# 				effect = { save_global_event_target_as = disinherited_heir }
+# 			}
+# 			event_target:disinherited_heir_first = {
+# 				set_leader_flag = dead_ruler
+# 				kill_leader = { show_notification = no }
+# 			}
+# 			country_event = { id = civheir.1000 }
+# 		}
+# 	}
+# }

@@ -203,11 +203,11 @@
 # 			limit = {
 # 				current_situation_approach = approach_pandemic_governor
 # 				NOT = { has_situation_flag = gov_quarantine_check }
-# 				target.sector.leader = { NOT = { has_leader_flag = gov_pandemic_decided } }
+# 				target.sector.sector_capital.leader = { NOT = { has_leader_flag = gov_pandemic_decided } }
 # 				target = { NOT = { has_planet_flag = pandemic_quarantine  } }
 # 			}
 # 			set_timed_situation_flag = { flag = gov_quarantine_check months = 3 }
-# 			target.sector.leader = {
+# 			target.sector.sector_capital.leader = {
 # 				set_timed_leader_flag = { flag = gov_pandemic_decided years = 1 }
 # 				if = {
 # 					limit = { has_level <= 2 }
@@ -624,11 +624,11 @@
 # 			limit = {
 # 				current_situation_approach = approach_pandemic_governor
 # 				NOT = { has_situation_flag = gov_quarantine_check }
-# 				target.sector.leader = { NOT = { has_leader_flag = gov_pandemic_decided } }
+# 				target.sector.sector_capital.leader = { NOT = { has_leader_flag = gov_pandemic_decided } }
 # 				target.sector = { NOT = { has_sector_flag = pandemic_quarantine  } }
 # 			}
 # 			set_timed_situation_flag = { flag = gov_quarantine_check months = 3 }
-# 			target.sector.leader = {
+# 			target.sector.sector_capital.leader = {
 # 				set_timed_leader_flag = { flag = gov_pandemic_decided years = 1 }
 # 				if = {
 # 					limit = { has_level <= 2 }

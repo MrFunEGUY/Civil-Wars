@@ -34,16 +34,18 @@ situation_civstrife_faction_egal = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -68,8 +70,8 @@ situation_civstrife_faction_egal = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_EGAL }
+			situation_progress < 0
 		}
 	}
 
@@ -181,7 +183,6 @@ situation_civstrife_faction_egal = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -202,12 +203,6 @@ situation_civstrife_faction_egal = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -247,16 +242,18 @@ situation_civstrife_faction_auth = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -281,8 +278,8 @@ situation_civstrife_faction_auth = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_AUTH }
+			situation_progress < 0
 		}
 	}
 
@@ -394,7 +391,6 @@ situation_civstrife_faction_auth = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -415,12 +411,6 @@ situation_civstrife_faction_auth = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -460,16 +450,18 @@ situation_civstrife_faction_mil = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -494,8 +486,8 @@ situation_civstrife_faction_mil = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_MIL }
+			situation_progress < 0
 		}
 	}
 
@@ -607,7 +599,6 @@ situation_civstrife_faction_mil = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -628,12 +619,6 @@ situation_civstrife_faction_mil = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -674,16 +659,18 @@ situation_civstrife_faction_pac = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -708,8 +695,8 @@ situation_civstrife_faction_pac = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_PAC }
+			situation_progress < 0
 		}
 	}
 
@@ -824,7 +811,6 @@ situation_civstrife_faction_pac = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -845,12 +831,6 @@ situation_civstrife_faction_pac = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -890,16 +870,18 @@ situation_civstrife_faction_mat = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -924,8 +906,8 @@ situation_civstrife_faction_mat = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_MAT }
+			situation_progress < 0
 		}
 	}
 
@@ -1017,20 +999,6 @@ situation_civstrife_faction_mat = {
 		}
 	}
 
-	approach = {
-		name = approach_speak_to_leader
-		icon = GFX_situation_approach_handshake
-		icon_background = GFX_situation_approach_bg_green
-		on_select = {
-			# hidden_effect = { situation_event = { id = civwar.5100 } }
-		}
-		ai_weight = {
-			base = 0
-		}
-		# potential = { owner = { is_egalitarian = no } }
-		potential = { always = no }
-	}
-
 	on_monthly = {
 		events = {
 			civethic.2000			# Monthly Separatism Spread
@@ -1051,7 +1019,6 @@ situation_civstrife_faction_mat = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -1072,12 +1039,6 @@ situation_civstrife_faction_mat = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -1117,16 +1078,18 @@ situation_civstrife_faction_spi = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -1151,8 +1114,8 @@ situation_civstrife_faction_spi = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_SPI }
+			situation_progress < 0
 		}
 	}
 
@@ -1264,7 +1227,6 @@ situation_civstrife_faction_spi = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -1285,12 +1247,6 @@ situation_civstrife_faction_spi = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -1330,16 +1286,18 @@ situation_civstrife_faction_phile = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -1364,8 +1322,8 @@ situation_civstrife_faction_phile = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_XENO }
+			situation_progress < 0
 		}
 	}
 
@@ -1477,7 +1435,6 @@ situation_civstrife_faction_phile = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -1498,12 +1455,6 @@ situation_civstrife_faction_phile = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -1543,16 +1494,18 @@ situation_civstrife_faction_phobe = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -1577,8 +1530,8 @@ situation_civstrife_faction_phobe = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_PHOBE }
+			situation_progress < 0
 		}
 	}
 
@@ -1690,7 +1643,6 @@ situation_civstrife_faction_phobe = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -1711,12 +1663,6 @@ situation_civstrife_faction_phobe = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -1756,16 +1702,18 @@ situation_civstrife_faction_soc = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -1790,8 +1738,8 @@ situation_civstrife_faction_soc = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_SOC }
+			situation_progress < 0
 		}
 	}
 
@@ -1903,7 +1851,6 @@ situation_civstrife_faction_soc = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -1924,12 +1871,6 @@ situation_civstrife_faction_soc = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -1969,16 +1910,18 @@ situation_civstrife_faction_cap = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -2003,8 +1946,8 @@ situation_civstrife_faction_cap = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_CAP }
+			situation_progress < 0
 		}
 	}
 
@@ -2116,7 +2059,6 @@ situation_civstrife_faction_cap = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -2137,12 +2079,6 @@ situation_civstrife_faction_cap = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -2182,16 +2118,18 @@ situation_civstrife_faction_indus = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -2216,8 +2154,8 @@ situation_civstrife_faction_indus = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_INDUS }
+			situation_progress < 0
 		}
 	}
 
@@ -2329,7 +2267,6 @@ situation_civstrife_faction_indus = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -2350,12 +2287,6 @@ situation_civstrife_faction_indus = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -2395,16 +2326,18 @@ situation_civstrife_faction_eco = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -2429,8 +2362,8 @@ situation_civstrife_faction_eco = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_ECO }
+			situation_progress < 0
 		}
 	}
 
@@ -2542,7 +2475,6 @@ situation_civstrife_faction_eco = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -2563,12 +2495,6 @@ situation_civstrife_faction_eco = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -2608,16 +2534,18 @@ situation_civstrife_faction_elite = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -2642,8 +2570,8 @@ situation_civstrife_faction_elite = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_ELITE }
+			situation_progress < 0
 		}
 	}
 
@@ -2755,7 +2683,6 @@ situation_civstrife_faction_elite = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -2776,12 +2703,6 @@ situation_civstrife_faction_elite = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -2821,16 +2742,18 @@ situation_civstrife_faction_plur = {
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
-			if = {
-				limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_ethic }
-					remove_pop_faction_flag = sep_pop_ethic
+		hidden_effect = {
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+				clear_variable = ethic_sep_chance
+				clear_variable = num_sep_pops
+				clear_variable = sep_upkeep
+				if = {
+					limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
+					every_owned_pop = {
+						limit = { has_pop_flag = sep_pop_ethic }
+						remove_pop_faction_flag = sep_pop_ethic
+					}
 				}
 			}
 		}
@@ -2855,8 +2778,8 @@ situation_civstrife_faction_plur = {
 	abort_trigger = {
 		OR = {
 			NOT = { exists = root.target }
-			target.leader = { is_same_value = root.owner.ruler }
 			owner = { has_country_flag = civ_war_recent_PLUR }
+			situation_progress < 0
 		}
 	}
 
@@ -2968,7 +2891,6 @@ situation_civstrife_faction_plur = {
 			add = 1
 			situation_progress < 90
 			is_faction_happy_situation = no
-			target.leader = { is_heir = no }
 		}
 
 		modifier = {
@@ -2989,12 +2911,6 @@ situation_civstrife_faction_plur = {
 			desc = faction_happy_no_support
 			add = -2
 			is_faction_happy_situation = yes
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }

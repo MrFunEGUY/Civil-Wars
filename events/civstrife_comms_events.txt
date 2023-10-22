@@ -1839,7 +1839,7 @@ country_event = {
 		if = {
 			limit = { NOT = { exists = event_target:civil_war_secretary } }
 			create_leader = {
-				class = ruler
+				class = random_ruler
 				species = owner_main_species
 				name = random
 				skill = 5
@@ -2774,11 +2774,6 @@ country_event = {
 			clone_leader = {
 				target = event_target:disinherited_heir
 				class = governor
-				traits = {
-					trait = random_trait
-					trait = random_trait
-					trait = random_trait
-				}
 				effect = {
 					save_global_event_target_as = disinherited_heir_asylum
 				}
@@ -2804,11 +2799,6 @@ country_event = {
 			clone_leader = {
 				target = event_target:disinherited_heir
 				class = admiral
-				traits = {
-					trait = random_trait
-					trait = random_trait
-					trait = random_trait
-				}
 				effect = {
 					save_global_event_target_as = disinherited_heir_asylum
 				}
@@ -2834,11 +2824,6 @@ country_event = {
 			clone_leader = {
 				target = event_target:disinherited_heir
 				class = general
-				traits = {
-					trait = random_trait
-					trait = random_trait
-					trait = random_trait
-				}
 				effect = {
 					save_global_event_target_as = disinherited_heir_asylum
 				}
@@ -2864,11 +2849,6 @@ country_event = {
 			clone_leader = {
 				target = event_target:disinherited_heir
 				class = scientist
-				traits = {
-					trait = random_trait
-					trait = random_trait
-					trait = random_trait
-				}
 				effect = {
 					save_global_event_target_as = disinherited_heir_asylum
 				}

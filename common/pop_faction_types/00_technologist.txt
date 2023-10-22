@@ -6,6 +6,7 @@ technologist = {
 	election_header = "GFX_faction_header_yellow"
 	guiding_ethic = ethic_materialist
 	use_guiding_ethic_as_pop_filter = no
+	visual_ethic = "technologist_visual_ethic"
 
 	unique = yes
 	support_multiplier = 1
@@ -28,7 +29,7 @@ technologist = {
                 	}
                 }
             }
-            unity = 0.5
+            unity = @faction_base_unity
         }
 	}
 
@@ -70,7 +71,7 @@ technologist = {
 			exists = from
 			from = {
 				exists = leader
-				leader = { leader_class = ruler }
+				leader = { is_ruler = yes }
 			}
 		}
 
@@ -147,6 +148,7 @@ technologist = {
 		potential = {
 			exists = owner
 			owner = {
+				is_subject = no
 				any_relation = {
 					has_communications = root.owner
 					is_country_type = default
@@ -158,10 +160,6 @@ technologist = {
 							level >= 1
 						}
 					}
-				}
-				NOR = {
-					has_country_flag = primitives_can_into_space
-					is_subject = yes
 				}
 			}
 		}
@@ -217,6 +215,13 @@ technologist = {
 						}
 					}
 					num_research_agreements > 2
+					any_relation = {
+						is_country_type = primitive
+						OR = {
+							is_under_open_technological_enlightenment = prev
+							is_under_stratified_technological_enlightenment = prev
+						}
+					}
 				}
 			}
 		}
@@ -267,9 +272,13 @@ technologist = {
 		}
 	}
 
-	on_create = {
-		pop_faction_event = { id = factions.1 }
-	}
+	# Faction Demands for Ruler and Council positions.
+	inline_script = {
+		script = "paragon/global_faction_demands"
+		ETHIC = ethic_materialist
+		ETHIC_FANATIC = ethic_fanatic_materialist
+		ETHIC_OPPOSED = ethic_spiritualist
+	} 
 
 	demand = {
 		title = "TECHNOLOGIST_SECRET_KNOWLEDGE"
@@ -394,16 +403,7 @@ technologist = {
 
 		trigger = {
 			owner = {
-				OR = {
-					has_modifier = artifact_cybrex_research_completed
-					has_modifier = artifact_irassian_research_completed
-					has_modifier = artifact_league_research_completed
-					has_modifier = artifact_vultaum_research_completed_suppressed
-					has_modifier = artifact_vultaum_research_completed_public
-					has_country_flag = artifact_yuht_research_completed
-					has_modifier = artifact_baol_research_completed
-					has_modifier = artifact_zroni_research_completed
-				}
+				has_completed_precursor_research = yes
 			}
 		}
 	}
@@ -431,6 +431,11 @@ technologist = {
 			}
 		}
 	}
+
+	on_create = {
+		pop_faction_event = { id = factions.1 }
+	}
+
 
 	on_destroy = {
 		if = {
@@ -523,17 +528,6 @@ technologist = {
 				modifier = {
 					factor = 0
 					owner = { has_valid_civic = civic_fanatic_purifiers }
-				}
-				modifier = {
-					factor = 0
-					NOT = {
-						owner = {
-							exists = ruler
-							ruler = {
-								leader_of_faction = technologist
-							}
-						}
-					}
 				}
 				modifier = {
 					factor = 0

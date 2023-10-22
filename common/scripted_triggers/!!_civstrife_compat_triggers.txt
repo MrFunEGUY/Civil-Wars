@@ -16,10 +16,15 @@ is_valid_organic_zealots = {
 	has_valid_civic = civic_organic_zealots
 }
 
-is_heir = {
+is_civwar_heir = {
 	OR = {
 		has_leader_flag = appointed_heir
 		has_leader_flag = dynastic_heir
 		is_same_value = root.owner.heir
 	}
+}
+
+dmm_is_installed = {
+	optimize_memory
+	always = no
 }

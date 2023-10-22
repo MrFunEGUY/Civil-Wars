@@ -103,7 +103,7 @@ sec_separatist_21 = {
 					sector = { NOT = { is_same_value = event_target:sec_separatist_21 } }
 				}
 				AND = {
-					leader_class = ruler
+					is_ruler = yes
 					NOT = { has_leader_flag = sep_won_election }
 				}
 			}

@@ -71,13 +71,44 @@ action_form_commercial_pact = {
 			}
 		}
 		diplomacy_recipient_is_not_pompous = yes
+		# Requirements:
+		# - 20 Trust OR Good Opinion
+		# - An Embassy OR the Diplomatic Networking tradition OR Universal Transactions
 		custom_tooltip = {
-			fail_text = "requires_good_or_better_opinion"
-
+			fail_text = requires_20_trust_or_good
 			OR = {
-				is_overlord_to = from
-				opinion_level = { who = from level >= good }
-				is_improving_relations_with = from
+				opinion_level = {
+					who = from
+					level >= good
+				}
+				from = {
+					trust = {
+						who = root
+						value >= 20
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				is_megacorp = no
+			}
+			custom_tooltip = {
+				fail_text = requires_embassy_or_diplomatic_networking
+				OR = {
+					has_embassy = from
+					has_active_tradition = tr_diplomacy_diplomatic_networking
+				}
+			}
+		}
+		else = {
+			custom_tooltip = {
+				fail_text = requires_embassy_diplomatic_networking_or_universal_transactions
+				OR = {
+					has_embassy = from
+					has_active_tradition = tr_diplomacy_diplomatic_networking
+					has_ascension_perk = ap_universal_transactions
+				}
 			}
 		}
 	}
@@ -148,13 +179,29 @@ action_form_research_agreement = {
 			}
 		}
 		diplomacy_recipient_is_not_pompous = yes
+		# Requirements:
+		# - 20 Trust OR Good Opinion
+		# - An Embassy OR the Diplomatic Networking tradition.
 		custom_tooltip = {
-			fail_text = "requires_good_or_better_opinion"
-
+			fail_text = requires_20_trust_or_good
 			OR = {
-				is_overlord_to = from
-				opinion_level = { who = from level >= good }
-				is_improving_relations_with = from
+				opinion_level = {
+					who = from
+					level >= good
+				}
+				from = {
+					trust = {
+						who = root
+						value >= 20
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = requires_embassy_or_diplomatic_networking
+			OR = {
+				has_embassy = from
+				has_active_tradition = tr_diplomacy_diplomatic_networking
 			}
 		}
 		custom_tooltip = {
@@ -258,13 +305,32 @@ action_guarantee_independence = {
 			NOT = { has_valid_civic = civic_inwards_perfection }
 		}
 		diplomacy_recipient_is_not_pompous = yes
+		# Requirements:
+		# - 10 Trust OR Neutral Opinion
+		# - An Embassy OR Improving Relations.
 		custom_tooltip = {
-			fail_text = "requires_neutral_or_better_opinion"
-
+			fail_text = requires_10_trust_or_neutral
 			OR = {
-				opinion_level = { who = from level >= neutral }
-				is_improving_relations_with = from
+				opinion_level = {
+					who = from
+					level >= neutral
+				}
+				from = {
+					trust = {
+						who = root
+						value >= 10
+					}
+				}
 			}
 		}
+		custom_tooltip = {
+			fail_text = requires_embassy_or_improving_relations
+			OR = {
+				is_improving_relations_with = from
+				has_embassy = from
+			}
+		}
+		# Shared Borders
+		get_border_test_defense = yes
 	}
 }

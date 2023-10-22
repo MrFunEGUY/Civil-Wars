@@ -102,7 +102,7 @@ plan_separatist_20 = {
 					sector = { any_owned_planet = { NOT = { is_same_value = event_target:plan_separatist_20 } } }
 				}
 				AND = {
-					leader_class = ruler
+					is_ruler = yes
 					NOT = { has_leader_flag = sep_won_election }
 				}
 			}

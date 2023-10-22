@@ -77,7 +77,7 @@ country_event = {
 
 		clone_leader = {
 			target = event_target:defeated_traitor_1
-			class = ruler
+			class = random_ruler
 			effect = {
 				save_event_target_as = defeated_traitor
 				set_leader_flag = dummy_leader
@@ -292,7 +292,7 @@ country_event = {
 		event_target:traitor_subject_country = {
 			clone_leader = {
 				target = event_target:defeated_traitor_1
-				class = ruler
+				class = random_ruler
 				effect = {
 					save_event_target_as = defeated_traitor
 					set_leader_flag = dummy_leader
@@ -581,8 +581,8 @@ country_event = {
 		if = {
 			limit = {
 				any_country = {
-					is_country_type_with_subjects = yes
 					has_communications = root
+					is_country_type_with_subjects = yes
 					OR = {
 						is_homicidal = no
 						is_organic_zealots = yes
@@ -592,6 +592,8 @@ country_event = {
 						is_overlord_to = root
 						has_overlord = root
 						is_custodial_to = root
+						has_valid_civic = civic_machine_servitor
+						has_valid_civic = civic_machine_assimilator
 						has_country_flag = traitor_already_asked@event_target:defeated_traitor
 					}
 				}
@@ -599,8 +601,8 @@ country_event = {
 			save_event_target_as = traitor_home_country
 			random_country = {
 				limit = {
-					is_country_type_with_subjects = yes
 					has_communications = root
+					is_country_type_with_subjects = yes
 					OR = {
 						is_homicidal = no
 						is_organic_zealots = yes
@@ -610,6 +612,8 @@ country_event = {
 						is_overlord_to = root
 						has_overlord = root
 						is_custodial_to = root
+						has_valid_civic = civic_machine_servitor
+						has_valid_civic = civic_machine_assimilator
 						has_country_flag = traitor_already_asked@event_target:defeated_traitor
 					}
 				}
@@ -908,7 +912,7 @@ country_event = {
 
 	trigger = {
 		from = {
-			leader_class = ruler
+			is_ruler = yes
 			has_leader_flag = grateful_restored_leader_@this
 		}
 	}

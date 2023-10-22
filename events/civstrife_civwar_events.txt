@@ -8,7 +8,7 @@ namespace = civwar
 
 
 #################
-# Setup Rebel Country.
+# Setup Rebel Country
 
 country_event = { # Setup for Civil War (create_country)
 	id = civwar.1000
@@ -39,6 +39,10 @@ country_event = { # Setup for Civil War (create_country)
 
 		# Set leaders and other stuff
 		if = {
+			limit = { is_standard_faction_country = yes }
+			set_leader = event_target:ethic_rebel_leader
+		}
+		else_if = {
 			limit = { event_target:civwar_originator = { has_country_flag = heir_mother_country } }
 			set_leader = event_target:heir_civil_war_dummy_country.ruler
 			event_target:heir_civil_war_dummy_country = { destroy_country = yes }
@@ -56,7 +60,7 @@ country_event = { # Setup for Civil War (create_country)
 			limit = { event_target:civwar_originator.ruler = { has_leader_flag = sep_won_election } }
 			clone_leader = {
 				target = event_target:civwar_originator.ruler
-				class = ruler
+				class = random_ruler
 				effect = {
 					set_leader_flag = civil_war_ruler_secession
 					save_event_target_as = secession_leader
@@ -78,7 +82,7 @@ country_event = { # Setup for Civil War (create_country)
 				species = { save_event_target_as = civwar_species }
 			}
 			create_leader = {
-				class = ruler
+				class = random_ruler
 				species = event_target:civwar_species
 				name = random
 				skill = 5
@@ -96,12 +100,7 @@ country_event = { # Setup for Civil War (create_country)
 		set_variable = { which = num_mil_pops value = 0 }
 		event_target:civwar_originator = {
 			if = {
-				limit = {
-					OR = {
-						has_country_flag = succession_mother_country
-						event_target:civwar_rebels = { has_country_flag = corrupt_rebellion }
-					}
-				}
+				limit = { has_country_flag = succession_mother_country }
 				random_owned_sector = {
 					limit = { has_sector_flag = leader_sector }
 					remove_sector_flag = leader_sector
@@ -158,9 +157,11 @@ country_event = { # Setup for Civil War (create_country)
 								}
 							}
 						}
-						every_system_planet = { # In case it takes over a system with multiple planets.
-							limit = { is_owned_by = event_target:civwar_originator }
-							set_owner = root
+						solar_system = {
+							every_system_planet = { # In case it takes over a system with multiple planets.
+								limit = { is_owned_by = event_target:civwar_originator }
+								set_owner = root
+							}
 						}
 					}
 					root = { set_country_flag = secession_plan_country }
@@ -1450,6 +1451,13 @@ country_event = { # Subject - Communications
 	hide_window = no
 	is_triggered_only = yes
 
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_civil_war"
+
+	picture_event_data = {
+		portrait = event_target:civwar_originator.ruler
+	}
+
 	option = {
 		name = ON_SCREEN
 		hidden_effect = {
@@ -1466,6 +1474,13 @@ country_event = { # Subject - Informing them their overlord will decide
 	hide_window = no
 	is_triggered_only = yes
 
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_civil_war"
+
+	picture_event_data = {
+		portrait = event_target:civwar_rebels.ruler
+	}
+
 	option = {
 		name = UNFORTUNATE
 	}
@@ -1478,6 +1493,13 @@ country_event = { # Former Leader - Communications
 	desc = civwar.2010.desc
 	hide_window = no
 	is_triggered_only = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_civil_war"
+
+	picture_event_data = {
+		portrait = event_target:civwar_rebels.ruler
+	}
 
 	trigger = {
 		exists = event_target:civwar_rebels
@@ -1492,12 +1514,7 @@ country_event = { # Former Leader - Communications
 					limit = {
 						NOR = {
 							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
-							event_target:civwar_rebels.ruler = {
-								OR = {
-									has_trait = leader_trait_corrupt
-									has_leader_flag = civil_war_ruler_governor_isolated
-								}
-							}
+							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_governor_isolated }
 							event_target:civwar_rebels = {
 								OR = {
 									is_overlord = yes
@@ -1638,6 +1655,13 @@ country_event = { # Nationalist - Communications
 	hide_window = no
 	is_triggered_only = yes
 
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_civil_war"
+
+	picture_event_data = {
+		portrait = event_target:civwar_rebels.ruler
+	}
+
 	trigger = {
 		exists = event_target:civwar_rebels
 	}
@@ -1680,6 +1704,13 @@ country_event = { # New Leader/Separatist - Communications
 	hide_window = no
 	is_triggered_only = yes
 
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_civil_war"
+
+	picture_event_data = {
+		portrait = event_target:civwar_rebels.ruler
+	}
+
 	trigger = {
 		exists = event_target:civwar_rebels
 	}
@@ -1718,6 +1749,13 @@ country_event = { # Heir - Communications
 	hide_window = no
 	is_triggered_only = yes
 
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_civil_war"
+
+	picture_event_data = {
+		portrait = event_target:civwar_rebels.ruler
+	}
+
 	trigger = {
 		exists = event_target:civwar_rebels
 	}
@@ -1739,6 +1777,13 @@ country_event = { # Former Heir - Communications
 	hide_window = no
 	is_triggered_only = yes
 
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_civil_war"
+
+	picture_event_data = {
+		portrait = event_target:civwar_rebels.ruler
+	}
+
 	trigger = {
 		exists = event_target:civwar_rebels
 	}
@@ -1759,6 +1804,13 @@ country_event = { # Former Ruler, Secession - Communications
 	desc = civwar.2055.desc
 	hide_window = no
 	is_triggered_only = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_civil_war"
+
+	picture_event_data = {
+		portrait = event_target:civwar_rebels.ruler
+	}
 
 	trigger = {
 		exists = event_target:civwar_rebels
@@ -2072,7 +2124,7 @@ country_event = { # Overlord Accepts Help
 	}
 
 	option = { # Do Nothing
-		name = OKAY
+		name = OK
 	}
 }
 
@@ -2396,16 +2448,6 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 
 	trigger = {
 		situation_progress >= 90
-		OR = {
-			NOT = { exists = target.leader }
-			target.leader = {
-				is_heir = no
-				# Event Flags
-				NOT = { has_leader_flag = leader_bribed }
-				NOT = { has_leader_flag = faction_raided }
-				NOT = { has_leader_flag = corrupt_fac_deal }
-			}
-		}
 		
 		owner = {
 			NOT = { any_owned_leader = { has_leader_flag = situation_leader_@root } } # Not already in the process of revolting
@@ -2492,16 +2534,6 @@ situation_event = { # Revolt/Civil War Event
 
 	trigger = {
 		situation_progress >= 90
-		OR = {
-			NOT = { exists = target.leader }
-			target.leader = {
-				is_heir = no
-				# Event Flags
-				NOT = { has_leader_flag = leader_bribed }
-				NOT = { has_leader_flag = faction_raided }
-				NOT = { has_leader_flag = corrupt_fac_deal }
-			}
-		}
 		owner = {
 			NOT = { any_owned_leader = { has_leader_flag = situation_leader_@root } } # Not already in the process of revolting
 			OR = {
@@ -2609,8 +2641,8 @@ situation_event = { # Revolt/Civil War Event
 					}
 				}
 				random = {
-					chance = 45
-					# chance = 100
+					# chance = 45
+					chance = 100
 					root.target = { set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 } }
 					get_war_type_flag = yes
 					save_event_target_as = civwar_originator
@@ -2741,18 +2773,6 @@ situation_event = { # Revolt/Civil War Event
 		}
 	}
 }
-
-# situation_event = { # Speak with Faction leader
-# 	id = civwar.5100
-# 	hide_window = yes
-# 	is_triggered_only = yes
-
-# 	immediate = {
-# 		set_situation_approach = approach_do_nothing
-# 		target.leader = { save_event_target_as = mad_faction_leader }
-# 		owner = { country_event = { id = civcom.6000 } }
-# 	}
-# }
 
 #################
 # Misc
@@ -2940,20 +2960,18 @@ country_event = { # Change leader flags to ruler flags
 			}
 		}
 
-		if = {
-			limit = {
-				ruler = {
-					has_trait = leader_trait_corrupt
-					NOT = { has_leader_flag = civil_war_ruler_governor }
-				}
+		ruler = {
+			if = {
+				limit = { NOT = { has_leader_flag = civil_war_ruler_governor } }
+				set_leader_flag = civil_war_ruler_governor
 			}
-			ruler = { set_leader_flag = civil_war_ruler_governor }
+
+			if = {
+				limit = { has_leader_flag = leader_civil_war_faction }
+				remove_leader_flag = leader_civil_war_faction
+			}
 		}
 
-		if = {
-			limit = { ruler = { has_leader_flag = leader_civil_war_faction } }
-			ruler = { remove_leader_flag = leader_civil_war_faction }
-		}
 	}
 }
 

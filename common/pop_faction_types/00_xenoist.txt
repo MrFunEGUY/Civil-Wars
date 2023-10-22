@@ -5,6 +5,7 @@
 xenoist = {
 	election_header = "GFX_faction_header_yellow"
 	guiding_ethic = ethic_xenophile
+	visual_ethic = "xenoist_visual_ethic"
 
 	unique = yes
 	support_multiplier = 1
@@ -27,7 +28,7 @@ xenoist = {
                 	}
                 }
             }
-            unity = 0.5
+            unity = @faction_base_unity
         }
 	}
 
@@ -63,7 +64,7 @@ xenoist = {
 			exists = from
 			from = {
 				exists = leader
-				leader = { leader_class = ruler }
+				leader = { is_ruler = yes }
 			}
 		}
 
@@ -607,6 +608,42 @@ xenoist = {
 		}
 	}
 
+	# Global Faction Demands.
+	inline_script = {
+		script = "paragon/global_faction_demands"
+		ETHIC = ethic_xenophile
+		ETHIC_FANATIC = ethic_fanatic_xenophile
+		ETHIC_OPPOSED = ethic_xenophobe
+	} 
+	
+	demand = { # Alien Zoo (for conservation)
+		title = "XENOIST_XENOLOGICAL_CONSERVATION"
+		unfulfilled_title = "XENOIST_NO_XENOLOGICAL_CONSERVATION"
+		desc = "XENOIST_XENOLOGICAL_CONSERVATION_DESC"
+
+		fulfilled_effect = 5
+		unfulfilled_effect = -0.001
+
+		potential = {
+			exists = owner
+			owner = {
+				has_technology = tech_alien_life_studies
+				NOT = { has_valid_civic = civic_warrior_culture }
+			}
+		}
+
+		trigger = {
+			owner = {
+				count_owned_planet = {
+					limit = {
+						has_building = building_xeno_zoo
+					}
+					count > 0
+				}
+			}
+		}
+	}
+
 	on_create = {
 		pop_faction_event = { id = factions.1 }
 	}
@@ -702,17 +739,6 @@ xenoist = {
 				modifier = {
 					factor = 0
 					owner = { has_valid_civic = civic_fanatic_purifiers }
-				}
-				modifier = {
-					factor = 0
-					NOT = {
-						owner = {
-							exists = ruler
-							ruler = {
-								leader_of_faction = xenoist
-							}
-						}
-					}
 				}
 				modifier = {
 					factor = 0

@@ -38,18 +38,12 @@ situation_civstrife_faction_sep_plan = {
 
 	abort_trigger = {
 		OR = {
+			situation_progress < 0
 			NOT = { exists = target }
 			target = { count_owned_pop = { count < 5 } }
 			target = { has_pop_faction_flag = faction_rebelled }
 			target = { any_owned_pop = { planet = { is_capital = yes } } }
 			target = { any_owned_pop = { planet = { has_planet_flag = rebellion_suppressed } } }
-			target = {
-				exists = leader
-				OR = {
-					leader = { has_leader_flag = appointed_heir }
-					leader = { leader_class = ruler }
-				}
-			}
 		}
 	}
 
@@ -154,7 +148,6 @@ situation_civstrife_faction_sep_plan = {
 			desc = radicalisation_occurring
 			add = 3
 			situation_progress < 90
-			target.leader = { is_heir = no }
 			NOT = { target = { any_owned_pop = { planet = { combined_planet_unrest_calm_check = yes } } } }
 		}
 
@@ -177,12 +170,6 @@ situation_civstrife_faction_sep_plan = {
 			add = -1
 			situation_progress > 10
 			target = { any_owned_pop = { planet = { combined_planet_unrest_calm_check = yes } } }
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -226,6 +213,7 @@ situation_civstrife_faction_sep_sec = {
 
 	abort_trigger = {
 		OR = {
+			situation_progress < 0
 			NOT = { exists = target }
 			target = { count_owned_pop = { count < 5 } }
 			target = { has_pop_faction_flag = faction_rebelled }
@@ -335,7 +323,6 @@ situation_civstrife_faction_sep_sec = {
 			desc = radicalisation_occurring
 			add = 3
 			situation_progress < 90
-			target.leader = { is_heir = no }
 			NOT = { target = { any_owned_pop = { sector = { combined_sector_calm_tick_check = yes } } } }
 		}
 
@@ -358,12 +345,6 @@ situation_civstrife_faction_sep_sec = {
 			add = -1
 			situation_progress > 10
 			target = { any_owned_pop = { sector = { combined_sector_calm_tick_check = yes } } }
-		}
-
-		modifier = {
-			desc = heir_leads_faction
-			add = -5
-			target.leader = { is_heir = yes }
 		}
 	}
 }
@@ -407,6 +388,7 @@ situation_civstrife_faction_iso_sep_sec = {
 
 	abort_trigger = {
 		OR = {
+			situation_progress < 0
 			NOT = { exists = target }
 			target = { count_owned_pop = { count < 5 } }
 			target = { any_owned_pop = { sector = { any_owned_planet = { is_capital = yes } } } }
@@ -499,7 +481,6 @@ situation_civstrife_faction_iso_sep_sec = {
 	on_monthly = {
 		events = {
 			civsep.4200			# Possible Revolt/Civil War
-			civsep.4500			# Leader Check
 	    }
 	    random_events = {
 			91 = 0
@@ -584,6 +565,7 @@ situation_civstrife_faction_sep_nat = {
 
 	abort_trigger = {
 		OR = {
+			situation_progress < 0
 			NOT = { exists = target }
 			target = { count_owned_pop = { count < 5 } }
 			target.owner = { num_owned_planets = 1 }
@@ -777,6 +759,7 @@ situation_civstrife_sep_slaves_plan = {
 
 	abort_trigger = {
 		OR = {
+			situation_progress < 0
 			NOT = { exists = target }
 			target = {
 				OR = {
@@ -1012,6 +995,7 @@ situation_civstrife_sep_slaves_sec = {
 
 	abort_trigger = {
 		OR = {
+			situation_progress < 0
 			NOT = { exists = target }
 			target = { any_owned_planet = { is_capital = yes } }
 			target = { has_sector_flag = recent_slave_rebellion }

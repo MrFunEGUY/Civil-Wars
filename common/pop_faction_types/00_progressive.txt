@@ -5,6 +5,7 @@
 progressive = {
 	election_header = "GFX_faction_header_yellow"
 	guiding_ethic = ethic_egalitarian
+	visual_ethic = "progressive_visual_ethic"
 
 	unique = yes
 	support_multiplier = 1
@@ -27,7 +28,7 @@ progressive = {
                 	}
                 }
             }
-            unity = 0.5
+            unity = @faction_base_unity
         }
 
 		produces = {
@@ -72,7 +73,7 @@ progressive = {
 			exists = from
 			from = {
 				exists = leader
-				leader = { leader_class = ruler }
+				leader = { is_ruler = yes }
 			}
 		}
 
@@ -101,7 +102,7 @@ progressive = {
 
 		modifier = {
 			factor = 0
-			leader_class = ruler
+			is_ruler = yes
 			owner = { is_imperial = yes }
 		}
 
@@ -205,7 +206,10 @@ progressive = {
 			owner = {
 				NOT = {
 					any_owned_species = {
-						has_living_standard = { type = living_standard_stratified country = prev }
+						OR = {
+							has_living_standard = { type = living_standard_dystopian_society country = prev }
+							has_living_standard = { type = living_standard_stratified country = prev }
+						}
 					}
 				}
 			}
@@ -313,6 +317,14 @@ progressive = {
 		}
 	}
 
+	# Faction Demands for Ruler and Council positions.
+	inline_script = {
+		script = "paragon/global_faction_demands"
+		ETHIC = ethic_egalitarian
+		ETHIC_FANATIC = ethic_fanatic_egalitarian
+		ETHIC_OPPOSED = ethic_authoritarian
+	}
+
 	on_create = {
 		pop_faction_event = { id = factions.1 }
 	}
@@ -408,17 +420,6 @@ progressive = {
 				modifier = {
 					factor = 0
 					owner = { has_valid_civic = civic_fanatic_purifiers }
-				}
-				modifier = {
-					factor = 0
-					NOT = {
-						owner = {
-							exists = ruler
-							ruler = {
-								leader_of_faction = progressive
-							}
-						}
-					}
 				}
 				modifier = {
 					factor = 0

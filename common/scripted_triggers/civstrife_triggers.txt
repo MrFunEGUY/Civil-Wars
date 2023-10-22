@@ -1780,11 +1780,9 @@ rebel_is_former_leader = {
 
 rebel_was_governor = {
 	OR = {
-		has_trait = leader_trait_corrupt
 		has_leader_flag = civil_war_ruler_governor
 		has_leader_flag = civil_war_ruler_governor_isolated
 		has_leader_flag = civil_war_ruler_governor_dispute
-		pre_ruler_leader_class = governor
 	}
 }
 
@@ -1793,7 +1791,6 @@ rebel_was_admiral = {
 		has_leader_flag = civil_war_ruler_admiral
 		has_leader_flag = civil_war_ruler_admiral_isolated
 		has_leader_flag = civil_war_ruler_admiral_dispute
-		pre_ruler_leader_class = admiral
 	}
 }
 
@@ -1802,7 +1799,6 @@ rebel_was_general = {
 		has_leader_flag = civil_war_ruler_general
 		has_leader_flag = civil_war_ruler_general_isolated
 		has_leader_flag = civil_war_ruler_general_dispute
-		pre_ruler_leader_class = general
 	}
 }
 
@@ -1811,7 +1807,6 @@ rebel_was_scientist = {
 		has_leader_flag = civil_war_ruler_scientist
 		has_leader_flag = civil_war_ruler_scientist_isolated
 		has_leader_flag = civil_war_ruler_scientist_dispute
-		pre_ruler_leader_class = scientist
 	}
 }
 
@@ -2001,10 +1996,10 @@ frontier_planet_unrest_tick_check = {
 		AND = {
 			planet_crime  >= 60
 			OR = {
-				NOT = { exists = sector.leader }
+				NOT = { exists = sector.sector_capital.leader }
 				AND = {
-					exists = sector.leader
-					sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+					exists = sector.sector_capital.leader
+					sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 				}
 			}
 		}
@@ -2058,10 +2053,10 @@ integrated_planet_unrest_tick_check = {
 		AND = {
 			planet_crime  >= 70
 			OR = {
-				NOT = { exists = sector.leader }
+				NOT = { exists = sector.sector_capital.leader }
 				AND = {
-					exists = sector.leader
-					sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+					exists = sector.sector_capital.leader
+					sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 				}
 			}
 		}
@@ -2115,10 +2110,10 @@ fundamental_planet_unrest_tick_check = {
 		AND = {
 			planet_crime  >= 80
 			OR = {
-				NOT = { exists = sector.leader }
+				NOT = { exists = sector.sector_capital.leader }
 				AND = {
-					exists = sector.leader
-					sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+					exists = sector.sector_capital.leader
+					sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 				}
 			}
 		}
@@ -2146,8 +2141,8 @@ frontier_planet_unrest_untick_check = {
 	OR = {
 		planet_crime < 60
 		AND = {
-			exists = sector.leader
-			sector.leader = { has_trait = leader_trait_corrupt }
+			exists = sector.sector_capital.leader
+			sector.sector_capital.leader = { has_trait = leader_trait_corrupt }
 		}
 	}
 }
@@ -2158,8 +2153,8 @@ integrated_planet_unrest_untick_check = {
 	OR = {
 		planet_crime < 70
 		AND = {
-			exists = sector.leader
-			sector.leader = { has_trait = leader_trait_corrupt }
+			exists = sector.sector_capital.leader
+			sector.sector_capital.leader = { has_trait = leader_trait_corrupt }
 		}
 	}
 }
@@ -2170,8 +2165,8 @@ fundamental_planet_unrest_untick_check = {
 	OR = {
 		planet_crime < 80
 		AND = {
-			exists = sector.leader
-			sector.leader = { has_trait = leader_trait_corrupt }
+			exists = sector.sector_capital.leader
+			sector.sector_capital.leader = { has_trait = leader_trait_corrupt }
 		}
 	}	
 }
@@ -2240,10 +2235,10 @@ combined_planet_unrest_calm_retick_check = {
 				AND = {
 					planet_crime  >= 60
 					OR = {
-						NOT = { exists = sector.leader }
+						NOT = { exists = sector.sector_capital.leader }
 						AND = {
-							exists = sector.leader
-							sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+							exists = sector.sector_capital.leader
+							sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 						}
 					}
 				}
@@ -2256,10 +2251,10 @@ combined_planet_unrest_calm_retick_check = {
 				AND = {
 					planet_crime  >= 70
 					OR = {
-						NOT = { exists = sector.leader }
+						NOT = { exists = sector.sector_capital.leader }
 						AND = {
-							exists = sector.leader
-							sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+							exists = sector.sector_capital.leader
+							sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 						}
 					}
 				}
@@ -2273,10 +2268,10 @@ combined_planet_unrest_calm_retick_check = {
 				AND = {
 					planet_crime  >= 80
 					OR = {
-						NOT = { exists = sector.leader }
+						NOT = { exists = sector.sector_capital.leader }
 						AND = {
-							exists = sector.leader
-							sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+							exists = sector.sector_capital.leader
+							sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 						}
 					}
 				}
@@ -2303,10 +2298,10 @@ combined_sector_calm_tick_check = {
 					AND = {
 						planet_crime  >= 60
 						OR = {
-							NOT = { exists = sector.leader }
+							NOT = { exists = sector.sector_capital.leader }
 							AND = {
-								exists = sector.leader
-								sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+								exists = sector.sector_capital.leader
+								sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 							}
 						}
 					}
@@ -2324,10 +2319,10 @@ combined_sector_calm_tick_check = {
 							AND = {
 								planet_crime  >= 60
 								OR = {
-									NOT = { exists = sector.leader }
+									NOT = { exists = sector.sector_capital.leader }
 									AND = {
-										exists = sector.leader
-										sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+										exists = sector.sector_capital.leader
+										sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 									}
 								}
 							}
@@ -2347,10 +2342,10 @@ combined_sector_calm_tick_check = {
 							AND = {
 								planet_crime  >= 70
 								OR = {
-									NOT = { exists = sector.leader }
+									NOT = { exists = sector.sector_capital.leader }
 									AND = {
-										exists = sector.leader
-										sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+										exists = sector.sector_capital.leader
+										sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 									}
 								}
 							}
@@ -2370,10 +2365,10 @@ combined_sector_calm_tick_check = {
 							AND = {
 								planet_crime  >= 80
 								OR = {
-									NOT = { exists = sector.leader }
+									NOT = { exists = sector.sector_capital.leader }
 									AND = {
-										exists = sector.leader
-										sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+										exists = sector.sector_capital.leader
+										sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 									}
 								}
 							}
@@ -2399,10 +2394,10 @@ combined_sector_calm_retick_check = {
 					AND = {
 						planet_crime  >= 60
 						OR = {
-							NOT = { exists = sector.leader }
+							NOT = { exists = sector.sector_capital.leader }
 							AND = {
-								exists = sector.leader
-								sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+								exists = sector.sector_capital.leader
+								sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 							}
 						}
 					}
@@ -2417,10 +2412,10 @@ combined_sector_calm_retick_check = {
 					AND = {
 						planet_crime  >= 70
 						OR = {
-							NOT = { exists = sector.leader }
+							NOT = { exists = sector.sector_capital.leader }
 							AND = {
-								exists = sector.leader
-								sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+								exists = sector.sector_capital.leader
+								sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 							}
 						}
 					}
@@ -2435,10 +2430,10 @@ combined_sector_calm_retick_check = {
 					AND = {
 						planet_crime  >= 80
 						OR = {
-							NOT = { exists = sector.leader }
+							NOT = { exists = sector.sector_capital.leader }
 							AND = {
-								exists = sector.leader
-								sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+								exists = sector.sector_capital.leader
+								sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 							}
 						}
 					}
@@ -2579,6 +2574,47 @@ is_elitist_faction = {
 	}
 }
 
+is_standard_faction_country = {
+	OR = {
+		has_country_flag = civwar_auth
+		has_country_flag = civwar_egal
+		has_country_flag = civwar_mil
+		has_country_flag = civwar_pac
+		has_country_flag = civwar_mat
+		has_country_flag = civwar_spi
+		has_country_flag = civwar_phobe
+		has_country_flag = civwar_phile
+		has_country_flag = civwar_soc
+		has_country_flag = civwar_cap
+		has_country_flag = civwar_indus
+		has_country_flag = civwar_green
+		has_country_flag = civwar_elite
+		has_country_flag = civwar_plur
+	}
+}
+
+###########################
+########## Leader Triggers
+###########################
+
+can_be_traitor = {
+	is_loyal = no
+	is_heir = no
+	is_ruler = no
+}
+
+is_loyal = {
+	has_leader_flag = loyal_to_state
+}
+
+is_homeworld_of = {
+	$LEADER$ = { is_background_planet = prev }
+}
+
+###########################
+########## Other Triggers
+###########################
+
 # Ethics and Civics Overwrites/Backups
 is_ecologist = {
  	OR = {
@@ -2657,50 +2693,42 @@ is_faction_happy_situation = {
 			owner = { is_democracy = yes }
 			target = {
 				OR = {
-					support < 0.2
-					faction_approval > 0.35
+					AND = {
+						owner = { is_ai = no }
+						OR = {
+							support <= 0.2
+							faction_approval >= 0.35
+						}
+					}
+					AND = {
+						owner = { is_ai = yes }
+						OR = {
+							support < 0.2
+							faction_approval > 0.3
+						}
+					}
 				}
-				# OR = {
-				# 	AND = {
-				# 		owner = { is_ai = no }
-				# 		OR = {
-				# 			support < 0.2
-				# 			faction_approval > 0.35
-				# 		}	
-				# 	}
-				# 	AND = {
-				# 		owner = { is_ai = yes }
-				# 		OR = {
-				# 			support < 0.3
-				# 			faction_approval > 0.3
-				# 		}	
-				# 	}
-				# }
 			}
 		}
 		AND = {
 			owner = { is_democracy = no }
 			target = {
 				OR = {
-					support < 0.15
-					faction_approval > 0.4
+					AND = {
+						owner = { is_ai = no }
+						OR = {
+							support <= 0.15
+							faction_approval >= 0.4
+						}
+					}
+					AND = {
+						owner = { is_ai = yes }
+						OR = {
+							support <= 0.2
+							faction_approval >= 0.4
+						}
+					}
 				}
-				# OR = {
-				# 	AND = {
-				# 		owner = { is_ai = no }
-				# 		OR = {
-				# 			support < 0.15
-				# 			faction_approval > 0.4
-				# 		}	
-				# 	}
-				# 	AND = {
-				# 		owner = { is_ai = yes }
-				# 		OR = {
-				# 			support < 0.25
-				# 			faction_approval > 0.35
-				# 		}	
-				# 	}
-				# }
 			}
 		}
 	}
@@ -2770,31 +2798,4 @@ is_modded_ship = {
 		# is_ship_size = eng_imp_mother
 		# is_ship_size = eng_imp_cente
 	}
-}
-
-# Overwrites
-
-is_unfriendly = {
-	OR = {
-		has_valid_civic = civic_fanatic_purifiers
-		has_valid_civic = civic_barbaric_despoilers
-		has_valid_civic = civic_machine_terminator
-		has_valid_civic = civic_machine_assimilator
-		has_valid_civic = civic_hive_devouring_swarm	
-	}
-}
-
-is_faction_allowed = {
-	# OR = {
-	# 	AND = {
-	# 		years_passed > 10
-	# 		has_encountered_other_species = yes
-	# 	}
-	# 	AND = {
-	# 		days_passed > 30
-	# 		has_valid_civic = civic_parliamentary_system
-	# 	}
-	# }
-	NOT = { has_ethic = ethic_gestalt_consciousness }
-	NOT = { has_country_flag = suppress_vanilla_factions }
 }

@@ -516,7 +516,7 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator
 		ruler = { save_event_target_as = crisis_dynasty_name }
 		
 		create_leader = {
-			class = ruler
+			class = random_ruler
 			species = event_target:civwar_originator.ruler.species
 			name = random
 			skill = 5
@@ -2538,49 +2538,37 @@ created_civwar_rebel_country_effect = {
 			root.target = { is_scope_type = pop_faction }
 		}
 		if = {
-			limit = { exists = root.target.leader }
-			root.target.leader = {
-				set_owner = event_target:civwar_rebels
-				save_event_target_as = civl_war_leader
+			limit = { root.target = { is_regular_faction = yes } }
+			root.target = {
+				random_owned_pop = {
+					limit = { has_pop_flag = sep_pop_ethic }
+					species = { save_event_target_as = civwar_species }
+				}
 			}
-			set_leader = event_target:civl_war_leader
 		}
-		else = {
-			if = {
-				limit = { root.target = { is_regular_faction = yes } }
-				root.target = {
-					random_owned_pop = {
-						limit = { has_pop_flag = sep_pop_ethic }
-						species = { save_event_target_as = civwar_species }
-					}
+		else_if = {
+			limit = { root.target = { is_separatist_faction = yes } }
+			root.target = {
+				random_owned_pop = {
+					limit = { has_pop_flag = sep_pop }
+					species = { save_event_target_as = civwar_species }
 				}
 			}
-			else_if = {
-				limit = { root.target = { is_separatist_faction = yes } }
-				root.target = {
-					random_owned_pop = {
-						limit = { has_pop_flag = sep_pop }
-						species = { save_event_target_as = civwar_species }
-					}
-				}
-			}
-			create_leader = {
-				class = ruler
-				species = event_target:civwar_species
-				name = random
-				skill = 5
-				traits = { trait = trait_ruler_deep_connections }
-				effect = {
-					save_event_target_as = new_rebel_leader
-					set_leader_flag = new_faction_ruler
-				}
-			}
-			set_leader = event_target:new_rebel_leader
 		}
+		create_leader = {
+			class = random_ruler
+			species = event_target:civwar_species
+			name = random
+			skill = 5
+			traits = { trait = trait_ruler_deep_connections }
+			effect = {
+				save_event_target_as = new_rebel_leader
+				set_leader_flag = new_faction_ruler
+			}
+		}
+		set_leader = event_target:new_rebel_leader
 	}
 	ruler = {
-		add_random_leader_trait = yes
-		add_random_leader_trait = yes
 		if = {
 			limit = { has_leader_flag = corrupt_governor }
 			add_trait = leader_trait_corrupt
@@ -2768,14 +2756,12 @@ get_multi_sector_effect = {
 	}
 
 	random_owned_leader = {
-		limit = {
-			has_leader_flag = leader_civil_war_faction
-			exists = pop_faction
-			pop_faction = { is_same_value = root.target } # Just in case there are any other rebellions going on
-		}
-		pop_faction = { save_event_target_as = civwar_party } # I Imagine this should stay past the first loop
+		limit = { has_leader_flag = leader_civil_war_faction }
 		save_event_target_as = rebel_leader
 	}
+
+	 # I Imagine this should stay past the first loop
+	root.target = { save_event_target_as = civwar_party }
 
 	create_party_name_leader = yes
 	last_created_leader = { leader_event = { id = civleader.1000 days = 720 } }
@@ -2883,14 +2869,12 @@ get_two_sector_effect = {
 	}
 
 	random_owned_leader = {
-		limit = {
-			has_leader_flag = leader_civil_war_faction
-			exists = pop_faction
-			pop_faction = { is_same_value = root.target } # Just in case
-		}
-		pop_faction = { save_event_target_as = civwar_party } # I Imagine this should stay past the first loop
+		limit = { has_leader_flag = leader_civil_war_faction }
 		save_event_target_as = rebel_leader
 	}
+
+	# I Imagine this should stay past the first loop
+	root.target = { save_event_target_as = civwar_party }
 
 	create_party_name_leader = yes
 	last_created_leader = { leader_event = { id = civleader.1000 days = 720 } }
@@ -8368,6 +8352,13 @@ get_plan_slave_rebels = {
 
 	get_planetary_slave_reb_number = yes
 
+	ordered_owned_pop = {
+		limit = { is_enslaved = yes }
+		position = 0
+		order_by = trigger:num_pops
+		species = { save_event_target_as = civwar_species }
+	}
+
 	if = {
 		limit = { has_global_flag = cultural_overhaul_funefork_active }
 		if = {
@@ -8539,6 +8530,12 @@ get_sec_slave_rebels = {
 	sector = {
 		save_event_target_as = sector_name_local
 		set_sector_flag = sec_slave_revolt_@prev
+		ordered_owned_pop = {
+			limit = { is_enslaved = yes }
+			position = 0
+			order_by = trigger:num_pops
+			species = { save_event_target_as = civwar_species }
+		}
 	}
 
 	create_sector_name_leader = yes
@@ -8710,69 +8707,586 @@ get_sec_slave_rebels = {
 #####################
 # Leader Effects
 
-get_civil_war_leader = {
-	if = { # Fleet Admiral revolts
-		limit = {
-			root.target = {
-				exists = leader
-				leader = { NOT = { has_leader_flag = appointed_heir } }
-			}
-			owner = {
-				any_owned_fleet = {
-					exists = leader
-					leader = { is_same_value = root.target.leader }
+setup_rebel_leader_effect = {
+	if = {
+		limit = { leader_class = governor }
+		set_leader_flag = civil_war_leader_governor_faction
+	}
+	else_if = {
+		limit = { leader_class = admiral }
+		set_leader_flag = civil_war_leader_admiral_faction
+		if = { # Fleet Admiral revolts
+			limit = {
+				owner = {
+					any_owned_fleet = {
+						exists = leader
+						leader = { is_same_value = prevprevprev }
+					}
 				}
 			}
-		}
-		root.target.leader = {
-			set_leader_flag = civil_war_leader_admiral_faction
-			set_leader_flag = leader_civil_war_faction
-			set_leader_flag = situation_leader_@root
-			species = { save_event_target_as = civwar_species }
 			fleet = {
 				save_global_event_target_as = admiral_rebel_rally_point
 				set_fleet_flag = civil_war_fleet
 			}
 		}
 	}
-	else_if = { # Other leaders and unemployed Admirals
-		limit = {
-			root.target = {
-				exists = leader
-				leader = { NOT = { has_leader_flag = appointed_heir } }
-			}
-		}
-		root.target.leader = {
-			set_leader_flag = leader_civil_war_faction
-			set_leader_flag = situation_leader_@root
-			species = { save_event_target_as = civwar_species }
+	else_if = {
+		limit = { leader_class = general }
+		set_leader_flag = civil_war_leader_general_faction
+	}
+	else_if = {
+		limit = { leader_class = scientist }
+		set_leader_flag = civil_war_leader_scientist_faction
+	}
+	set_leader_flag = leader_civil_war_faction
+	set_leader_flag = situation_leader_@root
+	species = { save_event_target_as = civwar_species }
+	save_event_target_as = ethic_rebel_leader
+}
+
+get_civil_war_leader = {
+
+	if = {
+		limit = { root.target = { is_authoritarian_faction = yes } }
+		owner = {
 			if = {
-				limit = { leader_class = governor }
-				set_leader_flag = civil_war_leader_governor_faction
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_authoritarian
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_authoritarian
+					}
+					setup_rebel_leader_effect = yes
+				}
 			}
-			else_if = {
-				limit = { leader_class = admiral }
-				set_leader_flag = civil_war_leader_admiral_faction
-			}
-			else_if = {
-				limit = { leader_class = general }
-				set_leader_flag = civil_war_leader_general_faction
-			}
-			else_if = {
-				limit = { leader_class = scientist }
-				set_leader_flag = civil_war_leader_scientist_faction
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_authoritarian
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
 			}
 		}
 	}
-	else = { # Create random leader if the leader is an heir or balkanized
+	else_if = {
+		limit = { root.target = { is_egalitarian_faction = yes } }
+		owner = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_egalitarian
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_egalitarian
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_egalitarian
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { root.target = { is_militarist_faction = yes } }
+		owner = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_militarist
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_militarist
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_militarist
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { root.target = { is_pacifist_faction = yes } }
+		owner = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_pacifist
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_pacifist
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_pacifist
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { root.target = { is_materialist_faction = yes } }
+		owner = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_materialist
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_materialist
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_materialist
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { root.target = { is_spiritualist_faction = yes } }
+		owner = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_spiritualist
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_spiritualist
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_spiritualist
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { root.target = { is_xenophile_faction = yes } }
+		owner = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_xenophile
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_xenophile
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_xenophile
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { root.target = { is_xenophobe_faction = yes } }
+		owner = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_xenophobe
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_xenophobe
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_xenophobe
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { root.target = { is_socialist_faction = yes } }
+		owner = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_socialism
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_socialism
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_socialism
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { root.target = { is_capitalism_faction = yes } }
+		owner = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_capitalism
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_capitalism
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_capitalism
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { root.target = { is_industrial_faction = yes } }
+		owner = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_industrial
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_industrial
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_industrial
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { root.target = { is_ecologist_faction = yes } }
+		owner = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_green
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_green
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_green
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { root.target = { is_elitist_faction = yes } }
+		owner = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_elitist
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_elitist
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_elitist
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { root.target = { is_pluralist_faction = yes } }
+		owner = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_pluralist
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_pluralist
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else = {
+				root.target = {
+					random_owned_pop = {
+						species = { save_event_target_as = civwar_species }
+					}
+				}
+				create_leader = {
+					class = random_ruler
+					species = event_target:civwar_species
+					name = random
+					skill = 5
+					effect = {
+						change_background_ethic = ethic_pluralist
+						set_leader_flag = new_faction_ruler
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+		}
+	}
+	else = { # Create random leader if necessary (heir, balkanized, etc.)
 		root.target = {
 			random_owned_pop = {
-				species = { save_global_event_target_as = civwar_species }
+				species = { save_event_target_as = civwar_species }
 			}
 		}
 		owner = {
 			create_leader = {
-				class = ruler
+				class = random_ruler
 				species = event_target:civwar_species
 				name = random
 				skill = 5
@@ -8835,62 +9349,71 @@ get_civil_war_leader_dispute = {
 
 # Get Separatist Leader
 get_separatist_war_leader = {
-	root.target.leader = {
-		set_leader_flag = leader_civil_war_faction
-		set_leader_flag = situation_leader_@root
-		species = { save_event_target_as = civwar_species }
-		set_leader_flag = civil_war_leader_separatist_faction
-		if = {
-			limit = { leader_class = governor }
-			set_leader_flag = civil_war_leader_governor_faction
+	root.target = {
+		random_owned_pop = {
+			species = { save_event_target_as = civwar_species }
 		}
-		else_if = {
-			limit = { leader_class = admiral }
-			set_leader_flag = civil_war_leader_admiral_faction
-		}
-		else_if = {
-			limit = { leader_class = general }
-			set_leader_flag = civil_war_leader_general_faction
-		}
-		else_if = {
-			limit = { leader_class = scientist }
-			set_leader_flag = civil_war_leader_scientist_faction
+	}
+	owner = {
+		create_leader = {
+			class = random_ruler
+			species = event_target:civwar_species
+			name = random
+			skill = 5
+			traits = { trait = trait_ruler_deep_connections }
+			effect = {
+				set_leader_flag = leader_civil_war_faction
+				set_leader_flag = situation_leader_@root
+				species = { save_event_target_as = civwar_species }
+				set_leader_flag = civil_war_leader_separatist_faction
+			}
 		}
 	}
 }
 
 # Get Nationalist Leader
 get_nationalist_war_leader = {
-	root.target.leader = {
-		set_leader_flag = leader_civil_war_faction
-		set_leader_flag = situation_leader_@root
-		species = { save_event_target_as = civwar_species }
-		set_leader_flag = civil_war_leader_nationalist_faction
+	root.target = {
+		random_owned_pop = {
+			species = { save_event_target_as = civwar_species }
+		}
+	}
+	owner = {
+		create_leader = {
+			class = random_ruler
+			species = event_target:civwar_species
+			name = random
+			skill = 5
+			traits = { trait = trait_ruler_deep_connections }
+			effect = {
+				set_leader_flag = leader_civil_war_faction
+				set_leader_flag = situation_leader_@root
+				species = { save_event_target_as = civwar_species }
+				set_leader_flag = civil_war_leader_nationalist_faction
+			}
+		}
 	}
 }
 
 get_slave_war_leader = {
 	create_leader = {
-		class = ruler
+		class = random_ruler
 		species = event_target:leader_pop.species
 		name = random
 		skill = 2
 		traits = {
 			trait = trait_ruler_deep_connections
-			trait = random_trait
 		}
 	}
 	assign_leader = last_created_leader
-	ruler = {
-		add_random_leader_trait = yes
-	}
 }
 
 # Create dummy party name leader
 create_party_name_leader = {
 	create_leader = {
-		class = ruler
+		class = random_ruler
 		event_leader = yes
+		hide_leader = yes
 		species = owner_main_species
 		name = random
 		effect = {
@@ -8899,7 +9422,6 @@ create_party_name_leader = {
 				variable_string = "\\[event_target:civwar_party.GetName]"
 			}
 			set_leader_flag = dummy_party_leader_@event_target:civwar_party
-			set_leader_flag = dummy_party_leader_@event_target:civwar_party.leader
 			if = {
 				limit = { exists = event_target:civil_war_planet }
 				set_leader_flag = dummy_party_leader_@event_target:civil_war_planet
@@ -8914,8 +9436,9 @@ create_party_name_leader = {
 create_sector_name_leader = {
 	owner = {
 		create_leader = {
-			class = ruler
+			class = random_ruler
 			event_leader = yes
+			hide_leader = yes
 			species = owner_main_species
 			name = random
 			effect = {
@@ -9191,7 +9714,8 @@ get_country_immediate_setup = {
 				if = { # If they are not in their seized territory, they stay as Admiral of their fleet
 					limit = { solar_system.starbase = { is_owned_by = event_target:civwar_originator } }
 					set_leader = root.ruler
-				}	
+				}
+				remove_fleet_flag = civil_war_fleet
 			}
 			root = { force_add_civic = civic_distinguished_admiralty }
 		}
@@ -9281,21 +9805,18 @@ get_country_immediate_setup = {
 		species = owner_main_species
 		name = random
 		skill = 5
-		traits = { trait = random_trait }
 	}
 	create_leader = {
 		class = general
 		species = owner_main_species
 		name = random
 		skill = 5
-		traits = { trait = random_trait }
 	}
 	create_leader = {
 		class = governor
 		species = owner_main_species
 		name = random
 		skill = 5
-		traits = { trait = random_trait }
 	}
 	while = {
 		count = 3
@@ -9304,7 +9825,6 @@ get_country_immediate_setup = {
 			species = owner_main_species
 			name = random
 			skill = 5
-			traits = { trait = random_trait }
 		}
 	}
 
@@ -12142,7 +12662,7 @@ nat_faction_first_effect = {
 	set_pop_faction_flag = nat_faction_@event_target:nat_country_loc
 	owner = {
 		create_leader = {
-			class = ruler
+			class = random_ruler
 			event_leader = yes
 			species = owner_main_species
 			name = "Dummy Leader"
@@ -12164,24 +12684,24 @@ nat_faction_second_effect = {
 	last_created_leader = {
 		kill_leader = { show_notification = no }
 	}
-	random_owned_pop = {
-		species = { save_global_event_target_as = nat_pop_species }
-	}
-	owner = {
-		create_leader = {
-			class = ruler
-			species = event_target:nat_pop_species
-			name = random
-			leader_age_min = 25
-			leader_age_max = 55
-			traits = { trait = leader_trait_charismatic }
-			effect = {
-				set_leader_flag = sep_leader
-				set_leader_flag = dummy_leader
-			}
-		}
-	}
-	set_leader = last_created_leader
+	# random_owned_pop = {
+	# 	species = { save_global_event_target_as = nat_pop_species }
+	# }
+	# owner = {
+	# 	create_leader = {
+	# 		class = random_ruler
+	# 		species = event_target:nat_pop_species
+	# 		name = random
+	# 		leader_age_min = 25
+	# 		leader_age_max = 55
+	# 		traits = { trait = leader_trait_charismatic }
+	# 		effect = {
+	# 			set_leader_flag = sep_leader
+	# 			set_leader_flag = dummy_leader
+	# 		}
+	# 	}
+	# }
+	# set_leader = last_created_leader
 	pop_faction_event = { id = civnat.9000 }
 }
 
@@ -12193,7 +12713,7 @@ plan_faction_first_effect = {
 	set_pop_faction_flag = plan_faction
 	owner = {
 		create_leader = {
-			class = ruler
+			class = random_ruler
 			event_leader = yes
 			species = owner_main_species
 			name = "Dummy Leader"
@@ -12220,7 +12740,7 @@ plan_faction_second_effect = {
 	}
 	# owner = {
 	# 	create_leader = {
-	# 		class = ruler
+	# 		class = random_ruler
 	# 		species = event_target:nat_pop_species
 	# 		name = random
 	# 		leader_age_min = 25
@@ -12246,8 +12766,9 @@ sector_faction_first_effect = {
 	set_pop_faction_flag = sector_faction_@event_target:nat_country_loc
 	owner = {
 		create_leader = {
-			class = ruler
+			class = random_ruler
 			event_leader = yes
+			hide_leader = yes
 			species = owner_main_species
 			name = "Dummy Leader"
 			effect = {
@@ -12275,7 +12796,7 @@ sector_faction_second_effect = {
 		limit = { is_iso_sector_separatist_faction = no }
 		# owner = {
 		# 	create_leader = {
-		# 		class = ruler
+		# 		class = random_ruler
 		# 		species = event_target:nat_pop_species
 		# 		name = random
 		# 		leader_age_min = 25
@@ -13912,7 +14433,7 @@ exile_restoration_gen_effect = {
 			}
 			set_origin = origin_restored_government
 			create_leader = {
-				class = ruler
+				class = random_ruler
 				event_leader = yes
 				species = owner_main_species
 				name = random
@@ -13959,7 +14480,7 @@ exile_restoration_gen_effect = {
 				clear_variable = new_planet_hab_percent
 			}
 			create_leader = {
-				class = ruler
+				class = random_ruler
 				event_leader = yes
 				species = owner_main_species
 				name = random
@@ -13980,7 +14501,7 @@ exile_restoration_gen_effect = {
 		}
 		else = {
 			create_leader = {
-				class = ruler
+				class = random_ruler
 				event_leader = yes
 				species = owner_main_species
 				name = random
@@ -14191,7 +14712,6 @@ get_remove_civics = {
 
 get_faction_leader_replace = {
 	random_owned_leader = {
-		limit = { leader_of_faction = no }
 		save_event_target_as = non_faction_leader
 	}
 	random_pop_faction = {

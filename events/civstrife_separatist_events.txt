@@ -6,6 +6,17 @@
 
 namespace = civsep
 
+###########################
+# Separatism Initializers #
+###########################
+
+### War-related
+# Number of different occupations in recent history
+# Is rebuilding being done?
+#
+
+#######################
+
 #######################
 # Instability Counter #
 #######################
@@ -16,6 +27,7 @@ country_event = { # Planetary Unrest Counter
 	is_triggered_only = yes
 
 	trigger = {
+		always = no
 		is_country_type_with_subjects = yes
 		NOT = { years_passed < 15 }
 		any_owned_planet = {
@@ -325,10 +337,10 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 								AND = {
 									planet_crime  >= 60
 									OR = {
-										NOT = { exists = sector.leader }
+										NOT = { exists = sector.sector_capital.leader }
 										AND = {
-											exists = sector.leader
-											sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+											exists = sector.sector_capital.leader
+											sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 										}
 									}
 								}
@@ -347,10 +359,10 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 								AND = {
 									planet_crime  >= 60
 									OR = {
-										NOT = { exists = sector.leader }
+										NOT = { exists = sector.sector_capital.leader }
 										AND = {
-											exists = sector.leader
-											sector.leader = { NOT = { has_trait = leader_trait_corrupt } }
+											exists = sector.sector_capital.leader
+											sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 										}
 									}
 								}
@@ -432,6 +444,7 @@ planet_event = { # Create First Separatists
 	is_triggered_only = yes
 
 	trigger = {
+		always = no
 		is_capital = no
 	}
 
@@ -1092,10 +1105,10 @@ country_event = { # Remove Separatists Yearly Initializer
 						exists = sector
 						sector = {
 							OR = {
-								NOT = { exists = leader }
+								NOT = { exists = sector_capital.leader }
 								AND = {
-									exists = leader
-									leader = { NOT = { has_trait = leader_trait_corrupt } }
+									exists = sector_capital.leader
+									sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 								}
 							}
 						}
@@ -1121,10 +1134,10 @@ country_event = { # Remove Separatists Yearly Initializer
 							exists = sector
 							sector = {
 								OR = {
-									NOT = { exists = leader }
+									NOT = { exists = sector_capital.leader }
 									AND = {
-										exists = leader
-										leader = { NOT = { has_trait = leader_trait_corrupt } }
+										exists = sector_capital.leader
+										sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
 									}
 								}
 							}
@@ -1155,11 +1168,11 @@ pop_event = { # Remove Separatists Annually
 					exists = sector
 					sector = {
 						OR = {
+							NOT = { exists = sector_capital.leader }
 							AND = {
-								exists = leader
-								leader = { NOT = { has_trait=  leader_trait_corrupt } }
+								exists = sector_capital.leader
+								sector_capital.leader = { NOT = { has_trait=  leader_trait_corrupt } }
 							}
-							NOT = { exists = leader }
 						}
 					}
 				}
@@ -1177,185 +1190,6 @@ pop_event = { # Remove Separatists Annually
 	}
 }
 
-country_event = { # Create Separatists Corrupt Governor
-	id = civsep.2200
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		is_country_type_with_subjects = yes
-		any_owned_sector = {
-			exists = leader
-			leader = { has_trait = leader_trait_corrupt }
-		}
-	}
-
-	immediate = {
-
-		every_owned_sector = {
-			limit = {
-				exists = leader
-				leader = { has_trait = leader_trait_corrupt }
-			}
-			every_owned_planet = {
-				planet_event = { id = civsep.2210 days = 1 random = 359 }
-			}
-			if = {
-				limit = {
-					pop_percentage = {
-						percentage >= 0.35
-						limit = { has_pop_flag = sep_pop }
-						exclude = { can_think = no }
-					}
-					pop_percentage = {
-						percentage < 0.5
-						limit = { has_pop_flag = sep_pop }
-						exclude = { can_think = no }
-					}
-					NOT = {
-						any_owned_planet = {
-							OR = {
-								has_ground_combat = yes
-								solar_system = { is_capital_system = yes }
-							}
-						}
-					}
-				}
-				random = {
-					chance = 5
-					owner = { country_event = { id = civsep.2215 days = 1 random = 359 } }
-				}
-			}
-			else_if = {
-				limit = {
-					pop_percentage = {
-						percentage >= 0.5
-						limit = { has_pop_flag = sep_pop }
-						exclude = { can_think = no }
-					}
-					NOT = {
-						any_owned_planet = {
-							OR = {
-								has_ground_combat = yes
-								solar_system = { is_capital_system = yes }
-							}
-						}
-					}
-				}
-				random = {
-					chance = 15
-					owner = { country_event = { id = civsep.2215 days = 1 random = 359 } }
-				}
-			}
-		}
-	}
-}
-
-planet_event = { # Create Separatists Corrupt Yearly Event
-	id = civsep.2210
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		exists = sector
-		sector = {
-			exists = leader
-			leader = { has_trait = leader_trait_corrupt }
-		}
-	}
-
-	immediate = {
-
-		set_variable = { which = num_sep_pops value = 0 }
-
-		every_owned_pop = {
-			limit = { has_pop_flag = sep_pop }
-			prev = { change_variable = { which = num_sep_pops value = 1 } }
-		}
-
-		if = {
-			limit = { check_variable = { which = num_sep_pops value = 0 } }
-			random_owned_pop = {
-				limit = { pop_can_be_separatist_gen = yes }
-				set_pop_flag = sep_pop
-			}
-		}
-
-		else = {
-			while = {
-				count = num_sep_pops
-				random_owned_pop = {
-					limit = { pop_can_be_separatist_gen = yes }
-					random = { chance = 15 set_pop_flag = sep_pop }
-				}
-			}
-		}
-	}
-}
-
-country_event = { # Corrupt Governor Launch Rebellion Event
-	id = civsep.2215
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		is_country_type_with_subjects = yes
-		any_owned_sector = {
-			exists = leader
-			leader = { has_trait = leader_trait_corrupt }
-			pop_percentage = {
-				percentage >= 0.35
-				limit = { has_pop_flag = sep_pop }
-				exclude = { can_think = no }
-			}
-			NOT = {
-				any_owned_planet = {
-					OR = {
-						has_ground_combat = yes
-						solar_system = { is_capital_system = yes }
-					}
-				}
-			}
-		}
-	}
-
-	immediate = {
-
-		random_owned_sector = {
-			limit = {
-				exists = leader
-				leader = { has_trait = leader_trait_corrupt }
-				pop_percentage = {
-					percentage >= 0.4
-					limit = { has_pop_flag = sep_pop }
-					exclude = { can_think = no }
-				}
-				NOT = {
-					any_owned_planet = {
-						OR = {
-							has_ground_combat = yes
-							solar_system = { is_capital_system = yes }
-						}
-					}
-				}
-			}
-			set_sector_flag = leader_sector
-			leader = {
-				set_leader_flag = civil_war_leader_governor_faction
-				save_event_target_as = rebel_leader
-				species = { save_event_target_as = civwar_species }
-			}
-			owner = {
-				save_event_target_as = civwar_originator
-				get_civil_war_number = yes
-				country_event = { id = civwarcountry.1070 }
-			}
-			
-			
-		}
-	}
-}
-
 #################
 # Sector Events #
 #################
@@ -1366,6 +1200,7 @@ country_event = { # Sector Separatist Party Form Check
 	is_triggered_only = yes
 
 	trigger = {
+		always = no
 		any_owned_sector = {
 			NOT = { any_owned_planet = { is_capital = yes } }
 			NOT = { has_sector_flag = sector_sep_active }
@@ -1445,6 +1280,7 @@ country_event = { # Find isolated sectors
 	is_triggered_only = yes
 
 	trigger = {
+		always = no
 		is_country_type_with_subjects = yes
 	}
 
@@ -1617,14 +1453,6 @@ country_event = { # Check disapproving Factions every month
 			is_separatist_faction = yes
 			NOT = { has_pop_faction_flag = faction_rebelled }
 			NOT = { has_pop_faction_flag = faction_sep_situation }
-			OR = {
-				NOT = { exists = leader }
-				AND = {
-					leader = { is_heir = no }
-					is_iso_sector_separatist_faction = no
-				}
-				is_iso_sector_separatist_faction = yes
-			}
 		}
 	}
 
@@ -1635,14 +1463,6 @@ country_event = { # Check disapproving Factions every month
 				is_separatist_faction = yes
 				NOT = { has_pop_faction_flag = faction_rebelled }
 				NOT = { has_pop_faction_flag = faction_sep_situation }
-				OR = {
-					NOT = { exists = leader }
-					AND = {
-						leader = { is_heir = no }
-						is_iso_sector_separatist_faction = no
-					}
-					is_iso_sector_separatist_faction = yes
-				}
 			}
 			if = {
 				limit = {
@@ -1812,10 +1632,7 @@ situation_event = { # Planetary Revolt Initializer
 					percentage >= 0.25
 					limit = {
 						exists = pop_faction
-						pop_faction = {
-							exists = leader
-							is_same_value = root.target
-						}
+						pop_faction = { is_same_value = root.target }
 					}
 					exclude = { can_think = no }
 				}
@@ -1846,19 +1663,10 @@ situation_event = { # Planetary Revolt Event
 					# percentage > 0
 					limit = {
 						exists = pop_faction
-						pop_faction = {
-							exists = leader
-							is_same_value = root.target
-						}
+						pop_faction = { is_same_value = root.target }
 					}
 					exclude = { can_think = no }
 				}
-			}
-		}
-		root.target = {
-			OR = {
-				NOT = { exists = leader }
-				leader = { is_heir = no }
 			}
 		}
 	}
@@ -1876,10 +1684,7 @@ situation_event = { # Planetary Revolt Event
 						# percentage > 0
 						limit = {
 							exists = pop_faction
-							pop_faction = {
-								exists = leader
-								is_same_value = root.target
-							}
+							pop_faction = { is_same_value = root.target }
 						}
 						exclude = { can_think = no }
 					}
@@ -1938,23 +1743,10 @@ situation_event = { # Sectoral Revolt Initializer
 					percentage >= 0.25
 					limit = {
 						exists = pop_faction
-						pop_faction = {
-							exists = leader
-							is_same_value = root.target
-						}
+						pop_faction = { is_same_value = root.target }
 					}
 					exclude = { can_think = no }
 				}
-			}
-		}
-		root.target = {
-			OR = {
-				NOT = { exists = leader }
-				AND = {
-					leader = { is_heir = no }
-					is_iso_sector_separatist_faction = no
-				}
-				is_iso_sector_separatist_faction = yes
 			}
 		}
 	}
@@ -1988,10 +1780,7 @@ situation_event = { # Sectoral Revolt Event
 					# percentage > 0
 					limit = {
 						exists = pop_faction
-						pop_faction = {
-							exists = leader
-							is_same_value = root.target
-						}
+						pop_faction = { is_same_value = root.target }
 					}
 					exclude = { can_think = no }
 				}
@@ -2021,10 +1810,7 @@ situation_event = { # Sectoral Revolt Event
 							# percentage > 0
 							limit = {
 								exists = pop_faction
-								pop_faction = {
-									exists = leader
-									is_same_value = root.target
-								}
+								pop_faction = { is_same_value = root.target }
 							}
 							exclude = { can_think = no }
 						}
@@ -2059,7 +1845,7 @@ situation_event = { # Sectoral Revolt Event
 						save_event_target_as = sector_name_local
 						owner = { # Create a dummy leader to save the sector name for localisation, killed in comms cleanup
 							create_leader = {
-								class = ruler
+								class = random_ruler
 								event_leader = yes
 								species = owner_main_species
 								name = random
@@ -2081,9 +1867,43 @@ situation_event = { # Sectoral Revolt Event
 		}
 		else = {
 			owner = {
+				random_owned_sector = {
+					limit = {
+						NOT = {
+							any_owned_planet = {
+								is_under_colonization = no
+								OR = {
+									is_capital = yes
+									has_ground_combat = yes
+									is_occupied_flag = yes
+								}
+							}
+						}
+						pop_percentage = {
+							percentage >= 0.25
+							# percentage > 0
+							limit = {
+								exists = pop_faction
+								pop_faction = { is_same_value = root.target }
+							}
+							exclude = { can_think = no }
+						}
+					}
+					save_event_target_as = rebel_sector
+				}
+
 				if = {
-					limit = { root.target = { exists = leader } }
-					root.target.leader = {
+					limit = {
+						any_owned_leader = {
+							exists = sector
+							sector = { is_same_value = event_target:rebel_sector }
+						}
+					}
+					random_owned_leader = {
+						limit = {
+							exists = sector
+							sector = { is_same_value = event_target:rebel_sector }
+						}
 						set_leader_flag = leader_civil_war_faction
 						set_leader_flag = leader_civil_war_isolated
 						set_leader_flag = situation_leader_@root
@@ -2099,6 +1919,20 @@ situation_event = { # Sectoral Revolt Event
 						else_if = {
 							limit = { leader_class = admiral }
 							set_leader_flag = civil_war_leader_admiral_isolated
+							if = { # Fleet Admiral revolts
+								limit = {
+									owner = {
+										any_owned_fleet = {
+											exists = leader
+											leader = { is_same_value = prevprevprev }
+										}
+									}
+								}
+								fleet = {
+									save_global_event_target_as = admiral_rebel_rally_point
+									set_fleet_flag = civil_war_fleet
+								}
+							}
 						}
 						else_if = {
 							limit = { leader_class = general }
@@ -2110,15 +1944,15 @@ situation_event = { # Sectoral Revolt Event
 						}
 					}
 				}
-				else = { # Create random leader if none exist, should be rare
+				else = { # Create random leader if none exist
 					root.target = {
 						random_owned_pop = {
-							species = { save_global_event_target_as = civwar_species }
+							species = { save_event_target_as = civwar_species }
 						}
 					}
 					owner = {
 						create_leader = {
-							class = ruler
+							class = random_ruler
 							species = event_target:civwar_species
 							name = random
 							skill = 5
@@ -2136,12 +1970,12 @@ situation_event = { # Sectoral Revolt Event
 				random_owned_leader = {
 					limit = {
 						has_leader_flag = leader_civil_war_faction
-						exists = pop_faction
-						pop_faction = { is_same_value = root.target } # Just in case
+						has_leader_flag = situation_leader_@root
 					}
-					pop_faction = { save_event_target_as = civwar_party } # I Imagine this should stay past the first loop
 					save_event_target_as = rebel_leader
 				}
+
+				root.target = { save_event_target_as = civwar_party } # I Imagine this should stay past the first loop
 
 				create_party_name_leader = yes
 				last_created_leader = { leader_event = { id = civleader.1000 days = 720 } }
@@ -2223,7 +2057,7 @@ situation_event = { # Sectoral Revolt Event
 				}
 
 				create_leader = {
-					class = ruler
+					class = random_ruler
 					event_leader = yes
 					species = owner_main_species
 					name = random
@@ -2243,153 +2077,6 @@ situation_event = { # Sectoral Revolt Event
 
 				make_isolated_sector_country = yes
 			}
-		}
-	}
-}
-
-situation_event = { # Isolated Sector Leader Check
-	id = civsep.4500
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		target = {
-			OR = {
-				NOT = { exists = leader }
-				leader = {
-					NOT = { has_leader_flag = gen_iso_faction_leader }
-					exists = solar_system
-					solar_system = {
-						exists = sector
-						sector = {
-							root.target = {
-								any_owned_pop = {
-									sector = { NOT = { is_same_value = prevprevprev } }
-								}
-							}
-						}
-					}
-				}
-				leader = {
-					has_leader_flag = gen_iso_faction_leader
-					owner = { any_owned_leader = { get_sector_leader_test = yes } }
-				}
-			}
-		}
-	}
-
-	immediate = {
-
-		if = {
-			limit = { owner = { any_owned_leader = { get_sector_leader_test = yes } } }
-			owner = {
-				if = {
-					limit = { any_owned_leader = { get_sector_leader_test = yes } }
-					if = {
-						limit = {
-							any_owned_leader = {
-								get_sector_leader_test = yes
-								leader_class = governor
-							}
-						}
-						random_owned_leader = {
-							limit = {
-								get_sector_leader_test = yes
-								leader_class = governor
-							}
-							if = {
-								limit = { leader_of_faction = yes }
-								owner = { get_faction_leader_replace = yes }
-							}
-							root.target = { set_leader = prev }
-						}
-					}
-					else_if = {
-						limit = {
-							any_owned_leader = {
-								get_sector_leader_test = yes
-								leader_class = admiral
-							}
-						}
-						random_owned_leader = {
-							limit = {
-								get_sector_leader_test = yes
-								leader_class = admiral
-							}
-							if = {
-								limit = { leader_of_faction = yes }
-								owner = { get_faction_leader_replace = yes }
-							}
-							root.target = { set_leader = prev }
-						}
-					}
-					else_if = {
-						limit = {
-							any_owned_leader = {
-								get_sector_leader_test = yes
-								leader_class = general
-							}
-						}
-						random_owned_leader = {
-							limit = {
-								get_sector_leader_test = yes
-								leader_class = general
-							}
-							if = {
-								limit = { leader_of_faction = yes }
-								owner = { get_faction_leader_replace = yes }
-							}
-							root.target = { set_leader = prev }
-						}
-					}
-					else_if = {
-						limit = {
-							any_owned_leader = {
-								get_sector_leader_test = yes
-								leader_class = scientist
-							}
-						}
-						random_owned_leader = {
-							limit = {
-								get_sector_leader_test = yes
-								leader_class = scientist
-							}
-							if = {
-								limit = { leader_of_faction = yes }
-								owner = { get_faction_leader_replace = yes }
-							}
-							root.target = { set_leader = prev }
-						}
-					}
-				}
-			}
-		}
-		else = {
-			root.target = {
-				random_owned_pop = {
-					species = { save_event_target_as = new_leader_species }
-				}
-			}
-			owner = {
-				create_leader = {
-					class = ruler
-					species = event_target:new_leader_species
-					name = random
-					skill = 5
-					leader_age_min = 25
-					leader_age_max = 55
-					traits = {
-						trait = leader_trait_charismatic
-						trait = trait_ruler_deep_connections
-					}
-					effect = {
-						set_leader_flag = sep_leader
-						set_leader_flag = gen_iso_faction_leader
-						save_event_target_as = new_iso_faction_leader
-					}
-				}
-			}
-			root.target = { set_leader = event_target:new_iso_faction_leader }
 		}
 	}
 }

@@ -474,7 +474,7 @@ country_event = {
 	trigger = {
 		is_country_type = heir_country
 		from = {
-			leader_class = ruler
+			is_ruler = yes
 			has_leader_flag = disinherited_heir_conspirer
 		}
 	}
@@ -658,6 +658,7 @@ country_event = {
 		is_imperial = yes
 		exists = heir
 		is_country_type_with_subjects = yes
+		is_mercatorum = no
 	}
 
 	immediate = {
@@ -668,7 +669,7 @@ country_event = {
 				owner = {
 					clone_leader = {
 						target = event_target:disinherited_heir_maybe
-						class = ruler
+						class = random_ruler
 						effect = {
 							save_event_target_as = disinherited_heir_clone
 						}
@@ -772,7 +773,7 @@ country_event = {
 		from = { save_event_target_as = disinherited_heir_first }
 		clone_leader = {
 			target = event_target:disinherited_heir_first
-			class = ruler
+			class = random_ruler
 			effect = {
 				save_event_target_as = disinherited_heir
 			}

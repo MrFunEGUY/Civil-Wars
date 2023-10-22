@@ -353,8 +353,8 @@ joins_overlord_wars_none = {
 			NOT = { agreement_preset = preset_bulwark }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_subsidiary
-			NOT = { agreement_preset = preset_subsidiary }
+			fail_text = not_allowed_for_megacorp
+			owner = { is_megacorp = no }
 		}
 		custom_tooltip = {
 			fail_text = not_allowed_for_ver_foederatus
@@ -394,6 +394,10 @@ joins_overlord_wars_defensive = {
 			NOT = { agreement_preset = preset_tributary }
 		}
 		custom_tooltip = {
+			fail_text = not_allowed_for_satrapy
+			NOT = { agreement_preset = preset_relic_satrapy }
+		}
+		custom_tooltip = {
 			fail_text = not_allowed_for_ver_foederatus
 			NOT = { agreement_preset = preset_ver_foederatus }
 		}
@@ -404,6 +408,10 @@ joins_overlord_wars_defensive = {
 		custom_tooltip = {
 			fail_text = not_allowed_for_ver_condo
 			NOT = { agreement_preset = preset_ver_condo }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
 		}
 	}
 }
@@ -462,6 +470,10 @@ joins_overlord_wars_offensive = {
 			fail_text = not_allowed_for_ver_neocolony
 			NOT = { agreement_preset = preset_ver_neocolony }
 		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
+		}
 	}
 }
 
@@ -496,6 +508,10 @@ joins_overlord_wars_all = {
 			NOT = { agreement_preset = preset_tributary }
 		}
 		custom_tooltip = {
+			fail_text = not_allowed_for_satrapy
+			NOT = { agreement_preset = preset_relic_satrapy }
+		}
+		custom_tooltip = {
 			fail_text = not_allowed_for_ver_satellite
 			NOT = { agreement_preset = preset_ver_satellite }
 		}
@@ -510,6 +526,10 @@ joins_overlord_wars_all = {
 		custom_tooltip = {
 			fail_text = not_allowed_for_ver_condo
 			NOT = { agreement_preset = preset_ver_condo }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
 		}
 	}
 }
@@ -546,8 +566,8 @@ joins_subject_wars_none = {
 			NOT = { owner = { has_civic = civic_feudal_realm } }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_subsidiary
-			NOT = { agreement_preset = preset_subsidiary }
+			fail_text = not_allowed_for_megacorp
+			owner = { is_megacorp = no }
 		}
 		custom_tooltip = {
 			fail_text = not_allowed_for_ver_devolved
@@ -590,12 +610,20 @@ joins_subject_wars_defensive = {
 	}
 	possible = {
 		custom_tooltip = {
+			fail_text = not_allowed_for_satrapy
+			NOT = { agreement_preset = preset_relic_satrapy }
+		}
+		custom_tooltip = {
 			fail_text = not_allowed_for_ver_foederatus
 			NOT = { agreement_preset = preset_ver_foederatus }
 		}
 		custom_tooltip = {
 			fail_text = not_allowed_for_ver_condo
 			NOT = { agreement_preset = preset_ver_condo }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
 		}
 	}
 }
@@ -661,6 +689,10 @@ joins_subject_wars_offensive = {
 			fail_text = not_allowed_for_ver_blood
 			NOT = { agreement_preset = preset_ver_blood }
 		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
+		}
 	}
 }
 
@@ -686,6 +718,14 @@ joins_subject_wars_all = {
 			NOT = { agreement_preset = preset_tributary }
 		}
 		custom_tooltip = {
+			fail_text = not_allowed_for_imperial_fiefdom
+			NOT = { owner = { has_ai_personality = imperial_origin_overlord_ai } }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_satrapy
+			NOT = { agreement_preset = preset_relic_satrapy }
+		}
+		custom_tooltip = {
 			fail_text = not_allowed_for_ver_organic
 			NOT = { agreement_preset = preset_ver_organic }
 		}
@@ -696,6 +736,10 @@ joins_subject_wars_all = {
 		custom_tooltip = {
 			fail_text = not_allowed_for_ver_satellite
 			NOT = { agreement_preset = preset_ver_satellite }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
 		}
 	}
 }
@@ -728,6 +772,10 @@ subject_can_be_integrated = {
 			NOT = { agreement_preset = preset_prospectorium }
 		}
 		custom_tooltip = {
+			fail_text = not_allowed_for_mercatorum
+			NOT = { agreement_preset = preset_mercatorum }
+		}
+		custom_tooltip = {
 			fail_text = not_allowed_for_tributary
 			NOT = { agreement_preset = preset_tributary }
 		}
@@ -736,8 +784,16 @@ subject_can_be_integrated = {
 			owner = { is_megacorp = no }
 		}
 		custom_tooltip = {
+			fail_text = not_allowed_for_satrapy
+			NOT = { agreement_preset = preset_relic_satrapy }
+		}
+		custom_tooltip = {
 			fail_text = not_allowed_for_galcom_resolution
 			not_allowed_for_galcom_resolution_trigger = { RESOLUTION = resolution_intergalacticdirective_ensured_sovereignty }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_galcom_resolution
+			not_allowed_for_galcom_resolution_trigger = { RESOLUTION = resolution_intergalacticdirective_a_voice_for_all }
 		}
 		custom_tooltip = {
 			fail_text = not_allowed_for_ver_devolved
@@ -756,9 +812,15 @@ subject_can_be_integrated = {
 			NOT = { agreement_preset = preset_ver_condo }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_separatist
-			NOT = { has_country_flag = sep_state_of_@owner }
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
 		}
+		
+		## Not allowed to use country flags for this
+		# custom_tooltip = {
+		# 	fail_text = not_allowed_for_separatist
+		# 	NOT = { has_country_flag = sep_state_of_@owner }
+		# }
 	}
 }
 
@@ -799,6 +861,10 @@ subject_can_not_do_diplomacy = {
 	}
 	possible = {
 		custom_tooltip = {
+			fail_text = not_allowed_for_mercatorum
+			NOT = { agreement_preset = preset_mercatorum }
+		}
+		custom_tooltip = {
 			fail_text = not_allowed_for_tributary
 			NOT = { agreement_preset = preset_tributary }
 		}
@@ -811,9 +877,13 @@ subject_can_not_do_diplomacy = {
 			NOT = { owner = { has_civic = civic_franchising } }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_subsidiary
-			NOT = { agreement_preset = preset_subsidiary }
+			fail_text = not_allowed_for_megacorp
+			owner = { is_megacorp = no }
 		}
+		custom_tooltip = {
+            fail_text = not_allowed_for_satrapy
+            NOT = { agreement_preset = preset_relic_satrapy }
+        }
 		custom_tooltip = {
 			fail_text = not_allowed_for_galcom_resolution
 			not_allowed_for_galcom_resolution_trigger = { RESOLUTION = resolution_intergalacticdirective_a_voice_for_all }
@@ -830,6 +900,10 @@ subject_can_not_do_diplomacy = {
 			fail_text = not_allowed_for_ver_foederatus
 			NOT = { agreement_preset = preset_ver_foederatus }
 		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
+		}
 	}
 }
 
@@ -845,84 +919,41 @@ subject_can_do_diplomacy_but_not_vote = {
 		set_rule_can_subject_do_diplomacy = yes
 	}
 	possible = {
-		custom_tooltip = {
-			fail_text = not_allowed_for_tributary
-			if = {
-				limit = {
-					NOR = {
-						AND = {
-							owner = { is_galactic_community_member = yes }
-							target = { is_galactic_community_member = yes }
-							is_active_resolution = resolution_bureaucraticsurveillance_personal_oversight
-						}
-						AND = {
-							owner = { is_galactic_community_member = yes }
-							target = { is_galactic_community_member = yes }
-							is_active_resolution = resolution_intergalacticdirective_a_voice_for_all
-						}
+		if = {
+			limit = {
+				NOR = {
+					AND = {
+						owner = { is_galactic_community_member = yes }
+						target = { is_galactic_community_member = yes }
+						is_active_resolution = resolution_bureaucraticsurveillance_personal_oversight
+					}
+					AND = {
+						owner = { is_galactic_community_member = yes }
+						target = { is_galactic_community_member = yes }
+						is_active_resolution = resolution_intergalacticdirective_a_voice_for_all
 					}
 				}
+			}
+			custom_tooltip = {
+				fail_text = not_allowed_for_tributary
 				NOT = { agreement_preset = preset_tributary }
 			}
-		}
-		custom_tooltip = {
-			fail_text = not_allowed_for_fanatic_purifiers
-			if = {
-				limit = {
-					NOR = {
-						AND = {
-							owner = { is_galactic_community_member = yes }
-							target = { is_galactic_community_member = yes }
-							is_active_resolution = resolution_bureaucraticsurveillance_personal_oversight
-						}
-						AND = {
-							owner = { is_galactic_community_member = yes }
-							target = { is_galactic_community_member = yes }
-							is_active_resolution = resolution_intergalacticdirective_a_voice_for_all
-						}
-					}
-				}
+			custom_tooltip = {
+				fail_text = not_allowed_for_fanatic_purifiers
 				NOT = { target = { has_civic = civic_fanatic_purifiers } }
 			}
-		}
-		custom_tooltip = {
-			fail_text = not_allowed_for_devouring_swarm
-			if = {
-				limit = {
-					NOR = {
-						AND = {
-							owner = { is_galactic_community_member = yes }
-							target = { is_galactic_community_member = yes }
-							is_active_resolution = resolution_bureaucraticsurveillance_personal_oversight
-						}
-						AND = {
-							owner = { is_galactic_community_member = yes }
-							target = { is_galactic_community_member = yes }
-							is_active_resolution = resolution_intergalacticdirective_a_voice_for_all
-						}
-					}
-				}
+			custom_tooltip = {
+				fail_text = not_allowed_for_devouring_swarm
 				NOT = { target = { has_civic = civic_hive_devouring_swarm } }
 			}
-		}
-		custom_tooltip = {
-			fail_text = not_allowed_for_machine_terminator
-			if = {
-				limit = {
-					NOR = {
-						AND = {
-							owner = { is_galactic_community_member = yes }
-							target = { is_galactic_community_member = yes }
-							is_active_resolution = resolution_bureaucraticsurveillance_personal_oversight
-						}
-						AND = {
-							owner = { is_galactic_community_member = yes }
-							target = { is_galactic_community_member = yes }
-							is_active_resolution = resolution_intergalacticdirective_a_voice_for_all
-						}
-					}
-				}
+			custom_tooltip = {
+				fail_text = not_allowed_for_machine_terminator
 				NOT = { target = { has_civic = civic_machine_terminator } }
+			}
+			# Organic Zealots
+			custom_tooltip = {
+				fail_text = not_allowed_for_organic_zealots
+				target = { is_organic_zealots = no }
 			}
 		}
 		custom_tooltip = {
@@ -944,6 +975,10 @@ subject_can_do_diplomacy_but_not_vote = {
 		custom_tooltip = {
 			fail_text = not_allowed_for_ver_puppet
 			NOT = { agreement_preset = preset_ver_puppet }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
 		}
 	}
 }
@@ -1013,13 +1048,21 @@ subject_cannot_expand = {
 			NOT = { agreement_preset = preset_prospectorium }
 		}
 		custom_tooltip = {
+			fail_text = not_allowed_for_mercatorum
+			NOT = { agreement_preset = preset_mercatorum }
+		}
+		custom_tooltip = {
 			fail_text = not_allowed_for_tributary
 			NOT = { agreement_preset = preset_tributary }
 		}
 		custom_tooltip = {
-			fail_text = not_allowed_for_subsidiary
-			NOT = { agreement_preset = preset_subsidiary }
+			fail_text = not_allowed_for_megacorp
+			owner = { is_megacorp = no }
 		}
+		custom_tooltip = {
+            fail_text = not_allowed_for_satrapy
+            NOT = { agreement_preset = preset_relic_satrapy }
+        }
 		custom_tooltip = {
 			fail_text = not_allowed_for_feudal_society
 			NOT = { owner = { has_civic = civic_feudal_realm } }
@@ -1027,6 +1070,14 @@ subject_cannot_expand = {
 		custom_tooltip = {
 			fail_text = not_allowed_for_franchising
 			NOT = { owner = { has_civic = civic_franchising } }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_galcom_resolution
+			not_allowed_for_galcom_resolution_trigger = { RESOLUTION = resolution_intergalacticdirective_ensured_sovereignty }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_galcom_resolution
+			not_allowed_for_galcom_resolution_trigger = { RESOLUTION = resolution_intergalacticdirective_a_voice_for_all }
 		}
 		custom_tooltip = {
 			fail_text = not_allowed_for_ver_devolved
@@ -1039,6 +1090,10 @@ subject_cannot_expand = {
 		custom_tooltip = {
 			fail_text = not_allowed_for_ver_condo
 			NOT = { agreement_preset = preset_ver_condo }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
 		}
 	}
 }
@@ -1057,6 +1112,10 @@ subject_can_expand_with_tithe = {
 		custom_tooltip = {
 			fail_text = not_allowed_for_tributary
 			NOT = { agreement_preset = preset_tributary }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
 		}
 	}
 }
@@ -1107,6 +1166,10 @@ subject_holdings_limit_1 = {
 			fail_text = not_allowed_for_tributary
 			NOT = { agreement_preset = preset_tributary }
 		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
+		}
 	}
 }
 
@@ -1129,6 +1192,10 @@ subject_holdings_limit_2 = {
 		custom_tooltip = {
 			fail_text = not_allowed_for_ver_condo
 			NOT = { agreement_preset = preset_ver_condo }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
 		}
 	}
 	potential = {
@@ -1167,6 +1234,10 @@ subject_holdings_limit_3 = {
 			fail_text = not_allowed_for_ver_condo
 			NOT = { agreement_preset = preset_ver_condo }
 		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
+		}
 	}
 	potential = {
 		has_overlord_dlc = yes
@@ -1193,7 +1264,10 @@ subject_holdings_limit_4 = {
 			fail_text = not_allowed_for_galcom_resolution
 			OR = {
 				owner = { is_galactic_community_member = no }
-				NOT = { is_active_resolution = resolution_bureaucraticsurveillance_borderless_authority }
+				NOR = {
+					is_active_resolution = resolution_bureaucraticsurveillance_borderless_authority
+					is_active_resolution = resolution_bureaucraticsurveillance_personal_oversight
+				}
 			}
 		}
 		custom_tooltip = {
@@ -1203,6 +1277,10 @@ subject_holdings_limit_4 = {
 		custom_tooltip = {
 			fail_text = not_allowed_for_ver_condo
 			NOT = { agreement_preset = preset_ver_condo }
+		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
 		}
 	}
 	potential = {
@@ -1215,7 +1293,7 @@ subject_does_not_get_sensors = {
 	loyalty_change = -5
 	ai_acceptance = {
 		overlord = 30
-		subject = -25
+		subject = -5
 	}
 	activate_effect = {
 		set_rule_subject_has_sensors = no
@@ -1242,14 +1320,14 @@ subject_gets_sensors = {
 	term = subject_sensors
 	loyalty_change = 5
 	ai_acceptance = {
-		overlord = -30
-		subject = 25
+		overlord = -10
+		subject = 5
 	}
 	activate_effect = {
 		set_rule_subject_has_sensors = yes
 	}
 	target_modifier = {
-		monthly_loyalty = 0.5
+		monthly_loyalty = 0.25
 	}
 	possible = {
 		custom_tooltip = {
@@ -1265,11 +1343,19 @@ subject_gets_sensors = {
 				NOT = { agreement_preset = preset_tributary }
 			}
 		}
+		custom_tooltip = {
+			fail_text = not_allowed_for_auto_state
+			NOT = { agreement_preset = preset_auto_state }
+		}
 	}
 }
 
 subject_loyalty_effects = {
 	term = subject_loyalty
+
+	potential = {
+		NOT = { agreement_preset = preset_auto_state }
+	}
 
 	activate_effect = {
 		target = { save_event_target_as = new_subject }
@@ -1353,6 +1439,7 @@ naval_cap_unmodified = {
 			agreement_preset = preset_satrapy
 			agreement_preset = preset_relic_satrapy
 			agreement_preset = preset_ver_condo
+			agreement_preset = preset_auto_state
 		}
 	}
 

@@ -30,13 +30,6 @@ country_event = { # Check disapproving Factions every month
 			NOT = { has_pop_faction_flag = faction_rebelled }
 			NOT = { has_pop_faction_flag = faction_sep_situation }
 			OR = {
-				NOT = { exists = leader }
-				leader = {
-					is_heir = no
-					NOT = { is_same_value = root.ruler }
-				}
-			}
-			OR = {
 				AND = {
 					is_pacifist_faction = yes
 					owner = { NOT = { has_country_flag = civ_war_recent_PAC } }
@@ -94,6 +87,7 @@ country_event = { # Check disapproving Factions every month
 					owner = { NOT = { has_country_flag = civ_war_recent_ELITE } }
 				}
 			}
+			# Democracies are willing to deal with lower approval, as their will be an election in the future.
 			OR = {
 				AND = {
 					owner = { is_democracy = yes }
@@ -135,13 +129,6 @@ country_event = { # Check disapproving Factions every month
 				is_regular_faction = yes
 				NOT = { has_pop_faction_flag = faction_rebelled }
 				NOT = { has_pop_faction_flag = faction_sep_situation }
-				OR = {
-					NOT = { exists = leader }
-					leader = {
-						is_heir = no
-						NOT = { is_same_value = root.ruler }
-					}
-				}
 				OR = {
 					AND = {
 						is_pacifist_faction = yes
@@ -427,14 +414,6 @@ situation_event = { # Spread Faction Separatists Every Month
 			divide_variable = { which = ethic_sep_chance value = 2 }
 
 			multiply_variable = { which = ethic_sep_chance value = 100 }
-
-			if = { # Heirs in control of factions can considerably slow radicalization, they also will not take control of rebelling factions
-				limit = {
-					exists = leader
-					leader = { has_leader_flag = appointed_heir }
-				}
-				divide_variable = { which = ethic_sep_chance value = 4 }
-			}
 
 			ordered_owned_pop = {
 				limit = {

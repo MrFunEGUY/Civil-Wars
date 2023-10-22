@@ -61,12 +61,12 @@ on_monthly_pulse_country = {
 		civnat.2500				# Set and Remove Citizenship flags for species
 		
 		civnat.4000				# Checks Nationalist factions, start Radicalization Situation
-		civnat.9100				# Set new Separatist/Nationalist Faction Leader
 
 		civplan.4000			# Planet no Sector Malus
 		civplan.4010			# Planet Sector Malus Removal
 
 		civleader.2000			# Set Corrupt Governor Flag
+		civleader.2001			# Unset uncorrupt Governor Flag
 
 		civroyal.1200			# Fix Succession Country Bullshit
 	}
@@ -87,7 +87,6 @@ on_yearly_pulse_country = {
 		civnat.3100				# Destroy GiE if no Nats left
 		civnat.5000				# Give Claims to Fundamental land that has been lost
 
-		civsep.2200				# Create Corrupt Governor Separatists Yearly Initializer
 		civsep.3000				# Sector Separatist Party Form Check
 		civsep.3100				# Find Isolated Sectors
 		civsep.5100				# Sectoral Slave Situation Form Check
@@ -161,7 +160,7 @@ on_ruler_set = {
 		civleader.2005			# Set Corrupt Ruler Trait
 		civleader.2100			# Set Sep Won Election Flag
 		
-		civelect.4000			# Separatist/Nationalist wins (s)election
+		# civelect.4000			# Separatist/Nationalist wins (s)election
 	}
 }
 
@@ -285,7 +284,7 @@ on_ship_destroyed_victim = {
 # scope: country
 on_election_started = {
 	events = {
-		civelect.9000				# If an election starts, remove all disputes
+		# civelect.9000				# If an election starts, remove all disputes
 	}
 }
 

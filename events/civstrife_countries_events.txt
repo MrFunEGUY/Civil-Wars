@@ -6,7 +6,7 @@
 
 namespace = civwarcountry
 
-country_event = { # Faction Leader Rebellion - Authoritarian
+country_event = { # Faction Rebellion - Authoritarian
 	id = civwarcountry.1000
 	hide_window = yes
 	is_triggered_only = yes
@@ -122,10 +122,12 @@ country_event = { # Faction Leader Rebellion - Authoritarian
 				}
 			}
 		}
+
+		last_created_country = { set_country_flag = civwar_auth }
 	}
 }
 
-country_event = { # Faction Leader Rebellion - Egalitarian
+country_event = { # Faction Rebellion - Egalitarian
 	id = civwarcountry.1005
 	hide_window = yes
 	is_triggered_only = yes
@@ -310,10 +312,12 @@ country_event = { # Faction Leader Rebellion - Egalitarian
 				}
 			}
 		}
+
+		last_created_country = { set_country_flag = civwar_egal }
 	}
 }
 
-country_event = { # Faction Leader Rebellion - Militarist
+country_event = { # Faction Rebellion - Militarist
 	id = civwarcountry.1010
 	hide_window = yes
 	is_triggered_only = yes
@@ -787,10 +791,12 @@ country_event = { # Faction Leader Rebellion - Militarist
 				}
 			}
 		}
+
+		last_created_country = { set_country_flag = civwar_mil }
 	}
 }
 
-country_event = { # Faction Leader Rebellion - Pacifist
+country_event = { # Faction Rebellion - Pacifist
 	id = civwarcountry.1015
 	hide_window = yes
 	is_triggered_only = yes
@@ -1268,10 +1274,12 @@ country_event = { # Faction Leader Rebellion - Pacifist
 				}
 			}
 		}
+
+		last_created_country = { set_country_flag = civwar_pac }
 	}
 }
 
-country_event = { # Faction Leader Rebellion - Materialist
+country_event = { # Faction Rebellion - Materialist
 	id = civwarcountry.1020
 	hide_window = yes
 	is_triggered_only = yes
@@ -1749,10 +1757,12 @@ country_event = { # Faction Leader Rebellion - Materialist
 				}
 			}
 		}
+
+		last_created_country = { set_country_flag = civwar_mat }
 	}
 }
 
-country_event = { # Faction Leader Rebellion - Spiritualist
+country_event = { # Faction Rebellion - Spiritualist
 	id = civwarcountry.1025
 	hide_window = yes
 	is_triggered_only = yes
@@ -2229,11 +2239,13 @@ country_event = { # Faction Leader Rebellion - Spiritualist
 					}
 				}
 			}
-		}	
+		}
+
+		last_created_country = { set_country_flag = civwar_spi }
 	}
 }
 
-country_event = { # Faction Leader Rebellion - Xenophilic
+country_event = { # Faction Rebellion - Xenophilic
 	id = civwarcountry.1030
 	hide_window = yes
 	is_triggered_only = yes
@@ -2711,10 +2723,12 @@ country_event = { # Faction Leader Rebellion - Xenophilic
 				}
 			}
 		}
+
+		last_created_country = { set_country_flag = civwar_phobe }
 	}
 }
 
-country_event = { # Faction Leader Rebellion - Xenophobic
+country_event = { # Faction Rebellion - Xenophobic
 	id = civwarcountry.1035
 	hide_window = yes
 	is_triggered_only = yes
@@ -3189,10 +3203,12 @@ country_event = { # Faction Leader Rebellion - Xenophobic
 				random = { chance = 10 force_add_civic = civic_fanatic_purifiers }
 			}
 		}
+
+		last_created_country = { set_country_flag = civwar_phile }
 	}
 }
 
-country_event = { # Faction Leader Rebellion - Socialist
+country_event = { # Faction Rebellion - Socialist
 	id = civwarcountry.1040
 	hide_window = yes
 	is_triggered_only = yes
@@ -3456,10 +3472,12 @@ country_event = { # Faction Leader Rebellion - Socialist
 				}
 			}
 		}
+
+		last_created_country = { set_country_flag = civwar_soc }
 	}
 }
 
-country_event = { # Faction Leader Rebellion - Capitalist
+country_event = { # Faction Rebellion - Capitalist
 	id = civwarcountry.1045
 	hide_window = yes
 	is_triggered_only = yes
@@ -3723,10 +3741,12 @@ country_event = { # Faction Leader Rebellion - Capitalist
 				}
 			}
 		}
+
+		last_created_country = { set_country_flag = civwar_cap }
 	}
 }
 
-country_event = { # Faction Leader Rebellion - Industrialist
+country_event = { # Faction Rebellion - Industrialist
 	id = civwarcountry.1050
 	hide_window = yes
 	is_triggered_only = yes
@@ -3990,10 +4010,12 @@ country_event = { # Faction Leader Rebellion - Industrialist
 				}
 			}
 		}
+
+		last_created_country = { set_country_flag = civwar_indus }
 	}
 }
 
-country_event = { # Faction Leader Rebellion - Environmentalist
+country_event = { # Faction Rebellion - Environmentalist
 	id = civwarcountry.1055
 	hide_window = yes
 	is_triggered_only = yes
@@ -4257,10 +4279,12 @@ country_event = { # Faction Leader Rebellion - Environmentalist
 				}
 			}
 		}
+
+		last_created_country = { set_country_flag = civwar_green }
 	}
 }
 
-country_event = { # Faction Leader Rebellion - Elitists
+country_event = { # Faction Rebellion - Elitists
 	id = civwarcountry.1060
 	hide_window = yes
 	is_triggered_only = yes
@@ -4524,10 +4548,12 @@ country_event = { # Faction Leader Rebellion - Elitists
 				}
 			}
 		}
+
+		last_created_country = { set_country_flag = civwar_elite }
 	}
 }
 
-country_event = { # Faction Leader Rebellion - Pluralists
+country_event = { # Faction Rebellion - Pluralists
 	id = civwarcountry.1065
 	hide_window = yes
 	is_triggered_only = yes
@@ -4790,260 +4816,8 @@ country_event = { # Faction Leader Rebellion - Pluralists
 					}
 				}
 			}
-		}	
-	}
-}
-
-country_event = { # Corrupt Governor Rebellion
-	id = civwarcountry.1070
-	hide_window = yes
-	is_triggered_only = yes
-
-	immediate = {
-		if = {
-			limit = { has_global_flag = cultural_overhaul_funefork_active }
-			if = {
-				limit = { has_global_flag = cultural_overhaul_active }
-				random_list = {
-					55 = {
-						create_country = {
-						name = random
-						type = default
-						species = event_target:civwar_species
-						ignore_initial_colony_error = yes
-						day_zero_contact = no
-						origin = origin_civwar
-						civics = random
-						flag = random
-							authority = auth_imperial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_country_effect = yes
-							}
-						}
-					}
-					30 = {
-						create_country = {
-						name = random
-						type = default
-						species = event_target:civwar_species
-						ignore_initial_colony_error = yes
-						day_zero_contact = no
-						origin = origin_civwar
-						civics = random
-						flag = random
-							authority = auth_dictatorial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_country_effect = yes
-							}
-						}
-					}
-					5 = {
-						create_country = {
-						name = random
-						type = default
-						species = event_target:civwar_species
-						ignore_initial_colony_error = yes
-						day_zero_contact = no
-						origin = origin_civwar
-						civics = random
-						flag = random
-							authority = auth_dict_democratic
-							ethos = { 
-								ethic = ethic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_country_effect = yes
-							}
-						}
-					}
-				}
-			}
-			else = {
-				random_list = {
-					55 = {
-						create_country = {
-						name = random
-						type = default
-						species = event_target:civwar_species
-						ignore_initial_colony_error = yes
-						day_zero_contact = no
-						origin = origin_civwar
-						civics = random
-						flag = random
-							authority = auth_imperial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_country_effect = yes
-							}
-						}
-					}
-					30 = {
-						create_country = {
-						name = random
-						type = default
-						species = event_target:civwar_species
-						ignore_initial_colony_error = yes
-						day_zero_contact = no
-						origin = origin_civwar
-						civics = random
-						flag = random
-							authority = auth_dictatorial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_country_effect = yes
-							}
-						}
-					}
-					10 = {
-						create_country = {
-						name = random
-						type = default
-						species = event_target:civwar_species
-						ignore_initial_colony_error = yes
-						day_zero_contact = no
-						origin = origin_civwar
-						civics = random
-						flag = random
-							authority = auth_dict_democratic
-							ethos = { 
-								ethic = ethic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_country_effect = yes
-							}
-						}
-					}
-					5 = {
-						create_country = {
-						name = random
-						type = default
-						species = event_target:civwar_species
-						ignore_initial_colony_error = yes
-						day_zero_contact = no
-						origin = origin_civwar
-						civics = random
-						flag = random
-							authority = auth_oligarchic
-							ethos = { 
-								ethic = ethic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_country_effect = yes
-							}
-						}
-					}
-				}
-			}
-		}
-		else = {
-			if = {
-				limit = { has_global_flag = cultural_overhaul_active }
-				random_list = {
-					55 = {
-						create_country = {
-						name = random
-						type = default
-						species = event_target:civwar_species
-						ignore_initial_colony_error = yes
-						day_zero_contact = no
-						origin = origin_civwar
-						civics = random
-						flag = random
-							authority = auth_imperial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_country_effect = yes
-							}
-						}
-					}
-					45 = {
-						create_country = {
-						name = random
-						type = default
-						species = event_target:civwar_species
-						ignore_initial_colony_error = yes
-						day_zero_contact = no
-						origin = origin_civwar
-						civics = random
-						flag = random
-							authority = auth_dictatorial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_country_effect = yes
-							}
-						}
-					}
-				}
-			}
-			else = {
-				random_list = {
-					55 = {
-						create_country = {
-						name = random
-						type = default
-						species = event_target:civwar_species
-						ignore_initial_colony_error = yes
-						day_zero_contact = no
-						origin = origin_civwar
-						civics = random
-						flag = random
-							authority = auth_imperial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_country_effect = yes
-							}
-						}
-					}
-					45 = {
-						create_country = {
-						name = random
-						type = default
-						species = event_target:civwar_species
-						ignore_initial_colony_error = yes
-						day_zero_contact = no
-						origin = origin_civwar
-						civics = random
-						flag = random
-							authority = auth_dictatorial
-							ethos = { 
-								ethic = ethic_fanatic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_country_effect = yes
-							}
-						}
-					}
-				}
-			}
 		}
 
-		last_created_country = { set_country_flag = corrupt_rebellion }
+		last_created_country = { set_country_flag = civwar_plur }
 	}
 }
