@@ -2570,7 +2570,7 @@ created_civwar_rebel_country_effect = {
 	}
 	ruler = {
 		if = {
-			limit = { has_leader_flag = corrupt_governor }
+			limit = { has_leader_flag = corrupt_official }
 			add_trait = leader_trait_corrupt
 		}
 	}
@@ -2587,11 +2587,19 @@ created_slave_rebel_country_effect = {
 		flag = rebelling_slaves_former_owner
 		who = root.owner
 	}
-	get_slave_war_leader = yes
+	create_leader = {
+		class = random_ruler
+		species = event_target:civwar_species
+		name = random
+		skill = 5
+		traits = {
+			trait = trait_ruler_charismatic_2
+			trait = trait_ruler_champion_of_the_people_2
+		}
+	}
+	assign_leader = last_created_leader
 	created_civwar_rebel_country_effect = yes
 }
-
-#####################
 
 #####################
 # Civil War Type Effects
@@ -8709,13 +8717,13 @@ get_sec_slave_rebels = {
 
 setup_rebel_leader_effect = {
 	if = {
-		limit = { leader_class = governor }
-		set_leader_flag = civil_war_leader_governor_faction
+		limit = { leader_class = official }
+		set_leader_flag = civil_war_leader_official_faction
 	}
 	else_if = {
-		limit = { leader_class = admiral }
-		set_leader_flag = civil_war_leader_admiral_faction
-		if = { # Fleet Admiral revolts
+		limit = { leader_class = commander }
+		set_leader_flag = civil_war_leader_commander_faction
+		if = { # Fleet Commander revolts
 			limit = {
 				owner = {
 					any_owned_fleet = {
@@ -8725,14 +8733,10 @@ setup_rebel_leader_effect = {
 				}
 			}
 			fleet = {
-				save_global_event_target_as = admiral_rebel_rally_point
+				save_global_event_target_as = commander_rebel_rally_point
 				set_fleet_flag = civil_war_fleet
 			}
 		}
-	}
-	else_if = {
-		limit = { leader_class = general }
-		set_leader_flag = civil_war_leader_general_faction
 	}
 	else_if = {
 		limit = { leader_class = scientist }
@@ -9302,7 +9306,7 @@ get_civil_war_leader = {
 }
 
 get_civil_war_leader_dispute = {
-	if = { # Fleet Admiral revolts
+	if = { # Fleet Commander revolts
 		limit = {
 			event_target:dispute_party = { exists = leader }
 			owner = {
@@ -9313,31 +9317,27 @@ get_civil_war_leader_dispute = {
 			}
 		}
 		event_target:dispute_party.leader = {
-			set_leader_flag = civil_war_leader_admiral_dispute
+			set_leader_flag = civil_war_leader_commander_dispute
 			set_leader_flag = leader_civil_war_faction
 			species = { save_event_target_as = civwar_species }
 			fleet = {
-				save_global_event_target_as = admiral_rebel_rally_point
+				save_global_event_target_as = commander_rebel_rally_point
 				set_fleet_flag = civil_war_fleet
 			}
 		}
 	}
-	else_if = { # Other leaders and unemployed Admirals
+	else_if = { # Other leaders and unemployed Commanders
 		limit = { event_target:dispute_party = { exists = leader } }
 		event_target:dispute_party.leader = {
 			set_leader_flag = leader_civil_war_faction
 			species = { save_event_target_as = civwar_species }
 			if = {
-				limit = { leader_class = governor }
-				set_leader_flag = civil_war_leader_governor_dispute
+				limit = { leader_class = official }
+				set_leader_flag = civil_war_leader_official_dispute
 			}
 			else_if = {
-				limit = { leader_class = admiral }
-				set_leader_flag = civil_war_leader_admiral_dispute
-			}
-			else_if = {
-				limit = { leader_class = general }
-				set_leader_flag = civil_war_leader_general_dispute
+				limit = { leader_class = commander }
+				set_leader_flag = civil_war_leader_commander_dispute
 			}
 			else_if = {
 				limit = { leader_class = scientist }
@@ -9393,19 +9393,6 @@ get_nationalist_war_leader = {
 			}
 		}
 	}
-}
-
-get_slave_war_leader = {
-	create_leader = {
-		class = random_ruler
-		species = event_target:leader_pop.species
-		name = random
-		skill = 2
-		traits = {
-			trait = trait_ruler_deep_connections
-		}
-	}
-	assign_leader = last_created_leader
 }
 
 # Create dummy party name leader
@@ -9703,7 +9690,7 @@ get_country_immediate_setup = {
 
 	# create fleets and give resources, destroy home country fleets
 	country_event = { id = civwar.3000 }
-	# Transfer Admiral Fleet
+	# Transfer Commander Fleet
 	# Switching the order with the create fleets above would make the situation harsher.
 	event_target:civwar_originator = {
 		if = { 
@@ -9711,13 +9698,13 @@ get_country_immediate_setup = {
 			random_owned_fleet = {
 				limit = { has_fleet_flag = civil_war_fleet }
 				set_owner = root
-				if = { # If they are not in their seized territory, they stay as Admiral of their fleet
+				if = { # If they are not in their seized territory, they stay as leader of their fleet
 					limit = { solar_system.starbase = { is_owned_by = event_target:civwar_originator } }
 					set_leader = root.ruler
 				}
 				remove_fleet_flag = civil_war_fleet
 			}
-			root = { force_add_civic = civic_distinguished_admiralty }
+			root = { force_add_civic = civic_distinguished_commanderty }
 		}
 	}
 	# Maybe the rebels get an Attack Moon/Planet/Systemcraft if it was in their borders
@@ -9801,22 +9788,19 @@ get_country_immediate_setup = {
 
 	# Create Leaders
 	create_leader = {
-		class = admiral
+		class = official
 		species = owner_main_species
 		name = random
 		skill = 5
 	}
-	create_leader = {
-		class = general
-		species = owner_main_species
-		name = random
-		skill = 5
-	}
-	create_leader = {
-		class = governor
-		species = owner_main_species
-		name = random
-		skill = 5
+	while = {
+		count = 2
+		create_leader = {
+			class = commander
+			species = owner_main_species
+			name = random
+			skill = 5
+		}
 	}
 	while = {
 		count = 3
@@ -9946,10 +9930,10 @@ get_country_after_setup = {
 	}
 	if = {
 		limit = {
-			NOT = { has_civic = civic_distinguished_admiralty }
+			NOT = { has_civic = civic_distinguished_commanderty }
 			ruler = { has_trait = leader_trait_retired_fleet_officer }
 		}
-		force_add_civic = civic_distinguished_admiralty
+		force_add_civic = civic_distinguished_commanderty
 	}
 	if = {
 		limit = {
@@ -14587,19 +14571,17 @@ exile_restoration_gen_effect = {
 
 		# Create Leaders
 		create_leader = {
-			class = admiral
+			class = official
 			species = owner_main_species
 			name = random
 		}
-		create_leader = {
-			class = general
-			species = owner_main_species
-			name = random
-		}
-		create_leader = {
-			class = governor
-			species = owner_main_species
-			name = random
+		while = {
+			count = 2
+			create_leader = {
+				class = commander
+				species = owner_main_species
+				name = random
+			}
 		}
 		while = {
 			count = 3

@@ -273,28 +273,22 @@ country_event = {
 			limit = {
 				from.ruler = {
 					OR = {
-						has_leader_flag = civil_war_leader_governor_faction
-						has_leader_flag = civil_war_leader_admiral_faction
-						has_leader_flag = civil_war_leader_general_faction
+						has_leader_flag = civil_war_leader_official_faction
+						has_leader_flag = civil_war_leader_commander_faction
 						has_leader_flag = civil_war_leader_scientist_faction
 					}
 				}
 			}
 			from.ruler = {
 				if = {
-					limit = { has_leader_flag = civil_war_leader_governor_faction }
-					remove_leader_flag = civil_war_leader_governor_faction
-					set_leader_flag = civil_war_ruler_governor
+					limit = { has_leader_flag = civil_war_leader_official_faction }
+					remove_leader_flag = civil_war_leader_official_faction
+					set_leader_flag = civil_war_ruler_official
 				}
 				else_if = {
-					limit = { has_leader_flag = civil_war_leader_admiral_faction }
-					remove_leader_flag = civil_war_leader_admiral_faction
-					set_leader_flag = civil_war_ruler_admiral
-				}
-				else_if = {
-					limit = { has_leader_flag = civil_war_leader_general_faction }
-					remove_leader_flag = civil_war_leader_general_faction
-					set_leader_flag = civil_war_ruler_general
+					limit = { has_leader_flag = civil_war_leader_commander_faction }
+					remove_leader_flag = civil_war_leader_commander_faction
+					set_leader_flag = civil_war_ruler_commander
 				}
 				else_if = {
 					limit = { has_leader_flag = civil_war_leader_scientist_faction }

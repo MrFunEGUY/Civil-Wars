@@ -712,7 +712,7 @@ country_event = {
 #  Succession Crisis  #
 #######################
 
-# Talk with crisis sector leaders (governors/dynasts)
+# Talk with crisis sector leaders (officials/dynasts)
 country_event = {
 	id = civcom.3000
 	title = civcom.3000.name
@@ -755,7 +755,7 @@ country_event = {
 
 		event_target:crisis_sector = {
 			if = {
-				limit = { has_sector_flag = governor_rebel_sector }
+				limit = { has_sector_flag = official_rebel_sector }
 				random_list = {
 					50 = { set_sector_flag = gov_may_deal }
 					50 = { set_sector_flag = gov_wont_deal }
@@ -799,7 +799,7 @@ country_event = {
 	}
 }
 
-# Governor Rebels - Independent Kingdom
+# Official Rebels - Independent Kingdom
 country_event = {
 	id = civcom.3010
 	title = civcom.3000.name
@@ -871,7 +871,7 @@ country_event = {
 	}
 }
 
-# Governor Rebels - Negotiates
+# Official Rebels - Negotiates
 country_event = {
 	id = civcom.3020
 	title = civcom.3000.name
@@ -2766,99 +2766,14 @@ country_event = {
 		room = root.owner
 	}
 
-	# Governor
+	# Official
 	option = {
 		name = civcom.8010.a
 		ai_chance = { factor = 5 }
 		hidden_effect = {
-			clone_leader = {
-				target = event_target:disinherited_heir
-				class = governor
-				effect = {
-					save_global_event_target_as = disinherited_heir_asylum
-				}
-			}
-			event_target:disinherited_heir_asylum = {
-				set_leader_flag = heir_traitor_@event_target:traitor_home_country
-			}
 			event_target:disinherited_heir = {
-				set_leader_flag = dead_ruler
-				kill_leader = { show_notification = no }
-			}
-			event_target:traitor_home_country = {
-				country_event = { id = civheir.3030 days = 14 random = 360 }
-			}
-		}
-	}
-
-	# Admiral
-	option = {
-		name = civcom.8010.b
-		ai_chance = { factor = 5 }
-		hidden_effect = {
-			clone_leader = {
-				target = event_target:disinherited_heir
-				class = admiral
-				effect = {
-					save_global_event_target_as = disinherited_heir_asylum
-				}
-			}
-			event_target:disinherited_heir_asylum = {
+				set_owner = root
 				set_leader_flag = heir_traitor_@event_target:traitor_home_country
-			}
-			event_target:disinherited_heir = {
-				set_leader_flag = dead_ruler
-				kill_leader = { show_notification = no }
-			}
-			event_target:traitor_home_country = {
-				country_event = { id = civheir.3030 days = 14 random = 360 }
-			}
-		}
-	}
-
-	# General
-	option = {
-		name = civcom.8010.c
-		ai_chance = { factor = 3 }
-		hidden_effect = {
-			clone_leader = {
-				target = event_target:disinherited_heir
-				class = general
-				effect = {
-					save_global_event_target_as = disinherited_heir_asylum
-				}
-			}
-			event_target:disinherited_heir_asylum = {
-				set_leader_flag = heir_traitor_@event_target:traitor_home_country
-			}
-			event_target:disinherited_heir = {
-				set_leader_flag = dead_ruler
-				kill_leader = { show_notification = no }
-			}
-			event_target:traitor_home_country = {
-				country_event = { id = civheir.3030 days = 14 random = 360 }
-			}
-		}
-	}
-
-	# Scientist
-	option = {
-		name = civcom.8010.d
-		ai_chance = { factor = 2 }
-		hidden_effect = {
-			clone_leader = {
-				target = event_target:disinherited_heir
-				class = scientist
-				effect = {
-					save_global_event_target_as = disinherited_heir_asylum
-				}
-			}
-			event_target:disinherited_heir_asylum = {
-				set_leader_flag = heir_traitor_@event_target:traitor_home_country
-			}
-			event_target:disinherited_heir = {
-				set_leader_flag = dead_ruler
-				kill_leader = { show_notification = no }
 			}
 			event_target:traitor_home_country = {
 				country_event = { id = civheir.3030 days = 14 random = 360 }

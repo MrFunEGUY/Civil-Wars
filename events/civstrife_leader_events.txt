@@ -24,7 +24,7 @@ leader_event = { # Kill Dummy Leaders
 	}
 }
 
-country_event = { # Set Corrupt Governor Flag
+country_event = { # Set Corrupt Official Flag
 	id = civleader.2000
 	hide_window = yes
 	is_triggered_only = yes
@@ -33,7 +33,7 @@ country_event = { # Set Corrupt Governor Flag
 		is_country_type_with_subjects = yes
 		any_owned_leader = {
 			has_trait = leader_trait_corrupt
-			NOT = { has_leader_flag = corrupt_governor }
+			NOT = { has_leader_flag = corrupt_official }
 		}
 	}
 
@@ -41,14 +41,14 @@ country_event = { # Set Corrupt Governor Flag
 		every_owned_leader = {
 			limit = {
 				has_trait = leader_trait_corrupt
-				NOT = { has_leader_flag = corrupt_governor }
+				NOT = { has_leader_flag = corrupt_official }
 			}
-			set_leader_flag = corrupt_governor
+			set_leader_flag = corrupt_official
 		}
 	}
 }
 
-country_event = { # Unset Corrupt Governor Flag
+country_event = { # Unset Corrupt Official Flag
 	id = civleader.2001
 	hide_window = yes
 	is_triggered_only = yes
@@ -56,7 +56,7 @@ country_event = { # Unset Corrupt Governor Flag
 	trigger = {
 		is_country_type_with_subjects = yes
 		any_owned_leader = {
-			has_leader_flag = corrupt_governor
+			has_leader_flag = corrupt_official
 			NOT = { has_trait = leader_trait_corrupt }
 		}
 	}
@@ -64,10 +64,10 @@ country_event = { # Unset Corrupt Governor Flag
 	immediate = {
 		every_owned_leader = {
 			limit = {
-				has_leader_flag = corrupt_governor
+				has_leader_flag = corrupt_official
 				NOT = { has_trait = leader_trait_corrupt }
 			}
-			remove_leader_flag = corrupt_governor
+			remove_leader_flag = corrupt_official
 		}
 	}
 }
@@ -81,7 +81,7 @@ country_event = { # Set Corrupt Ruler Trait
 
 	trigger = {
 		ruler = {
-			has_leader_flag = corrupt_governor
+			has_leader_flag = corrupt_official
 			NOT = { has_trait = leader_trait_corrupt }
 		}
 	}

@@ -87,6 +87,8 @@ action_form_commercial_pact = {
 						value >= 20
 					}
 				}
+				# We don't take into consideration relations' status when dealing with the Mirror Empire
+				from = { is_country_type = mirrored_country }
 			}
 		}
 		if = {

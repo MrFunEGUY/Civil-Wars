@@ -20,7 +20,7 @@ l_german:
  civwar.2005.name: "§RAufstand!§!"
  civwar.2005.desc: "Wir befinden uns derzeit inmitten einer Rebellion und die Rebellen haben einen Teil unseres Territoriums eingenommen. Leider ist es aufgrund der Art unserer Vereinbarung mit  §Y[overlord.GetName]§! letztlich deren Entscheidung, ob sie für unser Gebiet kämpfen oder nicht."
 
- # Governor/Admiral/General/Scientist
+ # Official/Commander/Scientist
  civwar.2010.name: "§R[civwar_rebels.ruler.GetRebelRulerClass] erklärt seine Unabhängigkeit!§!"
  civwar.2010.desc: "[civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§! verlangt eine Audienz."
 
@@ -89,9 +89,8 @@ l_german:
 
  # Scripted Locs
  leader.was.scientist: "Wissenschaftler"
- leader.was.admiral: "Admiral"
- leader.was.general: "General"
- leader.was.governor: "Gouverneur"
+ leader.was.commander: "Admiral"
+ leader.was.official: "Gouverneur"
  leader.was.leader: "Führer"
 
  # Planetary Rebellion
@@ -405,16 +404,11 @@ l_german:
 
  # civcom.1100.desc: "Grüße. Ihr kennt mich als Gouverneur §H[civwar_rebels.Ruler.GetName]§!, Führer der §Y[civwar_party_name_leader.GetName]§! Eure Regierung hat unsere Anliegen jedoch zu lange vernachlässigt, und das Volk hat genug davon. Ich bin nicht länger ein einfacher Gouverneur. Jetzt führe ich die §H[civwar_rebels.GetName]§! als ihr §Y[civwar_rebels.GetRulerTitle]§! an. Ich habe die Unterstützung des Volkes meiner Nation, und wir sind bereit, uns zu verteidigen. Ich empfehle Ihrer Regierung, dies zu akzeptieren, damit wir weiteres Blutvergießen verhindern können."
 
- civcom.5010.desc: "Grüße. Ihr kennt mich als Wissenschaftler §H[civwar_rebels.Ruler.GetName]§!, Anführer der §Y[civwar_party_name_leader.GetName]§! Eure Regierung hat unsere Belange jedoch schon zu lange vernachlässigt, und das Volk hat genug davon. Ich bin nicht länger nur ein Wissenschaftler. Jetzt führe ich die §H[civwar_rebels.GetName]§! als ihr §Y[civwar_rebels.GetRulerTitle]§! an. Ich habe die Unterstützung des Volkes meiner Nation, und wir sind bereit, uns zu verteidigen. Ich empfehle Ihrer Regierung, dies zu akzeptieren, damit wir weiteres Blutvergießen verhindern können."
+ civcom.1100.official.desc: "Grüße. Ihr kennt mich als [event_target:civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§!, Führer der §Y[civwar_party_name_leader.GetName]§! Eure Regierung hat unsere Anliegen jedoch zu lange vernachlässigt, und das Volk hat genug davon. Ich bin nicht länger ein einfacher [event_target:civwar_rebels.ruler.GetRebelRulerClass]. Jetzt führe ich die §H[civwar_rebels.GetName]§! als ihr §Y[civwar_rebels.GetRulerTitle]§! an. Ich habe die Unterstützung des Volkes meiner Nation, und wir sind bereit, uns zu verteidigen. Ich empfehle Ihrer Regierung, dies zu akzeptieren, damit wir weiteres Blutvergießen verhindern können."
 
- civcom.5020.desc: "Grüße. Ihr kennt mich als General §H[civwar_rebels.Ruler.GetName]§!, Anführer der §Y[civwar_party_name_leader.GetName]§! Eure Regierung hat unsere Belange jedoch schon zu lange vernachlässigt, und das Volk hat genug davon. Ich bin nicht länger nur ein General. Jetzt führe ich die §H[civwar_rebels.GetName]§! als ihr §Y[civwar_rebels.GetRulerTitle]§! an. Ich habe die Unterstützung des Volkes meiner Nation, und wir sind bereit, uns zu verteidigen. Ich empfehle Ihrer Regierung, dies zu akzeptieren, damit wir weiteres Blutvergießen verhindern können."
+ civcom.1100.mult.official.desc: "Grüße. Ihr kennt mich als [event_target:civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§!, Führer der §Y[civwar_party_name_leader.GetName]§! Eure Regierung hat unsere Anliegen jedoch zu lange vernachlässigt, und das Volk hat genug davon. Ich bin nicht länger ein einfacher [event_target:civwar_rebels.ruler.GetRebelRulerClass]. Jetzt führe ich die §H[civwar_rebels.GetName]§! als ihr §Y[civwar_rebels.GetRulerTitle]§! an.\n\nAußerdem sind wir mit den anderen revolutionären Staaten verbündet, die sich gerade in der Revolte erhoben haben. §Wenn ihr einen von uns angreift, greift ihr uns alle an§!. In Anbetracht dessen empfehle ich Ihrer Regierung, dies zu akzeptieren, damit wir weiteres Blutvergießen verhindern können."
 
-
- civcom.1100.governor.desc: "Grüße. Ihr kennt mich als [event_target:civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§!, Führer der §Y[civwar_party_name_leader.GetName]§! Eure Regierung hat unsere Anliegen jedoch zu lange vernachlässigt, und das Volk hat genug davon. Ich bin nicht länger ein einfacher [event_target:civwar_rebels.ruler.GetRebelRulerClass]. Jetzt führe ich die §H[civwar_rebels.GetName]§! als ihr §Y[civwar_rebels.GetRulerTitle]§! an. Ich habe die Unterstützung des Volkes meiner Nation, und wir sind bereit, uns zu verteidigen. Ich empfehle Ihrer Regierung, dies zu akzeptieren, damit wir weiteres Blutvergießen verhindern können."
-
- civcom.1100.mult.governor.desc: "Grüße. Ihr kennt mich als [event_target:civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§!, Führer der §Y[civwar_party_name_leader.GetName]§! Eure Regierung hat unsere Anliegen jedoch zu lange vernachlässigt, und das Volk hat genug davon. Ich bin nicht länger ein einfacher [event_target:civwar_rebels.ruler.GetRebelRulerClass]. Jetzt führe ich die §H[civwar_rebels.GetName]§! als ihr §Y[civwar_rebels.GetRulerTitle]§! an.\n\nAußerdem sind wir mit den anderen revolutionären Staaten verbündet, die sich gerade in der Revolte erhoben haben. §Wenn ihr einen von uns angreift, greift ihr uns alle an§!. In Anbetracht dessen empfehle ich Ihrer Regierung, dies zu akzeptieren, damit wir weiteres Blutvergießen verhindern können."
-
- civcom.1100.governor.iso.sec.desc: "Grüße. Sie kennen mich als [event_target:civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§! des Sektors §Y[sector_name_leader.GetName]§! Mein Sektor ist seit einigen Jahren von der Zentralregierung abgeschnitten, was mich zur aktiven Teilnahme an und dann zur Führung der §Y[civwar_party_name_leader.GetName]§! geführt hat. Die einfache Wahrheit ist, dass Ihre Regierung weit weg und unerreichbar ist, und die Menschen von §Y[sector_name_leader.GetName]§! verdienen eine Regierung, zu der sie tatsächlich Zugang haben. Ich bin nicht länger nur ein [event_target:civwar_rebels.ruler.GetRebelRulerClass]. Jetzt führe ich die §H[civwar_rebels.GetName]§! als ihr §Y[civwar_rebels.GetRulerTitle]§! an. Ich habe die Unterstützung des Volkes meiner Nation, und sollten Sie es irgendwie schaffen, tatsächlich Schiffe hierher zu bringen, sind wir bereit, uns zu verteidigen. Ich empfehle Ihrer Regierung, dies zu akzeptieren, damit wir weiteres Blutvergießen verhindern können."
+ civcom.1100.official.iso.sec.desc: "Grüße. Sie kennen mich als [event_target:civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§! des Sektors §Y[sector_name_leader.GetName]§! Mein Sektor ist seit einigen Jahren von der Zentralregierung abgeschnitten, was mich zur aktiven Teilnahme an und dann zur Führung der §Y[civwar_party_name_leader.GetName]§! geführt hat. Die einfache Wahrheit ist, dass Ihre Regierung weit weg und unerreichbar ist, und die Menschen von §Y[sector_name_leader.GetName]§! verdienen eine Regierung, zu der sie tatsächlich Zugang haben. Ich bin nicht länger nur ein [event_target:civwar_rebels.ruler.GetRebelRulerClass]. Jetzt führe ich die §H[civwar_rebels.GetName]§! als ihr §Y[civwar_rebels.GetRulerTitle]§! an. Ich habe die Unterstützung des Volkes meiner Nation, und sollten Sie es irgendwie schaffen, tatsächlich Schiffe hierher zu bringen, sind wir bereit, uns zu verteidigen. Ich empfehle Ihrer Regierung, dies zu akzeptieren, damit wir weiteres Blutvergießen verhindern können."
 
  civcom.1100.heir.iso.sec.desc: "Grüße. Ihr kennt mich als §Y[civwar_originator.GetHeirTitle]§! §H[civwar_rebels.Ruler.GetName]§!. In der Zeit, die ich im Sektor §Y[sector_name_leader.GetName]§! verbracht habe, habe ich ihn lieben gelernt und ihn als meine wahre Heimat betrachtet. Das führte natürlich dazu, dass ich mich in der §Y[civwar_party_name_leader.GetName]§! engagierte. Die Menschen in §Y[sector_name_leader.GetName]§! verdienen eine Regierung, zu der sie tatsächlich Zugang haben. Der ehemalige Sektor §Y[sector_name_leader.GetName]§! wurde zu §H[civwar_rebels.GetName]§! reorganisiert, und ich wurde zu dessen §Y[civwar_rebels.GetRulerTitle]§! ernannt. Außerdem verzichte ich auf alle Ansprüche auf den Thron! Ich habe die Unterstützung des Volkes meiner Nation, und sollten Sie es irgendwie schaffen, tatsächlich Schiffe hierher zu bringen, sind wir bereit, uns zu verteidigen. Ich empfehle Ihrer Regierung, dies zu akzeptieren, damit wir weiteres Blutvergießen verhindern können."
 
@@ -443,7 +437,7 @@ l_german:
 
  ############## With Vassalization
 
- civcom.1105.governor.desc: "Seid gegrüßt. Ihr kennt mich als [event_target:civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§!, Führer der §Y[civwar_party_name_leader.GetName]§! Eure Regierung hat unsere Anliegen jedoch zu lange vernachlässigt, und das Volk hat genug davon. Ich bin nicht länger ein einfacher [event_target:civwar_rebels.ruler.GetRebelRulerClass]. Jetzt führe ich die §H[civwar_rebels.GetName]§! als ihr §Y[civwar_rebels.GetRulerTitle]§! an. Ich habe die Unterstützung des Volkes meiner Nation, und wir sind bereit, uns zu verteidigen.\n\nIch hoffe jedoch, dass dies nicht notwendig sein wird. Um weiteres Blutvergießen zu verhindern, möchte ich Ihnen ein Angebot machen.\n\nWir sind bereit, Ihnen §Y15% all unserer Ressourcen§! zu zahlen, wenn Sie uns im Gegenzug unsere Autonomie auf ewig garantieren."
+ civcom.1105.official.desc: "Seid gegrüßt. Ihr kennt mich als [event_target:civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§!, Führer der §Y[civwar_party_name_leader.GetName]§! Eure Regierung hat unsere Anliegen jedoch zu lange vernachlässigt, und das Volk hat genug davon. Ich bin nicht länger ein einfacher [event_target:civwar_rebels.ruler.GetRebelRulerClass]. Jetzt führe ich die §H[civwar_rebels.GetName]§! als ihr §Y[civwar_rebels.GetRulerTitle]§! an. Ich habe die Unterstützung des Volkes meiner Nation, und wir sind bereit, uns zu verteidigen.\n\nIch hoffe jedoch, dass dies nicht notwendig sein wird. Um weiteres Blutvergießen zu verhindern, möchte ich Ihnen ein Angebot machen.\n\nWir sind bereit, Ihnen §Y15% all unserer Ressourcen§! zu zahlen, wenn Sie uns im Gegenzug unsere Autonomie auf ewig garantieren."
 
  civcom.1105.nationalist.desc: "Seid gegrüßt. Mein Name ist §H[civwar_rebels.Ruler.GetName]§!, und ich bin ein ehemaliges Mitglied der §Y[civwar_party_name_leader.GetName]§!. Jetzt führe ich die §H[civwar_rebels.GetName]§! als deren §Y[civwar_rebels.GetRulerTitle]§!.\n\nUnser neuer Staat ist nach dem Vorbild von §Y[nat_motherland_model.GetName]§! aufgebaut. Um weiteres Blutvergießen zu verhindern, möchten wir euch ein Angebot machen.\n\n Wir sind bereit, euch §Y15% all unserer Ressourcen§! zu zahlen, wenn ihr uns im Gegenzug unsere Autonomie auf ewig garantiert."
 
@@ -595,25 +589,22 @@ l_german:
  civcom.7110.bye: "Tschüss."
 
 
- civcom.8000.governor.desc: "Grüße an den geschätzten §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. Mein Name ist §H[defeated_traitor.GetName]§! und ich war früher ein §YGovernor§! in §Y[traitor_home_country.GetName]§! Aufgrund einiger politischer Unruhen innerhalb der §Y[traitor_home_country.GetAdj]§!-Regierung hatte ich das Bedürfnis zu gehen. Dennoch weiß ich, dass ich Ihnen hier nützlich sein kann. Ich wäre Ihnen auch sehr dankbar, wenn Sie mir helfen würden, mir eines Tages das zurückzuholen, was mir rechtmäßig gehört."
+ civcom.8000.official.desc: "Grüße an den geschätzten §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. Mein Name ist §H[defeated_traitor.GetName]§! und ich war früher ein §YOfficial§! in §Y[traitor_home_country.GetName]§! Aufgrund einiger politischer Unruhen innerhalb der §Y[traitor_home_country.GetAdj]§!-Regierung hatte ich das Bedürfnis zu gehen. Dennoch weiß ich, dass ich Ihnen hier nützlich sein kann. Ich wäre Ihnen auch sehr dankbar, wenn Sie mir helfen würden, mir eines Tages das zurückzuholen, was mir rechtmäßig gehört."
 
- civcom.8000.admiral.desc: "Grüße an den geschätzten §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. Mein Name ist §H[defeated_traitor.GetName]§!, und ich war früher ein §YAdmiral§! in der §Y[traitor_home_country.GetAdj]§!-Flotte. Aufgrund einiger politischer Unruhen innerhalb des §Y[traitor_home_country.GeName]§! sah ich mich gezwungen, zu gehen. Dennoch weiß ich, dass ich Ihnen hier nützlich sein kann. Ich wäre Ihnen auch sehr dankbar, wenn Sie mir helfen würden, mir eines Tages das zurückzuholen, was mir rechtmäßig gehört."
-
- civcom.8000.general.desc: "Grüße an den geschätzten §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. Mein Name ist §H[defeated_traitor.GetName]§! und ich war früher ein §YGeneral§! in den Streitkräften von §Y[traitor_home_country.GetAdj]§! Aufgrund einiger politischer Unruhen innerhalb des §Y[traitor_home_country.GeName]§! sah ich mich gezwungen, zu gehen. Dennoch weiß ich, dass ich Ihnen hier nützlich sein kann. Ich wäre Ihnen auch sehr dankbar, wenn Sie mir helfen würden, mir eines Tages das zurückzuholen, was mir rechtmäßig gehört."
+ civcom.8000.commander.desc: "Grüße an den geschätzten §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. Mein Name ist §H[defeated_traitor.GetName]§!, und ich war früher ein §YAdmiral§! in der §Y[traitor_home_country.GetAdj]§!-Flotte. Aufgrund einiger politischer Unruhen innerhalb des §Y[traitor_home_country.GeName]§! sah ich mich gezwungen, zu gehen. Dennoch weiß ich, dass ich Ihnen hier nützlich sein kann. Ich wäre Ihnen auch sehr dankbar, wenn Sie mir helfen würden, mir eines Tages das zurückzuholen, was mir rechtmäßig gehört."
 
  civcom.8000.scientist.desc: "Grüße an den geschätzten §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. Mein Name ist §H[defeated_traitor.GetName]§!, und ich war früher ein prominenter §YWissenschaftler§! im §Y[traitor_home_country.GetName]§! Aufgrund einiger politischer Unruhen innerhalb der §Y[traitor_home_country.GetAdj]§!-Regierung hatte ich das Bedürfnis zu gehen. Dennoch weiß ich, dass ich Ihnen hier nützlich sein kann. Ich wäre Ihnen auch sehr dankbar, wenn Sie mir helfen würden, mir eines Tages das zurückzuholen, was mir rechtmäßig gehört."
 
  civcom.8010.desc: "Ich bin dankbar. Ich werde dienen, wo immer ich am nützlichsten bin."
 
- civcom.8100.desc: "Grüße an den geschätzten §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. Mein Name ist §H[disinherited_heir_asylum.GetName]§!, und ich bin der rechtmäßige Erbe des Throns von §Y[traitor_home_country.GetName]§! Durch politische Machenschaften in meinem Heimatland wurde ich von §Y[traitor_home_country.GetRulerTitle]§! aus der Thronfolge entfernt. Ich wäre Euch sehr dankbar, wenn Ihr mir zu gegebener Zeit dabei helfen würdet, das zurückzuerobern, was mir rechtmäßig zusteht. Ich weiß aber, dass ich Euch in der Zwischenzeit nützlich sein kann."
+ civcom.8100.desc: "Grüße an den geschätzten §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. Mein Name ist §H[disinherited_heir.GetName]§!, und ich bin der rechtmäßige Erbe des Throns von §Y[traitor_home_country.GetName]§! Durch politische Machenschaften in meinem Heimatland wurde ich von §Y[traitor_home_country.GetRulerTitle]§! aus der Thronfolge entfernt. Ich wäre Euch sehr dankbar, wenn Ihr mir zu gegebener Zeit dabei helfen würdet, das zurückzuerobern, was mir rechtmäßig zusteht. Ich weiß aber, dass ich Euch in der Zwischenzeit nützlich sein kann."
 
  civcom.8000.a: "Wir wollen Sie hier nicht haben."
  civcom.8000.b: "Sie könnten sich als nützlich erweisen."
 
  civcom.8010.a: "Sie werden als Gouverneur dienen."
  civcom.8010.b: "Sie werden als Admiral dienen."
- civcom.8010.c: "Sie werden als General dienen."
- civcom.8010.d: "Sie werden als Wissenschaftler dienen."
+ civcom.8010.c: "Sie werden als Wissenschaftler dienen."
 
  #################
  #  Heir Events  #
@@ -634,10 +625,9 @@ l_german:
  civheir.3020.a: "Interessant."
 
  civheir.3030.name: "§YEhemaliger Erbe aufgefunden§!"
- civheir.3030.regular.desc: "Wir hatten den richtigen Verdacht, dass der ehemalige Erbe §H[disinherited_heir_asylum.GetName]§!, nach seiner Enterbung aus unserem Raum geflohen ist. Unsere Nachrichtendienste konnten nun feststellen, dass sie im §Y[from.GetName]§! Zuflucht gesucht haben. Erschreckenderweise scheinen sie jetzt für die §Y[from.GetAdj]§!-Regierung als §Y[disinherited_heir_asylum.GetTitle]§! zu arbeiten."
- civheir.3030.admiral.desc: "Wir hatten den richtigen Verdacht, dass der ehemalige Erbe §H[disinherited_heir_asylum.GetName]§! nach seiner Enterbung aus unserem Raum geflohen ist. Unsere Geheimdienste konnten nun feststellen, dass sie im §Y[from.GetName]§! Zuflucht gesucht haben. Erschreckenderweise scheinen sie jetzt für die §Y[from.GetAdj]§!-Regierung als §YAdmiral§! zu arbeiten."
- civheir.3115.regular.desc: "Wir haben zu Recht vermutet, dass der ehemalige Erbe, §H[disinherited_heir_asylum.GetName]§!, nach der Reform unserer Regierung aus unserem Raum geflohen ist. Unsere Geheimdienste konnten nun feststellen, dass sie im §Y[from.GetName]§! Zuflucht gesucht haben. Beunruhigenderweise scheinen sie jetzt für die Regierung von §Y[from.GetAdj]§! als §Y[disinherited_heir_asylum.GetTitle]§! zu arbeiten."
- civheir.3113.admiral.desc: "Wir haben zu Recht vermutet, dass der ehemalige Erbe, §H[disinherited_heir_asylum.GetName]§!, nach der Reform unserer Regierung aus unserem Raum geflohen ist. Unsere Geheimdienste konnten nun feststellen, dass sie im §Y[from.GetName]§! Zuflucht gesucht haben. Erschreckenderweise scheinen sie jetzt für die §Y[from.GetAdj]§!-Regierung als §YAdmiral§! zu arbeiten."
+ civheir.3030.desc: "Wir hatten den richtigen Verdacht, dass der ehemalige Erbe §H[disinherited_heir.GetName]§!, nach seiner Enterbung aus unserem Raum geflohen ist. Unsere Nachrichtendienste konnten nun feststellen, dass sie im §Y[from.GetName]§! Zuflucht gesucht haben. Erschreckenderweise scheinen sie jetzt für die §Y[from.GetAdj]§!-Regierung als §Y[disinherited_heir.GetTitle]§! zu arbeiten."
+ civheir.3115.regular.desc: "Wir haben zu Recht vermutet, dass der ehemalige Erbe, §H[disinherited_heir.GetName]§!, nach der Reform unserer Regierung aus unserem Raum geflohen ist. Unsere Geheimdienste konnten nun feststellen, dass sie im §Y[from.GetName]§! Zuflucht gesucht haben. Beunruhigenderweise scheinen sie jetzt für die Regierung von §Y[from.GetAdj]§! als §Y[disinherited_heir.GetTitle]§! zu arbeiten."
+ civheir.3113.commander.desc: "Wir haben zu Recht vermutet, dass der ehemalige Erbe, §H[disinherited_heir.GetName]§!, nach der Reform unserer Regierung aus unserem Raum geflohen ist. Unsere Geheimdienste konnten nun feststellen, dass sie im §Y[from.GetName]§! Zuflucht gesucht haben. Erschreckenderweise scheinen sie jetzt für die §Y[from.GetAdj]§!-Regierung als §YAdmiral§! zu arbeiten."
 
  civheir.3030.a: "Wie können sie es wagen, sie aufzunehmen!"
  civheir.3115.a: "Das hört sich nicht gut an."
@@ -695,9 +685,7 @@ l_german:
  civend.5001.a: "Interessant. Auf dem Bildschirm."
 
  civend.5002.name: "§YVerräterischer Anführer gefunden§!"
- civend.5002.desc: "Wir haben Informationen über den Verbleib von §H[defeated_traitor_asylum.GetName]§! erhalten, der aus unserem Gebiet geflohen ist, nachdem er den von ihm angezettelten Krieg verloren hatte. Unser Geheimdienst konnte feststellen, dass er in den §Y[from.GetName]§! geflohen ist. Beunruhigenderweise schien er jetzt für die Regierung von §Y[from.GetAdj]§! als §Y[defeated_traitor_asylum.GetTitle]§! zu arbeiten."
- # Admiral needs "an"
- civend.5012.desc: "Wir haben Informationen über den Verbleib von §H[defeated_traitor_asylum.GetName]§! erhalten, der aus unserem Gebiet geflohen ist, nachdem er den von ihm angezettelten Krieg verloren hatte. Unser Geheimdienst konnte feststellen, dass er in den §Y[from.GetName]§! geflohen ist. Erschreckenderweise scheint er jetzt für die Regierung von §Y[from.GetAdj]§! als §Y[defeated_traitor_asylum.GetTitle]§! zu arbeiten."
+ civend.5002.desc: "Wir haben Informationen über den Verbleib von §H[defeated_traitor_asylum.GetName]§! erhalten, der aus unserem Gebiet geflohen ist, nachdem er den von ihm angezettelten Krieg verloren hatte. Unser Geheimdienst konnte feststellen, dass er in den §Y[from.GetName]§! geflohen ist. Beunruhigenderweise schien er jetzt für die Regierung von §Y[from.GetAdj]§!."
 
  civend.5002.a: "Wie können sie es wagen, diesen Verräter aufzunehmen!"
 
@@ -1007,8 +995,8 @@ civelect.2100.fraud.other.desc: "Die Untersuchung der Behauptungen des §Y[dispu
 
  approach_pandemic_do_nothing: "Nichts tun."
  approach_pandemic_do_nothing_desc: "Es wird nichts unternommen, um die Ausbreitung der Pandemie zu kontrollieren."
- approach_pandemic_governor: "Gouverneurs-Aufsicht"
- approach_pandemic_governor_desc: "Der Gouverneur §Y[target.sector.sector_capital.leader.GetName]§! wird sich um die Pandemie kümmern. Seine Fähigkeit, eine wirksame Quarantäne einzuführen, hängt von seinen Fähigkeiten ab."
+ approach_pandemic_official: "Gouverneurs-Aufsicht"
+ approach_pandemic_official_desc: "Der Gouverneur §Y[target.sector.sector_capital.leader.GetName]§! wird sich um die Pandemie kümmern. Seine Fähigkeit, eine wirksame Quarantäne einzuführen, hängt von seinen Fähigkeiten ab."
  approach_pandemic_direct: "Direkte Aufsicht"
  approach_pandemic_direct_desc: "Die Zentralregierung wird sich direkt um die Pandemie kümmern. Eine direkte Überwachung ist zwar kostspieliger, führt aber immer zu einer wirksamen Quarantäne."
 
@@ -1057,8 +1045,8 @@ civelect.2100.fraud.other.desc: "Die Untersuchung der Behauptungen des §Y[dispu
  planet_under_quarantine_fail: "Planet unter Quarantäne."
  sector_under_quarantine_fail: "Sektor unter Quarantäne."
 
- pandemic_planet_no_governor: "Dieser Planet befindet sich in einem Sektor, der §Rkeinen Govaneur§! hat."
- pandemic_sector_no_governor: "Dieser Sektor hat §Rkeinen Govaneur§!."
+ pandemic_planet_no_official: "Dieser Planet befindet sich in einem Sektor, der §Rkeinen Govaneur§! hat."
+ pandemic_sector_no_official: "Dieser Sektor hat §Rkeinen Govaneur§!."
 
  civpan.7000.name: "Durchbruch in der Pandemieforschung!"
  civpan.7000.excellent: "Ausgezeichnet!"
@@ -1330,11 +1318,11 @@ civelect.2100.fraud.other.desc: "Die Untersuchung der Behauptungen des §Y[dispu
  war_goal_wg_planet_rebellion_rebels: "Planetarische Rebellion"
  war_goal_wg_planet_rebellion_rebels_desc: "Der Krieg wird um die Unabhängigkeit eines Planeten geführt."
 
- war_goal_wg_admiral_rebellion: "Aufstand"
- war_goal_wg_admiral_rebellion_desc: "Der Krieg wird für die Ideale eines Admirals geführt."
+ war_goal_wg_commander_rebellion: "Aufstand"
+ war_goal_wg_commander_rebellion_desc: "Der Krieg wird für die Ideale eines Admirals geführt."
 
- war_goal_wg_admiral_rebellion_admiral: "Aufstand"
- war_goal_wg_admiral_rebellion_admiral_desc: "Der Krieg wird für die Ideale eines Admirals geführt."
+ war_goal_wg_commander_rebellion_commander: "Aufstand"
+ war_goal_wg_commander_rebellion_commander_desc: "Der Krieg wird für die Ideale eines Admirals geführt."
 
  war_goal_wg_scientist_civwar: "Bürgerkrieg"
  war_goal_wg_scientist_civwar_desc: "Es wird ein Krieg um die Unabhängigkeit der verschiedenen Systeme geführt."

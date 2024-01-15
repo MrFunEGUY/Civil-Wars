@@ -665,27 +665,6 @@ country_event = {
 	}
 }
 
-# Traitorous Leader escaped to another empire, notify mother country, Admiral localisation
-country_event = {
-	id = civend.5012
-	title = civend.5002.name
-	desc = civend.5012.desc
-	picture = GFX_evt_ship_travel
-	location = root.capital_scope
-	hide_window = no
-	is_triggered_only = yes
-
-	option = { # How dare they accept them!
-		name = civend.5002.a
-		hidden_effect = {
-			add_opinion_modifier = {
-				who = from
-				modifier = opinion_received_traitor
-			}
-		}
-	}
-}
-
 ########
 
 # Banished Leader is attempting to gain employ in another empire.

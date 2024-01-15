@@ -20,7 +20,7 @@ l_simp_chinese:
  civwar.2005.name: "§RRebellion!§!"
  civwar.2005.desc: "We're currently in the middle of a rebellion, and the rebels have taken some of our territory. Unfortunately, due to the nature of our agreement with the §Y[overlord.GetName]§!, it is ultimately up to them to decide whether or not we will fight for our territory."
 
- # Former Governor/Admiral/General/Scientist
+ # Former Official/Commander/Scientist
  civwar.2010.name: "§R[civwar_rebels.ruler.GetRebelRulerClass] Declares Independence!§!"
  civwar.2010.desc: "[civwar_rebels.ruler.GetRebelRulerClass] §H[civwar_rebels.Ruler.GetName]§! is demanding an audience."
 
@@ -397,7 +397,7 @@ l_simp_chinese:
  #### Civil War Communications ####
  ##################################
 
- # civcom.1100.desc: "Greetings. You knew me as Governor §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people have had enough. I am a mere Governor no longer. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves. I recommend that your government accept this, so that we can prevent any further bloodshed."
+ # civcom.1100.desc: "Greetings. You knew me as Official §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your government has neglected our concerns for too long, and the people have had enough. I am a mere Official no longer. Now, I lead the §H[civwar_rebels.GetName]§! as their §Y[civwar_rebels.GetRulerTitle]§!. I have the support of the people of my nation, and we are prepared to defend ourselves. I recommend that your government accept this, so that we can prevent any further bloodshed."
 
  rebel_overlord_text_1: "\nAdditionally, the §Y[stolen_subject_1.GetName]§!, your former subject, has sworn fealty to us. They will join us in fighting against you, should you attempt it."
  rebel_overlord_text_2: "\nAdditionally, your former subjects the §Y[stolen_subject_1.GetName]§! and the §Y[stolen_subject_2.GetName]§! have sworn fealty to us. They will join us in fighting against you, should you attempt it."
@@ -511,7 +511,7 @@ l_simp_chinese:
 
  we_must_border_rebels: "We do not border the §Y[civwar_rebels.GetName]§!"
 
- civcom.3001.desc: "Greetings my esteemed, §Y[Root.GetRulerTitle]§!. I come before you today as your humble vassal, requesting aid in maintaining stability over my realm. A a rogue admiral has taken control over one of our fleets and has declared themselves independent from both us and you. In the worst case, the rebels could take control of some, or all, of our territory. If you want to retain overlordship over any potential territory they seize and ensure stability in my realm, we need to crush their rebellion."
+ civcom.3001.desc: "Greetings my esteemed, §Y[Root.GetRulerTitle]§!. I come before you today as your humble vassal, requesting aid in maintaining stability over my realm. A a rogue commander has taken control over one of our fleets and has declared themselves independent from both us and you. In the worst case, the rebels could take control of some, or all, of our territory. If you want to retain overlordship over any potential territory they seize and ensure stability in my realm, we need to crush their rebellion."
 
  civcom.1200.a: "We will take the lead, and put down these rebels."
  civcom.1200.a.tooltip: "We'll lead the war to reunite our subject's territory."
@@ -594,15 +594,14 @@ l_simp_chinese:
 
  civcom.8010.desc: "You have my thanks."
 
- civcom.8100.desc: "Greetings to the esteemed §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. My name is §H[disinherited_heir_asylum.GetName]§!, and I am the rightful heir to the §Y[traitor_home_country.GetName]§! throne. Political machinations in my home country have seen the §Y[traitor_home_country.GetRulerTitle]§! remove me from the line of succession. I would be extremely grateful for your assistance in taking back what is rightfully mine, when the time is right. That said, I know I could be useful to you in the meantime."
+ civcom.8100.desc: "Greetings to the esteemed §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. My name is §H[disinherited_heir.GetName]§!, and I am the rightful heir to the §Y[traitor_home_country.GetName]§! throne. Political machinations in my home country have seen the §Y[traitor_home_country.GetRulerTitle]§! remove me from the line of succession. I would be extremely grateful for your assistance in taking back what is rightfully mine, when the time is right. That said, I know I could be useful to you in the meantime."
 
  civcom.8000.a: "We don't want you here."
  civcom.8000.b: "You may prove useful."
 
- civcom.8010.a: "You'll serve as a Governor."
- civcom.8010.b: "You'll serve as an Admiral."
- civcom.8010.c: "You'll serve as a General."
- civcom.8010.d: "You'll serve as a Scientist."
+ civcom.8010.a: "You'll serve as an $official_with_icon$."
+ civcom.8010.b: "You'll serve as a $commander_with_icon$."
+ civcom.8010.c: "You'll serve as a $scientist_with_icon$."
 
  #################
  #  Heir Events  #
@@ -623,10 +622,8 @@ l_simp_chinese:
  civheir.3020.a: "Interesting."
 
  civheir.3030.name: "§YFormer Heir Found§!"
- civheir.3030.regular.desc: "We were correct in our suspicions that the former heir, §H[disinherited_heir_asylum.GetName]§!, fled our space after being disinherited. Our intelligence agencies have now been able to determine that they sought refuge in the §Y[from.GetName]§!. Alarmingly, they now appear to be working for the §Y[from.GetAdj]§! government as a §Y[disinherited_heir_asylum.GetTitle]§!."
- civheir.3030.admiral.desc: "We were correct in our suspicions that the former heir, §H[disinherited_heir_asylum.GetName]§!, fled our space after being disinherited. Our intelligence agencies have now been able to determine that they sought refuge in the §Y[from.GetName]§!. Alarmingly, they now appear to be working for the §Y[from.GetAdj]§! government as an §YAdmiral§!."
- civheir.3115.regular.desc: "We were correct in our suspicions that the former heir, §H[disinherited_heir_asylum.GetName]§!, fled our space after our government was reformed. Our intelligence agencies have now been able to determine that they sought refuge in the §Y[from.GetName]§!. Alarmingly, they now appear to be working for the §Y[from.GetAdj]§! government as a §Y[disinherited_heir_asylum.GetTitle]§!."
- civheir.3113.admiral.desc: "We were correct in our suspicions that the former heir, §H[disinherited_heir_asylum.GetName]§!, fled our space after our government was reformed. Our intelligence agencies have now been able to determine that they sought refuge in the §Y[from.GetName]§!. Alarmingly, they now appear to be working for the §Y[from.GetAdj]§! government as an §YAdmiral§!."
+ civheir.3030.desc: "We were correct in our suspicions that the former heir, §H[disinherited_heir.GetName]§!, fled our space after being disinherited. Our intelligence agencies have now been able to determine that they sought refuge in the §Y[from.GetName]§!. Alarmingly, they now appear to be working for the §Y[from.GetAdj]§! government."
+ civheir.3115.regular.desc: "We were correct in our suspicions that the former heir, §H[disinherited_heir.GetName]§!, fled our space after our government was reformed. Our intelligence agencies have now been able to determine that they sought refuge in the §Y[from.GetName]§!. Alarmingly, they now appear to be working for the §Y[from.GetAdj]§! government."
 
  civheir.3030.a: "How dare they take them in!"
  civheir.3115.a: "That doesn't sound good."
@@ -684,9 +681,7 @@ l_simp_chinese:
  civend.5001.a: "Interesting. On screen."
 
  civend.5002.name: "§YTreasonous Leader Found§!"
- civend.5002.desc: "We've received information on the whereabouts of §H[defeated_traitor_asylum.GetName]§!, who fled our space after losing the war they instigated. Our intelligence network has been able to determine that they fled to the §Y[from.GetName]§!. Alarmingly, they appear to now be working for the §Y[from.GetAdj]§! government as a §Y[defeated_traitor_asylum.GetTitle]§!."
- # Admiral needs "an"
- civend.5012.desc: "We've received information on the whereabouts of §H[defeated_traitor_asylum.GetName]§!, who fled our space after losing the war they instigated. Our intelligence network has been able to determine that they fled to the §Y[from.GetName]§!. Alarmingly, they appear to now be working for the §Y[from.GetAdj]§! government as an §Y[defeated_traitor_asylum.GetTitle]§!."
+ civend.5002.desc: "We've received information on the whereabouts of §H[defeated_traitor_asylum.GetName]§!, who fled our space after losing the war they instigated. Our intelligence network has been able to determine that they fled to the §Y[from.GetName]§!. Alarmingly, they appear to now be working for the §Y[from.GetAdj]§! government."
 
  civend.5002.a: "How dare they take that traitor in!"
 
@@ -724,23 +719,23 @@ l_simp_chinese:
  ####################################
 
  civroyal.1010.name: "Succession Crisis"
- civroyal.1010.desc: "§H[root.GetRulerName]§! ascended to the become §Y[root.GetRulerTitle]§! without first being annointed as heir, which has created a crisis. There are members of the §Y[crisis_dynasty_name.GetSecondName]§! family looking to assert their claim to the throne, and ambitious governors are trying to assert their autonomy. The realm is in a state of instability."
+ civroyal.1010.desc: "§H[root.GetRulerName]§! ascended to the become §Y[root.GetRulerTitle]§! without first being annointed as heir, which has created a crisis. There are members of the §Y[crisis_dynasty_name.GetSecondName]§! family looking to assert their claim to the throne, and ambitious officials are trying to assert their autonomy. The realm is in a state of instability."
  civroyal.1010.rightful: "I am the rightful [root.GetRulerTitle]!"
 
  civroyal.1105.name: "Establishing Support"
- civroyal.1105.desc: "We may be better able to gauge our support by demanding that our governors reaffirm their loyalty by pledging an oath to the new §Y[owner.GetRulerTitle]§!."
+ civroyal.1105.desc: "We may be better able to gauge our support by demanding that our officials reaffirm their loyalty by pledging an oath to the new §Y[owner.GetRulerTitle]§!."
  civroyal.1105.very_well: "Very Well."
 
  civroyal.1110.name: "Loyalty Oath Refusals"
- civroyal.1110.desc: "Unfortuately, as we suspected there would be be, there are governors who have refused to respond to our request for an oath of loyalty to our new §Y[owner.GetRulerTitle]§!. There are §Y[target.num_rebel_sectors]§! governors who refused to respond, and we will be directly contacting each of them in turn."
+ civroyal.1110.desc: "Unfortuately, as we suspected there would be be, there are officials who have refused to respond to our request for an oath of loyalty to our new §Y[owner.GetRulerTitle]§!. There are §Y[target.num_rebel_sectors]§! officials who refused to respond, and we will be directly contacting each of them in turn."
 
  civroyal.1115.name: "No Loyalty Oath Refusals"
- civroyal.1115.desc: "Luckily, there were no governors who refused to deliver a loyalty oath. It seems that the realm will will be stabilized in due time."
+ civroyal.1115.desc: "Luckily, there were no officials who refused to deliver a loyalty oath. It seems that the realm will will be stabilized in due time."
 
  civcom.3000.name: "§Y[crisis_sector.GetName]§! Sector: §H[crisis_sector_leader.GetName]§!"
  civcom.3000.gov_may_deal.desc: "Ah, my §Y[root.GetRulerTitle]§!. I suspect you are calling about the loyalty oath. I wanted to take the oath, truly. However, I need to know that this administration is willing to work with me. I just need one thing of you, and then I will swear the oath."
  civcom.3000.gov_wont_deal.desc: "Well, if it isn't, §H[root.GetName]§!. If you're calling about the loyalty oath, you're wasting your time. I could never pledge my loyalty to a pretender. You're no true §Y[root.GetRulerTitle]§!, and we both know it."
- civcom.3000.royal.desc: "Ah, perhaps you thought you were going to talk to the governor. No, for the governor of this sector is wise and knew not to pledge their loyalty to a pretender. I was the true heir to the throne, and I will take back what is rightfully mine."
+ civcom.3000.royal.desc: "Ah, perhaps you thought you were going to talk to the official. No, for the official of this sector is wise and knew not to pledge their loyalty to a pretender. I was the true heir to the throne, and I will take back what is rightfully mine."
 
  civcom.3000.pretender: "I am no pretender!"
  civcom.3000.want: "What do you want?"
@@ -997,8 +992,8 @@ l_simp_chinese:
 
  approach_pandemic_do_nothing: "Do Nothing"
  approach_pandemic_do_nothing_desc: "Nothing will be done to control the spread of the pandemic."
- approach_pandemic_governor: "Governor Oversight"
- approach_pandemic_governor_desc: "Governor §Y[target.sector.sector_capital.leader.GetName]§! will handle the pandemic. Their ability to implement an effective quarantine will depend upon their skill level."
+ approach_pandemic_official: "Official Oversight"
+ approach_pandemic_official_desc: "Official §Y[target.sector.sector_capital.leader.GetName]§! will handle the pandemic. Their ability to implement an effective quarantine will depend upon their skill level."
  approach_pandemic_direct: "Direct Oversight"
  approach_pandemic_direct_desc: "The central government will directly handle the pandemic. Though more costly, direct oversight will always result in an effective quarantine."
 
@@ -1047,8 +1042,8 @@ l_simp_chinese:
  planet_under_quarantine_fail: "Planet under quarantine."
  sector_under_quarantine_fail: "Sector under quarantine."
 
- pandemic_planet_no_governor: "This planet is in a sector that has §Rno governor§!."
- pandemic_sector_no_governor: "This sector has §Rno governor§!."
+ pandemic_planet_no_official: "This planet is in a sector that has §Rno official§!."
+ pandemic_sector_no_official: "This sector has §Rno official§!."
 
  civpan.7000.name: "Pandemic Research Breakthrough!"
  civpan.7000.excellent: "Excellent."
@@ -1314,11 +1309,11 @@ l_simp_chinese:
  war_goal_wg_planet_rebellion_rebels: "Planetary Rebellion"
  war_goal_wg_planet_rebellion_rebels_desc: "War is waged for the independence of a planet."
 
- war_goal_wg_admiral_rebellion: "Rebellion"
- war_goal_wg_admiral_rebellion_desc: "War is waged for an admiral's ideals."
+ war_goal_wg_commander_rebellion: "Rebellion"
+ war_goal_wg_commander_rebellion_desc: "War is waged for an commander's ideals."
 
- war_goal_wg_admiral_rebellion_admiral: "Rebellion"
- war_goal_wg_admiral_rebellion_admiral_desc: "War is waged for an admiral's ideals."
+ war_goal_wg_commander_rebellion_commander: "Rebellion"
+ war_goal_wg_commander_rebellion_commander_desc: "War is waged for an commander's ideals."
 
  war_goal_wg_scientist_civwar: "Civil War"
  war_goal_wg_scientist_civwar_desc: "War is waged over the independence of various systems."

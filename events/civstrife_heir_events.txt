@@ -413,20 +413,11 @@ country_event = {
 country_event = {
 	id = civheir.3030
 	title = civheir.3030.name
+	desc = civheir.3030.desc
 	picture = GFX_evt_acquire_asset
 	location = from.capital_scope
 	hide_window = no
 	is_triggered_only = yes
-
-	desc = {
-		text = civheir.3030.admiral.desc
-		trigger = { event_target:disinherited_heir_asylum = { leader_class = admiral } }
-	}
-
-	desc = {
-		text = civheir.3030.regular.desc
-		trigger = { event_target:disinherited_heir_asylum = { NOT = { leader_class = admiral } } }
-	}
 
 	option = { # How dare they accept them!
 		name = civheir.3030.a
@@ -773,7 +764,6 @@ country_event = {
 		from = { save_event_target_as = disinherited_heir_first }
 		clone_leader = {
 			target = event_target:disinherited_heir_first
-			class = random_ruler
 			effect = {
 				save_event_target_as = disinherited_heir
 			}

@@ -97,7 +97,7 @@ plan_separatist_13 = {
 				is_event_leader = yes
 				has_leader_flag = appointed_heir
 				AND = {
-					leader_class = governor
+					leader_class = official
 					exists = sector
 					sector = { any_owned_planet = { NOT = { is_same_value = event_target:plan_separatist_13 } } }
 				}

@@ -1,4 +1,18 @@
 
+
+is_fake_leader = {
+	OR = {
+		# Civil Wars Compat
+		has_leader_flag = dead_ruler
+		has_leader_flag = dummy_leader
+		has_leader_flag = dynastic_name_leader
+		has_leader_flag = civil_war_leader_nationalist_faction
+		has_leader_flag = new_faction_ruler
+	}
+}
+
+#############
+
 has_civic_organic_zealots_active = {
 	optimize_memory
 	always = no
@@ -14,14 +28,6 @@ is_organic_zealots = {
 is_valid_organic_zealots = {
 	optimize_memory
 	has_valid_civic = civic_organic_zealots
-}
-
-is_civwar_heir = {
-	OR = {
-		has_leader_flag = appointed_heir
-		has_leader_flag = dynastic_heir
-		is_same_value = root.owner.heir
-	}
 }
 
 dmm_is_installed = {

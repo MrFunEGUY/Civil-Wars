@@ -9,9 +9,8 @@ desc = {
 			event_target:civwar_rebels = {
 				ruler = {
 					OR = {
-						has_leader_flag = civil_war_ruler_governor
-						has_leader_flag = civil_war_ruler_admiral
-						has_leader_flag = civil_war_ruler_general
+						has_leader_flag = civil_war_ruler_official
+						has_leader_flag = civil_war_ruler_commander
 						has_leader_flag = civil_war_ruler_scientist
 					}
 				}
@@ -23,9 +22,8 @@ desc = {
 			has_country_flag = rebs_help_eachother
 			event_target:civwar_rebels.ruler = {
 				OR = {
-					has_leader_flag = civil_war_ruler_governor
-					has_leader_flag = civil_war_ruler_admiral
-					has_leader_flag = civil_war_ruler_general
+					has_leader_flag = civil_war_ruler_official
+					has_leader_flag = civil_war_ruler_commander
 					has_leader_flag = civil_war_ruler_scientist
 				}
 			}
@@ -143,9 +141,8 @@ desc = {
 			text = civcom.1100.leader.iso.sec.desc
 			event_target:civwar_rebels.ruler = {
 				OR = {
-					has_leader_flag = civil_war_ruler_governor_isolated
-					has_leader_flag = civil_war_ruler_admiral_isolated
-					has_leader_flag = civil_war_ruler_general_isolated
+					has_leader_flag = civil_war_ruler_official_isolated
+					has_leader_flag = civil_war_ruler_commander_isolated
 					has_leader_flag = civil_war_ruler_scientist_isolated
 				}
 			}

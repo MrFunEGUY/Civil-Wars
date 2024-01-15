@@ -1760,17 +1760,13 @@ is_succession_country = {
 rebel_is_former_leader = {
 	OR = {
 		has_trait = leader_trait_corrupt
-		has_leader_flag = civil_war_ruler_governor
-		has_leader_flag = civil_war_ruler_governor_isolated
-		has_leader_flag = civil_war_ruler_governor_dispute
+		has_leader_flag = civil_war_ruler_official
+		has_leader_flag = civil_war_ruler_official_isolated
+		has_leader_flag = civil_war_ruler_official_dispute
 		###
-		has_leader_flag = civil_war_ruler_admiral
-		has_leader_flag = civil_war_ruler_admiral_isolated
-		has_leader_flag = civil_war_ruler_admiral_dispute
-		###
-		has_leader_flag = civil_war_ruler_general
-		has_leader_flag = civil_war_ruler_general_isolated
-		has_leader_flag = civil_war_ruler_general_dispute
+		has_leader_flag = civil_war_ruler_commander
+		has_leader_flag = civil_war_ruler_commander_isolated
+		has_leader_flag = civil_war_ruler_commander_dispute
 		###
 		has_leader_flag = civil_war_ruler_scientist
 		has_leader_flag = civil_war_ruler_scientist_isolated
@@ -1778,27 +1774,19 @@ rebel_is_former_leader = {
 	}
 }
 
-rebel_was_governor = {
+rebel_was_official = {
 	OR = {
-		has_leader_flag = civil_war_ruler_governor
-		has_leader_flag = civil_war_ruler_governor_isolated
-		has_leader_flag = civil_war_ruler_governor_dispute
+		has_leader_flag = civil_war_ruler_official
+		has_leader_flag = civil_war_ruler_official_isolated
+		has_leader_flag = civil_war_ruler_official_dispute
 	}
 }
 
-rebel_was_admiral = {
+rebel_was_commander = {
 	OR = {
-		has_leader_flag = civil_war_ruler_admiral
-		has_leader_flag = civil_war_ruler_admiral_isolated
-		has_leader_flag = civil_war_ruler_admiral_dispute
-	}
-}
-
-rebel_was_general = {
-	OR = {
-		has_leader_flag = civil_war_ruler_general
-		has_leader_flag = civil_war_ruler_general_isolated
-		has_leader_flag = civil_war_ruler_general_dispute
+		has_leader_flag = civil_war_ruler_commander
+		has_leader_flag = civil_war_ruler_commander_isolated
+		has_leader_flag = civil_war_ruler_commander_dispute
 	}
 }
 
@@ -2601,6 +2589,7 @@ can_be_traitor = {
 	is_loyal = no
 	is_heir = no
 	is_ruler = no
+	is_fake_leader = no
 }
 
 is_loyal = {
@@ -2738,6 +2727,33 @@ is_exile_country = {
 	OR = {
 		is_country_type = exile_country
 		is_country_type = enclave_exiled_gov
+	}
+}
+
+is_possible_exile_host = {
+	is_fallen_empire = no
+	has_communications = root
+	has_been_declared_crisis = no
+	is_country_type_with_subjects = yes
+	OR = {
+		is_homicidal = no
+		is_organic_zealots = yes
+	}
+	NOR = {
+		is_same_value = root
+		has_country_flag = exile_already_asked_@root
+	}
+	OR = {
+		is_subject = no
+		AND = {
+			is_subject = yes
+			any_agreement = {
+				has_term_value = {
+					term = subject_diplomacy
+					value = subject_can_do_diplomacy
+				}
+			}
+		}
 	}
 }
 

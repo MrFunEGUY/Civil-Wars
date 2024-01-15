@@ -381,7 +381,7 @@ country_event = { # Setup for Civil War (create_country)
 								overlord = { country_event = { id = civwar.2000 } }
 							}
 						}
-						# Governor/Admiral/Scientist/General
+						# Official/Commander/Scientist
 						else_if = {
 							limit = {
 								event_target:civwar_rebels.ruler = {
@@ -1378,7 +1378,7 @@ country_event = { # Has Vassals, Vassal Interaction
 		if = { # Succession Conflicts Declare War in a different way
 			limit = { event_target:civwar_rebels = { is_succession_country = no } }
 			# Declare War
-			# Governor/Admiral/Scientist/General
+			# Official/Commander/Scientist
 			if = {
 				# limit = { event_target:civwar_rebels.ruler = { rebel_is_former_leader = yes } }
 				limit = { exists = event_target:civwar_rebels }
@@ -1509,12 +1509,12 @@ country_event = { # Former Leader - Communications
 		name = ON_SCREEN_REBELS
 		hidden_effect = {
 			if = {
-				limit = { event_target:civwar_rebels.ruler = { rebel_was_governor = yes } }
-				if = { # Regular Governor, didnt get multiple sectors, may ask to become a vassal
+				limit = { event_target:civwar_rebels.ruler = { rebel_was_official = yes } }
+				if = { # Regular Official, didnt get multiple sectors, may ask to become a vassal
 					limit = {
 						NOR = {
 							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
-							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_governor_isolated }
+							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_official_isolated }
 							event_target:civwar_rebels = {
 								OR = {
 									is_overlord = yes
@@ -1533,36 +1533,12 @@ country_event = { # Former Leader - Communications
 				else = { country_event = { id = civcom.1100 } }
 			}
 			else_if = {
-				limit = { event_target:civwar_rebels.ruler = { rebel_was_admiral = yes } }
+				limit = { event_target:civwar_rebels.ruler = { rebel_was_commander = yes } }
 				if = {
 					limit = {
 						NOR = {
 							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
-							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_admiral_isolated }
-							event_target:civwar_rebels = {
-								OR = {
-									is_overlord = yes
-									check_variable = { which = num_mil_pops value >= root.num_mil_pops }
-									check_variable = { which = total_empire_size value >= root.total_empire_size }
-									check_variable = { which = rebel_power_ratio value >= 0.7 }
-								}
-							}
-						}
-					}
-					random_list = {
-						85 = { country_event = { id = civcom.1100 } }
-						15 = { country_event = { id = civcom.1105 } }
-					}
-				}
-				else = { country_event = { id = civcom.1100 } }
-			}
-			else_if = {
-				limit = { event_target:civwar_rebels.ruler = { rebel_was_general = yes } }
-				if = {
-					limit = {
-						NOR = {
-							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
-							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_general_isolated }
+							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_commander_isolated }
 							event_target:civwar_rebels = {
 								OR = {
 									is_overlord = yes
@@ -2794,20 +2770,17 @@ country_event = { # Change leader flags to ruler flags
 				has_leader_flag = gov_changed_heir
 				has_leader_flag = true_born_heir
 				##
-				has_leader_flag = civil_war_leader_governor_faction
-				has_leader_flag = civil_war_leader_admiral_faction
-				has_leader_flag = civil_war_leader_general_faction
+				has_leader_flag = civil_war_leader_official_faction
+				has_leader_flag = civil_war_leader_commander_faction
 				has_leader_flag = civil_war_leader_scientist_faction
 				##
-				has_leader_flag = civil_war_leader_governor_isolated
-				has_leader_flag = civil_war_leader_admiral_isolated
-				has_leader_flag = civil_war_leader_general_isolated
+				has_leader_flag = civil_war_leader_official_isolated
+				has_leader_flag = civil_war_leader_commander_isolated
 				has_leader_flag = civil_war_leader_scientist_isolated
 				has_leader_flag = civil_war_leader_heir_isolated
 				##
-				has_leader_flag = civil_war_leader_governor_dispute
-				has_leader_flag = civil_war_leader_admiral_dispute
-				has_leader_flag = civil_war_leader_general_dispute
+				has_leader_flag = civil_war_leader_official_dispute
+				has_leader_flag = civil_war_leader_commander_dispute
 				has_leader_flag = civil_war_leader_scientist_dispute
 				##
 				has_leader_flag = civil_war_leader_separatist_faction
@@ -2825,66 +2798,45 @@ country_event = { # Change leader flags to ruler flags
 			}
 		}
 		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_governor_faction } }
+			limit = { ruler = { has_leader_flag = civil_war_leader_official_faction } }
 			ruler = {
-				remove_leader_flag = civil_war_leader_governor_faction
-				set_leader_flag = civil_war_ruler_governor
+				remove_leader_flag = civil_war_leader_official_faction
+				set_leader_flag = civil_war_ruler_official
 			}
 		}
 		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_governor_isolated } }
+			limit = { ruler = { has_leader_flag = civil_war_leader_official_isolated } }
 			ruler = {
-				remove_leader_flag = civil_war_leader_governor_isolated
-				set_leader_flag = civil_war_ruler_governor_isolated
+				remove_leader_flag = civil_war_leader_official_isolated
+				set_leader_flag = civil_war_ruler_official_isolated
 			}
 		}
 		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_governor_dispute } }
+			limit = { ruler = { has_leader_flag = civil_war_leader_official_dispute } }
 			ruler = {
-				remove_leader_flag = civil_war_leader_governor_dispute
-				set_leader_flag = civil_war_ruler_governor_dispute
+				remove_leader_flag = civil_war_leader_official_dispute
+				set_leader_flag = civil_war_ruler_official_dispute
 			}
 		}
 		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_admiral_faction } }
+			limit = { ruler = { has_leader_flag = civil_war_leader_commander_faction } }
 			ruler = {
-				remove_leader_flag = civil_war_leader_admiral_faction
-				set_leader_flag = civil_war_ruler_admiral
+				remove_leader_flag = civil_war_leader_commander_faction
+				set_leader_flag = civil_war_ruler_commander
 			}
 		}
 		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_admiral_isolated } }
+			limit = { ruler = { has_leader_flag = civil_war_leader_commander_isolated } }
 			ruler = {
-				remove_leader_flag = civil_war_leader_admiral_isolated
-				set_leader_flag = civil_war_ruler_admiral_isolated
+				remove_leader_flag = civil_war_leader_commander_isolated
+				set_leader_flag = civil_war_ruler_commander_isolated
 			}
 		}
 		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_admiral_dispute } }
+			limit = { ruler = { has_leader_flag = civil_war_leader_commander_dispute } }
 			ruler = {
-				remove_leader_flag = civil_war_leader_admiral_dispute
-				set_leader_flag = civil_war_ruler_admiral_dispute
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_general_faction } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_general_faction
-				set_leader_flag = civil_war_ruler_general
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_general_isolated } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_general_isolated
-				set_leader_flag = civil_war_ruler_general_isolated
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_general_dispute } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_general_dispute
-				set_leader_flag = civil_war_ruler_general_dispute
+				remove_leader_flag = civil_war_leader_commander_dispute
+				set_leader_flag = civil_war_ruler_commander_dispute
 			}
 		}
 		else_if = {
@@ -2962,8 +2914,8 @@ country_event = { # Change leader flags to ruler flags
 
 		ruler = {
 			if = {
-				limit = { NOT = { has_leader_flag = civil_war_ruler_governor } }
-				set_leader_flag = civil_war_ruler_governor
+				limit = { NOT = { has_leader_flag = civil_war_ruler_official } }
+				set_leader_flag = civil_war_ruler_official
 			}
 
 			if = {

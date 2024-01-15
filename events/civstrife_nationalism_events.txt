@@ -177,20 +177,14 @@ country_event = { # Shop for home for Government-In-Exile
 				OR = {
 					any_country = { has_country_flag = overlord_of_@root }
 					AND = {
+						has_been_declared_crisis = no
+						is_country_type_with_subjects = yes
 						OR = {
 							is_homicidal = no
 							is_organic_zealots = yes
 						}
 						any_country = {
-							is_fallen_empire = no
-							is_subject = no
-							is_country_type_with_subjects = yes
-							has_communications = event_target:nat_pops_country
-							OR = {
-								is_homicidal = no
-								is_organic_zealots = yes
-							}
-							NOT = { is_same_value = root }
+							is_possible_exile_host = yes
 							# has_country_flag = test_test
 						}
 					}
@@ -222,37 +216,15 @@ country_event = { # Gov In Exile Requst Hosting
 		else_if = { # They will ask same species country first
 			limit = {
 				any_country = {
-					is_subject = no
-					is_fallen_empire = no
-					has_communications = root
-					is_country_type_with_subjects = yes
+					is_possible_exile_host = yes
 					species = { is_same_value = root.owner_main_species }
-					OR = {
-						is_homicidal = no
-						is_organic_zealots = yes
-					}
-					NOR = {
-						is_same_value = root
-						has_country_flag = exile_already_asked_@root
-					}
 					# has_country_flag = test_test
 				}
 			}
 			random_country = {
 				limit = {
-					is_subject = no
-					is_fallen_empire = no
-					has_communications = root
-					is_country_type_with_subjects = yes
+					is_possible_exile_host = yes
 					species = { is_same_value = root.owner_main_species }
-					OR = {
-						is_homicidal = no
-						is_organic_zealots = yes
-					}
-					NOR = {
-						is_same_value = root
-						has_country_flag = exile_already_asked_@root
-					}
 					# has_country_flag = test_test
 				}
 				country_event = { id = civcom.9000 days = 5 random = 40 }
@@ -262,35 +234,13 @@ country_event = { # Gov In Exile Requst Hosting
 		else_if = {
 			limit = {
 				any_country = {
-					is_subject = no
-					is_fallen_empire = no
-					has_communications = root
-					is_country_type_with_subjects = yes
-					OR = {
-						is_homicidal = no
-						is_organic_zealots = yes
-					}
-					NOR = {
-						is_same_value = root
-						has_country_flag = exile_already_asked_@root
-					}
+					is_possible_exile_host = yes
 					# has_country_flag = test_test
 				}
 			}
 			random_country = {
 				limit = {
-					is_subject = no
-					is_fallen_empire = no
-					has_communications = root
-					is_country_type_with_subjects = yes
-					OR = {
-						is_homicidal = no
-						is_organic_zealots = yes
-					}
-					NOR = {
-						is_same_value = root
-						has_country_flag = exile_already_asked_@root
-					}
+					is_possible_exile_host = yes
 					# has_country_flag = test_test
 				}
 				country_event = { id = civcom.9000 days = 5 random = 40 }
@@ -2251,7 +2201,7 @@ country_event = { # Destroy Government-In-Exile when no nats exist
 		}
 
 		every_playable_country = {
-			limit = { has_communications = root }
+			limit = { has_communications = event_target:nat_gone }
 			country_event = { id = civnat.8000 days = 2 random = 14 }
 		}
 		random_playable_country = {

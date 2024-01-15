@@ -1913,13 +1913,13 @@ situation_event = { # Sectoral Revolt Event
 							set_leader_flag = civil_war_leader_heir_isolated
 						}
 						else_if = {
-							limit = { leader_class = governor }
-							set_leader_flag = civil_war_leader_governor_isolated
+							limit = { leader_class = official }
+							set_leader_flag = civil_war_leader_official_isolated
 						}
 						else_if = {
-							limit = { leader_class = admiral }
-							set_leader_flag = civil_war_leader_admiral_isolated
-							if = { # Fleet Admiral revolts
+							limit = { leader_class = commander }
+							set_leader_flag = civil_war_leader_commander_isolated
+							if = { # Fleet Commander revolts
 								limit = {
 									owner = {
 										any_owned_fleet = {
@@ -1929,14 +1929,10 @@ situation_event = { # Sectoral Revolt Event
 									}
 								}
 								fleet = {
-									save_global_event_target_as = admiral_rebel_rally_point
+									save_global_event_target_as = commander_rebel_rally_point
 									set_fleet_flag = civil_war_fleet
 								}
 							}
-						}
-						else_if = {
-							limit = { leader_class = general }
-							set_leader_flag = civil_war_leader_general_isolated
 						}
 						else_if = {
 							limit = { leader_class = scientist }
