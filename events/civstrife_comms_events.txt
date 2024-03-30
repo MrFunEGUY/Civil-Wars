@@ -2931,7 +2931,6 @@ country_event = {
 				civcom.9100 # Initial
 				civcom.9110
 				civcom.9120
-				civcom.9130
 			}
 		}
 	}
@@ -3043,32 +3042,11 @@ country_event = {
 		}
 	}
 
-	# Declare War on Behalf
-	option = {
-		name = civcom.9110.war
-		trigger = { # Still deciding whether to implement this
-			always = no
-		}
-		allow = {
-			any_country = {
-				has_communications = root
-				is_country_type_with_subjects = yes
-				NOT = { has_overlord = root }
-				NOT = { has_defensive_pact = root }
-				NOT = { has_non_aggression_pact = root }
-				NOT = { is_in_federation_with = root }
-			}
-		}
-		hidden_effect = {
-			# country_event = { id = civcom.9120 }
-		}
-	}
-
 	# Terminate host relationship (tell them to find new host)
 	option = {
 		name = civcom.9110.end
 		hidden_effect = {
-			country_event = { id = civcom.9130 }
+			country_event = { id = civcom.9120 }
 		}
 	}
 }
@@ -3076,12 +3054,12 @@ country_event = {
 # Exile Enclave: Stop Hosting Government
 # This = player country; event_target:exiled_gov_enclave_country = enclave country
 country_event = {
-	id = civcom.9130
+	id = civcom.9120
 	base = civcom.9100
 	desc_clear = yes
 	option_clear = yes
 
-	desc = civcom.9130.desc
+	desc = civcom.9120.desc
 
 	# Nevermind
 	option = {
@@ -3090,7 +3068,7 @@ country_event = {
 
 	# Stop Hosting Government (tell them to find new host)
 	option = {
-		name = civcom.9130.terminate
+		name = civcom.9120.terminate
 		hidden_effect = {
 			country_event = { id = civnat.1330 }
 		}

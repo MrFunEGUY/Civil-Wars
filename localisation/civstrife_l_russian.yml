@@ -213,17 +213,6 @@ l_russian:
 
  RT_EXILE_LEADER: "Глава изгнанного правительства"
 
- # Subject Types
- preset_auto_state: "Автономное государство"
- preset_auto_state_desc: "Автономное государство имеют полную дипломатическую независимость от своего сюзерена. За эту независимость они выплачивают оговоренную дань."
- preset_auto_state_flavor_desc: "Автономное государство имеют полную дипломатическую независимость от своего сюзерена. За эту независимость они выплачивают оговоренную дань."
-
- not_allowed_for_auto_state: "$TRIGGER_FAIL$Не разрешено для §YАвтономное государство§!."
-
- autostate_extra_overlord: "Ежемесячно: £influence£ §R-0.25§!"
-
- subject_auto_state_effect: "$preset_auto_state$"
-
  # Fail Texts
  resource_fail_text: "§RУ нас недостаточно ресурсов.§!"
  war_leader_engaged: "§RЛидер вовлечен в текущую операцию и не может быть отстранен.§!"
@@ -335,11 +324,8 @@ l_russian:
  civcom.9110.war: "Мы желаем вашего участия в нашей войне."
  civcom.9110.end: "Мы больше не можем предоставлять вам убежище."
 
- civcom.9120.desc: "Это прекрасное событие. Наконец-то у нас снова будет место для жизни."
- civcom.9120.target: "Let us choose the target."
-
- civcom.9130.desc: "Погодите, §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!, можем ли мы как-то убедить вас передумать? Релокация нашей организации в новое убежище будет крайне трудоемкой задачей для нас, опуская тот факт, что нужно еще найти дружественную нацию, готовую это убежище предоставить."
- civcom.9130.terminate: "Приносим извинения, но это решение окончательное."
+ civcom.9120.desc: "Погодите, §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!, можем ли мы как-то убедить вас передумать? Релокация нашей организации в новое убежище будет крайне трудоемкой задачей для нас, опуская тот факт, что нужно еще найти дружественную нацию, готовую это убежище предоставить."
+ civcom.9120.terminate: "Приносим извинения, но это решение окончательное."
 
  civcom.nevermind: "Неважно."
  civcom.this_is_bad: "Это плохо."
@@ -1596,7 +1582,6 @@ l_russian:
  not_allowed_for_verarmsdealer: "$TRIGGER_FAIL$Запрещено §Y$preset_verarmsdealer$s§!."
  not_allowed_for_versubcontractor: "$TRIGGER_FAIL$Запрещено §Y$preset_versubcontractor$s§!."
  not_allowed_for_megacorp: "$TRIGGER_FAIL$Запрещено §YКорпорациям§!."
- not_allowed_for_auto_state: "$TRIGGER_FAIL$Запрещено §YАвтономным государствам§!."
 
  ACTION_RECIPIENT_NOT_YOUR_CORP:1 "$TRIGGER_FAIL$§RФилиал может быть построен только в нашей дочерней корпорации.§!"
 
