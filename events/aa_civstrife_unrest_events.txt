@@ -456,19 +456,11 @@ situation_event = {
 		set_timed_situation_flag = { flag = random_event_happened years = 1 }
 		if = {
 			limit = { NOT = { is_situation_type = situation_civstrife_sep_slaves_sec } }
-			
 		}
 		else = {
 			target = {
-				random_owned_planet = {
-					limit = {
-						exists = controller
-						controller = { is_same_empire = root.owner }
-						planet_stability < @stabilitylevel2
-						NOT = { has_planet_flag = recent_unrest_event }
-						has_orbital_bombardment = no
-						has_ground_combat = no
-					}
+				if = {
+					limit = { is_scope_type = planet }
 					add_modifier = {
 						modifier = minor_terrorist_action
 						days = 3600 # 10 years
@@ -478,6 +470,27 @@ situation_event = {
 						days = @unrest_event_cooldown
 					}
 					save_event_target_as = target_planet
+				}
+				else = {
+					random_owned_planet = {
+						limit = {
+							exists = controller
+							controller = { is_same_empire = root.owner }
+							planet_stability < @stabilitylevel2
+							NOT = { has_planet_flag = recent_unrest_event }
+							has_orbital_bombardment = no
+							has_ground_combat = no
+						}
+						add_modifier = {
+							modifier = minor_terrorist_action
+							days = 3600 # 10 years
+						}
+						set_timed_planet_flag = {
+							flag = recent_unrest_event
+							days = @unrest_event_cooldown
+						}
+						save_event_target_as = target_planet
+					}
 				}
 			}
 		}
@@ -579,15 +592,8 @@ situation_event = {
 		}
 		else = {
 			target = {
-				random_owned_planet = {
-					limit = {
-						exists = controller
-						controller = { is_same_empire = root.owner }
-						planet_stability < @stabilitylevel2
-						NOT = { has_planet_flag = recent_unrest_event }
-						has_orbital_bombardment = no
-						has_ground_combat = no
-					}
+				if = {
+					limit = { is_scope_type = planet }
 					add_modifier = {
 						modifier = major_terrorist_action
 						days = 7200 # 20 years
@@ -597,6 +603,27 @@ situation_event = {
 						days = @unrest_event_cooldown
 					}
 					save_event_target_as = target_planet
+				}
+				else = {
+					random_owned_planet = {
+						limit = {
+							exists = controller
+							controller = { is_same_empire = root.owner }
+							planet_stability < @stabilitylevel2
+							NOT = { has_planet_flag = recent_unrest_event }
+							has_orbital_bombardment = no
+							has_ground_combat = no
+						}
+						add_modifier = {
+							modifier = major_terrorist_action
+							days = 7200 # 20 years
+						}
+						set_timed_planet_flag = {
+							flag = recent_unrest_event
+							days = @unrest_event_cooldown
+						}
+						save_event_target_as = target_planet
+					}
 				}
 			}
 		}

@@ -2535,7 +2535,10 @@ created_civwar_rebel_country_effect = {
 	if = {
 		limit = {
 			exists = root.target
-			root.target = { is_scope_type = pop_faction }
+			OR = {
+				root.target = { is_scope_type = planet }
+				root.target = { is_scope_type = pop_faction }
+			}
 		}
 		if = {
 			limit = { root.target = { is_regular_faction = yes } }
@@ -2547,7 +2550,12 @@ created_civwar_rebel_country_effect = {
 			}
 		}
 		else_if = {
-			limit = { root.target = { is_separatist_faction = yes } }
+			limit = {
+				OR = {
+					root.target = { is_scope_type = planet }
+					root.target = { is_separatist_faction = yes }
+				}
+			}
 			root.target = {
 				random_owned_pop = {
 					limit = { has_pop_flag = sep_pop }
@@ -9350,8 +9358,17 @@ get_civil_war_leader_dispute = {
 # Get Separatist Leader
 get_separatist_war_leader = {
 	root.target = {
-		random_owned_pop = {
-			species = { save_event_target_as = civwar_species }
+		if = {
+			limit = { is_scope_type = planet }
+			random_owned_pop = {
+				limit = { has_pop_flag = sep_pop }
+				species = { save_event_target_as = civwar_species }
+			}
+		}
+		else = {
+			random_owned_pop = {
+				species = { save_event_target_as = civwar_species }
+			}
 		}
 	}
 	owner = {
@@ -12030,8 +12047,7 @@ get_separatist_faction_nat = {
 # Get Separatist Faction for Sectors
 get_separatist_faction_sector = {
 	every_owned_planet = {
-		limit = { has_planet_flag = plan_sep_active }
-		remove_planet_flag = plan_sep_active
+		limit = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 		clear_variable = revolt_tick
 		if = {
 			limit = { is_variable_set = calm_tick }
@@ -12144,8 +12160,7 @@ get_separatist_faction_sector = {
 # Get Isolationist Separatist Faction for Sectors
 get_iso_separatist_faction_sector = {
 	every_owned_planet = {
-		limit = { has_planet_flag = plan_sep_active }
-		remove_planet_flag = plan_sep_active
+		limit = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 		clear_variable = revolt_tick
 		if = {
 			limit = { is_variable_set = calm_tick }
@@ -12482,52 +12497,6 @@ nat_faction_second_effect = {
 
 faction_kill_leader_effect = {
 	leader = { kill_leader = { show_notification = no } }
-}
-
-plan_faction_first_effect = {
-	set_pop_faction_flag = plan_faction
-	owner = {
-		create_leader = {
-			class = random_ruler
-			event_leader = yes
-			species = owner_main_species
-			name = "Dummy Leader"
-			effect = {
-				set_leader_flag = dummy_leader
-			}
-		}
-	}
-	last_created_leader = {
-		set_name = {
-			key = dummy_sep_leader
-			variable_string = "\\[Root.GetName]"
-		}
-		leader_event = { id = civleader.1000 days = 180 }
-	}
-}
-
-plan_faction_second_effect = {
-	last_created_leader = {
-		kill_leader = { show_notification = no }
-	}
-	random_owned_pop = {
-		species = { save_global_event_target_as = nat_pop_species }
-	}
-	# owner = {
-	# 	create_leader = {
-	# 		class = random_ruler
-	# 		species = event_target:nat_pop_species
-	# 		name = random
-	# 		leader_age_min = 25
-	# 		leader_age_max = 55
-	# 		traits = { trait = leader_trait_charismatic }
-	# 		effect = {
-	# 			set_leader_flag = sep_leader
-	# 		}
-	# 	}
-	# }
-	# set_leader = last_created_leader
-	pop_faction_event = { id = civsep.9000 }
 }
 
 sector_faction_first_effect = {

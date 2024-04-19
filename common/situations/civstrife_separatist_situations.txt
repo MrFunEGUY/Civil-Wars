@@ -1,6 +1,6 @@
 
 # Separatist Planet
-situation_civstrife_faction_sep_plan = {
+situation_civstrife_sep_plan = {
 	picture = GFX_evt_one_sided_deal
 	category = negative
 
@@ -11,6 +11,7 @@ situation_civstrife_faction_sep_plan = {
 		target = {
 			set_variable = { which = gen_sep_upkeep value = 0 }
 			every_owned_pop = {
+				limit = { has_pop_flag = sep_pop }
 				prev = { change_variable = { which = gen_sep_upkeep value = 1 } }
 			}
 		}
@@ -28,7 +29,6 @@ situation_civstrife_faction_sep_plan = {
 		if = {
 			limit = { exists = target }
 			target = {
-				remove_pop_faction_flag = faction_sep_situation
 				clear_variable = gen_sep_chance
 				clear_variable = num_sep_pops
 				clear_variable = gen_sep_upkeep
@@ -40,10 +40,13 @@ situation_civstrife_faction_sep_plan = {
 		OR = {
 			situation_progress < 0
 			NOT = { exists = target }
+			target = { is_capital = yes }
+			target = { has_ground_combat = yes }
 			target = { count_owned_pop = { count < 5 } }
-			target = { has_pop_faction_flag = faction_rebelled }
-			target = { any_owned_pop = { planet = { is_capital = yes } } }
-			target = { any_owned_pop = { planet = { has_planet_flag = rebellion_suppressed } } }
+			target = { count_owned_pop = { limit = { has_pop_flag = sep_pop } count = 0 } }
+			target = { has_planet_flag = rebellion_suppressed }
+			target = { has_planet_flag = situation_abort_flag }
+			target = { sector = { has_sector_flag = sector_sep_active } }
 		}
 	}
 
@@ -148,7 +151,7 @@ situation_civstrife_faction_sep_plan = {
 			desc = radicalisation_occurring
 			add = 3
 			situation_progress < 90
-			NOT = { target = { any_owned_pop = { planet = { combined_planet_unrest_calm_check = yes } } } }
+			NOT = { target = { combined_planet_unrest_calm_check = yes } }
 		}
 
 		modifier = {
@@ -169,7 +172,7 @@ situation_civstrife_faction_sep_plan = {
 			desc = faction_derad
 			add = -1
 			situation_progress > 10
-			target = { any_owned_pop = { planet = { combined_planet_unrest_calm_check = yes } } }
+			target = { combined_planet_unrest_calm_check = yes }
 		}
 	}
 }

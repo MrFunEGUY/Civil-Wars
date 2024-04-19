@@ -1320,7 +1320,7 @@ frontier_planet_slave_tick_check = {
 	has_orbital_bombardment = no
 	has_planet_flag = frontier_planet_@root
 	NOT = { planet_devastation >= 30 }
-	NOT = { has_planet_flag = plan_sep_active }
+	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 	NOT = { has_modifier = planet_culture_shock }
 	NOT = { has_planet_flag = recent_sep_rebellion }
 	NOT = { has_planet_flag = rebellion_suppressed }
@@ -1358,7 +1358,7 @@ integrated_planet_slave_tick_check = {
 	has_orbital_bombardment = no
 	has_planet_flag = integrated_planet_@root
 	NOT = { planet_devastation >= 20 }
-	NOT = { has_planet_flag = plan_sep_active }
+	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 	NOT = { has_modifier = planet_culture_shock }
 	NOT = { has_planet_flag = plan_slave_sep_active }
 	NOT = { has_planet_flag = recent_sep_rebellion }
@@ -1396,7 +1396,7 @@ fundamental_planet_slave_tick_check = {
 	has_orbital_bombardment = no
 	has_planet_flag = fundamental_planet_@root
 	NOT = { planet_devastation >= 10 }
-	NOT = { has_planet_flag = plan_sep_active }
+	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 	NOT = { has_modifier = planet_culture_shock }
 	NOT = { has_planet_flag = plan_slave_sep_active }
 	NOT = { has_planet_flag = recent_sep_rebellion }
@@ -1433,7 +1433,7 @@ frontier_planet_unrest_tick_check = {
 	has_orbital_bombardment = no
 	has_planet_flag = frontier_planet_@root
 	NOT = { planet_devastation >= 15 }
-	NOT = { has_planet_flag = plan_sep_active }
+	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 	NOT = { has_planet_flag = slave_sep_active }
 	NOT = { has_modifier = planet_culture_shock }
 	NOT = { has_planet_flag = recent_sep_rebellion }
@@ -1488,7 +1488,7 @@ integrated_planet_unrest_tick_check = {
 	has_orbital_bombardment = no
 	has_planet_flag = integrated_planet_@root
 	NOT = { planet_devastation >= 15 }
-	NOT = { has_planet_flag = plan_sep_active }
+	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 	NOT = { has_planet_flag = slave_sep_active }
 	NOT = { has_modifier = planet_culture_shock }
 	NOT = { has_planet_flag = recent_sep_rebellion }
@@ -1545,7 +1545,7 @@ fundamental_planet_unrest_tick_check = {
 	has_orbital_bombardment = no
 	has_planet_flag = fundamental_planet_@root
 	NOT = { planet_devastation >= 15 }
-	NOT = { has_planet_flag = plan_sep_active }
+	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 	NOT = { has_planet_flag = slave_sep_active }
 	NOT = { has_modifier = planet_culture_shock }
 	NOT = { has_planet_flag = recent_sep_rebellion }
@@ -2155,7 +2155,7 @@ is_faction_based_situation = {
 		is_situation_type = situation_civstrife_faction_eco
 		is_situation_type = situation_civstrife_faction_elite
 		is_situation_type = situation_civstrife_faction_plur
-		is_situation_type = situation_civstrife_faction_sep_plan
+		is_situation_type = situation_civstrife_sep_plan
 		is_situation_type = situation_civstrife_faction_sep_sec
 		is_situation_type = situation_civstrife_faction_iso_sep_sec
 		is_situation_type = situation_civstrife_faction_sep_nat

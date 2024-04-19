@@ -27,24 +27,30 @@ country_event = { # Planetary Unrest Counter
 	is_triggered_only = yes
 
 	trigger = {
-		always = no
 		is_country_type_with_subjects = yes
 		NOT = { years_passed < 15 }
 		any_owned_planet = {
 			num_pops > 0
+			OR = {
+				NOT = { exists = sector }
+				sector = { NOT = { has_sector_flag = sector_sep_active } }
+			}
 			OR = {
 				frontier_planet_unrest_tick_check = yes
 				integrated_planet_unrest_tick_check = yes
 				fundamental_planet_unrest_tick_check = yes
 			}
 		}
-		
 	}
 
 	immediate = {
 		every_owned_planet = {
 			limit = {
 				num_pops > 0
+				OR = {
+					NOT = { exists = sector }
+					sector = { NOT = { has_sector_flag = sector_sep_active } }
+				}
 				OR = {
 					frontier_planet_unrest_tick_check = yes
 					integrated_planet_unrest_tick_check = yes
@@ -86,21 +92,21 @@ country_event = { # Planetary Unrest Counter
 					frontier_planet_unrest_tick_check = yes
 					check_variable = { which = revolt_tick value = 6 }
 				}
-				planet_event = { id = civsep.2000 }
+				planet_event = { id = civsep.2000 days = 1 random = 29 }
 			}
 			else_if = {
 				limit = {
 					integrated_planet_unrest_tick_check = yes
 					check_variable = { which = revolt_tick value = 9 }
 				}
-				planet_event = { id = civsep.2000 }
+				planet_event = { id = civsep.2000 days = 1 random = 29 }
 			}
 			else_if = {
 				limit = {
 					fundamental_planet_unrest_tick_check = yes
 					check_variable = { which = revolt_tick value = 12 }
 				}
-				planet_event = { id = civsep.2000 }
+				planet_event = { id = civsep.2000 days = 1 random = 29 }
 			}
 		}
 	}
@@ -203,7 +209,6 @@ country_event = { # Planetary Calm Counter
 				}
 				clear_variable = calm_tick
 				clear_variable = revolt_tick
-				remove_planet_flag = plan_sep_active
 				save_event_target_as = separatists_disband_planet
 				planet_event = { id = civsep.9005 }
 			}
@@ -214,7 +219,6 @@ country_event = { # Planetary Calm Counter
 				}
 				clear_variable = calm_tick
 				clear_variable = revolt_tick
-				remove_planet_flag = plan_sep_active
 				save_event_target_as = separatists_disband_planet
 				planet_event = { id = civsep.9005 }
 			}
@@ -225,7 +229,6 @@ country_event = { # Planetary Calm Counter
 				}
 				clear_variable = calm_tick
 				clear_variable = revolt_tick
-				remove_planet_flag = plan_sep_active
 				save_event_target_as = separatists_disband_planet
 				planet_event = { id = civsep.9005 }
 			}
@@ -438,19 +441,23 @@ country_event = { # Sectoral Decrease calm counter on stability decrease after s
 # Create Separatists #
 ######################
 
-planet_event = { # Create First Separatists
+planet_event = { # Create First Separatists, Planetary
 	id = civsep.2000
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
-		always = no
 		is_capital = no
 	}
 
 	immediate = {
 		##PLANETARY
-		# get_separatist_faction_planet = yes
+		owner = {
+			start_situation = {
+				type = situation_civstrife_sep_plan
+				target = prev
+			}
+		}
 
 		if = {
 			limit = {
@@ -991,7 +998,7 @@ country_event = { # Create More Separatists Yearly Initializer
 		is_country_type_with_subjects = yes
 		any_owned_planet = {
 			OR = {
-				has_planet_flag = plan_sep_active
+				any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan }
 				AND = {
 					exists = sector
 					sector = { has_sector_flag = sector_sep_active }
@@ -1005,7 +1012,13 @@ country_event = { # Create More Separatists Yearly Initializer
 
 		every_owned_planet = {
 			limit = {
-				has_planet_flag = plan_sep_active
+				OR = {
+					any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan }
+					AND = {
+						exists = sector
+						sector = { has_sector_flag = sector_sep_active }
+					}
+				}
 				any_owned_pop = { NOT = { has_pop_flag = sep_pop } }
 			}
 			planet_event = { id = civsep.2015 days = 1 random = 359 }
@@ -1020,7 +1033,7 @@ planet_event = { # Create Separatists Yearly Event
 
 	trigger = {
 		OR = {
-			has_planet_flag = plan_sep_active
+			any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan }
 			AND = {
 				exists = sector
 				sector = { has_sector_flag = sector_sep_active }
@@ -1201,12 +1214,11 @@ country_event = { # Sector Separatist Party Form Check
 	is_triggered_only = yes
 
 	trigger = {
-		always = no
 		any_owned_sector = {
 			NOT = { any_owned_planet = { is_capital = yes } }
 			NOT = { has_sector_flag = sector_sep_active }
 			NOT = { is_variable_set = isolated_sector_year }
-			any_owned_planet = { has_planet_flag = plan_sep_active }
+			any_owned_planet = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 			OR = {
 				AND = {
 					has_sector_flag = frontier_sector_@root
@@ -1242,7 +1254,7 @@ country_event = { # Sector Separatist Party Form Check
 			limit = {
 				NOT = { any_owned_planet = { is_capital = yes } }
 				NOT = { has_sector_flag = sector_sep_active }
-				any_owned_planet = { has_planet_flag = plan_sep_active }
+				any_owned_planet = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 				OR = {
 					AND = {
 						has_sector_flag = frontier_sector_@root
@@ -1281,7 +1293,6 @@ country_event = { # Find isolated sectors
 	is_triggered_only = yes
 
 	trigger = {
-		always = no
 		is_country_type_with_subjects = yes
 	}
 
@@ -1467,19 +1478,6 @@ country_event = { # Check disapproving Factions every month
 			}
 			if = {
 				limit = {
-					has_pop_faction_flag = plan_faction
-					NOT = { any_owned_pop = { planet = { has_planet_flag = rebellion_suppressed } } }
-				}
-				set_pop_faction_flag = faction_sep_situation
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_sep_plan
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = {
 					has_pop_faction_flag = sector_faction
 					NOT = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
 				}
@@ -1583,7 +1581,10 @@ situation_event = { # Spread Separatists Every Month
 						limit = {
 							has_pop_flag = sep_pop
 							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
+							OR = {
+								planet = { is_same_value = root.target }
+								pop_faction = { is_same_value = root.target }
+							}
 							planet = {
 								any_owned_pop = { NOT = { has_pop_flag = sep_pop } }
 							}
@@ -1631,10 +1632,7 @@ situation_event = { # Planetary Revolt Initializer
 				is_occupied_flag = no
 				pop_percentage = {
 					percentage >= 0.25
-					limit = {
-						exists = pop_faction
-						pop_faction = { is_same_value = root.target }
-					}
+					limit = { has_pop_flag = sep_pop }
 					exclude = { can_think = no }
 				}
 			}
@@ -1662,10 +1660,7 @@ situation_event = { # Planetary Revolt Event
 				pop_percentage = {
 					percentage >= 0.25
 					# percentage > 0
-					limit = {
-						exists = pop_faction
-						pop_faction = { is_same_value = root.target }
-					}
+					limit = { has_pop_flag = sep_pop }
 					exclude = { can_think = no }
 				}
 			}
@@ -1683,10 +1678,7 @@ situation_event = { # Planetary Revolt Event
 					pop_percentage = {
 						percentage >= 0.25
 						# percentage > 0
-						limit = {
-							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
-						}
+						limit = { has_pop_flag = sep_pop }
 						exclude = { can_think = no }
 					}
 				}
@@ -1694,17 +1686,9 @@ situation_event = { # Planetary Revolt Event
 				random = {
 					chance = 10
 					# chance = 100
-					root.target = {
-						set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 }
-						set_variable = { which = fac_mil_support value = 0 }
-						save_event_target_as = civwar_party
-					}
-					owner = { create_party_name_leader = yes }
+					set_variable = { which = fac_mil_support value = 0 }
 					every_owned_pop = {
-						limit = {
-							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
-						}
+						limit = { has_pop_flag = sep_pop }
 						root.target = { change_variable = { which = fac_mil_support value = 1 } }
 					}
 					solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
@@ -2875,8 +2859,8 @@ country_event = { # Remove Separatists from capital and core sector (ie if you m
 	trigger = {
 		is_country_type_with_subjects = yes
 		OR = {
-			capital_scope = { has_planet_flag = plan_sep_active }
 			capital_scope = { has_planet_flag = plan_slave_sep_active }
+			capital_scope = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 			any_owned_sector = {
 				OR = {
 					has_sector_flag = sector_sep_active
@@ -2888,11 +2872,6 @@ country_event = { # Remove Separatists from capital and core sector (ie if you m
 	}
 
 	immediate = {
-
-		if = {
-			limit = { capital_scope = { has_planet_flag = plan_sep_active } }
-			capital_scope = { remove_planet_flag = plan_sep_active }
-		}
 
 		if = {
 			limit = { capital_scope = { has_planet_flag = plan_slave_sep_active } }
