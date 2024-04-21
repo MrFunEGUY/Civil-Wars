@@ -1565,9 +1565,23 @@ situation_event = { # Spread Separatists Every Month
 
 			set_variable = { which = gen_sep_chance value = 1 }
 
-			subtract_variable = {
-				which = gen_sep_chance
-				value = trigger:faction_approval
+			if = {
+				limit = { is_scope_type = pop_faction }
+				subtract_variable = {
+					which = gen_sep_chance
+					value = trigger:faction_approval
+				}
+			}
+			else = {
+				set_variable = { which = gen_sep_planet_calc value = trigger:planet_stability }
+				divide_variable = {
+					which = gen_sep_planet_calc
+					value = 100
+				}
+				subtract_variable = {
+					which = gen_sep_chance
+					value = gen_sep_planet_calc
+				}
 			}
 
 			divide_variable = { which = gen_sep_chance value = 2 }

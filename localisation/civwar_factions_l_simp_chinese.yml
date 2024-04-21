@@ -3696,7 +3696,8 @@ l_simp_chinese:
  ##########################
  # Planetary and Sectoral Faction Names
 
- dummy_sep_leader: "[Root.Get sector_separatist_real_name: "[sector_sep_loc.GetName] [last_created_leader.GetName]"
+ dummy_sep_leader: "[Root.GetName]"
+ sector_separatist_real_name: "[sector_sep_loc.GetName] [last_created_leader.GetName]"
  iso_sector_separatist_real_name: "[last_created_leader.GetName] of [sector_sep_loc.GetName]"
  
  # Earth People's Liberation Front

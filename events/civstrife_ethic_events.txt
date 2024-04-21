@@ -505,7 +505,10 @@ country_event = { # Set timer flag
 		fromfrom = {
 			OR = {
 				using_war_goal = { type = wg_civwar owner = root }
-				using_war_goal = { type = wg_civwar owner = from }
+				AND = {
+					exists = root.from
+					using_war_goal = { type = wg_civwar owner = root.from }
+				}
 			}
 		}
 	}
