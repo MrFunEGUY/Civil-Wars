@@ -1460,6 +1460,7 @@ country_event = { # Check disapproving Factions every month
 	trigger = {
 		is_regular_empire = yes
 		years_passed >= 15
+		NOT = { any_neighbor_country = { is_crisis_faction = yes } }
 		any_pop_faction = {
 			count_owned_pop = { count >= 5 }
 			is_separatist_faction = yes

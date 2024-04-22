@@ -332,7 +332,14 @@ country_event = { # Gov In Exile cannot find host, dissolves
 		if = {
 			limit = { is_country_type = enclave_exiled_gov }
 			set_country_flag = truly_dead_country
-			destroy_country = yes
+			if = {
+				limit = { has_secession_country_flag = yes }
+				find_secession_number_flag = yes
+			}
+			if = {
+				limit = { NOT = { has_country_flag = country_needed_for_loc } }
+				destroy_country = yes
+			}
 		}
 	}
 }
@@ -427,6 +434,7 @@ country_event = { # Gov In Exile restoration, when released peacefully
 			limit = { has_country_flag = exile_link_@root }
 
 			save_global_event_target_as = new_homeland
+			set_timed_country_flag = { flag = secession_restored_get_flag days = 60 }
 
 			if = {
 				limit = {
@@ -440,6 +448,13 @@ country_event = { # Gov In Exile restoration, when released peacefully
 			every_owned_pop = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
 				limit = { has_pop_flag = sep_pop_nat_@root }
 				remove_pop_flag = sep_pop_nat_@root
+			}
+
+			copy_flags_and_variables_from = event_target:restored_country
+
+			if = {
+				limit = { has_secession_country_flag = yes }
+				find_secession_number_flag = yes
 			}
 		}
 
@@ -599,6 +614,7 @@ country_event = { # Gov In Exile restoration, on war won
 			root = {
 
 				save_global_event_target_as = new_homeland
+				set_timed_country_flag = { flag = secession_restored_get_flag days = 60 }
 
 				if = {
 					limit = {
@@ -610,6 +626,13 @@ country_event = { # Gov In Exile restoration, on war won
 				every_owned_pop = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
 					limit = { has_pop_flag = sep_pop_nat_@prev }
 					remove_pop_flag = sep_pop_nat_@prev
+				}
+
+				copy_flags_and_variables_from = event_target:restored_country
+
+				if = {
+					limit = { has_secession_country_flag = yes }
+					find_secession_number_flag = yes
 				}
 			}
 
@@ -770,6 +793,7 @@ country_event = { # Gov In Exile restoration, on status quo
 			fromfromfrom = {
 
 				save_global_event_target_as = new_homeland
+				set_timed_country_flag = { flag = secession_restored_get_flag days = 60 }
 
 				if = {
 					limit = {
@@ -781,6 +805,13 @@ country_event = { # Gov In Exile restoration, on status quo
 				every_owned_pop = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
 					limit = { has_pop_flag = sep_pop_nat_@prev }
 					remove_pop_flag = sep_pop_nat_@prev
+				}
+
+				copy_flags_and_variables_from = event_target:restored_country
+
+				if = {
+					limit = { has_secession_country_flag = yes }
+					find_secession_number_flag = yes
 				}
 			}
 
@@ -965,7 +996,14 @@ country_event = { # Gov In Exile Enclave destroyed
 	}
 	after = {
 		set_country_flag = truly_dead_country
-		destroy_country = yes
+		if = {
+			limit = { has_secession_country_flag = yes }
+			find_secession_number_flag = yes
+		}
+		if = {
+			limit = { NOT = { has_country_flag = country_needed_for_loc } }
+			destroy_country = yes
+		}
 	}
 }
 
@@ -2233,7 +2271,14 @@ country_event = { # Destroy Government-In-Exile Actual
 
 	immediate = {
 		set_country_flag = truly_dead_country
-		destroy_country = yes
+		if = {
+			limit = { has_secession_country_flag = yes }
+			find_secession_number_flag = yes
+		}
+		if = {
+			limit = { NOT = { has_country_flag = country_needed_for_loc } }
+			destroy_country = yes
+		}
 	}
 }
 
