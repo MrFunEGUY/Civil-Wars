@@ -73,15 +73,15 @@ country_event = { # Planetary Unrest Counter
 					OR = {
 						AND = {
 							frontier_planet_unrest_tick_check = yes
-							check_variable = { which = revolt_tick value < 6 }
+							check_variable = { which = revolt_tick value < 12 }
 						}
 						AND = {
 							integrated_planet_unrest_tick_check = yes
-							check_variable = { which = revolt_tick value < 9 }
+							check_variable = { which = revolt_tick value < 18 }
 						}
 						AND = {
 							fundamental_planet_unrest_tick_check = yes
-							check_variable = { which = revolt_tick value < 12 }
+							check_variable = { which = revolt_tick value < 24 }
 						}
 					}
 				}
@@ -90,21 +90,21 @@ country_event = { # Planetary Unrest Counter
 			else_if = {
 				limit = {
 					frontier_planet_unrest_tick_check = yes
-					check_variable = { which = revolt_tick value = 6 }
+					check_variable = { which = revolt_tick value = 12 }
 				}
 				planet_event = { id = civsep.2000 days = 1 random = 29 }
 			}
 			else_if = {
 				limit = {
 					integrated_planet_unrest_tick_check = yes
-					check_variable = { which = revolt_tick value = 9 }
+					check_variable = { which = revolt_tick value = 18 }
 				}
 				planet_event = { id = civsep.2000 days = 1 random = 29 }
 			}
 			else_if = {
 				limit = {
 					fundamental_planet_unrest_tick_check = yes
-					check_variable = { which = revolt_tick value = 12 }
+					check_variable = { which = revolt_tick value = 24 }
 				}
 				planet_event = { id = civsep.2000 days = 1 random = 29 }
 			}
@@ -124,15 +124,15 @@ country_event = { # Planetary Decrease unrest Counter
 			OR = {
 				AND = {
 					frontier_planet_unrest_untick_check = yes
-					check_variable = { which = revolt_tick value < 6 }
+					check_variable = { which = revolt_tick value < 12 }
 				}
 				AND = {
 					integrated_planet_unrest_untick_check = yes
-					check_variable = { which = revolt_tick value < 9 }
+					check_variable = { which = revolt_tick value < 18 }
 				}
 				AND = {
 					fundamental_planet_unrest_untick_check = yes
-					check_variable = { which = revolt_tick value < 12 }
+					check_variable = { which = revolt_tick value < 24 }
 				}
 			}
 		}
@@ -146,15 +146,15 @@ country_event = { # Planetary Decrease unrest Counter
 				OR = {
 					AND = {
 						frontier_planet_unrest_untick_check = yes
-						check_variable = { which = revolt_tick value < 6 }
+						check_variable = { which = revolt_tick value < 12 }
 					}
 					AND = {
 						integrated_planet_unrest_untick_check = yes
-						check_variable = { which = revolt_tick value < 9 }
+						check_variable = { which = revolt_tick value < 18 }
 					}
 					AND = {
 						fundamental_planet_unrest_untick_check = yes
-						check_variable = { which = revolt_tick value < 12 }
+						check_variable = { which = revolt_tick value < 24 }
 					}
 				}
 			}
@@ -171,7 +171,7 @@ country_event = { # Planetary Decrease unrest Counter
 			}
 			else_if = {
 				limit = {
-					check_variable = { which = revolt_tick value < 12 }
+					check_variable = { which = revolt_tick value < 24 }
 					OR = {
 						frontier_planet_unrest_untick_check = yes
 						integrated_planet_unrest_untick_check = yes
