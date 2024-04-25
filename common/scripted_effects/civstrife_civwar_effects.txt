@@ -2888,12 +2888,6 @@ created_civwar_rebel_country_effect = {
 	}
 	set_leader = event_target:new_rebel_leader
 
-	ruler = {
-		if = {
-			limit = { has_leader_flag = corrupt_official }
-			add_trait = leader_trait_corrupt
-		}
-	}
 	event_target:civil_war_planet = {
 		planet_event = { id = civplan.2000 }
 	}

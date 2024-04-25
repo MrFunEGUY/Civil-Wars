@@ -48,29 +48,6 @@ country_event = { # Set Corrupt Official Flag
 	}
 }
 
-country_event = { # Unset Corrupt Official Flag
-	id = civleader.2001
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		is_country_type_with_subjects = yes
-		any_owned_leader = {
-			has_leader_flag = corrupt_official
-			NOT = { has_trait = leader_trait_corrupt }
-		}
-	}
-
-	immediate = {
-		every_owned_leader = {
-			limit = {
-				has_leader_flag = corrupt_official
-				NOT = { has_trait = leader_trait_corrupt }
-			}
-			remove_leader_flag = corrupt_official
-		}
-	}
-}
 # on_ruler_set
 # Executed as new ruler has been set
 # This = Country
