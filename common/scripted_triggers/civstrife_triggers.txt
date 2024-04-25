@@ -1313,14 +1313,10 @@ get_cit_res_thrall = {
 
 frontier_planet_slave_tick_check = {
 	has_any_planet_rebellion_stopper = no
-	is_capital = no
-	is_colony = yes
-	is_occupied_flag = no
 	planet_stability < 25
 	has_planet_flag = frontier_planet_@root
 	NOT = { planet_devastation >= 30 }
 	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
-	NOT = { has_modifier = planet_culture_shock }
 	if = {
 		limit = { exists = sector }
 		sector = {
