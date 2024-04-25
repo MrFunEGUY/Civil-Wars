@@ -5,13 +5,7 @@ desc = {
 	trigger = {
 		event_target:civwar_rebels = {
 			has_country_flag = plan_rebel_country
-			ruler = {
-				OR = {
-					has_leader_flag = civil_war_ruler_official
-					has_leader_flag = civil_war_ruler_commander
-					has_leader_flag = civil_war_ruler_scientist
-				}
-			}
+			is_standard_faction_country = yes
 		}
 	}
 }
@@ -31,7 +25,7 @@ desc = {
 	trigger = {
 		event_target:civwar_rebels = {
 			has_country_flag = plan_rebel_country
-			ruler = { has_leader_flag = civil_war_ruler_separatist }
+			is_standard_faction_country = no
 		}
 	}
 }
@@ -51,13 +45,6 @@ desc = {
 				has_country_flag = ethic_sec_rebels
 				has_country_flag = sep_sec_rebels
 			}
-			ruler = {
-				OR = {
-					has_leader_flag = civil_war_ruler_official
-					has_leader_flag = civil_war_ruler_commander
-					has_leader_flag = civil_war_ruler_scientist
-				}
-			}
 		}
 	}
 }
@@ -67,7 +54,7 @@ desc = {
 	trigger = {
 		event_target:civwar_rebels = {
 			has_country_flag = sep_sec_rebels
-			ruler = { has_leader_flag = civil_war_ruler_separatist }
+			is_standard_faction_country = no
 		}
 	}
 }
@@ -83,9 +70,7 @@ desc = {
 	text = civcom.1000.nationalist.support.desc
 	trigger = {
 		any_country = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
-		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_nationalist
-		}
+		event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
 	}
 }
 
@@ -93,8 +78,6 @@ desc = {
 	text = civcom.1000.nationalist.no_support.desc
 	trigger = {
 		any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-		event_target:civwar_rebels.ruler = {
-			has_leader_flag = civil_war_ruler_nationalist
-		}
+		event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
 	}
 }

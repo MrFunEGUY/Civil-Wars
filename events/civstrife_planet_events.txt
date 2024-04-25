@@ -215,7 +215,12 @@ country_event = {
 	immediate = {	
 
 		FromFrom = {
-			set_timed_planet_flag = { flag = rebellion_suppressed years = 5 }
+			random_list = {
+				40 = { set_timed_planet_flag = { flag = rebellion_suppressed years = 5 } }
+				25 = { set_timed_planet_flag = { flag = rebellion_suppressed years = 10 } }
+				20 = { set_timed_planet_flag = { flag = rebellion_suppressed years = 15 } }
+				15 = { set_timed_planet_flag = { flag = rebellion_suppressed years = 20 } }
+			}
 			if = {
 				limit = { has_planet_flag = ethic_planet_rebellion_@this }
 				remove_planet_flag = ethic_planet_rebellion_@this

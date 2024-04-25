@@ -24,8 +24,6 @@ country_event = { # Setup for Civil War (create_country)
 		# saving civwar and host as event targets
 		save_event_target_as = civwar_rebels
 
-		set_country_flag = sep_state_of_@event_target:civwar_originator
-
 		event_target:civwar_originator = {
 			every_owned_fleet = { set_event_locked = yes }
 			set_country_flag = civwar_mother_country_@root
@@ -38,64 +36,6 @@ country_event = { # Setup for Civil War (create_country)
 		}
 
 		get_secession_country_info = yes
-
-		# Set leaders and other stuff
-		if = {
-			limit = { is_standard_faction_country = yes }
-			set_leader = event_target:ethic_rebel_leader
-		}
-		else_if = {
-			limit = { event_target:civwar_originator = { has_country_flag = heir_mother_country } }
-			set_leader = event_target:heir_civil_war_dummy_country.ruler
-			event_target:heir_civil_war_dummy_country = { destroy_country = yes }
-		}
-		else_if = {
-			limit = {
-				exists = event_target:rebel_leader
-				event_target:civwar_originator = {
-					any_owned_leader = { is_same_value = event_target:rebel_leader }
-				}
-			}
-			set_leader = event_target:rebel_leader
-		}
-		else_if = {
-			limit = { event_target:civwar_originator.ruler = { has_leader_flag = sep_won_election } }
-			clone_leader = {
-				target = event_target:civwar_originator.ruler
-				class = random_ruler
-				effect = {
-					set_leader_flag = civil_war_ruler_secession
-					save_event_target_as = secession_leader
-				}
-			}
-			set_leader = event_target:secession_leader
-			event_target:civwar_originator.ruler = {
-				set_leader_flag = dead_ruler
-				kill_leader = { show_notification = no }
-			}
-		}
-		else_if = {
-			limit = { exists = event_target:crisis_sector_leader }
-			set_leader = event_target:crisis_sector_leader
-		}
-		else = {
-			random_owned_pop = {
-				limit = { has_pop_flag = sep_leader_species }
-				species = { save_event_target_as = civwar_species }
-			}
-			create_leader = {
-				class = random_ruler
-				species = event_target:civwar_species
-				name = random
-				skill = 5
-				traits = { trait = trait_ruler_deep_connections }
-				effect = {
-					save_event_target_as = new_rebel_leader
-					set_leader_flag = new_faction_ruler
-				}
-			}
-			set_leader = event_target:new_rebel_leader
-		}
 
 		# Flip Systems and Planets, count pops
 		set_variable = { which = total_faction_pops value = 0 }
@@ -182,7 +122,7 @@ country_event = { # Setup for Civil War (create_country)
 									exists = pop_faction
 									pop_faction = { is_same_value = event_target:civwar_party }
 								}
-								set_timed_pop_flag = { flag = sep_leader_species days = 5 }
+								set_timed_pop_flag = { flag = sep_leader_species days = 10 }
 							}
 							# every_owned_pop = {
 							# 	limit = { can_be_soldier = yes }
@@ -287,6 +227,9 @@ country_event = { # Setup for Civil War (create_country)
 			root = { change_variable = { which = num_mil_pops value = 1 } }
 		}
 
+		# Set leaders and other stuff
+		get_civil_war_leader = yes
+
 		get_country_immediate_setup = yes
 
 		# create armies
@@ -297,10 +240,7 @@ country_event = { # Setup for Civil War (create_country)
 		
 		get_country_after_setup = yes
 
-		event_target:global_event_country = {
-			change_variable = { which = total_gal_civil_wars value = 1 }
-			change_variable = { which = total_gal_civstrife_events value = 1 }
-		}
+		count_civil_events = yes
 
 		export_trigger_value_to_variable = {
 			trigger = fleet_power
@@ -538,8 +478,6 @@ country_event = { # Setup for Rebellions (create_rebels)
 
 		save_event_target_as = civwar_rebels
 
-		set_country_flag = sep_state_of_@event_target:civwar_originator
-
 		event_target:civwar_originator = {
 			every_owned_fleet = { set_event_locked = yes }
 			set_variable = { which = total_faction_pops value = 0 } # If I move this anywhere else, shit gets crazy!
@@ -720,10 +658,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 
 		get_country_after_setup = yes
 
-		event_target:global_event_country = {
-			change_variable = { which = total_gal_plan_rebs value = 1 }
-			change_variable = { which = total_gal_civstrife_events value = 1 }
-		}
+		count_civil_events = yes
 		
 		event_target:civwar_originator = {
 			# Add intel
@@ -2430,7 +2365,6 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 		situation_progress >= 90
 		
 		owner = {
-			NOT = { any_owned_leader = { has_leader_flag = situation_leader_@root } } # Not already in the process of revolting
 			OR = {
 				AND = { # Civil War
 					any_owned_planet = {
@@ -2515,7 +2449,6 @@ situation_event = { # Revolt/Civil War Event
 	trigger = {
 		situation_progress >= 90
 		owner = {
-			NOT = { any_owned_leader = { has_leader_flag = situation_leader_@root } } # Not already in the process of revolting
 			OR = {
 				AND = {
 					any_owned_planet = {
@@ -2768,27 +2701,12 @@ country_event = { # Change leader flags to ruler flags
 		ruler = {
 			OR = {
 				has_leader_flag = new_faction_ruler
-				has_leader_flag = gen_iso_faction_leader
 				has_leader_flag = leader_civil_war_faction
 				has_leader_flag = appointed_heir
 				has_leader_flag = gov_changed_heir
 				has_leader_flag = true_born_heir
 				##
-				has_leader_flag = civil_war_leader_official_faction
-				has_leader_flag = civil_war_leader_commander_faction
-				has_leader_flag = civil_war_leader_scientist_faction
-				##
-				has_leader_flag = civil_war_leader_official_isolated
-				has_leader_flag = civil_war_leader_commander_isolated
-				has_leader_flag = civil_war_leader_scientist_isolated
 				has_leader_flag = civil_war_leader_heir_isolated
-				##
-				has_leader_flag = civil_war_leader_official_dispute
-				has_leader_flag = civil_war_leader_commander_dispute
-				has_leader_flag = civil_war_leader_scientist_dispute
-				##
-				has_leader_flag = civil_war_leader_separatist_faction
-				has_leader_flag = civil_war_leader_nationalist_faction
 			}
 		}
 	}
@@ -2802,94 +2720,10 @@ country_event = { # Change leader flags to ruler flags
 			}
 		}
 		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_official_faction } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_official_faction
-				set_leader_flag = civil_war_ruler_official
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_official_isolated } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_official_isolated
-				set_leader_flag = civil_war_ruler_official_isolated
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_official_dispute } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_official_dispute
-				set_leader_flag = civil_war_ruler_official_dispute
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_commander_faction } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_commander_faction
-				set_leader_flag = civil_war_ruler_commander
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_commander_isolated } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_commander_isolated
-				set_leader_flag = civil_war_ruler_commander_isolated
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_commander_dispute } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_commander_dispute
-				set_leader_flag = civil_war_ruler_commander_dispute
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_scientist_faction } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_scientist_faction
-				set_leader_flag = civil_war_ruler_scientist
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_scientist_isolated } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_scientist_isolated
-				set_leader_flag = civil_war_ruler_scientist_isolated
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_scientist_dispute } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_scientist_dispute
-				set_leader_flag = civil_war_ruler_scientist_dispute
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_separatist_faction } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_separatist_faction
-				set_leader_flag = civil_war_ruler_separatist
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = civil_war_leader_nationalist_faction } }
-			ruler = {
-				remove_leader_flag = civil_war_leader_nationalist_faction
-				set_leader_flag = civil_war_ruler_nationalist
-			}
-		}
-		else_if = {
 			limit = { ruler = { has_leader_flag = new_faction_ruler } }
 			ruler = {
 				remove_leader_flag = new_faction_ruler
 				set_leader_flag = civil_war_ruler_new
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = gen_iso_faction_leader } }
-			ruler = {
-				remove_leader_flag = gen_iso_faction_leader
-				set_leader_flag = civil_war_ruler_new_isolated
 			}
 		}
 		else_if = {
@@ -2915,19 +2749,6 @@ country_event = { # Change leader flags to ruler flags
 				set_leader_flag = civil_war_ruler_heir_true_born
 			}
 		}
-
-		ruler = {
-			if = {
-				limit = { NOT = { has_leader_flag = civil_war_ruler_official } }
-				set_leader_flag = civil_war_ruler_official
-			}
-
-			if = {
-				limit = { has_leader_flag = leader_civil_war_faction }
-				remove_leader_flag = leader_civil_war_faction
-			}
-		}
-
 	}
 }
 

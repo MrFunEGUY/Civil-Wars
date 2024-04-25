@@ -1312,19 +1312,15 @@ get_cit_res_thrall = {
 #####################################################
 
 frontier_planet_slave_tick_check = {
+	has_any_planet_rebellion_stopper = no
 	is_capital = no
 	is_colony = yes
 	is_occupied_flag = no
 	planet_stability < 25
-	has_ground_combat = no
-	has_orbital_bombardment = no
 	has_planet_flag = frontier_planet_@root
 	NOT = { planet_devastation >= 30 }
 	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 	NOT = { has_modifier = planet_culture_shock }
-	NOT = { has_planet_flag = recent_sep_rebellion }
-	NOT = { has_planet_flag = rebellion_suppressed }
-	NOT = { has_planet_flag = plan_slave_sep_active }
 	if = {
 		limit = { exists = sector }
 		sector = {
@@ -1350,19 +1346,11 @@ frontier_planet_slave_tick_check = {
 }
 
 integrated_planet_slave_tick_check = {
-	is_capital = no
-	is_colony = yes
-	is_occupied_flag = no
+	has_any_planet_rebellion_stopper = no
 	planet_stability < 20
-	has_ground_combat = no
-	has_orbital_bombardment = no
 	has_planet_flag = integrated_planet_@root
 	NOT = { planet_devastation >= 20 }
 	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
-	NOT = { has_modifier = planet_culture_shock }
-	NOT = { has_planet_flag = plan_slave_sep_active }
-	NOT = { has_planet_flag = recent_sep_rebellion }
-	NOT = { has_planet_flag = rebellion_suppressed }
 	if = {
 		limit = { exists = sector }
 		sector = {
@@ -1388,19 +1376,11 @@ integrated_planet_slave_tick_check = {
 }
 
 fundamental_planet_slave_tick_check = {
-	is_capital = no
-	is_colony = yes
-	is_occupied_flag = no
+	has_any_planet_rebellion_stopper = no
 	planet_stability < 15
-	has_ground_combat = no
-	has_orbital_bombardment = no
 	has_planet_flag = fundamental_planet_@root
 	NOT = { planet_devastation >= 10 }
 	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
-	NOT = { has_modifier = planet_culture_shock }
-	NOT = { has_planet_flag = plan_slave_sep_active }
-	NOT = { has_planet_flag = recent_sep_rebellion }
-	NOT = { has_planet_flag = rebellion_suppressed }
 	if = {
 		limit = { exists = sector }
 		sector = {
@@ -1426,18 +1406,10 @@ fundamental_planet_slave_tick_check = {
 }
 
 frontier_planet_unrest_tick_check = {
-	is_capital = no
-	is_colony = yes
-	is_occupied_flag = no
-	has_ground_combat = no
-	has_orbital_bombardment = no
+	has_any_planet_rebellion_stopper = no
 	has_planet_flag = frontier_planet_@root
 	NOT = { planet_devastation >= 15 }
 	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
-	NOT = { has_planet_flag = slave_sep_active }
-	NOT = { has_modifier = planet_culture_shock }
-	NOT = { has_planet_flag = recent_sep_rebellion }
-	NOT = { has_planet_flag = rebellion_suppressed }
 	OR = {
 		NOT = { exists = sector }
 		sector = {
@@ -1481,18 +1453,10 @@ frontier_planet_unrest_tick_check = {
 }
 
 integrated_planet_unrest_tick_check = {
-	is_capital = no
-	is_colony = yes
-	is_occupied_flag = no
-	has_ground_combat = no
-	has_orbital_bombardment = no
+	has_any_planet_rebellion_stopper = no
 	has_planet_flag = integrated_planet_@root
 	NOT = { planet_devastation >= 15 }
 	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
-	NOT = { has_planet_flag = slave_sep_active }
-	NOT = { has_modifier = planet_culture_shock }
-	NOT = { has_planet_flag = recent_sep_rebellion }
-	NOT = { has_planet_flag = rebellion_suppressed }
 	OR = { # Shouldn't be as relevant for non-Frontier Sectors
 		NOT = { exists = sector }
 		sector = {
@@ -1538,18 +1502,10 @@ integrated_planet_unrest_tick_check = {
 }
 
 fundamental_planet_unrest_tick_check = {
-	is_capital = no
-	is_colony = yes
-	is_occupied_flag = no
-	has_ground_combat = no
-	has_orbital_bombardment = no
+	has_any_planet_rebellion_stopper = no
 	has_planet_flag = fundamental_planet_@root
 	NOT = { planet_devastation >= 15 }
 	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
-	NOT = { has_planet_flag = slave_sep_active }
-	NOT = { has_modifier = planet_culture_shock }
-	NOT = { has_planet_flag = recent_sep_rebellion }
-	NOT = { has_planet_flag = rebellion_suppressed }
 	OR = { # Shouldn't be as relevant for non-Frontier Sectors
 		NOT = { exists = sector }
 		sector = {
@@ -1938,6 +1894,20 @@ combined_sector_slave_calm_retick_check = {
 	}
 }
 
+has_any_planet_rebellion_stopper = {
+	OR = {
+		num_pops <= 0
+		is_colony = no
+		is_capital = yes
+		is_occupied_flag = yes
+		has_ground_combat = yes
+		has_orbital_bombardment = yes
+		has_modifier = planet_culture_shock
+		has_planet_flag = plan_slave_sep_active
+		has_planet_flag = rebellion_suppressed
+	}
+}
+
 ###########################
 ########## Faction Triggers
 ###########################
@@ -1945,64 +1915,64 @@ combined_sector_slave_calm_retick_check = {
 is_pacifist_faction = {
 	OR = {
 		is_pop_faction_type = prosperity
-		is_pop_faction_type = activist
-		is_pop_faction_type = industrialist
+		is_pop_faction_type = activist					# Divided Loyalties
+		is_pop_faction_type = industrialist				# Divided Loyalties
 	}
 }
 
 is_militarist_faction = {
 	OR = {
 		is_pop_faction_type = imperialist
-		is_pop_faction_type = survivalist
-		is_pop_faction_type = warmaker
+		is_pop_faction_type = survivalist				# Divided Loyalties
+		is_pop_faction_type = warmaker					# Divided Loyalties
 	}
 }
 
 is_materialist_faction = {
 	OR = {
 		is_pop_faction_type = technologist
-		is_pop_faction_type = perfectionist
-		is_pop_faction_type = adopter
+		is_pop_faction_type = perfectionist				# Divided Loyalties
+		is_pop_faction_type = adopter					# Divided Loyalties
 	}
 }
 
 is_spiritualist_faction = {
 	OR = {
 		is_pop_faction_type = traditionalist
-		is_pop_faction_type = crusader
-		is_pop_faction_type = shepherd
+		is_pop_faction_type = crusader					# Divided Loyalties
+		is_pop_faction_type = shepherd					# Divided Loyalties
 	}
 }
 
 is_egalitarian_faction = {
 	OR = {
 		is_pop_faction_type = progressive
-		is_pop_faction_type = elitist
-		is_pop_faction_type = labourite
+		is_pop_faction_type = elitist					# Divided Loyalties
+		is_pop_faction_type = labourite					# Divided Loyalties
 	}
 }
 
 is_authoritarian_faction = {
 	OR = {
 		is_pop_faction_type = totalitarian
-		is_pop_faction_type = indentured
-		is_pop_faction_type = aristocrat
+		is_pop_faction_type = indentured					# Divided Loyalties
+		is_pop_faction_type = aristocrat					# Divided Loyalties
 	}
 }
 
 is_xenophile_faction = {
 	OR = {
 		is_pop_faction_type = xenoist
-		is_pop_faction_type = holistic
-		is_pop_faction_type = warmaker
+		is_pop_faction_type = holistic					# Divided Loyalties
+		is_pop_faction_type = warmaker					# Divided Loyalties
 	}
 }
 
 is_xenophobe_faction = {
 	OR = {
 		is_pop_faction_type = supremacist
-		is_pop_faction_type = isolationist
-		is_pop_faction_type = enslaver
+		is_pop_faction_type = isolationist	# Divided Loyalties
+		is_pop_faction_type = enslaver						# Divided Loyalties
 	}
 }
 
@@ -2022,7 +1992,7 @@ is_industrial_faction = {
 
 is_socialist_faction = {
 	OR = {
-		is_pop_faction_type = socialists	# Regular
+		is_pop_faction_type = socialists		# Regular
 		is_pop_faction_type = socialist		# Bug Branch
 	}
 }
@@ -2030,7 +2000,7 @@ is_socialist_faction = {
 is_capitalism_faction = {
 	OR = {
 		is_pop_faction_type = bankers			# Regular
-		is_pop_faction_type = capitalist		# Bug Branch
+		is_pop_faction_type = capitalist			# Bug Branch
 	}
 }
 
@@ -2043,7 +2013,7 @@ is_pluralist_faction = {
 
 is_elitist_faction = {
 	OR = {
-		is_pop_faction_type = conservatives 	# Evolved
+		is_pop_faction_type = conservatives 		# Evolved
 		is_pop_faction_type = conservative 		# Bug Branch
 	}
 }
@@ -2084,6 +2054,22 @@ is_loyal = {
 
 is_homeworld_of = {
 	$LEADER$ = { is_background_planet = prev }
+}
+
+homeworld_ethic_leader_exists = {
+	event_target:civil_war_planet.owner = {
+		any_owned_leader = {
+			has_ethic = ethic_$ETHIC$
+			OR = {
+				background_planet = { is_same_value = event_target:civil_war_planet }
+				AND = {
+					event_target:civil_war_planet = { has_planet_flag = sep_sector_rebellion }
+					exists = background_planet.sector
+					background_planet.sector = { is_same_value = event_target:civil_war_planet.sector }
+				}
+			}
+		}
+	}
 }
 
 ###########################

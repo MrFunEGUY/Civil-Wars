@@ -30,7 +30,7 @@ country_event = { # Planetary Unrest Counter
 		is_country_type_with_subjects = yes
 		NOT = { years_passed < 15 }
 		any_owned_planet = {
-			num_pops > 0
+			has_any_planet_rebellion_stopper = no
 			OR = {
 				NOT = { exists = sector }
 				sector = { NOT = { has_sector_flag = sector_sep_active } }
@@ -46,7 +46,7 @@ country_event = { # Planetary Unrest Counter
 	immediate = {
 		every_owned_planet = {
 			limit = {
-				num_pops > 0
+				has_any_planet_rebellion_stopper = no
 				OR = {
 					NOT = { exists = sector }
 					sector = { NOT = { has_sector_flag = sector_sep_active } }
@@ -448,6 +448,7 @@ planet_event = { # Create First Separatists, Planetary
 
 	trigger = {
 		is_capital = no
+		has_any_planet_rebellion_stopper = no
 	}
 
 	immediate = {
@@ -1043,6 +1044,7 @@ planet_event = { # Create Separatists Yearly Event
 			happiness <= 65
 			pop_can_be_separatist_gen = yes
 		}
+		has_any_planet_rebellion_stopper = no
 	}
 
 	immediate = {
@@ -1317,22 +1319,25 @@ country_event = { # Find isolated sectors
 			}
 		}
 
-		every_owned_sector = {
-			limit = { any_owned_planet = { is_capital = no } } # Dont need to check the capital
-			if = {
-				limit = {
-					OR = {
-						root = { has_technology = tech_jump_drive_1 }
-						root = { has_technology = tech_psi_jump_drive_1 }
-						any_system_within_border = {
-							event_target:access_checker_fleet = { can_access_system = prev }
-						}
-					}
+		if = {
+			limit = {
+				NOT = { has_global_flag = jump_drives_disabled }
+				OR = {
+					root = { has_technology = tech_jump_drive_1 }
+					root = { has_technology = tech_psi_jump_drive_1 }
 				}
-				set_sector_flag = can_access_capital
 			}
-			else = {
+			every_owned_sector = { set_sector_flag = can_access_capital }
+		}
+		else_if = {
+			limit = { any_owned_sector = { NOT = { any_owned_planet = { is_capital = yes } } } }
+			every_owned_sector = {
+				limit = { NOT = { any_owned_planet = { is_capital = yes } } } # Don't need to check the capital
 				if = {
+					limit = { any_system_within_border = { event_target:access_checker_fleet = { can_access_system = prev } } }
+					set_sector_flag = can_access_capital
+				}
+				else_if = {
 					limit = { NOT = { is_variable_set = isolated_sector_year } }
 					set_variable = { which = isolated_sector_year value = 1 }
 				}
@@ -1341,6 +1346,8 @@ country_event = { # Find isolated sectors
 				}
 			}
 		}
+
+
 
 		if = {	# After being connected, remove lonely sector variables. Look further into this, and make it such that the time is dependent on how long the sector was isolated
 			limit = {
@@ -1706,12 +1713,14 @@ situation_event = { # Planetary Revolt Event
 						limit = { has_pop_flag = sep_pop }
 						root.target = { change_variable = { which = fac_mil_support value = 1 } }
 					}
+					random_owned_pop = {
+						limit = { has_pop_flag = sep_pop }
+						species = { save_event_target_as = civwar_species }
+					}
 					solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
 					save_event_target_as = civil_war_planet
 					set_planet_flag = sep_planet_rebellion
-					set_timed_planet_flag = { flag = recent_sep_rebellion years = 2 }
 					save_event_target_as = rebellion_planet
-					get_separatist_war_leader = yes
 					get_gen_plan_rebels = yes
 					root = { situation_event = { id = civsep.9020 } }
 				}
@@ -1832,11 +1841,17 @@ situation_event = { # Sectoral Revolt Event
 								}
 								root.target = { change_variable = { which = fac_mil_support value = 1 } }
 							}
+							random_owned_pop = {
+								limit = {
+									exists = pop_faction
+									pop_faction = { is_same_value = root.target }
+								}
+								species = { save_event_target_as = civwar_species } }
+							}
 						}
 						sector_capital = {
 							save_event_target_as = civil_war_planet
 							owner = { create_party_name_leader = yes }
-							get_separatist_war_leader = yes
 							set_planet_flag = sep_sector_rebellion
 							get_sectoral_reb_number = yes
 							get_gen_sec_rebels = yes
@@ -1899,44 +1914,44 @@ situation_event = { # Sectoral Revolt Event
 							sector = { is_same_value = event_target:rebel_sector }
 						}
 					}
-					random_owned_leader = {
+					if = {
 						limit = {
-							exists = sector
-							sector = { is_same_value = event_target:rebel_sector }
-						}
-						set_leader_flag = leader_civil_war_faction
-						set_leader_flag = leader_civil_war_isolated
-						set_leader_flag = situation_leader_@root
-						species = { save_event_target_as = civwar_species }
-						if = {
-							limit = { has_leader_flag = appointed_heir }
-							set_leader_flag = civil_war_leader_heir_isolated
-						}
-						else_if = {
-							limit = { leader_class = official }
-							set_leader_flag = civil_war_leader_official_isolated
-						}
-						else_if = {
-							limit = { leader_class = commander }
-							set_leader_flag = civil_war_leader_commander_isolated
-							if = { # Fleet Commander revolts
-								limit = {
-									owner = {
-										any_owned_fleet = {
-											exists = leader
-											leader = { is_same_value = prevprevprev }
-										}
-									}
-								}
-								fleet = {
-									save_global_event_target_as = commander_rebel_rally_point
-									set_fleet_flag = civil_war_fleet
-								}
+							any_owned_leader = {
+								exists = sector
+								sector = { is_same_value = event_target:rebel_sector }
+								exists = background_planet.sector
+								background_planet.sector = { is_same_value = event_target:rebel_sector }
 							}
 						}
-						else_if = {
-							limit = { leader_class = scientist }
-							set_leader_flag = civil_war_leader_scientist_isolated
+						random_owned_leader = {
+							limit = {
+								exists = sector
+								sector = { is_same_value = event_target:rebel_sector }
+								exists = background_planet.sector
+								background_planet.sector = { is_same_value = event_target:rebel_sector }
+							}
+							set_leader_flag = leader_civil_war_isolated
+							set_leader_flag = situation_leader_@root
+							if = {
+								limit = { has_leader_flag = appointed_heir }
+								set_leader_flag = civil_war_leader_heir_isolated
+							}
+							setup_rebel_leader_effect = yes
+						}
+					}
+					else = {
+						random_owned_leader = {
+							limit = {
+								exists = sector
+								sector = { is_same_value = event_target:rebel_sector }
+							}
+							set_leader_flag = leader_civil_war_isolated
+							set_leader_flag = situation_leader_@root
+							if = {
+								limit = { has_leader_flag = appointed_heir }
+								set_leader_flag = civil_war_leader_heir_isolated
+							}
+							setup_rebel_leader_effect = yes
 						}
 					}
 				}
@@ -1944,6 +1959,7 @@ situation_event = { # Sectoral Revolt Event
 					root.target = {
 						random_owned_pop = {
 							species = { save_event_target_as = civwar_species }
+							planet = { save_event_target_as = iso_background_planet }
 						}
 					}
 					owner = {
@@ -1953,22 +1969,14 @@ situation_event = { # Sectoral Revolt Event
 							name = random
 							skill = 5
 							traits = { trait = trait_ruler_deep_connections }
+							background_planet = event_target:iso_background_planet
 							effect = {
 								set_leader_flag = leader_for_@event_target:civil_war_planet
 								set_leader_flag = new_isolated_sector_ruler
-								set_leader_flag = leader_civil_war_faction
 								set_leader_flag = situation_leader_@root
 							}
 						}
 					}
-				}
-
-				random_owned_leader = {
-					limit = {
-						has_leader_flag = leader_civil_war_faction
-						has_leader_flag = situation_leader_@root
-					}
-					save_event_target_as = rebel_leader
 				}
 
 				root.target = { save_event_target_as = civwar_party } # I Imagine this should stay past the first loop
@@ -3046,6 +3054,9 @@ situation_event = { # Planetary Separatists Strike
 
 	option = {
 		name = civcom.this_is_bad
+		hidden_effect = {
+			destroy_situation = this
+		}
 		ai_chance = { factor = 1 }
 	}
 }
@@ -3060,6 +3071,9 @@ situation_event = { # Sectoral Separatists Strike
 
 	option = {
 		name = civcom.this_is_bad
+		hidden_effect = {
+			destroy_situation = this
+		}
 		ai_chance = { factor = 1 }
 	}
 }
@@ -3074,6 +3088,9 @@ situation_event = { # Slaves Strike
 
 	option = {
 		name = civcom.this_is_bad
+		hidden_effect = {
+			destroy_situation = this
+		}
 		ai_chance = { factor = 1 }
 	}
 }
@@ -3102,6 +3119,9 @@ situation_event = { # Slaves Strike Sector
 
 	option = {
 		name = civcom.this_is_bad
+		hidden_effect = {
+			destroy_situation = this
+		}
 		ai_chance = { factor = 1 }
 	}
 }

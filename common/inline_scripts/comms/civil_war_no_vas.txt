@@ -6,27 +6,13 @@ desc = {
 		success_text = {
 			text = civcom.1100.leader.desc
 			NOT = { has_country_flag = rebs_help_eachother }
-			event_target:civwar_rebels = {
-				ruler = {
-					OR = {
-						has_leader_flag = civil_war_ruler_official
-						has_leader_flag = civil_war_ruler_commander
-						has_leader_flag = civil_war_ruler_scientist
-					}
-				}
-			}
+			event_target:civwar_rebels = { NOT = { has_origin = origin_nationalist_rebellion } }
 		}
 
 		success_text = {
 			text = civcom.1100.mult.leader.desc
 			has_country_flag = rebs_help_eachother
-			event_target:civwar_rebels.ruler = {
-				OR = {
-					has_leader_flag = civil_war_ruler_official
-					has_leader_flag = civil_war_ruler_commander
-					has_leader_flag = civil_war_ruler_scientist
-				}
-			}
+			event_target:civwar_rebels = { NOT = { has_origin = origin_nationalist_rebellion } }
 		}
 
 		success_text = { # New Nat Country, motherland will join war
@@ -34,9 +20,7 @@ desc = {
 			NOT = { has_country_flag = rebs_help_eachother }
 			exists = event_target:nat_motherland_model
 			event_target:nat_motherland_model = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_nationalist
-			}
+			event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
 		}
 
 		success_text = { # Multiple New Nat Countries, motherland will join war
@@ -44,9 +28,7 @@ desc = {
 			has_country_flag = rebs_help_eachother
 			exists = event_target:nat_motherland_model
 			event_target:nat_motherland_model = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_nationalist
-			}
+			event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
 		}
 
 		success_text = { # New Nat Country, motherland wont join war
@@ -59,7 +41,7 @@ desc = {
 			}
 			event_target:civwar_rebels = {
 				NOT = { has_country_flag = exile_restored_country }
-				ruler = { has_leader_flag = civil_war_ruler_nationalist }
+				has_origin = origin_nationalist_rebellion
 			}
 		}
 
@@ -73,7 +55,7 @@ desc = {
 			}
 			event_target:civwar_rebels = {
 				NOT = { has_country_flag = exile_restored_country }
-				ruler = { has_leader_flag = civil_war_ruler_nationalist }
+				has_origin = origin_nationalist_rebellion
 			}
 		}
 
@@ -86,9 +68,9 @@ desc = {
 				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
-				ruler = { has_leader_flag = civil_war_ruler_nationalist }
-				has_country_flag = exile_restored_country
 				is_imperial = no
+				has_origin = origin_nationalist_rebellion
+				has_country_flag = exile_restored_country
 			}
 		}
 
@@ -101,9 +83,9 @@ desc = {
 				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
-				ruler = { has_leader_flag = civil_war_ruler_nationalist }
-				has_country_flag = exile_restored_country
 				is_imperial = no
+				has_origin = origin_nationalist_rebellion
+				has_country_flag = exile_restored_country
 			}
 		}
 
@@ -117,8 +99,8 @@ desc = {
 			}
 			event_target:civwar_rebels = {
 				is_imperial = yes
+				has_origin = origin_nationalist_rebellion
 				has_country_flag = exile_restored_country
-				ruler = { has_leader_flag = civil_war_ruler_nationalist }
 			}
 		}
 
@@ -132,19 +114,15 @@ desc = {
 			}
 			event_target:civwar_rebels = {
 				is_imperial = yes
+				has_origin = origin_nationalist_rebellion
 				has_country_flag = exile_restored_country
-				ruler = { has_leader_flag = civil_war_ruler_nationalist }
 			}
 		}
 
 		success_text = {
 			text = civcom.1100.leader.iso.sec.desc
 			event_target:civwar_rebels.ruler = {
-				OR = {
-					has_leader_flag = civil_war_ruler_official_isolated
-					has_leader_flag = civil_war_ruler_commander_isolated
-					has_leader_flag = civil_war_ruler_scientist_isolated
-				}
+				NOT = { has_leader_flag = civil_war_ruler_heir_isolated }
 			}
 		}
 

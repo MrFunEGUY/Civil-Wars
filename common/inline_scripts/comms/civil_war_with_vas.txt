@@ -3,13 +3,7 @@
 desc = {
 	text = civcom.1105.leader.desc
 	trigger = {
-		event_target:civwar_rebels.ruler = {
-			OR = {
-				has_leader_flag = civil_war_ruler_official
-				has_leader_flag = civil_war_ruler_commander
-				has_leader_flag = civil_war_ruler_scientist
-			}
-		}
+		event_target:civwar_rebels = { NOT = { has_origin = origin_nationalist_rebellion } }
 	}
 }
 
@@ -18,8 +12,8 @@ desc = {
 	trigger = {
 		event_target:nat_motherland_model = { is_exile_country = yes }
 		event_target:civwar_rebels = {
-			ruler = { has_leader_flag = civil_war_ruler_nationalist }
 			is_imperial = no
+			has_origin = origin_nationalist_rebellion
 		}
 	}
 }
@@ -29,7 +23,7 @@ desc = {
 	trigger = {
 		event_target:nat_motherland_model = { is_exile_country = yes }
 		event_target:civwar_rebels = {
-			ruler = { has_leader_flag = civil_war_ruler_nationalist }
+			has_origin = origin_nationalist_rebellion
 			is_imperial = yes
 		}
 	}

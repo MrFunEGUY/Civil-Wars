@@ -177,6 +177,17 @@ wg_planet_rebellion = {
 			}
 		}
 	}
+
+	on_status_quo = {
+		custom_tooltip = civil_war_status_quo_tooltip
+		from = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier5materialreward
+				min = @tier5materialmin
+			}
+		}
+	}
 	
 	on_accept = {
 		custom_tooltip = civil_war_won_tooltip
@@ -188,7 +199,12 @@ wg_planet_rebellion = {
 		hidden_effect = {
 			from = {
 				capital_scope = {
-					set_timed_planet_flag = { flag = rebellion_suppressed years = 5 }
+					random_list = {
+						40 = { set_timed_planet_flag = { flag = rebellion_suppressed years = 5 } }
+						25 = { set_timed_planet_flag = { flag = rebellion_suppressed years = 10 } }
+						20 = { set_timed_planet_flag = { flag = rebellion_suppressed years = 15 } }
+						15 = { set_timed_planet_flag = { flag = rebellion_suppressed years = 20 } }
+					}
 				}
 				every_system_within_border = {
 					limit = { exists = starbase }
@@ -232,6 +248,11 @@ wg_planet_rebellion_rebels = {
 
 	on_accept = {
 		custom_tooltip = civil_war_lost_tooltip
+		add_monthly_resource_mult = {
+			resource = unity
+			value = @tier5materialreward
+			min = @tier5materialmin
+		}
 	}
 
 	ai_weight = {
@@ -387,6 +408,17 @@ wg_civwar_heir = {
 
 	possible = {
 		always = yes
+	}
+
+	on_status_quo = {
+		custom_tooltip = civil_war_status_quo_tooltip
+		from = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier5materialreward
+				min = @tier5materialmin
+			}
+		}
 	}
 
 	on_accept = {
