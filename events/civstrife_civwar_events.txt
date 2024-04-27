@@ -25,6 +25,7 @@ country_event = { # Setup for Civil War (create_country)
 		save_event_target_as = civwar_rebels
 
 		event_target:civwar_originator = {
+			get_ethic_logger_effect = yes
 			every_owned_fleet = { set_event_locked = yes }
 			set_country_flag = civwar_mother_country_@root
 
@@ -239,8 +240,6 @@ country_event = { # Setup for Civil War (create_country)
 	after = {
 		
 		get_country_after_setup = yes
-
-		count_civil_events = yes
 
 		export_trigger_value_to_variable = {
 			trigger = fleet_power
@@ -657,8 +656,6 @@ country_event = { # Setup for Rebellions (create_rebels)
 	after = {
 
 		get_country_after_setup = yes
-
-		count_civil_events = yes
 
 		event_target:civwar_originator = {
 			# Add intel
@@ -2554,9 +2551,12 @@ situation_event = { # Revolt/Civil War Event
 					}
 				}
 				random = {
-					# chance = 45
-					chance = 100
-					root.target = { set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 } }
+					 chance = 45
+					#chance = 100
+					root.target = {
+						set_faction_rebellion_suppression_flag = yes
+					}
+
 					get_war_type_flag = yes
 					save_event_target_as = civwar_originator
 					get_civil_war_number = yes
@@ -2641,7 +2641,9 @@ situation_event = { # Revolt/Civil War Event
 				random = {
 					chance = 20
 					# chance = 100
-					root.target = { set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 } }
+					root.target = {
+						set_faction_rebellion_suppression_flag = yes
+					}
 					get_war_type_flag = yes
 					save_event_target_as = civwar_originator
 					get_civil_war_number = yes
@@ -2677,7 +2679,9 @@ situation_event = { # Revolt/Civil War Event
 				random = {
 					chance = 20
 					# chance = 100
-					root.target = { set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 } }
+					root.target = {
+						set_faction_rebellion_suppression_flag = yes
+					}
 					get_war_type_flag = yes
 					save_event_target_as = civwar_originator
 					get_planetary_revolt_effect = yes

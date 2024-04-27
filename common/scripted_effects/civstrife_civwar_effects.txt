@@ -2543,271 +2543,287 @@ created_civwar_rebel_country_effect = {
 			}
 		}
 		if = {
-			limit = {
-				root.target = { is_authoritarian_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = authoritarian }
+			limit = { root.target = { is_authoritarian_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = authoritarian } }
+				get_homeworld_ethic_leader = { ETHIC = authoritarian }
 			}
-			get_homeworld_ethic_leader = { ETHIC = authoritarian }
-		}
-		else_if = {
-			limit = {
-				root.target = { is_authoritarian_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_authoritarian } }
-			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_authoritarian }
-					save_event_target_as = new_rebel_leader
+			else_if = {
+				limit = {
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_authoritarian } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_authoritarian }
+						save_event_target_as = new_rebel_leader
+					}
 				}
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = authoritarian } }
 		}
 		else_if = {
-			limit = {
-				root.target = { is_egalitarian_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = egalitarian }
+			limit = { root.target = { is_egalitarian_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = egalitarian } }
+				get_homeworld_ethic_leader = { ETHIC = egalitarian }
 			}
-			get_homeworld_ethic_leader = { ETHIC = egalitarian }
-		}
-		else_if = {
-			limit = {
-				root.target = { is_egalitarian_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_egalitarian } }
-			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_egalitarian }
-					save_event_target_as = new_rebel_leader
+			else_if = {
+				limit = {
+					root.target = { is_egalitarian_faction = yes }
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_egalitarian } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_egalitarian }
+						save_event_target_as = new_rebel_leader
+					}
 				}
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = egalitarian } }
 		}
 		else_if = {
-			limit = {
-				root.target = { is_militarist_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = militarist }
+			limit = { root.target = { is_militarist_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = militarist } }
+				get_homeworld_ethic_leader = { ETHIC = militarist }
 			}
-			get_homeworld_ethic_leader = { ETHIC = militarist }
-		}
-		else_if = {
-			limit = {
-				root.target = { is_militarist_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_militarist } }
-			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_militarist }
-					save_event_target_as = new_rebel_leader
+			else_if = {
+				limit = {
+					root.target = { is_militarist_faction = yes }
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_militarist } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_militarist }
+						save_event_target_as = new_rebel_leader
+					}
 				}
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = militarist } }
 		}
 		else_if = {
-			limit = {
-				root.target = { is_pacifist_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = pacifist }
+			limit = { root.target = { is_pacifist_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = pacifist } }
+				get_homeworld_ethic_leader = { ETHIC = pacifist }
 			}
-			get_homeworld_ethic_leader = { ETHIC = pacifist }
-		}
-		else_if = {
-			limit = {
-				root.target = { is_pacifist_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_pacifist } }
-			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_pacifist }
-					save_event_target_as = new_rebel_leader
+			else_if = {
+				limit = {
+					root.target = { is_pacifist_faction = yes }
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_pacifist } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_pacifist }
+						save_event_target_as = new_rebel_leader
+					}
 				}
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = pacifist } }
 		}
 		else_if = {
-			limit = {
-				root.target = { is_materialist_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = materialist }
+			limit = { root.target = { is_materialist_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = materialist } }
+				get_homeworld_ethic_leader = { ETHIC = materialist }
 			}
-			get_homeworld_ethic_leader = { ETHIC = materialist }
-		}
-		else_if = {
-			limit = {
-				root.target = { is_materialist_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_materialist } }
-			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_materialist }
-					save_event_target_as = new_rebel_leader
+			else_if = {
+				limit = {
+					root.target = { is_materialist_faction = yes }
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_materialist } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_materialist }
+						save_event_target_as = new_rebel_leader
+					}
 				}
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = materialist } }
 		}
 		else_if = {
-			limit = {
-				root.target = { is_spiritualist_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = spiritualist }
+			limit = { root.target = { is_spiritualist_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = spiritualist } }
+				get_homeworld_ethic_leader = { ETHIC = spiritualist }
 			}
-			get_homeworld_ethic_leader = { ETHIC = spiritualist }
-		}
-		else_if = {
-			limit = {
-				root.target = { is_spiritualist_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_spiritualist } }
-			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_spiritualist }
-					save_event_target_as = new_rebel_leader
+			else_if = {
+				limit = {
+					root.target = { is_spiritualist_faction = yes }
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_spiritualist } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_spiritualist }
+						save_event_target_as = new_rebel_leader
+					}
 				}
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = spiritualist } }
 		}
 		else_if = {
-			limit = {
-				root.target = { is_xenophile_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = xenophile }
+			limit = { root.target = { is_xenophile_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = xenophile } }
+				get_homeworld_ethic_leader = { ETHIC = xenophile }
 			}
-			get_homeworld_ethic_leader = { ETHIC = xenophile }
-		}
-		else_if = {
-			limit = {
-				root.target = { is_xenophile_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_xenophile } }
-			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_xenophile }
-					save_event_target_as = new_rebel_leader
+			else_if = {
+				limit = {
+					root.target = { is_xenophile_faction = yes }
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_xenophile } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_xenophile }
+						save_event_target_as = new_rebel_leader
+					}
 				}
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = xenophile } }
 		}
 		else_if = {
-			limit = {
-				root.target = { is_xenophobe_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = xenophobe }
+			limit = { root.target = { is_xenophobe_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = xenophobe } }
+				get_homeworld_ethic_leader = { ETHIC = xenophobe }
 			}
-			get_homeworld_ethic_leader = { ETHIC = xenophobe }
-		}
-		else_if = {
-			limit = {
-				root.target = { is_xenophobe_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_xenophobe } }
-			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_xenophobe }
-					save_event_target_as = new_rebel_leader
+			else_if = {
+				limit = {
+					root.target = { is_xenophobe_faction = yes }
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_xenophobe } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_xenophobe }
+						save_event_target_as = new_rebel_leader
+					}
 				}
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = xenophobe } }
 		}
 		else_if = {
-			limit = {
-				root.target = { is_socialist_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = socialism }
+			limit = { root.target = { is_socialist_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = socialism } }
+				get_homeworld_ethic_leader = { ETHIC = socialism }
 			}
-			get_homeworld_ethic_leader = { ETHIC = socialism }
+			log = "Correct Faction Chosen"
+			else_if = {
+				limit = {
+					root.target = { is_socialist_faction = yes }
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_socialism } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_socialism }
+						save_event_target_as = new_rebel_leader
+					}
+				}
+				else = { create_planetary_leader_with_ethic = { ETHIC = socialism } }
+				log = "Correct Faction Chosen"
+			}
 		}
 		else_if = {
-			limit = {
-				root.target = { is_socialist_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_socialism } }
+			limit = { root.target = { is_capitalism_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = capitalism } }
+				get_homeworld_ethic_leader = { ETHIC = capitalism }
 			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_socialism }
-					save_event_target_as = new_rebel_leader
+			else_if = {
+				limit = {
+					root.target = { is_capitalism_faction = yes }
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_capitalism } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_capitalism }
+						save_event_target_as = new_rebel_leader
+					}
 				}
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = capitalism } }
 		}
 		else_if = {
-			limit = {
-				root.target = { is_capitalism_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = capitalism }
+			limit = { root.target = { is_industrial_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = industrial } }
+				get_homeworld_ethic_leader = { ETHIC = industrial }
 			}
-			get_homeworld_ethic_leader = { ETHIC = capitalism }
-		}
-		else_if = {
-			limit = {
-				root.target = { is_capitalism_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_capitalism } }
-			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_capitalism }
-					save_event_target_as = new_rebel_leader
+			else_if = {
+				limit = {
+					root.target = { is_industrial_faction = yes }
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_industrial } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_industrial }
+						save_event_target_as = new_rebel_leader
+					}
 				}
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = industrial } }
 		}
 		else_if = {
-			limit = {
-				root.target = { is_industrial_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = industrial }
+			limit = { root.target = { is_ecologist_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = green } }
+				get_homeworld_ethic_leader = { ETHIC = green }
 			}
-			get_homeworld_ethic_leader = { ETHIC = industrial }
-		}
-		else_if = {
-			limit = {
-				root.target = { is_industrial_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_industrial } }
-			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_industrial }
-					save_event_target_as = new_rebel_leader
+			else_if = {
+				limit = {
+					root.target = { is_ecologist_faction = yes }
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_green } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_green }
+						save_event_target_as = new_rebel_leader
+					}
 				}
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = green } }
 		}
 		else_if = {
-			limit = {
-				root.target = { is_ecologist_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = green }
+			limit = { root.target = { is_elitist_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = elitist } }
+				get_homeworld_ethic_leader = { ETHIC = elitist }
 			}
-			get_homeworld_ethic_leader = { ETHIC = green }
-		}
-		else_if = {
-			limit = {
-				root.target = { is_ecologist_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_green } }
-			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_green }
-					save_event_target_as = new_rebel_leader
+			else_if = {
+				limit = {
+					root.target = { is_elitist_faction = yes }
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_elitist } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_elitist }
+						save_event_target_as = new_rebel_leader
+					}
 				}
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = elitist } }
 		}
 		else_if = {
-			limit = {
-				root.target = { is_elitist_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = elitist }
+			limit = { root.target = { is_pluralist_faction = yes } }
+			if = {
+				limit = { homeworld_ethic_leader_exists = { ETHIC = pluralist } }
+				get_homeworld_ethic_leader = { ETHIC = pluralist }
 			}
-			get_homeworld_ethic_leader = { ETHIC = elitist }
-		}
-		else_if = {
-			limit = {
-				root.target = { is_elitist_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_elitist } }
-			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_elitist }
-					save_event_target_as = new_rebel_leader
+			else_if = {
+				limit = {
+					root.target = { is_pluralist_faction = yes }
+					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_pluralist } }
+				}
+				event_target:civil_war_planet.owner = {
+					random_owned_leader = {
+						limit = { has_ethic = ethic_pluralist }
+						save_event_target_as = new_rebel_leader
+					}
 				}
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = pluralist } }
 		}
-		else_if = {
-			limit = {
-				root.target = { is_pluralist_faction = yes }
-				homeworld_ethic_leader_exists = { ETHIC = pluralist }
-			}
-			get_homeworld_ethic_leader = { ETHIC = pluralist }
-		}
-		else_if = {
-			limit = {
-				root.target = { is_pluralist_faction = yes }
-				event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_pluralist } }
-			}
-			event_target:civil_war_planet.owner = {
-				random_owned_leader = {
-					limit = { has_ethic = ethic_pluralist }
-					save_event_target_as = new_rebel_leader
-				}
-			}
-		}
+
 	}
 	else_if = {
 		limit = {
@@ -2881,15 +2897,17 @@ created_civwar_rebel_country_effect = {
 			name = random
 			skill = 5
 			traits = { trait = trait_ruler_deep_connections }
-			effect = {
-				save_event_target_as = new_rebel_leader
-			}
+			effect = { save_event_target_as = new_rebel_leader }
 		}
 	}
 	set_leader = event_target:new_rebel_leader
 
 	event_target:civil_war_planet = {
 		planet_event = { id = civplan.2000 }
+		if = {
+			limit = { event_target:civwar_rebels = { is_standard_faction_country = yes } }
+			owner = { get_ethic_logger_effect = yes }
+		}
 	}
 }
 
@@ -3822,9 +3840,6 @@ get_ethic_plan_rebels = {
 							ethic = random
 						}
 						effect = {
-							prev = {
-
-							}
 							created_civwar_rebel_country_effect = yes
 						}
 					}
@@ -3887,7 +3902,7 @@ get_ethic_plan_rebels = {
 				}
 			}
 		}
-
+		last_created_country = { set_country_flag = civwar_auth }
 	}
 	else_if = { # Egalitarians
 		limit = { root.target = { is_egalitarian_faction = yes } }
@@ -3992,6 +4007,7 @@ get_ethic_plan_rebels = {
 				}
 			}
 		}
+		last_created_country = { set_country_flag = civwar_egal }
 	}
 	else_if = { # Militarists
 		limit = { root.target = { is_militarist_faction = yes } }
@@ -4277,6 +4293,7 @@ get_ethic_plan_rebels = {
 				}
 			}
 		}
+		last_created_country = { set_country_flag = civwar_mil }
 	}
 	else_if = { # Pacifists
 		limit = { root.target = { is_pacifist_faction = yes } }
@@ -4562,6 +4579,7 @@ get_ethic_plan_rebels = {
 				}
 			}
 		}
+		last_created_country = { set_country_flag = civwar_pac }
 	}
 	else_if = { # Materialists
 		limit = { root.target = { is_materialist_faction = yes } }
@@ -4847,6 +4865,7 @@ get_ethic_plan_rebels = {
 				}
 			}
 		}
+		last_created_country = { set_country_flag = civwar_mat }
 	}
 	else_if = { # Spiritualists
 		limit = { root.target = { is_spiritualist_faction = yes } }
@@ -5132,291 +5151,7 @@ get_ethic_plan_rebels = {
 				}
 			}
 		}
-	}
-	else_if = { # Xenophiles
-		limit = { root.target = { is_xenophile_faction = yes } }
-		if = {
-			limit = { has_global_flag = cultural_overhaul_active }
-			if = {
-				limit = { has_global_flag = cultural_overhaul_funefork_active }
-				random_list = {
-					5 = {
-						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
-							authority = auth_democratic
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = ethic_egalitarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
-						}
-					}
-					5 = {
-						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
-							authority = auth_strict_democratic
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = ethic_egalitarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
-						}
-					}
-					25 = {
-						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
-							authority = auth_dict_democratic
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = random
-								ethic = random
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
-						}
-					}
-					25 = {
-						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
-							authority = auth_imperial
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = ethic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
-						}
-					}
-					25 = {
-						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
-							authority = auth_dictatorial
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = ethic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
-						}
-					}
-					10 = {
-						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
-							authority = auth_oligarchic
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = random
-								ethic = random
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
-						}
-					}
-				}
-			}
-			else = {
-				random_list = {
-					15 = {
-						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
-							authority = auth_democratic
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = ethic_egalitarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
-						}
-					}
-					5 = {
-						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
-							authority = auth_direct_democratic
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = ethic_egalitarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
-						}
-					}
-					25 = {
-						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
-							authority = auth_imperial
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = ethic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
-						}
-					}
-					30 = {
-						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
-							authority = auth_dictatorial
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = ethic_authoritarian
-								ethic = random
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
-						}
-					}
-					25 = {
-						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
-							authority = auth_oligarchic
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = random
-								ethic = random
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
-						}
-					}
-				}
-			}
-		}
-		else = {
-			random_list = {
-				25 = {
-					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
-						authority = auth_democratic
-						ethos = {
-							ethic = ethic_fanatic_xenophile
-							ethic = random
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
-					}
-				}
-				30 = {
-					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
-						authority = auth_imperial
-						ethos = {
-							ethic = ethic_fanatic_xenophile
-							ethic = random
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
-					}
-				}
-				30 = {
-					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
-						authority = auth_dictatorial
-						ethos = {
-							ethic = ethic_fanatic_xenophile
-							ethic = random
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
-					}
-				}
-				15 = {
-					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
-						authority = auth_oligarchic
-						ethos = {
-							ethic = ethic_fanatic_xenophile
-							ethic = random
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
-					}
-				}
-			}
-		}
+		last_created_country = { set_country_flag = civwar_spi }
 	}
 	else_if = { # Xenophobes
 		limit = { root.target = { is_xenophobe_faction = yes } }
@@ -5702,6 +5437,293 @@ get_ethic_plan_rebels = {
 				}
 			}
 		}
+		last_created_country = { set_country_flag = civwar_phobe }
+	}
+	else_if = { # Xenophiles
+		limit = { root.target = { is_xenophile_faction = yes } }
+		if = {
+			limit = { has_global_flag = cultural_overhaul_active }
+			if = {
+				limit = { has_global_flag = cultural_overhaul_funefork_active }
+				random_list = {
+					5 = {
+						create_rebels = {
+							name = random
+							species = event_target:civwar_species
+							origin = origin_civwar
+							civics = random
+							flag = random
+							authority = auth_democratic
+							ethos = {
+								ethic = ethic_fanatic_xenophile
+								ethic = ethic_egalitarian
+								ethic = random
+							}
+							effect = {
+								created_civwar_rebel_country_effect = yes
+							}
+						}
+					}
+					5 = {
+						create_rebels = {
+							name = random
+							species = event_target:civwar_species
+							origin = origin_civwar
+							civics = random
+							flag = random
+							authority = auth_strict_democratic
+							ethos = {
+								ethic = ethic_fanatic_xenophile
+								ethic = ethic_egalitarian
+								ethic = random
+							}
+							effect = {
+								created_civwar_rebel_country_effect = yes
+							}
+						}
+					}
+					25 = {
+						create_rebels = {
+							name = random
+							species = event_target:civwar_species
+							origin = origin_civwar
+							civics = random
+							flag = random
+							authority = auth_dict_democratic
+							ethos = {
+								ethic = ethic_fanatic_xenophile
+								ethic = random
+								ethic = random
+							}
+							effect = {
+								created_civwar_rebel_country_effect = yes
+							}
+						}
+					}
+					25 = {
+						create_rebels = {
+							name = random
+							species = event_target:civwar_species
+							origin = origin_civwar
+							civics = random
+							flag = random
+							authority = auth_imperial
+							ethos = {
+								ethic = ethic_fanatic_xenophile
+								ethic = ethic_authoritarian
+								ethic = random
+							}
+							effect = {
+								created_civwar_rebel_country_effect = yes
+							}
+						}
+					}
+					25 = {
+						create_rebels = {
+							name = random
+							species = event_target:civwar_species
+							origin = origin_civwar
+							civics = random
+							flag = random
+							authority = auth_dictatorial
+							ethos = {
+								ethic = ethic_fanatic_xenophile
+								ethic = ethic_authoritarian
+								ethic = random
+							}
+							effect = {
+								created_civwar_rebel_country_effect = yes
+							}
+						}
+					}
+					10 = {
+						create_rebels = {
+							name = random
+							species = event_target:civwar_species
+							origin = origin_civwar
+							civics = random
+							flag = random
+							authority = auth_oligarchic
+							ethos = {
+								ethic = ethic_fanatic_xenophile
+								ethic = random
+								ethic = random
+							}
+							effect = {
+								created_civwar_rebel_country_effect = yes
+							}
+						}
+					}
+				}
+			}
+			else = {
+				random_list = {
+					15 = {
+						create_rebels = {
+							name = random
+							species = event_target:civwar_species
+							origin = origin_civwar
+							civics = random
+							flag = random
+							authority = auth_democratic
+							ethos = {
+								ethic = ethic_fanatic_xenophile
+								ethic = ethic_egalitarian
+								ethic = random
+							}
+							effect = {
+								created_civwar_rebel_country_effect = yes
+							}
+						}
+					}
+					5 = {
+						create_rebels = {
+							name = random
+							species = event_target:civwar_species
+							origin = origin_civwar
+							civics = random
+							flag = random
+							authority = auth_direct_democratic
+							ethos = {
+								ethic = ethic_fanatic_xenophile
+								ethic = ethic_egalitarian
+								ethic = random
+							}
+							effect = {
+								created_civwar_rebel_country_effect = yes
+							}
+						}
+					}
+					25 = {
+						create_rebels = {
+							name = random
+							species = event_target:civwar_species
+							origin = origin_civwar
+							civics = random
+							flag = random
+							authority = auth_imperial
+							ethos = {
+								ethic = ethic_fanatic_xenophile
+								ethic = ethic_authoritarian
+								ethic = random
+							}
+							effect = {
+								created_civwar_rebel_country_effect = yes
+							}
+						}
+					}
+					30 = {
+						create_rebels = {
+							name = random
+							species = event_target:civwar_species
+							origin = origin_civwar
+							civics = random
+							flag = random
+							authority = auth_dictatorial
+							ethos = {
+								ethic = ethic_fanatic_xenophile
+								ethic = ethic_authoritarian
+								ethic = random
+							}
+							effect = {
+								created_civwar_rebel_country_effect = yes
+							}
+						}
+					}
+					25 = {
+						create_rebels = {
+							name = random
+							species = event_target:civwar_species
+							origin = origin_civwar
+							civics = random
+							flag = random
+							authority = auth_oligarchic
+							ethos = {
+								ethic = ethic_fanatic_xenophile
+								ethic = random
+								ethic = random
+							}
+							effect = {
+								created_civwar_rebel_country_effect = yes
+							}
+						}
+					}
+				}
+			}
+		}
+		else = {
+			random_list = {
+				25 = {
+					create_rebels = {
+						name = random
+						species = event_target:civwar_species
+						origin = origin_civwar
+						civics = random
+						flag = random
+						authority = auth_democratic
+						ethos = {
+							ethic = ethic_fanatic_xenophile
+							ethic = random
+						}
+						effect = {
+							created_civwar_rebel_country_effect = yes
+						}
+					}
+				}
+				30 = {
+					create_rebels = {
+						name = random
+						species = event_target:civwar_species
+						origin = origin_civwar
+						civics = random
+						flag = random
+						authority = auth_imperial
+						ethos = {
+							ethic = ethic_fanatic_xenophile
+							ethic = random
+						}
+						effect = {
+							created_civwar_rebel_country_effect = yes
+						}
+					}
+				}
+				30 = {
+					create_rebels = {
+						name = random
+						species = event_target:civwar_species
+						origin = origin_civwar
+						civics = random
+						flag = random
+						authority = auth_dictatorial
+						ethos = {
+							ethic = ethic_fanatic_xenophile
+							ethic = random
+						}
+						effect = {
+							created_civwar_rebel_country_effect = yes
+						}
+					}
+				}
+				15 = {
+					create_rebels = {
+						name = random
+						species = event_target:civwar_species
+						origin = origin_civwar
+						civics = random
+						flag = random
+						authority = auth_oligarchic
+						ethos = {
+							ethic = ethic_fanatic_xenophile
+							ethic = random
+						}
+						effect = {
+							created_civwar_rebel_country_effect = yes
+						}
+					}
+				}
+			}
+		}
+		last_created_country = { set_country_flag = civwar_phile }
 	}
 	else_if = { # Socialists
 		limit = { root.target = { is_socialist_faction = yes } }
@@ -5912,6 +5934,7 @@ get_ethic_plan_rebels = {
 				}
 			}
 		}
+		last_created_country = { set_country_flag = civwar_soc }
 	}
 	else_if = { # Capitalists
 		limit = { root.target = { is_capitalism_faction = yes } }
@@ -6140,6 +6163,7 @@ get_ethic_plan_rebels = {
 				}
 			}
 		}
+		last_created_country = { set_country_flag = civwar_cap }
 	}
 	else_if = { # Industrialists
 		limit = { root.target = { is_industrial_faction = yes } }
@@ -6235,6 +6259,7 @@ get_ethic_plan_rebels = {
 				}
 			}
 		}
+		last_created_country = { set_country_flag = civwar_indus }
 	}
 	else_if = { # Ecologists
 		limit = { root.target = { is_ecologist_faction = yes } }
@@ -6330,6 +6355,7 @@ get_ethic_plan_rebels = {
 				}
 			}
 		}
+		last_created_country = { set_country_flag = civwar_green }
 	}
 	else_if = { # Elitists
 		limit = { root.target = { is_elitist_faction = yes } }
@@ -6425,6 +6451,7 @@ get_ethic_plan_rebels = {
 				}
 			}
 		}
+		last_created_country = { set_country_flag = civwar_elite }
 	}
 	else_if = { # Pluralists
 		limit = { root.target = { is_pluralist_faction = yes } }
@@ -6520,6 +6547,7 @@ get_ethic_plan_rebels = {
 				}
 			}
 		}
+		last_created_country = { set_country_flag = civwar_plur }
 	}
 }
 
@@ -7087,10 +7115,7 @@ get_gen_sec_rebels = {
 		}
 	}
 
-	last_created_country = {
-		set_country_flag = sec_rebel_country
-		set_leader = root.target.leader
-	}
+	last_created_country = { set_country_flag = sec_rebel_country }
 }
 
 get_nat_plan_rebels = {
@@ -7493,20 +7518,8 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_authoritarian
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = authoritarian }
 				}
 			}
 		}
@@ -7569,96 +7582,8 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_egalitarian
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
-				}
-			}
-		}
-		else_if = {
-			limit = { event_target:civwar_rebels = { has_country_flag = civwar_egal } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_egalitarian
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_egalitarian
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_egalitarian
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_egalitarian
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_egalitarian
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_egalitarian
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_egalitarian
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = egalitarian }
 				}
 			}
 		}
@@ -7721,20 +7646,8 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_militarist
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = militarist }
 				}
 			}
 		}
@@ -7797,20 +7710,8 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_pacifist
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = pacifist }
 				}
 			}
 		}
@@ -7873,20 +7774,8 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_materialist
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = materialist }
 				}
 			}
 		}
@@ -7949,20 +7838,8 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_spiritualist
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = spiritualist }
 				}
 			}
 		}
@@ -8025,20 +7902,8 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_xenophobe
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = xenophobe }
 				}
 			}
 		}
@@ -8101,20 +7966,8 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_xenophile
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = xenophile }
 				}
 			}
 		}
@@ -8177,20 +8030,8 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_socialism
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = socialism }
 				}
 			}
 		}
@@ -8253,20 +8094,8 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_capitalism
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = capitalism }
 				}
 			}
 		}
@@ -8329,20 +8158,8 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_industrial
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = industrial }
 				}
 			}
 		}
@@ -8405,20 +8222,8 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_green
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = green }
 				}
 			}
 		}
@@ -8481,20 +8286,8 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_elitist
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = elitist }
 				}
 			}
 		}
@@ -8557,45 +8350,14 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = {
-						species = { save_event_target_as = civwar_species }
-					}
-					create_leader = {
-						class = random_ruler
-						species = event_target:civwar_species
-						name = random
-						skill = 5
-						effect = {
-							change_background_ethic = ethic_pluralist
-							set_leader_flag = new_faction_ruler
-							setup_rebel_leader_effect = yes
-						}
-					}
+					random_owned_pop = { species = { save_event_target_as = civwar_species } }
+					create_civil_war_leader_with_ethic = { ETHIC = pluralist }
 				}
 			}
 		}
 
 		set_leader = event_target:rebel_leader
 
-	}
-	else_if = {
-		limit = {
-			OR = {
-				has_origin = origin_nationalist_rebellion
-			}
-
-		}
-		create_leader = {
-			class = random_ruler
-			species = root.species
-			name = random
-			skill = 5
-			traits = { trait = trait_ruler_deep_connections }
-			effect = {
-				species = { save_event_target_as = civwar_species }
-				set_leader_flag = civil_war_leader_nationalist_faction
-			}
-		}
 	}
 	else_if = {
 		limit = { has_origin = origin_nationalist_rebellion }
@@ -8731,9 +8493,10 @@ create_sector_name_leader = {
 					key = dummy_sector_leader
 					variable_string = "\\[event_target:sector_name_local.GetName]"
 				}
-				set_leader_flag = dummy_sector_leader_@event_target:civil_war_planet
-				set_leader_flag = dummy_sector_leader
 				set_leader_flag = dummy_leader
+				set_leader_flag = dummy_sector_leader
+				set_leader_flag = dummy_sector_leader_@event_target:civil_war_planet
+				save_event_target_as = test_dummy_leader
 			}
 		}
 		last_created_leader = { leader_event = { id = civleader.1000 days = 180 } }
@@ -8766,6 +8529,30 @@ kill_party_name_leader = {
 			limit = { has_leader_flag = dummy_party_leader_@FromFrom }
 			kill_leader = { show_notification = no }
 		}
+	}
+}
+
+create_planetary_leader_with_ethic = {
+	create_leader = {
+		class = random_ruler
+		species = event_target:civwar_species
+		name = random
+		skill = 5
+		background_ethic = ethic_$ETHIC$
+		traits = { trait = trait_ruler_deep_connections }
+		effect = { save_event_target_as = new_rebel_leader }
+	}
+}
+
+create_civil_war_leader_with_ethic = {
+	create_leader = {
+		class = random_ruler
+		species = event_target:civwar_species
+		name = random
+		skill = 5
+		background_ethic = ethic_$ETHIC$
+		traits = { trait = trait_ruler_deep_connections }
+		effect = { save_event_target_as = new_rebel_leader }
 	}
 }
 
@@ -8840,147 +8627,6 @@ get_secession_country_info = {
 		event_target:civwar_originator = { find_secession_number_flag = yes }
 	}
 	event_target:civwar_originator = { set_country_flag = secession_@event_target:civwar_rebels }
-	## DEBUG INFO
-	## Mother Country Ethics Log
-	event_target:civwar_originator = {
-		if = {
-			limit = { exists = event_target:civwar_party }
-			event_target:civwar_party = {
-				log = "Rebel Faction ETHIC:"
-				if = {
-					limit = { has_ethic = ethic_egalitarian }
-					log = "-- Egalitarian"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_authoritarian }
-					log = "-- Authoritarian"
-				}
-
-				if = {
-					limit = { has_ethic = ethic_militarist }
-					log = "-- Militarist"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_pacifist }
-					log = "-- Pacifist"
-				}
-
-				if = {
-					limit = { has_ethic = ethic_spiritualist }
-					log = "-- Spiritualist"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_materialist }
-					log = "-- Materialist"
-				}
-
-				if = {
-					limit = { has_ethic = ethic_xenophobe }
-					log = "-- Xenophobe"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_xenophile }
-					log = "-- Xenophile"
-				}
-
-				if = {
-					limit = { has_ethic = ethic_socialism }
-					log = "-- Socialism"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_capitalism }
-					log = "-- Capitalism"
-				}
-			}
-			log = "************"
-		}
-		log = "[this.GetName] ETHICS:"
-		if = {
-			limit = { has_ethic = ethic_egalitarian }
-			log = "-- Egalitarian"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_fanatic_egalitarian }
-			log = "-- Fanatic Egalitarian"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_authoritarian }
-			log = "-- Authoritarian"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_fanatic_authoritarian }
-			log = "-- Fanatic Authoritarian"
-		}
-
-		if = {
-			limit = { has_ethic = ethic_militarist }
-			log = "-- Militarist"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_fanatic_militarist }
-			log = "-- Fanatic Militarist"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_pacifist }
-			log = "-- Pacifist"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_fanatic_pacifist }
-			log = "-- Fanatic Pacifist"
-		}
-
-		if = {
-			limit = { has_ethic = ethic_spiritualist }
-			log = "-- Spiritualist"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_fanatic_spiritualist }
-			log = "-- Fanatic Spiritualist"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_materialist }
-			log = "-- Materialist"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_fanatic_materialist }
-			log = "-- Fanatic Materialist"
-		}
-
-		if = {
-			limit = { has_ethic = ethic_xenophobe }
-			log = "-- Xenophobe"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_fanatic_xenophobe }
-			log = "-- Fanatic Xenophobe"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_xenophile }
-			log = "-- Xenophile"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_fanatic_xenophile }
-			log = "-- Fanatic Xenophile"
-		}
-
-		if = {
-			limit = { has_ethic = ethic_socialism }
-			log = "-- Socialism"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_fanatic_socialism }
-			log = "-- Fanatic Socialism"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_capitalism }
-			log = "-- Capitalism"
-		}
-		else_if = {
-			limit = { has_ethic = ethic_fanatic_capitalism }
-			log = "-- Fanatic Capitalism"
-		}
-		log = "===================="
-	}
 }
 
 find_secession_number_flag = {
@@ -10885,7 +10531,6 @@ find_secession_number_flag = {
 	}
 }
 
-
 set_secession_country_flags = {
 	if = {
 		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 1 } } }
@@ -12623,7 +12268,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 1 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12631,7 +12276,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 2 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_2
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12639,7 +12284,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 3 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_3
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12647,7 +12292,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 4 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_4
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12655,7 +12300,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 5 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_5
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12663,7 +12308,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 6 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_6
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12671,7 +12316,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 7 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_7
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12679,7 +12324,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 8 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_8
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12687,7 +12332,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 9 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_9
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12695,7 +12340,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 10 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_10
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12703,7 +12348,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 11 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_11
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12711,7 +12356,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 12 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_12
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12719,7 +12364,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 13 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_13
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12727,7 +12372,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 14 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_14
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12735,7 +12380,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 15 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_15
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12743,7 +12388,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 16 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_16
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12751,7 +12396,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 17 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_17
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12759,7 +12404,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 18 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_18
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12767,7 +12412,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 19 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_19
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12775,7 +12420,7 @@ get_declare_war_sec_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 20 } } }
 				set_name = {
 					key = NAME_sec_rebellion_war_20
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12982,7 +12627,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 1 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12990,7 +12635,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 1 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_2
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -12998,7 +12643,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 2 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_2
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13006,7 +12651,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 3 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_3
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13014,7 +12659,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 4 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_4
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13022,7 +12667,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 5 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_5
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13030,7 +12675,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 6 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_6
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13038,7 +12683,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 7 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_7
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13046,7 +12691,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 8 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_8
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13054,7 +12699,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 9 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_9
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13062,7 +12707,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 10 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_10
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13070,7 +12715,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 11 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_11
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13078,7 +12723,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 12 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_12
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13086,7 +12731,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 13 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_13
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13094,7 +12739,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 14 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_14
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13102,7 +12747,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 15 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_15
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13110,7 +12755,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 16 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_16
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13118,7 +12763,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 17 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_17
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13126,7 +12771,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 18 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_18
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13134,7 +12779,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 19 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_19
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 
@@ -13142,7 +12787,7 @@ get_declare_war_sec_slave_rebellion = {
 				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 20 } } }
 				set_name = {
 					key = NAME_sec_slave_rebellion_war_20
-					variable_string = "\\[event_target:sector_name.GetAdj]"
+					variable_string = "\\[event_target:sector_name.GetName]"
 				}
 			}
 		}
@@ -13833,6 +13478,7 @@ nat_faction_first_effect = {
 		create_leader = {
 			class = random_ruler
 			event_leader = yes
+			hide_leader = yes
 			species = owner_main_species
 			name = "Dummy Leader"
 			effect = {
@@ -15425,6 +15071,7 @@ exile_restoration_gen_effect = {
 			create_leader = {
 				class = random_ruler
 				event_leader = yes
+				hide_leader = yes
 				species = owner_main_species
 				name = random
 				effect = {
@@ -15472,6 +15119,7 @@ exile_restoration_gen_effect = {
 			create_leader = {
 				class = random_ruler
 				event_leader = yes
+				hide_leader = yes
 				species = owner_main_species
 				name = random
 				effect = {
@@ -15493,6 +15141,7 @@ exile_restoration_gen_effect = {
 			create_leader = {
 				class = random_ruler
 				event_leader = yes
+				hide_leader = yes
 				species = owner_main_species
 				name = random
 				effect = {
@@ -15651,7 +15300,7 @@ exile_restoration_gen_effect = {
 }
 
 ######################
-
+## Misc
 # Remove All Civics 
 get_remove_civics = {
 	if = {
@@ -15696,8 +15345,6 @@ get_remove_civics = {
 	}
 }
 
-######################
-
 get_ship_delete_effect = {
 	every_owned_fleet = {
 		set_variable = { which = ship_count value = 0 }
@@ -15723,8 +15370,6 @@ get_ship_delete_effect = {
 		set_variable = { which = ship_count value = 0 }
 	}
 }
-
-######################
 
 get_helper_subjects_effect = {
 	# If there are more then 10 subjects, more should appear every time one is chosen
@@ -15968,25 +15613,12 @@ get_helper_subjects_effect_refresh = {
 	}
 }
 
-count_civil_events = {
-	event_target:global_event_country = {
-		change_variable = { which = total_gal_civstrife_events value = 1 }
-		if = {
-			limit = { root = { has_origin = origin_civwar } }
-			change_variable = { which = total_gal_civil_wars value = 1 }	
-		}
-		else_if = {
-			limit = { root = { has_origin = origin_nationalist_rebellion } }
-			change_variable = { which = total_gal_nat_events value = 1 }	
-		}
-		else_if = {
-			limit = { root = { has_origin = origin_plan_rebellion } }
-			change_variable = { which = total_gal_plan_rebs value = 1 }	
-		}
-		else_if = {
-			limit = { root = { has_origin = origin_sec_rebellion } }
-			change_variable = { which = total_gal_sector_rebs value = 1 }	
-		}
+set_faction_rebellion_suppression_flag = {
+	random_list = {
+		40 = { set_timed_pop_faction_flag = { flag = faction_rebelled years = 3 } }
+		25 = { set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 } }
+		20 = { set_timed_pop_faction_flag = { flag = faction_rebelled years = 7 } }
+		15 = { set_timed_pop_faction_flag = { flag = faction_rebelled years = 10 } }
 	}
 }
 

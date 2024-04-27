@@ -1829,7 +1829,7 @@ situation_event = { # Sectoral Revolt Event
 						chance = 10
 						# chance = 100
 						root.target = {
-							set_timed_pop_faction_flag = { flag = faction_rebelled years = 5 }
+							set_faction_rebellion_suppression_flag = yes
 							set_variable = { which = fac_mil_support value = 0 }
 							save_event_target_as = civwar_party
 						}
@@ -1858,21 +1858,11 @@ situation_event = { # Sectoral Revolt Event
 						}
 						set_sector_flag = sep_sector_rebellion_@event_target:civil_war_planet
 						save_event_target_as = sector_name_local
-						owner = { # Create a dummy leader to save the sector name for localisation, killed in comms cleanup
-							create_leader = {
-								class = random_ruler
-								event_leader = yes
-								species = owner_main_species
-								name = random
-								effect = {
-									set_name = {
-										key = dummy_sector_leader
-										variable_string = "[event_target:sector_name_local.GetName]"
-									}
-									set_leader_flag = dummy_leader
-									set_leader_flag = dummy_sector_leader
-									set_leader_flag = dummy_sector_leader_@event_target:civil_war_planet
-								}
+						create_sector_name_leader = yes
+						owner = {
+							random_owned_leader = {
+								limit = { has_leader_flag = dummy_sector_leader_@event_target:civwar_rebels.capital_scope }
+								save_event_target_as = sector_name
 							}
 						}
 						root = { situation_event = { id = civsep.9030 } }
@@ -2063,6 +2053,7 @@ situation_event = { # Sectoral Revolt Event
 				create_leader = {
 					class = random_ruler
 					event_leader = yes
+					hide_leader = yes
 					species = owner_main_species
 					name = random
 					effect = {

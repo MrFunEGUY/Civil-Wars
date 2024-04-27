@@ -28,13 +28,20 @@ xenoist = {
                 	}
                 }
             }
-            unity = @faction_base_unity
+            unity = @faction_base_output
         }
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			energy = @faction_base_output
+			mult = @faction_extortion_energy_ratio
+		}
 	}
 
 	is_potential = {
 		is_faction_allowed = yes
-		NOT = { has_modifier = banned_xenophile }
 	}
 
 	parameters = {
@@ -227,6 +234,87 @@ xenoist = {
 			owner = {
 				num_species > 3
 			}
+		}
+	}
+
+	demand = {
+		# "XENOIST_UNIVERSALISM"
+		title = "XENOIST_UNIVERSALISM"
+		unfulfilled_title = "XENOIST_NO_UNIVERSALISM"
+		desc = "XENOIST_UNIVERSALISM_DESC"
+		fulfilled_effect = 5
+		unfulfilled_effect = -0.001
+		potential = {
+			exists = owner
+			owner = {
+				num_communications > 5
+				has_valid_civic = civic_free_haven
+				any_owned_species = {
+					NOR = {
+						is_same_species = root.owner
+						has_trait = trait_mechanical
+						has_trait = trait_machine_unit
+						has_trait = trait_hive_mind
+					}
+				}
+			}
+		}
+		trigger = {
+			owner = { num_species > 5 }
+		}
+	}
+
+	demand = {
+		# "XENOIST_UNIVERSALISM"
+		title = "XENOIST_UNIVERSALISM"
+		unfulfilled_title = "XENOIST_NO_UNIVERSALISM"
+		desc = "XENOIST_UNIVERSALISM_DESC"
+		fulfilled_effect = 10
+		unfulfilled_effect = -0.001
+		potential = {
+			exists = owner
+			owner = {
+				num_communications > 7
+				has_valid_civic = civic_free_haven
+				any_owned_species = {
+					NOR = {
+						is_same_species = root.owner
+						has_trait = trait_mechanical
+						has_trait = trait_machine_unit
+						has_trait = trait_hive_mind
+					}
+				}
+			}
+		}
+		trigger = {
+			owner = { num_species > 7 }
+		}
+	}
+
+	demand = {
+		# "XENOIST_UNIVERSALISM"
+		title = "XENOIST_UNIVERSALISM"
+		unfulfilled_title = "XENOIST_NO_UNIVERSALISM"
+		desc = "XENOIST_UNIVERSALISM_DESC"
+		fulfilled_effect = 15
+		unfulfilled_effect = -0.001
+		potential = {
+			exists = owner
+			owner = {
+				num_communications > 10
+				has_valid_civic = civic_free_haven
+				any_owned_species = {
+					NOR = {
+						is_same_species = root.owner
+						has_trait = trait_mechanical
+						has_trait = trait_machine_unit
+						has_trait = trait_hive_mind
+					}
+				}
+			}
+		}
+		trigger = {
+			owner = { num_species > 10 }
 		}
 	}
 
@@ -614,8 +702,8 @@ xenoist = {
 		ETHIC = ethic_xenophile
 		ETHIC_FANATIC = ethic_fanatic_xenophile
 		ETHIC_OPPOSED = ethic_xenophobe
-	} 
-	
+	}
+
 	demand = { # Alien Zoo (for conservation)
 		title = "XENOIST_XENOLOGICAL_CONSERVATION"
 		unfulfilled_title = "XENOIST_NO_XENOLOGICAL_CONSERVATION"
@@ -696,14 +784,14 @@ xenoist = {
 			}
 
 			effect = {
-				add_modifier = { modifier = embraced_faction years = 10 }
+				add_modifier = { modifier = embraced_faction days = 3600 }
 				parameter:empire = {
 					shift_ethic = ethic_xenophile
 					hidden_effect = {
-						add_modifier = { modifier = embraced_faction_timer years = 10 }
+						add_modifier = { modifier = embraced_faction_timer days = 3600 }
 						every_pop_faction = {
 							limit = { NOT = { is_same_value = root } }
-							add_modifier = { modifier = embraced_another_faction years = 10 }
+							add_modifier = { modifier = embraced_another_faction days = 3600 }
 						}
 					}
 				}
@@ -836,6 +924,51 @@ xenoist = {
 				parameter:empire = {
 					remove_modifier = suppressed_xenophile
 				}
+			}
+
+			ai_weight = {
+				base = 0
+			}
+		}
+		# Faction Extortion Buttons
+		extort_faction = {
+			title = "EXTORT_FACTION"
+			description = "EXTORT_FACTION_DESC"
+
+			potential = {
+				exists = owner
+				owner = {
+					has_authority = auth_oligarchic
+					has_country_flag = cyber_collectivist
+				}
+				is_faction_extorted = no
+			}
+
+			effect = {
+				set_faction_extorted = yes
+				custom_tooltip = energy_extortion_tt
+				custom_tooltip = ONLY_ONE_EXTORTED_FACTION_TT
+			}
+
+			ai_weight = {
+				base = 0
+			}
+		}
+		cancel_extort_faction = {
+			title = "CANCEL_EXTORT_FACTION"
+			description = "CANCEL_EXTORT_FACTION_DESC"
+
+			potential = {
+				exists = owner
+				owner = {
+					has_authority = auth_oligarchic
+					has_country_flag = cyber_collectivist
+				}
+				is_faction_extorted = yes
+			}
+
+			effect = {
+				set_faction_extorted = no
 			}
 
 			ai_weight = {

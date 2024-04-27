@@ -28,14 +28,20 @@ imperialist = {
                 	}
                 }
             }
-            unity = @faction_base_unity
+            unity = @faction_base_output
         }
 	}
 
-	#Note: number of potential or actual members is checked by POP_FACTION_MIN_POTENTIAL_MEMBERS define
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			alloys = @faction_base_output
+			mult = @faction_extortion_alloys_ratio
+		}
+	}
+
 	is_potential = {
 		is_faction_allowed = yes
-		NOT = { has_modifier = banned_militarist }
 	}
 
 	parameters = {
@@ -97,6 +103,20 @@ imperialist = {
 		}
 	}
 
+	demand = {
+		title = "MARTIAL_BROTHERHOOD"
+		unfulfilled_title = "MARTIAL_BROTHERHOOD"
+		desc = "MARTIAL_BROTHERHOOD_DESC"
+		fulfilled_effect = 10
+		potential = {
+			exists = owner
+			owner = { has_valid_civic = civic_martial_brotherhood }
+		}
+		trigger = {
+			owner = { has_valid_civic = civic_martial_brotherhood }
+		}
+	}
+
 	# DEMAND: Faction Outraged (by a GalCom Resolution)
 	inline_script = {
 		script = pop_faction_types/demand_faction_outraged
@@ -120,6 +140,7 @@ imperialist = {
 		potential = {
 			exists = owner
 			owner = {
+				NOT = { has_valid_civic = civic_xeno_militarist }
 				any_relation = {
 					has_communications = root.owner
 					is_country_type = default
@@ -133,6 +154,46 @@ imperialist = {
 				OR = {
 					has_policy_flag = unrestricted_wars
 					has_policy_flag = liberation_wars
+				}
+			}
+		}
+	}
+
+	demand = {
+		title = "LIBERATION_PHILOSOPHY"
+		unfulfilled_title = "LIBERATION_NO_PHILOSOPHY"
+		desc = "LIBERATION_PHILOSOPHY_DESC"
+		fulfilled_effect = 20
+		potential = {
+			exists = owner
+			owner = { has_valid_civic = civic_xeno_militarist }
+		}
+		trigger = {
+			owner = { has_policy_flag = liberation_wars }
+		}
+	}
+
+	demand = {
+		title = "IMPERIALIST_DEFENSIVE_PACTS"
+		unfulfilled_title = "NO_IMPERIALIST_DEFENSIVE_PACTS"
+		desc = "IMPERIALIST_DEFENSIVE_PACTS_DESC"
+		fulfilled_effect = 20
+		unfulfilled_effect = -0.001
+		potential = {
+			exists = owner
+			owner = {
+				num_communications > 2
+				has_valid_civic = civic_xeno_militarist
+			}
+		}
+		trigger = {
+			owner = {
+				count_country = {
+					count > 1
+					limit = {
+						exists = this
+						root.owner = { has_defensive_pact = prev }
+					}
 				}
 			}
 		}
@@ -222,7 +283,10 @@ imperialist = {
 			exists = owner
 			owner = {
 				num_communications > 2
-				NOT = { has_valid_civic = civic_fanatic_purifiers }
+				NOR = {
+					has_valid_civic = civic_fanatic_purifiers
+					has_valid_civic = civic_xeno_militarist
+				}
 				num_rivals = 2
 			}
 		}
@@ -246,7 +310,10 @@ imperialist = {
 			exists = owner
 			owner = {
 				num_communications > 2
-				NOT = { has_valid_civic = civic_fanatic_purifiers }
+				NOR = {
+					has_valid_civic = civic_fanatic_purifiers
+					has_valid_civic = civic_xeno_militarist
+				}
 				num_rivals > 2
 			}
 		}
@@ -360,7 +427,7 @@ imperialist = {
 		unfulfilled_title = "IMPERIALIST_NOT_UNDERLING"
 		desc = "IMPERIALIST_UNDERLING_DESC"
 
-		unfulfilled_effect = -15
+		unfulfilled_effect = -15 # -25
 		fulfilled_effect = 0.001
 
 		potential = {
@@ -383,7 +450,7 @@ imperialist = {
 		unfulfilled_title = "IMPERIALIST_NOT_BULWARK"
 		desc = "IMPERIALIST_BULWARK_DESC"
 
-		unfulfilled_effect = -15
+		unfulfilled_effect = -15 # -25
 		fulfilled_effect = 0.001
 
 		potential = {
@@ -603,7 +670,7 @@ imperialist = {
 		ETHIC = ethic_militarist
 		ETHIC_FANATIC = ethic_fanatic_militarist
 		ETHIC_OPPOSED = ethic_pacifist
-	} 
+	}
 
 	on_create = {
 		pop_faction_event = { id = factions.1 }
@@ -657,14 +724,14 @@ imperialist = {
 			}
 
 			effect = {
-				add_modifier = { modifier = embraced_faction years = 10 }
+				add_modifier = { modifier = embraced_faction days = 3600 }
 				parameter:empire = {
 					shift_ethic = ethic_militarist
 					hidden_effect = {
-						add_modifier = { modifier = embraced_faction_timer years = 10 }
+						add_modifier = { modifier = embraced_faction_timer days = 3600 }
 						every_pop_faction = {
 							limit = { NOT = { is_same_value = root } }
-							add_modifier = { modifier = embraced_another_faction years = 10 }
+							add_modifier = { modifier = embraced_another_faction days = 3600 }
 						}
 					}
 				}
@@ -793,6 +860,51 @@ imperialist = {
 				parameter:empire = {
 					remove_modifier = suppressed_militarist
 				}
+			}
+
+			ai_weight = {
+				base = 0
+			}
+		}
+		# Faction Extortion Buttons
+		extort_faction = {
+			title = "EXTORT_FACTION"
+			description = "EXTORT_FACTION_DESC"
+
+			potential = {
+				exists = owner
+				owner = {
+					has_authority = auth_oligarchic
+					has_country_flag = cyber_collectivist
+				}
+				is_faction_extorted = no
+			}
+
+			effect = {
+				set_faction_extorted = yes
+				custom_tooltip = alloys_extortion_tt
+				custom_tooltip = ONLY_ONE_EXTORTED_FACTION_TT
+			}
+
+			ai_weight = {
+				base = 0
+			}
+		}
+		cancel_extort_faction = {
+			title = "CANCEL_EXTORT_FACTION"
+			description = "CANCEL_EXTORT_FACTION_DESC"
+
+			potential = {
+				exists = owner
+				owner = {
+					has_authority = auth_oligarchic
+					has_country_flag = cyber_collectivist
+				}
+				is_faction_extorted = yes
+			}
+
+			effect = {
+				set_faction_extorted = no
 			}
 
 			ai_weight = {

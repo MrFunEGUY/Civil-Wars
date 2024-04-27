@@ -28,12 +28,31 @@ traditionalist = {
                 	}
                 }
             }
-            unity = @faction_base_unity
+            unity = @faction_base_output
         }
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			trigger = {
+				is_lithoid_empire = no
+			}
+			food = @faction_base_output
+			mult = @faction_extortion_food_ratio
+		}
+		produces = {
+			trigger = {
+				is_lithoid_empire = yes
+			}
+			minerals = @faction_base_output
+			mult = @faction_extortion_minerals_ratio
+		}
 	}
 
 	is_potential = {
 		is_faction_allowed = yes
+		NOT = { has_origin = origin_cybernetic_creed }
 	}
 
 	parameters = {
@@ -48,7 +67,6 @@ traditionalist = {
 	can_join_pre_triggers = {
 		is_enslaved = no
 		is_being_purged = no
-		is_robot_pop = no
 	}
 
 	can_join_faction = {
@@ -88,6 +106,9 @@ traditionalist = {
 			species = {
 				has_trait = "trait_mechanical"
 			}
+			owner = {
+				is_individual_machine = no
+			}
 		}
 
 		modifier = {
@@ -118,6 +139,13 @@ traditionalist = {
 
 		potential = {
 			exists = owner
+			owner = {
+				NOR = {
+					has_valid_civic = civic_machine_cult
+					has_origin = origin_cybernetic_creed
+					is_individual_machine = yes
+				}
+			}
 		}
 
 		trigger = {
@@ -139,7 +167,11 @@ traditionalist = {
 			exists = owner
 			owner = {
 				can_set_ai_policy = yes
-				NOT = { has_policy_flag = ai_full_rights }
+				NAND = {
+					has_policy_flag = ai_full_rights
+					has_valid_civic = civic_machine_cult
+				}
+				is_individual_machine = no
 			}
 		}
 
@@ -161,8 +193,12 @@ traditionalist = {
 		potential = {
 			exists = owner
 			owner = {
+				is_individual_machine = no
 				can_set_ai_policy = yes
-				has_policy_flag = ai_full_rights
+				OR = {
+					has_policy_flag = ai_full_rights
+					has_valid_civic = civic_machine_cult
+				}
 			}
 		}
 
@@ -187,7 +223,6 @@ traditionalist = {
 
 		trigger = {
 			owner = {
-				
 				is_spiritualist = yes
 			}
 		}
@@ -204,11 +239,19 @@ traditionalist = {
 		potential = {
 			exists = owner
 			owner = {
-				has_surveyed_class = pc_nuked
+				OR = {
+					has_surveyed_class = pc_nuked
+					has_surveyed_class = pc_nuked_relic
+					has_surveyed_class = pc_nuked_tl
+					has_surveyed_class = pc_nuked_superhab
+					has_surveyed_class = pc_nuked_cave
+				}
 				NOR = {
 					has_origin = origin_post_apocalyptic
+					has_origin = origin_post_apocalyptic_machines
 					has_country_flag = worm_tomb_ending
 					has_valid_civic = civic_memorialist
+					has_trait = trait_pc_irradiated_preference
 				}
 			}
 		}
@@ -217,10 +260,16 @@ traditionalist = {
 			owner = {
 				NOR = {
 					any_owned_planet = {
-						is_planet_class = pc_nuked
+						OR = {
+							is_pd_radiotrophic_world = yes
+							is_pd_nuked = yes
+						}
 					}
 					any_planet_within_border = {
-						is_planet_class = pc_nuked
+						OR = {
+							is_pd_radiotrophic_world = yes
+							is_pd_nuked = yes
+						}
 						is_terraforming = yes
 					}
 				}
@@ -239,7 +288,14 @@ traditionalist = {
 		potential = {
 			exists = owner
 			owner = {
-				has_surveyed_class = pc_gaia
+				OR = {
+					has_surveyed_class = pc_gaia
+					has_surveyed_class = pc_hot_gaia
+					has_surveyed_class = pc_cold_gaia
+					has_surveyed_class = pc_gaia_cave
+					has_surveyed_class = pc_gaia_superhab
+					has_surveyed_class = pc_tidallygaia
+				}
 				has_ascension_perk = ap_consecrated_worlds
 			}
 		}
@@ -247,7 +303,7 @@ traditionalist = {
 		trigger = {
 			owner = {
 				any_planet_within_border = {
-					is_planet_class = pc_gaia
+					is_pd_gaia = yes
 					is_colony = no
 					OR = {
 						has_modifier = consecrated_quality_1
@@ -257,6 +313,62 @@ traditionalist = {
 					}
 				}
 			}
+		}
+	}
+
+	demand = {
+		title = "PROTECTED_NATURE"
+		unfulfilled_title = "NO_PROTECTED_NATURE"
+		desc = "PROTECTED_NATURE_DESC"
+		fulfilled_effect = 4
+		potential = {
+			exists = owner
+			owner = { has_valid_civic = civic_keepers_harmony }
+		}
+		trigger = {
+			owner = { any_owned_planet = { has_modifier = "lush_planet" } }
+		}
+	}
+	
+	demand = {
+		title = "PROTECTED_WILDLIFE"
+		unfulfilled_title = "NO_PROTECTED_WILDLIFE"
+		desc = "PROTECTED_WILDLIFE_DESC"
+		fulfilled_effect = 5
+		potential = {
+			exists = owner
+			owner = { has_valid_civic = civic_keepers_harmony }
+		}
+		trigger = {
+			owner = { any_owned_planet = { has_modifier = "dangerous_wildlife" } }
+		}
+	}
+	
+	demand = {
+		title = "PROTECTED_BEAUTY"
+		unfulfilled_title = "NO_PROTECTED_BEAUTY"
+		desc = "PROTECTED_BEAUTY_DESC"
+		fulfilled_effect = 4
+		potential = {
+			exists = owner
+			owner = { has_valid_civic = civic_keepers_harmony }
+		}
+		trigger = {
+			owner = { any_owned_planet = { has_modifier = "natural_beauty" } }
+		}
+	}
+	
+	demand = {
+		title = "UNIQUE_LIFERORMS"
+		unfulfilled_title = "NO_UNIQUE_LIFERORMS"
+		desc = "UNIQUE_LIFERORMS_DESC"
+		fulfilled_effect = 10
+		potential = {
+			exists = owner
+			owner = { has_valid_civic = civic_keepers_harmony }
+		}
+		trigger = {
+			owner = { any_owned_planet = { has_modifier = "titanic_life" } }
 		}
 	}
 
@@ -272,11 +384,16 @@ traditionalist = {
 			host_has_dlc = "Utopia"
 			exists = owner
 			owner = {
-				NOT = { has_origin = origin_shroudwalker_apprentice }
+				NOR = {
+                    has_origin = origin_shroudwalker_apprentice
+					has_origin = origin_cybernetic_creed
+                    has_origin = origin_pd_shroud
+                }
 				OR = {
 					num_ascension_perks > 0
 					num_ascension_perk_slots > 0
 				}
+				is_individual_machine = no
 			}
 		}
 
@@ -298,7 +415,10 @@ traditionalist = {
 		potential = {
 			exists = owner
 			owner = {
-				has_origin = origin_shroudwalker_apprentice
+				OR = {
+                    has_origin = origin_shroudwalker_apprentice
+                    has_origin = origin_pd_shroud
+                }
 			}
 		}
 
@@ -309,27 +429,58 @@ traditionalist = {
 		}
 	}
 
-	demand = { # "TRADITIONALIST_FLESH_IS_STRONG"
+	# THE FLESH IS STRONG/WEAK (FULL)
+	demand = { # Standard Traditionalist variant: reject full cyberization
 		title = "TRADITIONALIST_FLESH_IS_STRONG"
 		unfulfilled_title = "TRADITIONALIST_FLESH_IS_WEAK"
 		desc = "TRADITIONALIST_FLESH_IS_STRONG_DESC"
 
-		unfulfilled_effect = -30
+		unfulfilled_effect = -15
 		fulfilled_effect = 0.001
 
 		potential = {
 			exists = owner
 			owner = {
 				has_ascension_perk = ap_the_flesh_is_weak
+				NOR = {
+					has_valid_civic = civic_machine_cult
+					has_policy_flag = cyberization_standards_limited
+					has_origin = origin_cybernetic_creed
+				}
 			}
 		}
 
 		trigger = {
 			owner = {
+				is_cyborg_empire = no # checks for the Cybernetic trait
+			}
+		}
+	}
+
+	# THE FLESH IS STRONG/WEAK (LIMITED)
+	demand = { # Alternate Traditionalist variant: reject limited cyberization
+		title = "TRADITIONALIST_FLESH_IS_STRONG"
+		unfulfilled_title = "TRADITIONALIST_FLESH_IS_WEAK"
+		desc = "TRADITIONALIST_FLESH_IS_STRONG_LIMITED_DESC"
+
+		unfulfilled_effect = -5
+		fulfilled_effect = 0.001
+
+		potential = {
+			exists = owner
+			owner = {
+				has_ascension_perk = ap_the_flesh_is_weak
+				has_policy_flag = cyberization_standards_limited
 				NOR = {
-					has_country_flag = cyborg_empire # i.e. has completed "FLESH_IS_WEAK_PROJECT"
-					is_cyborg_empire = yes # checks for the Cybernetic trait
+					has_valid_civic = civic_machine_cult
+					has_origin = origin_cybernetic_creed
 				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				is_cyborg_empire = no
 			}
 		}
 	}
@@ -452,13 +603,67 @@ traditionalist = {
 		}
 	}
 
+	demand = { # Individualist Machines demand Ascension
+		title = "TRADITIONALIST_MACHINE_ASCEND"
+		unfulfilled_title = "TRADITIONALIST_MACHINE_ASCEND_NO"
+		desc = "TRADITIONALIST_MACHINE_ASCEND_DESC"
+
+		unfulfilled_effect = -0.001
+		fulfilled_effect = 15
+
+		potential = {
+			exists = owner
+			owner = {
+				is_individual_machine = yes
+			}
+		}
+
+		trigger = {
+			owner = {
+				has_ascension_perk = ap_synthetic_age # Has begun Machine Ascensions
+			}
+		}
+	}
+
+	demand = { # Individualist Machines demand few materialist machines
+		title = "TRADITIONALIST_AUTOMATAS_ASTRAY"
+		unfulfilled_title = "TRADITIONALIST_AUTOMATAS_ASTRAY_NO"
+		desc = "TRADITIONALIST_AUTOMATAS_ASTRAY_DESC"
+
+		unfulfilled_effect = -5
+		fulfilled_effect = +0.001
+
+		potential = {
+			exists = owner
+			owner = {
+				is_individual_machine = yes
+				any_pop_faction = {
+					is_pop_faction_type = technologist
+				}
+			}
+		}
+
+		trigger = {
+			exists = owner
+			owner = {
+				count_owned_pop = {
+					limit = {
+						pop_has_ethic = ethic_materialist
+					}
+					count < 10
+				}
+
+			}
+		}
+	}
+
 	# Faction Demands for Ruler and Council positions.
 	inline_script = {
 		script = "paragon/global_faction_demands"
 		ETHIC = ethic_spiritualist
 		ETHIC_FANATIC = ethic_fanatic_spiritualist
 		ETHIC_OPPOSED = ethic_materialist
-	} 
+	}
 
 	on_create = {
 		pop_faction_event = { id = factions.1 }
@@ -512,14 +717,14 @@ traditionalist = {
 			}
 
 			effect = {
-				add_modifier = { modifier = embraced_faction years = 10 }
+				add_modifier = { modifier = embraced_faction days = 3600 }
 				parameter:empire = {
 					shift_ethic = ethic_spiritualist
 					hidden_effect = {
-						add_modifier = { modifier = embraced_faction_timer years = 10 }
+						add_modifier = { modifier = embraced_faction_timer days = 3600 }
 						every_pop_faction = {
 							limit = { NOT = { is_same_value = root } }
-							add_modifier = { modifier = embraced_another_faction years = 10 }
+							add_modifier = { modifier = embraced_another_faction days = 3600 }
 						}
 					}
 				}
@@ -652,6 +857,51 @@ traditionalist = {
 				parameter:empire = {
 					remove_modifier = suppressed_spiritualist
 				}
+			}
+
+			ai_weight = {
+				base = 0
+			}
+		}
+		# Faction Extortion Buttons
+		extort_faction = {
+			title = "EXTORT_FACTION"
+			description = "EXTORT_FACTION_DESC"
+
+			potential = {
+				exists = owner
+				owner = {
+					has_authority = auth_oligarchic
+					has_country_flag = cyber_collectivist
+				}
+				is_faction_extorted = no
+			}
+
+			effect = {
+				set_faction_extorted = yes
+				custom_tooltip = food_extortion_tt
+				custom_tooltip = ONLY_ONE_EXTORTED_FACTION_TT
+			}
+
+			ai_weight = {
+				base = 0
+			}
+		}
+		cancel_extort_faction = {
+			title = "CANCEL_EXTORT_FACTION"
+			description = "CANCEL_EXTORT_FACTION_DESC"
+
+			potential = {
+				exists = owner
+				owner = {
+					has_authority = auth_oligarchic
+					has_country_flag = cyber_collectivist
+				}
+				is_faction_extorted = yes
+			}
+
+			effect = {
+				set_faction_extorted = no
 			}
 
 			ai_weight = {

@@ -1422,7 +1422,7 @@ frontier_planet_unrest_tick_check = {
 		}
 		count >= 3
 	}
-	if = { # So a slave rebellion is preferred over a geneneral separatist rebellion
+	if = { # So a slave rebellion is preferred over a general separatist rebellion
 		limit = { any_owned_pop = { is_enslaved_or_purged = yes } }
 		pop_percentage = {
 			percentage <= 0.3
@@ -1469,7 +1469,7 @@ integrated_planet_unrest_tick_check = {
 		}
 		count >= 5
 	}
-	if = { # So a slave rebellion is preferred over a geneneral separatist rebellion
+	if = { # So a slave rebellion is preferred over a general separatist rebellion
 		limit = {
 			any_owned_pop = { is_enslaved_or_purged = yes }
 		}
@@ -1518,7 +1518,7 @@ fundamental_planet_unrest_tick_check = {
 		}
 		count >= 10
 	}
-	if = { # So a slave rebellion is preferred over a geneneral separatist rebellion
+	if = { # So a slave rebellion is preferred over a general separatist rebellion
 		limit = {
 			any_owned_pop = { is_enslaved_or_purged = yes }
 		}
@@ -2131,7 +2131,6 @@ is_faction_based_situation = {
 		is_situation_type = situation_civstrife_faction_phile
 		is_situation_type = situation_civstrife_faction_phobe
 		is_situation_type = situation_civstrife_faction_soc
-		is_situation_type = situation_civstrife_faction_soc
 		is_situation_type = situation_civstrife_faction_cap
 		is_situation_type = situation_civstrife_faction_indus
 		is_situation_type = situation_civstrife_faction_eco
@@ -2432,6 +2431,26 @@ has_seceder_country_flag = {
 		has_country_flag = secession_country_98_seceder
 		has_country_flag = secession_country_99_seceder
 		has_country_flag = secession_country_100_seceder
+	}
+}
+
+has_civstrife_origin = {
+	OR = {
+		has_origin = origin_civwar
+		has_origin = origin_plan_rebellion
+		has_origin = origin_sec_rebellion
+		has_origin = origin_coup_successor
+		has_origin = origin_coup_independent
+		has_origin = origin_disinherited_heir
+		has_origin = origin_heir_rebellion
+		has_origin = origin_exile_government
+		has_origin = origin_restored_government
+		has_origin = origin_restored_successor_government
+		has_origin = origin_nationalist_rebellion
+		has_origin = origin_nationalist_restoration
+		has_origin = origin_isolated_rebellion
+		has_origin = origin_civstrife_slave_rebellion
+		has_origin = origin_civsecession
 	}
 }
 

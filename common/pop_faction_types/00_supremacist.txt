@@ -28,13 +28,20 @@ supremacist = {
                 	}
                 }
             }
-            unity = @faction_base_unity
+            unity = @faction_base_output
         }
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			alloys = @faction_base_output
+			mult = @faction_extortion_alloys_ratio
+		}
 	}
 
 	is_potential = {
 		is_faction_allowed = yes
-		NOT = { has_modifier = banned_xenophobe }
 	}
 
 	parameters = {
@@ -140,8 +147,303 @@ supremacist = {
 		trigger = {
 			owner = {
 				exists = ruler
-				ruler = { is_same_species = owner_species }
+				OR = {
+					ruler = { is_same_species = owner_species }
+					AND = {
+						owner = { has_valid_civic = civic_selective_kinship }
+						ruler = { is_same_species_class = owner_species }
+					}
+				}
 			}
+		}
+	}
+
+	demand = {
+		title = "SUPREMACIST_COUNCIL_SAME_SPECIES1"
+		unfulfilled_title = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES1"
+		desc = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES_DESC1"
+
+		fulfilled_effect = 0.001
+		unfulfilled_effect = -10
+
+		potential = {
+			exists = owner
+			owner = {
+				any_owned_leader = {
+					is_councilor = yes
+					is_same_species = owner_species
+					is_ruler = no
+				}
+				NOR = {
+					has_valid_civic = civic_fanatic_purifiers
+					OR = {
+						count_owned_leader = {
+							count <= value:count_councilors_xenos_2
+							limit = {
+								is_councilor = yes
+								is_ruler = no
+								is_same_species = owner_species
+							}
+						}
+						AND = {
+							has_valid_civic = civic_selective_kinship
+							count_owned_leader = {
+								count <= value:count_councilors_xenos_2
+								limit = {
+									is_councilor = yes
+									is_ruler = no
+									is_same_species_class = owner_species
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				OR = {
+					count_owned_leader = {
+						count = value:count_councilors
+						limit = {
+							is_councilor = yes
+							is_ruler = no
+							is_same_species = owner_species
+						}
+					}
+					AND = {
+						has_valid_civic = civic_selective_kinship
+						count_owned_leader = {
+							count = value:count_councilors
+							limit = {
+								is_councilor = yes
+								is_ruler = no
+								is_same_species_class = owner_species
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	demand = {
+		title = "SUPREMACIST_COUNCIL_SAME_SPECIES2"
+		unfulfilled_title = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES2"
+		desc = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES_DESC2"
+
+		fulfilled_effect = 0.001
+		unfulfilled_effect = -20
+
+		potential = {
+			exists = owner
+			owner = {
+				NOT = { has_valid_civic = civic_fanatic_purifiers }
+				OR = {
+					AND = {
+						any_owned_leader = {
+							is_councilor = yes
+							is_same_species = owner_species
+							is_ruler = no
+						}
+						count_owned_leader = {
+							count = 2
+							limit = {
+								is_councilor = yes
+								is_ruler = no
+								NOT = { is_same_species = owner_species }
+							}
+						}
+					}
+					AND = {
+						has_valid_civic = civic_selective_kinship
+						any_owned_leader = {
+							is_councilor = yes
+							is_same_species_class = owner_species
+							is_ruler = no
+						}
+						count_owned_leader = {
+							count = 2
+							limit = {
+								is_councilor = yes
+								is_ruler = no
+								NOT = { is_same_species_class = owner_species }
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			always = no
+		}
+	}
+
+	demand = {
+		title = "SUPREMACIST_COUNCIL_SAME_SPECIES3"
+		unfulfilled_title = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES3"
+		desc = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES_DESC3"
+
+		fulfilled_effect = 0.001
+		unfulfilled_effect = -30
+
+		potential = {
+			exists = owner
+			owner = {
+				NOT = { has_valid_civic = civic_fanatic_purifiers }
+				OR = {
+					AND = {
+						any_owned_leader = {
+							is_councilor = yes
+							is_same_species = owner_species
+							is_ruler = no
+						}
+						count_owned_leader = {
+							count = 3
+							limit = {
+								is_councilor = yes
+								is_ruler = no
+								NOT = { is_same_species = owner_species }
+							}
+						}
+					}
+					AND = {
+						has_valid_civic = civic_selective_kinship
+						any_owned_leader = {
+							is_councilor = yes
+							is_same_species_class = owner_species
+							is_ruler = no
+						}
+						count_owned_leader = {
+							count = 3
+							limit = {
+								is_councilor = yes
+								is_ruler = no
+								NOT = { is_same_species_class = owner_species }
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			always = no
+		}
+	}
+
+	demand = {
+		title = "SUPREMACIST_COUNCIL_SAME_SPECIES4"
+		unfulfilled_title = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES4"
+		desc = "SUPREMACIST_COUNCIL_NOT_SAME_SPECIES_DESC4"
+
+		fulfilled_effect = 0.001
+		unfulfilled_effect = -40
+
+		potential = {
+			exists = owner
+			owner = {
+				NOT = { has_valid_civic = civic_fanatic_purifiers }
+				OR = {
+					AND = {
+						any_owned_leader = {
+							is_councilor = yes
+							is_same_species = owner_species
+							is_ruler = no
+						}
+						count_owned_leader = {
+							count = 4
+							limit = {
+								is_councilor = yes
+								is_ruler = no
+								NOT = { is_same_species = owner_species }
+							}
+						}
+					}
+					AND = {
+						has_valid_civic = civic_selective_kinship
+						any_owned_leader = {
+							is_councilor = yes
+							is_same_species_class = owner_species
+							is_ruler = no
+						}
+						count_owned_leader = {
+							count = 4
+							limit = {
+								is_councilor = yes
+								is_ruler = no
+								NOT = { is_same_species_class = owner_species }
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			always = no
+		}
+	}
+
+	demand = {
+		title = "SUPREMACIST_COUNCIL_NOT_FULL_XENOS"
+		unfulfilled_title = "SUPREMACIST_COUNCIL_FULL_XENOS"
+		desc = "SUPREMACIST_COUNCIL_FULL_XENOS_DESC"
+
+		fulfilled_effect = 0.001
+		unfulfilled_effect = -60
+
+		potential = {
+			exists = owner
+			owner = {
+				NOT = { has_valid_civic = civic_fanatic_purifiers }
+				NOR = {
+					any_owned_leader = {
+						is_councilor = yes
+						is_same_species = owner_species
+						is_ruler = no
+					}
+					AND = {
+						has_valid_civic = civic_selective_kinship
+						any_owned_leader = {
+							is_councilor = yes
+							is_same_species_class = owner_species
+							is_ruler = no
+						}
+					}
+				}
+				OR = {
+					count_owned_leader = {
+						count >= 5
+						limit = {
+							is_councilor = yes
+							is_ruler = no
+							NOT = { is_same_species = owner_species }
+						}
+					}
+					any_owned_leader = {
+						is_councilor = yes
+						is_ruler = no
+					}
+					AND = {
+						has_valid_civic = civic_selective_kinship
+						count_owned_leader = {
+							count >= 5
+							limit = {
+								is_councilor = yes
+								is_ruler = no
+								NOT = { is_same_species_class = owner_species }
+							}
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			always = no
 		}
 	}
 
@@ -164,7 +466,16 @@ supremacist = {
 			owner = {
 				OR = {
 					has_federation = no
-					federation = { has_federation_type = vf_ef_federation }
+					AND = {
+						has_federation = yes
+						is_federation_leader = yes
+						federation = {
+							OR = {
+								has_federation_type = vf_ef_federation
+								has_federation_type = hegemony_federation
+							}
+						}
+					}
 				}
 			}
 		}
@@ -183,7 +494,6 @@ supremacist = {
 			owner = {
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				any_relation = {
-					#has_communications = root
 					is_country_type = primitive
 				}
 			}
@@ -195,6 +505,7 @@ supremacist = {
 					has_policy_flag = interference_active
 					has_policy_flag = interference_aggressive
 				}
+
 			}
 		}
 	}
@@ -213,6 +524,10 @@ supremacist = {
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				any_owned_species = {
 					NOT = { is_same_species = prev }
+					NAND = {
+						prev = { has_valid_civic = civic_selective_kinship }
+						is_same_species_class = prev
+					}
 					is_robotic = no
 					is_sapient = yes
 					NOT = {
@@ -226,8 +541,10 @@ supremacist = {
 			owner = {
 				NOT = {
 					any_owned_species = {
-						NOT = {
-							is_same_species = prev
+						NOT = { is_same_species = prev }
+						NAND = {
+							prev = { has_valid_civic = civic_selective_kinship }
+							is_same_species_class = prev
 						}
 						is_robotic = no
 						is_sapient = yes
@@ -503,7 +820,7 @@ supremacist = {
 		ETHIC = ethic_xenophobe
 		ETHIC_FANATIC = ethic_fanatic_xenophobe
 		ETHIC_OPPOSED = ethic_xenophile
-	} 
+	}
 
 	on_create = {
 		pop_faction_event = { id = factions.1 }
@@ -557,15 +874,15 @@ supremacist = {
 			}
 
 			effect = {
-				add_modifier = { modifier = embraced_faction years = 10 }
+				add_modifier = { modifier = embraced_faction days = 3600 }
 				parameter:empire = {
 					shift_ethic = ethic_xenophobe
 					hidden_effect = {
 						every_pop_faction = { # embraces xenophobe ethos
 							limit = { is_pop_faction_type = isolationist }
-							add_modifier = { modifier = embraced_faction years = 10	}
+							add_modifier = { modifier = embraced_faction days = 3600	}
 						}
-						add_modifier = { modifier = embraced_faction_timer years = 10 }
+						add_modifier = { modifier = embraced_faction_timer days = 3600 }
 						every_pop_faction = {
 							limit = {
 								NOR = {
@@ -573,7 +890,7 @@ supremacist = {
 									is_pop_faction_type = isolationist # same ethos
 								}
 							}
-							add_modifier = { modifier = embraced_another_faction years = 10 }
+							add_modifier = { modifier = embraced_another_faction days = 3600 }
 						}
 					}
 				}
@@ -714,6 +1031,51 @@ supremacist = {
 						}
 					}
 				}
+			}
+
+			ai_weight = {
+				base = 0
+			}
+		}
+		# Faction Extortion Buttons
+		extort_faction = {
+			title = "EXTORT_FACTION"
+			description = "EXTORT_FACTION_DESC"
+
+			potential = {
+				exists = owner
+				owner = {
+					has_authority = auth_oligarchic
+					has_country_flag = cyber_collectivist
+				}
+				is_faction_extorted = no
+			}
+
+			effect = {
+				set_faction_extorted = yes
+				custom_tooltip = alloys_extortion_tt
+				custom_tooltip = ONLY_ONE_EXTORTED_FACTION_TT
+			}
+
+			ai_weight = {
+				base = 0
+			}
+		}
+		cancel_extort_faction = {
+			title = "CANCEL_EXTORT_FACTION"
+			description = "CANCEL_EXTORT_FACTION_DESC"
+
+			potential = {
+				exists = owner
+				owner = {
+					has_authority = auth_oligarchic
+					has_country_flag = cyber_collectivist
+				}
+				is_faction_extorted = yes
+			}
+
+			effect = {
+				set_faction_extorted = no
 			}
 
 			ai_weight = {

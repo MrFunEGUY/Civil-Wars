@@ -1,0 +1,150 @@
+
+###############################
+### Civil Wars by MrFunEGUY ###
+###############################
+
+# Set Installed Heir Setup
+get_ethic_logger_effect = {
+	## DEBUG INFO
+	event_target:civwar_rebels = {
+		log = "Rebel Origin: \\[this.GetOriginName]"
+		log = "######"
+	}
+	if = {
+		limit = { exists = event_target:civwar_party }
+		event_target:civwar_party = {
+			log = "Rebel Faction ETHIC:"
+			if = {
+				limit = { has_ethic = ethic_egalitarian }
+				log = "-- Egalitarian"
+			}
+			else_if = {
+				limit = { has_ethic = ethic_authoritarian }
+				log = "-- Authoritarian"
+			}
+
+			if = {
+				limit = { has_ethic = ethic_militarist }
+				log = "-- Militarist"
+			}
+			else_if = {
+				limit = { has_ethic = ethic_pacifist }
+				log = "-- Pacifist"
+			}
+
+			if = {
+				limit = { has_ethic = ethic_spiritualist }
+				log = "-- Spiritualist"
+			}
+			else_if = {
+				limit = { has_ethic = ethic_materialist }
+				log = "-- Materialist"
+			}
+
+			if = {
+				limit = { has_ethic = ethic_xenophobe }
+				log = "-- Xenophobe"
+			}
+			else_if = {
+				limit = { has_ethic = ethic_xenophile }
+				log = "-- Xenophile"
+			}
+
+			if = {
+				limit = { has_ethic = ethic_socialism }
+				log = "-- Socialism"
+			}
+			else_if = {
+				limit = { has_ethic = ethic_capitalism }
+				log = "-- Capitalism"
+			}
+		}
+		log = "************"
+	}
+	log = "\\[this.GetName] ETHICS:"
+	if = {
+		limit = { has_ethic = ethic_egalitarian }
+		log = "-- Egalitarian"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_fanatic_egalitarian }
+		log = "-- Fanatic Egalitarian"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_authoritarian }
+		log = "-- Authoritarian"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_fanatic_authoritarian }
+		log = "-- Fanatic Authoritarian"
+	}
+
+	if = {
+		limit = { has_ethic = ethic_militarist }
+		log = "-- Militarist"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_fanatic_militarist }
+		log = "-- Fanatic Militarist"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_pacifist }
+		log = "-- Pacifist"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_fanatic_pacifist }
+		log = "-- Fanatic Pacifist"
+	}
+
+	if = {
+		limit = { has_ethic = ethic_spiritualist }
+		log = "-- Spiritualist"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_fanatic_spiritualist }
+		log = "-- Fanatic Spiritualist"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_materialist }
+		log = "-- Materialist"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_fanatic_materialist }
+		log = "-- Fanatic Materialist"
+	}
+
+	if = {
+		limit = { has_ethic = ethic_xenophobe }
+		log = "-- Xenophobe"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_fanatic_xenophobe }
+		log = "-- Fanatic Xenophobe"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_xenophile }
+		log = "-- Xenophile"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_fanatic_xenophile }
+		log = "-- Fanatic Xenophile"
+	}
+
+	if = {
+		limit = { has_ethic = ethic_socialism }
+		log = "-- Socialism"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_fanatic_socialism }
+		log = "-- Fanatic Socialism"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_capitalism }
+		log = "-- Capitalism"
+	}
+	else_if = {
+		limit = { has_ethic = ethic_fanatic_capitalism }
+		log = "-- Fanatic Capitalism"
+	}
+	log = "===================="
+}

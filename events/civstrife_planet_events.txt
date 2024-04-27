@@ -24,14 +24,7 @@ country_event = {
 	trigger = {
 		from = {
 			is_country_type = rebel
-			OR = {
-				has_origin = origin_heir_rebellion
-				has_origin = origin_civwar
-				has_origin = origin_plan_rebellion
-				has_origin = origin_sec_rebellion
-				has_origin = origin_civstrife_slave_rebellion
-				has_origin = origin_nationalist_rebellion
-			}
+			has_civstrife_origin = yes
 		}
 	}
 
@@ -201,14 +194,7 @@ country_event = {
 	trigger = {
 		from = {
 			is_country_type = rebel
-			OR = {
-				has_origin = origin_heir_rebellion
-				has_origin = origin_civwar
-				has_origin = origin_plan_rebellion
-				has_origin = origin_sec_rebellion
-				has_origin = origin_civstrife_slave_rebellion
-				has_origin = origin_nationalist_rebellion
-			}
+			has_civstrife_origin = yes
 		}
 	}
 

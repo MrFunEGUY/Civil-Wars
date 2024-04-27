@@ -10,9 +10,38 @@ prosperity = {
 	unique = yes
 	support_multiplier = 1
 
+	resources = {
+		category = pop_factions
+		produces = {
+			trigger = {
+				owner = {
+					OR = {
+						years_passed > 10
+						AND = {
+							days_passed > 30
+							has_valid_civic = civic_parliamentary_system
+						}
+						AND = {
+							days_passed > 350
+							has_origin = origin_broken_shackles
+						}
+					}
+				}
+			}
+			unity = @faction_base_output
+		}
+	}
+
+	extortion_resource = {
+		category = pop_factions
+		produces = {
+			consumer_goods = @faction_base_output
+			mult = @faction_extortion_consumer_goods_ratio
+		}
+	}
+
 	is_potential = {
 		is_faction_allowed = yes
-		NOT = { has_modifier = banned_pacifist }
 	}
 
 	parameters = {
@@ -22,28 +51,6 @@ prosperity = {
 				is_same_value = root
 			}
 		}
-	}
-
-	resources = {
-		category = pop_factions
-		produces = {
-            trigger = {
-                owner = {
-                	OR = {
-                		years_passed > 10
-                		AND = {
-                			days_passed > 30
-                			has_valid_civic = civic_parliamentary_system
-                		}
-                		AND = {
-                			days_passed > 350
-                			has_origin = origin_broken_shackles
-                		}
-                	}
-                }
-            }
-            unity = @faction_base_unity
-        }
 	}
 
 	can_join_pre_triggers = {
@@ -81,7 +88,6 @@ prosperity = {
 			is_pacifist = yes
 		}
 
-		# Should really check for citizenship instead
 		modifier = {
 			factor = 1.25
 			has_citizenship_rights = no
@@ -104,6 +110,19 @@ prosperity = {
 		modifier = {
 			factor = 0.0
 			is_event_leader = yes
+		}
+	}
+
+	demand = {
+		title = "PEACEFUL_ECONOMY"
+		unfulfilled_title = "PEACEFUL_ECONOMY"
+		desc = "PEACEFUL_ECONOMY_DESC"
+		fulfilled_effect = 10
+		potential = {
+			exists = owner
+		}
+		trigger = {
+			owner = { has_policy_flag = economic_policy_civilian }
 		}
 	}
 
@@ -358,7 +377,7 @@ prosperity = {
 		ETHIC = ethic_pacifist
 		ETHIC_FANATIC = ethic_fanatic_pacifist
 		ETHIC_OPPOSED = ethic_militarist
-	} 
+	}
 
 	on_create = {
 		pop_faction_event = { id = factions.1 }
@@ -412,14 +431,14 @@ prosperity = {
 			}
 
 			effect = {
-				add_modifier = { modifier = embraced_faction years = 10 }
+				add_modifier = { modifier = embraced_faction days = 3600 }
 				parameter:empire = {
 					shift_ethic = ethic_pacifist
 					hidden_effect = {
-						add_modifier = { modifier = embraced_faction_timer years = 10 }
+						add_modifier = { modifier = embraced_faction_timer days = 3600 }
 						every_pop_faction = {
 							limit = { NOT = { is_same_value = root } }
-							add_modifier = { modifier = embraced_another_faction years = 10 }
+							add_modifier = { modifier = embraced_another_faction days = 3600 }
 						}
 					}
 				}
@@ -552,6 +571,51 @@ prosperity = {
 				parameter:empire = {
 					remove_modifier = suppressed_pacifist
 				}
+			}
+
+			ai_weight = {
+				base = 0
+			}
+		}
+		# Faction Extortion Buttons
+		extort_faction = {
+			title = "EXTORT_FACTION"
+			description = "EXTORT_FACTION_DESC"
+
+			potential = {
+				exists = owner
+				owner = {
+					has_authority = auth_oligarchic
+					has_country_flag = cyber_collectivist
+				}
+				is_faction_extorted = no
+			}
+
+			effect = {
+				set_faction_extorted = yes
+				custom_tooltip = consumer_goods_extortion_tt
+				custom_tooltip = ONLY_ONE_EXTORTED_FACTION_TT
+			}
+
+			ai_weight = {
+				base = 0
+			}
+		}
+		cancel_extort_faction = {
+			title = "CANCEL_EXTORT_FACTION"
+			description = "CANCEL_EXTORT_FACTION_DESC"
+
+			potential = {
+				exists = owner
+				owner = {
+					has_authority = auth_oligarchic
+					has_country_flag = cyber_collectivist
+				}
+				is_faction_extorted = yes
+			}
+
+			effect = {
+				set_faction_extorted = no
 			}
 
 			ai_weight = {
