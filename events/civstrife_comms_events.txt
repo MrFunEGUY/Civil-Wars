@@ -2671,6 +2671,7 @@ country_event = {
 			event_target:defeated_traitor = {
 				set_owner = root
 				set_leader_flag = traitor_@event_target:traitor_home_country
+				add_trait = leader_trait_traitor
 			}
 			event_target:traitor_home_country = {
 				country_event = { id = civend.5002 days = 14 random = 360 }
@@ -2737,48 +2738,23 @@ country_event = {
 	option = {
 		name = civcom.8000.b
 		hidden_effect = {
-			country_event = { id = civcom.8110 }
 			every_country = {
-				limit = { has_country_flag = traitor_heir_already_asked }
-				remove_country_flag = traitor_heir_already_asked
+				limit = { has_country_flag = traitor_already_asked@event_target:defeated_traitor }
+				remove_country_flag = traitor_already_asked@event_target:defeated_traitor
 			}
-		}
-		ai_chance = { factor = 6 }
-	}
-}
-
-# Heir Asylum Granted
-country_event = {
-	id = civcom.8110
-	title = civcom.8100.name
-	desc = civcom.8010.desc
-	location = root.capital_scope
-	hide_window = no
-	is_triggered_only = yes
-
-	diplomatic = yes
-
-	picture_event_data = {
-		portrait = event_target:disinherited_heir
-		planet_background = root.owner
-		graphical_culture = root.owner
-		city_level = root.owner
-		room = root.owner
-	}
-
-	# Official
-	option = {
-		name = civcom.8010.a
-		ai_chance = { factor = 5 }
-		hidden_effect = {
 			event_target:disinherited_heir = {
 				set_owner = root
 				set_leader_flag = heir_traitor_@event_target:traitor_home_country
+				get_heir_country_info = yes
+				add_trait = leader_trait_traitor_heir
 			}
-			event_target:traitor_home_country = {
-				country_event = { id = civheir.3030 days = 14 random = 360 }
-			}
+			event_target:traitor_home_country = { country_event = { id = civheir.3030 days = 14 random = 360 } }
 		}
+		ai_chance = { factor = 6 }
+	}
+
+	immediate = {
+		every_country = { every_owned_leader = { limit = { has_trait = trait_imperial_heir has_trait = leader_trait_traitor_heir } remove_trait = trait_imperial_heir } }
 	}
 
 	after = {

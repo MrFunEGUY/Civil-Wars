@@ -1260,6 +1260,15 @@ rebel_is_former_leader = {
 	}
 }
 
+rebel_is_former_heir = {
+	OR = {
+		has_leader_flag = civil_war_ruler_heir_isolated
+		has_leader_flag = civil_war_ruler_heir_true_born
+		has_leader_flag = civil_war_ruler_heir_gov_changed
+		has_leader_flag = civil_war_ruler_heir_disinherited
+	}
+}
+
 rebel_was_official = {
 	OR = {
 		has_leader_flag = civil_war_ruler_official
@@ -1304,6 +1313,18 @@ get_cit_res_thrall = {
 		has_citizenship_type = { type = citizenship_full }
 		has_citizenship_type = { type = citizenship_limited }
 		has_slavery_type = { type = slavery_military }
+	}
+}
+
+these_are_rebels_in_rebellion = {
+	OR = {
+		any_war = { using_war_goal = { type = wg_civwar_rebel owner = root } }
+		any_war = { using_war_goal = { type = wg_planet_rebellion_rebels owner = root } }
+		any_war = { using_war_goal = { type = wg_natwar_rebel owner = root } }
+		any_war = { using_war_goal = { type = wg_civwar_heir_rebel owner = root } }
+		any_war = { using_war_goal = { type = wg_coup_successor_opponent owner = root } }
+		any_war = { using_war_goal = { type = wg_coup_independent_opponent owner = root } }
+		any_war = { using_war_goal = { type = wg_slave_uprising_rebel owner = root } }
 	}
 }
 
@@ -2328,6 +2349,62 @@ has_secession_country_flag = {
 		has_country_flag = secession_country_100_flag
 	}
 }
+
+has_heir_country_flag = {
+	OR = {
+		has_country_flag = heir_country_1_flag
+		has_country_flag = heir_country_2_flag
+		has_country_flag = heir_country_3_flag
+		has_country_flag = heir_country_4_flag
+		has_country_flag = heir_country_5_flag
+		has_country_flag = heir_country_6_flag
+		has_country_flag = heir_country_7_flag
+		has_country_flag = heir_country_8_flag
+		has_country_flag = heir_country_9_flag
+		has_country_flag = heir_country_10_flag
+		has_country_flag = heir_country_11_flag
+		has_country_flag = heir_country_12_flag
+		has_country_flag = heir_country_13_flag
+		has_country_flag = heir_country_14_flag
+		has_country_flag = heir_country_15_flag
+		has_country_flag = heir_country_16_flag
+		has_country_flag = heir_country_17_flag
+		has_country_flag = heir_country_18_flag
+		has_country_flag = heir_country_19_flag
+		has_country_flag = heir_country_20_flag
+		has_country_flag = heir_country_21_flag
+		has_country_flag = heir_country_22_flag
+		has_country_flag = heir_country_23_flag
+		has_country_flag = heir_country_24_flag
+		has_country_flag = heir_country_25_flag
+		has_country_flag = heir_country_26_flag
+		has_country_flag = heir_country_27_flag
+		has_country_flag = heir_country_28_flag
+		has_country_flag = heir_country_29_flag
+		has_country_flag = heir_country_30_flag
+		has_country_flag = heir_country_31_flag
+		has_country_flag = heir_country_32_flag
+		has_country_flag = heir_country_33_flag
+		has_country_flag = heir_country_34_flag
+		has_country_flag = heir_country_35_flag
+		has_country_flag = heir_country_36_flag
+		has_country_flag = heir_country_37_flag
+		has_country_flag = heir_country_38_flag
+		has_country_flag = heir_country_39_flag
+		has_country_flag = heir_country_40_flag
+		has_country_flag = heir_country_41_flag
+		has_country_flag = heir_country_42_flag
+		has_country_flag = heir_country_43_flag
+		has_country_flag = heir_country_44_flag
+		has_country_flag = heir_country_45_flag
+		has_country_flag = heir_country_46_flag
+		has_country_flag = heir_country_47_flag
+		has_country_flag = heir_country_48_flag
+		has_country_flag = heir_country_49_flag
+		has_country_flag = heir_country_50_flag
+	}
+}
+
 
 has_seceder_country_flag = {
 	OR = {

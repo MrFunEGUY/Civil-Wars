@@ -33,23 +33,50 @@
 # 	randomized = no
 # }
 
-# trait_independent_spirit = {
-# 	cost = 0
-# 	species_potential_add = {
-# 		always = no
-# 	}
-# 	species_possible_remove = {
-# 		always = no
-# 	}
-# 	species_possible_merge_add = {
-# 		always = no
-# 	}
-# 	initial = no
-# 	randomized = no
-# 	potential_crossbreeding_chance = 0
-# 	allowed_archetypes = { BIOLOGICAL LITHOID ROBOT MACHINE }
-# 	modifier = { }
-# 	slave_cost = {
-# 		energy = -25
-# 	}
-# }
+leader_trait_traitor = {
+    leader_trait_type = negative
+    inline_script = {
+        script = trait/icon_negative
+        CLASS = leader
+        ICON = "GFX_leader_trait_resolution_category_greatergood_focus"
+        RARITY = rare
+        COUNCIL = no
+        TIER = none
+    }
+    triggered_self_modifier = {
+        potential = { has_paragon_dlc = yes }
+        leader_trait_selection_options_add = 1
+    }
+    councilor_modifier = {
+        intel_decryption_add = 2
+        diplo_weight_mult = -0.05
+    }
+    custom_tooltip_with_modifiers = leader_trait_traitor_tooltip
+    leader_class = { commander scientist official }
+    initial = no
+    randomized = no
+}
+
+leader_trait_traitor_heir = {
+    leader_trait_type = negative
+    inline_script = {
+        script = trait/icon_negative
+        CLASS = leader
+        ICON = "GFX_leader_trait_imperial_heir"
+        RARITY = rare
+        COUNCIL = no
+        TIER = none
+    }
+    triggered_self_modifier = {
+        potential = { has_paragon_dlc = yes }
+        leader_trait_selection_options_add = 1
+    }
+    councilor_modifier = {
+        intel_decryption_add = 2
+        diplo_weight_mult = -0.05
+    }
+    custom_tooltip_with_modifiers = leader_trait_traitor_heir_tooltip
+    leader_class = { commander scientist official }
+    initial = no
+    randomized = no
+}

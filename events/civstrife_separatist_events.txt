@@ -29,6 +29,7 @@ country_event = { # Planetary Unrest Counter
 	trigger = {
 		is_country_type_with_subjects = yes
 		NOT = { years_passed < 15 }
+		these_are_rebels_in_rebellion = no
 		any_owned_planet = {
 			has_any_planet_rebellion_stopper = no
 			OR = {
@@ -449,6 +450,7 @@ planet_event = { # Create First Separatists, Planetary
 	trigger = {
 		is_capital = no
 		has_any_planet_rebellion_stopper = no
+		owner = { these_are_rebels_in_rebellion = no }
 	}
 
 	immediate = {
@@ -997,6 +999,7 @@ country_event = { # Create More Separatists Yearly Initializer
 
 	trigger = {
 		is_country_type_with_subjects = yes
+		these_are_rebels_in_rebellion = no
 		any_owned_planet = {
 			OR = {
 				any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan }
@@ -1045,6 +1048,7 @@ planet_event = { # Create Separatists Yearly Event
 			pop_can_be_separatist_gen = yes
 		}
 		has_any_planet_rebellion_stopper = no
+		owner = { these_are_rebels_in_rebellion = no }
 	}
 
 	immediate = {
@@ -1216,6 +1220,7 @@ country_event = { # Sector Separatist Party Form Check
 	is_triggered_only = yes
 
 	trigger = {
+		these_are_rebels_in_rebellion = no
 		any_owned_sector = {
 			NOT = { any_owned_planet = { is_capital = yes } }
 			NOT = { has_sector_flag = sector_sep_active }
@@ -1296,6 +1301,7 @@ country_event = { # Find isolated sectors
 
 	trigger = {
 		is_country_type_with_subjects = yes
+		these_are_rebels_in_rebellion = no
 	}
 
 	immediate = {
@@ -1474,6 +1480,7 @@ country_event = { # Check disapproving Factions every month
 			NOT = { has_pop_faction_flag = faction_rebelled }
 			NOT = { has_pop_faction_flag = faction_sep_situation }
 		}
+		these_are_rebels_in_rebellion = no
 	}
 
 	immediate = {

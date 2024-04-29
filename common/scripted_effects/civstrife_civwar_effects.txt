@@ -2703,11 +2703,11 @@ created_civwar_rebel_country_effect = {
 		}
 		else_if = {
 			limit = { root.target = { is_socialist_faction = yes } }
+			log = "Correct Faction Chosen"
 			if = {
 				limit = { homeworld_ethic_leader_exists = { ETHIC = socialism } }
 				get_homeworld_ethic_leader = { ETHIC = socialism }
 			}
-			log = "Correct Faction Chosen"
 			else_if = {
 				limit = {
 					root.target = { is_socialist_faction = yes }
@@ -2719,9 +2719,9 @@ created_civwar_rebel_country_effect = {
 						save_event_target_as = new_rebel_leader
 					}
 				}
-				else = { create_planetary_leader_with_ethic = { ETHIC = socialism } }
 				log = "Correct Faction Chosen"
 			}
+			else = { create_planetary_leader_with_ethic = { ETHIC = socialism } }
 		}
 		else_if = {
 			limit = { root.target = { is_capitalism_faction = yes } }
@@ -2901,13 +2901,16 @@ created_civwar_rebel_country_effect = {
 		}
 	}
 	set_leader = event_target:new_rebel_leader
+	event_target:new_rebel_leader= {
+		if = {
+			limit = { NOT = { has_leader_flag = new_faction_ruler } }
+			set_leader_flag = leader_defected
+		}
+	}
+
 
 	event_target:civil_war_planet = {
 		planet_event = { id = civplan.2000 }
-		if = {
-			limit = { event_target:civwar_rebels = { is_standard_faction_country = yes } }
-			owner = { get_ethic_logger_effect = yes }
-		}
 	}
 }
 
@@ -2956,19 +2959,6 @@ get_multi_sector_effect = {
 						is_occupied_flag = yes
 					}
 				}
-			}
-			pop_percentage = {
-				percentage >= 0.25
-				# percentage > 0
-				limit = {
-					exists = pop_faction
-					pop_faction = { is_same_value = root.target }
-					OR = {
-						root = { is_ethic_situation = no }
-						has_pop_flag = sep_pop_ethic
-					}
-				}
-				exclude = { can_think = no }
 			}
 		}
 		set_sector_flag = potential_rebel
@@ -3192,7 +3182,6 @@ get_two_sector_effect = {
 		set_recent_civwar_flag = yes
 	}
 
-	# I Imagine this should stay past the first loop
 	root.target = {
 		save_event_target_as = civwar_party
 		random_owned_pop = { species = { save_event_target_as = civwar_species } }
@@ -3206,8 +3195,9 @@ get_two_sector_effect = {
 			NOT = {
 				any_owned_planet = {
 					OR = {
+						is_capital = yes
+						is_occupied_flag = yes
 						has_ground_combat = yes
-						solar_system = { is_capital_system = yes }
 					}
 				}
 			}
@@ -3241,12 +3231,10 @@ get_small_civwar_effect = {
 		limit = { num_owned_planets = 2 }
 		random_owned_planet = {
 			limit = {
-				is_under_colonization = no
-				NOR = {
-					is_capital = yes
-					has_ground_combat = yes
-					is_occupied_flag = yes
-				}
+				num_pops >= 1
+				is_capital = no
+				has_ground_combat = no
+				is_occupied_flag = no
 			}
 			save_event_target_as = civil_war_planet
 			solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
@@ -3278,17 +3266,28 @@ get_small_civwar_effect = {
 		}
 	}
 	else = { # If more than 2, potentially Balkanize
-		set_variable = { which = total_faction_pops value = 0 }
+		set_variable = { which = total_happiness_pops value = 0 }
+		every_owned_pop = {
+			limit = { pop_has_happiness = yes }
+			prev = { change_variable = { which = total_happiness_pops value = 1 } }
+		}
 		set_variable = { which = maybe_rebel_planets value = 0 }
 		every_owned_planet = {
 			limit = {
-				is_under_colonization = no
-				NOR = {
-					is_capital = yes
-					has_ground_combat = yes
-					is_occupied_flag = yes
+				num_pops >= 1
+				solar_system = { is_capital_system = no }
+				has_ground_combat = no
+				is_occupied_flag = no
+				any_owned_pop = {
+					exists = pop_faction
+					pop_faction = { is_same_value = root.target }
+					OR = {
+						root = { is_ethic_situation = no }
+						has_pop_flag = sep_pop_ethic
+					}
 				}
 			}
+			log = "PLANET: \\[this.GetName]"
 			set_variable = { which = fac_sep_percentage value = 0 }
 			every_owned_pop = {
 				limit = {
@@ -3298,39 +3297,22 @@ get_small_civwar_effect = {
 				}
 				prev = { change_variable = { which = fac_sep_percentage value = 1 } }
 			}
-			random_owned_pop = {
-				limit = {
-					exists = pop_faction
-					pop_faction = { is_same_value = root.target }
-					has_pop_flag = sep_pop
-				}
-				species = { save_event_target_as = civwar_species }
-			}
-			every_owned_pop = {
-				limit = { pop_has_happiness = yes }
-				prevprev = { change_variable = { which = total_faction_pops value = 1 } }
-			}
 			prev = { change_variable = { which = maybe_rebel_planets value = 1 } }
+			divide_variable = {
+				which = fac_sep_percentage
+				value = prev.total_happiness_pops
+			}
+			log = "Percentage: \\[this.fac_sep_percentage]"
 		}
-		divide_variable = {
-			which = fac_sep_percentage
-			value = total_faction_pops
-		}
+		log = "Total Happiness Pops: \\[this.total_happiness_pops]"
 		while = {
 			count = maybe_rebel_planets
 			ordered_owned_planet = {
 				limit = {
+					num_pops >= 1
 					solar_system = { is_capital_system = no }
 					has_ground_combat = no
-					pop_percentage = {
-						percentage >= 0.25
-						limit = {
-							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
-							has_pop_flag = sep_pop
-						}
-						exclude = { can_think = no }
-					}
+					is_occupied_flag = no
 				}
 				position = 0
 				order_by = fac_sep_percentage
@@ -3343,7 +3325,15 @@ get_small_civwar_effect = {
 						has_pop_flag = sep_pop
 					}
 					root.target = { change_variable = { which = fac_mil_support value = 1 } }
-				}							
+				}
+				random_owned_pop = {
+					limit = {
+						exists = pop_faction
+						pop_faction = { is_same_value = root.target }
+						has_pop_flag = sep_pop
+					}
+					species = { save_event_target_as = civwar_species }
+				}
 				set_planet_flag = balkan_war
 				
 				if = {
@@ -3751,59 +3741,157 @@ set_recent_civwar_flag = {
 	root.target = {
 		if = {
 			limit = { is_pacifist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_PAC years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_PAC years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_PAC years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_PAC years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_PAC years = 20 } }
+				}
+			}
 		}
 		else_if = {
 			limit = { is_militarist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_MIL years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_MIL years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_MIL years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_MIL years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_MIL years = 20 } }
+				}
+			}
 		}
 		else_if = {
 			limit = { is_materialist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_MAT years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_MAT years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_MAT years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_MAT years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_MAT years = 20 } }
+				}
+			}
 		}
 		else_if = {
 			limit = { is_spiritualist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_SPI years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_SPI years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_SPI years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_SPI years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_SPI years = 20 } }
+				}
+			}
 		}
 		else_if = {
 			limit = { is_egalitarian_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_EGAL years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_EGAL years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_EGAL years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_EGAL years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_EGAL years = 20 } }
+				}
+			}
 		}
 		else_if = {
 			limit = { is_authoritarian_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_AUTH years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_AUTH years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_AUTH years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_AUTH years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_AUTH years = 20 } }
+				}
+			}
 		}
 		else_if = {
 			limit = { is_xenophile_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_XENO years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_XENO years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_XENO years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_XENO years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_XENO years = 20 } }
+				}
+			}
 		}
 		else_if = {
 			limit = { is_xenophobe_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_PHOBE years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_PHOBE years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_PHOBE years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_PHOBE years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_PHOBE years = 20 } }
+				}
+			}
 		}
 		else_if = {
 			limit = { is_ecologist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_ECO years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_ECO years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_ECO years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_ECO years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_ECO years = 20 } }
+				}
+			}
 		}
 		else_if = {
 			limit = { is_industrial_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_INDUS years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_INDUS years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_INDUS years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_INDUS years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_INDUS years = 20 } }
+				}
+			}
 		}
 		else_if = {
 			limit = { is_socialist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_SOC years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_SOC years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_SOC years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_SOC years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_SOC years = 20 } }
+				}
+			}
 		}
 		else_if = {
 			limit = { is_capitalism_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_CAP years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_CAP years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_CAP years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_CAP years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_CAP years = 20 } }
+				}
+			}
 		}
 		else_if = {
 			limit = { is_pluralist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_PLUR years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_PLUR years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_PLUR years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_PLUR years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_PLUR years = 20 } }
+				}
+			}
 		}
 		else_if = {
 			limit = { is_elitist_faction = yes }
-			owner = { set_timed_country_flag = { flag = civ_war_recent_ELITE years = 15 } }
+			owner = {
+				random_list = {
+					40 = { set_timed_country_flag = { flag = civ_war_recent_ELITE years = 5 } }
+					25 = { set_timed_country_flag = { flag = civ_war_recent_ELITE years = 10 } }
+					20 = { set_timed_country_flag = { flag = civ_war_recent_ELITE years = 15 } }
+					15 = { set_timed_country_flag = { flag = civ_war_recent_ELITE years = 20 } }
+				}
+			}
 		}
 	}
 }
@@ -3816,9 +3904,6 @@ get_ethic_plan_rebels = {
 	if = {
 		limit = { has_planet_flag = ethic_planet_rebellion_@this }
 		get_planetary_reb_number = yes
-	}
-	else = {
-		owner = { get_civil_war_number = yes }
 	}
 
 	if = { # Authoritarian
@@ -7189,11 +7274,28 @@ get_plan_slave_rebels = {
 
 	get_planetary_slave_reb_number = yes
 
-	ordered_owned_pop = {
-		limit = { is_enslaved = yes }
+	every_owned_species = {
+		limit = {
+			any_species_pop = {
+				is_enslaved = yes
+				planet = { is_same_value = prevprevprev }
+			}
+		}
+		set_variable = { which = species_pop_count value = 0 }
+		every_species_pop = {
+			limit = {
+				is_enslaved = yes
+				planet = { is_same_value = prevprevprev }
+			}
+			prev = { change_variable = { which = species_pop_count value = 1 } }
+		}
+	}
+
+	ordered_owned_species = {
+		limit = { is_variable_set = species_pop_count }
 		position = 0
-		order_by = trigger:num_pops
-		species = { save_event_target_as = civwar_species }
+		order_by = species_pop_count
+		save_event_target_as = civwar_species
 	}
 
 	if = {
@@ -7297,6 +7399,11 @@ get_plan_slave_rebels = {
 			}
 		}
 	}
+
+	every_owned_species = {
+		limit = { is_variable_set = species_pop_count }
+		clear_variable = species_pop_count
+	}
 }
 
 get_sec_slave_rebels = {
@@ -7308,11 +7415,32 @@ get_sec_slave_rebels = {
 	sector = {
 		save_event_target_as = sector_name_local
 		set_sector_flag = sec_slave_revolt_@prev
-		ordered_owned_pop = {
-			limit = { is_enslaved = yes }
-			position = 0
-			order_by = trigger:num_pops
-			species = { save_event_target_as = civwar_species }
+		every_owned_planet = {
+			every_owned_species = {
+				limit = {
+					any_species_pop = {
+						is_enslaved = yes
+						planet = { is_same_value = prevprevprev }
+					}
+				}
+				set_variable = { which = species_pop_count value = 0 }
+				every_species_pop = {
+					limit = {
+						is_enslaved = yes
+						planet = { is_same_value = prevprevprev }
+					}
+					prev = { change_variable = { which = species_pop_count value = 1 } }
+				}
+			}
+		}
+
+		owner = {
+			ordered_owned_species = {
+				limit = { is_variable_set = species_pop_count }
+				position = 0
+				order_by = species_pop_count
+				save_event_target_as = civwar_species
+			}
 		}
 	}
 
@@ -7421,6 +7549,11 @@ get_sec_slave_rebels = {
 			}
 		}
 	}
+
+	every_owned_species = {
+		limit = { is_variable_set = species_pop_count }
+		clear_variable = species_pop_count
+	}
 }
 
 #####################
@@ -7518,8 +7651,10 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = authoritarian }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = authoritarian }
+					}
 				}
 			}
 		}
@@ -7582,8 +7717,10 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = egalitarian }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = egalitarian }
+					}
 				}
 			}
 		}
@@ -7646,8 +7783,10 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = militarist }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = militarist }
+					}
 				}
 			}
 		}
@@ -7710,8 +7849,10 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = pacifist }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = pacifist }
+					}
 				}
 			}
 		}
@@ -7774,8 +7915,10 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = materialist }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = materialist }
+					}
 				}
 			}
 		}
@@ -7838,8 +7981,10 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = spiritualist }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = spiritualist }
+					}
 				}
 			}
 		}
@@ -7902,8 +8047,10 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = xenophobe }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = xenophobe }
+					}
 				}
 			}
 		}
@@ -7966,8 +8113,10 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = xenophile }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = xenophile }
+					}
 				}
 			}
 		}
@@ -8030,8 +8179,10 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = socialism }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = socialism }
+					}
 				}
 			}
 		}
@@ -8094,8 +8245,10 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = capitalism }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = capitalism }
+					}
 				}
 			}
 		}
@@ -8158,8 +8311,10 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = industrial }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = industrial }
+					}
 				}
 			}
 		}
@@ -8222,8 +8377,10 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = green }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = green }
+					}
 				}
 			}
 		}
@@ -8286,8 +8443,10 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = elitist }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = elitist }
+					}
 				}
 			}
 		}
@@ -8350,14 +8509,24 @@ get_civil_war_leader = {
 					}
 				}
 				else = {
-					random_owned_pop = { species = { save_event_target_as = civwar_species } }
-					create_civil_war_leader_with_ethic = { ETHIC = pluralist }
+					event_target:civwar_rebels = {
+						random_owned_pop = { species = { save_event_target_as = civwar_species } }
+						create_civil_war_leader_with_ethic = { ETHIC = pluralist }
+					}
 				}
 			}
 		}
-
 		set_leader = event_target:rebel_leader
-
+		event_target:rebel_leader = {
+			if = {
+				limit = { NOT = { is_owned_by = event_target:civwar_rebels } }
+				set_owner = event_target:civwar_rebels
+			}
+			if = {
+				limit = { NOT = { has_leader_flag = new_faction_ruler } }
+				set_leader_flag = leader_defected
+			}
+		}
 	}
 	else_if = {
 		limit = { has_origin = origin_nationalist_rebellion }
@@ -8376,27 +8545,43 @@ get_civil_war_leader = {
 	else_if = {
 		limit = { event_target:civwar_originator = { has_country_flag = heir_mother_country } }
 		set_leader = event_target:heir_civil_war_dummy_country.ruler
+		event_target:heir_civil_war_dummy_country.ruler = {
+			if = {
+				limit = { NOT = { is_owned_by = event_target:civwar_rebels } }
+				set_owner = event_target:civwar_rebels
+			}
+		}
 		event_target:heir_civil_war_dummy_country = { destroy_country = yes }
 	}
 	else_if = {
 		limit = { event_target:civwar_originator.ruler = { has_leader_flag = sep_won_election } }
-		clone_leader = {
-			target = event_target:civwar_originator.ruler
-			#class = random_ruler
-			effect = {
-				set_leader_flag = civil_war_ruler_secession
-				save_event_target_as = secession_leader
-			}
-		}
-		set_leader = event_target:secession_leader
+		#clone_leader = {
+		#	target = event_target:civwar_originator.ruler
+		#	effect = {
+		#		set_leader_flag = civil_war_ruler_secession
+		#		save_event_target_as = secession_leader
+		#	}
+		#}
+		#set_leader = event_target:secession_leader
+		#event_target:civwar_originator.ruler = {
+		#	set_leader_flag = dead_ruler
+		#	kill_leader = { show_notification = no }
+		#}
+		set_leader = event_target:civwar_originator.ruler
 		event_target:civwar_originator.ruler = {
-			set_leader_flag = dead_ruler
-			kill_leader = { show_notification = no }
+			set_owner = event_target:civwar_rebels
 		}
+
 	}
 	else_if = {
 		limit = { exists = event_target:crisis_sector_leader }
 		set_leader = event_target:crisis_sector_leader
+		event_target:crisis_sector_leader = {
+			if = {
+				limit = { NOT = { is_owned_by = event_target:civwar_rebels } }
+				set_owner = event_target:civwar_rebels
+			}
+		}
 	}
 	else = {
 		random_owned_pop = {
@@ -8452,6 +8637,36 @@ get_homeworld_ethic_leader = {
 			}
 		}
 		save_event_target_as = new_rebel_leader
+	}
+}
+
+create_planetary_leader_with_ethic = {
+	create_leader = {
+		class = random_ruler
+		species = event_target:civwar_species
+		name = random
+		skill = 5
+		background_ethic = ethic_$ETHIC$
+		traits = { trait = trait_ruler_deep_connections }
+		effect = {
+			set_leader_flag = new_faction_ruler
+			save_event_target_as = new_rebel_leader
+		}
+	}
+}
+
+create_civil_war_leader_with_ethic = {
+	create_leader = {
+		class = random_ruler
+		species = event_target:civwar_species
+		name = random
+		skill = 5
+		background_ethic = ethic_$ETHIC$
+		traits = { trait = trait_ruler_deep_connections }
+		effect = {
+			set_leader_flag = new_faction_ruler
+			setup_rebel_leader_effect = yes
+		}
 	}
 }
 
@@ -8532,30 +8747,6 @@ kill_party_name_leader = {
 	}
 }
 
-create_planetary_leader_with_ethic = {
-	create_leader = {
-		class = random_ruler
-		species = event_target:civwar_species
-		name = random
-		skill = 5
-		background_ethic = ethic_$ETHIC$
-		traits = { trait = trait_ruler_deep_connections }
-		effect = { save_event_target_as = new_rebel_leader }
-	}
-}
-
-create_civil_war_leader_with_ethic = {
-	create_leader = {
-		class = random_ruler
-		species = event_target:civwar_species
-		name = random
-		skill = 5
-		background_ethic = ethic_$ETHIC$
-		traits = { trait = trait_ruler_deep_connections }
-		effect = { save_event_target_as = new_rebel_leader }
-	}
-}
-
 #####################
 # Get War Numbers
 
@@ -8626,7 +8817,1524 @@ get_secession_country_info = {
 	else = {
 		event_target:civwar_originator = { find_secession_number_flag = yes }
 	}
-	event_target:civwar_originator = { set_country_flag = secession_@event_target:civwar_rebels }
+	event_target:civwar_originator = {
+		if = {
+			limit = {
+				event_target:civwar_rebels = {
+					OR = {
+						has_origin = origin_civwar
+						has_origin = origin_sec_rebellion
+						has_origin = origin_nationalist_rebellion
+						has_origin = origin_coup_successor
+						has_origin = origin_coup_independent
+						has_origin = origin_heir_rebellion
+						has_origin = origin_isolated_rebellion
+					}
+				}
+			}
+			get_civil_war_number = yes
+		}
+		set_country_flag = secession_@event_target:civwar_rebels
+	}
+}
+
+set_secession_country_flags = {
+	if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 1 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_1_flag
+			save_global_event_target_as = secession_country_1
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_1_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_1_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 2 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_2_flag
+			save_global_event_target_as = secession_country_2
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_2_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_2_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 3 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_3_flag
+			save_global_event_target_as = secession_country_3
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_3_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_3_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 4 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_4_flag
+			save_global_event_target_as = secession_country_4
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_4_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_4_traitor }
+			}
+		}
+	}
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 5 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_5_flag
+			save_global_event_target_as = secession_country_5
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_5_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_5_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 6 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_6_flag
+			save_global_event_target_as = secession_country_6
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_6_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_6_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 7 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_7_flag
+			save_global_event_target_as = secession_country_7
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_7_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_7_traitor }
+			}
+		}
+	}
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 8 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_8_flag
+			save_global_event_target_as = secession_country_8
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_8_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_8_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 9 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_9_flag
+			save_global_event_target_as = secession_country_9
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_9_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_9_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 10 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_10_flag
+			save_global_event_target_as = secession_country_10
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_10_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_10_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 11 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_11_flag
+			save_global_event_target_as = secession_country_11
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_11_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_11_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 12 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_12_flag
+			save_global_event_target_as = secession_country_12
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_12_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_12_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 13 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_13_flag
+			save_global_event_target_as = secession_country_13
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_13_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_13_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 14 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_14_flag
+			save_global_event_target_as = secession_country_14
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_14_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_14_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 15 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_15_flag
+			save_global_event_target_as = secession_country_15
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_15_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_15_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 16 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_16_flag
+			save_global_event_target_as = secession_country_16
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_16_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_16_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 17 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_17_flag
+			save_global_event_target_as = secession_country_17
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_17_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_17_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 18 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_18_flag
+			save_global_event_target_as = secession_country_18
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_18_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_18_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 19 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_19_flag
+			save_global_event_target_as = secession_country_19
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_19_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_19_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 20 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_20_flag
+			save_global_event_target_as = secession_country_20
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_20_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_20_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 21 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_21_flag
+			save_global_event_target_as = secession_country_21
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_21_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_21_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 22 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_22_flag
+			save_global_event_target_as = secession_country_22
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_22_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_22_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 23 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_23_flag
+			save_global_event_target_as = secession_country_23
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_23_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_23_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 24 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_24_flag
+			save_global_event_target_as = secession_country_24
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_24_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_24_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 25 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_25_flag
+			save_global_event_target_as = secession_country_25
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_25_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_25_traitor }
+			}
+		}
+	}
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 26 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_26_flag
+			save_global_event_target_as = secession_country_26
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_26_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_26_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 27 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_27_flag
+			save_global_event_target_as = secession_country_27
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_27_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_27_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 28 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_28_flag
+			save_global_event_target_as = secession_country_28
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_28_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_28_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 29 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_29_flag
+			save_global_event_target_as = secession_country_29
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_29_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_29_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 30 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_30_flag
+			save_global_event_target_as = secession_country_30
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_30_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_30_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 31 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_31_flag
+			save_global_event_target_as = secession_country_31
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_31_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_31_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 32 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_32_flag
+			save_global_event_target_as = secession_country_32
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_32_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_32_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 33 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_33_flag
+			save_global_event_target_as = secession_country_33
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_33_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_33_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 34 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_34_flag
+			save_global_event_target_as = secession_country_34
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_34_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_34_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 35 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_35_flag
+			save_global_event_target_as = secession_country_35
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_35_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_35_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 36 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_36_flag
+			save_global_event_target_as = secession_country_36
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_36_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_36_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 37 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_37_flag
+			save_global_event_target_as = secession_country_37
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_37_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_37_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 38 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_38_flag
+			save_global_event_target_as = secession_country_38
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_38_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_38_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 39 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_39_flag
+			save_global_event_target_as = secession_country_39
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_39_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_39_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 40 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_40_flag
+			save_global_event_target_as = secession_country_40
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_40_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_40_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 41 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_41_flag
+			save_global_event_target_as = secession_country_41
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_41_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_41_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 42 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_42_flag
+			save_global_event_target_as = secession_country_42
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_42_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_42_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 43 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_43_flag
+			save_global_event_target_as = secession_country_43
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_43_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_43_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 44 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_44_flag
+			save_global_event_target_as = secession_country_44
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_44_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_44_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 45 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_45_flag
+			save_global_event_target_as = secession_country_45
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_45_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_45_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 46 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_46_flag
+			save_global_event_target_as = secession_country_46
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_46_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_46_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 47 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_47_flag
+			save_global_event_target_as = secession_country_47
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_47_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_47_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 48 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_48_flag
+			save_global_event_target_as = secession_country_48
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_48_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_48_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 49 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_49_flag
+			save_global_event_target_as = secession_country_49
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_49_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_49_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 50 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_50_flag
+			save_global_event_target_as = secession_country_50
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_50_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_50_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 51 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_51_flag
+			save_global_event_target_as = secession_country_51
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_51_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_51_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 52 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_52_flag
+			save_global_event_target_as = secession_country_52
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_52_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_52_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 53 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_53_flag
+			save_global_event_target_as = secession_country_53
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_53_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_53_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 54 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_54_flag
+			save_global_event_target_as = secession_country_54
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_54_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_54_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 55 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_55_flag
+			save_global_event_target_as = secession_country_55
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_55_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_55_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 56 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_56_flag
+			save_global_event_target_as = secession_country_56
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_56_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_56_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 57 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_57_flag
+			save_global_event_target_as = secession_country_57
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_57_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_57_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 58 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_58_flag
+			save_global_event_target_as = secession_country_58
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_58_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_58_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 59 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_59_flag
+			save_global_event_target_as = secession_country_59
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_59_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_59_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 60 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_60_flag
+			save_global_event_target_as = secession_country_60
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_60_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_60_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 61 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_61_flag
+			save_global_event_target_as = secession_country_61
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_61_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_61_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 62 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_62_flag
+			save_global_event_target_as = secession_country_62
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_62_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_62_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 63 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_63_flag
+			save_global_event_target_as = secession_country_63
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_63_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_63_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 64 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_64_flag
+			save_global_event_target_as = secession_country_64
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_64_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_64_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 65 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_65_flag
+			save_global_event_target_as = secession_country_65
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_65_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_65_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 66 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_66_flag
+			save_global_event_target_as = secession_country_66
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_66_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_66_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 67 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_67_flag
+			save_global_event_target_as = secession_country_67
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_67_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_67_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 68 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_68_flag
+			save_global_event_target_as = secession_country_68
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_68_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_68_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 69 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_69_flag
+			save_global_event_target_as = secession_country_69
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_69_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_69_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 70 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_70_flag
+			save_global_event_target_as = secession_country_70
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_70_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_70_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 71 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_71_flag
+			save_global_event_target_as = secession_country_71
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_71_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_71_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 72 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_72_flag
+			save_global_event_target_as = secession_country_72
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_72_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_72_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 73 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_73_flag
+			save_global_event_target_as = secession_country_73
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_73_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_73_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 74 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_74_flag
+			save_global_event_target_as = secession_country_74
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_74_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_74_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 75 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_75_flag
+			save_global_event_target_as = secession_country_75
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_75_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_75_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 76 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_76_flag
+			save_global_event_target_as = secession_country_76
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_76_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_76_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 77 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_77_flag
+			save_global_event_target_as = secession_country_77
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_77_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_77_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 78 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_78_flag
+			save_global_event_target_as = secession_country_78
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_78_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_78_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 79 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_79_flag
+			save_global_event_target_as = secession_country_79
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_79_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_79_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 80 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_80_flag
+			save_global_event_target_as = secession_country_80
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_80_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_80_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 81 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_81_flag
+			save_global_event_target_as = secession_country_81
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_81_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_81_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 82 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_82_flag
+			save_global_event_target_as = secession_country_82
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_82_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_82_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 83 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_83_flag
+			save_global_event_target_as = secession_country_83
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_83_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_83_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 84 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_84_flag
+			save_global_event_target_as = secession_country_84
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_84_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_84_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 85 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_85_flag
+			save_global_event_target_as = secession_country_85
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_85_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_85_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 86 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_86_flag
+			save_global_event_target_as = secession_country_86
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_86_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_86_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 87 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_87_flag
+			save_global_event_target_as = secession_country_87
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_87_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_87_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 88 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_88_flag
+			save_global_event_target_as = secession_country_88
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_88_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_88_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 89 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_89_flag
+			save_global_event_target_as = secession_country_89
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_89_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_89_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 90 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_90_flag
+			save_global_event_target_as = secession_country_90
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_90_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_90_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 91 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_91_flag
+			save_global_event_target_as = secession_country_91
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_91_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_91_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 92 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_92_flag
+			save_global_event_target_as = secession_country_92
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_92_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_92_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 93 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_93_flag
+			save_global_event_target_as = secession_country_93
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_93_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_93_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 94 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_94_flag
+			save_global_event_target_as = secession_country_94
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_94_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_94_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 95 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_95_flag
+			save_global_event_target_as = secession_country_95
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_95_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_95_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 96 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_96_flag
+			save_global_event_target_as = secession_country_96
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_96_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_96_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 97 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_97_flag
+			save_global_event_target_as = secession_country_97
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_97_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_97_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 98 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_98_flag
+			save_global_event_target_as = secession_country_98
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_98_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_98_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 99 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_99_flag
+			save_global_event_target_as = secession_country_99
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_99_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_99_traitor }
+			}
+		}
+	}
+
+	else_if = {
+		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 100 } } }
+		event_target:civwar_originator = {
+			set_country_flag = secession_country_100_flag
+			save_global_event_target_as = secession_country_100
+		}
+		event_target:civwar_rebels = {
+			set_country_flag = secession_country_100_seceder
+			if = {
+				limit = { exists = ruler }
+				ruler = { set_leader_flag = secession_country_100_traitor }
+			}
+		}
+	}
 }
 
 find_secession_number_flag = {
@@ -8634,7 +10342,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_1_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_1_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_1_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_1_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8653,7 +10367,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_2_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_2_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_2_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_2_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8672,7 +10392,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_3_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_3_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_3_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_3_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8691,7 +10417,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_4_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_4_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_4_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_4_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8710,7 +10442,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_5_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_5_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_5_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_5_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8729,7 +10467,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_6_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_6_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_6_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_6_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8748,7 +10492,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_7_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_7_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_7_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_7_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8767,7 +10517,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_8_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_8_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_8_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_8_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8786,7 +10542,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_9_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_9_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_9_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_9_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8805,7 +10567,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_10_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_10_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_10_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_10_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8824,7 +10592,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_11_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_11_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_11_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_11_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8843,7 +10617,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_12_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_12_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_12_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_12_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8862,7 +10642,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_13_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_13_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_13_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_13_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8881,7 +10667,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_14_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_14_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_14_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_14_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8900,7 +10692,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_15_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_15_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_15_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_15_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8919,7 +10717,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_16_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_16_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_16_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_16_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8938,7 +10742,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_17_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_17_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_17_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_17_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8957,7 +10767,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_18_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_18_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_18_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_18_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8976,7 +10792,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_19_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_19_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_19_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_19_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -8995,7 +10817,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_20_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_20_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_20_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_20_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9014,7 +10842,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_21_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_21_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_21_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_21_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9033,7 +10867,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_22_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_22_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_22_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_22_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9052,7 +10892,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_23_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_23_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_23_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_23_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9071,7 +10917,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_24_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_24_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_24_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_24_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9090,7 +10942,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_25_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_25_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_25_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_25_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9109,7 +10967,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_26_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_26_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_26_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_26_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9128,7 +10992,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_27_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_27_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_27_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_27_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9147,7 +11017,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_28_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_28_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_28_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_28_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9166,7 +11042,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_29_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_29_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_29_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_29_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9185,7 +11067,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_30_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_30_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_30_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_30_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9204,7 +11092,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_31_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_31_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_31_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_31_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9223,7 +11117,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_32_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_32_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_32_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_32_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9242,7 +11142,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_33_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_33_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_33_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_33_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9261,7 +11167,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_34_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_34_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_34_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_34_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9280,7 +11192,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_35_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_35_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_35_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_35_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9299,7 +11217,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_36_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_36_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_36_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_36_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9318,7 +11242,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_37_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_37_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_37_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_37_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9337,7 +11267,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_38_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_38_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_38_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_38_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9356,7 +11292,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_39_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_39_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_39_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_39_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9375,7 +11317,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_40_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_40_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_40_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_40_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9394,7 +11342,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_41_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_41_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_41_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_41_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9413,7 +11367,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_42_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_42_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_42_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_42_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9432,7 +11392,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_43_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_43_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_43_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_43_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9451,7 +11417,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_44_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_44_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_44_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_44_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9470,7 +11442,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_45_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_45_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_45_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_45_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9489,7 +11467,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_46_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_46_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_46_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_46_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9508,7 +11492,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_47_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_47_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_47_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_47_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9527,7 +11517,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_48_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_48_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_48_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_48_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9546,7 +11542,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_49_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_49_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_49_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_49_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9565,7 +11567,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_50_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_50_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_50_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_50_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9584,7 +11592,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_51_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_51_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_51_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_51_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9603,7 +11617,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_52_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_52_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_52_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_52_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9622,7 +11642,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_53_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_53_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_53_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_53_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9641,7 +11667,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_54_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_54_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_54_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_54_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9660,7 +11692,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_55_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_55_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_55_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_55_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9679,7 +11717,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_56_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_56_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_56_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_56_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9698,7 +11742,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_57_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_57_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_57_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_57_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9717,7 +11767,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_58_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_58_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_58_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_58_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9736,7 +11792,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_59_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_59_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_59_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_59_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9755,7 +11817,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_60_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_60_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_60_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_60_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9774,7 +11842,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_61_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_61_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_61_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_61_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9793,7 +11867,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_62_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_62_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_62_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_62_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9812,7 +11892,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_63_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_63_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_63_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_63_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9831,7 +11917,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_64_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_64_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_64_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_64_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9850,7 +11942,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_65_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_65_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_65_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_65_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9869,7 +11967,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_66_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_66_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_66_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_66_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9888,7 +11992,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_67_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_67_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_67_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_67_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9907,7 +12017,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_68_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_68_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_68_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_68_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9926,7 +12042,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_69_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_69_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_69_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_69_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9945,7 +12067,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_70_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_70_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_70_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_70_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9964,7 +12092,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_71_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_71_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_71_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_71_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -9983,7 +12117,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_72_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_72_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_72_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_72_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10002,7 +12142,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_73_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_73_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_73_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_73_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10021,7 +12167,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_74_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_74_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_74_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_74_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10040,7 +12192,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_75_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_75_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_75_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_75_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10059,7 +12217,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_76_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_76_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_76_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_76_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10078,7 +12242,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_77_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_77_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_77_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_77_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10097,7 +12267,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_78_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_78_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_78_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_78_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10116,7 +12292,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_79_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_79_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_79_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_79_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10135,7 +12317,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_80_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_80_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_80_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_80_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10154,7 +12342,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_81_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_81_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_81_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_81_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10173,7 +12367,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_82_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_82_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_82_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_82_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10192,7 +12392,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_83_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_83_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_83_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_83_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10211,7 +12417,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_84_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_84_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_84_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_84_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10230,7 +12442,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_85_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_85_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_85_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_85_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10249,7 +12467,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_86_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_86_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_86_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_86_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10268,7 +12492,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_87_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_87_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_87_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_87_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10287,7 +12517,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_88_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_88_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_88_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_88_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10306,7 +12542,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_89_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_89_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_89_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_89_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10325,7 +12567,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_90_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_90_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_90_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_90_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10344,7 +12592,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_91_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_91_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_91_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_91_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10363,7 +12617,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_92_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_92_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_92_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_92_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10382,7 +12642,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_93_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_93_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_93_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_93_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10401,7 +12667,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_94_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_94_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_94_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_94_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10420,7 +12692,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_95_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_95_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_95_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_95_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10439,7 +12717,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_96_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_96_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_96_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_96_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10458,7 +12742,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_97_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_97_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_97_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_97_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10477,7 +12767,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_98_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_98_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_98_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_98_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10496,7 +12792,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_99_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_99_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_99_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_99_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10515,7 +12817,13 @@ find_secession_number_flag = {
 		limit = { has_country_flag = secession_country_100_flag }
 		if = {
 			limit = { exists = event_target:civwar_rebels }
-			event_target:civwar_rebels = { set_country_flag = secession_country_100_seceder }
+			event_target:civwar_rebels = {
+				set_country_flag = secession_country_100_seceder
+				if = {
+					limit = { exists = ruler }
+					ruler = { set_leader_flag = secession_country_100_traitor }
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -10531,902 +12839,723 @@ find_secession_number_flag = {
 	}
 }
 
-set_secession_country_flags = {
+get_heir_country_info = {
 	if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 1 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_1_flag
-			save_global_event_target_as = secession_country_1
+		limit = { event_target:traitor_home_country = { has_heir_country_flag = no } }
+		event_target:global_event_country = {
+			if = {
+				limit = { NOT = { is_variable_set = heir_country_count } }
+				set_variable = { which = heir_country_count value = 1 }
+			}
+			else = {
+				change_variable = { which = heir_country_count value = 1 }
+			}
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_1_seceder }
+		set_heir_country_flags = yes
 	}
+	else = {
+		event_target:traitor_home_country = { find_heir_number_flag = yes }
+	}
+}
+
+set_heir_country_flags = {
+	if = {
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 1 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_1_flag
+			save_global_event_target_as = heir_country_1
+		}
+		event_target:disinherited_heir = { set_leader_flag = heir_country_1_traitor }
+	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 2 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_2_flag
-			save_global_event_target_as = secession_country_2
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 2 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_2_flag
+			save_global_event_target_as = heir_country_2
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_2_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_2_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 3 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_3_flag
-			save_global_event_target_as = secession_country_3
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 3 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_3_flag
+			save_global_event_target_as = heir_country_3
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_3_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_3_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 4 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_4_flag
-			save_global_event_target_as = secession_country_4
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 4 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_4_flag
+			save_global_event_target_as = heir_country_4
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_4_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_4_traitor }
 	}
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 5 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_5_flag
-			save_global_event_target_as = secession_country_5
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 5 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_5_flag
+			save_global_event_target_as = heir_country_5
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_5_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_5_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 6 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_6_flag
-			save_global_event_target_as = secession_country_6
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 6 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_6_flag
+			save_global_event_target_as = heir_country_6
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_6_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_6_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 7 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_7_flag
-			save_global_event_target_as = secession_country_7
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 7 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_7_flag
+			save_global_event_target_as = heir_country_7
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_7_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_7_traitor }
 	}
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 8 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_8_flag
-			save_global_event_target_as = secession_country_8
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 8 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_8_flag
+			save_global_event_target_as = heir_country_8
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_8_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_8_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 9 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_9_flag
-			save_global_event_target_as = secession_country_9
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 9 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_9_flag
+			save_global_event_target_as = heir_country_9
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_9_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_9_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 10 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_10_flag
-			save_global_event_target_as = secession_country_10
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 10 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_10_flag
+			save_global_event_target_as = heir_country_10
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_10_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_10_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 11 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_11_flag
-			save_global_event_target_as = secession_country_11
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 11 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_11_flag
+			save_global_event_target_as = heir_country_11
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_11_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_11_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 12 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_12_flag
-			save_global_event_target_as = secession_country_12
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 12 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_12_flag
+			save_global_event_target_as = heir_country_12
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_12_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_12_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 13 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_13_flag
-			save_global_event_target_as = secession_country_13
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 13 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_13_flag
+			save_global_event_target_as = heir_country_13
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_13_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_13_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 14 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_14_flag
-			save_global_event_target_as = secession_country_14
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 14 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_14_flag
+			save_global_event_target_as = heir_country_14
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_14_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_14_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 15 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_15_flag
-			save_global_event_target_as = secession_country_15
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 15 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_15_flag
+			save_global_event_target_as = heir_country_15
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_15_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_15_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 16 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_16_flag
-			save_global_event_target_as = secession_country_16
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 16 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_16_flag
+			save_global_event_target_as = heir_country_16
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_16_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_16_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 17 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_17_flag
-			save_global_event_target_as = secession_country_17
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 17 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_17_flag
+			save_global_event_target_as = heir_country_17
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_17_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_17_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 18 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_18_flag
-			save_global_event_target_as = secession_country_18
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 18 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_18_flag
+			save_global_event_target_as = heir_country_18
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_18_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_18_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 19 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_19_flag
-			save_global_event_target_as = secession_country_19
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 19 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_19_flag
+			save_global_event_target_as = heir_country_19
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_19_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_19_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 20 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_20_flag
-			save_global_event_target_as = secession_country_20
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 20 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_20_flag
+			save_global_event_target_as = heir_country_20
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_20_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_20_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 21 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_21_flag
-			save_global_event_target_as = secession_country_21
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 21 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_21_flag
+			save_global_event_target_as = heir_country_21
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_21_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_21_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 22 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_22_flag
-			save_global_event_target_as = secession_country_22
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 22 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_22_flag
+			save_global_event_target_as = heir_country_22
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_22_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_22_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 23 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_23_flag
-			save_global_event_target_as = secession_country_23
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 23 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_23_flag
+			save_global_event_target_as = heir_country_23
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_23_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_23_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 24 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_24_flag
-			save_global_event_target_as = secession_country_24
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 24 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_24_flag
+			save_global_event_target_as = heir_country_24
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_24_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_24_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 25 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_25_flag
-			save_global_event_target_as = secession_country_25
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 25 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_25_flag
+			save_global_event_target_as = heir_country_25
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_25_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_25_traitor }
 	}
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 26 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_26_flag
-			save_global_event_target_as = secession_country_26
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 26 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_26_flag
+			save_global_event_target_as = heir_country_26
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_26_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_26_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 27 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_27_flag
-			save_global_event_target_as = secession_country_27
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 27 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_27_flag
+			save_global_event_target_as = heir_country_27
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_27_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_27_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 28 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_28_flag
-			save_global_event_target_as = secession_country_28
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 28 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_28_flag
+			save_global_event_target_as = heir_country_28
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_28_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_28_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 29 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_29_flag
-			save_global_event_target_as = secession_country_29
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 29 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_29_flag
+			save_global_event_target_as = heir_country_29
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_29_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_29_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 30 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_30_flag
-			save_global_event_target_as = secession_country_30
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 30 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_30_flag
+			save_global_event_target_as = heir_country_30
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_30_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_30_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 31 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_31_flag
-			save_global_event_target_as = secession_country_31
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 31 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_31_flag
+			save_global_event_target_as = heir_country_31
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_31_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_31_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 32 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_32_flag
-			save_global_event_target_as = secession_country_32
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 32 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_32_flag
+			save_global_event_target_as = heir_country_32
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_32_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_32_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 33 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_33_flag
-			save_global_event_target_as = secession_country_33
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 33 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_33_flag
+			save_global_event_target_as = heir_country_33
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_33_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_33_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 34 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_34_flag
-			save_global_event_target_as = secession_country_34
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 34 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_34_flag
+			save_global_event_target_as = heir_country_34
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_34_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_34_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 35 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_35_flag
-			save_global_event_target_as = secession_country_35
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 35 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_35_flag
+			save_global_event_target_as = heir_country_35
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_35_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_35_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 36 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_36_flag
-			save_global_event_target_as = secession_country_36
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 36 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_36_flag
+			save_global_event_target_as = heir_country_36
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_36_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_36_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 37 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_37_flag
-			save_global_event_target_as = secession_country_37
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 37 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_37_flag
+			save_global_event_target_as = heir_country_37
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_37_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_37_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 38 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_38_flag
-			save_global_event_target_as = secession_country_38
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 38 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_38_flag
+			save_global_event_target_as = heir_country_38
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_38_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_38_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 39 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_39_flag
-			save_global_event_target_as = secession_country_39
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 39 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_39_flag
+			save_global_event_target_as = heir_country_39
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_39_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_39_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 40 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_40_flag
-			save_global_event_target_as = secession_country_40
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 40 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_40_flag
+			save_global_event_target_as = heir_country_40
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_40_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_40_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 41 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_41_flag
-			save_global_event_target_as = secession_country_41
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 41 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_41_flag
+			save_global_event_target_as = heir_country_41
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_41_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_41_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 42 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_42_flag
-			save_global_event_target_as = secession_country_42
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 42 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_42_flag
+			save_global_event_target_as = heir_country_42
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_42_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_42_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 43 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_43_flag
-			save_global_event_target_as = secession_country_43
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 43 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_43_flag
+			save_global_event_target_as = heir_country_43
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_43_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_43_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 44 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_44_flag
-			save_global_event_target_as = secession_country_44
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 44 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_44_flag
+			save_global_event_target_as = heir_country_44
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_44_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_44_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 45 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_45_flag
-			save_global_event_target_as = secession_country_45
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 45 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_45_flag
+			save_global_event_target_as = heir_country_45
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_45_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_45_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 46 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_46_flag
-			save_global_event_target_as = secession_country_46
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 46 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_46_flag
+			save_global_event_target_as = heir_country_46
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_46_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_46_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 47 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_47_flag
-			save_global_event_target_as = secession_country_47
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 47 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_47_flag
+			save_global_event_target_as = heir_country_47
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_47_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_47_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 48 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_48_flag
-			save_global_event_target_as = secession_country_48
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 48 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_48_flag
+			save_global_event_target_as = heir_country_48
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_48_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_48_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 49 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_49_flag
-			save_global_event_target_as = secession_country_49
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 49 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_49_flag
+			save_global_event_target_as = heir_country_49
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_49_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_49_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 50 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_50_flag
-			save_global_event_target_as = secession_country_50
+		limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = 50 } } }
+		event_target:traitor_home_country = {
+			set_country_flag = heir_country_50_flag
+			save_global_event_target_as = heir_country_50
 		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_50_seceder }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_50_traitor }
 	}
+}
 
-	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 51 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_51_flag
-			save_global_event_target_as = secession_country_51
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_51_seceder }
+find_heir_number_flag = {
+	if = {
+		limit = { has_country_flag = heir_country_1_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_1_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 52 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_52_flag
-			save_global_event_target_as = secession_country_52
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_52_seceder }
+		limit = { has_country_flag = heir_country_2_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_2_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 53 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_53_flag
-			save_global_event_target_as = secession_country_53
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_53_seceder }
+		limit = { has_country_flag = heir_country_3_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_3_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 54 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_54_flag
-			save_global_event_target_as = secession_country_54
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_54_seceder }
+		limit = { has_country_flag = heir_country_4_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_4_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 55 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_55_flag
-			save_global_event_target_as = secession_country_55
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_55_seceder }
+		limit = { has_country_flag = heir_country_5_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_5_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 56 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_56_flag
-			save_global_event_target_as = secession_country_56
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_56_seceder }
+		limit = { has_country_flag = heir_country_6_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_6_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 57 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_57_flag
-			save_global_event_target_as = secession_country_57
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_57_seceder }
+		limit = { has_country_flag = heir_country_7_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_7_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 58 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_58_flag
-			save_global_event_target_as = secession_country_58
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_58_seceder }
+		limit = { has_country_flag = heir_country_8_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_8_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 59 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_59_flag
-			save_global_event_target_as = secession_country_59
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_59_seceder }
+		limit = { has_country_flag = heir_country_9_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_9_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 60 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_60_flag
-			save_global_event_target_as = secession_country_60
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_60_seceder }
+		limit = { has_country_flag = heir_country_10_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_10_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 61 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_61_flag
-			save_global_event_target_as = secession_country_61
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_61_seceder }
+		limit = { has_country_flag = heir_country_11_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_11_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 62 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_62_flag
-			save_global_event_target_as = secession_country_62
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_62_seceder }
+		limit = { has_country_flag = heir_country_12_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_12_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 63 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_63_flag
-			save_global_event_target_as = secession_country_63
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_63_seceder }
+		limit = { has_country_flag = heir_country_13_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_13_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 64 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_64_flag
-			save_global_event_target_as = secession_country_64
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_64_seceder }
+		limit = { has_country_flag = heir_country_14_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_14_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 65 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_65_flag
-			save_global_event_target_as = secession_country_65
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_65_seceder }
+		limit = { has_country_flag = heir_country_15_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_15_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 66 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_66_flag
-			save_global_event_target_as = secession_country_66
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_66_seceder }
+		limit = { has_country_flag = heir_country_16_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_16_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 67 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_67_flag
-			save_global_event_target_as = secession_country_67
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_67_seceder }
+		limit = { has_country_flag = heir_country_17_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_17_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 68 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_68_flag
-			save_global_event_target_as = secession_country_68
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_68_seceder }
+		limit = { has_country_flag = heir_country_18_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_18_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 69 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_69_flag
-			save_global_event_target_as = secession_country_69
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_69_seceder }
+		limit = { has_country_flag = heir_country_19_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_19_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 70 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_70_flag
-			save_global_event_target_as = secession_country_70
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_70_seceder }
+		limit = { has_country_flag = heir_country_20_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_20_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 71 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_71_flag
-			save_global_event_target_as = secession_country_71
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_71_seceder }
+		limit = { has_country_flag = heir_country_21_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_21_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 72 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_72_flag
-			save_global_event_target_as = secession_country_72
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_72_seceder }
+		limit = { has_country_flag = heir_country_22_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_22_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 73 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_73_flag
-			save_global_event_target_as = secession_country_73
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_73_seceder }
+		limit = { has_country_flag = heir_country_23_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_23_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 74 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_74_flag
-			save_global_event_target_as = secession_country_74
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_74_seceder }
+		limit = { has_country_flag = heir_country_24_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_24_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 75 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_75_flag
-			save_global_event_target_as = secession_country_75
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_75_seceder }
+		limit = { has_country_flag = heir_country_25_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_25_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 76 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_76_flag
-			save_global_event_target_as = secession_country_76
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_76_seceder }
+		limit = { has_country_flag = heir_country_26_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_26_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 77 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_77_flag
-			save_global_event_target_as = secession_country_77
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_77_seceder }
+		limit = { has_country_flag = heir_country_27_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_27_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 78 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_78_flag
-			save_global_event_target_as = secession_country_78
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_78_seceder }
+		limit = { has_country_flag = heir_country_28_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_28_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 79 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_79_flag
-			save_global_event_target_as = secession_country_79
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_79_seceder }
+		limit = { has_country_flag = heir_country_29_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_29_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 80 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_80_flag
-			save_global_event_target_as = secession_country_80
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_80_seceder }
+		limit = { has_country_flag = heir_country_30_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_30_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 81 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_81_flag
-			save_global_event_target_as = secession_country_81
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_81_seceder }
+		limit = { has_country_flag = heir_country_31_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_31_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 82 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_82_flag
-			save_global_event_target_as = secession_country_82
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_82_seceder }
+		limit = { has_country_flag = heir_country_32_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_32_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 83 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_83_flag
-			save_global_event_target_as = secession_country_83
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_83_seceder }
+		limit = { has_country_flag = heir_country_33_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_33_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 84 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_84_flag
-			save_global_event_target_as = secession_country_84
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_84_seceder }
+		limit = { has_country_flag = heir_country_34_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_34_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 85 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_85_flag
-			save_global_event_target_as = secession_country_85
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_85_seceder }
+		limit = { has_country_flag = heir_country_35_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_35_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 86 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_86_flag
-			save_global_event_target_as = secession_country_86
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_86_seceder }
+		limit = { has_country_flag = heir_country_36_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_36_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 87 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_87_flag
-			save_global_event_target_as = secession_country_87
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_87_seceder }
+		limit = { has_country_flag = heir_country_37_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_37_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 88 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_88_flag
-			save_global_event_target_as = secession_country_88
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_88_seceder }
+		limit = { has_country_flag = heir_country_38_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_38_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 89 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_89_flag
-			save_global_event_target_as = secession_country_89
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_89_seceder }
+		limit = { has_country_flag = heir_country_39_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_39_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 90 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_90_flag
-			save_global_event_target_as = secession_country_90
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_90_seceder }
+		limit = { has_country_flag = heir_country_40_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_40_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 91 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_91_flag
-			save_global_event_target_as = secession_country_91
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_91_seceder }
+		limit = { has_country_flag = heir_country_41_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_41_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 92 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_92_flag
-			save_global_event_target_as = secession_country_92
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_92_seceder }
+		limit = { has_country_flag = heir_country_42_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_42_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 93 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_93_flag
-			save_global_event_target_as = secession_country_93
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_93_seceder }
+		limit = { has_country_flag = heir_country_43_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_43_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 94 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_94_flag
-			save_global_event_target_as = secession_country_94
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_94_seceder }
+		limit = { has_country_flag = heir_country_44_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_44_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 95 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_95_flag
-			save_global_event_target_as = secession_country_95
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_95_seceder }
+		limit = { has_country_flag = heir_country_45_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_45_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 96 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_96_flag
-			save_global_event_target_as = secession_country_96
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_96_seceder }
+		limit = { has_country_flag = heir_country_46_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_46_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 97 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_97_flag
-			save_global_event_target_as = secession_country_97
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_97_seceder }
+		limit = { has_country_flag = heir_country_47_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_47_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 98 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_98_flag
-			save_global_event_target_as = secession_country_98
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_98_seceder }
+		limit = { has_country_flag = heir_country_48_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_48_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 99 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_99_flag
-			save_global_event_target_as = secession_country_99
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_99_seceder }
+		limit = { has_country_flag = heir_country_49_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_49_traitor }
 	}
 
 	else_if = {
-		limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = 100 } } }
-		event_target:civwar_originator = {
-			set_country_flag = secession_country_100_flag
-			save_global_event_target_as = secession_country_100
-		}
-		event_target:civwar_rebels = { set_country_flag = secession_country_100_seceder }
+		limit = { has_country_flag = heir_country_50_flag }
+		event_target:disinherited_heir = { set_leader_flag = heir_country_50_traitor }
 	}
 }
 
@@ -11757,6 +13886,13 @@ get_country_after_setup = {
 			exists = capital_scope
 			capital_scope = { NOT = { has_planet_flag = civwar_name_changed } }
 			event_target:civwar_originator = { is_ai = yes }
+			#event_target:civwar_rebels = {
+			#	OR = {
+			#		has_origin = origin_coup_independent
+			#		has_origin = origin_nationalist_rebellion
+			#		has_origin = origin_civstrife_slave_rebellion
+			#	}
+			#}
 		}
 		capital_scope = {
 			set_name = random
@@ -11764,7 +13900,7 @@ get_country_after_setup = {
 		}
 	}
 
-	# Setup for Nationalist Restored Countries
+	# Renaming Stuff
 	if = {
 		limit = { has_country_flag = exile_restored_country }
 		random_country = {
@@ -12921,6 +15057,9 @@ get_traitor_outcome = {
 			}
 			45 = { # Flees to work for foreign empire
 				country_event = { id = civend.1003 }
+				log = "FLEEING: \\[event_target:defeated_traitor.GetName] Flees"
+				log = "FROM: \\[event_target:traitor_home_country.GetName] Flees"
+
 			}
 			15 = { # Captured
 				random_list = {

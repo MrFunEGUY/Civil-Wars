@@ -28,6 +28,7 @@ country_event = {
 		country_event = { id = civheir.1001 days = 2 random = 21 }
 
 		event_target:disinherited_heir = {
+			remove_trait = trait_imperial_heir
 			exile_leader_as = disinherited_heir
 		}
 	}
@@ -139,6 +140,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		is_primitive = no
 		exists = event_target:disinherited_heir
 	}
 
@@ -201,6 +203,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		is_primitive = no
 		exists = event_target:disinherited_heir
 	}
 

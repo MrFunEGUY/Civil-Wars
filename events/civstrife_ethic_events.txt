@@ -428,9 +428,7 @@ situation_event = { # Spread Faction Separatists Every Month
 					# chance = 100
 					set_pop_flag = sep_pop_ethic
 					if = {
-						limit = {
-							NOT = { has_pop_flag = sep_pop }
-						}
+						limit = { NOT = { has_pop_flag = sep_pop } }
 						set_pop_flag = sep_pop
 					}
 				}

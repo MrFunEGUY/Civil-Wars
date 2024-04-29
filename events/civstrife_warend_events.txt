@@ -23,6 +23,7 @@ country_event = {
 	# FromFrom = War
 
 	trigger = {
+		from.ruler = { has_leader_flag = leader_defected }
 		NOT = { any_subject = { has_country_flag = subject_for_traitor_@from } }
 		OR = {
 			fromfrom = {
@@ -51,20 +52,9 @@ country_event = {
 						type = wg_coup_fealty
 						owner = root
 					}
-				}
-			}
-			AND = {
-				fromfrom = {
 					using_war_goal = {
 						type = wg_planet_rebellion
 						owner = root
-					}
-				}
-				from.ruler = {
-					NOR = {
-						has_leader_flag = civil_war_ruler_separatist
-						has_leader_flag = civil_war_ruler_nationalist
-						has_leader_flag = civil_war_ruler_new
 					}
 				}
 			}
@@ -73,20 +63,23 @@ country_event = {
 
 	immediate = {
 
-		from.ruler = { save_event_target_as = defeated_traitor_1 }
-
-		clone_leader = {
-			target = event_target:defeated_traitor_1
-			class = random_ruler
-			hide_leader = yes
-			effect = {
-				save_event_target_as = defeated_traitor
-				set_leader_flag = dummy_leader
-			}
+		from.ruler = {
+			#save_event_target_as = defeated_traitor_1
+			set_owner = root
+			save_event_target_as = defeated_traitor
+			exile_leader_as = defeated_traitor
 		}
 
+		#clone_leader = {
+		#	target = event_target:defeated_traitor_1
+		#	class = random_ruler
+		#	effect = {
+		#		copy_flags_and_variables_from = event_target:defeated_traitor_1
+		#		save_event_target_as = defeated_traitor
+		#		#set_leader_flag = dummy_leader
+		#	}
+		#}
 		get_traitor_outcome = yes
-		
 	}
 }
 
@@ -288,18 +281,23 @@ country_event = {
 			save_event_target_as = traitor_subject_country
 		}
 
-		from.ruler = { save_event_target_as = defeated_traitor_1 }
+		from.ruler = {
+			#save_event_target_as = defeated_traitor_1
+			set_owner = event_target:traitor_subject_country
+			save_event_target_as = defeated_traitor
+			exile_leader_as = defeated_traitor
+		}
 
 		event_target:traitor_subject_country = {
-			clone_leader = {
-				target = event_target:defeated_traitor_1
-				class = random_ruler
-				hide_leader = yes
-				effect = {
-					save_event_target_as = defeated_traitor
-					set_leader_flag = dummy_leader
-				}
-			}
+			#clone_leader = {
+			#	target = event_target:defeated_traitor_1
+			#	class = random_ruler
+			#	hide_leader = yes
+			#	effect = {
+			#		save_event_target_as = defeated_traitor
+			#		set_leader_flag = dummy_leader
+			#	}
+			#}
 			get_traitor_outcome = yes
 		}
 

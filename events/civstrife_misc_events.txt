@@ -132,12 +132,107 @@ country_event = { # Set Birthday
 
 	immediate = {
 
-		log = "The [this.GetName] was formed on [GetDate]"
-		log = "Capital World: [this.Capital.GetName]"
-		log = "Origin: [this.Capital.GetOriginName]"
-		log = "Ruler: [this.Ruler.GetName]"
-		log = "FROM: [from.GetName]"
-		log = "========================================="
+		log = "| The [this.GetName] was formed on [GetDate]"
+		if = {
+			limit = { is_country_type = rebel }
+			log = "| Planetary Rebellion: YES"
+		}
+		log = "| Capital World: [this.Capital.GetName]"
+		log = "| Origin: [this.GetOriginName]"
+		log = "| Ruler: [this.Ruler.GetName]"
+		log = "| FROM: [from.GetName]"
+
+		if = {
+			limit = { exists = from.owner }
+			from.owner = {
+				log = "| Rebelled from [this.GetName]; ETHICS:"
+				if = {
+					limit = { has_ethic = ethic_egalitarian }
+					log = "| -- Egalitarian"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_fanatic_egalitarian }
+					log = "| -- Fanatic Egalitarian"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_authoritarian }
+					log = "| -- Authoritarian"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_fanatic_authoritarian }
+					log = "| -- Fanatic Authoritarian"
+				}
+
+				if = {
+					limit = { has_ethic = ethic_militarist }
+					log = "| -- Militarist"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_fanatic_militarist }
+					log = "| -- Fanatic Militarist"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_pacifist }
+					log = "| -- Pacifist"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_fanatic_pacifist }
+					log = "| -- Fanatic Pacifist"
+				}
+
+				if = {
+					limit = { has_ethic = ethic_spiritualist }
+					log = "| -- Spiritualist"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_fanatic_spiritualist }
+					log = "| -- Fanatic Spiritualist"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_materialist }
+					log = "| -- Materialist"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_fanatic_materialist }
+					log = "| -- Fanatic Materialist"
+				}
+
+				if = {
+					limit = { has_ethic = ethic_xenophobe }
+					log = "| -- Xenophobe"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_fanatic_xenophobe }
+					log = "| -- Fanatic Xenophobe"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_xenophile }
+					log = "| -- Xenophile"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_fanatic_xenophile }
+					log = "| -- Fanatic Xenophile"
+				}
+
+				if = {
+					limit = { has_ethic = ethic_socialism }
+					log = "| -- Socialism"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_fanatic_socialism }
+					log = "| -- Fanatic Socialism"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_capitalism }
+					log = "| -- Capitalism"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_fanatic_capitalism }
+					log = "| -- Fanatic Capitalism"
+				}
+				log = "| ========================================="
+			}
+		}
 
 		export_trigger_value_to_variable = {
 			trigger = days_passed

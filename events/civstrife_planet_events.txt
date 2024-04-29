@@ -129,6 +129,7 @@ country_event = {
 				country_event = { id = civcom.1000 }
 			}
 		}
+
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
 			# log = "3"
@@ -261,32 +262,9 @@ country_event = {
 		kill_party_name_leader = yes
 
 		if = {
-			limit = {
-				from.ruler = {
-					OR = {
-						has_leader_flag = civil_war_leader_official_faction
-						has_leader_flag = civil_war_leader_commander_faction
-						has_leader_flag = civil_war_leader_scientist_faction
-					}
-				}
-			}
+			limit = { from.ruler = { has_leader_flag = leader_defected } }
 			from.ruler = {
 				if = {
-					limit = { has_leader_flag = civil_war_leader_official_faction }
-					remove_leader_flag = civil_war_leader_official_faction
-					set_leader_flag = civil_war_ruler_official
-				}
-				else_if = {
-					limit = { has_leader_flag = civil_war_leader_commander_faction }
-					remove_leader_flag = civil_war_leader_commander_faction
-					set_leader_flag = civil_war_ruler_commander
-				}
-				else_if = {
-					limit = { has_leader_flag = civil_war_leader_scientist_faction }
-					remove_leader_flag = civil_war_leader_scientist_faction
-					set_leader_flag = civil_war_ruler_scientist
-				}
-				else_if = {
 					limit = { has_leader_flag = new_faction_ruler }
 					remove_leader_flag = new_faction_ruler
 					set_leader_flag = civil_war_ruler_new
@@ -295,14 +273,6 @@ country_event = {
 			}
 			get_traitor_outcome = yes
 		}
-		# else_if = {
-		# 	limit = {
-		# 		any_owned_leader = { has_leader_flag = leader_for_@FromFrom }
-		# 		has_leader_flag = civil_war_leader_nationalist_faction
-		# 	}
-		# 	save_event_target_as = defeated_traitor
-		# 	get_nat_traitor_outcome = yes
-		# }
 		else = {
 			country_event = { id = civplan.9020 }
 		}
