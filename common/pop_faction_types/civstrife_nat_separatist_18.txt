@@ -40,7 +40,6 @@ nat_separatist_18 = {
 	can_join_faction = {
 		has_pop_flag = sep_pop_nat_@event_target:nat_separatist_18
 		has_pop_flag = sep_pop_nat
-		happiness < 60
 		can_think = yes
 		pop_was_saved = no
 		is_shackled_robot = no
@@ -70,37 +69,37 @@ nat_separatist_18 = {
 		}
 
 		modifier = {
-			factor = 1.05
+			factor = 1.1
 			happiness < 0.6
 			happiness > 0.5
 		}
 
 		modifier = {
-			factor = 1.1
+			factor = 1.3
 			happiness <= 0.5
 			happiness > 0.4
 		}
 
 		modifier = {
-			factor = 1.2
+			factor = 1.5
 			happiness <= 0.4
 			happiness > 0.3
 		}
 
 		modifier = {
-			factor = 1.3
+			factor = 1.7
 			happiness <= 0.3
 			happiness > 0.2
 		}
 
 		modifier = {
-			factor = 1.4
+			factor = 2
 			happiness <= 0.2
 			happiness > 0.1
 		}
 
 		modifier = {
-			factor = 1.55
+			factor = 2.5
 			happiness <= 0.1
 		}
 
