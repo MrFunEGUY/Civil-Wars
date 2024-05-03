@@ -101,7 +101,7 @@ country_event = {
 		}
 
 		#####
-	
+
 		if = {
 			limit = { overlord_protects_subject = yes }
 			overlord = { country_event = { id = civwar.2000 } }
@@ -265,12 +265,13 @@ country_event = {
 			limit = { from.ruler = { has_leader_flag = leader_defected } }
 			from.ruler = {
 				if = {
-					limit = { has_leader_flag = new_faction_ruler }
-					remove_leader_flag = new_faction_ruler
+					limit = { has_leader_flag = new_civwar_ruler }
+					remove_leader_flag = new_civwar_ruler
 					set_leader_flag = civil_war_ruler_new
 				}
 				save_event_target_as = defeated_traitor
 			}
+			fromfrom = { save_event_target_as = defeated_traitor_capitol }
 			get_traitor_outcome = yes
 		}
 		else = {
@@ -370,6 +371,10 @@ planet_event = {
 					}
 				}
 			}
+		}
+		else_if = {
+			limit = { has_planet_flag = civstrife_debug_rebels }
+			root = { change_variable = { which = num_sep_pops value = 10 } }
 		}
 
 		while = {

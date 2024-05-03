@@ -64,21 +64,12 @@ country_event = {
 	immediate = {
 
 		from.ruler = {
-			#save_event_target_as = defeated_traitor_1
 			set_owner = root
 			save_event_target_as = defeated_traitor
 			exile_leader_as = defeated_traitor
 		}
+		from.capital_scope = { save_event_target_as = defeated_traitor_capitol }
 
-		#clone_leader = {
-		#	target = event_target:defeated_traitor_1
-		#	class = random_ruler
-		#	effect = {
-		#		copy_flags_and_variables_from = event_target:defeated_traitor_1
-		#		save_event_target_as = defeated_traitor
-		#		#set_leader_flag = dummy_leader
-		#	}
-		#}
 		get_traitor_outcome = yes
 	}
 }
@@ -282,26 +273,17 @@ country_event = {
 		}
 
 		from.ruler = {
-			#save_event_target_as = defeated_traitor_1
 			set_owner = event_target:traitor_subject_country
 			save_event_target_as = defeated_traitor
 			exile_leader_as = defeated_traitor
 		}
+		from.capital_scope = { save_event_target_as = defeated_traitor_capitol }
 
 		event_target:traitor_subject_country = {
-			#clone_leader = {
-			#	target = event_target:defeated_traitor_1
-			#	class = random_ruler
-			#	hide_leader = yes
-			#	effect = {
-			#		save_event_target_as = defeated_traitor
-			#		set_leader_flag = dummy_leader
-			#	}
-			#}
 			get_traitor_outcome = yes
 		}
 
-		set_timed_country_flag = { flag = traitor_already_asked@event_target:defeated_traitor days = 10 }
+		set_timed_country_flag = { flag = traitor_already_asked_@event_target:defeated_traitor days = 10 }
 	}
 }
 
@@ -564,7 +546,7 @@ country_event = {
 
 ########
 
-# Traitorous Leader is attempting to escape to another empire, will work for them.
+# Traitorous/Banished Leader is attempting to escape to another empire, will work for them.
 country_event = {
 	id = civend.5000
 	hide_window = yes
@@ -579,46 +561,41 @@ country_event = {
 		# Note: Make subjects able to recieve traitors, at the risk of their overlord finding out.
 		
 		if = {
-			limit = {
-				any_country = {
-					has_communications = root
-					is_country_type_with_subjects = yes
-					OR = {
-						is_homicidal = no
-						is_organic_zealots = yes
-					}
-					NOR = {
-						is_loyal_to = root
-						is_overlord_to = root
-						has_overlord = root
-						is_custodial_to = root
-						has_valid_civic = civic_machine_servitor
-						has_valid_civic = civic_machine_assimilator
-						has_country_flag = traitor_already_asked@event_target:defeated_traitor
-					}
-				}
-			}
+			limit = { any_country = { traitor_can_flee_to_country = yes } }
 			save_event_target_as = traitor_home_country
-			random_country = {
-				limit = {
-					has_communications = root
-					is_country_type_with_subjects = yes
-					OR = {
-						is_homicidal = no
-						is_organic_zealots = yes
-					}
-					NOR = {
-						is_loyal_to = root
-						is_overlord_to = root
-						has_overlord = root
-						is_custodial_to = root
-						has_valid_civic = civic_machine_servitor
-						has_valid_civic = civic_machine_assimilator
-						has_country_flag = traitor_already_asked@event_target:defeated_traitor
+			every_playable_country = {
+				limit = { traitor_can_flee_to_country = yes }
+
+				save_event_target_as = potential_country
+
+				set_variable = { which = distance_from_traitor value = 0 }
+				event_target:defeated_traitor_capitol = {
+					export_trigger_value_to_variable = {
+						trigger = distance_to_empire
+						parameters = { who = event_target:potential_country }
+						variable = distance_from_traitor
 					}
 				}
+				set_variable = { which = distance_from_traitor value = event_target:defeated_traitor_capitol.distance_from_traitor }
+
+				export_trigger_value_to_variable = {
+					trigger = max_naval_capacity
+					variable = naval_cap_divided_distance
+				}
+				divide_variable = { which = naval_cap_divided_distance value = distance_from_traitor }
+			}
+			ordered_country = {
+				limit = { traitor_can_flee_to_country = yes }
+				order_by = naval_cap_divided_distance
+				position = 0
 				country_event = { id = civend.5001 }
 			}
+			every_playable_country = {
+				limit = { traitor_can_flee_to_country = yes }
+				clear_variable = distance_from_traitor
+				clear_variable = naval_cap_divided_distance
+			}
+			event_target:defeated_traitor_capitol = { clear_variable = distance_from_traitor }
 		}
 		else = { # Disappears forever, I guess.
 			event_target:defeated_traitor = { kill_leader = { show_notification = no } }
@@ -665,60 +642,6 @@ country_event = {
 	}
 }
 
-########
-
-# Banished Leader is attempting to gain employ in another empire.
-country_event = {
-	id = civend.5100
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		exists = event_target:defeated_traitor
-	}
-	
-	immediate = {
-
-		if = {
-			limit = {
-				any_country = {
-					is_country_type_with_subjects = yes
-					has_communications = root
-					OR = {
-						is_homicidal = no
-						is_organic_zealots = yes
-					}
-					NOR = {
-						is_loyal_to = root
-						is_overlord_to = root
-						is_custodial_to = root
-						has_overlord = root
-						has_country_flag = traitor_already_asked@event_target:defeated_traitor
-					}
-				}
-			}
-			save_event_target_as = traitor_home_country
-			random_country = {
-				limit = {
-					is_country_type_with_subjects = yes
-					has_communications = root
-					OR = {
-						is_homicidal = no
-						is_organic_zealots = yes
-					}
-					NOR = {
-						is_loyal_to = root
-						is_overlord_to = root
-						is_custodial_to = root
-						has_overlord = root
-						has_country_flag = traitor_already_asked@event_target:defeated_traitor
-					}
-				}
-				country_event = { id = civend.5001 }
-			}
-		}
-	}
-}
 
 ###########################
 ### Civil War Epilogues ###

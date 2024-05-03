@@ -118,7 +118,8 @@ country_event = { # Clear unused global event targets
 	}
 }
 
-country_event = { # Set Birthday
+country_event = {
+	# Set Birthday
 	id = civmisc.3000
 	hide_window = yes
 	is_triggered_only = yes
@@ -127,12 +128,51 @@ country_event = { # Set Birthday
 		OR = {
 			is_country_type = rebel
 			is_country_type_with_subjects = yes
+			has_civstrife_origin = yes
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = { exists = from.owner }
+			from.owner = { save_event_target_as = birth_event_owner }
+		}
+		country_event = { id = civmisc.3001 days = 1 }
+	}
+}
+
+country_event = { # Set Birthday
+	id = civmisc.3001
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { is_variable_set = birth_year }
+		OR = {
+			is_country_type = rebel
+			is_country_type_with_subjects = yes
+			has_civstrife_origin = yes
 		}
 	}
 
 	immediate = {
 
-		log = "| The [this.GetName] was formed on [GetDate]"
+		set_saved_date = {
+			key = birth_date
+			days_from_present = -1
+		}
+
+		set_variable = { which = birth_year value = 2200 }
+		export_trigger_value_to_variable = {
+			trigger = years_passed
+			variable = years_passed_birthday
+		}
+		change_variable = { which = birth_year value = this.years_passed_birthday }
+		clear_variable = years_passed_birthday
+
+		log = "| ========================================="
+
+		log = "| The [this.GetName] was formed on [this.birth_date]"
 		if = {
 			limit = { is_country_type = rebel }
 			log = "| Planetary Rebellion: YES"
@@ -140,11 +180,63 @@ country_event = { # Set Birthday
 		log = "| Capital World: [this.Capital.GetName]"
 		log = "| Origin: [this.GetOriginName]"
 		log = "| Ruler: [this.Ruler.GetName]"
-		log = "| FROM: [from.GetName]"
 
 		if = {
-			limit = { exists = from.owner }
-			from.owner = {
+			limit = { is_standard_faction_country = yes }
+			log = "| Ethic Rebellion, Rebelling Ethic:"
+			if = {
+				limit = { has_country_flag = civwar_egal }
+				log = "| -- Egalitarian"
+			}
+			else_if = {
+				limit = { has_country_flag = civwar_auth }
+				log = "| -- Authoritarian"
+			}
+
+			if = {
+				limit = { has_country_flag = civwar_mil }
+				log = "| -- Militarist"
+			}
+			else_if = {
+				limit = { has_country_flag = civwar_pac }
+				log = "| -- Pacifist"
+			}
+
+			if = {
+				limit = { has_country_flag = civwar_spi }
+				log = "| -- Spiritualist"
+			}
+			else_if = {
+				limit = { has_country_flag = civwar_mat }
+				log = "| -- Materialist"
+			}
+
+			if = {
+				limit = { has_country_flag = civwar_phobe }
+				log = "| -- Xenophobe"
+			}
+			else_if = {
+				limit = { has_country_flag = civwar_phile }
+				log = "| -- Xenophile"
+			}
+
+			if = {
+				limit = { has_country_flag = civwar_soc }
+				log = "| -- Socialism"
+			}
+			else_if = {
+				limit = { has_country_flag = civwar_cap }
+				log = "| -- Capitalism"
+			}
+			log = "| ######"
+		}
+
+		if = {
+			limit = {
+				exists = event_target:birth_event_owner
+				has_civstrife_origin = yes
+			}
+			event_target:birth_event_owner = {
 				log = "| Rebelled from [this.GetName]; ETHICS:"
 				if = {
 					limit = { has_ethic = ethic_egalitarian }
@@ -230,16 +322,10 @@ country_event = { # Set Birthday
 					limit = { has_ethic = ethic_fanatic_capitalism }
 					log = "| -- Fanatic Capitalism"
 				}
-				log = "| ========================================="
 			}
 		}
 
-		export_trigger_value_to_variable = {
-			trigger = days_passed
-			variable = Country_Birth_Date
-		}
-		divide_variable = { which = Country_Birth_Date value = 360 }
-		change_variable = { which = Country_Birth_Date value = 2200 }
+		log = "| ========================================="
 	}
 }
 

@@ -4,92 +4,116 @@
 ###############################
 
 # Set Installed Heir Setup
-get_ethic_logger_effect = {
-	## DEBUG INFO
-	log = "\\[this.GetName] ETHICS:"
-	if = {
-		limit = { has_ethic = ethic_egalitarian }
-		log = "-- Egalitarian"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_fanatic_egalitarian }
-		log = "-- Fanatic Egalitarian"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_authoritarian }
-		log = "-- Authoritarian"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_fanatic_authoritarian }
-		log = "-- Fanatic Authoritarian"
-	}
 
-	if = {
-		limit = { has_ethic = ethic_militarist }
-		log = "-- Militarist"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_fanatic_militarist }
-		log = "-- Fanatic Militarist"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_pacifist }
-		log = "-- Pacifist"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_fanatic_pacifist }
-		log = "-- Fanatic Pacifist"
-	}
-
-	if = {
-		limit = { has_ethic = ethic_spiritualist }
-		log = "-- Spiritualist"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_fanatic_spiritualist }
-		log = "-- Fanatic Spiritualist"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_materialist }
-		log = "-- Materialist"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_fanatic_materialist }
-		log = "-- Fanatic Materialist"
-	}
-
-	if = {
-		limit = { has_ethic = ethic_xenophobe }
-		log = "-- Xenophobe"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_fanatic_xenophobe }
-		log = "-- Fanatic Xenophobe"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_xenophile }
-		log = "-- Xenophile"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_fanatic_xenophile }
-		log = "-- Fanatic Xenophile"
-	}
-
-	if = {
-		limit = { has_ethic = ethic_socialism }
-		log = "-- Socialism"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_fanatic_socialism }
-		log = "-- Fanatic Socialism"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_capitalism }
-		log = "-- Capitalism"
-	}
-	else_if = {
-		limit = { has_ethic = ethic_fanatic_capitalism }
-		log = "-- Fanatic Capitalism"
+get_separatists_effect = {
+	every_country = {
+		limit = { has_civstrife_origin = yes }
+		log = "Civil Wars Country, NAME: [this.GetName], ORIGIN: [this.GetOriginName]"
 	}
 	log = "===================="
+}
+
+get_traitors_effect = {
+	every_country = {
+		limit = {
+			OR = {
+				any_owned_leader = { has_trait = leader_trait_traitor }
+				any_owned_leader = { has_trait = leader_trait_traitor_heir }
+			}
+		}
+		log = "Traitor HOST: \\[this.GetName]"
+		if = {
+			limit = { any_owned_leader = { has_trait = leader_trait_traitor } }
+			every_owned_leader = {
+				limit = { has_trait = leader_trait_traitor }
+				log = "Normal Traitor: \\[this.GetName]"
+			}
+		}
+		if = {
+			limit = { any_owned_leader = { has_trait = leader_trait_traitor_heir } }
+			every_owned_leader = {
+				limit = { has_trait = leader_trait_traitor_heir }
+				log = "Heir Traitor: \\[this.GetName]"
+			}
+		}
+		log = "***************"
+	}
+	log = "===================="
+}
+
+get_test_country_effect = {
+	random_rim_system = {
+		spawn_system = {
+			min_distance >= 30
+			max_distance <= 75
+			direction = rimwards
+			initializer = civwars_test_initializer
+			hyperlane = no
+		}
+	}
+}
+
+create_ethic_plan_rebels = {
+	owner = { save_event_target_as = civwar_originator }
+	owner.species = { save_event_target_as = civwar_species }
+	save_event_target_as = civstrife_debug_planet
+	create_rebels = {
+		name = random
+		species = event_target:civwar_species
+		origin = origin_civwar
+		civics = random
+		flag = random
+		authority = auth_imperial
+		ethos = {
+			ethic = ethic_fanatic_authoritarian
+			ethic = random
+			ethic = random
+		}
+		effect = {
+			set_country_flag = civstrfe_debug_country
+			save_event_target_as = civwar_rebels
+			event_target:civstrife_debug_planet = {
+				set_planet_flag = civstrife_debug_rebels
+				planet_event = { id = civplan.2000 }
+			}
+		}
+	}
+}
+
+test_distance_effect = {
+
+	every_playable_country = {
+		limit = {
+			#is_country_type_with_subjects = yes
+			is_country_type = default
+			has_communications = root
+			is_gestalt = no
+			OR = {
+				is_homicidal = no
+				is_organic_zealots = yes
+			}
+			NOR = {
+				is_loyal_to = root
+				is_overlord_to = root
+				is_custodial_to = root
+				is_same_value = root
+				has_overlord = root
+				has_country_flag = traitor_already_asked_@event_target:defeated_traitor
+			}
+		}
+
+		set_variable = { which = distance_from_traitor value = 0 }
+
+		save_event_target_as = potential_country
+
+		root.capital_scope = {
+			export_trigger_value_to_variable = {
+				trigger = distance_to_empire
+				parameters = { who = event_target:potential_country }
+				variable = distance_from_traitor
+			}
+		}
+
+		set_variable = { which = distance_from_traitor value = root.capital_scope.distance_from_traitor }
+	}
 }

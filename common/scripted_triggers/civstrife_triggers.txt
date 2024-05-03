@@ -2405,7 +2405,6 @@ has_heir_country_flag = {
 	}
 }
 
-
 has_seceder_country_flag = {
 	OR = {
 		has_country_flag = secession_country_1_seceder
@@ -2528,6 +2527,24 @@ has_civstrife_origin = {
 		has_origin = origin_isolated_rebellion
 		has_origin = origin_civstrife_slave_rebellion
 		has_origin = origin_civsecession
+	}
+}
+
+traitor_can_flee_to_country = {
+	is_country_type = default
+	has_communications = root
+	is_gestalt = no
+	OR = {
+		is_homicidal = no
+		is_organic_zealots = yes
+	}
+	NOR = {
+		is_loyal_to = root
+		is_overlord_to = root
+		is_custodial_to = root
+		is_same_value = root
+		has_overlord = root
+		has_country_flag = traitor_already_asked_@event_target:defeated_traitor
 	}
 }
 

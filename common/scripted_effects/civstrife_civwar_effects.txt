@@ -565,7 +565,6 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator
 }
 
 get_subject_decisions_effect = {
-	log = "IS THIS HAPP"
 	if = { # Succession Conflict stuff
 		limit = {
 			any_country = {
@@ -578,7 +577,6 @@ get_subject_decisions_effect = {
 				# has_country_flag = subject_joins_rebels_@root
 			}
 		}
-		log = "EFFECT HAPPENING RIGHT"
 		every_country = {
 			limit = {
 				exists = overlord
@@ -2703,7 +2701,6 @@ created_civwar_rebel_country_effect = {
 		}
 		else_if = {
 			limit = { root.target = { is_socialist_faction = yes } }
-			log = "Correct Faction Chosen"
 			if = {
 				limit = { homeworld_ethic_leader_exists = { ETHIC = socialism } }
 				get_homeworld_ethic_leader = { ETHIC = socialism }
@@ -2719,7 +2716,6 @@ created_civwar_rebel_country_effect = {
 						save_event_target_as = new_rebel_leader
 					}
 				}
-				log = "Correct Faction Chosen"
 			}
 			else = { create_planetary_leader_with_ethic = { ETHIC = socialism } }
 		}
@@ -2828,7 +2824,10 @@ created_civwar_rebel_country_effect = {
 	else_if = {
 		limit = {
 			NOT = { exists = event_target:new_rebel_leader }
-			NOT = { has_country_flag = nat_country }
+			NOT = {
+				has_origin = origin_nationalist_rebellion
+				has_origin = origin_civstrife_slave_rebellion
+			}
 			event_target:civil_war_planet.owner = {
 				any_owned_leader = {
 					OR = {
@@ -2897,18 +2896,19 @@ created_civwar_rebel_country_effect = {
 			name = random
 			skill = 5
 			traits = { trait = trait_ruler_deep_connections }
-			effect = { save_event_target_as = new_rebel_leader }
+			effect = {
+				set_leader_flag = new_civwar_ruler
+				save_event_target_as = new_rebel_leader
+			}
 		}
 	}
-	set_leader = event_target:new_rebel_leader
-	event_target:new_rebel_leader= {
+	event_target:new_rebel_leader = {
 		if = {
-			limit = { NOT = { has_leader_flag = new_faction_ruler } }
+			limit = { NOT = { has_leader_flag = new_civwar_ruler } }
 			set_leader_flag = leader_defected
 		}
 	}
-
-
+	set_leader = event_target:new_rebel_leader # Needs to be after the above with the leader flags
 	event_target:civil_war_planet = {
 		planet_event = { id = civplan.2000 }
 	}
@@ -2931,8 +2931,11 @@ created_slave_rebel_country_effect = {
 			trait = trait_ruler_charismatic_2
 			trait = trait_ruler_champion_of_the_people_2
 		}
+		effect = {
+			set_leader_flag = new_civwar_ruler
+			save_event_target_as = new_rebel_leader
+		}
 	}
-	assign_leader = last_created_leader
 	created_civwar_rebel_country_effect = yes
 }
 
@@ -3287,7 +3290,6 @@ get_small_civwar_effect = {
 					}
 				}
 			}
-			log = "PLANET: \\[this.GetName]"
 			set_variable = { which = fac_sep_percentage value = 0 }
 			every_owned_pop = {
 				limit = {
@@ -3302,9 +3304,7 @@ get_small_civwar_effect = {
 				which = fac_sep_percentage
 				value = prev.total_happiness_pops
 			}
-			log = "Percentage: \\[this.fac_sep_percentage]"
 		}
-		log = "Total Happiness Pops: \\[this.total_happiness_pops]"
 		while = {
 			count = maybe_rebel_planets
 			ordered_owned_planet = {
@@ -3313,6 +3313,14 @@ get_small_civwar_effect = {
 					solar_system = { is_capital_system = no }
 					has_ground_combat = no
 					is_occupied_flag = no
+					any_owned_pop = {
+						exists = pop_faction
+						pop_faction = { is_same_value = root.target }
+						OR = {
+							root = { is_ethic_situation = no }
+							has_pop_flag = sep_pop_ethic
+						}
+					}
 				}
 				position = 0
 				order_by = fac_sep_percentage
@@ -5886,6 +5894,7 @@ get_ethic_plan_rebels = {
 							created_civwar_rebel_country_effect = yes
 						}
 					}
+					log = "Imperial Socialism"
 				}
 				25 = {
 					create_rebels = {
@@ -8516,17 +8525,17 @@ get_civil_war_leader = {
 				}
 			}
 		}
-		set_leader = event_target:rebel_leader
 		event_target:rebel_leader = {
 			if = {
 				limit = { NOT = { is_owned_by = event_target:civwar_rebels } }
 				set_owner = event_target:civwar_rebels
 			}
 			if = {
-				limit = { NOT = { has_leader_flag = new_faction_ruler } }
+				limit = { NOT = { has_leader_flag = new_civwar_ruler } }
 				set_leader_flag = leader_defected
 			}
 		}
+		set_leader = event_target:rebel_leader # Needs to be after the above with the leader flags
 	}
 	else_if = {
 		limit = { has_origin = origin_nationalist_rebellion }
@@ -8538,7 +8547,7 @@ get_civil_war_leader = {
 			traits = { trait = trait_ruler_deep_connections }
 			effect = {
 				species = { save_event_target_as = civwar_species }
-				set_leader_flag = civil_war_leader_nationalist_faction
+				set_leader_flag = new_civwar_ruler
 			}
 		}
 	}
@@ -8546,6 +8555,7 @@ get_civil_war_leader = {
 		limit = { event_target:civwar_originator = { has_country_flag = heir_mother_country } }
 		set_leader = event_target:heir_civil_war_dummy_country.ruler
 		event_target:heir_civil_war_dummy_country.ruler = {
+			set_leader_flag = leader_defected
 			if = {
 				limit = { NOT = { is_owned_by = event_target:civwar_rebels } }
 				set_owner = event_target:civwar_rebels
@@ -8598,7 +8608,7 @@ get_civil_war_leader = {
 			background_planet = event_target:ruler_background_planet
 			effect = {
 				save_event_target_as = new_rebel_leader
-				set_leader_flag = new_faction_ruler
+				set_leader_flag = new_civwar_ruler
 			}
 		}
 		set_leader = event_target:new_rebel_leader
@@ -8649,7 +8659,7 @@ create_planetary_leader_with_ethic = {
 		background_ethic = ethic_$ETHIC$
 		traits = { trait = trait_ruler_deep_connections }
 		effect = {
-			set_leader_flag = new_faction_ruler
+			set_leader_flag = new_civwar_ruler
 			save_event_target_as = new_rebel_leader
 		}
 	}
@@ -8664,7 +8674,7 @@ create_civil_war_leader_with_ethic = {
 		background_ethic = ethic_$ETHIC$
 		traits = { trait = trait_ruler_deep_connections }
 		effect = {
-			set_leader_flag = new_faction_ruler
+			set_leader_flag = new_civwar_ruler
 			setup_rebel_leader_effect = yes
 		}
 	}
@@ -8818,22 +8828,7 @@ get_secession_country_info = {
 		event_target:civwar_originator = { find_secession_number_flag = yes }
 	}
 	event_target:civwar_originator = {
-		if = {
-			limit = {
-				event_target:civwar_rebels = {
-					OR = {
-						has_origin = origin_civwar
-						has_origin = origin_sec_rebellion
-						has_origin = origin_nationalist_rebellion
-						has_origin = origin_coup_successor
-						has_origin = origin_coup_independent
-						has_origin = origin_heir_rebellion
-						has_origin = origin_isolated_rebellion
-					}
-				}
-			}
-			get_civil_war_number = yes
-		}
+
 		set_country_flag = secession_@event_target:civwar_rebels
 	}
 }
@@ -13879,26 +13874,53 @@ get_country_immediate_setup = {
 
 get_country_after_setup = {
 
-	# To fix names like "Empire of Sirius VII" to be like "Empire of Earth"
 	if = {
-		limit = {
-			NOT = { has_country_flag = exile_restored_country }
-			exists = capital_scope
-			capital_scope = { NOT = { has_planet_flag = civwar_name_changed } }
-			event_target:civwar_originator = { is_ai = yes }
-			#event_target:civwar_rebels = {
-			#	OR = {
-			#		has_origin = origin_coup_independent
-			#		has_origin = origin_nationalist_rebellion
-			#		has_origin = origin_civstrife_slave_rebellion
-			#	}
-			#}
-		}
-		capital_scope = {
-			set_name = random
-			set_planet_flag = civwar_name_changed
+		limit = { event_target:civwar_originator = { is_ai = yes } } # The sector deletion bug means this will easily be an accidental game over for human players who have small civil wars.
+		country_event = { id = civwar.3200 days = 6 } # Border cleanup 2, needs delay because sometimes the core sector is deleted for no reason.
+	}
+
+	get_secession_country_info = yes
+
+
+	ruler = {
+		if = {
+			limit = { has_leader_flag = leader_defected }
+			set_variable = { which = year_rebelled value = 2200 }
+			export_trigger_value_to_variable = {
+				trigger = years_passed
+				variable = years_passed_leader_rebellion
+			}
+			change_variable = { which = year_rebelled value = this.years_passed_leader_rebellion }
+			clear_variable = years_passed_leader_rebellion
 		}
 	}
+
+	if = {
+		limit = { NOT = { is_variable_set = birth_year } }
+		country_event = { id = civmisc.3001 }
+	}
+
+	# To fix names like "Empire of Sirius VII" to be like "Empire of Earth"
+	# I think this has been resolved.
+	#if = {
+	#	limit = {
+	#		NOT = { has_country_flag = exile_restored_country }
+	#		exists = capital_scope
+	#		capital_scope = { NOT = { has_planet_flag = civwar_name_changed } }
+	#		event_target:civwar_originator = { is_ai = yes }
+	#		#event_target:civwar_rebels = {
+	#		#	OR = {
+	#		#		has_origin = origin_coup_independent
+	#		#		has_origin = origin_nationalist_rebellion
+	#		#		has_origin = origin_civstrife_slave_rebellion
+	#		#	}
+	#		#}
+	#	}
+	#	capital_scope = {
+	#		set_name = random
+	#		set_planet_flag = civwar_name_changed
+	#	}
+	#}
 
 	# Renaming Stuff
 	if = {
@@ -13951,6 +13973,22 @@ get_country_after_setup = {
 		if = {
 			limit = { has_country_flag = heir_mother_country }
 			remove_country_flag = heir_mother_country
+		}
+		if = {
+			limit = {
+				event_target:civwar_rebels = {
+					OR = {
+						has_origin = origin_civwar
+						has_origin = origin_sec_rebellion
+						has_origin = origin_nationalist_rebellion
+						has_origin = origin_coup_successor
+						has_origin = origin_coup_independent
+						has_origin = origin_heir_rebellion
+						has_origin = origin_isolated_rebellion
+					}
+				}
+			}
+			get_civil_war_number = yes
 		}
 	}
 
@@ -15038,7 +15076,7 @@ get_traitor_outcome = {
 					is_loyal_to = root
 					is_overlord_to = root
 					is_custodial_to = root
-					has_country_flag = traitor_already_asked@event_target:defeated_traitor
+					has_country_flag = traitor_already_asked_@event_target:defeated_traitor
 				}
 			}
 		}
@@ -15057,8 +15095,8 @@ get_traitor_outcome = {
 			}
 			45 = { # Flees to work for foreign empire
 				country_event = { id = civend.1003 }
-				log = "FLEEING: \\[event_target:defeated_traitor.GetName] Flees"
-				log = "FROM: \\[event_target:traitor_home_country.GetName] Flees"
+				log = "FLEEING: \\[event_target:defeated_traitor.GetName]"
+				log = "FROM: \\[event_target:traitor_home_country.GetName]"
 
 			}
 			15 = { # Captured

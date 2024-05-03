@@ -323,6 +323,7 @@ situation_event = { # Query Official
 								leader_age_min = 25
 								leader_age_max = 60
 								effect = {
+									set_leader_flag = new_civwar_ruler
 									save_event_target_as = crisis_sector_leader
 								}
 							}
@@ -344,6 +345,7 @@ situation_event = { # Query Official
 							leader_age_min = 16
 							leader_age_max = 60
 							effect = {
+								set_leader_flag = new_civwar_ruler
 								set_name = {
 									key = append_dynasty_name
 									variable_string = "[This.GetFirstName]"

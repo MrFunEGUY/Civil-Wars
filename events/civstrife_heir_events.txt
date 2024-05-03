@@ -16,11 +16,12 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		is_primitive = no
 		num_owned_planets > 1
 		is_imperial = yes
-		exists = event_target:disinherited_heir
 		is_country_type_with_subjects = yes
-		is_primitive = no
+		exists = event_target:disinherited_heir
+		event_target:disinherited_heir = { is_fake_leader = no } # Failsafe
 	}
 
 	immediate = {
@@ -30,6 +31,14 @@ country_event = {
 		event_target:disinherited_heir = {
 			remove_trait = trait_imperial_heir
 			exile_leader_as = disinherited_heir
+
+			set_variable = { which = year_disinherited value = 2200 }
+			export_trigger_value_to_variable = {
+				trigger = years_passed
+				variable = years_passed_heir_disinherited
+			}
+			change_variable = { which = year_disinherited value = this.years_passed_heir_disinherited }
+			clear_variable = years_passed_heir_disinherited
 		}
 	}
 }
@@ -349,41 +358,40 @@ country_event = {
 		save_event_target_as = traitor_home_country
 
 		if = {
-			limit = {
-				any_country = {
-					is_country_type_with_subjects = yes
-					has_communications = root
-					OR = {
-						is_homicidal = no
-						is_organic_zealots = yes
-					}
-					NOR = {
-						is_loyal_to = root
-						is_overlord_to = root
-						has_overlord = root
-						is_custodial_to = root
-						is_same_value = root
-						has_country_flag = traitor_heir_already_asked
+			limit = { any_country = { traitor_can_flee_to_country = yes } }
+			every_playable_country = {
+				limit = { traitor_can_flee_to_country = yes }
+
+				save_event_target_as = potential_country
+
+				set_variable = { which = distance_from_traitor value = 0 }
+				root.capital_scope = {
+					export_trigger_value_to_variable = {
+						trigger = distance_to_empire
+						parameters = { who = event_target:potential_country }
+						variable = distance_from_traitor
 					}
 				}
+				set_variable = { which = distance_from_traitor value = root.capital_scope.distance_from_traitor }
+
+				export_trigger_value_to_variable = {
+					trigger = max_naval_capacity
+					variable = naval_cap_divided_distance
+				}
+
+				divide_variable = { which = naval_cap_divided_distance value = distance_from_traitor }
+
 			}
-			random_country = {
-				limit = {
-					is_country_type_with_subjects = yes
-					has_communications = root
-					OR = {
-						is_homicidal = no
-						is_organic_zealots = yes
-					}
-					NOR = {
-						is_loyal_to = root
-						is_overlord_to = root
-						is_custodial_to = root
-						is_same_value = root
-						has_country_flag = traitor_heir_already_asked
-					}
-				}
+			ordered_country = {
+				limit = { traitor_can_flee_to_country = yes }
+				order_by = naval_cap_divided_distance
+				position = 0
 				country_event = { id = civheir.3020 }
+			}
+			every_playable_country = {
+				limit = { traitor_can_flee_to_country = yes }
+				clear_variable = distance_from_traitor
+				clear_variable = naval_cap_divided_distance
 			}
 		}
 		else = {
