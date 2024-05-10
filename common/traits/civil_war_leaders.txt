@@ -43,8 +43,7 @@ leader_trait_traitor = {
         COUNCIL = no
         TIER = none
     }
-    triggered_self_modifier = {
-        potential = { has_paragon_dlc = yes }
+    self_modifier = {
         leader_trait_selection_options_add = 1
     }
     councilor_modifier = {
@@ -67,8 +66,7 @@ leader_trait_traitor_heir = {
         COUNCIL = no
         TIER = none
     }
-    triggered_self_modifier = {
-        potential = { has_paragon_dlc = yes }
+    self_modifier = {
         leader_trait_selection_options_add = 1
     }
     councilor_modifier = {
@@ -76,6 +74,163 @@ leader_trait_traitor_heir = {
         diplo_weight_mult = -0.05
     }
     custom_tooltip_with_modifiers = leader_trait_traitor_heir_tooltip
+    leader_class = { commander scientist official }
+    initial = no
+    randomized = no
+}
+
+leader_trait_vindicated_traitor = {
+    inline_script = {
+        script = trait/civstrife_special_icon
+        CLASS = leader
+        ICON = "GFX_leader_trait_resolution_category_greatergood_focus"
+        RARITY = rare
+        COUNCIL = yes
+        TIER = none
+    }
+    self_modifier = {
+        species_leader_exp_gain = 0.1
+    }
+    councilor_modifier = {
+        envoys_add = 1
+        council_agenda_progress_speed = 0.05
+    }
+    triggered_background_planet_modifier = {
+        potential = {
+            exists = FROM
+            FROM = {
+                exists = owner
+                owner = {
+                    is_same_value = root.owner
+                    is_imp_or_dict = yes
+                }
+            }
+            trait_is_gestalt_check = no
+        }
+        job_noble_add = 1
+        mult = trigger:has_skill
+    }
+
+    triggered_self_modifier = {
+        potential = { has_paragon_dlc = yes }
+        leader_trait_selection_options_add = 1
+    }
+    triggered_self_modifier = {
+        potential = {
+            owner = { has_relic = r_the_rulerchip }
+            is_ruler = yes
+        }
+        leader_trait_selection_options_add = 1
+    }
+
+    triggered_background_planet_modifier = {
+        potential = {
+            is_ruler = yes
+            exists = owner
+            exists = FROM
+            FROM.owner = { is_same_value = root.owner }
+            owner = {
+                NOT = {	has_origin = origin_cybernetic_creed }
+                has_valid_civic = civic_imperial_cult
+            }
+        }
+        job_priest_add = 1
+        mult = trigger:has_skill
+    }
+
+    triggered_background_planet_modifier = {
+        potential = {
+            is_ruler = yes
+            exists = owner
+            exists = FROM
+            FROM.owner = { is_same_value = root.owner }
+            owner = {
+                has_origin = origin_cybernetic_creed
+                has_valid_civic = civic_imperial_cult
+            }
+        }
+        job_haruspex_add = 1
+        mult = trigger:has_skill
+    }
+    leader_class = { commander scientist official }
+    initial = no
+    randomized = no
+}
+
+
+leader_trait_vindicated_heir = {
+    inline_script = {
+        script = trait/civstrife_special_icon
+        CLASS = leader
+        ICON = "GFX_leader_trait_imperial_heir"
+        RARITY = rare
+        COUNCIL = yes
+        TIER = none
+    }
+    self_modifier = {
+        species_leader_exp_gain = 0.1
+    }
+    councilor_modifier = {
+        envoys_add = 1
+        council_agenda_progress_speed = 0.05
+    }
+    triggered_background_planet_modifier = {
+        potential = {
+            exists = FROM
+            FROM = {
+                exists = owner
+                owner = {
+                    is_same_value = root.owner
+                    is_imp_or_dict = yes
+                }
+            }
+            trait_is_gestalt_check = no
+        }
+        job_noble_add = 1
+        mult = trigger:has_skill
+    }
+
+    triggered_self_modifier = {
+        potential = { has_paragon_dlc = yes }
+        leader_trait_selection_options_add = 1
+    }
+    triggered_self_modifier = {
+        potential = {
+            owner = { has_relic = r_the_rulerchip }
+            is_ruler = yes
+        }
+        leader_trait_selection_options_add = 1
+    }
+
+    triggered_background_planet_modifier = {
+        potential = {
+            is_ruler = yes
+            exists = owner
+            exists = FROM
+            FROM.owner = { is_same_value = root.owner }
+            owner = {
+                NOT = {	has_origin = origin_cybernetic_creed }
+                has_valid_civic = civic_imperial_cult
+            }
+        }
+        job_priest_add = 1
+        mult = trigger:has_skill
+    }
+
+    triggered_background_planet_modifier = {
+        potential = {
+            is_ruler = yes
+            exists = owner
+            exists = FROM
+            FROM.owner = { is_same_value = root.owner }
+            owner = {
+                has_origin = origin_cybernetic_creed
+                has_valid_civic = civic_imperial_cult
+            }
+        }
+        job_haruspex_add = 1
+        mult = trigger:has_skill
+    }
     leader_class = { commander scientist official }
     initial = no
     randomized = no

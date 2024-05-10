@@ -178,7 +178,7 @@ situation_event = { # Send Message out to officials to ask if they are loyal
 					else_if = {
 						limit = { has_sector_flag = fundamental_sector_@root.owner }
 						random = {
-							chance = 30
+							chance = 3
 							set_sector_flag = succession_crisis_rebel_sector
 						}
 					}

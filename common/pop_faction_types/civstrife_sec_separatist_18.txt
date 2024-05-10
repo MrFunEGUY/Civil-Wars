@@ -374,11 +374,11 @@ sec_separatist_18 = {
 	}
 
 	on_create = {
-		event_target:sec_separatist_18 = { save_event_target_as = sector_sep_loc }
+		event_target:sec_separatist_18 = { save_event_target_as = sep_target_loc }
 		sector_faction_first_effect = yes
 		set_name = {
 			key = sector_separatist_real_name
-			variable_string = "[sector_sep_loc.GetName]"
+			variable_string = "[sep_target_loc.GetName]"
 			variable_string = "[last_created_leader.GetName]"
 		}
 		sector_faction_second_effect = yes

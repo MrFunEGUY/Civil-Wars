@@ -121,16 +121,13 @@ desc = {
 
 		success_text = {
 			text = civcom.1100.leader.iso.sec.desc
-			event_target:civwar_rebels.ruler = {
-				NOT = { has_leader_flag = civil_war_ruler_heir_isolated }
-			}
+			event_target:civwar_rebels = { has_origin = origin_isolated_rebellion }
+			NOT = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_isolated } }
 		}
 
 		success_text = {
 			text = civcom.1100.heir.iso.sec.desc
-			event_target:civwar_rebels.ruler = {
-				has_leader_flag = civil_war_ruler_heir_isolated
-			}
+			event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_isolated }
 		}
 
 		success_text = {

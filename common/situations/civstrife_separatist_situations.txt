@@ -234,21 +234,21 @@ situation_civstrife_faction_sep_sec = {
 			target = { has_pop_faction_flag = faction_rebelled }
 			target = { any_owned_pop = { planet = { is_capital = yes } } }
 			target = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
-			target = {
-				any_owned_pop = {
-					sector = {
-						pop_percentage = {
-							percentage >= 0.5
-							limit = {
-								exists = pop_faction
-								pop_faction = { is_nationalist_faction = yes }
-								pop_faction = { has_pop_faction_flag = faction_sep_situation }
-							}
-							exclude = { can_think = no }
-						}
-					}
-				}
-			}
+			#target = {
+			#	any_owned_pop = {
+			#		sector = {
+			#			pop_percentage = {
+			#				percentage >= 0.5
+			#				limit = {
+			#					exists = pop_faction
+			#					pop_faction = { is_nationalist_faction = yes }
+			#					pop_faction = { has_pop_faction_flag = faction_sep_situation }
+			#				}
+			#				exclude = { can_think = no }
+			#			}
+			#		}
+			#	}
+			#}
 		}
 	}
 

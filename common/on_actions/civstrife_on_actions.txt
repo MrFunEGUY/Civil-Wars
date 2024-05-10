@@ -159,7 +159,16 @@ on_ruler_set = {
 		civleader.2005			# Set Corrupt Ruler Trait
 		civleader.2100			# Set Sep Won Election Flag
 		
-		# civelect.4000			# Separatist/Nationalist wins (s)election
+		# civelect.4000									# Separatist/Nationalist wins (s)election
+		civheir.6100			# Add Vindicated Traits to "former" traitors
+	}
+}
+
+# Executed when an heir is promoted to ruler
+# This = Heir
+on_heir_promoted_to_ruler = {
+	events = {
+		civheir.6200			# Correct Potentially Broken Flags
 	}
 }
 

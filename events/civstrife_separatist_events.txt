@@ -1426,7 +1426,8 @@ country_event = { # Start Isolated Sector Chains
 					check_variable = { which = isolated_sector_year value < 10 }
 				}
 				random = {
-					chance = 15
+					#chance = 3
+					chance = 50
 					get_iso_separatist_faction_sector = yes
 				}
 			}
@@ -1436,7 +1437,8 @@ country_event = { # Start Isolated Sector Chains
 					check_variable = { which = isolated_sector_year value < 15 }
 				}
 				random = {
-					chance = 20
+					#chance = 5
+					chance = 50
 					get_iso_separatist_faction_sector = yes
 				}
 			}
@@ -1446,14 +1448,16 @@ country_event = { # Start Isolated Sector Chains
 					check_variable = { which = isolated_sector_year value < 20 }
 				}
 				random = {
-					chance = 25
+					#chance = 7
+					chance = 50
 					get_iso_separatist_faction_sector = yes
 				}
 			}
 			else_if = {
 				limit = { check_variable = { which = isolated_sector_year value >= 20 } }
 				random = {
-					chance = 30
+					#chance = 10
+					chance = 50
 					get_iso_separatist_faction_sector = yes
 				}
 			}
@@ -1747,6 +1751,7 @@ situation_event = { # Planetary Revolt Event
 
 				random = {
 					chance = 2
+					#chance = 2
 					# chance = 100
 					set_variable = { which = fac_mil_support value = 0 }
 					every_owned_pop = {
@@ -1788,6 +1793,15 @@ situation_event = { # Sectoral Revolt Initializer
 							has_orbital_bombardment = yes
 						}
 					}
+					pop_percentage = {
+						percentage >= 0.5
+						limit = {
+							exists = pop_faction
+							pop_faction = { is_nationalist_faction = yes }
+							pop_faction = { has_pop_faction_flag = faction_sep_situation }
+						}
+						exclude = { can_think = no }
+					}
 				}
 				pop_percentage = {
 					percentage >= 0.25
@@ -1824,6 +1838,15 @@ situation_event = { # Sectoral Revolt Event
 							is_occupied_flag = yes
 							has_orbital_bombardment = yes
 						}
+					}
+					pop_percentage = {
+						percentage >= 0.5
+						limit = {
+							exists = pop_faction
+							pop_faction = { is_nationalist_faction = yes }
+							pop_faction = { has_pop_faction_flag = faction_sep_situation }
+						}
+						exclude = { can_think = no }
 					}
 				}
 				pop_percentage = {
@@ -1869,56 +1892,9 @@ situation_event = { # Sectoral Revolt Event
 					}
 
 					random = {
-						chance = 2
+						chance = 3
+						#chance = 3
 						#chance = 100
-
-						if = {
-							limit = {
-								any_owned_pop = {
-									exists = pop_faction
-									pop_faction = {
-										is_nationalist_faction = yes
-										has_pop_faction_flag = faction_sep_situation
-									}
-								}
-							}
-
-							set_variable = { which = sector_happiness_pops value = 0 }
-
-							random_owned_pop = {
-								limit = {
-									exists = pop_faction
-									pop_faction = {
-										is_nationalist_faction = yes
-										has_pop_faction_flag = faction_sep_situation
-									}
-								}
-								pop_faction = {
-									export_trigger_value_to_variable = {
-										trigger = num_pops
-										variable = num_nat_pops
-									}
-									save_event_target_as = nat_faction
-								}
-							}
-							set_variable = { which = sector_nat_pops value = event_target:nat_faction.num_nat_pops }
-
-							every_owned_pop = {
-								limit = { pop_has_happiness = yes }
-								prev = { change_variable = { which = sector_happiness_pops value = 1 } }
-							}
-
-							divide_variable = { which = sector_nat_pops value = sector_happiness_pops }
-							if = {
-								limit = { check_variable = { which = sector_nat_pops value >= 0.4 } }
-								owner = {
-									random_situation = {
-										limit = { target = { is_same_value = event_target:nat_faction } }
-										set_situation_progress = 90
-									}
-								}
-							}
-						}
 
 						root.target = {
 							set_faction_rebellion_suppression_flag = yes

@@ -414,11 +414,11 @@ nat_separatist_96 = {
 	}
 
 	on_create = {
-		event_target:nat_separatist_96 = { save_event_target_as = nat_country_loc }
+		event_target:nat_separatist_96 = { save_event_target_as = sep_target_loc }
 		nat_faction_first_effect = yes
 		set_name = {
 			key = nat_separatist_real_name
-			variable_string = "[nat_country_loc.GetAdj]"
+			variable_string = "[sep_target_loc.GetAdj]"
 			variable_string = "[last_created_leader.GetName]"
 		}
 		nat_faction_second_effect = yes

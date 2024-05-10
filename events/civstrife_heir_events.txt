@@ -465,6 +465,79 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = civheir.6100
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		ruler = {
+			OR = {
+				has_leader_flag = traitor_@root
+				has_leader_flag = heir_traitor_@root
+			}
+			OR = {
+				has_trait = leader_trait_traitor
+				has_trait = leader_trait_traitor_heir
+			}
+		}
+	}
+
+	immediate = {
+
+		ruler = {
+			export_trigger_value_to_variable = {
+				trigger = years_passed
+				variable = year_restored
+			}
+
+			change_variable = { which = year_restored value = 2200 }
+
+			set_variable = { which = years_exiled value = year_restored }
+
+			if = {
+				limit = { has_trait = leader_trait_traitor }
+				subtract_variable = { which = years_exiled value = year_rebelled }
+
+				remove_trait = leader_trait_traitor
+				add_trait = leader_trait_vindicated_traitor
+			}
+
+			if = {
+				limit = { has_trait = leader_trait_traitor_heir }
+				subtract_variable = { which = years_exiled value = year_disinherited }
+
+				remove_trait = leader_trait_traitor_heir
+				add_trait = leader_trait_vindicated_heir
+			}
+		}
+	}
+}
+
+leader_event = { # Actual Appointed Heir Ruler Flag Fix
+	id = civheir.6200
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		leader_event = { id = civheir.6210 days = 2 }
+	}
+}
+
+leader_event = {
+	id = civheir.6210
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_leader_flag = civil_war_ruler_heir_disinherited
+	}
+
+	immediate = {
+		remove_leader_flag = civil_war_ruler_heir_disinherited
+	}
+}
+
 #################
 # Dead Heirs
 

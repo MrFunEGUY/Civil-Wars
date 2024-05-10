@@ -3697,8 +3697,8 @@ l_simp_chinese:
  # Planetary and Sectoral Faction Names
 
  dummy_sep_leader: "[Root.GetName]"
- sector_separatist_real_name: "[sector_sep_loc.GetName] [last_created_leader.GetName]"
- iso_sector_separatist_real_name: "[last_created_leader.GetName] of [sector_sep_loc.GetName]"
+ sector_separatist_real_name: "[sep_target_loc.GetName] [last_created_leader.GetName]"
+ iso_sector_separatist_real_name: "[last_created_leader.GetName] of [sep_target_loc.GetName]"
  
  # Earth People's Liberation Front
  format.pop_faction.separatist_1: "<separatist_names_1> <separatist_names_2>"
@@ -3710,7 +3710,7 @@ l_simp_chinese:
  ##########################
  # Nationalist Faction Names
 
- nat_separatist_real_name: "[nat_country_loc.GetAdj] [last_created_leader.GetName]"
+ nat_separatist_real_name: "[sep_target_loc.GetAdj] [last_created_leader.GetName]"
 
  # Earth People's Liberation Front
  format.pop_faction.nat_separatist_1: "<separatist_names_1_3> <separatist_names_2>"
