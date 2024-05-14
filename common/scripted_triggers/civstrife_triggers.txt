@@ -2550,6 +2550,18 @@ traitor_can_flee_to_country = {
 
 # For My Sanity
 
+has_primitive_civic = {
+	OR = {
+		has_civic = civic_atmospheric_pollution
+		has_civic = civic_secret_of_fire
+		has_civic = civic_increasing_urbanization
+		has_civic = civic_the_wheel
+		has_civic = civic_landed_nobility
+		has_civic = civic_flat_world_theory
+		has_civic = civic_life_seeded
+	}
+}
+
 is_enslaved_or_purged = {
 	OR = {
 		is_enslaved = yes

@@ -838,10 +838,10 @@ make_isolated_sector_country = {
 	}
 	else = {
 		if = {
-			limit = { has_global_flag = cultural_overhaul_funefork_active }
+			limit = { has_global_flag = cultural_overhaul_active }
 			if = {
-				limit = { has_global_flag = cultural_overhaul_active }
-				if = { # Imperial governments usually make imperial govenrments
+				limit = { has_global_flag = cultural_overhaul_funefork_active }
+				if = {
 					limit = { is_imperial = yes }
 					random_list = {
 						65 = { # Same as Motherland
@@ -912,7 +912,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						2 = { # Democratic
+						3 = { # Democratic
 							create_country = {
 								name = random
 								type = default
@@ -946,29 +946,12 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						1 = { # Direct Democratic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_direct_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
 					}
 				}
 				else_if = {
 					limit = { is_dictatorial = yes }
 					random_list = {
-						50 = { # Same as Motherland
+						65 = { # Same as Motherland
 							create_country = {
 								name = random
 								type = default
@@ -985,7 +968,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						20 = { # Imperial
+						15 = { # Imperial
 							create_country = {
 								name = random
 								type = default
@@ -1002,7 +985,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						15 = { # Democratic Dictatorial
+						10 = { # Democratic Dictatorial
 							create_country = {
 								name = random
 								type = default
@@ -1019,7 +1002,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						10 = { # Oligarchic
+						5 = { # Oligarchic
 							create_country = {
 								name = random
 								type = default
@@ -1036,7 +1019,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						2 = { # Democratic
+						3 = { # Democratic
 							create_country = {
 								name = random
 								type = default
@@ -1070,29 +1053,12 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						1 = { # Direct Democratic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_direct_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
 					}
 				}
 				else_if = {
 					limit = { is_democracy = yes }
 					random_list = {
-						45 = { # Same as Motherland
+						65 = { # Same as Motherland
 							create_country = {
 								name = random
 								type = default
@@ -1109,7 +1075,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						40 = { # Oligarchic
+						15 = { # Oligarchic
 							create_country = {
 								name = random
 								type = default
@@ -1126,7 +1092,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						6 = { # Democratic Dictatorial
+						10 = { # Democratic Dictatorial
 							create_country = {
 								name = random
 								type = default
@@ -1160,7 +1126,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						4 = { # Dictatorial
+						5 = { # Dictatorial
 							create_country = {
 								name = random
 								type = default
@@ -1182,7 +1148,7 @@ make_isolated_sector_country = {
 				else_if = {
 					limit = { is_oligarchy = yes }
 					random_list = {
-						25 = { # Same as Motherland
+						65 = { # Same as Motherland
 							create_country = {
 								name = random
 								type = default
@@ -1199,7 +1165,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						40 = { # Imperial
+						10 = { # Imperial
 							create_country = {
 								name = random
 								type = default
@@ -1216,7 +1182,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						20 = { # Dictatorial
+						15 = { # Dictatorial
 							create_country = {
 								name = random
 								type = default
@@ -1233,7 +1199,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						10 = { # Democratic Dictatorial
+						5 = { # Democratic Dictatorial
 							create_country = {
 								name = random
 								type = default
@@ -1250,7 +1216,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						2 = { # Democratic
+						3 = { # Democratic
 							create_country = {
 								name = random
 								type = default
@@ -1279,23 +1245,6 @@ make_isolated_sector_country = {
 								civics = random
 								flag = random
 								authority = auth_strict_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						1 = { # Direct Democratic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_direct_democratic
 								effect = {
 									created_civwar_country_effect = yes
 								}
@@ -1325,7 +1274,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						10 = { # Dictatorial
+						15 = { # Dictatorial
 							create_country = {
 								name = random
 								type = default
@@ -1342,23 +1291,6 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						10 = { # Democratic Dictatorial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_dict_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
 						10 = { # Oligarchic
 							create_country = {
 								name = random
@@ -1376,7 +1308,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						3 = { # Democratic
+						7 = { # Democratic
 							create_country = {
 								name = random
 								type = default
@@ -1393,7 +1325,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						2 = { # Strict Democratic
+						3 = { # Direct Democratic
 							create_country = {
 								name = random
 								type = default
@@ -1404,7 +1336,7 @@ make_isolated_sector_country = {
 								origin = origin_isolated_rebellion
 								civics = random
 								flag = random
-								authority = auth_strict_democratic
+								authority = auth_direct_democratic
 								effect = {
 									created_civwar_country_effect = yes
 								}
@@ -1415,7 +1347,7 @@ make_isolated_sector_country = {
 				else_if = {
 					limit = { is_dictatorial = yes }
 					random_list = {
-						50 = { # Same as Motherland
+						65 = { # Same as Motherland
 							create_country = {
 								name = random
 								type = default
@@ -1432,7 +1364,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						20 = { # Imperial
+						10 = { # Imperial
 							create_country = {
 								name = random
 								type = default
@@ -1449,24 +1381,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						15 = { # Democratic Dictatorial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_dict_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						10 = { # Oligarchic
+						15 = { # Oligarchic
 							create_country = {
 								name = random
 								type = default
@@ -1483,7 +1398,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						3 = { # Democratic
+						7 = { # Democratic
 							create_country = {
 								name = random
 								type = default
@@ -1500,7 +1415,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						2 = { # Strict Democratic
+						3 = { # Direct Democratic
 							create_country = {
 								name = random
 								type = default
@@ -1511,7 +1426,7 @@ make_isolated_sector_country = {
 								origin = origin_isolated_rebellion
 								civics = random
 								flag = random
-								authority = auth_strict_democratic
+								authority = auth_direct_democratic
 								effect = {
 									created_civwar_country_effect = yes
 								}
@@ -1522,7 +1437,7 @@ make_isolated_sector_country = {
 				else_if = {
 					limit = { is_democracy = yes }
 					random_list = {
-						45 = { # Same as Motherland
+						65 = { # Same as Motherland
 							create_country = {
 								name = random
 								type = default
@@ -1539,7 +1454,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						40 = { # Oligarchic
+						20 = { # Oligarchic
 							create_country = {
 								name = random
 								type = default
@@ -1551,23 +1466,6 @@ make_isolated_sector_country = {
 								civics = random
 								flag = random
 								authority = auth_oligarchic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						6 = { # Democratic Dictatorial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_dict_democratic
 								effect = {
 									created_civwar_country_effect = yes
 								}
@@ -1590,7 +1488,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						4 = { # Dictatorial
+						10 = { # Dictatorial
 							create_country = {
 								name = random
 								type = default
@@ -1612,7 +1510,7 @@ make_isolated_sector_country = {
 				else_if = {
 					limit = { is_oligarchy = yes }
 					random_list = {
-						25 = { # Same as Motherland
+						65 = { # Same as Motherland
 							create_country = {
 								name = random
 								type = default
@@ -1629,7 +1527,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						40 = { # Imperial
+						10 = { # Imperial
 							create_country = {
 								name = random
 								type = default
@@ -1646,7 +1544,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						20 = { # Dictatorial
+						15 = { # Dictatorial
 							create_country = {
 								name = random
 								type = default
@@ -1663,24 +1561,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						10 = { # Democratic Dictatorial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_dict_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						3 = { # Democratic
+						7 = { # Democratic
 							create_country = {
 								name = random
 								type = default
@@ -1697,7 +1578,7 @@ make_isolated_sector_country = {
 								}
 							}
 						}
-						2 = { # Strict Democratic
+						3 = { # Direct Democratic
 							create_country = {
 								name = random
 								type = default
@@ -1708,7 +1589,7 @@ make_isolated_sector_country = {
 								origin = origin_isolated_rebellion
 								civics = random
 								flag = random
-								authority = auth_strict_democratic
+								authority = auth_direct_democratic
 								effect = {
 									created_civwar_country_effect = yes
 								}
@@ -1720,640 +1601,292 @@ make_isolated_sector_country = {
 		}
 		else = {
 			if = {
-				limit = { has_global_flag = cultural_overhaul_active }
-				if = { # Imperial governments usually make imperial govenrments
-					limit = { is_imperial = yes }
-					random_list = {
-						65 = { # Same as Motherland
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								authority = event_target:civwar_originator
-								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						20 = { # Dictatorial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_dictatorial
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						10 = { # Oligarchic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_oligarchic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						4 = { # Democratic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						1 = { # Direct Democratic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_direct_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+				limit = { is_imperial = yes }
+				random_list = {
+					65 = { # Same as Motherland
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							authority = event_target:civwar_originator
+							ethos = event_target:civwar_originator
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
 					}
-				}
-				else_if = {
-					limit = { is_dictatorial = yes }
-					random_list = {
-						50 = { # Same as Motherland
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								authority = event_target:civwar_originator
-								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						35 = { # Imperial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								authority = auth_imperial
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						10 = { # Oligarchic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_oligarchic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						4 = { # Democratic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						1 = { # Direct Democratic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_direct_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+					20 = { # Dictatorial
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							ethos = random
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							authority = auth_dictatorial
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
 					}
-				}
-				else_if = {
-					limit = { is_democracy = yes }
-					random_list = {
-						45 = { # Same as Motherland
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								authority = event_target:civwar_originator
-								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						40 = { # Oligarchic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_oligarchic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						10 = { # Dictatorial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_dictatorial
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						5 = { # Imperial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_imperial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+					10 = { # Oligarchic
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							ethos = random
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							authority = auth_oligarchic
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
 					}
-				}
-				else_if = {
-					limit = { is_oligarchy = yes }
-					random_list = {
-						25 = { # Same as Motherland
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								authority = event_target:civwar_originator
-								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						40 = { # Imperial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_imperial
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						30 = { # Dictatorial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_dictatorial
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						4 = { # Democratic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						1 = { # Direct Democratic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_direct_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+					5 = { # Democratic
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							ethos = random
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							authority = auth_democratic
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
 					}
 				}
 			}
-			else = {
-				if = { # Imperial governments usually make imperial govenrments
-					limit = { is_imperial = yes }
-					random_list = {
-						65 = { # Same as Motherland
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								authority = event_target:civwar_originator
-								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
+			else_if = {
+				limit = { is_dictatorial = yes }
+				random_list = {
+					65 = { # Same as Motherland
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							authority = event_target:civwar_originator
+							ethos = event_target:civwar_originator
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
-						20 = { # Dictatorial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_dictatorial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+					}
+					10 = { # Imperial
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							ethos = random
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							authority = auth_imperial
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
-						10 = { # Oligarchic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_oligarchic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+					}
+					15 = { # Oligarchic
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							ethos = random
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							authority = auth_oligarchic
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
-						5 = { # Democratic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+					}
+					10 = { # Democratic
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							ethos = random
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							authority = auth_democratic
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
 					}
 				}
-				else_if = {
-					limit = { is_dictatorial = yes }
-					random_list = {
-						50 = { # Same as Motherland
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								authority = event_target:civwar_originator
-								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
+			}
+			else_if = {
+				limit = { is_democracy = yes }
+				random_list = {
+					65 = { # Same as Motherland
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							authority = event_target:civwar_originator
+							ethos = event_target:civwar_originator
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
-						35 = { # Imperial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_imperial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+					}
+					20 = { # Oligarchic
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							ethos = random
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							authority = auth_oligarchic
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
-						10 = { # Oligarchic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_oligarchic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+					}
+					10 = { # Dictatorial
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							ethos = random
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							authority = auth_dictatorial
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
-						5 = { # Democratic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+					}
+					5 = { # Imperial
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							ethos = random
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							authority = auth_imperial
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
 					}
 				}
-				else_if = {
-					limit = { is_democracy = yes }
-					random_list = {
-						45 = { # Same as Motherland
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								authority = event_target:civwar_originator
-								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						40 = { # Oligarchic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_oligarchic
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						10 = { # Dictatorial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_dictatorial
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						5 = { # Imperial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_imperial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+			}
+			else_if = {
+				limit = { is_oligarchy = yes }
+				random_list = {
+					65 = { # Same as Motherland
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							authority = event_target:civwar_originator
+							ethos = event_target:civwar_originator
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
 					}
-				}
-				else_if = {
-					limit = { is_oligarchy = yes }
-					random_list = {
-						25 = { # Same as Motherland
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								authority = event_target:civwar_originator
-								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
+					10 = { # Imperial
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							ethos = random
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							authority = auth_imperial
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
-						40 = { # Imperial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_imperial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+					}
+					15 = { # Dictatorial
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							ethos = random
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							authority = auth_dictatorial
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
-						30 = { # Dictatorial
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_dictatorial
-								effect = {
-									created_civwar_country_effect = yes
-								}
-							}
-						}
-						5 = { # Democratic
-							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								authority = auth_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+					}
+					10 = { # Democratic
+						create_country = {
+							name = random
+							type = default
+							species = event_target:civwar_species
+							ignore_initial_colony_error = yes
+							day_zero_contact = no
+							ethos = random
+							origin = origin_isolated_rebellion
+							civics = random
+							flag = random
+							authority = auth_democratic
+							effect = {
+								created_civwar_country_effect = yes
 							}
 						}
 					}

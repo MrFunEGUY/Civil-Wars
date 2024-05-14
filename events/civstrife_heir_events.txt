@@ -17,6 +17,7 @@ country_event = {
 
 	trigger = {
 		is_primitive = no
+		has_primitive_civic = no
 		num_owned_planets > 1
 		is_imperial = yes
 		is_country_type_with_subjects = yes
@@ -150,6 +151,7 @@ country_event = {
 
 	trigger = {
 		is_primitive = no
+		has_primitive_civic = no
 		exists = event_target:disinherited_heir
 	}
 
@@ -213,6 +215,7 @@ country_event = {
 
 	trigger = {
 		is_primitive = no
+		has_primitive_civic = no
 		exists = event_target:disinherited_heir
 	}
 
@@ -736,26 +739,11 @@ country_event = {
 		is_country_type_with_subjects = yes
 		is_mercatorum = no
 		is_primitive = no
+		has_primitive_civic = no
 	}
 
 	immediate = {
-		heir = {	
-			if = { # Natural Born Heirs
-				limit = { NOT = { has_leader_flag = appointed_heir } }
-				save_event_target_as = disinherited_heir_maybe
-				owner = {
-					clone_leader = {
-						target = event_target:disinherited_heir_maybe
-						class = random_ruler
-						effect = {
-							save_event_target_as = disinherited_heir_clone
-						}
-					}
-				}
-			}
-			# Appointed Heirs
-			else = { save_event_target_as = disinherited_heir_maybe }
-		}
+		heir = { save_event_target_as = disinherited_heir_maybe }
 
 		create_country = {
 			name = root
@@ -804,18 +792,9 @@ country_event = {
 	immediate = {
 		if = { # Because you dont want to call this for just changing civics
 			limit = { is_imperial = no }
-			if = { # Natural Born Heirs
-				limit = { exists = event_target:disinherited_heir_clone }
-				event_target:disinherited_heir_clone = {
-					set_leader_flag = gov_changed_heir
-					save_event_target_as = disinherited_heir
-				}
-			}
-			else = { # Appointed Heirs
-				event_target:disinherited_heir_maybe = {
-					set_leader_flag = gov_changed_heir
-					save_event_target_as = disinherited_heir
-				}
+			event_target:disinherited_heir_maybe = {
+				set_leader_flag = gov_changed_heir
+				save_event_target_as = disinherited_heir
 			}
 			country_event = { id = civheir.1001 days = 2 random = 21 }
 		}
@@ -845,6 +824,7 @@ country_event = {
 		from = { has_leader_flag = appointed_heir }
 		is_country_type_with_subjects = yes
 		is_primitive = no
+		has_primitive_civic = no
 	}
 
 	immediate = {
