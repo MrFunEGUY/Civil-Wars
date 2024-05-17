@@ -6,22 +6,273 @@
 
 namespace = civroyal
 
-country_event = { # Disputed Ruler Ascension, start situation
+### Ruler Dies Without Heir, pretender.1 dupe
+country_event = {
 	id = civroyal.1000
+
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = {
+		# from = { is_same_value = root.leader }
+		from = { is_ruler = yes }
+		NOT = { exists = heir }
+		is_imperial = yes
+	}
+
+	immediate = {
+
+		if = {
+			limit = {
+				from = { has_leader_flag = is_imperial_ruler }
+				num_sectors > 1
+				NOR = {
+					exists = heir
+					exists = event_target:disinherited_heir
+					has_country_flag = succ_crisis_popup
+					any_situation = { is_situation_type = situation_civstrife_succession }
+				}
+			}
+
+			clone_leader = {
+				target = from
+				hide_leader = yes
+				effect = {
+					set_immortal = yes # So they dont die while we need them
+					set_leader_flag = dead_crisis_leader
+					set_leader_flag = dummy_leader
+				}
+			}
+			last_created_leader = { # Dont know why, but doesnt like when I do this in the effect
+				set_name = {
+					key = crisis_dynasty_ruler_name
+					variable_string = "[From.GetSecondName]"
+				}
+				save_event_target_as = crisis_dynasty_name
+				leader_event = { id = civleader.1000 days = 720 }
+			}
+
+			clone_leader = {
+				target = from
+				hide_leader = yes
+				effect = {
+					set_immortal = yes # So they dont die while we need them
+					set_leader_flag = dead_crisis_leader
+					set_leader_flag = dummy_leader
+				}
+			}
+			last_created_leader = { # Dont know why, but doesnt like when I do this in the effect
+				leader_event = { id = civleader.1000 days = 720 }
+				save_event_target_as = prior_dead_ruler
+			}
+		}
+
+		# Install a new leader
+		if = {
+			limit = { num_owned_leaders > 0 }
+			if = {
+				limit = { any_owned_leader = { is_councilor = yes } }
+				random_list = {
+					20 = {
+						random_owned_leader = {
+							limit = {
+								NOT = { is_same_value = root.from }
+								is_councilor = yes
+								leader_class = scientist
+							}
+							save_event_target_as = seized_power_leader
+						}
+						modifier = {
+							factor = 1.25
+							has_ethic = ethic_fanatic_materialist
+						}
+						modifier = {
+							factor = 1.5
+							OR = {
+								has_civic = civic_technocracy
+								has_civic = civic_science_directorate
+							}
+						}
+						modifier = {
+							factor = 1.75
+							is_technocracy = yes
+						}
+						modifier = {
+							factor = 0
+							NOT = { any_owned_leader = { leader_class = scientist } }
+						}
+					}
+					40 = {
+						random_owned_leader = {
+							limit = {
+								NOT = { is_same_value = root.from }
+								is_councilor = yes
+								leader_class = official
+							}
+							save_event_target_as = seized_power_leader
+						}
+						modifier = {
+							factor = 1.25
+							has_ethic = ethic_fanatic_xenophile
+						}
+						modifier = {
+							factor = 1.75
+							is_diplocracy = yes
+						}
+						modifier = {
+							factor = 0
+							NOT = { any_owned_leader = { leader_class = official } }
+						}
+					}
+					40 = {
+						random_owned_leader = {
+							limit = {
+								NOT = { is_same_value = root.from }
+								is_councilor = yes
+								leader_class = commander
+							}
+							save_event_target_as = seized_power_leader
+						}
+						modifier = {
+							factor = 1.25
+							has_ethic = ethic_fanatic_militarist
+						}
+						modifier = {
+							factor = 1.75
+							is_stratocracy = yes
+						}
+						modifier = {
+							factor = 0
+							NOT = { any_owned_leader = { leader_class = commander } }
+						}
+					}
+				}
+			}
+			else = {
+				random_list = {
+					20 = {
+						random_owned_leader = {
+							limit = { leader_class = scientist }
+							save_event_target_as = seized_power_leader
+						}
+						modifier = {
+							factor = 1.1
+							is_materialist = yes
+						}
+						modifier = {
+							factor = 1.25
+							has_ethic = ethic_fanatic_materialist
+						}
+						modifier = {
+							factor = 1.5
+							OR = {
+								has_civic = civic_technocracy
+								has_civic = civic_science_directorate
+							}
+						}
+						modifier = {
+							factor = 1.75
+							is_technocracy = yes
+						}
+						modifier = {
+							factor = 0
+							NOT = { any_owned_leader = { leader_class = scientist } }
+						}
+					}
+					40 = {
+						random_owned_leader = {
+							limit = { leader_class = official }
+							save_event_target_as = seized_power_leader
+						}
+						modifier = {
+							factor = 1.1
+							is_xenophile = yes
+						}
+						modifier = {
+							factor = 1.25
+							has_ethic = ethic_fanatic_xenophile
+						}
+						modifier = {
+							factor = 1.5
+							has_civic = civic_diplomatic_corps
+						}
+						modifier = {
+							factor = 1.75
+							is_diplocracy = yes
+						}
+						modifier = {
+							factor = 0
+							NOT = { any_owned_leader = { leader_class = official } }
+						}
+					}
+					40 = {
+						random_owned_leader = {
+							limit = { leader_class = commander}
+							save_event_target_as = seized_power_leader
+						}
+						modifier = {
+							factor = 1.1
+							is_militarist = yes
+						}
+						modifier = {
+							factor = 1.25
+							has_ethic = ethic_fanatic_militarist
+						}
+						modifier = {
+							factor = 1.5
+							OR = {
+								has_civic = civic_naval_traditions
+								has_civic = civic_distinguished_admiralty
+							}
+						}
+						modifier = {
+							factor = 1.75
+							is_stratocracy = yes
+						}
+						modifier = {
+							factor = 0
+							NOT = { any_owned_leader = { leader_class = commander } }
+						}
+					}
+				}
+			}
+
+			event_target:seized_power_leader = {
+				log = "LEADER: [this.GetName]"
+				set_leader_flag = leader_seized_power
+			}
+		}
+		else = {
+			log = "BAD ELSE"
+			create_leader = {
+				class = random_ruler
+				species = owner_main_species
+				name = random
+				traits = {}
+			}
+			last_created_leader = { save_event_target_as = seized_power_leader }
+		}
+
+		assign_leader = event_target:seized_power_leader
+	}
+
+	after = {
+		country_event = { id = civroyal.1010 days = 3 random = 14 }
+	}
+}
+
+
+country_event = { # Disputed Ruler Ascension, start situation
+	id = civroyal.1010
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
 		num_sectors > 1
 		is_imperial = yes
-		from = {
-			is_ruler = yes
-			has_leader_flag = is_imperial_ruler
-		}
 		NOR = {
 			exists = heir
 			exists = event_target:disinherited_heir
-			# years_passed <= 30
 			has_country_flag = succ_crisis_popup
 			any_situation = { is_situation_type = situation_civstrife_succession }
 		}
@@ -29,50 +280,45 @@ country_event = { # Disputed Ruler Ascension, start situation
 
 	immediate = {
 
-		from = { save_event_target_as = crisis_dynasty_name }
-		clone_leader = {
-			target = from
-			class = random_ruler
-			hide_leader = yes
-			effect = {
-				set_immortal = yes # So they dont die while we need them
-				set_leader_flag = dead_crisis_leader								
-				set_leader_flag = dummy_leader							
-			}
-		}
-
-		last_created_leader = { # Dont know why, but doesnt like when I do this in the effect
-			set_name = {
-				key = crisis_dynasty_ruler_name
-				variable_string = "[From.GetSecondName]"
-			}
-			leader_event = { id = civleader.1000 days = 720 }
-		}
+		# from = { save_event_target_as = crisis_dynasty_name } # For Loc
 
 		ruler = {
-			set_name = {
-				key = disputed_ruler_name
-				variable_string = "[Ruler.GetFirstName]"
-				variable_string = "[From.GetSecondName]"
+			if = {
+				limit = { NOT = { has_leader_flag = leader_seized_power } }
+				set_name = {
+					key = disputed_ruler_name
+					variable_string = "[Ruler.GetFirstName]"
+					variable_string = "[From.GetSecondName]"
+				}
 			}
 			save_event_target_as = disputed_heir_ruler
 		}
 	}
 
 	after = {
-		country_event = { id = civroyal.1010 }
+		country_event = { id = civroyal.1020}
+		# country_event = { id = civroyal.1020 days = 3 random = 14 }
 	}
 }
 
 country_event = { # Officials/Dynasts are considering rebellion, start situation
-	id = civroyal.1010
-	title = civroyal.1010.name
-	desc = civroyal.1010.desc
+	id = civroyal.1020
+	title = civroyal.1020.name
 	picture = GFX_evt_enclave_overlord
 	hide_window = no
 	is_triggered_only = yes
 
+	desc = {
+		trigger = {	NOT = { ruler = { has_leader_flag = leader_seized_power } } }
+		text = civroyal.1020.desc_reg
+	}
+	desc = {
+		trigger = { ruler = { has_leader_flag = leader_seized_power } }
+		text = civroyal.1020.desc_seized
+	}
+
 	trigger = {
+		num_sectors > 1
 		is_country_type_with_subjects = yes
 	}
 
@@ -101,7 +347,7 @@ country_event = { # Officials/Dynasts are considering rebellion, start situation
 	}
 
 	option = {
-		name = civroyal.1010.rightful
+		name = civroyal.1020.rightful
 		hidden_effect = {
 			start_situation = {
 				type = situation_civstrife_succession
@@ -118,7 +364,7 @@ situation_event = { # Send Message out to officials to ask if they are loyal
 	is_triggered_only = yes
 
 	trigger = {
-		target = { num_sectors >= 2 }
+		target = { num_sectors > 1 }
 		NOT = { has_situation_flag = loyalty_test_sent }
 	}
 
@@ -137,7 +383,7 @@ situation_event = { # Send Message out to officials to ask if they are loyal
 	is_triggered_only = yes
 
 	trigger = {
-		target = { num_sectors >= 2 }
+		target = { num_sectors > 1 }
 	}
 
 	immediate = {

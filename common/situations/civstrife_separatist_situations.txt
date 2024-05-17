@@ -59,11 +59,18 @@ situation_civstrife_sep_plan = {
 		reb_situation_1 = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_blue
+			on_first_enter = {
+				# situation_event = { id = unrest.100 } ##TODO Will want to get these activated soon
+			}
 			end = 30
 		}
 		reb_situation_2 = {
 			icon = GFX_situation_stage_2
 			icon_background = GFX_situation_stage_frame_red
+			on_first_enter = {
+				#Characteristics of the revolt (species, other planets joining)
+				# situation_event = { id = unrest.4000 } ##TODO Will want to get these activated soon
+			}
 			end = 90
 		}
 		reb_situation_3 = {

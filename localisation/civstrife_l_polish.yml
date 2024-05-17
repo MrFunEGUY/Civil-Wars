@@ -203,7 +203,7 @@ l_polish:
 
  exile_gov_station_name: "[exiled_government.species.GetAdj] Station"
 
- exile_tt_patron:0 "The §YHost§! of an enclave can help them develop or requisition a fleet that is already hired."
+ exile_tt_patron: "The §YHost§! of an enclave can help them develop or requisition a fleet that is already hired."
 
  gov_exile_enclave: "$enclave_exiled_gov$"
 
@@ -702,19 +702,20 @@ l_polish:
  #### Imperial Succession Crisis ####
  ####################################
 
- civroyal.1010.name: "Succession Crisis"
- civroyal.1010.desc: "§H[root.GetRulerName]§! ascended to the become §Y[root.GetRulerTitle]§! without first being annointed as heir, which has created a crisis. There are members of the §Y[crisis_dynasty_name.GetSecondName]§! family looking to assert their claim to the throne, and ambitious officials are trying to assert their autonomy. The realm is in a state of instability."
- civroyal.1010.rightful: "I am the rightful [root.GetRulerTitle]!"
+ civroyal.1020.name: "Succession Crisis"
+ civroyal.1020.desc_reg: "The death of §H[prior_dead_ruler.GetName]§! without an heir has created a constitutional crisis. Without first being anointed as heir, §H[root.GetRulerName]§! has ascended to the throne and declared [root.ruler.GetHerselfHimself] §Y[root.GetRulerTitle]§!. In the wake of their coronation, there are still other members of the §Y[crisis_dynasty_name.GetSecondName]§! family looking to assert their claim to the throne, along with ambitious regional officials that are trying to assert their autonomy. The realm is in a state of instability."
+ civroyal.1020.desc_seized: "The death of §H[prior_dead_ruler.GetName]§! without an heir has created a constitutional crisis. Taking advantage of the chaos, §H[root.GetRulerName]§! managed to seize the throne, declaring [root.ruler.GetHerselfHimself] §Y[root.GetRulerTitle]§!. In the wake of their coronation, there are still members of the §Y[crisis_dynasty_name.GetSecondName]§! family looking to assert their claim to the throne, along with ambitious regional officials that are trying to assert their autonomy. The realm is in a state of instability."
+ civroyal.1020.rightful: "I am the rightful [root.GetRulerTitle]!"
 
  civroyal.1105.name: "Establishing Support"
  civroyal.1105.desc: "We may be better able to gauge our support by demanding that our officials reaffirm their loyalty by pledging an oath to the new §Y[owner.GetRulerTitle]§!."
  civroyal.1105.very_well: "Very Well."
 
  civroyal.1110.name: "Loyalty Oath Refusals"
- civroyal.1110.desc: "Unfortuately, as we suspected there would be be, there are officials who have refused to respond to our request for an oath of loyalty to our new §Y[owner.GetRulerTitle]§!. There are §Y[target.num_rebel_sectors]§! officials who refused to respond, and we will be directly contacting each of them in turn."
+ civroyal.1110.desc: "Unfortunately, as we suspected there would be be, there are officials who have refused to respond to our request for an oath of loyalty to our new §Y[owner.GetRulerTitle]§!. There are §Y[target.num_rebel_sectors]§! officials who refused to respond, and we will be directly contacting each of them in turn."
 
  civroyal.1115.name: "No Loyalty Oath Refusals"
- civroyal.1115.desc: "Luckily, there were no officials who refused to deliver a loyalty oath. It seems that the realm will will be stabilized in due time."
+ civroyal.1115.desc: "Luckily, there were no officials who refused to deliver a loyalty oath. It seems that the realm will be stabilized in due time."
 
  civcom.3000.name: "§Y[crisis_sector.GetName]§! Sector: §H[crisis_sector_leader.GetName]§!"
  civcom.3000.gov_may_deal.desc: "Ah, my §Y[root.GetRulerTitle]§!. I suspect you are calling about the loyalty oath. I wanted to take the oath, truly. However, I need to know that this administration is willing to work with me. I just need one thing of you, and then I will swear the oath."
@@ -818,7 +819,7 @@ l_polish:
 
  situation_civstrife_succession: "Succession Crisis"
  situation_civstrife_succession_type: "Succession Crisis"
- situation_civstrife_succession_desc: "§Y[owner.GetRulerTitle]§! §H[owner.ruler.GetName]§! ascended to the throne without ever being officially annointed as heir. This has left the realm in a precarious situation, with various others attempting to assert their claim to the throne."
+ situation_civstrife_succession_desc: "§Y[owner.GetRulerTitle]§! §H[owner.ruler.GetName]§! ascended to the throne without ever being officially anointed as heir. This has left the realm in a precarious situation, with various others attempting to assert their claim to the throne."
  situation_civstrife_succession_monthly_change_tooltip: "The crisis is progressing towards a resolution."
 
  succession_crisis_is_difficult: "We are in the midst of a Succession Crisis"
@@ -1370,9 +1371,9 @@ l_polish:
 
  NAME_heir_war: "[event_target:civwar_rebels.Leader.GetName]'s Inheritance War"
 
- NAME_succession_conflict:0 "[This.MainAttacker.GetAdj] Succession Conflict"
+ NAME_succession_conflict: "[This.MainAttacker.GetAdj] Succession Conflict"
 
- NAME_fealty_war:0 "War for [This.MainDefender.Ruler.GetName]'s Fealty"
+ NAME_fealty_war: "War for [This.MainDefender.Ruler.GetName]'s Fealty"
 
  NAME_civwar_war_nat: "The [event_target:nat_motherland_model.GetAdj] Revolt"
  NAME_civwar_war_nat_2: "The [This.MainDefender.GetName] Restoration War"
@@ -1573,15 +1574,15 @@ l_polish:
 
  unrest.55.name: "§YSlaves Organizing§! on [Root.GetName]"
  unrest.55.desc.standard: "Months of turmoil and instability on §Y[Root.GetName]§! have made the local populace begin to question our ability to effectively govern the planet. Now their defiance is becoming ever more brazen, and dissidents are openly calling for independence. A show of authority may be necessary if we are to keep control of the colony."
- unrest.55.desc.slave:0 "Clandestine slave meetings at night, raised levels of defiance towards superiors and missing goods can mean only one thing. The slaves on §Y[Root.GetName]§! are radicalizing, spreading dissent and discord among their peers - and fear to the rest of the population. There are even whisperings of freedom - of independence from the §Y[owner.GetName]§!. A show of authority may be necessary if we are to keep control of the colony."
+ unrest.55.desc.slave: "Clandestine slave meetings at night, raised levels of defiance towards superiors and missing goods can mean only one thing. The slaves on §Y[Root.GetName]§! are radicalizing, spreading dissent and discord among their peers - and fear to the rest of the population. There are even whisperings of freedom - of independence from the §Y[owner.GetName]§!. A show of authority may be necessary if we are to keep control of the colony."
  unrest.55.desc.gestalt_standard: "The singleton populace of §Y[Root.GetName]§! refuses to accept the control of our [Owner.GetGovernmentName]. Now their defiance is becoming ever more brazen, and dissidents are openly organizing a movement towards "independence." A show of authority may be necessary if we are to keep control of the colony."
  unrest.55.desc.gestalt_breakaway_gestalt: "Deviant elements on §Y[Root.GetName]§! are proving ever harder for our [Owner.GetGovernmentName] to control. Unless we can snuff out their independent thoughts and reestablish control, it may be difficult for us to keep control of the colony."
  unrest.55.A: "They must be dealt with."
 
- unrest.156.desc:1 "In a vicious act of defiance, the slaves on §Y[Root.GetName]§! have destroyed work facilities with the help of homemade explosives. Though the detonations took place at night, they lured their unsuspecting work leaders to the location by triggering the alarm system. The attack was well coordinated and flawlessly executed. Whoever the guilty are, they must have planned it for months."
+ unrest.156.desc: "In a vicious act of defiance, the slaves on §Y[Root.GetName]§! have destroyed work facilities with the help of homemade explosives. Though the detonations took place at night, they lured their unsuspecting work leaders to the location by triggering the alarm system. The attack was well coordinated and flawlessly executed. Whoever the guilty are, they must have planned it for months."
 
  # Preset blocked terms
- not_allowed_for_protectorate:0 "$TRIGGER_FAIL$Not allowed for §YProtectorates§!."
+ not_allowed_for_protectorate: "$TRIGGER_FAIL$Not allowed for §YProtectorates§!."
  not_allowed_for_tributary: "$TRIGGER_FAIL$Not allowed for §YTributaries§!."
  not_allowed_for_bulwark: "$TRIGGER_FAIL$Not allowed for §YBulwarks§!."
  not_allowed_for_scholarium: "$TRIGGER_FAIL$Not allowed for §YScholaria§!."
@@ -1607,9 +1608,9 @@ l_polish:
  not_allowed_for_megacorp: "$TRIGGER_FAIL$Not allowed for §YMegacorps§!."
  not_allowed_for_separatist: "$TRIGGER_FAIL$Not allowed for §Ystates that have seceded from our empire§!."
 
- ACTION_RECIPIENT_NOT_YOUR_CORP:1 "$TRIGGER_FAIL$§RBranch Offices can only be built on Megacorporations if they are our subsidiary.§!"
+ ACTION_RECIPIENT_NOT_YOUR_CORP: "$TRIGGER_FAIL$§RBranch Offices can only be built on Megacorporations if they are our subsidiary.§!"
 
- federation_actor_no_separate_treaties_empire:0 "§Y$law_category_separate_treaties_empire$§! §Ris §Y$treaties_separate_no$§! by Imperial decree - we cannot have treaties with nations who are not members of our empire.§!"
+ federation_actor_no_separate_treaties_empire: "§Y$law_category_separate_treaties_empire$§! §Ris §Y$treaties_separate_no$§! by Imperial decree - we cannot have treaties with nations who are not members of our empire.§!"
 
  ### Event Overwrites But not technically overwrites
  civ_action.62.name: "End of the [gov_in_exile.GetName]"
@@ -1627,11 +1628,11 @@ l_polish:
  civ_action.6310.name: "$action.6210.name$"
  civ_action.6310.desc: "After being destroyed by their enemies, the remnants of the leadership of the ancient precursor state known as the §Y[from.GetName]§! formed a government-in-exile. Now, the §Y[hosting_country.GetName]§! has agreed to host them. How this will affect the political climate of the galaxy remains to be seen."
 
- unrest.101.civstrife.desc:1 "After a period of mounting tension, the unrest on §Y[target_planet.GetName]§! has resulted in terrorist action. While casualties and property damage were minimal, faith in the [Root.Owner.GetName]'s ability to protect its citizens has been shaken."
+ unrest.101.civstrife.desc: "After a period of mounting tension, the unrest on §Y[target_planet.GetName]§! has resulted in terrorist action. While casualties and property damage were minimal, faith in the [Root.Owner.GetName]'s ability to protect its citizens has been shaken."
 
- unrest.105.civstrife.desc:1 "A major incident has occurred on the badly-troubled colony of §Y[target_planet.GetName]§!. While state-critical facilities remain unscathed, extensive property damage and significant loss of life as a result of coordinated terrorist attacks have shaken the colony to its core."
+ unrest.105.civstrife.desc: "A major incident has occurred on the badly-troubled colony of §Y[target_planet.GetName]§!. While state-critical facilities remain unscathed, extensive property damage and significant loss of life as a result of coordinated terrorist attacks have shaken the colony to its core."
 
- unrest.110.civstrife.desc:1 "Reports from §Y[riot_avert_planet.GetName]§! suggested that there was an imminent risk that violent rioting would break out. However, thanks to the quick and decisive action of [Root.Owner.GetAdj] forces, in partnership with loyalist civilians, this threat has been quelled."
+ unrest.110.civstrife.desc: "Reports from §Y[riot_avert_planet.GetName]§! suggested that there was an imminent risk that violent rioting would break out. However, thanks to the quick and decisive action of [Root.Owner.GetAdj] forces, in partnership with loyalist civilians, this threat has been quelled."
 
  ##############
  # Other

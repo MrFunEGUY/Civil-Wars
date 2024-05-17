@@ -358,7 +358,6 @@ country_event = { # Setup for Civil War (create_country)
 							limit = {
 								event_target:civwar_rebels.ruler = {
 									OR = {
-										has_leader_flag = civil_war_ruler_heir_true_born
 										has_leader_flag = civil_war_ruler_heir_gov_changed
 										has_leader_flag = civil_war_ruler_heir_disinherited
 									}
@@ -1334,7 +1333,6 @@ country_event = { # Has Vassals, Vassal Interaction
 				limit = {
 					event_target:civwar_rebels.ruler = {
 						OR = {
-							has_leader_flag = civil_war_ruler_heir_true_born
 							has_leader_flag = civil_war_ruler_heir_gov_changed
 							has_leader_flag = civil_war_ruler_heir_disinherited
 						}
@@ -2775,7 +2773,6 @@ country_event = { # Change leader flags to ruler flags
 				has_leader_flag = leader_civil_war_faction
 				has_leader_flag = appointed_heir
 				has_leader_flag = gov_changed_heir
-				has_leader_flag = true_born_heir
 				##
 				has_leader_flag = civil_war_leader_heir_isolated
 			}
@@ -2811,13 +2808,6 @@ country_event = { # Change leader flags to ruler flags
 				remove_leader_flag = appointed_heir
 				set_leader_flag = civil_war_ruler_heir_disinherited
 				set_leader_flag = appointed_heir_ruler
-			}
-		}
-		else_if = {
-			limit = { ruler = { has_leader_flag = true_born_heir } }
-			ruler = {
-				remove_leader_flag = true_born_heir
-				set_leader_flag = civil_war_ruler_heir_true_born
 			}
 		}
 	}
