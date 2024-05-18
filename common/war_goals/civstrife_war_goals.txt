@@ -43,6 +43,10 @@ wg_civwar = {
 				every_system_within_border = {
 					limit = { exists = starbase }
 					starbase = { set_owner = root }
+					every_system_planet = {
+						limit = { is_owned_by = from }
+						set_owner = root
+					}
 				}
 			}
 		}
@@ -209,9 +213,7 @@ wg_planet_rebellion = {
 				every_system_within_border = {
 					limit = { exists = starbase }
 					every_system_planet = {
-						limit = {
-							is_owned_by = prevprev
-						}
+						limit = { is_owned_by = prevprev }
 						set_owner = root
 					}
 					starbase = { set_owner = root }
@@ -307,6 +309,10 @@ wg_natwar = {
 				every_system_within_border = {
 					limit = { exists = starbase }
 					starbase = { set_owner = root }
+					every_system_planet = {
+						limit = { is_owned_by = from }
+						set_owner = root
+					}
 				}
 			}
 		}
@@ -533,6 +539,19 @@ wg_coup_successor = {
 		status_quo
 	}
 
+	on_wargoal_set = {
+		every_system_within_border = {
+			limit = { NOT = { from = { has_claim = prev } } }
+			add_claims = { who = from }
+		}
+		from = {
+			every_system_within_border = {
+				limit = { NOT = { root = { has_claim = prev } } }
+				add_claims = { who = root }
+			}
+		}
+	}
+
 	on_status_quo = {
 		custom_tooltip = wg_coup_disputed_end
 		hidden_effect = {
@@ -636,6 +655,27 @@ wg_coup_independent = {
 		}
 	}
 
+	on_accept = {
+		custom_tooltip = civil_war_won_tooltip
+		add_monthly_resource_mult = {
+			resource = unity
+			value = @tier5materialreward
+			min = @tier5materialmin
+		}
+		hidden_effect = {
+			from = {
+				every_system_within_border = {
+					limit = { exists = starbase }
+					starbase = { set_owner = root }
+					every_system_planet = {
+						limit = { is_owned_by = from }
+						set_owner = root
+					}
+				}
+			}
+		}
+	}
+
 	ai_weight = {
 		weight = 0
 	}
@@ -712,6 +752,18 @@ wg_coup_fealty = { # Currently Unused
 			resource = unity
 			value = @tier5materialreward
 			min = @tier5materialmin
+		}
+		hidden_effect = {
+			from = {
+				every_system_within_border = {
+					limit = { exists = starbase }
+					starbase = { set_owner = root }
+					every_system_planet = {
+						limit = { is_owned_by = from }
+						set_owner = root
+					}
+				}
+			}
 		}
 	}
 
