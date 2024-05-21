@@ -1695,7 +1695,7 @@ situation_event = { # Planetary Revolt Initializer
 				is_occupied_flag = no
 				has_orbital_bombardment = no
 				pop_percentage = {
-					percentage >= 0.25
+					percentage >= @civwar_pop_percent_needed
 					limit = { has_pop_flag = sep_pop }
 					exclude = { can_think = no }
 				}
@@ -1723,7 +1723,7 @@ situation_event = { # Planetary Revolt Event
 				is_occupied_flag = no
 				has_orbital_bombardment = no
 				pop_percentage = {
-					percentage >= 0.25
+					percentage >= @civwar_pop_percent_needed
 					# percentage > 0
 					limit = { has_pop_flag = sep_pop }
 					exclude = { can_think = no }
@@ -1742,7 +1742,7 @@ situation_event = { # Planetary Revolt Event
 					is_occupied_flag = no
 					has_orbital_bombardment = no
 					pop_percentage = {
-						percentage >= 0.25
+						percentage >= @civwar_pop_percent_needed
 						# percentage > 0
 						limit = { has_pop_flag = sep_pop }
 						exclude = { can_think = no }
@@ -1750,9 +1750,7 @@ situation_event = { # Planetary Revolt Event
 				}
 
 				random = {
-					chance = 2
-					#chance = 2
-					# chance = 100
+					chance = @base_plan_rebellion_chance
 					set_variable = { which = fac_mil_support value = 0 }
 					every_owned_pop = {
 						limit = { has_pop_flag = sep_pop }
@@ -1804,7 +1802,7 @@ situation_event = { # Sectoral Revolt Initializer
 					}
 				}
 				pop_percentage = {
-					percentage >= 0.25
+					percentage >= @civwar_pop_percent_needed
 					limit = {
 						exists = pop_faction
 						pop_faction = { is_same_value = root.target }
@@ -1850,7 +1848,7 @@ situation_event = { # Sectoral Revolt Event
 					}
 				}
 				pop_percentage = {
-					percentage >= 0.25
+					percentage >= @civwar_pop_percent_needed
 					# percentage > 0
 					limit = {
 						exists = pop_faction
@@ -1881,7 +1879,7 @@ situation_event = { # Sectoral Revolt Event
 							}
 						}
 						pop_percentage = {
-							percentage >= 0.25
+							percentage >= @civwar_pop_percent_needed
 							# percentage > 0
 							limit = {
 								exists = pop_faction
@@ -1892,9 +1890,7 @@ situation_event = { # Sectoral Revolt Event
 					}
 
 					random = {
-						chance = 3
-						#chance = 3
-						#chance = 100
+						chance = @base_sector_rebellion_chance
 
 						root.target = {
 							set_faction_rebellion_suppression_flag = yes
@@ -1953,7 +1949,7 @@ situation_event = { # Sectoral Revolt Event
 							}
 						}
 						pop_percentage = {
-							percentage >= 0.25
+							percentage >= @civwar_pop_percent_needed
 							# percentage > 0
 							limit = {
 								exists = pop_faction
@@ -2047,7 +2043,7 @@ situation_event = { # Sectoral Revolt Event
 				random_owned_sector = {
 					limit = {
 						pop_percentage = {
-							percentage >= 0.25
+							percentage >= @civwar_pop_percent_needed
 							# percentage > 0
 							limit = {
 								exists = pop_faction

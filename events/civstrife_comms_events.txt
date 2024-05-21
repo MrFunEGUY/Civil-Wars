@@ -2814,10 +2814,6 @@ country_event = {
 		}
 	}
 
-	immediate = {
-		every_country = { every_owned_leader = { limit = { has_trait = trait_imperial_heir has_trait = leader_trait_traitor_heir } remove_trait = trait_imperial_heir } }
-	}
-
 	after = {
 		add_intel = {
 			who = event_target:traitor_home_country

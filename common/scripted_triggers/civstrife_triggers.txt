@@ -1246,17 +1246,7 @@ is_succession_country = {
 rebel_is_former_leader = {
 	OR = {
 		has_trait = leader_trait_corrupt
-		has_leader_flag = civil_war_ruler_official
-		has_leader_flag = civil_war_ruler_official_isolated
-		has_leader_flag = civil_war_ruler_official_dispute
-		###
-		has_leader_flag = civil_war_ruler_commander
-		has_leader_flag = civil_war_ruler_commander_isolated
-		has_leader_flag = civil_war_ruler_commander_dispute
-		###
-		has_leader_flag = civil_war_ruler_scientist
-		has_leader_flag = civil_war_ruler_scientist_isolated
-		has_leader_flag = civil_war_ruler_scientist_dispute
+		has_leader_flag = leader_defected
 	}
 }
 
@@ -1265,30 +1255,6 @@ rebel_is_former_heir = {
 		has_leader_flag = civil_war_ruler_heir_isolated
 		has_leader_flag = civil_war_ruler_heir_gov_changed
 		has_leader_flag = civil_war_ruler_heir_disinherited
-	}
-}
-
-rebel_was_official = {
-	OR = {
-		has_leader_flag = civil_war_ruler_official
-		has_leader_flag = civil_war_ruler_official_isolated
-		has_leader_flag = civil_war_ruler_official_dispute
-	}
-}
-
-rebel_was_commander = {
-	OR = {
-		has_leader_flag = civil_war_ruler_commander
-		has_leader_flag = civil_war_ruler_commander_isolated
-		has_leader_flag = civil_war_ruler_commander_dispute
-	}
-}
-
-rebel_was_scientist = {
-	OR = {
-		has_leader_flag = civil_war_ruler_scientist
-		has_leader_flag = civil_war_ruler_scientist_isolated
-		has_leader_flag = civil_war_ruler_scientist_dispute
 	}
 }
 

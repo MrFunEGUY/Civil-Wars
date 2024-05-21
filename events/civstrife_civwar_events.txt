@@ -290,11 +290,7 @@ country_event = { # Setup for Civil War (create_country)
 								overlord = { country_event = { id = civwar.2000 } }
 							}
 							else_if = {
-								limit = {
-									event_target:civwar_rebels.ruler = {
-										has_leader_flag = civil_war_ruler_nationalist
-									}
-								}
+								limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_nationalist } }
 								if = { # Query Motherland if possible
 									limit = {
 										event_target:nat_motherland_model = {
@@ -313,22 +309,9 @@ country_event = { # Setup for Civil War (create_country)
 								overlord = { country_event = { id = civwar.2000 } }
 							}
 						}
-						# Official/Commander/Scientist
-						else_if = {
-							limit = {
-								event_target:civwar_rebels.ruler = {
-									rebel_is_former_leader = yes
-								}
-							}
-							country_event = { id = civwar.2010 }
-						}
 						# Nationalist
 						else_if = {
-							limit = {
-								event_target:civwar_rebels.ruler = {
-									has_leader_flag = civil_war_ruler_nationalist
-								}
-							}
+							limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_nationalist } }
 							if = { # Query Motherland if possible
 								limit = {
 									event_target:nat_motherland_model = {
@@ -346,11 +329,7 @@ country_event = { # Setup for Civil War (create_country)
 						}
 						# Isolated Sectoral Separatist Heir
 						else_if = {
-							limit = {
-								event_target:civwar_rebels.ruler = {
-									has_leader_flag = civil_war_ruler_heir_isolated
-								}
-							}
+							limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_isolated } }
 							country_event = { id = civwar.2065 }
 						}
 						# Disinherited Heir
@@ -367,13 +346,22 @@ country_event = { # Setup for Civil War (create_country)
 						}
 						# Disallowed Secession
 						else_if = {
-							limit = {
-								event_target:civwar_rebels.ruler = {
-									has_leader_flag = civil_war_ruler_secession
-								}
-							}
+							limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_secession } }
 							country_event = { id = civwar.2067 }
 						}
+						# Former Official/Commander/Scientist
+						else_if = {
+							limit = {
+								event_target:civwar_rebels.ruler = {
+									OR = {
+										rebel_is_former_leader = yes
+										has_leader_flag = civil_war_ruler_new
+									}
+								}
+							}
+							country_event = { id = civwar.2010 }
+						}
+
 
 						if = {
 							limit  = { is_variable_set = total_reb_countries }
@@ -1016,7 +1004,6 @@ country_event = { # Has Vassals, Vassal Interaction
 				limit = { check_variable = { which = combined_subject_fleet_power_ratio value >= 0.75 } }
 				random = {
 					chance = 60
-					# chance = 0
 					every_subject = {
 						limit = { is_ai = yes }
 						set_country_flag = subject_free_from_@root
@@ -1429,12 +1416,11 @@ country_event = { # Former Leader - Communications
 		name = ON_SCREEN_REBELS
 		hidden_effect = {
 			if = {
-				limit = { event_target:civwar_rebels.ruler = { rebel_was_official = yes } }
+				limit = { event_target:civwar_rebels.ruler = { leader_class = official } }
 				if = { # Regular Official, didnt get multiple sectors, may ask to become a vassal
 					limit = {
 						NOR = {
 							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
-							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_official_isolated }
 							event_target:civwar_rebels = {
 								OR = {
 									is_overlord = yes
@@ -1453,12 +1439,11 @@ country_event = { # Former Leader - Communications
 				else = { country_event = { id = civcom.1100 } }
 			}
 			else_if = {
-				limit = { event_target:civwar_rebels.ruler = { rebel_was_commander = yes } }
+				limit = { event_target:civwar_rebels.ruler = { leader_class = commander } }
 				if = {
 					limit = {
 						NOR = {
 							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
-							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_commander_isolated }
 							event_target:civwar_rebels = {
 								OR = {
 									is_overlord = yes
@@ -1477,12 +1462,11 @@ country_event = { # Former Leader - Communications
 				else = { country_event = { id = civcom.1100 } }
 			}
 			else_if = {
-				limit = { event_target:civwar_rebels.ruler = { rebel_was_scientist = yes } }
+				limit = { event_target:civwar_rebels.ruler = { leader_class = scientist } }
 				if = {
 					limit = {
 						NOR = {
 							any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
-							event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_scientist_isolated }
 							event_target:civwar_rebels = {
 								OR = {
 									is_overlord = yes
@@ -2177,6 +2161,11 @@ country_event = { # Create Fleets and give resources
 			mult = num_mil_pops
 		}
 
+		if = {
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
+			add_resource = { ecaf_crew = 2500 }
+		}
+
 		add_500_unity_per_year_passed = yes
 	}
 
@@ -2405,7 +2394,7 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 						}
 					}
 					pop_percentage = { # Civil War
-						percentage >= 0.25
+						percentage >= @civwar_pop_percent_needed
 						limit = {
 							exists = pop_faction
 							pop_faction = { is_same_value = root.target }
@@ -2432,7 +2421,7 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 						}
 					}
 					pop_percentage = {
-						percentage >= 0.25
+						percentage >= @civwar_pop_percent_needed
 						limit = {
 							exists = pop_faction
 							pop_faction = { is_same_value = root.target }
@@ -2449,7 +2438,7 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 					has_ground_combat = no
 					is_occupied_flag = no
 					pop_percentage = {
-						percentage >= 0.25
+						percentage >= @civwar_pop_percent_needed
 						limit = {
 							exists = pop_faction
 							pop_faction = { is_same_value = root.target }
@@ -2495,7 +2484,7 @@ situation_event = { # Revolt/Civil War Event
 						}
 					}
 					pop_percentage = { # Civil War
-						percentage >= 0.25
+						percentage >= @civwar_pop_percent_needed
 						# percentage > 0
 						limit = {
 							exists = pop_faction
@@ -2523,7 +2512,7 @@ situation_event = { # Revolt/Civil War Event
 						}
 					}
 					pop_percentage = {
-						percentage >= 0.25
+						percentage >= @civwar_pop_percent_needed
 						# percentage > 0
 						limit = {
 							exists = pop_faction
@@ -2549,7 +2538,7 @@ situation_event = { # Revolt/Civil War Event
 						}
 					}
 					pop_percentage = {
-						percentage >= 0.25
+						percentage >= @civwar_pop_percent_needed
 						# percentage > 0
 						limit = {
 							exists = pop_faction
@@ -2585,7 +2574,7 @@ situation_event = { # Revolt/Civil War Event
 						}
 					}
 					pop_percentage = { 
-						percentage >= 0.25
+						percentage >= @civwar_pop_percent_needed
 						# percentage > 0
 						limit = {
 							exists = pop_faction
@@ -2602,9 +2591,7 @@ situation_event = { # Revolt/Civil War Event
 					}
 				}
 				random = {
-					chance = 4
-					#chance = 4
-					#chance = 100
+					chance = @base_civil_war_chance
 					root.target = {
 						set_faction_rebellion_suppression_flag = yes
 					}
@@ -2685,7 +2672,7 @@ situation_event = { # Revolt/Civil War Event
 							}
 						}
 						pop_percentage = {
-							percentage >= 0.25
+							percentage >= @civwar_pop_percent_needed
 							# percentage > 0
 							limit = {
 								exists = pop_faction
@@ -2700,9 +2687,7 @@ situation_event = { # Revolt/Civil War Event
 					}
 				}
 				random = {
-					chance = 3
-					#chance = 3
-					# chance = 100
+					chance = @base_sector_rebellion_chance
 					root.target = {
 						set_faction_rebellion_suppression_flag = yes
 					}
@@ -2726,7 +2711,7 @@ situation_event = { # Revolt/Civil War Event
 							}
 						}
 						pop_percentage = {
-							percentage >= 0.25
+							percentage >= @civwar_pop_percent_needed
 							# percentage > 0
 							limit = {
 								exists = pop_faction
@@ -2741,9 +2726,7 @@ situation_event = { # Revolt/Civil War Event
 					}
 				}
 				random = {
-					chance = 2
-					#chance = 2
-					# chance = 100
+					chance = @base_plan_rebellion_chance
 					root.target = {
 						set_faction_rebellion_suppression_flag = yes
 					}
