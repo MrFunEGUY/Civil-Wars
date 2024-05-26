@@ -188,6 +188,13 @@ country_event = {
 					set_leader_flag = disinherited_heir_conspirer
 					set_leader_flag = civil_war_ruler_heir_disinherited
 				}
+				save_event_target_as = new_heir_country
+				if = {
+					limit = { exists = event_target:gov_switch_country }
+					event_target:gov_switch_country = {
+						every_owned_leader = { set_owner = event_target:new_heir_country }
+					}
+				}
 				set_name = {
 					key = heir_exile_country_name
 					variable_string = "[ruler.GetFirstName]"
@@ -251,6 +258,13 @@ country_event = {
 					save_event_target_as = disinherited_heir_ruler
 					set_leader_flag = disinherited_heir_conspirer
 					set_leader_flag = civil_war_ruler_heir_disinherited
+				}
+				save_event_target_as = new_heir_country
+				if = {
+					limit = { exists = event_target:gov_switch_country }
+					event_target:gov_switch_country = {
+						every_owned_leader = { set_owner = event_target:new_heir_country }
+					}
 				}
 				set_name = {
 					key = heir_exile_country_name
@@ -343,6 +357,12 @@ country_event = {
 	# Damn it!
 	option = {
 		name = civheir.3000.a
+		hidden_effect = {
+			if = {
+				limit = { exists = event_target:gov_switch_country }
+				event_target:gov_switch_country = { destroy_country = yes }
+			}
+		}
 	}
 }
 
@@ -727,7 +747,7 @@ country_event = {
 	}
 }
 
-# Government Changing, save heir
+# Government Changing, save heir and country
 country_event = {
 	id = civheir.8200
 	hide_window = yes
@@ -744,6 +764,22 @@ country_event = {
 
 	immediate = {
 		heir = { save_event_target_as = disinherited_heir_maybe }
+
+		create_country = {
+			name = root
+			type = heir_country
+			species = root.species
+			ignore_initial_colony_error = yes
+			day_zero_contact = no
+			authority = root
+			ethos = root
+			origin = origin_disinherited_heir
+			civics = root
+			flag = root
+			effect = {
+				save_event_target_as = gov_switch_country
+			}
+		}
 
 		if = {
 			limit = { heir = { has_leader_flag = adopted_dynastic_name } }
@@ -772,6 +808,10 @@ country_event = {
 		event_target:disinherited_heir_maybe = {
 			set_leader_flag = gov_changed_heir
 			save_event_target_as = disinherited_heir
+		}
+		if = {
+			limit = { exists = event_target:transfer_dynasty_name_leader }
+			event_target:transfer_dynasty_name_leader = { set_owner = event_target:gov_switch_country }
 		}
 		country_event = { id = civheir.1001 days = 2 random = 21 }
 	}
