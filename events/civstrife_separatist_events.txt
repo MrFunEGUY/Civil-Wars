@@ -1540,6 +1540,7 @@ country_event = { # Check disapproving Factions every month
 			}
 			else_if = {
 				limit = {
+					has_crisis = no
 					has_pop_faction_flag = iso_sector_faction
 					NOT = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
 				}

@@ -425,6 +425,7 @@ situation_civstrife_faction_iso_sep_sec = {
 
 	abort_trigger = {
 		OR = {
+			has_crisis = yes
 			situation_progress < 0
 			NOT = { exists = target }
 			target = { count_owned_pop = { count < 5 } }

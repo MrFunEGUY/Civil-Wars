@@ -98,6 +98,7 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 			flag = root
 			effect = {
 				copy_techs_from = { target = root }
+				copy_flags_and_variables_from = root
 				set_leader = root.ruler
 				set_graphical_culture = root
 				save_event_target_as = nat_pops_country
@@ -107,6 +108,10 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 				if = {
 					limit = { root = { has_country_flag = integrated_subject } }
 					set_country_flag = integrated_subject
+				}
+				if = {
+					limit = { has_secession_country_flag = yes }
+					find_secession_number_flag = yes
 				}
 			}
 		}
