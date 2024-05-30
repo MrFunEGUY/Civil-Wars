@@ -2737,7 +2737,7 @@ country_event = {
 	option = {
 		name = civcom.8000.a
 		hidden_effect = {
-			set_country_flag = traitor_already_asked_@event_target:defeated_traitor
+			set_country_flag = traitor_already_asked_@event_target:disinherited_heir
 			event_target:traitor_home_country = {
 				country_event = { id = civheir.3010 }
 			}
@@ -2782,8 +2782,8 @@ country_event = {
 		name = civcom.8000.b
 		hidden_effect = {
 			every_country = {
-				limit = { has_country_flag = traitor_already_asked_@event_target:defeated_traitor }
-				remove_country_flag = traitor_already_asked_@event_target:defeated_traitor
+				limit = { has_country_flag = traitor_already_asked_@event_target:disinherited_heir }
+				remove_country_flag = traitor_already_asked_@event_target:disinherited_heir
 			}
 			event_target:disinherited_heir = {
 				set_owner = root

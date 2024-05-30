@@ -241,13 +241,6 @@ on_pre_government_changed = {
 	}
 }
 
-# Executed just as country is changing its government, after the new one is applied
-# THIS = country
-on_post_government_changed = {
-	events = {
-		# civheir.8210			# Heir will defect if non-imperial
-	}
-}
 
 # Executed as a leader has been fired
 # This = Country
@@ -301,7 +294,7 @@ on_election_started = {
 # scope: country
 on_election_ended = {
 	events = {
-		# civelect.1000				# Election dispute initialzer initialzer
+		# civelect.1000				# Election dispute initializer initializer
 	}
 }
 
