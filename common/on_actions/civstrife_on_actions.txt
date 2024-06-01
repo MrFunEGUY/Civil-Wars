@@ -198,8 +198,8 @@ on_war_won = {
 		civend.3005				# Subjects who helped rebels in Civ War become independent
 		civend.3010				# Subjects who pledged to rebels in Civ War become subjects again
 		civend.3020				# Subjects who helped rebels in Civ War become subjects again
-		civend.3030				# Remove joiner flag
-		civend.3031				# Remove joiner flag
+		civend.3030				# Remove Subject Flags
+		civend.3031				# Remove Subject Flags - Rebels
 		civend.8000				# Traitorous Leader Installed at end of war
 		civnat.1341				# Gov In Exile restoration on war won
 		civethic.6000			# Set Recent Civil War Flag
@@ -214,8 +214,9 @@ on_war_won = {
 # FromFromFromFrom = War
 on_status_quo = {
 	events = {
+		civend.3006				# Subjects who helped rebels in Civ War become independent
+		civend.3032				# Remove Subject Flags
 		civnat.1342				# Gov In Exile restoration on status quo
-		civend.3032				# Remove joiner flag
 		civethic.6010			# Set Recent Civil War Flag
 	}
 }

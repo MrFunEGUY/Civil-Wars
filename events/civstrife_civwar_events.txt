@@ -33,6 +33,19 @@ country_event = { # Setup for Civil War (create_country)
 				limit = { pop_has_happiness = yes }
 				prev = { change_variable = { which = total_happiness_pops value = 1 } }
 			}
+
+			if = {
+				limit = { NOT = { has_country_flag = rebel_speaker_country_timer } }
+				set_timed_country_flag = { flag = rebel_speaker_country_timer days = 7 }
+			}
+			else = {
+				root = { set_country_flag = mute_rebel_country }
+			}
+
+			if = {
+				limit = { NOT = { has_country_flag = is_my_civil_war } }
+				set_country_flag = is_my_civil_war
+			}
 		}
 
 		# Flip Systems and Planets, count pops
@@ -258,7 +271,12 @@ country_event = { # Setup for Civil War (create_country)
 
 			# Declare War
 			if = {
-				limit = { NOT = { has_country_flag = peaceful_secession } }
+				limit = {
+					NOR = {
+						has_country_flag = peaceful_secession
+						event_target:civwar_rebels = { has_country_flag = mute_rebel_country }
+					}
+				}
 				if = {
 					limit = { is_overlord = no }
 					if = {
@@ -273,6 +291,7 @@ country_event = { # Setup for Civil War (create_country)
 						# Subject Civil War
 						if = {
 							limit = { overlord_protects_subject = yes }
+							log = "OVERLORD PROTECT"
 							event_target:civwar_originator = { # Make subjects fall into civil war less often
 								set_timed_country_flag = { flag = recent_civil_war years = 20 }
 							}
@@ -280,14 +299,16 @@ country_event = { # Setup for Civil War (create_country)
 								limit = {
 									event_target:civwar_rebels.ruler = {
 										OR = {
-											rebel_is_former_leader = yes
 											rebel_is_former_heir = yes
+											rebel_is_former_leader = yes
+											has_leader_flag = civil_war_ruler_new
 											has_leader_flag = civil_war_ruler_secession
 										}
 									}
 								}
 								country_event = { id = civwar.2005 }
-								overlord = { country_event = { id = civwar.2000 } }
+								overlord = { country_event = { id = civwar.2000 days = 1 } }
+								LOG = "1"
 							}
 							else_if = {
 								limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_nationalist } }
@@ -295,18 +316,21 @@ country_event = { # Setup for Civil War (create_country)
 									limit = {
 										event_target:nat_motherland_model = {
 											is_exile_country = no
-											# For now, I will make this work for subjects in the near future
+											# For now, I will make this work for subjects in the future
 											is_subject = no
 										}
 									}
 									country_event = { id = civwar.2050 }
+									LOG = "2.1"
 								}
 								else = {
 									event_target:nat_motherland_model = { set_country_flag = motherland_wont_join_@event_target:civwar_rebels }
 									country_event = { id = civwar.2055 }
+									LOG = "2.2"
 								}
 								country_event = { id = civwar.2005 }
-								overlord = { country_event = { id = civwar.2000 } }
+								overlord = { country_event = { id = civwar.2000 days = 1 } }
+								LOG = "2"
 							}
 						}
 						# Nationalist
@@ -324,13 +348,13 @@ country_event = { # Setup for Civil War (create_country)
 							}
 							else = {
 								event_target:nat_motherland_model = { set_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-								country_event = { id = civwar.2055 }
+								country_event = { id = civwar.2055 days = 1 }
 							}
 						}
 						# Isolated Sectoral Separatist Heir
 						else_if = {
 							limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_isolated } }
-							country_event = { id = civwar.2065 }
+							country_event = { id = civwar.2065 days = 1 }
 						}
 						# Disinherited Heir
 						else_if = {
@@ -342,12 +366,12 @@ country_event = { # Setup for Civil War (create_country)
 									}
 								}
 							}
-							country_event = { id = civwar.2066 }
+							country_event = { id = civwar.2066 days = 1 }
 						}
 						# Disallowed Secession
 						else_if = {
 							limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_secession } }
-							country_event = { id = civwar.2067 }
+							country_event = { id = civwar.2067 days = 1 }
 						}
 						# Former Official/Commander/Scientist
 						else_if = {
@@ -359,7 +383,7 @@ country_event = { # Setup for Civil War (create_country)
 									}
 								}
 							}
-							country_event = { id = civwar.2010 }
+							country_event = { id = civwar.2010 days = 1 }
 						}
 
 
@@ -432,7 +456,8 @@ country_event = { # Setup for Civil War (create_country)
 					}
 				}
 			}
-			else = {
+			else_if = {
+				limit = { has_country_flag = peaceful_secession }
 				# Notify of newly created country
 				country_event = { id = civwar.2200 }
 				remove_country_flag = peaceful_secession
@@ -583,45 +608,6 @@ country_event = { # Setup for Rebellions (create_rebels)
 			limit = { can_be_soldier = yes }
 			root = { change_variable = { which = num_mil_pops value = 1 } }
 		}
-
-		#while = { # clean up borders 1
-		#	limit = {
-		#		any_system_within_border = {
-		#			closest_system = {
-		#				limit = {
-		#					exists = space_owner
-		#					space_owner = { is_same_value = event_target:civwar_originator }
-		#					NOT = { exists = sector }
-		#				}
-		#				use_bypasses = yes
-		#				max_steps = 1
-		#			}
-		#		}
-		#	}
-		#	random_system_within_border = {
-		#		limit = {
-		#			closest_system = {
-		#				limit = {
-		#					exists = space_owner
-		#					space_owner = { is_same_value = event_target:civwar_originator }
-		#					NOT = { exists = sector }
-		#				}
-		#				use_bypasses = yes
-		#				max_steps = 1
-		#			}
-		#		}
-		#		closest_system = {
-		#			limit = {
-		#				exists = space_owner
-		#				space_owner = { is_same_value = event_target:civwar_originator }
-		#				NOT = { exists = sector }
-		#			}
-		#			use_bypasses = yes
-		#			max_steps = 1
-		#			starbase = { set_owner = root }
-		#		}
-		#	}
-		#}
 
 		get_country_immediate_setup = yes
 	}
@@ -2328,6 +2314,11 @@ country_event = { # Give Systems
 	hide_window = yes
 	is_triggered_only = yes
 
+	trigger = { # The sector deletion bug means this could easily be an accidental game over for human players with small territory if we dont account for it
+		exists = event_target:civwar_originator
+		event_target:civwar_originator.capital_scope = { exists = sector }
+	}
+
 	immediate = {
 		while = { # clean up borders 2
 			limit = {
@@ -2364,6 +2355,10 @@ country_event = { # Give Systems
 					use_bypasses = yes
 					max_steps = 1
 					starbase = { set_owner = root }
+					if = {
+						limit = { event_target:civwar_originator = { is_at_war_with = root } }
+						add_claims = { who = event_target:civwar_originator }
+					}
 				}
 			}
 		}

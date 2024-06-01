@@ -311,6 +311,7 @@ country_event = {
 			}
 			any_attacker = {
 				has_overlord = root
+				NOT = { has_country_flag = is_my_civil_war }
 				NOT = { has_country_flag = sub_joins_overlord }
 			}
 		}
@@ -321,6 +322,7 @@ country_event = {
 			every_attacker = {
 				limit = {
 					has_overlord = root
+					NOT = { has_country_flag = is_my_civil_war }
 					NOT = { has_country_flag = sub_joins_overlord }
 				}
 				set_subject_of = { who = none }
@@ -358,6 +360,43 @@ country_event = {
 			limit = { has_country_flag = helped_rebels_sub }
 			remove_country_flag = helped_rebels_sub
 			set_subject_of = { who = none }
+		}
+	}
+}
+
+# Set subjects who assisted in civwar free on rebel side - Status Quo
+country_event = {
+	id = civend.3006
+	hide_window = yes
+	is_triggered_only = yes
+
+	# A status quo has been signed
+	# Root = Actor
+	# From = Recipient
+	# FromFrom = Main Attacker
+	# FromFromFrom = Main Defender
+	# FromFromFromFrom = War
+
+	trigger = {
+		FromFromFrom = { is_overlord = yes }
+		FromFromFromFrom = {
+			OR = {
+				using_war_goal = { type = wg_civwar_rebel owner = root }
+				using_war_goal = { type = wg_natwar_rebel owner = root }
+				using_war_goal = { type = wg_civwar_heir_rebel owner = root }
+				using_war_goal = { type = wg_coup_successor_opponent owner = root }
+				using_war_goal = { type = wg_coup_independent_opponent owner = root }
+			}
+		}
+	}
+
+	immediate = {
+		FromFromFrom = {
+			every_subject = {
+				limit = { has_country_flag = helped_rebels_sub }
+				remove_country_flag = helped_rebels_sub
+				set_subject_of = { who = none }
+			}
 		}
 	}
 }
@@ -440,7 +479,7 @@ country_event = {
 	}
 }
 
-# Remove joiner flag
+# Flag Remover Initializer
 country_event = {
 	id = civend.3030
 	hide_window = yes
@@ -460,21 +499,31 @@ country_event = {
 				using_war_goal = { type = wg_coup_successor owner = root }
 				using_war_goal = { type = wg_coup_independent owner = root }
 			}
-			any_attacker = { has_country_flag = sub_joins_overlord }
+			any_war_participant = {
+				OR = {
+					has_country_flag = is_my_civil_war
+					has_country_flag = sub_joins_overlord
+				}
+			}
 		}
 	}
 
 	immediate = {
 		fromfrom = {
-			every_attacker = {
-				limit = { has_country_flag = sub_joins_overlord }
-				remove_country_flag = sub_joins_overlord
+			every_war_participant = {
+				limit = {
+					OR = {
+						has_country_flag = is_my_civil_war
+						has_country_flag = sub_joins_overlord
+					}
+				}
+				country_event = { id = civend.3045 days = 2 }
 			}
 		}
 	}
 }
 
-# Remove joiner flag
+# Flag Remover Initializer - Rebels
 country_event = {
 	id = civend.3031
 	hide_window = yes
@@ -494,21 +543,31 @@ country_event = {
 				using_war_goal = { type = wg_coup_successor_opponent owner = root }
 				using_war_goal = { type = wg_coup_independent_opponent owner = root }
 			}
-			any_attacker = { has_country_flag = sub_joins_overlord }
+			any_war_participant = {
+				OR = {
+					has_country_flag = is_my_civil_war
+					has_country_flag = sub_joins_overlord
+				}
+			}
 		}
 	}
 
 	immediate = {
 		fromfrom = {
-			every_attacker = {
-				limit = { has_country_flag = sub_joins_overlord }
-				remove_country_flag = sub_joins_overlord
+			every_war_participant = {
+				limit = {
+					OR = {
+						has_country_flag = is_my_civil_war
+						has_country_flag = sub_joins_overlord
+					}
+				}
+				country_event = { id = civend.3045 days = 2 }
 			}
 		}
 	}
 }
 
-# Remove joiner flag
+# Flag Remover Initializer - Status Quo
 country_event = {
 	id = civend.3032
 	hide_window = yes
@@ -530,19 +589,55 @@ country_event = {
 				using_war_goal = { type = wg_coup_successor owner = root }
 				using_war_goal = { type = wg_coup_independent owner = root }
 			}
-			any_attacker = { has_country_flag = sub_joins_overlord }
+			any_war_participant = {
+				OR = {
+					has_country_flag = is_my_civil_war
+					has_country_flag = sub_joins_overlord
+				}
+			}
 		}
 	}
 
 	immediate = {
 		FromFromFromFrom = {
-			every_attacker = {
-				limit = { has_country_flag = sub_joins_overlord }
-				remove_country_flag = sub_joins_overlord
+			every_war_participant = {
+				limit = {
+					OR = {
+						has_country_flag = is_my_civil_war
+						has_country_flag = sub_joins_overlord
+					}
+				}
+				country_event = { id = civend.3045 days = 2 }
 			}
 		}
 	}
 }
+
+## ^^ Flag Remover
+country_event = {
+	id = civend.3045
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = is_my_civil_war
+			has_country_flag = sub_joins_overlord
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = { has_country_flag = is_my_civil_war }
+			remove_country_flag = is_my_civil_war
+		}
+		if = {
+			limit = { has_country_flag = sub_joins_overlord }
+			remove_country_flag = sub_joins_overlord
+		}
+	}
+}
+
 
 ########
 

@@ -439,15 +439,13 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator
 			remove_country_flag = motherland_wont_join_@event_target:civwar_rebels
 		}
 	}
-	if = {
+
+	if = { # Ally Rebels join war
 		limit = { any_country = { has_country_flag = ally_reb_@event_target:civwar_originator } }
 		every_country = {
 			limit = {
 				has_country_flag = ally_reb_@event_target:civwar_originator
-				NOT = {
-					exists = event_target:civwar_rebels
-					is_same_value = event_target:civwar_rebels
-				}
+				NOT = { is_same_value = event_target:civwar_rebels }
 			}
 			if = {
 				limit = {
@@ -464,7 +462,7 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator
 			}
 		}
 		if = {
-			limit = {  exists = event_target:civwar_rebels }
+			limit = { exists = event_target:civwar_rebels }
 			event_target:civwar_rebels = {
 				if = {
 					limit = {
@@ -565,6 +563,11 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator
 		# 	set_timed_country_flag = { flag = subject_after_effects_timer years = 1 }
 		# 	get_subject_decisions_effect = yes
 		# }
+	}
+
+	if = { ## Otherwise is removed after war
+		limit = { NOT = { is_at_war_with = event_target:civwar_rebels } }
+		remove_country_flag = is_my_civil_war
 	}
 }
 
@@ -13068,13 +13071,164 @@ get_country_immediate_setup = {
 
 get_country_after_setup = {
 
+	## Fix ethics (sometimes needed if country is created too fast, like with multiple sectors
 	if = {
-		limit = { event_target:civwar_originator = { is_ai = yes } } # The sector deletion bug means this will easily be an accidental game over for human players who have small civil wars.
-		country_event = { id = civwar.3200 days = 8 } # Border cleanup 2, needs delay because sometimes the core sector is deleted for no reason.
+		limit = {
+			OR = {
+				AND = {
+					has_country_flag = civwar_mil
+					NOT = { has_ethic = ethic_fanatic_militarist }
+				}
+				AND = {
+					has_country_flag = civwar_pac
+					NOT = { has_ethic = ethic_fanatic_pacifist }
+				}
+				AND = {
+					has_country_flag = civwar_mat
+					NOT = { has_ethic = ethic_fanatic_materialist }
+				}
+				AND = {
+					has_country_flag = civwar_spi
+					NOT = { has_ethic = ethic_fanatic_spiritualist }
+				}
+				AND = {
+					has_country_flag = civwar_auth
+					NOT = { has_ethic = ethic_fanatic_authoritarian }
+				}
+				AND = {
+					has_country_flag = civwar_egal
+					NOT = { has_ethic = ethic_fanatic_egalitarian }
+				}
+				AND = {
+					has_country_flag = civwar_phobe
+					NOT = { has_ethic = ethic_fanatic_xenophobe }
+				}
+				AND = {
+					has_country_flag = civwar_phile
+					NOT = { has_ethic = ethic_fanatic_xenophile }
+				}
+				AND = {
+					has_country_flag = civwar_soc
+					NOT = { has_ethic = ethic_fanatic_socialism }
+				}
+				AND = {
+					has_country_flag = civwar_cap
+					NOT = { has_ethic = ethic_fanatic_capitalism }
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = civwar_mil
+				NOT = { has_ethic = ethic_fanatic_militarist }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_militarist } }
+				shift_ethic = ethic_militarist
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_pac
+				NOT = { has_ethic = ethic_fanatic_pacifist }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_pacifist } }
+				shift_ethic = ethic_pacifist
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_mat
+				NOT = { has_ethic = ethic_fanatic_materialist }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_materialist } }
+				shift_ethic = ethic_materialist
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_spi
+				NOT = { has_ethic = ethic_fanatic_spiritualist }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_spiritualist } }
+				shift_ethic = ethic_spiritualist
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_auth
+				NOT = { has_ethic = ethic_fanatic_authoritarian }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_authoritarian } }
+				shift_ethic = ethic_authoritarian
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_egal
+				NOT = { has_ethic = ethic_fanatic_egalitarian }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_egalitarian } }
+				shift_ethic = ethic_egalitarian
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_phobe
+				NOT = { has_ethic = ethic_fanatic_xenophobe }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+				shift_ethic = ethic_xenophobe
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_phile
+				NOT = { has_ethic = ethic_fanatic_xenophile }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_xenophile } }
+				shift_ethic = ethic_xenophile
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_soc
+				NOT = { has_ethic = ethic_fanatic_socialism }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_socialism } }
+				shift_ethic = ethic_socialism
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_cap
+				NOT = { has_ethic = ethic_fanatic_capitalism }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_capitalism } }
+				shift_ethic = ethic_capitalism
+			}
+		}
+
+		change_government = {
+			authority = random
+			cooldown = no
+			remove_invalid_civics = yes
+			civics = random
+		}
 	}
 
-	get_secession_country_info = yes
+	country_event = { id = civwar.3200 days = 8 } # Border cleanup 2, needs delay because sometimes the core sector is deleted for no reason.
 
+	get_secession_country_info = yes
 
 	ruler = {
 		if = {
