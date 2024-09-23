@@ -444,7 +444,7 @@ country_event = { # Gov In Exile restoration, when released peacefully
 			if = {
 				limit = {
 					root = { is_subject = yes } # To make sure that they actually had a Government-In-Exile. If they didn't, a new dynasty will begin.
-					is_imperial = yes
+					is_imperial_authority =yes
 				}
 				set_leader = root.ruler
 				# This needs to be done or the species will be the ruler species, very odd.
@@ -624,7 +624,7 @@ country_event = { # Gov In Exile restoration, on war won
 				if = {
 					limit = {
 						prev = { is_subject = yes } # To make sure that they actually had a Government-In-Exile. If they didn't, a new dynasty will begin.
-						is_imperial = yes
+						is_imperial_authority =yes
 					}
 					set_leader = prev.ruler
 				}
@@ -775,8 +775,10 @@ country_event = { # Gov In Exile restoration, on status quo
 	is_triggered_only = yes
 
 	trigger = {
+		exists = fromfrom # This may require a workaround, because this should be done regardless of if this country still exists
 		FromFromFromFrom = {
-			using_war_goal = { type = wg_natwar owner = FromFrom }
+			defender = { has_origin = origin_nationalist_rebellion }
+			# using_war_goal = { type = wg_natwar owner = FromFrom }
 		}
 		any_country = {
 			is_exile_country = yes
@@ -803,7 +805,7 @@ country_event = { # Gov In Exile restoration, on status quo
 				if = {
 					limit = {
 						prev = { is_subject = yes } # To make sure that they actually had a Government-In-Exile. If they didn't, a new dynasty will begin.
-						is_imperial = yes
+						is_imperial_authority =yes
 					}
 					set_leader = prev.ruler
 				}

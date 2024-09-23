@@ -19,7 +19,7 @@ country_event = {
 		is_primitive = no
 		has_primitive_civic = no
 		num_owned_planets > 1
-		is_imperial = yes
+		is_imperial_authority =yes
 		is_country_type_with_subjects = yes
 		exists = event_target:disinherited_heir
 		event_target:disinherited_heir = { is_fake_leader = no } # Failsafe
@@ -472,7 +472,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		is_imperial = yes
+		is_imperial_authority =yes
 		any_country = { has_country_flag = ruler_heir_connection_@from }
 		from = { is_same_value = root.leader }
 	}
@@ -754,7 +754,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		is_imperial = yes
+		is_imperial_authority =yes
 		exists = heir
 		is_country_type_with_subjects = yes
 		is_mercatorum = no
@@ -801,7 +801,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 
-	trigger = { is_imperial = no }  # Because you dont want to call this for just changing civics
+	trigger = { is_imperial_authority =no }  # Because you dont want to call this for just changing civics
 
 	immediate = {
 

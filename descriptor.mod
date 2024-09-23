@@ -6,5 +6,5 @@ tags={
 }
 name="Civil Wars"
 picture="thumbnail.png"
-supported_version="3.12.*"
+supported_version="v3.13.*"
 remote_file_id="2434790082"

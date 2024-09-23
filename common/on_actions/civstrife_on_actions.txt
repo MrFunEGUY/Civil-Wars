@@ -221,6 +221,21 @@ on_status_quo = {
 	}
 }
 
+# A status quo has been signed, by force
+# Root = Recipient
+# From = Actor
+# FromFrom = Main Attacker
+# FromFromFrom = Main Defender
+# FromFromFromFrom = War
+on_status_quo_forced = {
+	events = {
+		civend.3006				# Subjects who helped rebels in Civ War become independent
+		civend.3032				# Remove Subject Flags
+		civnat.1342				# Gov In Exile restoration on status quo
+		civethic.6010			# Set Recent Civil War Flag
+	}
+}
+
 # Executed as a leader has died
 # This = Country
 # From = Leader

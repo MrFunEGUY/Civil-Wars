@@ -2014,7 +2014,7 @@ situation_event = { # Sectoral Revolt Event
 					root.target = {
 						random_owned_pop = {
 							species = { save_event_target_as = civwar_species }
-							planet = { save_event_target_as = iso_background_planet }
+							planet = { save_event_target_as = leader_homeworld }
 						}
 					}
 					owner = {
@@ -2024,7 +2024,7 @@ situation_event = { # Sectoral Revolt Event
 							name = random
 							skill = 5
 							traits = { trait = trait_ruler_deep_connections }
-							background_planet = event_target:iso_background_planet
+							background_planet = event_target:leader_homeworld
 							effect = {
 								set_leader_flag = leader_for_@event_target:civil_war_planet
 								set_leader_flag = new_isolated_sector_ruler

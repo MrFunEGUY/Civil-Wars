@@ -90,7 +90,7 @@ country_event = { # Check disapproving Factions every month
 			# Democracies are willing to deal with lower approval, as their will be an election in the future.
 			OR = {
 				AND = {
-					owner = { is_democracy = yes }
+					owner = { is_democratic_authority =yes }
 					OR = {
 						AND = {
 							owner = { is_ai = no }
@@ -105,7 +105,7 @@ country_event = { # Check disapproving Factions every month
 					}
 				}
 				AND = {
-					owner = { is_democracy = no }
+					owner = { is_democratic_authority =no }
 					OR = {
 						AND = {
 							owner = { is_ai = no }
@@ -189,7 +189,7 @@ country_event = { # Check disapproving Factions every month
 				}
 				OR = {
 					AND = {
-						owner = { is_democracy = yes }
+						owner = { is_democratic_authority =yes }
 						OR = {
 							AND = {
 								owner = { is_ai = no }
@@ -204,7 +204,7 @@ country_event = { # Check disapproving Factions every month
 						}
 					}
 					AND = {
-						owner = { is_democracy = no }
+						owner = { is_democratic_authority =no }
 						OR = {
 							AND = {
 								owner = { is_ai = no }
@@ -533,6 +533,7 @@ country_event = { # Set timer flag
 	is_triggered_only = yes
 
 	trigger = {
+		exists = fromfrom # This may require a workaround, because this should be done regardless of if this country still exists
 		FromFromFromFrom = {
 			using_war_goal = { type = wg_civwar owner = FromFrom }
 		}

@@ -68,7 +68,7 @@ desc = {
 				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
-				is_imperial = no
+				is_imperial_authority =no
 				has_origin = origin_nationalist_rebellion
 				has_country_flag = exile_restored_country
 			}
@@ -83,7 +83,7 @@ desc = {
 				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
-				is_imperial = no
+				is_imperial_authority =no
 				has_origin = origin_nationalist_rebellion
 				has_country_flag = exile_restored_country
 			}
@@ -98,7 +98,7 @@ desc = {
 				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
-				is_imperial = yes
+				is_imperial_authority =yes
 				has_origin = origin_nationalist_rebellion
 				has_country_flag = exile_restored_country
 			}
@@ -113,7 +113,7 @@ desc = {
 				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
-				is_imperial = yes
+				is_imperial_authority =yes
 				has_origin = origin_nationalist_rebellion
 				has_country_flag = exile_restored_country
 			}
@@ -159,7 +159,7 @@ desc = {
 			text = civcom.1100.dispute.other.desc
 			OR = {
 				is_oligarchy = yes
-				is_dictatorial = yes
+				is_dictatorial_authority =yes
 			}
 			is_megacorp = no
 			event_target:civwar_rebels = { has_country_flag = election_dispute_country }

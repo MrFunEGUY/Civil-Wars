@@ -125,7 +125,7 @@ totalitarian = {
 
 		potential = {
 			exists = owner
-			owner = { is_democracy = no }
+			owner = { is_democratic_authority = no }
 		}
 
 		trigger = {
@@ -147,7 +147,7 @@ totalitarian = {
 		}
 
 		trigger = {
-			owner = { is_democracy = no }
+			owner = { is_democratic_authority =no }
 		}
 	}
 
@@ -355,6 +355,7 @@ totalitarian = {
 		potential = {
 			exists = owner
 			owner = { has_technology = tech_centralized_state }
+			has_global_flag = cultural_overhaul_active
 		}
 		trigger = {
 			owner = { has_policy_flag = centralized_state }
@@ -688,7 +689,7 @@ totalitarian = {
 			potential = {
 				exists = owner
 				owner = {
-					has_authority = auth_oligarchic
+					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 				}
 				is_faction_extorted = no
@@ -711,7 +712,7 @@ totalitarian = {
 			potential = {
 				exists = owner
 				owner = {
-					has_authority = auth_oligarchic
+					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 				}
 				is_faction_extorted = yes

@@ -846,7 +846,7 @@ make_isolated_sector_country = {
 			if = {
 				limit = { has_global_flag = cultural_overhaul_funefork_active }
 				if = {
-					limit = { is_imperial = yes }
+					limit = { is_imperial_authority =yes }
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
@@ -953,7 +953,7 @@ make_isolated_sector_country = {
 					}
 				}
 				else_if = {
-					limit = { is_dictatorial = yes }
+					limit = { is_dictatorial_authority =yes }
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
@@ -1060,7 +1060,7 @@ make_isolated_sector_country = {
 					}
 				}
 				else_if = {
-					limit = { is_democracy = yes }
+					limit = { is_democratic_authority =yes }
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
@@ -1259,7 +1259,7 @@ make_isolated_sector_country = {
 			}
 			else = {
 				if = { # Imperial governments usually make imperial govenrments
-					limit = { is_imperial = yes }
+					limit = { is_imperial_authority =yes }
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
@@ -1349,7 +1349,7 @@ make_isolated_sector_country = {
 					}
 				}
 				else_if = {
-					limit = { is_dictatorial = yes }
+					limit = { is_dictatorial_authority =yes }
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
@@ -1439,7 +1439,7 @@ make_isolated_sector_country = {
 					}
 				}
 				else_if = {
-					limit = { is_democracy = yes }
+					limit = { is_democratic_authority =yes }
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
@@ -1605,7 +1605,7 @@ make_isolated_sector_country = {
 		}
 		else = {
 			if = {
-				limit = { is_imperial = yes }
+				limit = { is_imperial_authority =yes }
 				random_list = {
 					65 = { # Same as Motherland
 						create_country = {
@@ -1678,7 +1678,7 @@ make_isolated_sector_country = {
 				}
 			}
 			else_if = {
-				limit = { is_dictatorial = yes }
+				limit = { is_dictatorial_authority =yes }
 				random_list = {
 					65 = { # Same as Motherland
 						create_country = {
@@ -1751,7 +1751,7 @@ make_isolated_sector_country = {
 				}
 			}
 			else_if = {
-				limit = { is_democracy = yes }
+				limit = { is_democratic_authority =yes }
 				random_list = {
 					65 = { # Same as Motherland
 						create_country = {
@@ -2088,9 +2088,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = authoritarian }
 			}
 			else_if = {
-				limit = {
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_authoritarian } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_authoritarian } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_authoritarian }
@@ -2107,10 +2105,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = egalitarian }
 			}
 			else_if = {
-				limit = {
-					root.target = { is_egalitarian_faction = yes }
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_egalitarian } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_egalitarian } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_egalitarian }
@@ -2127,10 +2122,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = militarist }
 			}
 			else_if = {
-				limit = {
-					root.target = { is_militarist_faction = yes }
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_militarist } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_militarist } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_militarist }
@@ -2147,10 +2139,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = pacifist }
 			}
 			else_if = {
-				limit = {
-					root.target = { is_pacifist_faction = yes }
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_pacifist } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_pacifist } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_pacifist }
@@ -2167,10 +2156,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = materialist }
 			}
 			else_if = {
-				limit = {
-					root.target = { is_materialist_faction = yes }
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_materialist } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_materialist } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_materialist }
@@ -2187,10 +2173,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = spiritualist }
 			}
 			else_if = {
-				limit = {
-					root.target = { is_spiritualist_faction = yes }
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_spiritualist } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_spiritualist } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_spiritualist }
@@ -2207,10 +2190,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = xenophile }
 			}
 			else_if = {
-				limit = {
-					root.target = { is_xenophile_faction = yes }
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_xenophile } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_xenophile } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_xenophile }
@@ -2227,10 +2207,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = xenophobe }
 			}
 			else_if = {
-				limit = {
-					root.target = { is_xenophobe_faction = yes }
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_xenophobe } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_xenophobe } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_xenophobe }
@@ -2247,10 +2224,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = socialism }
 			}
 			else_if = {
-				limit = {
-					root.target = { is_socialist_faction = yes }
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_socialism } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_socialism } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_socialism }
@@ -2267,10 +2241,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = capitalism }
 			}
 			else_if = {
-				limit = {
-					root.target = { is_capitalism_faction = yes }
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_capitalism } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_capitalism } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_capitalism }
@@ -2287,10 +2258,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = industrial }
 			}
 			else_if = {
-				limit = {
-					root.target = { is_industrial_faction = yes }
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_industrial } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_industrial } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_industrial }
@@ -2307,10 +2275,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = green }
 			}
 			else_if = {
-				limit = {
-					root.target = { is_ecologist_faction = yes }
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_green } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_green } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_green }
@@ -2327,10 +2292,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = elitist }
 			}
 			else_if = {
-				limit = {
-					root.target = { is_elitist_faction = yes }
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_elitist } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_elitist } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_elitist }
@@ -2347,10 +2309,7 @@ created_civwar_rebel_country_effect = {
 				get_homeworld_ethic_leader = { ETHIC = pluralist }
 			}
 			else_if = {
-				limit = {
-					root.target = { is_pluralist_faction = yes }
-					event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_pluralist } }
-				}
+				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_pluralist } } }
 				event_target:civil_war_planet.owner = {
 					random_owned_leader = {
 						limit = { has_ethic = ethic_pluralist }
@@ -2438,6 +2397,7 @@ created_civwar_rebel_country_effect = {
 			name = random
 			skill = 5
 			traits = { trait = trait_ruler_deep_connections }
+			background_planet = event_target:civil_war_planet
 			effect = {
 				set_leader_flag = new_civwar_ruler
 				save_event_target_as = new_rebel_leader
@@ -2470,6 +2430,7 @@ created_slave_rebel_country_effect = {
 		species = event_target:civwar_species
 		name = random
 		skill = 5
+		background_planet = event_target:civil_war_slave_leader_planet
 		traits = {
 			trait = trait_ruler_charismatic_2
 			trait = trait_ruler_champion_of_the_people_2
@@ -3146,7 +3107,7 @@ get_heir_multi_sector_effect = {
 	set_country_flag = heir_mother_country
 
 	if = {
-		limit = { event_target:heir_civil_war_dummy_country = { is_imperial = yes } }
+		limit = { event_target:heir_civil_war_dummy_country = { is_imperial_authority =yes } }
 		create_country = {
 			name = random
 			type = default
@@ -3196,7 +3157,7 @@ get_heir_one_sector_effect = {
 	set_country_flag = heir_mother_country
 
 	if = {
-		limit = { event_target:heir_civil_war_dummy_country = { is_imperial = yes } }
+		limit = { event_target:heir_civil_war_dummy_country = { is_imperial_authority =yes } }
 		create_country = {
 			name = random
 			type = default
@@ -3250,7 +3211,7 @@ get_heir_one_planet_effect = {
 		if = { # Idk why, but noticed this being an issue.
 			   # Will investigate eventually.
 			   # Dont know if it effects sector and civil, but added just to be safe.
-			limit = { event_target:heir_civil_war_dummy_country = { is_imperial = yes } }
+			limit = { event_target:heir_civil_war_dummy_country = { is_imperial_authority =yes } }
 			create_rebels = {
 				name = random
 				species = event_target:heir_civil_war_dummy_country.ruler.species
@@ -6775,6 +6736,7 @@ get_nat_plan_rebels = {
 get_plan_slave_rebels = {
 
 	save_event_target_as = civil_war_planet
+	save_event_target_as = civil_war_slave_leader_planet
 	set_planet_flag = plan_slave_revolt
 	set_timed_planet_flag = { flag = recent_slave_rebellion years = 5 }
 
@@ -6947,6 +6909,10 @@ get_sec_slave_rebels = {
 				order_by = species_pop_count
 				save_event_target_as = civwar_species
 			}
+			random_owned_planet = {
+				limit = { any_owned_species = { is_same_species = event_target:civwar_species } }
+				save_event_target_as = civil_war_slave_leader_planet
+			}
 		}
 	}
 
@@ -7097,7 +7063,6 @@ get_civil_war_leader = {
 
 	if = {
 		limit = { is_standard_faction_country = yes }
-
 		if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_auth } }
 			event_target:civwar_originator = {
@@ -8036,11 +8001,16 @@ get_civil_war_leader = {
 	}
 	else_if = {
 		limit = { has_origin = origin_nationalist_rebellion }
+		random_owned_planet = {
+			limit = { num_pops > 0 }
+			save_event_target_as = leader_homeworld
+		}
 		create_leader = {
 			class = random_ruler
 			species = root.species
 			name = random
 			skill = 5
+			background_planet = event_target:leader_homeworld
 			traits = { trait = trait_ruler_deep_connections }
 			effect = {
 				species = { save_event_target_as = civwar_species }
@@ -8094,7 +8064,7 @@ get_civil_war_leader = {
 		random_owned_pop = {
 			limit = { has_pop_flag = sep_leader_species }
 			species = { save_event_target_as = civwar_species }
-			planet = { save_event_target_as = ruler_background_planet }
+			planet = { save_event_target_as = leader_homeworld }
 		}
 		create_leader = {
 			class = random_ruler
@@ -8102,7 +8072,7 @@ get_civil_war_leader = {
 			name = random
 			skill = 5
 			traits = { trait = trait_ruler_deep_connections }
-			background_planet = event_target:ruler_background_planet
+			background_planet = event_target:leader_homeworld
 			effect = {
 				save_event_target_as = new_rebel_leader
 				set_leader_flag = new_civwar_ruler
@@ -8147,6 +8117,25 @@ get_homeworld_ethic_leader = {
 	}
 }
 
+get_leader_homeworld = {
+	if = {
+		limit = { any_owned_planet = { colony_age >= 10 } }
+		random_owned_planet = {
+			limit = { colony_age >= 10 }
+			save_event_target_as = leader_homeworld
+		}
+	}
+	else_if = {
+		limit = { exists = event_target:civwar_originator }
+		event_target:civwar_originator = {
+			random_owned_planet = {
+				limit = { colony_age >= 10 }
+				save_event_target_as = leader_homeworld
+			}
+		}
+	}
+}
+
 create_planetary_leader_with_ethic = {
 	create_leader = {
 		class = random_ruler
@@ -8154,6 +8143,7 @@ create_planetary_leader_with_ethic = {
 		name = random
 		skill = 5
 		background_ethic = ethic_$ETHIC$
+		background_planet = event_target:civil_war_planet
 		traits = { trait = trait_ruler_deep_connections }
 		effect = {
 			set_leader_flag = new_civwar_ruler
@@ -8163,12 +8153,16 @@ create_planetary_leader_with_ethic = {
 }
 
 create_civil_war_leader_with_ethic = {
+
+	get_leader_homeworld = yes
+
 	create_leader = {
 		class = random_ruler
 		species = event_target:civwar_species
 		name = random
 		skill = 5
 		background_ethic = ethic_$ETHIC$
+		background_planet = event_target:leader_homeworld
 		traits = { trait = trait_ruler_deep_connections }
 		effect = {
 			set_leader_flag = new_civwar_ruler
@@ -12989,11 +12983,13 @@ get_country_immediate_setup = {
 			set_fleet_stance = evasive				
 			set_location = root.capital_scope
 			owner = {
+				get_leader_homeworld = yes
 				create_leader = {
 					name = random
 					class = scientist
 					sub_type = survey
 					species = owner_main_species
+					background_planet = event_target:leader_homeworld
 				}
 			}
 			set_leader = last_created_leader
@@ -13014,28 +13010,34 @@ get_country_immediate_setup = {
 	}
 
 	# Create Leaders
+	get_leader_homeworld = yes
 	create_leader = {
 		class = official
 		species = owner_main_species
 		name = random
 		skill = 5
+		background_planet = event_target:leader_homeworld
 	}
 	while = {
 		count = 2
+		get_leader_homeworld = yes
 		create_leader = {
 			class = commander
 			species = owner_main_species
 			name = random
 			skill = 5
+			background_planet = event_target:leader_homeworld
 		}
 	}
 	while = {
 		count = 3
+		get_leader_homeworld = yes
 		create_leader = {
 			class = scientist
 			species = owner_main_species
 			name = random
 			skill = 5
+			background_planet = event_target:leader_homeworld
 		}
 	}
 
@@ -16705,11 +16707,13 @@ exile_restoration_gen_effect = {
 				set_fleet_stance = evasive				
 				set_location = event_target:new_homeland.capital_scope
 				owner = {
+					get_leader_homeworld = yes
 					create_leader = {
 						name = random
 						class = scientist
 						sub_type = survey
 						species = owner_main_species
+						background_planet = event_target:leader_homeworld
 					}
 				}
 				set_leader = last_created_leader
@@ -16730,25 +16734,31 @@ exile_restoration_gen_effect = {
 		}
 
 		# Create Leaders
+		get_leader_homeworld = yes
 		create_leader = {
 			class = official
 			species = owner_main_species
 			name = random
+			background_planet = event_target:leader_homeworld
 		}
 		while = {
 			count = 2
+			get_leader_homeworld = yes
 			create_leader = {
 				class = commander
 				species = owner_main_species
 				name = random
+				background_planet = event_target:leader_homeworld
 			}
 		}
 		while = {
 			count = 3
+			get_leader_homeworld = yes
 			create_leader = {
 				class = scientist
 				species = owner_main_species
 				name = random
+				background_planet = event_target:leader_homeworld
 			}
 		}
 
