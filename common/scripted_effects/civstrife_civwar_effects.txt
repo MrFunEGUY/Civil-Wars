@@ -3198,55 +3198,117 @@ get_heir_one_sector_effect = {
 get_heir_one_planet_effect = {
 	save_event_target_as = civwar_originator
 
-	# find planet
-	random_owned_planet = {
+	if = {
 		limit = {
-			is_capital = no
-			any_owned_pop = { can_think = yes }
-		}
-		
-		save_event_target_as = civil_war_planet
-		set_planet_flag = heir_planetary_rebellion
-
-		if = { # Idk why, but noticed this being an issue.
-			   # Will investigate eventually.
-			   # Dont know if it effects sector and civil, but added just to be safe.
-			limit = { event_target:heir_civil_war_dummy_country = { is_imperial_authority =yes } }
-			create_rebels = {
-				name = random
-				species = event_target:heir_civil_war_dummy_country.ruler.species
-				authority = event_target:heir_civil_war_dummy_country
-				ethos = random
-				origin = origin_heir_rebellion
-				civics = random
-				flag = random
-				effect = {
-					set_country_flag = heir_rebel_country
-					set_leader = event_target:heir_civil_war_dummy_country.ruler
-					event_target:heir_civil_war_dummy_country = { destroy_country = yes }
-					created_civwar_rebel_country_effect = yes
-				}
+			any_owned_planet = {
+				is_capital = no
+				any_owned_pop = { can_think = yes }
 			}
 		}
-		else = {
-			create_rebels = {
-				name = random
-				species = event_target:heir_civil_war_dummy_country.ruler.species
-				authority = auth_imperial
-				ethos = random
-				origin = origin_heir_rebellion
-				civics = random
-				flag = random
-				effect = {
-					set_country_flag = heir_rebel_country
-					set_leader = event_target:heir_civil_war_dummy_country.ruler
-					event_target:heir_civil_war_dummy_country = { destroy_country = yes }
-					created_civwar_rebel_country_effect = yes
+		random_owned_planet = {
+			limit = {
+				is_capital = no
+				any_owned_pop = { can_think = yes }
+			}
+			
+			save_event_target_as = civil_war_planet
+			set_planet_flag = heir_planetary_rebellion
+
+			if = { # Idk why, but noticed this being an issue.
+				# Will investigate eventually.
+				# Dont know if it effects sector and civil, but added just to be safe.
+				limit = { event_target:heir_civil_war_dummy_country = { is_imperial_authority = yes } }
+				create_rebels = {
+					name = random
+					species = event_target:heir_civil_war_dummy_country.ruler.species
+					authority = event_target:heir_civil_war_dummy_country
+					ethos = random
+					origin = origin_heir_rebellion
+					civics = random
+					flag = random
+					effect = {
+						set_country_flag = heir_rebel_country
+						set_leader = event_target:heir_civil_war_dummy_country.ruler
+						owner_main_species = { save_event_target_as = civwar_species }
+						event_target:heir_civil_war_dummy_country = { destroy_country = yes }
+						created_civwar_rebel_country_effect = yes
+					}
 				}
 			}
-		}
+			else = {
+				create_rebels = {
+					name = random
+					species = event_target:heir_civil_war_dummy_country.ruler.species
+					authority = auth_imperial
+					ethos = random
+					origin = origin_heir_rebellion
+					civics = random
+					flag = random
+					effect = {
+						set_country_flag = heir_rebel_country
+						set_leader = event_target:heir_civil_war_dummy_country.ruler
+						owner_main_species = { save_event_target_as = civwar_species }
+						event_target:heir_civil_war_dummy_country = { destroy_country = yes }
+						created_civwar_rebel_country_effect = yes
+					}
+				}
+			}
 
-		planet_event = { id = civplan.9000 }
+			planet_event = { id = civplan.9000 }
+		}
+	}
+	else_if = {
+		limit = { any_owned_planet = { is_capital = no } }
+		random_owned_planet = {
+			limit = {
+				is_capital = no
+			}
+			
+			save_event_target_as = civil_war_planet
+			set_planet_flag = heir_planetary_rebellion
+
+			if = { # Idk why, but noticed this being an issue.
+				# Will investigate eventually.
+				# Dont know if it effects sector and civil, but added just to be safe.
+				limit = { event_target:heir_civil_war_dummy_country = { is_imperial_authority = yes } }
+				create_rebels = {
+					name = random
+					species = event_target:heir_civil_war_dummy_country.ruler.species
+					authority = event_target:heir_civil_war_dummy_country
+					ethos = random
+					origin = origin_heir_rebellion
+					civics = random
+					flag = random
+					effect = {
+						set_country_flag = heir_rebel_country
+						set_leader = event_target:heir_civil_war_dummy_country.ruler
+						owner_main_species = { save_event_target_as = civwar_species }
+						event_target:heir_civil_war_dummy_country = { destroy_country = yes }
+						created_civwar_rebel_country_effect = yes
+					}
+				}
+			}
+			else = {
+				create_rebels = {
+					name = random
+					species = event_target:heir_civil_war_dummy_country.ruler.species
+					authority = auth_imperial
+					ethos = random
+					origin = origin_heir_rebellion
+					civics = random
+					flag = random
+					effect = {
+						set_country_flag = heir_rebel_country
+						set_leader = event_target:heir_civil_war_dummy_country.ruler
+						owner_main_species = { save_event_target_as = civwar_species }
+						event_target:heir_civil_war_dummy_country = { destroy_country = yes }
+						created_civwar_rebel_country_effect = yes
+					}
+				}
+			}
+
+			planet_event = { id = civplan.9000 }
+		}
 	}
 }
 
