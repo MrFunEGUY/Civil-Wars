@@ -6,13 +6,7 @@
 # Set Installed Heir Setup
 set_installed_heir_gov = {
 	if = {
-		limit = {
-			NOR = {
-				has_authority = auth_imperial
-				has_authority = auth_corporate_imperial
-				has_authority = auth_corporate_fiefdom
-			}
-		}
+		limit = { is_imperial_authority = no }
 		change_government = {
 			authority = auth_imperial
 			cooldown = no
