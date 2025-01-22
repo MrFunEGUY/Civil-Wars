@@ -444,7 +444,7 @@ country_event = { # Gov In Exile restoration, when released peacefully
 			if = {
 				limit = {
 					root = { is_subject = yes } # To make sure that they actually had a Government-In-Exile. If they didn't, a new dynasty will begin.
-					is_imperial_authority =yes
+					is_imperial_authority = yes
 				}
 				set_leader = root.ruler
 				# This needs to be done or the species will be the ruler species, very odd.
@@ -624,7 +624,7 @@ country_event = { # Gov In Exile restoration, on war won
 				if = {
 					limit = {
 						prev = { is_subject = yes } # To make sure that they actually had a Government-In-Exile. If they didn't, a new dynasty will begin.
-						is_imperial_authority =yes
+						is_imperial_authority = yes
 					}
 					set_leader = prev.ruler
 				}
@@ -805,7 +805,7 @@ country_event = { # Gov In Exile restoration, on status quo
 				if = {
 					limit = {
 						prev = { is_subject = yes } # To make sure that they actually had a Government-In-Exile. If they didn't, a new dynasty will begin.
-						is_imperial_authority =yes
+						is_imperial_authority = yes
 					}
 					set_leader = prev.ruler
 				}

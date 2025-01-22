@@ -840,7 +840,7 @@ make_isolated_sector_country = {
 			if = {
 				limit = { has_global_flag = cultural_overhaul_funefork_active }
 				if = {
-					limit = { is_imperial_authority =yes }
+					limit = { is_imperial_authority = yes }
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
@@ -947,7 +947,7 @@ make_isolated_sector_country = {
 					}
 				}
 				else_if = {
-					limit = { is_dictatorial_authority =yes }
+					limit = { is_dictatorial_authority = yes }
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
@@ -1054,7 +1054,7 @@ make_isolated_sector_country = {
 					}
 				}
 				else_if = {
-					limit = { is_democratic_authority =yes }
+					limit = { is_democratic_authority = yes }
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
@@ -1253,7 +1253,7 @@ make_isolated_sector_country = {
 			}
 			else = {
 				if = { # Imperial governments usually make imperial govenrments
-					limit = { is_imperial_authority =yes }
+					limit = { is_imperial_authority = yes }
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
@@ -1343,7 +1343,7 @@ make_isolated_sector_country = {
 					}
 				}
 				else_if = {
-					limit = { is_dictatorial_authority =yes }
+					limit = { is_dictatorial_authority = yes }
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
@@ -1433,7 +1433,7 @@ make_isolated_sector_country = {
 					}
 				}
 				else_if = {
-					limit = { is_democratic_authority =yes }
+					limit = { is_democratic_authority = yes }
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
@@ -1599,7 +1599,7 @@ make_isolated_sector_country = {
 		}
 		else = {
 			if = {
-				limit = { is_imperial_authority =yes }
+				limit = { is_imperial_authority = yes }
 				random_list = {
 					65 = { # Same as Motherland
 						create_country = {
@@ -1672,7 +1672,7 @@ make_isolated_sector_country = {
 				}
 			}
 			else_if = {
-				limit = { is_dictatorial_authority =yes }
+				limit = { is_dictatorial_authority = yes }
 				random_list = {
 					65 = { # Same as Motherland
 						create_country = {
@@ -1745,7 +1745,7 @@ make_isolated_sector_country = {
 				}
 			}
 			else_if = {
-				limit = { is_democratic_authority =yes }
+				limit = { is_democratic_authority = yes }
 				random_list = {
 					65 = { # Same as Motherland
 						create_country = {
@@ -3101,7 +3101,7 @@ get_heir_multi_sector_effect = {
 	set_country_flag = heir_mother_country
 
 	if = {
-		limit = { event_target:heir_civil_war_dummy_country = { is_imperial_authority =yes } }
+		limit = { event_target:heir_civil_war_dummy_country = { is_imperial_authority = yes } }
 		create_country = {
 			name = random
 			type = default
@@ -3151,7 +3151,7 @@ get_heir_one_sector_effect = {
 	set_country_flag = heir_mother_country
 
 	if = {
-		limit = { event_target:heir_civil_war_dummy_country = { is_imperial_authority =yes } }
+		limit = { event_target:heir_civil_war_dummy_country = { is_imperial_authority = yes } }
 		create_country = {
 			name = random
 			type = default

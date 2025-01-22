@@ -17,7 +17,7 @@ country_event = {
 		# from = { is_same_value = root.leader }
 		from = { is_ruler = yes }
 		NOT = { exists = heir }
-		is_imperial_authority =yes
+		is_imperial_authority = yes
 	}
 
 	immediate = {
@@ -315,7 +315,7 @@ country_event = { # Disputed Ruler Ascension, start situation
 
 	trigger = {
 		num_sectors > 1
-		is_imperial_authority =yes
+		is_imperial_authority = yes
 		NOR = {
 			exists = heir
 			exists = event_target:disinherited_heir
@@ -684,7 +684,7 @@ country_event = { # Imperial Ruler Set Flag
 	is_triggered_only = yes
 
 	trigger = {
-		is_imperial_authority =yes
+		is_imperial_authority = yes
 	}
 
 	immediate = {

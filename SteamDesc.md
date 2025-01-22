@@ -1,3 +1,5 @@
+[h1]Steam is having an INSANE bug right now where it is reverting this mod to 3.11 and not allowing it to be updated. Hopefully it can be resolved soon.[/h1]
+
 [h1]Civil Wars:[/h1]
 
 So you thought you could just build a galaxy-spanning empire and never have to worry about internal strife? Wrong.
