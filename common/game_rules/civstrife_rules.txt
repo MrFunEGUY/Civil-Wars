@@ -3,6 +3,36 @@
 #If rules here evaluate to true, there might still be other rules that make the action unavailable.
 #If a rule here evaluates to false the action will become unavailable
 
+
+can_build_branch_offices = {
+	custom_tooltip = {
+		fail_text = BRANCH_OFFICE_NOT_MEGACORP
+		is_exile_country = no
+		 OR = {
+		    is_megacorp = yes
+            has_civic = civic_galactic_sovereign_megacorp
+            has_valid_civic = civic_mutualistic_behavior
+        }
+	}
+}
+
+# this = leader
+can_dismiss_leader = {
+	custom_tooltip = {
+		fail_text = "requires_actor_not_feudal_society"
+		exists = owner
+		owner = {
+			NOT = { has_valid_civic = civic_feudal_realm }
+		}
+	}
+	custom_tooltip = {
+		fail_text = "cannot_fire_leader_during_crisis"
+		NOT = { has_leader_flag = cw_cannot_be_fired }
+	}
+}
+
+################ Pandemic Stuff
+
 # # This = Planet
 # can_resettle_planet = {
 # 	owner = {
@@ -134,18 +164,3 @@
 # 		is_doomsday_planet = yes
 # 	}
 # }
-
-# this = leader
-can_dismiss_leader = {
-	custom_tooltip = {
-		fail_text = "requires_actor_not_feudal_society"
-		exists = owner
-		owner = {
-			NOT = { has_valid_civic = civic_feudal_realm }
-		}
-	}
-	custom_tooltip = {
-		fail_text = "cannot_fire_leader_during_crisis"
-		NOT = { has_leader_flag = cw_cannot_be_fired }
-	}
-}
