@@ -25,7 +25,6 @@ dmm_mod_selected = {
 on_game_start_country = {
 	events = {
 		civstats.1000			# Set Global Stats
-		civroyal.2000			# Set Imperial Ruler Flag
 		civnat.2005				# Set Capital Fundamental Sector on Game Start
 	}
 }
@@ -153,7 +152,6 @@ on_planet_defenders_win = {
 # This = Country
 on_ruler_set = {
 	events = {
-		civroyal.2000			# Set Imperial Ruler Flag
 		civwar.9200				# Remove Civil War flags from leaders who become rulers
 		
 		civleader.2005			# Set Corrupt Ruler Trait

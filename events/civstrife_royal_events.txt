@@ -14,7 +14,7 @@ country_event = {
 	hide_window = yes
 
 	trigger = {
-		# from = { is_same_value = root.leader }
+		num_sectors > 1
 		from = { is_ruler = yes }
 		NOT = { exists = heir }
 		is_imperial_authority = yes
@@ -24,10 +24,7 @@ country_event = {
 
 		if = {
 			limit = {
-				from = { has_leader_flag = is_imperial_ruler }
-				num_sectors > 1
 				NOR = {
-					exists = heir
 					exists = event_target:disinherited_heir
 					has_country_flag = succ_crisis_popup
 					any_situation = { is_situation_type = situation_civstrife_succession }
@@ -289,7 +286,6 @@ country_event = {
 			}
 		}
 		else = {
-			log = "BAD ELSE"
 			create_leader = {
 				class = random_ruler
 				species = owner_main_species
@@ -317,7 +313,6 @@ country_event = { # Disputed Ruler Ascension, start situation
 		num_sectors > 1
 		is_imperial_authority = yes
 		NOR = {
-			exists = heir
 			exists = event_target:disinherited_heir
 			has_country_flag = succ_crisis_popup
 			any_situation = { is_situation_type = situation_civstrife_succession }
@@ -325,8 +320,6 @@ country_event = { # Disputed Ruler Ascension, start situation
 	}
 
 	immediate = {
-
-		# from = { save_event_target_as = crisis_dynasty_name } # For Loc
 
 		ruler = {
 			if = {
@@ -440,7 +433,10 @@ situation_event = { # Send Message out to officials to ask if they are loyal
 				limit = { num_sectors = 2 }
 				random_owned_sector = { 
 					limit = { NOT = { any_system_within_border = { is_capital_system = yes } } }
-					set_sector_flag = succession_crisis_rebel_sector
+					random = {
+						chance = 40
+						set_sector_flag = succession_crisis_rebel_sector
+					}
 				}
 			}
 			else = {
@@ -469,7 +465,7 @@ situation_event = { # Send Message out to officials to ask if they are loyal
 					else_if = {
 						limit = { has_sector_flag = fundamental_sector_@root.owner }
 						random = {
-							chance = 3
+							chance = 15
 							set_sector_flag = succession_crisis_rebel_sector
 						}
 					}
@@ -673,22 +669,6 @@ country_event = { # Officials/Dynasts are considering rebellion, start situation
 			limit = { is_at_war = no }
 			join_war = overlord
 		}
-	}
-}
-
-########
-
-country_event = { # Imperial Ruler Set Flag
-	id = civroyal.2000
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		is_imperial_authority = yes
-	}
-
-	immediate = {
-		ruler = { set_leader_flag = is_imperial_ruler }
 	}
 }
 

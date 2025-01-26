@@ -684,63 +684,61 @@ get_motherland_effect = {
 # Make countries
 
 make_civil_war_faction_country = {
-
 	if = {
 		limit = { root.target = { is_authoritarian_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1000 } }
+		owner = { create_auth_fac_country = yes }
 	}
 	else_if = {
 		limit = { root.target = { is_egalitarian_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1005 } }
+		owner = { create_egal_fac_country = yes }
 	}
 	else_if = {
 		limit = { root.target = { is_militarist_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1010 } }
-		log = "| Militarist Faction Revolt"
+		owner = { create_mil_fac_country = yes }
 	}
 	else_if = {
 		limit = { root.target = { is_pacifist_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1015 } }
+		owner = { create_pac_fac_country = yes }
 	}
 	else_if = {
 		limit = { root.target = { is_materialist_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1020 } }
+		owner = { create_mat_fac_country = yes }
 	}
 	else_if = {
 		limit = { root.target = { is_spiritualist_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1025 } }
+		owner = { create_spi_fac_country = yes }
 	}
 	else_if = {
 		limit = { root.target = { is_xenophile_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1030 } }
+		owner = { create_phile_fac_country = yes }
 	}
 	else_if = {
 		limit = { root.target = { is_xenophobe_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1035 } }
+		owner = { create_phobe_fac_country = yes }
 	}
 	else_if = {
 		limit = { root.target = { is_socialist_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1040 } }
+		owner = { create_soc_fac_country = yes }
 	}
 	else_if = {
 		limit = { root.target = { is_capitalism_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1045 } }
+		owner = { create_cap_fac_country = yes }
 	}
 	else_if = {
 		limit = { root.target = { is_industrial_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1050 } }
+		owner = { create_indus_fac_country = yes }
 	}
 	else_if = {
 		limit = { root.target = { is_ecologist_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1055 } }
+		owner = { create_eco_fac_country = yes }
 	}
 	else_if = {
 		limit = { root.target = { is_elitist_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1060 } }
+		owner = { create_elite_fac_country = yes }
 	}
 	else_if = {
 		limit = { root.target = { is_pluralist_faction = yes } }
-		owner = { country_event = { id = civwarcountry.1065 } }
+		owner = { create_plur_fac_country = yes }
 	}
 }
 
@@ -844,104 +842,44 @@ make_isolated_sector_country = {
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
 								authority = event_target:civwar_originator
 								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						10 = { # Dictatorial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_dictatorial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						10 = { # Democratic Dictatorial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_dict_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						10 = { # Oligarchic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_oligarchic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						3 = { # Democratic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						2 = { # Strict Democratic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_strict_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 					}
@@ -951,104 +889,44 @@ make_isolated_sector_country = {
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
 								authority = event_target:civwar_originator
 								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						15 = { # Imperial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_imperial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = event_target:civwar_originator
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						10 = { # Democratic Dictatorial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_dict_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						5 = { # Oligarchic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_oligarchic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						3 = { # Democratic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						2 = { # Strict Democratic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_strict_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 					}
@@ -1058,87 +936,37 @@ make_isolated_sector_country = {
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
 								authority = event_target:civwar_originator
 								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						15 = { # Oligarchic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_oligarchic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						10 = { # Democratic Dictatorial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_dict_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						5 = { # Imperial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_imperial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = event_target:civwar_originator
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						5 = { # Dictatorial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_dictatorial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 					}
@@ -1148,104 +976,44 @@ make_isolated_sector_country = {
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
 								authority = event_target:civwar_originator
 								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						10 = { # Imperial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_imperial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = event_target:civwar_originator
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						15 = { # Dictatorial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_dictatorial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						5 = { # Democratic Dictatorial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_dict_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						3 = { # Democratic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						2 = { # Strict Democratic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_strict_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 					}
@@ -1257,19 +1025,9 @@ make_isolated_sector_country = {
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
 								authority = event_target:civwar_originator
 								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						15 = { # Dictatorial
@@ -1291,53 +1049,23 @@ make_isolated_sector_country = {
 						}
 						10 = { # Oligarchic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_oligarchic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						7 = { # Democratic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						3 = { # Direct Democratic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_direct_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = event_target:civwar_originator
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 					}
@@ -1347,87 +1075,37 @@ make_isolated_sector_country = {
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
 								authority = event_target:civwar_originator
 								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						10 = { # Imperial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_imperial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = event_target:civwar_originator
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						15 = { # Oligarchic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_oligarchic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						7 = { # Democratic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						3 = { # Direct Democratic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_direct_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = event_target:civwar_originator
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 					}
@@ -1437,70 +1115,30 @@ make_isolated_sector_country = {
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
 								authority = event_target:civwar_originator
 								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						20 = { # Oligarchic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_oligarchic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						5 = { # Imperial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_imperial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = event_target:civwar_originator
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						10 = { # Dictatorial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_dictatorial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 					}
@@ -1510,87 +1148,37 @@ make_isolated_sector_country = {
 					random_list = {
 						65 = { # Same as Motherland
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
 								authority = event_target:civwar_originator
 								ethos = event_target:civwar_originator
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						10 = { # Imperial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_imperial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = event_target:civwar_originator
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						15 = { # Dictatorial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_dictatorial
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						7 = { # Democratic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = random
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						3 = { # Direct Democratic
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
-								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
 								authority = auth_direct_democratic
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								ethos = event_target:civwar_originator
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 					}
@@ -1603,70 +1191,30 @@ make_isolated_sector_country = {
 				random_list = {
 					65 = { # Same as Motherland
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
 							authority = event_target:civwar_originator
 							ethos = event_target:civwar_originator
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 					20 = { # Dictatorial
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							ethos = random
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							ethos = random
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 					10 = { # Oligarchic
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							ethos = random
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							ethos = random
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 					5 = { # Democratic
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							ethos = random
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
 							authority = auth_democratic
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							ethos = random
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 				}
@@ -1676,70 +1224,30 @@ make_isolated_sector_country = {
 				random_list = {
 					65 = { # Same as Motherland
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
 							authority = event_target:civwar_originator
 							ethos = event_target:civwar_originator
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 					10 = { # Imperial
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							ethos = random
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
 							authority = auth_imperial
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							ethos = random
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 					15 = { # Oligarchic
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							ethos = random
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							ethos = random
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 					10 = { # Democratic
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							ethos = random
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
 							authority = auth_democratic
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							ethos = random
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 				}
@@ -1749,70 +1257,30 @@ make_isolated_sector_country = {
 				random_list = {
 					65 = { # Same as Motherland
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
 							authority = event_target:civwar_originator
 							ethos = event_target:civwar_originator
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 					20 = { # Oligarchic
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							ethos = random
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							ethos = random
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 					10 = { # Dictatorial
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							ethos = random
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							ethos = random
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 					5 = { # Imperial
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							ethos = random
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
 							authority = auth_imperial
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							ethos = random
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 				}
@@ -1822,70 +1290,30 @@ make_isolated_sector_country = {
 				random_list = {
 					65 = { # Same as Motherland
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
 							authority = event_target:civwar_originator
 							ethos = event_target:civwar_originator
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 					10 = { # Imperial
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							ethos = random
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
 							authority = auth_imperial
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							ethos = random
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 					15 = { # Dictatorial
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							ethos = random
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							ethos = random
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 					10 = { # Democratic
 						create_country = {
-							name = random
-							type = default
-							species = event_target:civwar_species
-							ignore_initial_colony_error = yes
-							day_zero_contact = no
-							ethos = random
-							origin = origin_isolated_rebellion
-							civics = random
-							flag = random
 							authority = auth_democratic
-							effect = {
-								created_civwar_country_effect = yes
-							}
+							ethos = random
+							inline_script = { script = civil_war_country_creation/isolated_sector }
 						}
 					}
 				}
@@ -1963,94 +1391,1374 @@ make_succession_crisis_dynast_country = {
 	set_country_flag = succession_crisis_mom_@last_created_country
 }
 
-make_ruler_secession_country = {
+#### Unused, as factions no longer have leaders so independence faction leaders do not exists and can not become the ruler of the country.
+	### If this ever comes back, switch to scripted triggers.
+make_ruler_secession_country = { 
 
 	save_event_target_as = civwar_originator
 
-	if = {
-		limit = {
-			OR = {
-				NOT = { has_global_flag = cultural_overhaul_active }
-				has_global_flag = bug_branch_active # Bug Branch changes EC ethic names, makes it not easily compatible
+	# if = {
+	# 	limit = {
+	# 		OR = {
+	# 			NOT = { has_global_flag = cultural_overhaul_active }
+	# 			has_global_flag = bug_branch_active # Bug Branch changes EC ethic names, makes it not easily compatible
+	# 		}
+	# 	}
+	# 	random_list = {
+	# 		# Authoritarian
+	# 		10 = { country_event = { id = civwarsecession.1000 } }
+	# 		# Egalitarian
+	# 		20 = { country_event = { id = civwarsecession.1005 } }
+	# 		# Militarist
+	# 		20 = { country_event = { id = civwarsecession.1010 } }
+	# 		# Pacifist
+	# 		10 = { country_event = { id = civwarsecession.1015 } }
+	# 		# Materialist
+	# 		10 = { country_event = { id = civwarsecession.1020 } }
+	# 		# Spiritualist
+	# 		10 = { country_event = { id = civwarsecession.1025 } }
+	# 		# Xenophile
+	# 		10 = { country_event = { id = civwarsecession.1030 } }
+	# 		# Xenophobe
+	# 		10 = { country_event = { id = civwarsecession.1035 } }
+	# 	}
+	# }
+	# else_if = {
+	# 	limit = {
+	# 		has_global_flag = cultural_overhaul_active
+	# 		has_global_flag = cultural_overhaul_redux_active
+	# 	}
+	# 	random_list = {
+	# 		# Authoritarian
+	# 		10 = { country_event = { id = civwarsecession.1000 } }
+	# 		# Egalitarian
+	# 		10 = { country_event = { id = civwarsecession.1005 } }
+	# 		# Militarist
+	# 		10 = { country_event = { id = civwarsecession.1010 } }
+	# 		# Pacifist
+	# 		10 = { country_event = { id = civwarsecession.1015 } }
+	# 		# Materialist
+	# 		10 = { country_event = { id = civwarsecession.1020 } }
+	# 		# Spiritualist
+	# 		10 = { country_event = { id = civwarsecession.1025 } }
+	# 		# Xenophile
+	# 		10 = { country_event = { id = civwarsecession.1030 } }
+	# 		# Xenophobe
+	# 		10 = { country_event = { id = civwarsecession.1035 } }
+	# 		# Socialist
+	# 		10 = { country_event = { id = civwarsecession.1040 } }
+	# 		# Capitalist
+	# 		10 = { country_event = { id = civwarsecession.1045 } }
+	# 	}
+	# }
+	# else = {
+	# 	random_list = {
+	# 		# Authoritarian
+	# 		5 = { country_event = { id = civwarsecession.1000 } }
+	# 		# Egalitarian
+	# 		10 = { country_event = { id = civwarsecession.1005 } }
+	# 		# Militarist
+	# 		10 = { country_event = { id = civwarsecession.1010 } }
+	# 		# Pacifist
+	# 		5 = { country_event = { id = civwarsecession.1015 } }
+	# 		# Materialist
+	# 		5 = { country_event = { id = civwarsecession.1020 } }
+	# 		# Spiritualist
+	# 		5 = { country_event = { id = civwarsecession.1025 } }
+	# 		# Xenophile
+	# 		5 = { country_event = { id = civwarsecession.1030 } }
+	# 		# Xenophobe
+	# 		10 = { country_event = { id = civwarsecession.1035 } }
+	# 		# Socialist
+	# 		10 = { country_event = { id = civwarsecession.1040 } }
+	# 		# Capitalist
+	# 		5 = { country_event = { id = civwarsecession.1045 } }
+	# 		# Industrialist
+	# 		10 = { country_event = { id = civwarsecession.1050 } }
+	# 		# Ecologist
+	# 		5 = { country_event = { id = civwarsecession.1055 } }
+	# 		# Elitist
+	# 		5 = { country_event = { id = civwarsecession.1060 } }
+	# 		# Pluralist
+	# 		10 = { country_event = { id = civwarsecession.1065 } }
+	# 	}
+	# }
+}
+
+create_auth_fac_country = {
+	random_list = {
+		50 = {
+			create_country = {
+				authority = auth_imperial
+				ethos = { ethic = ethic_fanatic_authoritarian }
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
 			}
 		}
-		random_list = {
-			# Authoritarian
-			10 = { country_event = { id = civwarsecession.1000 } }
-			# Egalitarian
-			20 = { country_event = { id = civwarsecession.1005 } }
-			# Militarist
-			20 = { country_event = { id = civwarsecession.1010 } }
-			# Pacifist
-			10 = { country_event = { id = civwarsecession.1015 } }
-			# Materialist
-			10 = { country_event = { id = civwarsecession.1020 } }
-			# Spiritualist
-			10 = { country_event = { id = civwarsecession.1025 } }
-			# Xenophile
-			10 = { country_event = { id = civwarsecession.1030 } }
-			# Xenophobe
-			10 = { country_event = { id = civwarsecession.1035 } }
+		50 = {
+			create_country = {
+				authority = auth_dictatorial
+				ethos = { ethic = ethic_fanatic_authoritarian }
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+			}
 		}
 	}
-	else_if = {
-		limit = {
-			has_global_flag = cultural_overhaul_active
-			has_global_flag = cultural_overhaul_redux_active
+}
+
+create_egal_fac_country = {
+	if = {
+		limit = { has_global_flag = cultural_overhaul_active }
+		if = {
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
+			random_list = {
+				40 = {
+					create_country = {
+						authority = auth_democratic
+						ethos = { ethic = ethic_fanatic_egalitarian }
+						inline_script = { script = civil_war_country_creation/egal_fac_civil_war }
+					}
+				}
+				60 = {
+					create_country = {
+						authority = auth_strict_democratic
+						ethos = { ethic = ethic_fanatic_egalitarian }
+						inline_script = { script = civil_war_country_creation/egal_fac_civil_war }
+					}
+				}
+			}
 		}
-		random_list = {
-			# Authoritarian
-			10 = { country_event = { id = civwarsecession.1000 } }
-			# Egalitarian
-			10 = { country_event = { id = civwarsecession.1005 } }
-			# Militarist
-			10 = { country_event = { id = civwarsecession.1010 } }
-			# Pacifist
-			10 = { country_event = { id = civwarsecession.1015 } }
-			# Materialist
-			10 = { country_event = { id = civwarsecession.1020 } }
-			# Spiritualist
-			10 = { country_event = { id = civwarsecession.1025 } }
-			# Xenophile
-			10 = { country_event = { id = civwarsecession.1030 } }
-			# Xenophobe
-			10 = { country_event = { id = civwarsecession.1035 } }
-			# Socialist
-			10 = { country_event = { id = civwarsecession.1040 } }
-			# Capitalist
-			10 = { country_event = { id = civwarsecession.1045 } }
+		else = {
+			random_list = {
+				50 = {
+					create_country = {
+						authority = auth_democratic
+						ethos = { ethic = ethic_fanatic_egalitarian }
+						inline_script = { script = civil_war_country_creation/egal_fac_civil_war }
+					}
+				}
+				50 = {
+					create_country = {
+						authority = auth_direct_democratic
+						ethos = { ethic = ethic_fanatic_egalitarian }
+						inline_script = { script = civil_war_country_creation/egal_fac_civil_war }
+					}
+				}
+			}
+		}
+	}
+	else = {
+		create_country = {
+			authority = auth_democratic
+			ethos = { ethic = ethic_fanatic_egalitarian }
+			inline_script = { script = civil_war_country_creation/egal_fac_civil_war }
+		}
+	}
+}
+
+create_mil_fac_country = {
+	if = {
+		limit = { has_global_flag = cultural_overhaul_active }
+		if = {
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
+			random_list = {
+				10 = {
+					create_country = {
+						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_militarist }
+					}
+				}
+				5 = {
+					create_country = {
+						authority = auth_strict_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_militarist
+							ethic = ethic_egalitarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_dict_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_militarist }
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_militarist
+							ethic = ethic_authoritarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_dictatorial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_militarist
+							ethic = ethic_authoritarian
+						}
+					}
+				}
+				10 = {
+					create_country = {
+						authority = auth_oligarchic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_militarist }
+					}
+				}
+			}
+		}
+		else = {
+			random_list = {
+				15 = {
+					create_country = {
+						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_militarist }
+					}
+				}
+				5 = {
+					create_country = {
+						authority = auth_direct_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_militarist }
+					}
+				}
+				30 = {
+					create_country = {
+						authority = auth_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_militarist
+							ethic = ethic_authoritarian
+						}
+					}
+				}
+				30 = {
+					create_country = {
+						authority = auth_dictatorial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_militarist }
+					}
+				}
+				20 = {
+					create_country = {
+						authority = auth_oligarchic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_militarist }
+					}
+				}
+			}
 		}
 	}
 	else = {
 		random_list = {
-			# Authoritarian
-			5 = { country_event = { id = civwarsecession.1000 } }
-			# Egalitarian
-			10 = { country_event = { id = civwarsecession.1005 } }
-			# Militarist
-			10 = { country_event = { id = civwarsecession.1010 } }
-			# Pacifist
-			5 = { country_event = { id = civwarsecession.1015 } }
-			# Materialist
-			5 = { country_event = { id = civwarsecession.1020 } }
-			# Spiritualist
-			5 = { country_event = { id = civwarsecession.1025 } }
-			# Xenophile
-			5 = { country_event = { id = civwarsecession.1030 } }
-			# Xenophobe
-			10 = { country_event = { id = civwarsecession.1035 } }
-			# Socialist
-			10 = { country_event = { id = civwarsecession.1040 } }
-			# Capitalist
-			5 = { country_event = { id = civwarsecession.1045 } }
-			# Industrialist
-			10 = { country_event = { id = civwarsecession.1050 } }
-			# Ecologist
-			5 = { country_event = { id = civwarsecession.1055 } }
-			# Elitist
-			5 = { country_event = { id = civwarsecession.1060 } }
-			# Pluralist
-			10 = { country_event = { id = civwarsecession.1065 } }
+			5 = {
+				create_country = {
+					authority = auth_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_militarist }
+				}
+			}
+			45 = {
+				create_country = {
+					authority = auth_imperial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_militarist }
+				}
+			}
+			40 = {
+				create_country = {
+					authority = auth_dictatorial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_militarist }
+				}
+			}
+			10 = {
+				create_country = {
+					authority = auth_oligarchic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_militarist }
+				}
+			}
+		}
+	}
+}
+
+create_pac_fac_country = {
+	if = {
+		limit = { has_global_flag = cultural_overhaul_active }
+		if = {
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
+			random_list = {
+				10 = {
+					create_country = {
+						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_pacifist }
+					}
+				}
+				5 = {
+					create_country = {
+						authority = auth_strict_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_pacifist
+							ethic = ethic_egalitarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_dict_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_pacifist }
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_pacifist
+							ethic = ethic_authoritarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_dictatorial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_pacifist }
+					}
+				}
+				10 = {
+					create_country = {
+						authority = auth_oligarchic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_pacifist }
+					}
+				}
+			}
+		}
+		else = {
+			random_list = {
+				15 = {
+					create_country = {
+						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_pacifist }
+					}
+				}
+				5 = {
+					create_country = {
+						authority = auth_direct_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_pacifist
+							ethic = ethic_egalitarian
+						}
+					}
+				}
+				30 = {
+					create_country = {
+						authority = auth_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_pacifist
+							ethic = ethic_authoritarian
+						}
+					}
+				}
+				30 = {
+					create_country = {
+						authority = auth_dictatorial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_pacifist }
+					}
+				}
+				20 = {
+					create_country = {
+						authority = auth_oligarchic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_pacifist }
+					}
+				}
+			}
+		}
+	}
+	else = {
+		random_list = {
+			15 = {
+				create_country = {
+					authority = auth_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_pacifist }
+				}
+			}
+			20 = {
+				create_country = {
+					authority = auth_imperial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_pacifist }
+				}
+			}
+			50 = {
+				create_country = {
+					authority = auth_dictatorial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_pacifist }
+				}
+			}
+			15 = {
+				create_country = {
+					authority = auth_oligarchic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_pacifist }
+				}
+			}
+		}
+	}
+}
+
+create_mat_fac_country = {
+	if = {
+		limit = { has_global_flag = cultural_overhaul_active }
+		if = {
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
+			random_list = {
+				15 = {
+					create_country = {
+						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_materialist }
+					}
+				}
+				10 = {
+					create_country = {
+						authority = auth_strict_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_materialist
+							ethic = ethic_egalitarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_dict_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_materialist }
+					}
+				}
+				15 = {
+					create_country = {
+						authority = auth_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_materialist
+							ethic = ethic_authoritarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_dictatorial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_materialist }
+					}
+				}
+				10 = {
+					create_country = {
+						authority = auth_oligarchic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_materialist }
+					}
+				}
+			}
+		}
+		else = {
+			random_list = {
+				15 = {
+					create_country = {
+						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_materialist }
+					}
+				}
+				10 = {
+					create_country = {
+						authority = auth_direct_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_materialist
+							ethic = ethic_egalitarian
+						}
+					}
+				}
+				15 = {
+					create_country = {
+						authority = auth_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_materialist
+							ethic = ethic_authoritarian
+						}
+					}
+				}
+				30 = {
+					create_country = {
+						authority = auth_dictatorial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_materialist }
+					}
+				}
+				30 = {
+					create_country = {
+						authority = auth_oligarchic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_materialist }
+					}
+				}
+			}
+		}
+	}
+	else = {
+		random_list = {
+			20 = {
+				create_country = {
+					authority = auth_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_materialist }
+				}
+			}
+			30 = {
+				create_country = {
+					authority = auth_imperial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_materialist }
+				}
+			}
+			30 = {
+				create_country = {
+					authority = auth_dictatorial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_materialist }
+				}
+			}
+			20 = {
+				create_country = {
+					authority = auth_oligarchic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_materialist }
+				}
+			}
+		}
+	}
+}
+
+create_spi_fac_country = {
+	if = {
+		limit = { has_global_flag = cultural_overhaul_active }
+		if = {
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
+			random_list = {
+				10 = {
+					create_country = {
+						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_spiritualist }
+					}
+				}
+				5 = {
+					create_country = {
+						authority = auth_strict_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_spiritualist
+							ethic = ethic_egalitarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_dict_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_spiritualist }
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_spiritualist
+							ethic = ethic_authoritarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_dictatorial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_spiritualist }
+					}
+				}
+				10 = {
+					create_country = {
+						authority = auth_oligarchic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_spiritualist }
+					}
+				}
+			}
+		}
+		else = {
+			random_list = {
+				15 = {
+					create_country = {
+						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_spiritualist }
+					}
+				}
+				5 = {
+					create_country = {
+						authority = auth_direct_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_spiritualist
+							ethic = ethic_egalitarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_spiritualist
+							ethic = ethic_authoritarian
+						}
+					}
+				}
+				30 = {
+					create_country = {
+						authority = auth_dictatorial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_spiritualist }
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_oligarchic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_spiritualist }
+					}
+				}
+			}
+		}
+	}
+	else = {
+		random_list = {
+			5 = {
+				create_country = {
+					authority = auth_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_spiritualist }
+				}
+			}
+			45 = {
+				create_country = {
+					authority = auth_imperial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_spiritualist }
+				}
+			}
+			35 = {
+				create_country = {
+					authority = auth_dictatorial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_spiritualist }
+				}
+			}
+			15 = {
+				create_country = {
+					authority = auth_oligarchic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_spiritualist }
+				}
+			}
+		}
+	}
+}
+
+create_phile_fac_country = {
+	if = {
+		limit = { has_global_flag = cultural_overhaul_active }
+		if = {
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
+			random_list = {
+				5 = {
+					create_country = {
+						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophile }
+					}
+				}
+				5 = {
+					create_country = {
+						authority = auth_strict_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_xenophile
+							ethic = ethic_egalitarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_dict_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophile }
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_xenophile
+							ethic = ethic_authoritarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_dictatorial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophile }
+					}
+				}
+				10 = {
+					create_country = {
+						authority = auth_oligarchic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophile }
+					}
+				}
+			}
+		}
+		else = {
+			random_list = {
+				15 = {
+					create_country = {
+						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophile }
+					}
+				}
+				5 = {
+					create_country = {
+						authority = auth_direct_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_xenophile
+							ethic = ethic_egalitarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = {
+							ethic = ethic_fanatic_xenophile
+							ethic = ethic_authoritarian
+						}
+					}
+				}
+				30 = {
+					create_country = {
+						authority = auth_dictatorial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophile }
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_oligarchic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophile }
+					}
+				}
+			}
+		}
+	}
+	else = {
+		random_list = {
+			25 = {
+				create_country = {
+					authority = auth_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_xenophile }
+				}
+			}
+			30 = {
+				create_country = {
+					authority = auth_imperial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_xenophile }
+				}
+			}
+			30 = {
+				create_country = {
+					authority = auth_dictatorial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_xenophile }
+				}
+			}
+			15 = {
+				create_country = {
+					authority = auth_oligarchic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_xenophile }
+				}
+			}
+		}
+	}
+}
+
+create_phobe_fac_country = {
+	if = {
+		limit = { has_global_flag = cultural_overhaul_active }
+		if = {
+			limit = { has_global_flag = cultural_overhaul_funefork_active }
+			random_list = {
+				10 = {
+					create_country = {
+						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophobe }
+					}
+				}
+				5 = {
+					create_country = {
+						authority = auth_strict_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { 
+							ethic = ethic_fanatic_xenophobe
+							ethic = ethic_egalitarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_dict_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophobe }
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { 
+							ethic = ethic_fanatic_xenophobe
+							ethic = ethic_authoritarian
+						}
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_dictatorial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophobe }
+					}
+				}
+				10 = {
+					create_country = {
+						authority = auth_oligarchic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophobe }
+					}
+				}
+			}
+		}
+		else = {
+			random_list = {
+				10 = {
+					create_country = {
+						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophobe }
+					}
+				}
+				5 = {
+					create_country = {
+						authority = auth_direct_democratic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { 
+							ethic = ethic_fanatic_xenophobe
+							ethic = ethic_egalitarian
+						}
+					}
+				}
+				30 = {
+					create_country = {
+						authority = auth_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { 
+							ethic = ethic_fanatic_xenophobe
+							ethic = ethic_authoritarian
+						}
+					}
+				}
+				30 = {
+					create_country = {
+						authority = auth_dictatorial
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophobe }
+					}
+				}
+				25 = {
+					create_country = {
+						authority = auth_oligarchic
+						inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+						ethos = { ethic = ethic_fanatic_xenophobe }
+					}
+				}
+			}
+		}
+	}
+	else = {
+		random_list = {
+			5 = {
+				create_country = {
+					authority = auth_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_xenophobe }
+				}
+			}
+			45 = {
+				create_country = {
+					authority = auth_imperial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_xenophobe }
+				}
+			}
+			35 = {
+				create_country = {
+					authority = auth_dictatorial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_xenophobe }
+				}
+			}
+			15 = {
+				create_country = {
+					authority = auth_oligarchic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_xenophobe }
+				}
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			event_target:civwar_party = { is_pop_faction_type = supremacist }
+			event_target:civwar_originator = { has_valid_civic = civic_fanatic_purifiers }
+		}
+		last_created_country = { force_add_civic = civic_fanatic_purifiers }
+	}
+	else_if = {
+		limit = {
+			event_target:civwar_party = { is_pop_faction_type = supremacist }
+			last_created_country = { num_species = 1 }
+		}
+		last_created_country = {
+			random = { chance = 10 force_add_civic = civic_fanatic_purifiers }
+		}
+	}
+}
+
+create_soc_fac_country = {
+	if = {
+		limit = { has_global_flag = cultural_overhaul_funefork_active }
+		random_list = {
+			10 = {
+				create_country = {
+					authority = auth_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_socialism }
+				}
+			}
+			10 = {
+				create_country = {
+					authority = auth_strict_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { 
+						ethic = ethic_fanatic_socialism
+						ethic = ethic_egalitarian
+					}
+				}
+			}
+			20 = {
+				create_country = {
+					authority = auth_dict_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_socialism }
+				}
+			}
+			15 = {
+				create_country = {
+					authority = auth_imperial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { 
+						ethic = ethic_fanatic_socialism
+						ethic = ethic_authoritarian
+					}
+				}
+			}
+			25 = {
+				create_country = {
+					authority = auth_dictatorial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_socialism }
+				}
+			}
+			20 = {
+				create_country = {
+					authority = auth_oligarchic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_socialism }
+				}
+			}
+		}
+	}
+	else = {
+		random_list = {
+			10 = {
+				create_country = {
+					authority = auth_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_socialism }
+				}
+			}
+			5 = {
+				create_country = {
+					authority = auth_direct_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { 
+						ethic = ethic_fanatic_socialism
+						ethic = ethic_egalitarian
+					}
+				}
+			}
+			35 = {
+				create_country = {
+					authority = auth_imperial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { 
+						ethic = ethic_fanatic_socialism
+						ethic = ethic_authoritarian
+					}
+				}
+			}
+			35 = {
+				create_country = {
+					authority = auth_dictatorial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_socialism }
+				}
+			}
+			15 = {
+				create_country = {
+					authority = auth_oligarchic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_socialism }
+				}
+			}
+		}
+	}
+}
+
+create_cap_fac_country = {
+	if = {
+		limit = { has_global_flag = cultural_overhaul_funefork_active }
+		random_list = {
+			5 = {
+				create_country = {
+					authority = auth_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_capitalism }
+				}
+			}
+			5 = {
+				create_country = {
+					authority = auth_strict_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { 
+						ethic = ethic_fanatic_capitalism
+						ethic = ethic_egalitarian
+					}
+				}
+			}
+			10 = {
+				create_country = {
+					authority = auth_dict_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_capitalism }
+				}
+			}
+			10 = {
+				create_country = {
+					authority = auth_imperial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = {
+						ethic = ethic_fanatic_capitalism
+						ethic = ethic_authoritarian
+					}
+				}
+			}
+			25 = {
+				create_country = {
+					authority = auth_corporate_imperial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = {
+						ethic = ethic_fanatic_capitalism
+						ethic = ethic_authoritarian
+					}
+				}
+			}
+			20 = {
+				create_country = {
+					authority = auth_corporate
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_capitalism }
+				}
+			}
+			10 = {
+				create_country = {
+					authority = auth_dictatorial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_capitalism }
+				}
+			}
+			15 = {
+				create_country = {
+					authority = auth_oligarchic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_capitalism }
+				}
+			}
+		}
+	}
+	else = {
+		random_list = {
+			10 = {
+				create_country = {
+					authority = auth_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_capitalism }
+				}
+			}
+			5 = {
+				create_country = {
+					authority = auth_direct_democratic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { 
+						ethic = ethic_fanatic_capitalism
+						ethic = ethic_egalitarian
+					}
+				}
+			}
+			15 = {
+				create_country = {
+					authority = auth_imperial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { 
+						ethic = ethic_fanatic_capitalism
+						ethic = ethic_authoritarian
+					}
+				}
+			}
+			45 = {
+				create_country = {
+					authority = auth_corporate
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_capitalism }
+				}
+			}
+			10 = {
+				create_country = {
+					authority = auth_dictatorial
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_capitalism }
+				}
+			}
+			15 = {
+				create_country = {
+					authority = auth_oligarchic
+					inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+					ethos = { ethic = ethic_fanatic_capitalism }
+				}
+			}
+		}
+	}
+}
+
+create_indus_fac_country = {
+	random_list = {
+		10 = {
+			create_country = {
+				authority = auth_democratic
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = { ethic = ethic_fanatic_industrial }
+			}
+		}
+		5 = {
+			create_country = {
+				authority = auth_direct_democratic
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = {
+					ethic = ethic_fanatic_industrial
+					ethic = ethic_egalitarian
+				}
+			}
+		}
+		35 = {
+			create_country = {
+				authority = auth_imperial
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = {
+					ethic = ethic_fanatic_industrial
+					ethic = ethic_authoritarian
+				}
+			}
+		}
+		35 = {
+			create_country = {
+				authority = auth_dictatorial
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = { ethic = ethic_fanatic_industrial }
+			}
+		}
+		15 = {
+			create_country = {
+				authority = auth_oligarchic
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = { ethic = ethic_fanatic_industrial }
+			}
+		}
+	}
+}
+
+create_eco_fac_country = {
+	random_list = {
+		10 = {
+			create_country = {
+				authority = auth_democratic
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = { ethic = ethic_fanatic_green }
+			}
+		}
+		10 = {
+			create_country = {
+				authority = auth_direct_democratic
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = {
+					ethic = ethic_fanatic_green
+					ethic = ethic_egalitarian
+				}
+			}
+		}
+		20 = {
+			create_country = {
+				authority = auth_imperial
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = {
+					ethic = ethic_fanatic_green
+					ethic = ethic_authoritarian
+				}
+			}
+		}
+		35 = {
+			create_country = {
+				authority = auth_dictatorial
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = { ethic = ethic_fanatic_green }
+			}
+		}
+		25 = {
+			create_country = {
+				authority = auth_oligarchic
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = { ethic = ethic_fanatic_green }
+			}
+		}
+	}
+}
+
+create_elite_fac_country = {
+	random_list = {
+		10 = {
+			create_country = {
+				authority = auth_democratic
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = { ethic = ethic_fanatic_elitist }
+			}
+		}
+		35 = {
+			create_country = {
+				authority = auth_imperial
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = {
+					ethic = ethic_fanatic_elitist
+					ethic = ethic_authoritarian
+				}
+			}
+		}
+		35 = {
+			create_country = {
+				authority = auth_dictatorial
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = { ethic = ethic_fanatic_elitist }
+			}
+		}
+		20 = {
+			create_country = {
+				authority = auth_oligarchic
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = { ethic = ethic_fanatic_elitist }
+			}
+		}
+	}
+}
+
+create_plur_fac_country = {
+	random_list = {
+		50 = {
+			create_country = {
+				authority = auth_democratic
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = { ethic = ethic_fanatic_pluralist }
+			}
+		}
+		50 = {
+			create_country = {
+				authority = auth_direct_democratic
+				inline_script = { script = civil_war_country_creation/gen_fac_civil_war }
+				ethos = {
+					ethic = ethic_fanatic_pluralist
+					ethic = ethic_egalitarian
+				}
+			}
 		}
 	}
 }
@@ -3058,8 +3766,8 @@ get_heir_multi_sector_effect = {
 	}
 
 	random_list = {
-		# 45 = { multiply_variable = { which = all_potential_sectors value = 0.3 } }
-		# 35 = { multiply_variable = { which = all_potential_sectors value = 0.4 } }
+		45 = { multiply_variable = { which = all_potential_sectors value = 0.3 } }
+		35 = { multiply_variable = { which = all_potential_sectors value = 0.4 } }
 		15 = { multiply_variable = { which = all_potential_sectors value = 0.5 } }
 		5 = { multiply_variable = { which = all_potential_sectors value = 0.6 } }
 	}
@@ -3097,96 +3805,34 @@ get_heir_multi_sector_effect = {
 			set_sector_flag = counted_sector
 		}
 	}
-
-	set_country_flag = heir_mother_country
-
-	if = {
-		limit = { event_target:heir_civil_war_dummy_country = { is_imperial_authority = yes } }
-		create_country = {
-			name = random
-			type = default
-			species = event_target:heir_civil_war_dummy_country.ruler.species
-			ignore_initial_colony_error = yes
-			day_zero_contact = no
-			authority = event_target:heir_civil_war_dummy_country
-			ethos = random
-			origin = origin_heir_rebellion
-			civics = random
-			flag = random
-			effect = {
-				set_country_flag = heir_rebel_country
-				created_civwar_country_effect = yes
-			}
-		}
-	}
-	else = {
-		create_country = {
-			name = random
-			type = default
-			species = event_target:heir_civil_war_dummy_country.ruler.species
-			ignore_initial_colony_error = yes
-			day_zero_contact = no
-			authority = auth_imperial
-			ethos = random
-			origin = origin_heir_rebellion
-			civics = random
-			flag = random
-			effect = {
-				set_country_flag = heir_rebel_country
-				created_civwar_country_effect = yes
-			}
-		}
-	}
+	create_heir_country_effect = yes	
 }
 
 get_heir_one_sector_effect = {
 	save_event_target_as = civwar_originator
-
 	# find and flag systems
 	random_owned_sector = {
 		limit = { NOT = { any_system_within_border = { is_capital_system = yes } } }
 	    set_sector_flag = leader_sector 
 	}
+	create_heir_country_effect = yes		
+}
 
+create_heir_country_effect = {
 	set_country_flag = heir_mother_country
-
 	if = {
 		limit = { event_target:heir_civil_war_dummy_country = { is_imperial_authority = yes } }
 		create_country = {
-			name = random
-			type = default
-			species = event_target:heir_civil_war_dummy_country.ruler.species
-			ignore_initial_colony_error = yes
-			day_zero_contact = no
 			authority = event_target:heir_civil_war_dummy_country
-			ethos = random
-			origin = origin_heir_rebellion
-			civics = random
-			flag = random
-			effect = {
-				set_country_flag = heir_rebel_country
-				created_civwar_country_effect = yes
-			}
+			inline_script = { script = civil_war_country_creation/heir_country }
 		}
 	}
 	else = {
 		create_country = {
-			name = random
-			type = default
-			species = event_target:heir_civil_war_dummy_country.ruler.species
-			ignore_initial_colony_error = yes
-			day_zero_contact = no
 			authority = auth_imperial
-			ethos = random
-			origin = origin_heir_rebellion
-			civics = random
-			flag = random
-			effect = {
-				set_country_flag = heir_rebel_country
-				created_civwar_country_effect = yes
-			}
+			inline_script = { script = civil_war_country_creation/heir_country }
 		}
-	}	
+	}
 }
 
 get_heir_one_planet_effect = {
@@ -3482,36 +4128,16 @@ get_ethic_plan_rebels = {
 			random_list = {
 				50 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_authoritarian }
 					}
 				}
 				50 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_authoritarian }
 					}
 				}
 			}
@@ -3520,36 +4146,16 @@ get_ethic_plan_rebels = {
 			random_list = {
 				50 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_authoritarian }
 					}
 				}
 				50 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_authoritarian }
 					}
 				}
 			}
@@ -3565,36 +4171,16 @@ get_ethic_plan_rebels = {
 				random_list = {
 					50 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_egalitarian }
 						}
 					}
 					60 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_strict_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_egalitarian }
 						}
 					}
 				}
@@ -3603,36 +4189,16 @@ get_ethic_plan_rebels = {
 				random_list = {
 					50 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_egalitarian }
 						}
 					}
 					50 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_direct_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_egalitarian }
 						}
 					}
 				}
@@ -3640,19 +4206,9 @@ get_ethic_plan_rebels = {
 		}
 		else = {
 			create_rebels = {
-				name = random
-				species = event_target:civwar_species
-				origin = origin_civwar
-				civics = random
-				flag = random
 				authority = auth_democratic
-				randomize_ethos = yes
-				ethos = {
-					ethic = ethic_fanatic_egalitarian
-				}
-				effect = {
-					created_civwar_rebel_country_effect = yes
-				}
+				inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+				ethos = { ethic = ethic_fanatic_egalitarian }
 			}
 		}
 		last_created_country = { set_country_flag = civwar_egal }
@@ -3666,108 +4222,50 @@ get_ethic_plan_rebels = {
 				random_list = {
 					10 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_militarist
-								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_militarist }
 						}
 					}
 					5 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_strict_democratic
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_militarist
 								ethic = ethic_egalitarian
 							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dict_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_militarist
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_militarist }
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_imperial
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_militarist
-								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_militarist }
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_militarist
 								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					10 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_militarist
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_militarist }
 						}
 					}
 				}
@@ -3776,91 +4274,43 @@ get_ethic_plan_rebels = {
 				random_list = {
 					15 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_militarist
-								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_militarist }
 						}
 					}
 					5 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_direct_democratic
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_militarist
 								ethic = ethic_egalitarian
 							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
 						}
 					}
 					30 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_imperial
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_militarist
 								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					30 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_militarist
-								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_militarist }
 						}
 					}
 					20 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_militarist
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_militarist }
 						}
 					}
 				}
@@ -3870,70 +4320,30 @@ get_ethic_plan_rebels = {
 			random_list = {
 				5 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_militarist }
 					}
 				}
 				45 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_militarist }
 					}
 				}
 				40 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_militarist }
 					}
 				}
 				10 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_militarist }
 					}
 				}
 			}
@@ -3949,107 +4359,51 @@ get_ethic_plan_rebels = {
 				random_list = {
 					10 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_pacifist
-								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_pacifist }
 						}
 					}
 					5 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_strict_democratic
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_pacifist
 								ethic = ethic_egalitarian
 							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dict_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_pacifist
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_pacifist }
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_imperial
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_pacifist
 								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_pacifist
-								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_pacifist }
 						}
 					}
 					10 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_pacifist
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
@@ -4059,91 +4413,43 @@ get_ethic_plan_rebels = {
 				random_list = {
 					15 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_pacifist
-								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_pacifist }
 						}
 					}
 					5 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_direct_democratic
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_pacifist
 								ethic = ethic_egalitarian
 							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
 						}
 					}
 					30 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_imperial
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_pacifist
 								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					30 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_pacifist
-								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_pacifist }
 						}
 					}
 					20 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_pacifist
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_pacifist }
 						}
 					}
 				}
@@ -4153,70 +4459,30 @@ get_ethic_plan_rebels = {
 			random_list = {
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_pacifist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_pacifist }
 					}
 				}
 				20 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_pacifist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_pacifist }
 					}
 				}
 				50 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_pacifist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_pacifist }
 					}
 				}
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_pacifist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_pacifist }
 					}
 				}
 			}
@@ -4232,108 +4498,50 @@ get_ethic_plan_rebels = {
 				random_list = {
 					15 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_materialist
-								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_materialist }
 						}
 					}
 					10 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_strict_democratic
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_materialist
 								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dict_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_materialist
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_materialist }
 						}
 					}
 					15 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_imperial
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_materialist
 								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_materialist
-								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_materialist }
 						}
 					}
 					10 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_materialist
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_materialist }
 						}
 					}
 				}
@@ -4342,91 +4550,43 @@ get_ethic_plan_rebels = {
 				random_list = {
 					15 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_materialist
-								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_materialist }
 						}
 					}
 					10 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_direct_democratic
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_materialist
 								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					15 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_imperial
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_materialist
 								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					30 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_materialist
-								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_materialist }
 						}
 					}
 					30 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_materialist
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_materialist }
 						}
 					}
 				}
@@ -4436,70 +4596,30 @@ get_ethic_plan_rebels = {
 			random_list = {
 				20 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_materialist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_materialist }
 					}
 				}
 				30 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_materialist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_materialist }
 					}
 				}
 				30 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_materialist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_materialist }
 					}
 				}
 				20 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_materialist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_materialist }
 					}
 				}
 			}
@@ -4515,108 +4635,50 @@ get_ethic_plan_rebels = {
 				random_list = {
 					10 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_spiritualist
-								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_spiritualist }
 						}
 					}
 					5 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_strict_democratic
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_spiritualist
 								ethic = ethic_egalitarian
 							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dict_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_spiritualist
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_spiritualist }
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_imperial
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_spiritualist
 								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_spiritualist
-								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_spiritualist }
 						}
 					}
 					10 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_spiritualist
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_spiritualist }
 						}
 					}
 				}
@@ -4625,91 +4687,43 @@ get_ethic_plan_rebels = {
 				random_list = {
 					15 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_spiritualist
-								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_spiritualist }
 						}
 					}
 					5 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_direct_democratic
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_spiritualist
 								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_imperial
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_spiritualist
 								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					30 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_spiritualist
-								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_spiritualist }
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_spiritualist
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_spiritualist }
 						}
 					}
 				}
@@ -4719,70 +4733,30 @@ get_ethic_plan_rebels = {
 			random_list = {
 				5 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_spiritualist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_spiritualist }
 					}
 				}
 				45 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_spiritualist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_spiritualist }
 					}
 				}
 				35 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_spiritualist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_spiritualist }
 					}
 				}
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_spiritualist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_spiritualist }
 					}
 				}
 			}
@@ -4798,108 +4772,50 @@ get_ethic_plan_rebels = {
 				random_list = {
 					10 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophobe
-								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophobe  }
 						}
 					}
 					5 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_strict_democratic
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_xenophobe
 								ethic = ethic_egalitarian
 							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dict_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophobe
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophobe  }
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_imperial
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_xenophobe
 								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophobe
-								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophobe  }
 						}
 					}
 					10 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophobe
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophobe  }
 						}
 					}
 				}
@@ -4908,91 +4824,43 @@ get_ethic_plan_rebels = {
 				random_list = {
 					10 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophobe
-								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophobe  }
 						}
 					}
 					5 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_direct_democratic
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_xenophobe
 								ethic = ethic_egalitarian
 							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
 						}
 					}
 					30 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_imperial
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_xenophobe
 								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					30 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophobe
-								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophobe  }
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophobe
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophobe  }
 						}
 					}
 				}
@@ -5002,70 +4870,30 @@ get_ethic_plan_rebels = {
 			random_list = {
 				5 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_xenophobe
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_xenophobe  }
 					}
 				}
 				45 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_xenophobe
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_xenophobe  }
 					}
 				}
 				35 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_xenophobe
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_xenophobe  }
 					}
 				}
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_xenophobe
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_xenophobe  }
 					}
 				}
 			}
@@ -5081,108 +4909,50 @@ get_ethic_plan_rebels = {
 				random_list = {
 					5 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophile }
 						}
 					}
 					5 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_strict_democratic
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_xenophile
 								ethic = ethic_egalitarian
 							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dict_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophile }
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_imperial
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_xenophile
 								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophile }
 						}
 					}
 					10 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophile }
 						}
 					}
 				}
@@ -5191,91 +4961,43 @@ get_ethic_plan_rebels = {
 				random_list = {
 					15 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_democratic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophile }
 						}
 					}
 					5 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_direct_democratic
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_xenophile
 								ethic = ethic_egalitarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_imperial
-							randomize_ethos = yes
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 							ethos = {
 								ethic = ethic_fanatic_xenophile
 								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
 							}
 						}
 					}
 					30 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_dictatorial
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-								ethic = ethic_authoritarian
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophile }
 						}
 					}
 					25 = {
 						create_rebels = {
-							name = random
-							species = event_target:civwar_species
-							origin = origin_civwar
-							civics = random
-							flag = random
 							authority = auth_oligarchic
-							randomize_ethos = yes
-							ethos = {
-								ethic = ethic_fanatic_xenophile
-							}
-							effect = {
-								created_civwar_rebel_country_effect = yes
-							}
+							inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+							ethos = { ethic = ethic_fanatic_xenophile }
 						}
 					}
 				}
@@ -5285,70 +5007,30 @@ get_ethic_plan_rebels = {
 			random_list = {
 				25 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_xenophile
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_xenophile }
 					}
 				}
 				30 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_xenophile
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_xenophile }
 					}
 				}
 				30 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_xenophile
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_xenophile }
 					}
 				}
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_xenophile
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_xenophile }
 					}
 				}
 			}
@@ -5362,109 +5044,50 @@ get_ethic_plan_rebels = {
 			random_list = {
 				10 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_socialism
-							ethic = ethic_egalitarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_socialism }
 					}
 				}
 				10 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_strict_democratic
-						randomize_ethos = yes
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 						ethos = {
 							ethic = ethic_fanatic_socialism
 							ethic = ethic_egalitarian
 						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
 					}
 				}
 				20 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_dict_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_socialism
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_socialism }
 					}
 				}
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 						ethos = {
 							ethic = ethic_fanatic_socialism
 							ethic = ethic_authoritarian
 						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
 					}
-					log = "Imperial Socialism"
 				}
 				25 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_socialism
-							ethic = ethic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_socialism }
 					}
 				}
 				20 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_socialism
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_socialism }
 					}
 				}
 			}
@@ -5473,91 +5096,43 @@ get_ethic_plan_rebels = {
 			random_list = {
 				10 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_socialism
-							ethic = ethic_egalitarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_socialism }
 					}
 				}
 				5 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_direct_democratic
-						randomize_ethos = yes
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 						ethos = {
 							ethic = ethic_fanatic_socialism
 							ethic = ethic_egalitarian
 						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
 					}
 				}
 				35 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 						ethos = {
 							ethic = ethic_fanatic_socialism
 							ethic = ethic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
 						}
 					}
 				}
 				35 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_socialism
-							ethic = ethic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_socialism }
 					}
 				}
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_socialism
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_socialism }
 					}
 				}
 			}
@@ -5571,219 +5146,119 @@ get_ethic_plan_rebels = {
 			random_list = {
 				5 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_capitalism
-							ethic = ethic_egalitarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_capitalism }
 					}
 				}
 				5 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_strict_democratic
-						randomize_ethos = yes
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 						ethos = {
 							ethic = ethic_fanatic_capitalism
 							ethic = ethic_egalitarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
 						}
 					}
 				}
 				10 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_dict_democratic
-						randomize_ethos = yes
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_capitalism }
+					}
+				}
+				10 = {
+					create_rebels = {
+						authority = auth_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 						ethos = {
 							ethic = ethic_fanatic_capitalism
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
+							ethic = ethic_authoritarian
 						}
 					}
 				}
 				25 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
-						authority = auth_imperial
-						randomize_ethos = yes
+						authority = auth_corporate_imperial
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 						ethos = {
 							ethic = ethic_fanatic_capitalism
 							ethic = ethic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
 						}
 					}
 				}
-				30 = {
+				20 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
-						authority = auth_corporate_imperial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_capitalism
-							ethic = ethic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						authority = auth_corporate
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_capitalism }
 					}
 				}
 				10 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_capitalism
-							ethic = ethic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_capitalism }
 					}
 				}
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_capitalism
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_capitalism }
 					}
 				}
 			}
 		}
 		else = {
 			random_list = {
-				10 = {
+				5 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_capitalism
-							ethic = ethic_egalitarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_capitalism }
 					}
 				}
 				5 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_direct_democratic
-						randomize_ethos = yes
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 						ethos = {
 							ethic = ethic_fanatic_capitalism
 							ethic = ethic_egalitarian
 						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
 					}
 				}
-				35 = {
+				10 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 						ethos = {
 							ethic = ethic_fanatic_capitalism
 							ethic = ethic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
 						}
 					}
 				}
-				35 = {
+				40 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
-						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_capitalism
-							ethic = ethic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						authority = auth_corporate
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_capitalism }
 					}
 				}
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civwar
-						civics = random
-						flag = random
+						authority = auth_dictatorial
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_capitalism }
+					}
+				}
+				25 = {
+					create_rebels = {
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_capitalism
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+						ethos = { ethic = ethic_fanatic_capitalism }
 					}
 				}
 			}
@@ -5795,91 +5270,43 @@ get_ethic_plan_rebels = {
 		random_list = {
 			10 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_democratic
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_industrial
-						ethic = ethic_egalitarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+					ethos = { ethic = ethic_fanatic_industrial }
 				}
 			}
 			5 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_direct_democratic
-					randomize_ethos = yes
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 					ethos = {
 						ethic = ethic_fanatic_industrial
 						ethic = ethic_egalitarian
 					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
 				}
 			}
 			35 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_imperial
-					randomize_ethos = yes
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 					ethos = {
 						ethic = ethic_fanatic_industrial
 						ethic = ethic_authoritarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
 					}
 				}
 			}
 			35 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_dictatorial
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_industrial
-						ethic = ethic_authoritarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+					ethos = { ethic = ethic_fanatic_industrial }
 				}
 			}
 			15 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_oligarchic
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_industrial
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+					ethos = { ethic = ethic_fanatic_industrial }
 				}
 			}
 		}
@@ -5890,186 +5317,90 @@ get_ethic_plan_rebels = {
 		random_list = {
 			10 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_democratic
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_green
-						ethic = ethic_egalitarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+					ethos = { ethic = ethic_fanatic_green }
 				}
 			}
 			10 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_direct_democratic
-					randomize_ethos = yes
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 					ethos = {
 						ethic = ethic_fanatic_green
 						ethic = ethic_egalitarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
 					}
 				}
 			}
 			20 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_imperial
-					randomize_ethos = yes
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 					ethos = {
 						ethic = ethic_fanatic_green
 						ethic = ethic_authoritarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
 					}
 				}
 			}
 			35 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_dictatorial
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_green
-						ethic = ethic_authoritarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+					ethos = { ethic = ethic_fanatic_green }
 				}
 			}
 			25 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_oligarchic
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_green
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+					ethos = { ethic = ethic_fanatic_green }
 				}
 			}
 		}
-		last_created_country = { set_country_flag = civwar_green }
+		last_created_country = { set_country_flag = civwar_eco }
 	}
 	else_if = { # Elitists
 		limit = { root.target = { is_elitist_faction = yes } }
 		random_list = {
 			5 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_democratic
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_elitist
-						ethic = ethic_egalitarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+					ethos = { ethic = ethic_fanatic_elitist }
 				}
 			}
 			5 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_direct_democratic
-					randomize_ethos = yes
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 					ethos = {
 						ethic = ethic_fanatic_elitist
 						ethic = ethic_egalitarian
 					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
 				}
 			}
 			35 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_imperial
-					randomize_ethos = yes
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 					ethos = {
 						ethic = ethic_fanatic_elitist
 						ethic = ethic_authoritarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
 					}
 				}
 			}
 			35 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_dictatorial
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_elitist
-						ethic = ethic_authoritarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+					ethos = { ethic = ethic_fanatic_elitist }
 				}
 			}
 			20 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_oligarchic
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_elitist
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+					ethos = { ethic = ethic_fanatic_elitist }
 				}
 			}
 		}
@@ -6078,92 +5409,20 @@ get_ethic_plan_rebels = {
 	else_if = { # Pluralists
 		limit = { root.target = { is_pluralist_faction = yes } }
 		random_list = {
-			20 = {
+			50 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_democratic
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_pluralist
-						ethic = ethic_egalitarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
+					ethos = { ethic = ethic_fanatic_pluralist }
 				}
 			}
-			25 = {
+			50 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
 					authority = auth_direct_democratic
-					randomize_ethos = yes
+					inline_script = { script = civil_war_country_creation/gen_fac_rebels }
 					ethos = {
 						ethic = ethic_fanatic_pluralist
 						ethic = ethic_egalitarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
-				}
-			}
-			15 = {
-				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
-					authority = auth_imperial
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_pluralist
-						ethic = ethic_authoritarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
-				}
-			}
-			15 = {
-				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
-					authority = auth_dictatorial
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_pluralist
-						ethic = ethic_authoritarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
-				}
-			}
-			25 = {
-				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_civwar
-					civics = random
-					flag = random
-					authority = auth_oligarchic
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_pluralist
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
 					}
 				}
 			}
@@ -6183,106 +5442,40 @@ get_gen_plan_rebels = {
 			random_list = {
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_plan_rebellion
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_egalitarian
-						}
-
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_plan_rebels }
 					}
 				}
 				5 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_plan_rebellion
-						civics = random
-						flag = random
 						authority = auth_strict_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_egalitarian
-						}
-
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_plan_rebels }
+						ethos = { ethic = ethic_egalitarian }
 					}
 				}
 				25 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_plan_rebellion
-						civics = random
-						flag = random
 						authority = auth_dict_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_plan_rebels }
 					}
 				}
 				30 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_plan_rebellion
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_plan_rebels }
 					}
 				}
 				10 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_plan_rebellion
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_plan_rebels }
+						ethos = { ethic = ethic_authoritarian }
 					}
 				}
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_plan_rebellion
-						civics = random
-						flag = random
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_plan_rebels }
 					}
 				}
 			}
@@ -6291,89 +5484,36 @@ get_gen_plan_rebels = {
 			random_list = {
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_plan_rebellion
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_egalitarian
-						}
+						inline_script = { script = civil_war_country_creation/gen_plan_rebels }
+						ethos = { ethic = ethic_egalitarian }
 
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
 					}
 				}
 				5 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_plan_rebellion
-						civics = random
-						flag = random
 						authority = auth_direct_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_egalitarian
-						}
-
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_plan_rebels }
+						ethos = { ethic = ethic_fanatic_egalitarian }
 					}
 				}
 				35 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_plan_rebellion
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_plan_rebels }
 					}
 				}
 				20 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_plan_rebellion
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_plan_rebels }
+						ethos = { ethic = ethic_authoritarian }
 					}
 				}
 				25 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_plan_rebellion
-						civics = random
-						flag = random
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_plan_rebels }
 					}
 				}
 			}
@@ -6383,68 +5523,28 @@ get_gen_plan_rebels = {
 		random_list = {
 			30 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_plan_rebellion
-					civics = random
-					flag = random
 					authority = auth_democratic
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_egalitarian
-					}
-
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_plan_rebels }
 				}
 			}
 			25 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_plan_rebellion
-					civics = random
-					flag = random
 					authority = auth_oligarchic
+					inline_script = { script = civil_war_country_creation/gen_plan_rebels }
 					ethos = random
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
 				}
 			}
 			30 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_plan_rebellion
-					civics = random
-					flag = random
 					authority = auth_dictatorial
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_authoritarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_plan_rebels }
 				}
 			}
 			15 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_plan_rebellion
-					civics = random
-					flag = random
 					authority = auth_imperial
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_authoritarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_plan_rebels }
+					ethos = { ethic = ethic_authoritarian }
 				}
 			}
 		}
@@ -6460,104 +5560,40 @@ get_gen_sec_rebels = {
 			random_list = {
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_sec_rebellion
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_egalitarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_sec_rebels }
 					}
 				}
 				5 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_sec_rebellion
-						civics = random
-						flag = random
 						authority = auth_strict_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_egalitarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_sec_rebels }
+						ethos = { ethic = ethic_egalitarian }
 					}
 				}
 				25 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_sec_rebellion
-						civics = random
-						flag = random
 						authority = auth_dict_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_sec_rebels }
 					}
 				}
 				30 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_sec_rebellion
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_sec_rebels }
 					}
 				}
 				10 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_sec_rebellion
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_sec_rebels }
+						ethos = { ethic = ethic_authoritarian }
 					}
 				}
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_sec_rebellion
-						civics = random
-						flag = random
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_sec_rebels }
 					}
 				}
 			}
@@ -6567,87 +5603,34 @@ get_gen_sec_rebels = {
 
 				15 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_sec_rebellion
-						civics = random
-						flag = random
 						authority = auth_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_egalitarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_sec_rebels }
 					}
 				}
 				5 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_sec_rebellion
-						civics = random
-						flag = random
 						authority = auth_direct_democratic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_egalitarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_sec_rebels }
+						ethos = { ethic = ethic_egalitarian }
 					}
 				}
 				35 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_sec_rebellion
-						civics = random
-						flag = random
 						authority = auth_dictatorial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_sec_rebels }
 					}
 				}
 				20 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_sec_rebellion
-						civics = random
-						flag = random
 						authority = auth_imperial
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_authoritarian
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_sec_rebels }
+						ethos = { ethic = ethic_authoritarian }
 					}
 				}
 				25 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_sec_rebellion
-						civics = random
-						flag = random
 						authority = auth_oligarchic
-						randomize_ethos = yes
-						ethos = {
-							ethic = ethic_fanatic_militarist
-						}
-						effect = {
-							created_civwar_rebel_country_effect = yes
-						}
+						inline_script = { script = civil_war_country_creation/gen_sec_rebels }
 					}
 				}
 			}
@@ -6657,73 +5640,31 @@ get_gen_sec_rebels = {
 		random_list = {
 			30 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_sec_rebellion
-					civics = random
-					flag = random
 					authority = auth_democratic
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_egalitarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_sec_rebels }
 				}
 			}
 			25 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_sec_rebellion
-					civics = random
-					flag = random
 					authority = auth_oligarchic
-					ethos = random
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_sec_rebels }
 				}
 			}
 			30 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_sec_rebellion
-					civics = random
-					flag = random
 					authority = auth_dictatorial
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_authoritarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_sec_rebels }
 				}
 			}
 			15 = {
 				create_rebels = {
-					name = random
-					species = event_target:civwar_species
-					origin = origin_sec_rebellion
-					civics = random
-					flag = random
 					authority = auth_imperial
-					randomize_ethos = yes
-					ethos = {
-						ethic = ethic_fanatic_authoritarian
-					}
-					effect = {
-						created_civwar_rebel_country_effect = yes
-					}
+					inline_script = { script = civil_war_country_creation/gen_sec_rebels }
+					ethos = { ethic = ethic_authoritarian }
 				}
 			}
 		}
 	}
-
-	last_created_country = { set_country_flag = sec_rebel_country }
 }
 
 get_nat_plan_rebels = {
@@ -6827,39 +5768,33 @@ get_plan_slave_rebels = {
 		if = {
 			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			random_list = {
-				60 = {
+				50 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civstrife_slave_rebellion
-						civics = random
-						flag = random
 						authority = auth_strict_democratic
+						inline_script = { script = civil_war_country_creation/slave_rebels }
 						ethos = { 
 							ethic = ethic_fanatic_militarist
 							ethic = ethic_fanatic_egalitarian
-							ethic = random
-						}
-						effect = {
-							created_slave_rebel_country_effect = yes
 						}
 					}
 				}
-				40 = {
+				45 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civstrife_slave_rebellion
-						civics = random
-						flag = random
 						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/slave_rebels }
 						ethos = { 
 							ethic = ethic_fanatic_militarist
 							ethic = ethic_fanatic_egalitarian
-							ethic = random
 						}
-						effect = {
-							created_slave_rebel_country_effect = yes
+					}
+				}
+				5 = {
+					create_rebels = {
+						authority = auth_dict_democratic
+						inline_script = { script = civil_war_country_creation/slave_rebels }
+						ethos = { 
+							ethic = ethic_fanatic_militarist
+							ethic = ethic_egalitarian
 						}
 					}
 				}
@@ -6869,37 +5804,21 @@ get_plan_slave_rebels = {
 			random_list = {
 				50 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civstrife_slave_rebellion
-						civics = random
-						flag = random
 						authority = auth_democratic
-						ethos = { 
+						inline_script = { script = civil_war_country_creation/slave_rebels }
+						thos = { 
 							ethic = ethic_militarist
 							ethic = ethic_fanatic_egalitarian
-							ethic = random
-						}
-						effect = {
-							created_slave_rebel_country_effect = yes
 						}
 					}
 				}
 				50 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civstrife_slave_rebellion
-						civics = random
-						flag = random
 						authority = auth_direct_democratic
+						inline_script = { script = civil_war_country_creation/slave_rebels }
 						ethos = {
 							ethic = ethic_militarist
 							ethic = ethic_fanatic_egalitarian
-							ethic = random
-						}
-						effect = {
-							created_slave_rebel_country_effect = yes
 						}
 					}
 				}
@@ -6908,18 +5827,11 @@ get_plan_slave_rebels = {
 	}
 	else = {
 		create_rebels = {
-			name = random
-			species = event_target:civwar_species
-			origin = origin_civstrife_slave_rebellion
-			civics = random
-			flag = random
 			authority = auth_democratic
+			inline_script = { script = civil_war_country_creation/slave_rebels }
 			ethos = {
 				ethic = ethic_militarist
 				ethic = ethic_fanatic_egalitarian
-			}
-			effect = {
-				created_slave_rebel_country_effect = yes
 			}
 		}
 	}
@@ -6981,39 +5893,33 @@ get_sec_slave_rebels = {
 		if = {
 			limit = { has_global_flag = cultural_overhaul_funefork_active }
 			random_list = {
-				60 = {
+				50 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civstrife_slave_rebellion
-						civics = random
-						flag = random
 						authority = auth_strict_democratic
+						inline_script = { script = civil_war_country_creation/slave_rebels }
 						ethos = { 
 							ethic = ethic_fanatic_militarist
 							ethic = ethic_fanatic_egalitarian
-							ethic = random
-						}
-						effect = {
-							created_slave_rebel_country_effect = yes
 						}
 					}
 				}
 				40 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civstrife_slave_rebellion
-						civics = random
-						flag = random
 						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/slave_rebels }
 						ethos = { 
 							ethic = ethic_fanatic_militarist
 							ethic = ethic_fanatic_egalitarian
-							ethic = random
 						}
-						effect = {
-							created_slave_rebel_country_effect = yes
+					}
+				}
+				5 = {
+					create_rebels = {
+						authority = auth_dict_democratic
+						inline_script = { script = civil_war_country_creation/slave_rebels }
+						ethos = { 
+							ethic = ethic_fanatic_militarist
+							ethic = ethic_egalitarian
 						}
 					}
 				}
@@ -7023,37 +5929,21 @@ get_sec_slave_rebels = {
 			random_list = {
 				50 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civstrife_slave_rebellion
-						civics = random
-						flag = random
 						authority = auth_democratic
+						inline_script = { script = civil_war_country_creation/slave_rebels }
 						ethos = { 
 							ethic = ethic_militarist
 							ethic = ethic_fanatic_egalitarian
-							ethic = random
-						}
-						effect = {
-							created_slave_rebel_country_effect = yes
 						}
 					}
 				}
 				50 = {
 					create_rebels = {
-						name = random
-						species = event_target:civwar_species
-						origin = origin_civstrife_slave_rebellion
-						civics = random
-						flag = random
 						authority = auth_direct_democratic
+						inline_script = { script = civil_war_country_creation/slave_rebels }
 						ethos = {
 							ethic = ethic_fanatic_militarist
 							ethic = ethic_fanatic_egalitarian
-							ethic = random
-						}
-						effect = {
-							created_slave_rebel_country_effect = yes
 						}
 					}
 				}
@@ -7062,18 +5952,11 @@ get_sec_slave_rebels = {
 	}
 	else = {
 		create_rebels = {
-			name = random
-			species = event_target:civwar_species
-			origin = origin_civstrife_slave_rebellion
-			civics = random
-			flag = random
 			authority = auth_democratic
+			inline_script = { script = civil_war_country_creation/slave_rebels }
 			ethos = {
 				ethic = ethic_militarist
 				ethic = ethic_fanatic_egalitarian
-			}
-			effect = {
-				created_slave_rebel_country_effect = yes
 			}
 		}
 	}
@@ -7846,7 +6729,7 @@ get_civil_war_leader = {
 			}
 		}
 		else_if = {
-			limit = { event_target:civwar_rebels = { has_country_flag = civwar_green } }
+			limit = { event_target:civwar_rebels = { has_country_flag = civwar_eco } }
 			event_target:civwar_originator = {
 				if = {
 					limit = {

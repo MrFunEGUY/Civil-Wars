@@ -1,0 +1,68 @@
+name = random
+type = default
+species = event_target:civwar_species
+ignore_initial_colony_error = yes
+day_zero_contact = no
+origin = origin_civwar
+civics = random
+flag = random
+randomize_ethos = yes
+effect = {
+	if = {
+		limit = { root.target = { is_authoritarian_faction = yes } }
+		set_country_flag = civwar_auth
+	}
+	else_if = {
+		limit = { root.target = { is_egalitarian_faction = yes } }
+		set_country_flag = civwar_egal
+	}
+	if = {
+		limit = { root.target = { is_militarist_faction = yes } }
+		set_country_flag = civwar_mil
+	}
+	else_if = {
+		limit = { root.target = { is_pacifist_faction = yes } }
+		set_country_flag = civwar_pac
+	}
+	else_if = {
+		limit = { root.target = { is_materialist_faction = yes } }
+		set_country_flag = civwar_mat
+	}
+	else_if = {
+		limit = { root.target = { is_spiritualist_faction = yes } }
+		set_country_flag = civwar_spi
+	}
+	else_if = {
+		limit = { root.target = { is_xenophile_faction = yes } }
+		set_country_flag = civwar_phile
+	}
+	else_if = {
+		limit = { root.target = { is_xenophobe_faction = yes } }
+		set_country_flag = civwar_phobe
+	}
+	else_if = {
+		limit = { root.target = { is_socialist_faction = yes } }
+		set_country_flag = civwar_soc
+	}
+	else_if = {
+		limit = { root.target = { is_capitalism_faction = yes } }
+		set_country_flag = civwar_cap
+	}
+	else_if = {
+		limit = { root.target = { is_industrial_faction = yes } }
+		set_country_flag = civwar_indus
+	}
+	else_if = {
+		limit = { root.target = { is_ecologist_faction = yes } }
+		set_country_flag = civwar_eco
+	}
+	else_if = {
+		limit = { root.target = { is_elitist_faction = yes } }
+		set_country_flag = civwar_elite
+	}
+	else_if = {
+		limit = { root.target = { is_pluralist_faction = yes } }
+		set_country_flag = civwar_plur
+	}
+	created_civwar_country_effect = yes
+}
