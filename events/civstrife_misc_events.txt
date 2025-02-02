@@ -329,6 +329,37 @@ country_event = { # Set Birthday
 	}
 }
 
+# Neighbor/Motherland ship loan indefinite
+fleet_event = {
+	id = civmisc.4000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_fleet_flag = civwar_loaned_fleet
+		NOT = { is_owned_by = root.controller }
+	}
+
+	immediate = {
+		prolong_fleet_contract = { days = 3600 }
+		fleet_event = { id = civmisc.4000 days = 3570 }
+	}
+}
+# Remove Fleet Flag
+fleet_event = {
+	id = civmisc.4100
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_fleet_flag = civwar_loaned_fleet
+	}
+
+	immediate = {
+		remove_fleet_flag = civwar_loaned_fleet
+	}
+}
+
 # fires when a country finishes being integrated
 # This = overlord
 # From = subject

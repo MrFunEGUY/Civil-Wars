@@ -42,7 +42,7 @@ l_french:
  civwar.2055.desc: "§H[civwar_rebels.Ruler.GetName]§! is demanding an audience."
 
  # Civil War Request Help from Neighbors
- civwar.2100.name: "Neighboring Rebels Request Audience"
+ civwar.2100.name: "Foreign Rebels Request Audience"
  civwar.2100.desc: "A delegation claiming to represent the government of the §Y[civwar_rebels.GetName]§!, an apparent breakaway state of the §Y[civwar_originator.GetName]§!, is requesting an audience."
  civwar.2100.deny: "Deny them an audience."
 
@@ -55,8 +55,8 @@ l_french:
 
  # Player Subject overlord civwar interactions
  civwar.2300.name: "Overlord Embroiled in Civil War"
- civwar.2300_1.desc: "It appears that our overlord, the §H[overlord.GetName]§!, have found themselves embroiled in a civil war. This situation presents some unique opportunities for our empire. How are we going to respond to this situation?"
- civwar.2300_more.desc: "It appears that our overlord, the §H[overlord.GetName]§!, have found themselves embroiled in a civil war. This situation presents some unique opportunities for our empire, and that of our overlord's other subjects. How are we going to respond to this situation?"
+ civwar.2300_1.desc: "It appears that our overlord, the §H[overlord.GetName]§!, have found themselves embroiled in a civil war. This situation presents some unique opportunities for our country. How are we going to respond to this situation?"
+ civwar.2300_more.desc: "It appears that our overlord, the §H[overlord.GetName]§!, have found themselves embroiled in a civil war. This situation presents some unique opportunities for our country, and that of our overlord's other subjects. How are we going to respond to this situation?"
 
  civwar.2300.nothing: "We will do nothing."
 
@@ -154,11 +154,19 @@ l_french:
  opinion_received_traitor: "Harbored Traitor"
  opinion_restored_nats: "Restored our Nation"
 
- opinion_supported_rebellion: "Supported our Rebellion"
+ opinion_supported_rebellion_financially: "Financial Support for our Rebellion"
+ opinion_supported_rebellion_militarily: "Militarily Aid for our Rebellion"
 
- opinion_gives_5_ships: "$opinion_supported_rebellion$"
- opinion_gives_10_ships: "$opinion_supported_rebellion$"
- opinion_gives_15_ships: "$opinion_supported_rebellion$"
+ opinion_gave_fleet_5: "$opinion_supported_rebellion_militarily$"
+ opinion_gave_fleet_10: "$opinion_supported_rebellion_militarily$"
+ opinion_gave_fleet_15: "$opinion_supported_rebellion_militarily$"
+ opinion_gave_fleet_20: "$opinion_supported_rebellion_militarily$"
+ opinion_gave_fleet_25: "$opinion_supported_rebellion_militarily$"
+ opinion_gave_fleet_30: "$opinion_supported_rebellion_militarily$"
+ opinion_gave_fleet_40: "$opinion_supported_rebellion_militarily$"
+ opinion_gave_fleet_50: "$opinion_supported_rebellion_militarily$"
+ opinion_gave_fleet_major: "$opinion_supported_rebellion_militarily$"
+ 
  opinion_gives_small_resources: "$opinion_supported_rebellion$"
  opinion_gives_medium_resources: "$opinion_supported_rebellion$"
  opinion_gives_large_resources: "$opinion_supported_rebellion$"
@@ -461,7 +469,7 @@ l_french:
  civcom.4000.name: "[civwar_rebels.GetRulerTitle] §H[civwar_rebels.ruler.GetName]§! of the §Y[civwar_rebels.GetName]§!"
  civcom.4000.norm.desc: "Greetings to §Y[Root.GetRulerTitle]§! §H[Root.GetRulerName]§!. I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.ruler.GetName]§!, and I represent the §Y[civwar_rebels.GetName]§!. We have broken away from the §Y[civwar_originator.GetName]§! and founded a new state. However, the §Y[civwar_originator.GetAdj]§! government has declared war in an attempt to maintain their hold over us. I come before you today requesting any assistance that you may be able to provide."
 
- civcom.4000.heir.desc: "Greetings to §Y[Root.GetRulerTitle]§! §H[Root.GetRulerName]§!. I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.ruler.GetName]§!, and I represent the §Y[civwar_rebels.GetName]§!. I was, and still rightfully am, the heir to the throne of the §Y[civwar_originator.GetName]§!. However, political machinations have seen me denied my rightful claim to the throne. Unwilling to let this stand, I was forced to found the §Y[civwar_rebels.GetName]§! with territory that was still loyal to me. However, the §Y[civwar_originator.GetRulerTitle]§! has decided to wage war against me in a further attempt to deny me what is rightfully mine. I come before you today requesting any assistance that you may be able to provide."
+ civcom.4000.heir.desc: "Greetings to §Y[Root.GetRulerTitle]§! §H[Root.GetRulerName]§!. I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.ruler.GetName]§!, and I represent the §Y[civwar_rebels.GetName]§!. I was, and still rightfully am, the heir to the throne of the §Y[civwar_originator.GetName]§!. However, political machinations have seen me denied what is rightfully mine. Unwilling to let this stand, I was forced to found the §Y[civwar_rebels.GetName]§! with territory that was still loyal to me. However, the §Y[civwar_originator.GetRulerTitle]§! has decided to wage war against me in a further attempt to deny my claim. I come before you today requesting any assistance that you may be able to provide."
 
  # Not Yet Implelemented
  # civcom.4000.nat.border.desc: "Greetings, §Y[root.GetRulerTitle]§! §H[Root.Ruler.GetName]§!. My name is §H[civwar_rebels.Ruler.GetName]§!, and I come representing a group of loyal patriots who've rebelled against the oppressive rule of the §Y[civwar_originator.GetName]§!. We've created a new §Y[Root.GetAdj]§! state, the §H[civwar_rebels.GetName]§!, modeled after our true motherland, the  §Y[Root.GetName]§!. I have been chosen to lead as §Y[civwar_rebels.GetRulerTitle]§!.\n\nWe would be grateful if you would assist in our liberation struggle in the likely event the despised §Y[civwar_originator.GetAdj]§! government attempts to force us back under their control. Additionally, should our liberation struggle prove successful, would would formally like to rejoin the §Y[Root.GetName]§!."
@@ -470,8 +478,10 @@ l_french:
 
  civcom.4000.abstain: "We're sorry, but we cannot assist you."
  civcom.4000.resources: "We can provide you with aid."
- civcom.4000.ships: "We can provide you with some ships."
+ civcom.4000.ships: "We can loan you with one of our fleets."
  civcom.4000.help: "You have our fully military support."
+ not_enough_support_resources: "We do not have enough resources."
+ no_shared_borders_civwar: "We have no §Yshared borders§!."
 
  civcom.4100.norm.desc: "We knew the chances were slim. Have a good day."
  civcom.4100.nat.desc: "Really? This is dissapointing. We thought we could surely count on our fellow §Y[Root.GetSpeciesAdj]§! to assist us."
@@ -480,13 +490,51 @@ l_french:
 
  civcom.4110.desc: "We'll gladly take any resources you can spare. Thank you."
 
- civcom.4120.desc: "We'll gladly take any ships you can spare. Thank you."
+ civcom.4120.desc: "We'll gladly take any fleet you can spare. Thank you."
  civcom.4120.nevermind: "Actually, we can't."
- civcom.4120.5: "We'll give you around §Y5%§! of our ships."
- civcom.4120.10: "We'll give you around §Y10%§! of our ships."
- civcom.4120.15: "We'll give you around §Y15%§! of our ships."
- civcom.4120.20: "We'll give you around §Y20%§! of our ships."
- civcom.4120.25: "We'll give you around §Y25%§! of our ships."
+ civcom.4120.refresh: "§YRefresh list of ships§!"
+ civcom.4120.fleet_1: "We'll loan you §H[event_target:military_fleet_1.GetName]§!"
+ civcom.4120.fleet_2: "We'll loan you §H[event_target:military_fleet_2.GetName]§!"
+ civcom.4120.fleet_3: "We'll loan you §H[event_target:military_fleet_3.GetName]§!"
+ civcom.4120.fleet_4: "We'll loan you §H[event_target:military_fleet_4.GetName]§!"
+ civcom.4120.fleet_5: "We'll loan you §H[event_target:military_fleet_5.GetName]§!"
+ civcom.4120.fleet_6: "We'll loan you §H[event_target:military_fleet_6.GetName]§!"
+ civcom.4120.fleet_7: "We'll loan you §H[event_target:military_fleet_7.GetName]§!"
+ civcom.4120.fleet_8: "We'll loan you §H[event_target:military_fleet_8.GetName]§!"
+ civcom.4120.fleet_9: "We'll loan you §H[event_target:military_fleet_9.GetName]§!"
+ civcom.4120.fleet_10: "We'll loan you §H[event_target:military_fleet_10.GetName]§!"
+ civcom.4120.fleet_11: "We'll loan you §H[event_target:military_fleet_11.GetName]§!"
+ civcom.4120.fleet_12: "We'll loan you §H[event_target:military_fleet_12.GetName]§!"
+ civcom.4120.fleet_13: "We'll loan you §H[event_target:military_fleet_13.GetName]§!"
+ civcom.4120.fleet_14: "We'll loan you §H[event_target:military_fleet_14.GetName]§!"
+ civcom.4120.fleet_15: "We'll loan you §H[event_target:military_fleet_15.GetName]§!"
+ civcom.4120.fleet_16: "We'll loan you §H[event_target:military_fleet_16.GetName]§!"
+ civcom.4120.fleet_17: "We'll loan you §H[event_target:military_fleet_17.GetName]§!"
+ civcom.4120.fleet_18: "We'll loan you §H[event_target:military_fleet_18.GetName]§!"
+ civcom.4120.fleet_19: "We'll loan you §H[event_target:military_fleet_19.GetName]§!"
+ civcom.4120.fleet_20: "We'll loan you §H[event_target:military_fleet_20.GetName]§!"
+
+ civcom.4121.desc: "How long will we have control of §H[event_target:chosen_military_fleet.GetName]§!?"
+ civcom.4121.diff_fleet: "Actually, we can't loan you §H[event_target:chosen_military_fleet.GetName]§!."
+ civcom.4121.6_months: "For §Y6 months§!"
+ civcom.4121.1_year: "For §Y1 year§!"
+ civcom.4121.2_years: "For §Y2 years§!"
+ civcom.4121.3_years: "For §Y3 years§!"
+ civcom.4121.4_years: "For §Y4 years§!"
+ civcom.4121.5_years: "For §Y5 years§!"
+ civcom.4121.10_years: "For §Y10 years§!"
+ civcom.4121.indefinitely: "You will have the fleet until your war is won."
+
+ civcom.4123.desc: "Greetings, §Y[root.GetRulerTitle]§! §H[Root.Ruler.GetName]§!. The §H[event_target:leased_civwar_fleet.GetName]§! have been invaluable in our war efforts. Our original deal has us in control of the fleet for another 2 months, however, our struggle rages on. Is there any chance you might consider an extension of our control over the fleet?"
+ civcom.4123.no_extension: "We cannot offer an extension."
+ civcom.4123.6_months: "For an additional §Y6 months§!"
+ civcom.4123.1_year: "For an additional §Y1 year§!"
+ civcom.4123.2_years: "For an additional §Y2 years§!"
+ civcom.4123.3_years: "For an additional §Y3 years§!"
+ civcom.4123.4_years: "For an additional §Y4 years§!"
+ civcom.4123.5_years: "For an additional §Y5 years§!"
+ civcom.4123.10_years: "For an additional §Y10 years§!"
+ civcom.4123.indefinitely: "You will have the fleet until your war is won."
  
  civcom.4125.norm.desc: "You are a true ally. We'll surely win this war now."
  civcom.4125.nat.desc: "We greatly appreciate the assistance. We knew we would be able to count on our motherland for support."
@@ -1342,9 +1390,7 @@ l_french:
  war_goal_wg_civwar_heir_rebel_desc: "$war_goal_wg_civwar_heir_desc$"
 
  # Tooltips
- civil_war_won_tooltip: "§Y[Root.GetName]§! will regain control of all territory lost to §Y[From.GetName]§!.\n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!.\nIf any of our §Ysubjects§! assisted us, they will §Ybecome independent§!.\nIf any of our §Ysubjects§! assisted in the rebellion, we will §Yreassert our suzerainty over them§!."
-
- civil_war_won_subject_tooltip: "§YOur subject§! will regain control of all territory lost to the §Y[From.GetName]§!.\n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!."
+ civil_war_won_tooltip: "§Y[Root.GetName]§! and their allies will regain control of all territory lost to the §Y[From.GetName]§!.\n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!.\nIf any of our §Ysubjects§! assisted us, they will §Ybecome independent§!.\nIf any of our §Ysubjects§! assisted in the rebellion, we will §Yreassert our suzerainty over them§!."
 
  civil_war_lost_tooltip: "§Y[From.GetName]§! is forced to accept the sovereignty of the §Y[Root.GetName]§!.\n§Y[Root.GetName]§! gains £unity£ §Y$unity$§!."
 

@@ -289,7 +289,7 @@ country_event = {
 
 ########
 
-# Set subjects who assisted in civwar free
+# Set subjects who assisted in civwar free on overlord side
 country_event = {
 	id = civend.3000
 	hide_window = yes
@@ -311,8 +311,7 @@ country_event = {
 			}
 			any_attacker = {
 				has_overlord = root
-				NOT = { has_country_flag = is_my_civil_war }
-				NOT = { has_country_flag = sub_joins_overlord }
+				has_country_flag = helped_overlord_sub
 			}
 		}
 	}
@@ -322,9 +321,9 @@ country_event = {
 			every_attacker = {
 				limit = {
 					has_overlord = root
-					NOT = { has_country_flag = is_my_civil_war }
-					NOT = { has_country_flag = sub_joins_overlord }
+					has_country_flag = helped_overlord_sub
 				}
+				remove_country_flag = helped_overlord_sub
 				set_subject_of = { who = none }
 			}
 		}
@@ -501,8 +500,8 @@ country_event = {
 			}
 			any_war_participant = {
 				OR = {
-					has_country_flag = is_my_civil_war
-					has_country_flag = sub_joins_overlord
+					has_country_flag = helped_rebels_sub
+					has_country_flag = helped_overlord_sub
 				}
 			}
 		}
@@ -513,11 +512,11 @@ country_event = {
 			every_war_participant = {
 				limit = {
 					OR = {
-						has_country_flag = is_my_civil_war
-						has_country_flag = sub_joins_overlord
+						has_country_flag = helped_rebels_sub
+						has_country_flag = helped_overlord_sub
 					}
 				}
-				country_event = { id = civend.3045 days = 2 }
+				country_event = { id = civend.3045 days = 15 }
 			}
 		}
 	}
@@ -545,8 +544,8 @@ country_event = {
 			}
 			any_war_participant = {
 				OR = {
-					has_country_flag = is_my_civil_war
-					has_country_flag = sub_joins_overlord
+					has_country_flag = helped_rebels_sub
+					has_country_flag = helped_overlord_sub
 				}
 			}
 		}
@@ -557,11 +556,11 @@ country_event = {
 			every_war_participant = {
 				limit = {
 					OR = {
-						has_country_flag = is_my_civil_war
-						has_country_flag = sub_joins_overlord
+						has_country_flag = helped_rebels_sub
+						has_country_flag = helped_overlord_sub
 					}
 				}
-				country_event = { id = civend.3045 days = 2 }
+				country_event = { id = civend.3045 days = 15 }
 			}
 		}
 	}
@@ -591,8 +590,8 @@ country_event = {
 			}
 			any_war_participant = {
 				OR = {
-					has_country_flag = is_my_civil_war
-					has_country_flag = sub_joins_overlord
+					has_country_flag = helped_rebels_sub
+					has_country_flag = helped_overlord_sub
 				}
 			}
 		}
@@ -603,11 +602,11 @@ country_event = {
 			every_war_participant = {
 				limit = {
 					OR = {
-						has_country_flag = is_my_civil_war
-						has_country_flag = sub_joins_overlord
+						has_country_flag = helped_rebels_sub
+						has_country_flag = helped_overlord_sub
 					}
 				}
-				country_event = { id = civend.3045 days = 2 }
+				country_event = { id = civend.3045 days = 15 }
 			}
 		}
 	}
@@ -621,19 +620,79 @@ country_event = {
 
 	trigger = {
 		OR = {
-			has_country_flag = is_my_civil_war
-			has_country_flag = sub_joins_overlord
+			has_country_flag = helped_rebels_sub
+			has_country_flag = helped_overlord_sub
 		}
 	}
 
 	immediate = {
 		if = {
-			limit = { has_country_flag = is_my_civil_war }
-			remove_country_flag = is_my_civil_war
+			limit = { has_country_flag = helped_rebels_sub }
+			remove_country_flag = helped_rebels_sub
 		}
 		if = {
-			limit = { has_country_flag = sub_joins_overlord }
-			remove_country_flag = sub_joins_overlord
+			limit = { has_country_flag = helped_overlord_sub }
+			remove_country_flag = helped_overlord_sub
+		}
+	}
+}
+
+## Fleet Flag Remover
+country_event = {
+	id = civend.3100
+	hide_window = yes
+	is_triggered_only = yes
+
+	# A war has been won
+	# Root = Winner Warleader
+	# From = Loser Warleader
+	# FromFrom = War
+
+	trigger = {
+		fromfrom = { has_rebel_war_goal = yes }
+		any_controlled_fleet = { has_fleet_flag = civwar_loaned_fleet }
+	}
+
+	immediate = {
+		every_controlled_fleet = {
+			limit = { has_fleet_flag = civwar_loaned_fleet }
+			remove_fleet_flag = civwar_loaned_fleet
+			end_fleet_contract = {
+				initiator = root
+				reason = expired
+			}
+		}
+	}
+}
+
+# Fleet Flag Remover Initializer - Status Quo
+country_event = {
+	id = civend.3032
+	hide_window = yes
+	is_triggered_only = yes
+
+	# A status quo has been signed
+	# Root = Actor
+	# From = Recipient
+	# FromFrom = Main Attacker
+	# FromFromFrom = Main Defender
+	# FromFromFromFrom = War
+
+	trigger = {
+		FromFromFromFrom = { has_rebel_war_goal = yes }
+		FromFromFrom = { any_controlled_fleet = { has_fleet_flag = civwar_loaned_fleet } }
+	}
+
+	immediate = {
+		FromFromFrom = {
+			every_controlled_fleet = {
+				limit = { has_fleet_flag = civwar_loaned_fleet }
+				remove_fleet_flag = civwar_loaned_fleet
+				end_fleet_contract = {
+					initiator = root.FromFromFrom
+					reason = expired
+				}
+			}
 		}
 	}
 }

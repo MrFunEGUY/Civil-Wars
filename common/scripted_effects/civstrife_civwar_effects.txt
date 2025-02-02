@@ -292,20 +292,20 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator
 			exists = event_target:civwar_rebels
 			event_target:civwar_rebels = { is_at_war_with = event_target:civwar_originator }
 			any_country = {
-				is_unfriendly = no
-				is_country_type_with_subjects = yes
-				NOT = { has_truce = event_target:civwar_originator }
-				NOT = { is_same_value = event_target:civwar_rebels }
-				NOT = { has_overlord = event_target:civwar_originator }
-				NOT = { is_same_value = event_target:civwar_originator }
-				NOT = { has_defensive_pact = event_target:civwar_originator }
-				NOT = { is_in_federation_with = event_target:civwar_originator }
-				NOT = { has_non_aggression_pact = event_target:civwar_originator }
+				is_able_to_assist_rebels = yes
 				any_system_within_border = {
 					closest_system = {
 						limit = {
 							exists = space_owner
-							space_owner = { is_same_value = event_target:civwar_rebels }
+							OR = {
+								space_owner = { is_same_empire = event_target:civwar_rebels }
+								space_owner = { is_same_empire = event_target:civwar_originator }
+								AND = {
+									exists = event_target:civwar_originator.overlord
+									space_owner = { is_same_empire = event_target:civwar_originator.overlord }
+									event_target:civwar_rebels = { is_at_war_with = event_target:civwar_originator.overlord }
+								}
+							}
 						}
 						use_bypasses = yes
 						max_steps = 1
@@ -315,20 +315,20 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator
 		}
 		every_country = {
 			limit = {
-				is_unfriendly = no
-				is_country_type_with_subjects = yes
-				NOT = { has_truce = event_target:civwar_originator }
-				NOT = { is_same_value = event_target:civwar_rebels }
-				NOT = { has_overlord = event_target:civwar_originator }
-				NOT = { is_same_value = event_target:civwar_originator }
-				NOT = { has_defensive_pact = event_target:civwar_originator }
-				NOT = { is_in_federation_with = event_target:civwar_originator }
-				NOT = { has_non_aggression_pact = event_target:civwar_originator }
+				is_able_to_assist_rebels = yes
 				any_system_within_border = {
 					closest_system = {
 						limit = {
 							exists = space_owner
-							space_owner = { is_same_value = event_target:civwar_rebels }
+							OR = {
+								space_owner = { is_same_empire = event_target:civwar_rebels }
+								space_owner = { is_same_empire = event_target:civwar_originator }
+								AND = {
+									exists = event_target:civwar_originator.overlord
+									space_owner = { is_same_empire = event_target:civwar_originator.overlord }
+									event_target:civwar_rebels = { is_at_war_with = event_target:civwar_originator.overlord }
+								}
+							}
 						}
 						use_bypasses = yes
 						max_steps = 1
@@ -340,19 +340,18 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator
 					has_federation = no
 					OR = {
 						is_subject = no
-						any_agreement = {
-							OR = {
-								has_term_value = {
-									term = joins_subject_wars
-									value = joins_subject_wars_none
-								}
-								has_term_value = {
-									term = joins_subject_wars
-									value = joins_subject_wars_defensive
-								}
-							}
+						subject_can_wage_war = yes
+					}
+				}
+				if = {
+					limit = {
+						is_subject = yes
+						overlord = {
+							has_federation = no
+							is_able_to_assist_rebels = yes
 						}
 					}
+					overlord = { country_event = { id = civwar.2100 days = 1 } }
 				}
 				country_event = { id = civwar.2100 }
 			}
@@ -360,32 +359,21 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator
 				limit = {
 					has_federation = no
 					exists = overlord
-					overlord = {
-						is_unfriendly = no
-						NOT = { is_same_value = event_target:civwar_originator }
-					}
+					overlord = { is_able_to_assist_rebels = yes }
 				}
 				overlord = {
 					if = {
-						limit = {
-							has_federation = yes
-							NOT = { is_in_federation_with = event_target:civwar_originator }
+						limit = { has_federation = yes }
+						if = {
+							limit = { NOT = { is_in_federation_with = event_target:civwar_originator } }
+							random_federation_ally = {
+								limit = { is_federation_leader = yes }
+								country_event = { id = civwar.2100 }
+							}
 						}
-						random_federation_ally = {
-							limit = { is_federation_leader = yes }
-							country_event = { id = civwar.2100 }
-						}
+						
 					}
-					else_if = {
-						limit = {
-							has_federation = yes
-							is_in_federation_with = event_target:civwar_originator
-						}
-						# DO NOTHING
-					}
-					else = {
-						country_event = { id = civwar.2100 }
-					}
+					else = { country_event = { id = civwar.2100 days = 1 } }
 				}			
 			}
 			else_if = {
@@ -394,7 +382,10 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator
 					NOT = { is_in_federation_with = event_target:civwar_originator }
 				}
 				random_federation_ally = {
-					limit = { is_federation_leader = yes }
+					limit = {
+						is_federation_leader = yes
+						is_able_to_assist_rebels = yes
+					}
 					country_event = { id = civwar.2100 }
 				}
 			}
@@ -557,11 +548,6 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator
 		# 	set_timed_country_flag = { flag = subject_after_effects_timer years = 1 }
 		# 	get_subject_decisions_effect = yes
 		# }
-	}
-
-	if = { ## Otherwise is removed after war
-		limit = { NOT = { is_at_war_with = event_target:civwar_rebels } }
-		remove_country_flag = is_my_civil_war
 	}
 }
 
@@ -12358,6 +12344,217 @@ get_war_type_flag = {
 	}
 }
 
+get_fleet_effect = {
+
+
+	# # Count how many fleets there are
+	set_variable = { which = civwar_total_fleets value = 0 }
+	every_owned_fleet = {
+		limit = {
+			any_owned_ship = { is_ship_class = shipclass_military }
+			NOR = { # Refresh Protection
+				is_same_value = event_target:military_fleet_1
+				is_same_value = event_target:military_fleet_2
+				is_same_value = event_target:military_fleet_3
+				is_same_value = event_target:military_fleet_4
+				is_same_value = event_target:military_fleet_5
+				is_same_value = event_target:military_fleet_6
+				is_same_value = event_target:military_fleet_7
+				is_same_value = event_target:military_fleet_8
+				is_same_value = event_target:military_fleet_9
+				is_same_value = event_target:military_fleet_10
+				is_same_value = event_target:military_fleet_11
+				is_same_value = event_target:military_fleet_12
+				is_same_value = event_target:military_fleet_13
+				is_same_value = event_target:military_fleet_14
+				is_same_value = event_target:military_fleet_15
+				is_same_value = event_target:military_fleet_16
+				is_same_value = event_target:military_fleet_17
+				is_same_value = event_target:military_fleet_18
+				is_same_value = event_target:military_fleet_19
+				is_same_value = event_target:military_fleet_20
+			}
+		}
+		set_fleet_flag = military_fleet
+		prev = { change_variable = { which = civwar_total_fleets value = 1 } }
+	}
+
+	while = {
+		count = 20
+		ordered_owned_fleet = {
+			limit = { has_fleet_flag = military_fleet }
+			position = 0
+			order_by = trigger:fleet_power
+			inverse = yes
+			if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_1 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 1 } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_1
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_2 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 2 } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_2
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_3 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 3 } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_3
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_4 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 4 } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_4
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_5 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 5 } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_5
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_6 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 6 } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_6
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_7 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 7 } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_7
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_8 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 8 } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_8
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_9 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 9 } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_9
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_10 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_10
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_11 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_11
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_12 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_12
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_13 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_13
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_14 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_14
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_15 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_15
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_16 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_16
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_17 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_17
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_18 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_18
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_19 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_19
+			}
+			else_if = {
+				limit = {
+					NOT = { exists = event_target:military_fleet_20 }
+					owner = { check_variable = { which = civwar_total_fleets value >= 2  } }
+				}
+				remove_fleet_flag = military_fleet
+				save_event_target_as = military_fleet_20
+			}
+		}
+	}
+
+	every_owned_fleet = {
+		limit = { any_owned_fleet = { has_fleet_flag = military_fleet } }
+		remove_fleet_flag = military_fleet
+	}
+}
+
 #####################
 # Declare War Effects
 
@@ -13343,6 +13540,219 @@ get_declare_war_subject = {
 }
 
 #####################
+
+get_subject_choice_list = {
+	random_list = {
+		15 = { # Does Nothing
+			modifier = {
+				factor = 0
+				OR = {
+					# Subjects this strong should always make a play
+					check_variable = { which = subject_power_ratio value >= 0.85 }
+					NOT = { # Subjects have to do something if they no dont border the original overlord
+						any_system_within_border = {
+							closest_system = {
+								limit = {
+									exists = space_owner
+									space_owner = { is_same_value = event_target:civwar_originator }
+								}
+								use_bypasses = yes
+								max_steps = 1
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				check_variable = { which = subject_power_ratio value >= 0.75 }
+				check_variable = { which = subject_power_ratio value < 0.85 }
+			}
+			modifier = {
+				factor = 0.8
+				check_variable = { which = subject_power_ratio value >= 0.6 }
+				check_variable = { which = subject_power_ratio value < 0.75 }
+			}
+		}
+		50 = { # Declares Independence
+			set_timed_country_flag = { flag = subject_free_from_@root days = 90 }
+			if = {
+				limit = { root = { any_war = { using_war_goal = { type = wg_assert_overlordship owner = root } } } }
+				root = {
+					random_war = {
+						limit = { using_war_goal = { type = wg_assert_overlordship owner = root } }
+						save_event_target_as = indy_join_war
+					}
+				}
+				join_war_on_side = {
+					war = event_target:indy_join_war
+					side = attackers
+				}
+			}
+			else = {
+				declare_war = {
+					target = root
+					attacker_war_goal = "wg_independence"
+					effect = {
+						every_war_participant = {
+							limit = {
+								has_overlord = root
+								is_war_leader = no
+							}
+							prev = { remove_war_participant = prev }
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0.1
+				check_variable = { which = subject_power_ratio value < 0.4 }
+			}
+			modifier = {
+				factor = 0.5
+				check_variable = { which = subject_power_ratio value >= 0.4 }
+				check_variable = { which = subject_power_ratio value < 0.6 }
+			}
+			modifier = {
+				factor = 5 # Subjects this strong should try it
+				check_variable = { which = subject_power_ratio value >= 0.85 }
+			}
+		}
+		18 = { # Help Overlord in exchange for independence
+			set_timed_country_flag = { flag = subject_helps_overlord_@root years = 1 }
+			set_country_flag = helped_overlord_sub
+			modifier = {
+				factor = 0
+				OR = {
+					NAND = { # Can only happen if the subjects dont have much power, but combined with the overlord they do
+						check_variable = { which = subject_power_ratio value <= 0.3 }
+						check_variable = { which = subject_with_mother_power_ratio value >= 0.7 }
+					}
+					NOR = { # Subjects cant help overlord if they dont border them or the rebels (wont ever happen with WRB, but could in Vanilla)
+						has_country_flag = vas_borders_rebs_of_@root
+						any_system_within_border = {
+							closest_system = {
+								limit = {
+									exists = space_owner
+									space_owner = { is_same_value = event_target:civwar_originator }
+								}
+								use_bypasses = yes
+								max_steps = 1
+							}
+						}
+					}
+				}
+			}
+		}
+		2 = { # Help Rebels in exchange for independence
+			# For succession conflicts, this is slightly broken in that
+			# they may join in a war against a target that is not bordering
+			# them. I will work on it eventually.
+			set_timed_country_flag = { flag = subject_helps_rebels_@root years = 1 }
+			set_country_flag = helped_rebels_sub
+			if = { # If there is a VERU war going on over claiming this subject, invalidate it
+				limit = { has_country_flag = chosen_border_subject_@root }
+				remove_country_flag = chosen_border_subject_@root
+				root = {
+					random_war = {
+						limit = { using_war_goal = { type = wg_claim_subject owner = root } }
+						every_war_participant = { prev = { remove_war_participant = prev } }
+					}
+				}
+			}
+			modifier = {  # Should be likely if subjects dont have much power, but combined with the rebels they do
+				factor = 20
+				check_variable = { which = subject_power_ratio value <= 0.4 }
+				check_variable = { which = combined_power_ratio value >= 0.7 }
+			}
+			modifier = {
+				factor = 0
+				NOR = { # Subjects cant help rebels if they no dont border them or the overlord (wont ever happen with WRB, but could in Vanilla)
+					has_country_flag = vas_borders_rebs_of_@root
+					any_system_within_border = {
+						closest_system = {
+							limit = {
+								exists = space_owner
+								space_owner = { is_same_value = event_target:civwar_originator }
+							}
+							use_bypasses = yes
+							max_steps = 1
+						}
+					}
+				}
+			}
+		}
+		10 = { # Pledge Fealty to Rebels
+			set_timed_country_flag = { flag = subject_joins_rebels_@root years = 1 }
+			every_war = {
+				random_war_participant = {
+					limit = { is_same_empire = prevprev }
+					prev = { remove_war_participant = prev }
+				}
+			}
+			if = { # If there is a VERU war going on over claiming this subject, invalidate it
+				limit = { has_country_flag = chosen_border_subject_@root }
+				remove_country_flag = chosen_border_subject_@root
+				root = {
+					random_war = {
+						limit = { using_war_goal = { type = wg_claim_subject owner = root } }
+						every_war_participant = { prev = { remove_war_participant = prev } }
+					}
+				}
+			}
+			set_subject_of = {
+				who = event_target:rebel_borders_subject
+				preset = preset_tributary
+			}
+			modifier = {
+				factor = 0.1
+				check_variable = { which = combined_power_ratio value < 0.5 } 	# If they are this weak combined, the subject should be smart and stay out
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = vas_borders_rebs_of_@root }  		# If they dont border the rebels, they cant join them
+					opinion = { who = root value >= 300 } 							# If they have Positive (game Positive not literal positive) relations with their overlord, they shouldn't join the rebels
+				}
+			}
+			modifier = {
+				factor = 1.5
+				opinion = { who = root value <= -300 }
+				opinion = { who = root value > -750 }
+			}
+			modifier = {
+				factor = 2
+				opinion = { who = root value <= -750 }
+			}
+		}
+		5 = { # Joins Overlord
+			set_timed_country_flag = { flag = subject_joins_overlord_@root years = 1 }
+			modifier = {
+				factor = 0
+				OR = {
+					check_variable = { which = subject_with_mother_power_ratio value <= 0.9 } # If victory is not almost assured in helping the motherland, the subject wont
+					opinion = { who = root value < 750 } 		# If they don't have Excellent relations with their overlord, they shouldn't help
+					NOT = { 									# Subjects cant help overlord if they dont border them
+						any_system_within_border = {
+							closest_system = {
+								limit = {
+									exists = space_owner
+									space_owner = { is_same_value = event_target:civwar_originator }
+								}
+								use_bypasses = yes
+								max_steps = 1
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				opinion = { who = root value >= 1500 }
+			}
+		}
+	}
+}
 
 get_traitor_outcome = {
 	if = {

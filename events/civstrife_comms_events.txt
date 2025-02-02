@@ -1015,7 +1015,7 @@ country_event = {
 	desc = {
 		text = civcom.3100.norm.desc
 		trigger = {
-			NOT = { has_valid_civic = civic_adoptive_dynasties }
+			has_adoptive_dynasties = no
 			event_target:civwar_rebels.ruler = { NOT = { has_leader_flag = appointed_heir_ruler } }
 			event_target:civwar_rebels.ruler = { NOT = { has_leader_flag = civil_war_ruler_heir_gov_changed } }
 		}
@@ -1027,7 +1027,7 @@ country_event = {
 			AND = {
 				event_target:civwar_rebels.ruler = { NOT = { has_leader_flag = civil_war_ruler_heir_gov_changed } }
 				OR = {
-					has_valid_civic = civic_adoptive_dynasties
+					has_adoptive_dynasties = yes
 					event_target:civwar_rebels.ruler = { has_leader_flag = appointed_heir_ruler }
 				}
 			}
@@ -1038,7 +1038,7 @@ country_event = {
 	desc = {
 		text = civcom.3100.norm.gov.desc
 		trigger = {
-			NOT = { has_valid_civic = civic_adoptive_dynasties }
+			has_adoptive_dynasties = no
 			event_target:civwar_rebels.ruler = { NOT = { has_leader_flag = appointed_heir_ruler } }
 			event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_gov_changed }
 		}
@@ -1048,7 +1048,7 @@ country_event = {
 		text = civcom.3100.ad.gov.desc
 		trigger = {
 			OR = {
-				has_valid_civic = civic_adoptive_dynasties
+				has_adoptive_dynasties = yes
 				event_target:civwar_rebels.ruler = { has_leader_flag = appointed_heir_ruler }
 				event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_gov_changed }
 			}
@@ -1185,11 +1185,54 @@ country_event = {
 	option = {
 		name = civcom.4000.resources
 		allow = {
-			has_country_resource = { type = energy amount >= 1000 }
-			has_country_resource = { type = minerals amount >= 1000 }
-			has_country_resource = { type = food amount >= 1000 }
-			has_country_resource = { type = consumer_goods amount >= 500 }
-			has_country_resource = { type = alloys amount >= 500 }
+			custom_tooltip = {
+				fail_text = not_enough_support_resources
+				has_country_resource = { type = energy amount >= 1000 }
+				has_country_resource = { type = minerals amount >= 1000 }
+				has_country_resource = { type = food amount >= 1000 }
+				has_country_resource = { type = consumer_goods amount >= 500 }
+				has_country_resource = { type = alloys amount >= 500 }
+			}
+			custom_tooltip = {
+				fail_text = we_must_border_rebels
+				OR = {
+					any_system_within_border = {
+						closest_system = {
+							limit = {
+								exists = space_owner
+								space_owner = { is_same_value = event_target:civwar_rebels }
+							}
+							use_bypasses = yes
+							max_steps = 1
+						}
+					}
+					any_subject = {
+						any_system_within_border = {
+							closest_system = {
+								limit = {
+									exists = space_owner
+									space_owner = { is_same_value = event_target:civwar_rebels }
+								}
+								use_bypasses = yes
+								max_steps = 1
+							}
+						}
+					}
+					any_federation_ally = {
+						any_system_within_border = {
+							closest_system = {
+								limit = {
+									exists = space_owner
+									space_owner = { is_same_value = event_target:civwar_rebels }
+								}
+								use_bypasses = yes
+								max_steps = 1
+							}
+						}
+					}
+				}
+				
+			}
 		}
 		hidden_effect = {
 			if = {
@@ -1221,17 +1264,53 @@ country_event = {
 	# Provide Ships
 	option = {
 		name = civcom.4000.ships
+		trigger = {
+			any_owned_fleet = { any_owned_ship = { is_ship_class = shipclass_military } }
+			OR = {
+				is_ai = no
+				opinion = { who = event_target:civwar_originator value < 0 }
+			}
+		}
 		allow = {
-			hidden_trigger = {
-				any_owned_fleet = { any_owned_ship = { is_ship_class = shipclass_military } }
+			custom_tooltip = {
+				fail_text = we_must_border_rebels
 				OR = {
-					is_ai = no
-					AND = {
-						opinion = { who = event_target:civwar_originator value < 0 }
-						NOT = { has_defensive_pact = event_target:civwar_originator }
-						NOT = { has_non_aggression_pact = event_target:civwar_originator }
+					any_system_within_border = {
+						closest_system = {
+							limit = {
+								exists = space_owner
+								space_owner = { is_same_value = event_target:civwar_rebels }
+							}
+							use_bypasses = yes
+							max_steps = 1
+						}
+					}
+					any_subject = {
+						any_system_within_border = {
+							closest_system = {
+								limit = {
+									exists = space_owner
+									space_owner = { is_same_value = event_target:civwar_rebels }
+								}
+								use_bypasses = yes
+								max_steps = 1
+							}
+						}
+					}
+					any_federation_ally = {
+						any_system_within_border = {
+							closest_system = {
+								limit = {
+									exists = space_owner
+									space_owner = { is_same_value = event_target:civwar_rebels }
+								}
+								use_bypasses = yes
+								max_steps = 1
+							}
+						}
 					}
 				}
+				
 			}
 		}
 		hidden_effect = {
@@ -1245,13 +1324,13 @@ country_event = {
 			factor = 1
 
 			modifier = {
-				factor = 1.5
-				has_rival = event_target:civwar_originator
+				factor = 0
+				is_at_war = yes
 			}
 
 			modifier = {
-				factor = 0
-				is_at_war = yes
+				factor = 1.5
+				has_rival = event_target:civwar_originator
 			}
 
 			modifier = {
@@ -1275,7 +1354,7 @@ country_event = {
 					}
 				}
 			}
-			custom_tooltip = {
+			custom_tooltip = { # This is checked for everyone else before this point
 				fail_text = we_must_border_rebels
 				if = {
 					limit = { is_same_value = event_target:nat_motherland_model }
@@ -1314,26 +1393,17 @@ country_event = {
 			factor = 1
 
 			modifier = {
+				factor = 0
+				OR = {
+					is_at_war = yes
+					opinion = { who = event_target:civwar_originator value > -50 }
+				}
+			}
+
+			modifier = {
 				factor = 1.15
 				has_rival = event_target:civwar_originator
 			}
-
-			modifier = {
-				factor = 0
-				is_at_war = yes
-			}
-
-			modifier = {
-				factor = 0
-				opinion = { who = event_target:civwar_originator value > -50 }
-			}
-		}
-	}
-
-	after = {
-		if = {
-			limit = { has_country_flag = borders_rebels }
-			remove_country_flag = borders_rebels
 		}
 	}
 }
@@ -1525,7 +1595,7 @@ country_event = {
 	}
 }
 
-# Neighbor/Motherland gives ships
+# Neighbor/Motherland loans fleet
 country_event = {
 	id = civcom.4120
 	title = civcom.4000.name
@@ -1544,211 +1614,595 @@ country_event = {
 		room = root.ruler
 	}
 
+	immediate = {
+		get_fleet_effect = yes
+	}
+
 	option = {
 		name = civcom.4120.nevermind
 		ai_chance = { factor = 0 }
 	}
 
 	option = {
-		name = civcom.4120.5
+		name = civcom.4120.refresh
+		ai_chance = { factor = 0 }
 		hidden_effect = {
+			country_event = { id = civcom.4120 }
+		}
+	}
 
-			export_trigger_value_to_variable = {
-				trigger = used_naval_capacity_percent
-				variable = five_percent_naval_cap
-			}
+	option = {
+		name = civcom.4120.fleet_1
+		trigger = { exists = event_target:military_fleet_1 }
+		hidden_effect = {
+			event_target:military_fleet_1 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 20 }
+	}
 
-			multiply_variable = {
-				which = five_percent_naval_cap
-				value = 0.05
-			}
+	option = {
+		name = civcom.4120.fleet_2
+		trigger = { exists = event_target:military_fleet_2 }
+		hidden_effect = {
+			event_target:military_fleet_2 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 19 }
+	}
 
-			create_fleet_from_naval_cap = five_percent_naval_cap
+	option = {
+		name = civcom.4120.fleet_3
+		trigger = { exists = event_target:military_fleet_3 }
+		hidden_effect = {
+			event_target:military_fleet_3 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 18 }
+	}
 
-			last_created_fleet = {
-				set_owner = event_target:civwar_rebels
-				set_location = event_target:civwar_rebels.capital_scope
-			}
+	option = {
+		name = civcom.4120.fleet_4
+		trigger = { exists = event_target:military_fleet_4 }
+		hidden_effect = {
+			event_target:military_fleet_4 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 17 }
+	}
 
-			get_ship_delete_effect = { PERCENT = 5 }
+	option = {
+		name = civcom.4120.fleet_5
+		trigger = { exists = event_target:military_fleet_5 }
+		hidden_effect = {
+			event_target:military_fleet_5 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 16 }
+	}
 
-			event_target:civwar_rebels = {
-				add_opinion_modifier = {
-					who = prev
-					modifier = opinion_gives_5_ships
-				}
-			}
+	option = {
+		name = civcom.4120.fleet_6
+		trigger = { exists = event_target:military_fleet_6 }
+		hidden_effect = {
+			event_target:military_fleet_6 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 15 }
+	}
+
+	option = {
+		name = civcom.4120.fleet_7
+		trigger = { exists = event_target:military_fleet_7 }
+		hidden_effect = {
+			event_target:military_fleet_7 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 14 }
+	}
+
+	option = {
+		name = civcom.4120.fleet_8
+		trigger = { exists = event_target:military_fleet_8 }
+		hidden_effect = {
+			event_target:military_fleet_8 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 13 }
+	}
+
+	option = {
+		name = civcom.4120.fleet_9
+		trigger = { exists = event_target:military_fleet_9 }
+		hidden_effect = {
+			event_target:military_fleet_9 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 12 }
+	}
+
+	option = {
+		name = civcom.4120.fleet_10
+		trigger = { exists = event_target:military_fleet_10 }
+		hidden_effect = {
+			event_target:military_fleet_10 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 11 }
+	}
+
+	option = {
+		name = civcom.4120.fleet_11
+		trigger = { exists = event_target:military_fleet_11 }
+		hidden_effect = {
+			event_target:military_fleet_11 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 10 }
+	}
+
+	option = {
+		name = civcom.4120.fleet_12
+		trigger = { exists = event_target:military_fleet_12 }
+		hidden_effect = {
+			event_target:military_fleet_12 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 9 }
+	}
+
+	option = {
+		name = civcom.4120.fleet_13
+		trigger = { exists = event_target:military_fleet_13 }
+		hidden_effect = {
+			event_target:military_fleet_13 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 8 }
+	}
+
+	option = {
+		name = civcom.4120.fleet_14
+		trigger = { exists = event_target:military_fleet_14 }
+		hidden_effect = {
+			event_target:military_fleet_14 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 7 }
+	}
+
+	option = {
+		name = civcom.4120.fleet_15
+		trigger = { exists = event_target:military_fleet_15 }
+		hidden_effect = {
+			event_target:military_fleet_15 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 6 }
+	}
+
+	option = {
+		name = civcom.4120.fleet_16
+		trigger = { exists = event_target:military_fleet_16 }
+		hidden_effect = {
+			event_target:military_fleet_16 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
 		}
 		ai_chance = { factor = 5 }
 	}
 
 	option = {
-		name = civcom.4120.10
+		name = civcom.4120.fleet_17
+		trigger = { exists = event_target:military_fleet_17 }
 		hidden_effect = {
-
-			export_trigger_value_to_variable = {
-				trigger = used_naval_capacity_percent
-				variable = ten_percent_naval_cap
-			}
-
-			multiply_variable = {
-				which = ten_percent_naval_cap
-				value = 0.1
-			}
-
-			create_fleet_from_naval_cap = ten_percent_naval_cap
-
-			last_created_fleet = {
-				set_owner = event_target:civwar_rebels
-				set_location = event_target:civwar_rebels.capital_scope
-			}
-
-			get_ship_delete_effect = { PERCENT = 10 }
-
-			event_target:civwar_rebels = {
-				add_opinion_modifier = {
-					who = prev
-					modifier = opinion_gives_10_ships
-				}
-			}
+			event_target:military_fleet_17 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
 		}
-		ai_chance = {
-			factor = 3
-
-			modifier = {
-				factor = 2
-				has_rival = event_target:civwar_originator
-			}
-		}
+		ai_chance = { factor = 4 }
 	}
 
 	option = {
-		name = civcom.4120.15
+		name = civcom.4120.fleet_18
+		trigger = { exists = event_target:military_fleet_18 }
 		hidden_effect = {
-
-			export_trigger_value_to_variable = {
-				trigger = used_naval_capacity_percent
-				variable = fifteen_percent_naval_cap
-			}
-
-			multiply_variable = {
-				which = fifteen_percent_naval_cap
-				value = 0.15
-			}
-
-			create_fleet_from_naval_cap = fifteen_percent_naval_cap
-
-			last_created_fleet = {
-				set_owner = event_target:civwar_rebels
-				set_location = event_target:civwar_rebels.capital_scope
-			}
-
-			get_ship_delete_effect = { PERCENT = 15 }
-
-			event_target:civwar_rebels = {
-				add_opinion_modifier = {
-					who = prev
-					modifier = opinion_gives_15_ships
-				}
-			}
+			event_target:military_fleet_18 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
 		}
-		ai_chance = {
-			factor = 1
-
-			modifier = {
-				factor = 3
-				has_rival = event_target:civwar_originator
-			}
-		}
+		ai_chance = { factor = 3 }
 	}
 
 	option = {
-		name = civcom.4120.20
+		name = civcom.4120.fleet_19
+		trigger = { exists = event_target:military_fleet_19 }
 		hidden_effect = {
-
-			export_trigger_value_to_variable = {
-				trigger = used_naval_capacity_percent
-				variable = twenty_percent_naval_cap
-			}
-
-			multiply_variable = {
-				which = twenty_percent_naval_cap
-				value = 0.2
-			}
-
-			create_fleet_from_naval_cap = twenty_percent_naval_cap
-
-			last_created_fleet = {
-				set_owner = event_target:civwar_rebels
-				set_location = event_target:civwar_rebels.capital_scope
-			}
-
-			get_ship_delete_effect = { PERCENT = 20 }
-
-			event_target:civwar_rebels = {
-				add_opinion_modifier = {
-					who = prev
-					modifier = opinion_gives_20_ships
-				}
-			}
+			event_target:military_fleet_19 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
 		}
-		ai_chance = {
-			factor = 1
-
-			modifier = {
-				factor = 3
-				has_rival = event_target:civwar_originator
-			}
-		}
+		ai_chance = { factor = 2 }
 	}
 
 	option = {
-		name = civcom.4120.25
+		name = civcom.4120.fleet_20
+		trigger = { exists = event_target:military_fleet_20 }
 		hidden_effect = {
+			event_target:military_fleet_20 = { save_event_target_as = chosen_military_fleet }
+			country_event = { id = civcom.4121 }
+		}
+		ai_chance = { factor = 1 }
+	}
+}
 
-			export_trigger_value_to_variable = {
-				trigger = used_naval_capacity_percent
-				variable = twenty_five_percent_naval_cap
+# Neighbor/Motherland ship loan length
+country_event = {
+	id = civcom.4121
+	title = civcom.4000.name
+	desc = civcom.4121.desc
+	location = event_target:civwar_rebels
+	hide_window = no
+	is_triggered_only = yes
+
+	diplomatic = yes
+
+	picture_event_data = {
+		portrait = event_target:civwar_rebels.ruler
+		planet_background = root.capital_scope
+		graphical_culture = root
+		city_level = root.capital_scope
+		room = root.ruler
+	}
+
+	immediate = {
+		get_fleet_effect = yes
+	}
+
+	option = {
+		name = civcom.4120.nevermind
+		ai_chance = { factor = 0 }
+	}
+
+	option = {
+		name = civcom.4121.6_months
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 180 } }
+		ai_chance = { factor = 3 }
+	}
+
+	option = {
+		name = civcom.4121.1_year
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 360 } }
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = civcom.4121.2_years
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 720 } }
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = civcom.4121.3_years
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 1080 } }
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = civcom.4121.4_years
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 1440 } }
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = civcom.4121.5_years
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 1800 } }
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = civcom.4121.10_years
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 3600 } }
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = civcom.4121.indefinitely
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 3601 } }
+		ai_chance = { factor = 2 }
+	}
+
+	after = {
+
+		if = {
+			limit = { is_variable_set = fleet_loan_length }
+			set_variable = { which = total_fleet_power value = 0 }
+
+			ordered_owned_fleet = {
+				limit = { any_owned_ship = { is_ship_class = shipclass_military } }
+				position = 0
+				order_by = trigger:fleet_power
+				inverse = yes
+				export_trigger_value_to_variable = { trigger = fleet_size variable = fleet_current_size }
+				owner = { change_variable = { which = total_fleet_power value = prev.fleet_current_size } }
 			}
 
-			multiply_variable = {
-				which = twenty_five_percent_naval_cap
-				value = 0.25
-			}
+			set_variable = { which = chosen_military_fleet_size value = event_target:chosen_military_fleet.fleet_current_size }
 
-			create_fleet_from_naval_cap = twenty_five_percent_naval_cap
-
-			last_created_fleet = {
-				set_owner = event_target:civwar_rebels
-				set_location = event_target:civwar_rebels.capital_scope
-			}
-
-			get_ship_delete_effect = { PERCENT = 25 }
+			divide_variable = { which = chosen_military_fleet_size value = total_fleet_power  }
 
 			event_target:civwar_rebels = {
-				add_opinion_modifier = {
-					who = prev
-					modifier = opinion_gives_25_ships
+				if = {
+					limit = { check_variable = { which = chosen_military_fleet_size value <= 0.05 } }
+					add_opinion_modifier = { who = prev modifier = opinion_gave_fleet_5 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { which = chosen_military_fleet_size value > 0.05 }
+						check_variable = { which = chosen_military_fleet_size value <= 0.1 }
+					}
+					add_opinion_modifier = { who = prev modifier = opinion_gave_fleet_10 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { which = chosen_military_fleet_size value > 0.1 }
+						check_variable = { which = chosen_military_fleet_size value <= 0.15 }
+					}
+					add_opinion_modifier = { who = prev modifier = opinion_gave_fleet_15 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { which = chosen_military_fleet_size value > 0.15 }
+						check_variable = { which = chosen_military_fleet_size value <= 0.2 }
+					}
+					add_opinion_modifier = { who = prev modifier = opinion_gave_fleet_20 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { which = chosen_military_fleet_size value > 0.2 }
+						check_variable = { which = chosen_military_fleet_size value <= 0.25 }
+					}
+					add_opinion_modifier = { who = prev modifier = opinion_gave_fleet_25 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { which = chosen_military_fleet_size value > 0.25 }
+						check_variable = { which = chosen_military_fleet_size value <= 0.3 }
+					}
+					add_opinion_modifier = { who = prev modifier = opinion_gave_fleet_30 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { which = chosen_military_fleet_size value > 0.3 }
+						check_variable = { which = chosen_military_fleet_size value <= 0.4 }
+					}
+					add_opinion_modifier = { who = prev modifier = opinion_gave_fleet_40 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { which = chosen_military_fleet_size value > 0.4 }
+						check_variable = { which = chosen_military_fleet_size value <= 0.5 }
+					}
+					add_opinion_modifier = { who = prev modifier = opinion_gave_fleet_50 }
+				}
+				else_if = {
+					limit = { check_variable = { which = chosen_military_fleet_size value > 0.5 } }
+					add_opinion_modifier = { who = prev modifier = opinion_gave_fleet_major }
 				}
 			}
-		}
-		ai_chance = {
-			factor = 1
 
-			modifier = {
-				factor = 3
-				has_rival = event_target:civwar_originator
+			if = {
+				limit = { check_variable = { which = fleet_loan_length value = 180 } }
+				event_target:chosen_military_fleet = {
+					set_fleet_flag = civwar_loaned_fleet
+					give_fleet = { controller = event_target:civwar_rebels days = 180 }
+					fleet_event = { id = civcom.4122 days = 120 }
+				}
 			}
+			else_if = {
+				limit = { check_variable = { which = fleet_loan_length value = 360 } }
+				event_target:chosen_military_fleet = {
+					set_fleet_flag = civwar_loaned_fleet
+					give_fleet = { controller = event_target:civwar_rebels days = 360 }
+					fleet_event = { id = civcom.4122 days = 300 }
+				}
+			}
+			else_if = {
+				limit = { check_variable = { which = fleet_loan_length value = 720 } }
+				event_target:chosen_military_fleet = {
+					set_fleet_flag = civwar_loaned_fleet
+					give_fleet = { controller = event_target:civwar_rebels days = 720 }
+					fleet_event = { id = civcom.4122 days = 660 }
+				}
+			}
+			else_if = {
+				limit = { check_variable = { which = fleet_loan_length value = 1080 } }
+				event_target:chosen_military_fleet = {
+					set_fleet_flag = civwar_loaned_fleet
+					give_fleet = { controller = event_target:civwar_rebels days = 1080 }
+					fleet_event = { id = civcom.4122 days = 1020 }
+				}
+			}
+			else_if = {
+				limit = { check_variable = { which = fleet_loan_length value = 1440 } }
+				event_target:chosen_military_fleet = {
+					set_fleet_flag = civwar_loaned_fleet
+					give_fleet = { controller = event_target:civwar_rebels days = 1440 }
+					fleet_event = { id = civcom.4122 days = 1380 }
+				}
+			}
+			else_if = {
+				limit = { check_variable = { which = fleet_loan_length value = 1800 } }
+				event_target:chosen_military_fleet = {
+					set_fleet_flag = civwar_loaned_fleet
+					give_fleet = { controller = event_target:civwar_rebels days = 1800 }
+					fleet_event = { id = civcom.4122 days = 1740 }
+				}
+			}
+			else_if = {
+				limit = { check_variable = { which = fleet_loan_length value = 3600 } }
+				event_target:chosen_military_fleet = {
+					set_fleet_flag = civwar_loaned_fleet
+					give_fleet = { controller = event_target:civwar_rebels days = 3600 }
+					fleet_event = { id = civcom.4122 days = 3540 }
+				}
+			}
+			else_if = {
+				limit = { check_variable = { which = fleet_loan_length value = 3601 } }
+				event_target:chosen_military_fleet = {
+					set_fleet_flag = civwar_loaned_fleet
+					give_fleet = { controller = event_target:civwar_rebels days = 3600 }
+					fleet_event = { id = civmisc.4000 days = 3570 }
+				}
+			}
+
+			if = {
+				limit = {
+					event_target:civwar_rebels = { has_country_flag = nat_civwar }
+					event_target:civwar_rebels = { NOT = { is_at_war_with = event_target:civwar_originator } }
+				}
+				event_target:civwar_originator = { country_event = { id = civwar.2055 } }
+			}
+
+			clear_variable = fleet_loan_length
 		}
+	}
+}
+
+# Neighbor/Motherland ship loan extension
+fleet_event = {
+	id = civcom.4122
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = this
+		root.controller = { is_at_war = yes }
+	}
+
+	immediate = {
+		save_event_target_as = leased_civwar_fleet
+		owner = { country_event = { id = civcom.4123 } }
+	}
+}
+
+
+# Neighbor/Motherland ship loan extension
+country_event = {
+	id = civcom.4123
+	title = civcom.4000.name
+	desc = civcom.4123.desc
+	location = event_target:leased_civwar_fleet
+	hide_window = no
+	is_triggered_only = yes
+
+	diplomatic = yes
+
+	picture_event_data = {
+		portrait = event_target:leased_civwar_fleet.controller.ruler
+		planet_background = root.capital_scope
+		graphical_culture = root
+		city_level = root.capital_scope
+		room = root.ruler
+	}
+
+	option = {
+		name = civcom.4123.no_extension
+		ai_chance = { factor = 10 }
+	}
+
+	option = {
+		name = civcom.4123.6_months
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 180 } }
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = civcom.4123.1_year
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 360 } }
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = civcom.4123.2_years
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 720 } }
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = civcom.4123.3_years
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 1080 } }
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = civcom.4123.4_years
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 1440 } }
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = civcom.4123.5_years
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 1800 } }
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = civcom.4123.10_years
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 3600 } }
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = civcom.4123.indefinitely
+		hidden_effect = { set_variable = { which = fleet_loan_length value = 3601 } }
+		ai_chance = { factor = 2 }
 	}
 
 	after = {
 		if = {
-			limit = {
-				event_target:civwar_rebels = { has_country_flag = nat_civwar }
-				event_target:civwar_rebels = { NOT = { is_at_war_with = event_target:civwar_originator } }
+			limit = { is_variable_set = fleet_loan_length }
+
+			event_target:leased_civwar_fleet = {
+				if = {
+					limit = { owner = { check_variable = { which = fleet_loan_length value = 180 } } }
+					prolong_fleet_contract = { days = 180 }
+					fleet_event = { id = civcom.4122 days = 120 }
+				}
+				else_if = {
+					limit = { owner = { check_variable = { which = fleet_loan_length value = 360 } } }
+					prolong_fleet_contract = { days = 360 }
+					fleet_event = { id = civcom.4122 days = 300 }
+				}
+				else_if = {
+					limit = { owner = { check_variable = { which = fleet_loan_length value = 720 } } }
+					prolong_fleet_contract = { days = 720 }
+					fleet_event = { id = civcom.4122 days = 660 }
+				}
+				else_if = {
+					limit = { owner = { check_variable = { which = fleet_loan_length value = 1080 } } }
+					prolong_fleet_contract = { days = 1080 }
+					fleet_event = { id = civcom.4122 days = 1020 }
+				}
+				else_if = {
+					limit = { owner = { check_variable = { which = fleet_loan_length value = 1440 } } }
+					prolong_fleet_contract = { days = 1440 }
+					fleet_event = { id = civcom.4122 days = 1380 }
+				}
+				else_if = {
+					limit = { owner = { check_variable = { which = fleet_loan_length value = 1800 } } }
+					prolong_fleet_contract = { days = 1800 }
+					fleet_event = { id = civcom.4122 days = 1740 }
+				}
+				else_if = {
+					limit = { owner = { check_variable = { which = fleet_loan_length value = 3600 } } }
+					prolong_fleet_contract = { days = 3600 }
+					fleet_event = { id = civcom.4122 days = 3540 }
+				}
+				else_if = {
+					limit = { owner = { check_variable = { which = fleet_loan_length value = 3601 } } }
+					prolong_fleet_contract = { days = 3600 }
+					fleet_event = { id = civmisc.4000 days = 3570 }
+				}
 			}
-			event_target:civwar_originator = { country_event = { id = civwar.2055 } }
+
+			clear_variable = fleet_loan_length
 		}
 	}
 }
@@ -1792,6 +2246,31 @@ country_event = {
 			if = { # Nationalists get this message before war can start, and so they will join after it has been determined whether war is happening
 				limit = { event_target:civwar_rebels = { NOT = { has_country_flag = nat_civwar } } }
 				join_war = event_target:civwar_rebels
+				if = {
+					limit = {
+						is_subject = yes
+						any_agreement = {
+							OR = {
+								has_term_value = {
+									term = joins_subject_wars
+									value = joins_subject_wars_all
+								}
+								has_term_value = {
+									term = joins_subject_wars
+									value = joins_subject_wars_defensive
+								}
+							}
+						}
+					}
+					event_target:civwar_rebels = {
+						random_war = {
+							random_war_participant = {
+								limit = { is_same_empire = root.overlord }
+								prev = { remove_war_participant = prev }
+							}
+						}
+					}
+				}
 			}
 		}
 		ai_chance = { factor = 5 }

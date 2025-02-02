@@ -140,7 +140,7 @@ country_event = {
 			}
 			if = { # Query Motherland if possible
 				limit = { event_target:nat_motherland_model = { is_exile_country = no } }
-				country_event = { id = civwar.2050 }
+				event_target:nat_motherland_model = { country_event = { id = civcom.4000 } }
 			}
 			else = { # If not second nat country and there is no queryable motherland, regular notification
 				country_event = { id = civwar.2055 }

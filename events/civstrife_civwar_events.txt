@@ -41,11 +41,6 @@ country_event = { # Setup for Civil War (create_country)
 			else = {
 				root = { set_country_flag = mute_rebel_country }
 			}
-
-			if = {
-				limit = { NOT = { has_country_flag = is_my_civil_war } }
-				set_country_flag = is_my_civil_war
-			}
 		}
 
 		# Flip Systems and Planets, count pops
@@ -320,7 +315,7 @@ country_event = { # Setup for Civil War (create_country)
 											is_subject = no
 										}
 									}
-									country_event = { id = civwar.2050 }
+									event_target:nat_motherland_model = { country_event = { id = civcom.4000 } }
 									LOG = "2.1"
 								}
 								else = {
@@ -344,7 +339,7 @@ country_event = { # Setup for Civil War (create_country)
 										is_subject = no
 									}
 								}
-								country_event = { id = civwar.2050 }
+								event_target:nat_motherland_model = { country_event = { id = civcom.4000 } }
 							}
 							else = {
 								event_target:nat_motherland_model = { set_country_flag = motherland_wont_join_@event_target:civwar_rebels }
@@ -744,218 +739,7 @@ country_event = { # Has Vassals, Vassal Interaction
 						save_event_target_as = rebel_borders_subject
 					}
 				}
-				random_list = {
-					15 = { # Does Nothing
-						modifier = {
-							factor = 0
-							OR = {
-								# Subjects this strong should always make a play
-								check_variable = { which = subject_power_ratio value >= 0.85 }
-								NOT = { # Subjects have to do something if they no dont border the original overlord
-									any_system_within_border = {
-										closest_system = {
-											limit = {
-												exists = space_owner
-												space_owner = { is_same_value = event_target:civwar_originator }
-											}
-											use_bypasses = yes
-											max_steps = 1
-										}
-									}
-								}
-							}
-						}
-						modifier = {
-							factor = 0.5
-							check_variable = { which = subject_power_ratio value >= 0.75 }
-							check_variable = { which = subject_power_ratio value < 0.85 }
-						}
-						modifier = {
-							factor = 0.8
-							check_variable = { which = subject_power_ratio value >= 0.6 }
-							check_variable = { which = subject_power_ratio value < 0.75 }
-						}
-					}
-					45 = { # Declares Independence
-						set_country_flag = subject_free_from_@root
-						if = {
-							limit = { root = { any_war = { using_war_goal = { type = wg_assert_overlordship owner = root } } } }
-							root = {
-								random_war = {
-									limit = { using_war_goal = { type = wg_assert_overlordship owner = root } }
-									save_event_target_as = indy_join_war
-								}
-							}
-							join_war_on_side = {
-								war = event_target:indy_join_war
-								side = attackers
-							}
-						}
-						else = {
-							declare_war = {
-								target = root
-								attacker_war_goal = "wg_independence"
-								effect = {
-									every_war_participant = {
-										limit = {
-											has_overlord = root
-											is_war_leader = no
-										}
-										prev = { remove_war_participant = prev }
-									}
-								}
-							}
-						}
-						modifier = {
-							factor = 0.2
-							check_variable = { which = subject_power_ratio value < 0.4 }
-						}
-						modifier = {
-							factor = 0.4
-							check_variable = { which = subject_power_ratio value >= 0.4 }
-							check_variable = { which = subject_power_ratio value < 0.6 }
-						}
-						modifier = {
-							factor = 2 # Subjects this strong should try it
-							check_variable = { which = subject_power_ratio value >= 0.85 }
-						}
-					}
-					15 = { # Help Overlord in exchange for independence
-						set_timed_country_flag = { flag = subject_helps_overlord_@root years = 1 }
-						modifier = {
-							factor = 0
-							OR = {
-								NAND = { # Can only happen if the subjects dont have much power, but combined with the overlord they do
-									check_variable = { which = subject_power_ratio value <= 0.3 }
-									check_variable = { which = subject_with_mother_power_ratio value >= 0.7 }
-								}
-								NOR = { # Subjects cant help overlord if they dont border them or the rebels (wont ever happen with WRB, but could in Vanilla)
-									has_country_flag = vas_borders_rebs_of_@root
-									any_system_within_border = {
-										closest_system = {
-											limit = {
-												exists = space_owner
-												space_owner = { is_same_value = event_target:civwar_originator }
-											}
-											use_bypasses = yes
-											max_steps = 1
-										}
-									}
-								}
-							}
-						}
-					}
-					10 = { # Help Rebels in exchange for independence
-						# For succession conflicts, this is slightly broken in that
-						# they may join in a war against a target that is not bordering
-						# them. I will work on it eventually.
-						set_timed_country_flag = { flag = subject_helps_rebels_@root years = 1 }
-						set_country_flag = helped_rebels_sub
-						if = { # If there is a VERU war going on over claiming this subject, invalidate it
-							limit = { has_country_flag = chosen_border_subject_@root }
-							remove_country_flag = chosen_border_subject_@root
-							root = {
-								random_war = {
-									limit = { using_war_goal = { type = wg_claim_subject owner = root } }
-									every_war_participant = { prev = { remove_war_participant = prev } }
-								}
-							}
-						}
-						modifier = {
-							factor = 0.1
-							NAND = { # Should really only happen if the subjects dont have much power, but combined with the rebels they do
-								check_variable = { which = subject_power_ratio value <= 0.4 }
-								check_variable = { which = combined_power_ratio value >= 0.6 }
-							}
-						}
-						modifier = {
-							factor = 0
-							NOR = { # Subjects cant help rebels if they no dont border them or the overlord (wont ever happen with WRB, but could in Vanilla)
-								has_country_flag = vas_borders_rebs_of_@root
-								any_system_within_border = {
-									closest_system = {
-										limit = {
-											exists = space_owner
-											space_owner = { is_same_value = event_target:civwar_originator }
-										}
-										use_bypasses = yes
-										max_steps = 1
-									}
-								}
-							}
-						}
-					}
-					10 = { # Pledge Fealty to Rebels
-						set_timed_country_flag = { flag = subject_joins_rebels_@root years = 1 }
-						every_war = {
-							random_war_participant = {
-								limit = { is_same_empire = prevprev }
-								prev = { remove_war_participant = prev }
-							}
-						}
-						if = { # If there is a VERU war going on over claiming this subject, invalidate it
-							limit = { has_country_flag = chosen_border_subject_@root }
-							remove_country_flag = chosen_border_subject_@root
-							root = {
-								random_war = {
-									limit = { using_war_goal = { type = wg_claim_subject owner = root } }
-									every_war_participant = { prev = { remove_war_participant = prev } }
-								}
-							}
-						}
-						set_subject_of = {
-							who = event_target:rebel_borders_subject
-							preset = preset_tributary
-						}
-						modifier = {
-							factor = 0.1
-							check_variable = { which = combined_power_ratio value < 0.5 } 	# If they are this weak combined, the subject should be smart and stay out
-						}
-						modifier = {
-							factor = 0
-							OR = {
-								NOT = { has_country_flag = vas_borders_rebs_of_@root }  		# If they dont border the rebels, they cant join them
-								opinion = { who = root value >= 300 } 							# If they have Positive (game Positive not literal positive) relations with their overlord, they shouldn't join the rebels
-							}
-						}
-						modifier = {
-							factor = 1.5
-							opinion = { who = root value <= -300 }
-							opinion = { who = root value > -750 }
-						}
-						modifier = {
-							factor = 2
-							opinion = { who = root value <= -750 }
-						}
-					}
-					5 = { # Joins Overlord
-						set_country_flag = sub_joins_overlord
-						set_timed_country_flag = { flag = subject_joins_overlord_@root years = 1 }
-						modifier = {
-							factor = 0
-							OR = {
-								check_variable = { which = subject_with_mother_power_ratio value <= 0.9 } # If victory is not almost assured in helping the motherland, the subject wont
-								opinion = { who = root value < 750 } 		# If they don't have Excellent relations with their overlord, they shouldn't help
-								NOT = { 									# Subjects cant help overlord if they dont border them
-									any_system_within_border = {
-										closest_system = {
-											limit = {
-												exists = space_owner
-												space_owner = { is_same_value = event_target:civwar_originator }
-											}
-											use_bypasses = yes
-											max_steps = 1
-										}
-									}
-								}
-							}
-						}
-						modifier = {
-							factor = 2
-							opinion = { who = root value >= 1500 }
-						}
-					}
-				}
+				get_subject_choice_list = yes
 			}
 		}
 		else_if = {
@@ -992,7 +776,7 @@ country_event = { # Has Vassals, Vassal Interaction
 					chance = 60
 					every_subject = {
 						limit = { is_ai = yes }
-						set_country_flag = subject_free_from_@root
+						set_timed_country_flag = { flag = subject_free_from_@root days = 90 }
 					}
 					ordered_subject = {
 						limit = { is_ai = yes }
@@ -1052,218 +836,7 @@ country_event = { # Has Vassals, Vassal Interaction
 								save_event_target_as = rebel_borders_subject
 							}
 						}
-						random_list = {
-							15 = { # Does Nothing
-								modifier = {
-									factor = 0
-									OR = {
-										# Subjects this strong should always make a play
-										check_variable = { which = subject_power_ratio value >= 0.85 }
-										NOT = { # Subjects have to do something if they no dont border the original overlord
-											any_system_within_border = {
-												closest_system = {
-													limit = {
-														exists = space_owner
-														space_owner = { is_same_value = event_target:civwar_originator }
-													}
-													use_bypasses = yes
-													max_steps = 1
-												}
-											}
-										}
-									}
-								}
-								modifier = {
-									factor = 0.5
-									check_variable = { which = subject_power_ratio value >= 0.75 }
-									check_variable = { which = subject_power_ratio value < 0.85 }
-								}
-								modifier = {
-									factor = 0.8
-									check_variable = { which = subject_power_ratio value >= 0.6 }
-									check_variable = { which = subject_power_ratio value < 0.75 }
-								}
-							}
-							45 = { # Declares Independence
-								set_country_flag = subject_free_from_@root
-								if = {
-									limit = { root = { any_war = { using_war_goal = { type = wg_assert_overlordship owner = root } } } }
-									root = {
-										random_war = {
-											limit = { using_war_goal = { type = wg_assert_overlordship owner = root } }
-											save_event_target_as = indy_join_war
-										}
-									}
-									join_war_on_side = {
-										war = event_target:indy_join_war
-										side = attackers
-									}
-								}
-								else = {
-									declare_war = {
-										target = root
-										attacker_war_goal = "wg_independence"
-										effect = {
-											every_war_participant = {
-												limit = {
-													has_overlord = root
-													is_war_leader = no
-												}
-												prev = { remove_war_participant = prev }
-											}
-										}
-									}
-								}
-								modifier = {
-									factor = 0.2
-									check_variable = { which = subject_power_ratio value < 0.4 }
-								}
-								modifier = {
-									factor = 0.4
-									check_variable = { which = subject_power_ratio value >= 0.4 }
-									check_variable = { which = subject_power_ratio value < 0.6 }
-								}
-								modifier = {
-									factor = 2 # Subjects this strong should try it
-									check_variable = { which = subject_power_ratio value >= 0.85 }
-								}
-							}
-							15 = { # Help Overlord in exchange for independence
-								set_timed_country_flag = { flag = subject_helps_overlord_@root years = 1 }
-								modifier = {
-									factor = 0
-									OR = {
-										NAND = { # Can only happen if the subjects dont have much power, but combined with the overlord they do
-											check_variable = { which = subject_power_ratio value <= 0.3 }
-											check_variable = { which = subject_with_mother_power_ratio value >= 0.7 }
-										}
-										NOR = { # Subjects cant help overlord if they dont border them or the rebels (wont ever happen with WRB, but could in Vanilla)
-											has_country_flag = vas_borders_rebs_of_@root
-											any_system_within_border = {
-												closest_system = {
-													limit = {
-														exists = space_owner
-														space_owner = { is_same_value = event_target:civwar_originator }
-													}
-													use_bypasses = yes
-													max_steps = 1
-												}
-											}
-										}
-									}
-								}
-							}
-							10 = { # Help Rebels in exchange for independence
-								# For succession conflicts, this is slightly broken in that
-								# they may join in a war against a target that is not bordering
-								# them. I will work on it eventually.
-								set_timed_country_flag = { flag = subject_helps_rebels_@root years = 1 }
-								set_country_flag = helped_rebels_sub
-								if = { # If there is a VERU war going on over claiming this subject, invalidate it
-									limit = { has_country_flag = chosen_border_subject_@root }
-									remove_country_flag = chosen_border_subject_@root
-									root = {
-										random_war = {
-											limit = { using_war_goal = { type = wg_claim_subject owner = root } }
-											every_war_participant = { prev = { remove_war_participant = prev } }
-										}
-									}
-								}
-								modifier = {
-									factor = 0.1
-									NAND = { # Should really only happen if the subjects dont have much power, but combined with the rebels they do
-										check_variable = { which = subject_power_ratio value <= 0.4 }
-										check_variable = { which = combined_power_ratio value >= 0.6 }
-									}
-								}
-								modifier = {
-									factor = 0
-									NOR = { # Subjects cant help rebels if they no dont border them or the overlord (wont ever happen with WRB, but could in Vanilla)
-										has_country_flag = vas_borders_rebs_of_@root
-										any_system_within_border = {
-											closest_system = {
-												limit = {
-													exists = space_owner
-													space_owner = { is_same_value = event_target:civwar_originator }
-												}
-												use_bypasses = yes
-												max_steps = 1
-											}
-										}
-									}
-								}
-							}
-							10 = { # Pledge Fealty to Rebels
-								set_timed_country_flag = { flag = subject_joins_rebels_@root years = 1 }
-								every_war = {
-									random_war_participant = {
-										limit = { is_same_empire = prevprev }
-										prev = { remove_war_participant = prev }
-									}
-								}
-								if = { # If there is a VERU war going on over claiming this subject, invalidate it
-									limit = { has_country_flag = chosen_border_subject_@root }
-									remove_country_flag = chosen_border_subject_@root
-									root = {
-										random_war = {
-											limit = { using_war_goal = { type = wg_claim_subject owner = root } }
-											every_war_participant = { prev = { remove_war_participant = prev } }
-										}
-									}
-								}
-								set_subject_of = {
-									who = event_target:rebel_borders_subject
-									preset = preset_tributary
-								}
-								modifier = {
-									factor = 0.1
-									check_variable = { which = combined_power_ratio value < 0.5 } 	# If they are this weak combined, the subject should be smart and stay out
-								}
-								modifier = {
-									factor = 0
-									OR = {
-										NOT = { has_country_flag = vas_borders_rebs_of_@root }  		# If they dont border the rebels, they cant join them
-										opinion = { who = root value >= 300 } 							# If they have Positive (game Positive not literal positive) relations with their overlord, they shouldn't join the rebels
-									}
-								}
-								modifier = {
-									factor = 1.5
-									opinion = { who = root value <= -300 }
-									opinion = { who = root value > -750 }
-								}
-								modifier = {
-									factor = 2
-									opinion = { who = root value <= -750 }
-								}
-							}
-							5 = { # Joins Overlord
-								set_country_flag = sub_joins_overlord
-								set_timed_country_flag = { flag = subject_joins_overlord_@root years = 1 }
-								modifier = {
-									factor = 0
-									OR = {
-										check_variable = { which = subject_with_mother_power_ratio value <= 0.9 } # If victory is not almost assured in helping the motherland, the subject wont
-										opinion = { who = root value < 750 } 		# If they don't have Excellent relations with their overlord, they shouldn't help
-										NOT = { 									# Subjects cant help overlord if they dont border them
-											any_system_within_border = {
-												closest_system = {
-													limit = {
-														exists = space_owner
-														space_owner = { is_same_value = event_target:civwar_originator }
-													}
-													use_bypasses = yes
-													max_steps = 1
-												}
-											}
-										}
-									}
-								}
-								modifier = {
-									factor = 2
-									opinion = { who = root value >= 1500 }
-								}
-							}
-						}
+						get_subject_choice_list = yes
 					}
 				}
 			}
@@ -1289,7 +862,7 @@ country_event = { # Has Vassals, Vassal Interaction
 							is_subject = no
 						}
 					}
-					country_event = { id = civwar.2050 }
+					event_target:nat_motherland_model = { country_event = { id = civcom.4000 } }
 				}
 				else = {
 					event_target:nat_motherland_model = { set_country_flag = motherland_wont_join_@event_target:civwar_rebels }
@@ -1472,44 +1045,6 @@ country_event = { # Former Leader - Communications
 			}
 		}
 		ai_chance = { factor = 1 }
-	}
-}
-
-country_event = { # Nationalist - Query Motherland
-	id = civwar.2050
-	hide_window = yes
-	is_triggered_only = yes
-
-	immediate = {
-		if = { # Motherland needs to be bordering for war assistance.
-			limit = {
-				event_target:nat_motherland_model = {
-					any_system_within_border = {
-						closest_system = {
-							limit = {
-								exists = space_owner
-								space_owner = {
-									OR = {
-										is_same_value = event_target:civwar_rebels
-										is_same_value = root
-										is_in_federation_with = root
-										AND = {
-											exists = overlord
-											overlord = { is_same_value = root }
-										}
-									}
-								}
-							}
-							use_bypasses = yes
-							max_steps = 1
-						}
-					}
-				}
-			}
-			event_target:nat_motherland_model = { set_country_flag = borders_rebels }
-		}
-
-		event_target:nat_motherland_model = { country_event = { id = civcom.4000 } }
 	}
 }
 
@@ -1699,6 +1234,17 @@ country_event = { # Rebel - Query Neighbors
 	hide_window = no
 	is_triggered_only = yes
 
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_civil_war"
+
+	picture_event_data = {
+		portrait = event_target:civwar_rebels.ruler
+	}
+
+	trigger = {
+		exists = event_target:civwar_rebels
+	}
+
 	option = {
 		name = INTRIGUING
 		hidden_effect = {
@@ -1834,6 +1380,7 @@ country_event = { # Player Subject Can Decide What to do
 	option = { # Help Overlord in exchange for independence
 		name = civwar.2300.help_overlord
 		custom_tooltip = help_overlord_effect
+		set_country_flag = helped_overlord_sub
 		trigger = { overlord = { is_at_war_with = event_target:civwar_rebels } }
 		allow = {
 			custom_tooltip = {
@@ -2729,6 +2276,35 @@ situation_event = { # Revolt/Civil War Event
 					save_event_target_as = civwar_originator
 					get_planetary_revolt_effect = yes
 				}
+			}
+		}
+	}
+}
+
+situation_event = { # Revolt/Civil War Debug Event
+	id = civwar.5100
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		owner = {
+			root.target = {
+				set_faction_rebellion_suppression_flag = yes
+			}
+
+			get_war_type_flag = yes
+			save_event_target_as = civwar_originator
+			if = { # 2 Sectors, other Sector will revolt
+				limit = { num_sectors = 2 }
+				get_two_sector_effect = yes
+			}
+			else_if = { # > 2 Sectors, if applicable, up to 67% can revolt
+				limit = { num_sectors > 2 }
+				get_multi_sector_effect = yes
+			}
+			else_if = { # >= 2 Planets
+				limit = { num_owned_planets >= 2 }
+				get_small_civwar_effect = yes
 			}
 		}
 	}

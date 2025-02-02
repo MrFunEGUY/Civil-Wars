@@ -198,6 +198,7 @@ on_war_won = {
 		civend.3020				# Subjects who helped rebels in Civ War become subjects again
 		civend.3030				# Remove Subject Flags
 		civend.3031				# Remove Subject Flags - Rebels
+		civend.3100				# Remove Fleet Flags
 		civend.8000				# Traitorous Leader Installed at end of war
 		civnat.1341				# Gov In Exile restoration on war won
 		civethic.6000			# Set Recent Civil War Flag
@@ -339,5 +340,38 @@ on_custom_diplomacy = {
 on_subject_integrated = {
 	events = {
 		civmisc.4000				# Set flag so no GiE forms
+	}
+}
+
+# This = fleet
+# From = country that borrowed the fleet
+# FromFrom = country that owns the fleet
+# FromFromFrom = country that initiated the ending (the same as owner in a case of expiration)
+# Is fired immediately after fleet contract is expired
+on_fleet_contract_expired = {
+	events = {
+		civmisc.4100 				# Remove Fleet Flag
+	}
+}
+
+# This = fleet
+# From = country that borrowed the fleet
+# FromFrom = country that owns the fleet
+# FromFromFrom = country that initiated the ending (trade deal actor when the contract cancellation is a part of trade deal)
+# Is fired immediately after fleet contract is cancelled (when controller prematurely finishes the contract or when the contract cancellation is a part of trade deal)
+on_fleet_contract_cancelled = {
+	events = {
+		civmisc.4100 				# Remove Fleet Flag
+	}
+}
+
+# This = fleet
+# From = country that borrowed the fleet
+# FromFrom = country that owns the fleet
+# FromFromFrom = country that initiated the ending (main attacker in a case of war)
+# Is fired immediately after fleet contract is broken (when country is attacked by someone of when a war is started)
+on_fleet_contract_broken = {
+	events = {
+		civmisc.4100 				# Remove Fleet Flag
 	}
 }

@@ -1020,8 +1020,8 @@ situation_civstrife_sep_slaves_sec = {
 			limit = { exists = target }
 			target = {
 				if = {
-					limit = { has_sector_flag = plan_slave_sep_active }
-					remove_sector_flag = plan_slave_sep_active
+					limit = { has_sector_flag = sec_slave_sep_active }
+					remove_sector_flag = sec_slave_sep_active
 				}
 				if = {
 					limit = { sector_capital = { is_variable_set = slave_calm_tick } }

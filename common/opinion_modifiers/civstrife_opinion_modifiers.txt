@@ -90,7 +90,27 @@ opinion_received_traitor = {
 }
 
 # Opinion of rebels towards country that helps them
-opinion_gives_5_ships = {
+opinion_gave_fleet_5 = {
+	opinion = {
+		base = 50
+	}
+
+	decay = {
+		base = 2
+	}
+}
+
+opinion_gave_fleet_10 = {
+	opinion = {
+		base = 100
+	}
+
+	decay = {
+		base = 2
+	}
+}
+
+opinion_gave_fleet_15 = {
 	opinion = {
 		base = 150
 	}
@@ -100,7 +120,7 @@ opinion_gives_5_ships = {
 	}
 }
 
-opinion_gives_10_ships = {
+opinion_gave_fleet_20 = {
 	opinion = {
 		base = 200
 	}
@@ -110,7 +130,7 @@ opinion_gives_10_ships = {
 	}
 }
 
-opinion_gives_15_ships = {
+opinion_gave_fleet_25 = {
 	opinion = {
 		base = 250
 	}
@@ -120,7 +140,7 @@ opinion_gives_15_ships = {
 	}
 }
 
-opinion_gives_20_ships = {
+opinion_gave_fleet_30 = {
 	opinion = {
 		base = 300
 	}
@@ -130,9 +150,29 @@ opinion_gives_20_ships = {
 	}
 }
 
-opinion_gives_25_ships = {
+opinion_gave_fleet_40 = {
 	opinion = {
-		base = 350
+		base = 400
+	}
+
+	decay = {
+		base = 2
+	}
+}
+
+opinion_gave_fleet_50 = {
+	opinion = {
+		base = 500
+	}
+
+	decay = {
+		base = 2
+	}
+}
+
+opinion_gave_fleet_major = {
+	opinion = {
+		base = 750
 	}
 
 	decay = {

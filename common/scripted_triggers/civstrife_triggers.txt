@@ -1282,14 +1282,18 @@ get_cit_res_thrall = {
 }
 
 these_are_rebels_in_rebellion = {
+	any_war = { has_rebel_war_goal = yes }
+}
+
+has_rebel_war_goal = {
 	OR = {
-		any_war = { using_war_goal = { type = wg_civwar_rebel owner = root } }
-		any_war = { using_war_goal = { type = wg_planet_rebellion_rebels owner = root } }
-		any_war = { using_war_goal = { type = wg_natwar_rebel owner = root } }
-		any_war = { using_war_goal = { type = wg_civwar_heir_rebel owner = root } }
-		any_war = { using_war_goal = { type = wg_coup_successor_opponent owner = root } }
-		any_war = { using_war_goal = { type = wg_coup_independent_opponent owner = root } }
-		any_war = { using_war_goal = { type = wg_slave_uprising_rebel owner = root } }
+		using_war_goal = { type = wg_civwar_rebel owner = root }
+		using_war_goal = { type = wg_planet_rebellion_rebels owner = root }
+		using_war_goal = { type = wg_natwar_rebel owner = root }
+		using_war_goal = { type = wg_civwar_heir_rebel owner = root }
+		using_war_goal = { type = wg_coup_successor_opponent owner = root }
+		using_war_goal = { type = wg_coup_independent_opponent owner = root }
+		using_war_goal = { type = wg_slave_uprising_rebel owner = root }
 	}
 }
 
@@ -2510,6 +2514,39 @@ traitor_can_flee_to_country = {
 		has_overlord = root
 		has_country_flag = traitor_already_asked_@event_target:defeated_traitor
 	}
+}
+
+is_able_to_assist_rebels = {
+	is_country_type_with_subjects = yes
+	OR = {
+		is_unfriendly = no
+		is_same_species = event_target:civwar_rebels
+	}
+	NOT = { is_same_value = event_target:civwar_rebels }
+	NOT = { has_truce = event_target:civwar_originator }
+	NOT = { has_overlord = event_target:civwar_originator }
+	NOT = { is_same_empire = event_target:civwar_originator }
+	NOT = { has_defensive_pact = event_target:civwar_originator }
+	NOT = { is_in_federation_with = event_target:civwar_originator }
+	NOT = { has_association_status = event_target:civwar_originator }
+	NOT = { has_non_aggression_pact = event_target:civwar_originator }
+	if = {
+		limit = {
+			exists = event_target:civwar_originator.overlord
+			event_target:civwar_rebels = { is_at_war_with = event_target:civwar_originator.overlord }
+		}
+		NOT = { has_truce = event_target:civwar_originator.overlord }
+		NOT = { has_overlord = event_target:civwar_originator.overlord }
+		NOT = { is_same_empire = event_target:civwar_originator.overlord }
+		NOT = { has_defensive_pact = event_target:civwar_originator.overlord }
+		NOT = { is_in_federation_with = event_target:civwar_originator.overlord }
+		NOT = { has_association_status = event_target:civwar_originator.overlord }
+		NOT = { has_non_aggression_pact = event_target:civwar_originator.overlord }
+	}
+}
+
+subject_can_wage_war = {
+	NOT = { any_agreement = { has_term_value = { term = subject_diplomacy value = subject_can_not_do_diplomacy } } }
 }
 
 # For My Sanity
