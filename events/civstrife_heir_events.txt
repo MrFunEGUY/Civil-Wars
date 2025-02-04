@@ -57,6 +57,7 @@ country_event = {
 
 	immediate = {
 
+
 		if = {
 			limit = {
 				num_owned_planets > 1
@@ -162,6 +163,7 @@ country_event = {
 			event_target:gov_switch_country = {
 				save_event_target_as = heir_mother_country
 			}
+			log = "gov switch country"
 		}
 		else = {
 			save_event_target_as = heir_mother_country
@@ -210,6 +212,7 @@ country_event = {
 
 		set_country_flag = heir_mother_country_@last_created_country
 
+		# country_event = { id = civheir.2100 days = 7 random = 14 }
 		country_event = { id = civheir.2100 days = 7 random = 720 }
 	}
 }
@@ -351,18 +354,16 @@ country_event = {
 	}
 
 	immediate = {
+		event_target:disinherited_heir = {
+			# set_owner = root
+			save_event_target_as = defeated_traitor
+		}
 		country_event = { id = civheir.3010 }
 	}
 	
 	# Damn it!
 	option = {
 		name = civheir.3000.a
-		hidden_effect = {
-			if = {
-				limit = { exists = event_target:gov_switch_country }
-				event_target:gov_switch_country = { destroy_country = yes }
-			}
-		}
 	}
 }
 
@@ -421,6 +422,10 @@ country_event = {
 			event_target:disinherited_heir = {
 				set_leader_flag = dummy_leader
 				kill_leader = { show_notification = no }
+			}
+			if = {
+				limit = { exists = event_target:gov_switch_country }
+				event_target:gov_switch_country = { destroy_country = yes }
 			}
 		}
 	}
@@ -772,9 +777,11 @@ country_event = {
 			ignore_initial_colony_error = yes
 			day_zero_contact = no
 			authority = root
-			ethos = root
 			origin = origin_disinherited_heir
-			civics = root
+			ethos = random
+			civics = random
+			# civics = root ## cant make sure these are right w/o ethics :(
+			# ethos = root ## Getting post-change ethos instead :(
 			flag = root
 			effect = {
 				save_event_target_as = gov_switch_country
@@ -801,13 +808,113 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 
-	trigger = { is_imperial_authority =no }  # Because you dont want to call this for just changing civics
+	trigger = { is_imperial_authority = no }  # Because you dont want to call this for just changing civics
 
 	immediate = {
 
 		event_target:disinherited_heir_maybe = {
 			set_leader_flag = gov_changed_heir
 			save_event_target_as = disinherited_heir
+			set_owner = event_target:gov_switch_country
+		}
+		event_target:gov_switch_country = {
+			set_leader = event_target:disinherited_heir
+			if = {
+				limit = { ruler = { is_authoritarian = yes } }
+				while = {
+					limit = { NOT = { has_ethic = ethic_fanatic_authoritarian } }
+					shift_ethic = ethic_authoritarian
+				}
+			}
+			else_if = {
+				limit = { ruler = { is_militarist = yes } }
+				while = {
+					limit = { NOT = { has_ethic = ethic_fanatic_militarist } }
+					shift_ethic = ethic_militarist
+				}
+			}
+			else_if = {
+				limit = { ruler = { is_pacifist = yes } }
+				while = {
+					limit = { NOT = { has_ethic = ethic_fanatic_pacifist } }
+					shift_ethic = ethic_pacifist
+				}
+			}
+			else_if = {
+				limit = { ruler = { is_materialist = yes } }
+				while = {
+					limit = { NOT = { has_ethic = ethic_fanatic_materialist } }
+					shift_ethic = ethic_materialist
+				}
+			}
+			else_if = {
+				limit = { ruler = { is_spiritualist = yes } }
+				while = {
+					limit = { NOT = { has_ethic = ethic_fanatic_spiritualist } }
+					shift_ethic = ethic_spiritualist
+				}
+			}
+			else_if = {
+				limit = { ruler = { is_xenophile = yes } }
+				while = {
+					limit = { NOT = { has_ethic = ethic_fanatic_xenophile } }
+					shift_ethic = ethic_xenophile
+				}
+			}
+			else_if = {
+				limit = { ruler = { is_xenophobe = yes } }
+				while = {
+					limit = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+					shift_ethic = ethic_xenophobe
+				}
+			}
+			else_if = {
+				limit = { ruler = { is_socialist = yes } }
+				while = {
+					limit = { NOT = { has_ethic = ethic_fanatic_socialism } }
+					shift_ethic = ethic_socialism
+				}
+			}
+			else_if = {
+				limit = { ruler = { is_capitalism = yes } }
+				while = {
+					limit = { NOT = { has_ethic = ethic_fanatic_capitalism } }
+					shift_ethic = ethic_capitalism
+				}
+			}
+			else_if = {
+				limit = { ruler = { is_industrial = yes } }
+				while = {
+					limit = { NOT = { has_ethic = ethic_fanatic_industrial } }
+					shift_ethic = ethic_industrial
+				}
+			}
+			else_if = {
+				limit = { ruler = { is_ecologist = yes } }
+				while = {
+					limit = { NOT = { has_ethic = ethic_fanatic_green } }
+					shift_ethic = ethic_green
+				}
+			}
+			else_if = {
+				limit = { ruler = { is_elitist = yes } }
+				while = {
+					limit = { NOT = { has_ethic = ethic_fanatic_elitist } }
+					shift_ethic = ethic_elitist
+				}
+			}
+			else_if = {
+				limit = { ruler = { is_pluralist = yes } }
+				while = {
+					limit = { NOT = { has_ethic = ethic_fanatic_pluralist } }
+					shift_ethic = ethic_pluralist
+				}
+			}
+			change_government = {
+				cooldown = no
+				civics = random
+				remove_invalid_civics = yes
+			}
 		}
 		if = {
 			limit = { exists = event_target:transfer_dynasty_name_leader }

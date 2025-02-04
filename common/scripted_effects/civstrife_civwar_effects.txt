@@ -3810,13 +3810,13 @@ create_heir_country_effect = {
 		limit = { event_target:heir_civil_war_dummy_country = { is_imperial_authority = yes } }
 		create_country = {
 			authority = event_target:heir_civil_war_dummy_country
-			inline_script = { script = civil_war_country_creation/heir_country }
+			inline_script = { script = civil_war_country_creation/heir_dummy_country }
 		}
 	}
 	else = {
 		create_country = {
 			authority = auth_imperial
-			inline_script = { script = civil_war_country_creation/heir_country }
+			inline_script = { script = civil_war_country_creation/heir_dummy_country }
 		}
 	}
 }
