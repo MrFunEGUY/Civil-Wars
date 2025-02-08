@@ -81,11 +81,23 @@ country_event = {
 			}
 			random_list = {
 				# Disinherited Heir starts Civil War within year
-				20 = { country_event = { id = civheir.2000 } }
+				30 = {
+					country_event = { id = civheir.2000 }
+					modifier = {
+						add = 30
+						exists = event_target:gov_switch_country
+					}
+				}
 				# Disinherited Heir bides time until death of ruler
-				30 = { country_event = { id = civheir.2005 } }
+				30 = {
+					country_event = { id = civheir.2005 }
+					modifier = {
+						factor = 0
+						exists = event_target:gov_switch_country
+					}
+				}
 				# Disinherited Heir escapes to foreign country
-				50 = { country_event = { id = civheir.3000 } }
+				40 = { country_event = { id = civheir.3000 } }
 			}
 		}
 		else_if = {
@@ -111,7 +123,13 @@ country_event = {
 			}
 			random_list = {
 				# Disinherited Heir bides time until death of ruler
-				20 = { country_event = { id = civheir.2005 } }
+				20 = {
+					country_event = { id = civheir.2005 }
+					modifier = {
+						factor = 0
+						exists = event_target:gov_switch_country
+					}
+				}
 				# Disinherited Heir escapes to foreign country
 				80 = { country_event = { id = civheir.3000 } }
 			}
@@ -120,15 +138,28 @@ country_event = {
 			limit = { num_owned_planets > 1 }
 			random_list = {
 				# Disinherited Heir starts Civil War within year
-				35 = { country_event = { id = civheir.2000 } }
+				45 = {
+					country_event = { id = civheir.2000 }
+					modifier = {
+						add = 30
+						exists = event_target:gov_switch_country
+					}
+				}
 				# Disinherited Heir bides time until death of ruler
-				55 = { country_event = { id = civheir.2005 } }
+				45 = {
+					country_event = { id = civheir.2005 }
+					modifier = {
+						factor = 0
+						exists = event_target:gov_switch_country
+					}
+				}
 				# Nothing
 				10 = {
 					event_target:disinherited_heir = {
 						set_leader_flag = dead_ruler
 						kill_leader = { show_notification = no }
 					}
+					kill_gov_switch_country = yes
 				}
 			}
 		}
@@ -137,6 +168,7 @@ country_event = {
 				set_leader_flag = dead_ruler
 				kill_leader = { show_notification = no }
 			}
+			kill_gov_switch_country = yes
 		}
 	}
 }
@@ -205,10 +237,7 @@ country_event = {
 			}
 		}
 
-		if = {
-			limit = { exists = event_target:gov_switch_country }
-			event_target:gov_switch_country = { destroy_country = yes }
-		}
+		kill_gov_switch_country = yes
 
 		set_country_flag = heir_mother_country_@last_created_country
 
@@ -277,10 +306,7 @@ country_event = {
 			}
 		}
 
-		if = {
-			limit = { exists = event_target:gov_switch_country }
-			event_target:gov_switch_country = { destroy_country = yes }
-		}
+		kill_gov_switch_country = yes
 
 		set_country_flag = heir_mother_country_@last_created_country
 	}
@@ -423,10 +449,7 @@ country_event = {
 				set_leader_flag = dummy_leader
 				kill_leader = { show_notification = no }
 			}
-			if = {
-				limit = { exists = event_target:gov_switch_country }
-				event_target:gov_switch_country = { destroy_country = yes }
-			}
+			kill_gov_switch_country = yes
 		}
 	}
 }
@@ -808,119 +831,123 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 
-	trigger = { is_imperial_authority = no }  # Because you dont want to call this for just changing civics
-
 	immediate = {
 
-		event_target:disinherited_heir_maybe = {
-			set_leader_flag = gov_changed_heir
-			save_event_target_as = disinherited_heir
-			set_owner = event_target:gov_switch_country
-		}
-		event_target:gov_switch_country = {
-			set_leader = event_target:disinherited_heir
-			if = {
-				limit = { ruler = { is_authoritarian = yes } }
-				while = {
-					limit = { NOT = { has_ethic = ethic_fanatic_authoritarian } }
-					shift_ethic = ethic_authoritarian
-				}
-			}
-			else_if = {
-				limit = { ruler = { is_militarist = yes } }
-				while = {
-					limit = { NOT = { has_ethic = ethic_fanatic_militarist } }
-					shift_ethic = ethic_militarist
-				}
-			}
-			else_if = {
-				limit = { ruler = { is_pacifist = yes } }
-				while = {
-					limit = { NOT = { has_ethic = ethic_fanatic_pacifist } }
-					shift_ethic = ethic_pacifist
-				}
-			}
-			else_if = {
-				limit = { ruler = { is_materialist = yes } }
-				while = {
-					limit = { NOT = { has_ethic = ethic_fanatic_materialist } }
-					shift_ethic = ethic_materialist
-				}
-			}
-			else_if = {
-				limit = { ruler = { is_spiritualist = yes } }
-				while = {
-					limit = { NOT = { has_ethic = ethic_fanatic_spiritualist } }
-					shift_ethic = ethic_spiritualist
-				}
-			}
-			else_if = {
-				limit = { ruler = { is_xenophile = yes } }
-				while = {
-					limit = { NOT = { has_ethic = ethic_fanatic_xenophile } }
-					shift_ethic = ethic_xenophile
-				}
-			}
-			else_if = {
-				limit = { ruler = { is_xenophobe = yes } }
-				while = {
-					limit = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
-					shift_ethic = ethic_xenophobe
-				}
-			}
-			else_if = {
-				limit = { ruler = { is_socialist = yes } }
-				while = {
-					limit = { NOT = { has_ethic = ethic_fanatic_socialism } }
-					shift_ethic = ethic_socialism
-				}
-			}
-			else_if = {
-				limit = { ruler = { is_capitalism = yes } }
-				while = {
-					limit = { NOT = { has_ethic = ethic_fanatic_capitalism } }
-					shift_ethic = ethic_capitalism
-				}
-			}
-			else_if = {
-				limit = { ruler = { is_industrial = yes } }
-				while = {
-					limit = { NOT = { has_ethic = ethic_fanatic_industrial } }
-					shift_ethic = ethic_industrial
-				}
-			}
-			else_if = {
-				limit = { ruler = { is_ecologist = yes } }
-				while = {
-					limit = { NOT = { has_ethic = ethic_fanatic_green } }
-					shift_ethic = ethic_green
-				}
-			}
-			else_if = {
-				limit = { ruler = { is_elitist = yes } }
-				while = {
-					limit = { NOT = { has_ethic = ethic_fanatic_elitist } }
-					shift_ethic = ethic_elitist
-				}
-			}
-			else_if = {
-				limit = { ruler = { is_pluralist = yes } }
-				while = {
-					limit = { NOT = { has_ethic = ethic_fanatic_pluralist } }
-					shift_ethic = ethic_pluralist
-				}
-			}
-			change_government = {
-				cooldown = no
-				civics = random
-				remove_invalid_civics = yes
-			}
-		}
 		if = {
-			limit = { exists = event_target:transfer_dynasty_name_leader }
-			event_target:transfer_dynasty_name_leader = { set_owner = event_target:gov_switch_country }
+			limit = { is_imperial_authority = no }
+			event_target:disinherited_heir_maybe = {
+				set_leader_flag = gov_changed_heir
+				save_event_target_as = disinherited_heir
+				set_owner = event_target:gov_switch_country
+			}
+			event_target:gov_switch_country = {
+				set_leader = event_target:disinherited_heir
+				if = {
+					limit = { ruler = { is_authoritarian = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_authoritarian } }
+						shift_ethic = ethic_authoritarian
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_militarist = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_militarist } }
+						shift_ethic = ethic_militarist
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_pacifist = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_pacifist } }
+						shift_ethic = ethic_pacifist
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_materialist = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_materialist } }
+						shift_ethic = ethic_materialist
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_spiritualist = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_spiritualist } }
+						shift_ethic = ethic_spiritualist
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_xenophile = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_xenophile } }
+						shift_ethic = ethic_xenophile
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_xenophobe = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+						shift_ethic = ethic_xenophobe
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_socialist = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_socialism } }
+						shift_ethic = ethic_socialism
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_capitalism = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_capitalism } }
+						shift_ethic = ethic_capitalism
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_industrial = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_industrial } }
+						shift_ethic = ethic_industrial
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_ecologist = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_green } }
+						shift_ethic = ethic_green
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_elitist = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_elitist } }
+						shift_ethic = ethic_elitist
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_pluralist = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_pluralist } }
+						shift_ethic = ethic_pluralist
+					}
+				}
+				change_government = {
+					cooldown = no
+					civics = random
+					remove_invalid_civics = yes
+				}
+			}
+			if = {
+				limit = { exists = event_target:transfer_dynasty_name_leader }
+				event_target:transfer_dynasty_name_leader = { set_owner = event_target:gov_switch_country }
+			}
+			country_event = { id = civheir.1001 days = 2 random = 21 }
 		}
-		country_event = { id = civheir.1001 days = 2 random = 21 }
+		else = {
+			kill_gov_switch_country = yes
+		}
 	}
 }
 

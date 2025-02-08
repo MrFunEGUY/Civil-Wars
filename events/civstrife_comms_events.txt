@@ -3275,10 +3275,7 @@ country_event = {
 			}
 			event_target:traitor_home_country = { country_event = { id = civheir.3030 days = 14 random = 360 } }
 			log = "| [this.GetName] is HOST to the traitor heir [event_target:disinherited_heir.GetName]"
-			if = {
-				limit = { exists = event_target:gov_switch_country }
-				event_target:gov_switch_country = { destroy_country = yes }
-			}
+			kill_gov_switch_country = yes
 		}
 		ai_chance = {
 			factor = 75

@@ -5792,7 +5792,7 @@ get_plan_slave_rebels = {
 					create_rebels = {
 						authority = auth_democratic
 						inline_script = { script = civil_war_country_creation/slave_rebels }
-						thos = { 
+						ethos = { 
 							ethic = ethic_militarist
 							ethic = ethic_fanatic_egalitarian
 						}
@@ -16510,4 +16510,11 @@ destroy_succession_crisis = {
 		get_subject_decisions_effect = yes
 	}
 	after_comms_cleanup_effect = yes
+}
+
+kill_gov_switch_country = {
+	if = {
+		limit = { exists = event_target:gov_switch_country }
+		event_target:gov_switch_country = { destroy_country = yes }
+	}	
 }
