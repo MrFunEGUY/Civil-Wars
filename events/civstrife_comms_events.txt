@@ -3346,6 +3346,18 @@ country_event = {
 				country_event = { id = civnat.1300 }
 			}
 		}
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 0.5
+				is_xenophile = yes
+			}
+			modifier = {
+				factor = 5
+				is_xenophobe = yes
+				NOT = { from = { is_same_species = root } }
+			}
+		}
 	}
 
 	# Host Their Government
@@ -3418,6 +3430,13 @@ country_event = {
 						destroy_fleet = this
 					}
 				}
+			}
+		}
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 100
+				has_country_flag = overlord_of_@from
 			}
 		}
 	}

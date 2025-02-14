@@ -1018,19 +1018,9 @@ make_isolated_sector_country = {
 						}
 						15 = { # Dictatorial
 							create_country = {
-								name = random
-								type = default
-								species = event_target:civwar_species
-								ignore_initial_colony_error = yes
-								day_zero_contact = no
 								authority = auth_dictatorial
 								ethos = random
-								origin = origin_isolated_rebellion
-								civics = random
-								flag = random
-								effect = {
-									created_civwar_country_effect = yes
-								}
+								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
 						10 = { # Oligarchic
@@ -3084,11 +3074,14 @@ created_civwar_rebel_country_effect = {
 			species = event_target:civwar_species
 			name = random
 			skill = 5
-			traits = { trait = trait_ruler_deep_connections }
 			background_planet = event_target:civil_war_planet
 			effect = {
 				set_leader_flag = new_civwar_ruler
 				save_event_target_as = new_rebel_leader
+				if = {
+					limit = { leader_class = official }
+					add_trait_no_notify = trait_ruler_deep_connections
+				}
 			}
 		}
 	}
@@ -5729,14 +5722,14 @@ get_plan_slave_rebels = {
 		limit = {
 			any_species_pop = {
 				is_enslaved = yes
-				planet = { is_same_value = prevprevprev }
+				planet = { is_same_value = event_target:civil_war_planet }
 			}
 		}
 		set_variable = { which = species_pop_count value = 0 }
 		every_species_pop = {
 			limit = {
 				is_enslaved = yes
-				planet = { is_same_value = prevprevprev }
+				planet = { is_same_value = event_target:civil_war_planet }
 			}
 			prev = { change_variable = { which = species_pop_count value = 1 } }
 		}
@@ -6936,10 +6929,13 @@ get_civil_war_leader = {
 			name = random
 			skill = 5
 			background_planet = event_target:leader_homeworld
-			traits = { trait = trait_ruler_deep_connections }
 			effect = {
 				species = { save_event_target_as = civwar_species }
 				set_leader_flag = new_civwar_ruler
+				if = {
+					limit = { leader_class = official }
+					add_trait_no_notify = trait_ruler_deep_connections
+				}
 			}
 		}
 	}
@@ -6996,11 +6992,14 @@ get_civil_war_leader = {
 			species = event_target:civwar_species
 			name = random
 			skill = 5
-			traits = { trait = trait_ruler_deep_connections }
 			background_planet = event_target:leader_homeworld
 			effect = {
 				save_event_target_as = new_rebel_leader
 				set_leader_flag = new_civwar_ruler
+				if = {
+					limit = { leader_class = official }
+					add_trait_no_notify = trait_ruler_deep_connections
+				}
 			}
 		}
 		set_leader = event_target:new_rebel_leader
@@ -7069,10 +7068,13 @@ create_planetary_leader_with_ethic = {
 		skill = 5
 		background_ethic = ethic_$ETHIC$
 		background_planet = event_target:civil_war_planet
-		traits = { trait = trait_ruler_deep_connections }
 		effect = {
 			set_leader_flag = new_civwar_ruler
 			save_event_target_as = new_rebel_leader
+			if = {
+				limit = { leader_class = official }
+				add_trait_no_notify = trait_ruler_deep_connections
+			}
 		}
 	}
 }
@@ -7088,10 +7090,13 @@ create_civil_war_leader_with_ethic = {
 		skill = 5
 		background_ethic = ethic_$ETHIC$
 		background_planet = event_target:leader_homeworld
-		traits = { trait = trait_ruler_deep_connections }
 		effect = {
 			set_leader_flag = new_civwar_ruler
 			setup_rebel_leader_effect = yes
+			if = {
+				limit = { leader_class = official }
+				add_trait_no_notify = trait_ruler_deep_connections
+			}
 		}
 	}
 }
@@ -15441,51 +15446,85 @@ create_exile_enclave_country = {
 		}
 	}
 
-	create_country = {
-		name = event_target:old_nat_country
-		type = enclave_exiled_gov
-		authority = event_target:old_nat_country
-		civics = event_target:old_nat_country
-		origin = "origin_exile_government"
-		species = event_target:old_nat_country.species
-		flag = event_target:old_nat_country
-		ethos = event_target:old_nat_country
-		ignore_initial_colony_error = yes
-		effect = {
-			save_event_target_as = nat_pops_country
-			set_country_flag = exiled_gov_enclave_country
-			set_graphical_culture = event_target:old_nat_country
-			create_fleet = {
-				settings = { spawn_debris = no }
-				effect = {
-					set_owner = prev
-					create_ship = {
-						name = "Exiled Government Headquarters"
-						design = "NAME_Mercenary_Enclave_Station_1"
-						graphical_culture = event_target:old_nat_country
-					}
-					set_location = {
-						target = event_target:gov_hosting_planet
-						distance = 45
-						angle = random
-					}
+	event_target:old_nat_country = {
+		set_country_type = enclave_exiled_gov
+		save_event_target_as = nat_pops_country
+		set_country_flag = exiled_gov_enclave_country
+		create_fleet = {
+			settings = { spawn_debris = no }
+			effect = {
+				set_owner = prev
+				create_ship = {
+					name = "Exiled Government Headquarters"
+					design = "NAME_Mercenary_Enclave_Station_1"
+					graphical_culture = event_target:old_nat_country
+				}
+				set_location = {
+					target = event_target:gov_hosting_planet
+					distance = 45
+					angle = random
 				}
 			}
-			copy_flags_and_variables_from = event_target:old_nat_country
-			if = {
-				limit = { has_secession_country_flag = yes }
-				find_secession_number_flag = yes
-			}
-			set_custom_capital_location = event_target:gov_hosting_planet
-			#Set ruler
-			set_leader = event_target:old_nat_country.ruler
-			establish_communications_no_message = root
-			set_country_flag = has_host
-			set_country_flag = host_is_@root
-			get_separatist_faction_nat = yes
-			country_event = { id = civnat.1320 }
 		}
+		if = {
+			limit = { has_secession_country_flag = yes }
+			find_secession_number_flag = yes
+		}
+		set_custom_capital_location = event_target:gov_hosting_planet
+		#Set ruler
+		set_country_flag = has_host
+		set_country_flag = host_is_@root
+		get_separatist_faction_nat = yes
+		country_event = { id = civnat.1320 }
 	}
+
+	## Trying new method above, lets them keep their origin and is cleaner
+	# create_country = {
+	# 	name = event_target:old_nat_country
+	# 	type = enclave_exiled_gov
+	# 	authority = event_target:old_nat_country
+	# 	civics = event_target:old_nat_country
+	# 	origin = "origin_exile_government"
+	# 	species = event_target:old_nat_country.species
+	# 	flag = event_target:old_nat_country
+	# 	ethos = event_target:old_nat_country
+	# 	ignore_initial_colony_error = yes
+	# 	effect = {
+	# 		save_event_target_as = nat_pops_country
+	# 		set_country_flag = exiled_gov_enclave_country
+	# 		set_graphical_culture = event_target:old_nat_country
+	# 		create_fleet = {
+	# 			settings = { spawn_debris = no }
+	# 			effect = {
+	# 				set_owner = prev
+	# 				create_ship = {
+	# 					name = "Exiled Government Headquarters"
+	# 					design = "NAME_Mercenary_Enclave_Station_1"
+	# 					graphical_culture = event_target:old_nat_country
+	# 				}
+	# 				set_location = {
+	# 					target = event_target:gov_hosting_planet
+	# 					distance = 45
+	# 					angle = random
+	# 				}
+	# 			}
+	# 		}
+	# 		copy_flags_and_variables_from = event_target:old_nat_country
+	# 		if = {
+	# 			limit = { has_secession_country_flag = yes }
+	# 			find_secession_number_flag = yes
+	# 		}
+	# 		set_custom_capital_location = event_target:gov_hosting_planet
+	# 		#Set ruler
+	# 		set_leader = event_target:old_nat_country.ruler
+	# 		establish_communications_no_message = root
+	# 		set_country_flag = has_host
+	# 		set_country_flag = host_is_@root
+	# 		get_separatist_faction_nat = yes
+	# 		country_event = { id = civnat.1320 }
+	# 	}
+	# }
+	
 	
 	event_target:gov_hosting_planet = {
 		set_planet_flag = exile_enclave_link_@event_target:nat_pops_country

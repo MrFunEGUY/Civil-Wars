@@ -600,10 +600,7 @@ country_event = {
 
 	trigger = {
 		is_country_type = heir_country
-		from = {
-			is_ruler = yes
-			has_leader_flag = disinherited_heir_conspirer
-		}
+		from = { is_ruler = yes }
 	}
 
 	immediate = {
@@ -972,6 +969,7 @@ country_event = {
 		clone_leader = {
 			target = event_target:disinherited_heir_first
 			effect = {
+				copy_flags_and_variables_from = event_target:disinherited_heir_first
 				save_event_target_as = disinherited_heir
 			}
 		}
