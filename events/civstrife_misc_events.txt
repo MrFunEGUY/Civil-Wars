@@ -360,19 +360,6 @@ fleet_event = {
 	}
 }
 
-# fires when a country finishes being integrated
-# This = overlord
-# From = subject
-country_event = {
-	id = civmisc.4000
-	hide_window = yes
-	is_triggered_only = yes
-
-	immediate = {
-		from = { set_country_flag = integrated_subject }
-	}
-}
-
 country_event = {
 	id = civmisc.5000
 	hide_window = yes
@@ -446,5 +433,18 @@ country_event = {
 
 	option = {
 		name = OK
+	}
+}
+
+# fires when a country finishes being integrated
+# This = overlord
+# From = subject
+country_event = {
+	id = civmisc.6000
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		from = { set_country_flag = integrated_subject }
 	}
 }
