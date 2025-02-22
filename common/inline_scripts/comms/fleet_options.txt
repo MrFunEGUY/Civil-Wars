@@ -1,0 +1,6 @@
+name = civcom.4120.fleet_$NUM$
+trigger = { exists = event_target:military_fleet_$NUM$ }
+hidden_effect = {
+	event_target:military_fleet_$NUM$ = { save_event_target_as = chosen_military_fleet }
+	country_event = { id = civcom.4121 }
+}
