@@ -222,14 +222,14 @@ country_event = { # Gov In Exile Requst Hosting
 			limit = {
 				any_country = {
 					is_possible_exile_host = yes
-					species = { is_same_value = root.owner_main_species }
+					species = { is_same_species = root.owner_main_species }
 					# has_country_flag = test_test
 				}
 			}
 			random_country = {
 				limit = {
 					is_possible_exile_host = yes
-					species = { is_same_value = root.owner_main_species }
+					species = { is_same_species = root.owner_main_species }
 					# has_country_flag = test_test
 				}
 				country_event = { id = civcom.9000 days = 5 random = 25 }
