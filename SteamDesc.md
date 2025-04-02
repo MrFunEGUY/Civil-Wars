@@ -54,10 +54,6 @@ This mod introduces a number of different mechanics and overhauls some vanilla o
 Native:
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2947359917]- Divided Loyalties[/url]
 
-Patches:
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2934779542]- Ethics and Civics Classic[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2934779190]- Stellaris Evolved - Alpha[/url]
-
 - If using my [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2183551683]Vassals Expanded and Reworked - FunEFork[/url] mod, place this mod before it in the load order.
 
 
