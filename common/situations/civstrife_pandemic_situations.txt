@@ -75,17 +75,17 @@
 
 # 			if = {
 # 				limit = {
-# 					any_owned_pop = {
-# 						has_pop_flag = pandemic_pop
+# 					any_owned_pop_group = {
+# 						has_pop_group_flag = pandemic_pop
 # 						species = { NOT = { has_species_flag = pandemic_species } }
 # 					}
 # 				}
-# 				random_owned_pop = {
+# 				random_owned_pop_group = {
 # 					limit = {
-# 						has_pop_flag = pandemic_pop
+# 						has_pop_group_flag = pandemic_pop
 # 						species = { NOT = { has_species_flag = pandemic_species } }
 # 					}
-# 					set_pop_flag = sick_pop_planet_@root # ID'd by situation
+# 					set_pop_group_flag = sick_pop_planet_@root # ID'd by situation
 # 					species = {
 # 						save_event_target_as = pandemic_species_loc
 # 						set_species_flag = sick_species_planet@root
@@ -94,7 +94,7 @@
 # 				}
 # 			}
 # 			else = {
-# 				random_owned_pop = {
+# 				random_owned_pop_group = {
 # 					limit = { is_robot_pop = no }
 # 					species = {
 # 						save_event_target_as = pandemic_species_loc
@@ -111,18 +111,18 @@
 # 				# set_variable = { which = num_sick_pops value = 1 }
 # 				multiply_variable = {
 # 					which = num_sick_pops
-# 					value = trigger:num_pops
+# 					value = trigger:pop_amount
 # 				}
 # 				round_variable = num_sick_pops
 # 				while = {
 # 					count = num_sick_pops
-# 					random_owned_pop = {
+# 					random_owned_pop_group = {
 # 						limit = {
 # 							species = { has_species_flag = sick_species_planet@root }
-# 							NOT = { has_pop_flag = sick_pop_planet_@root }
+# 							NOT = { has_pop_group_flag = sick_pop_planet_@root }
 # 						}
-# 						set_pop_flag = sick_pop_planet_@root # ID'd by situation
-# 						set_pop_flag = pandemic_pop # For cross border travel
+# 						set_pop_group_flag = sick_pop_planet_@root # ID'd by situation
+# 						set_pop_group_flag = pandemic_pop # For cross border travel
 # 					}
 # 				}
 # 				clear_variable = num_sick_pops
@@ -154,10 +154,10 @@
 # 		custom_tooltip = situation_civstrife_pandemic_cured
 # 		hidden_effect = {
 # 			owner = {
-# 				every_owned_pop = {
-# 					limit = { has_pop_flag = sick_pop_planet_@root }
-# 					remove_pop_flag = sick_pop_planet_@root
-# 					remove_pop_flag = pandemic_pop
+# 				every_owned_pop_group = {
+# 					limit = { has_pop_group_flag = sick_pop_planet_@root }
+# 					remove_pop_group_flag = sick_pop_planet_@root
+# 					remove_pop_group_flag = pandemic_pop
 # 				}
 # 				every_owned_species = {
 # 					limit = { has_species_flag = sick_species_planet_@root }
@@ -207,7 +207,7 @@
 # 	abort_trigger = {
 # 		owner = {
 # 			NOT = {
-# 				any_owned_pop = { has_pop_flag = sick_pop_planet_@root }
+# 				any_owned_pop_group = { has_pop_group_flag = sick_pop_planet_@root }
 # 			}
 # 		}
 # 	}
@@ -250,7 +250,7 @@
 # 			category = situations
 # 			upkeep = {
 # 				unity = 0.2
-# 				multiplier = target.trigger:num_pops
+# 				multiplier = target.trigger:pop_amount
 # 			}
 # 		}
 # 		ai_weight = {
@@ -275,7 +275,7 @@
 # 			upkeep = {
 # 				energy = 0.75
 # 				unity = 0.1
-# 				multiplier = target.trigger:num_pops
+# 				multiplier = target.trigger:pop_amount
 # 			}
 # 		}
 # 		ai_weight = {
@@ -295,7 +295,7 @@
 # 			upkeep = {
 # 				energy = 2.25
 # 				unity = 0.05
-# 				multiplier = target.trigger:num_pops
+# 				multiplier = target.trigger:pop_amount
 # 			}
 # 		}
 # 		ai_weight = {
@@ -403,10 +403,10 @@
 # 		add_situation_progress = pandemic_cure_progress
 # 		clear_variable = pandemic_cure_progress
 # 		owner = {
-# 			every_owned_pop = {
-# 				limit = { has_pop_flag = sick_pop_planet_@event_target:initial_pandemic }
-# 				remove_pop_flag = sick_pop_planet_@event_target:initial_pandemic
-# 				set_pop_flag = sick_pop_sector_@root
+# 			every_owned_pop_group = {
+# 				limit = { has_pop_group_flag = sick_pop_planet_@event_target:initial_pandemic }
+# 				remove_pop_group_flag = sick_pop_planet_@event_target:initial_pandemic
+# 				set_pop_group_flag = sick_pop_sector_@root
 # 			}
 # 			random_owned_species = {
 # 				limit = { has_species_flag = sick_species_planet@event_target:initial_pandemic }
@@ -442,10 +442,10 @@
 # 		custom_tooltip = situation_civstrife_pandemic_cured
 # 		hidden_effect = {
 # 			owner = {
-# 				every_owned_pop = {
-# 					limit = { has_pop_flag = sick_pop_sector_@root }
-# 					remove_pop_flag = sick_pop_sector_@root
-# 					remove_pop_flag = pandemic_pop
+# 				every_owned_pop_group = {
+# 					limit = { has_pop_group_flag = sick_pop_sector_@root }
+# 					remove_pop_group_flag = sick_pop_sector_@root
+# 					remove_pop_group_flag = pandemic_pop
 # 				}
 # 				every_owned_species = {
 # 					limit = { has_species_flag = sick_species_sector_@root }
@@ -517,7 +517,7 @@
 # 	abort_trigger = {
 # 		owner = {
 # 			NOT = {
-# 				any_owned_pop = { has_pop_flag = sick_pop_sector_@root }
+# 				any_owned_pop_group = { has_pop_group_flag = sick_pop_sector_@root }
 # 			}
 # 		}
 # 	}
@@ -560,7 +560,7 @@
 # 			category = situations
 # 			upkeep = {
 # 				unity = 0.2
-# 				multiplier = target.sector.trigger:num_pops
+# 				multiplier = target.sector.trigger:pop_amount
 # 			}
 # 		}
 # 		ai_weight = {
@@ -585,7 +585,7 @@
 # 			upkeep = {
 # 				energy = 0.75
 # 				unity = 0.1
-# 				multiplier = target.sector.trigger:num_pops
+# 				multiplier = target.sector.trigger:pop_amount
 # 			}
 # 		}
 # 		ai_weight = {
@@ -602,7 +602,7 @@
 # 			upkeep = {
 # 				energy = 2.25
 # 				unity = 0.05
-# 				multiplier = target.sector.trigger:num_pops
+# 				multiplier = target.sector.trigger:pop_amount
 # 			}
 # 		}
 # 		ai_weight = {
@@ -713,10 +713,10 @@
 # 			}
 # 			situation_event = { id = civpan.8010 }
 # 			owner = {
-# 				every_owned_pop = {
-# 					limit = { has_pop_flag = sick_pop_planet_@event_target:initial_pandemic }
-# 					remove_pop_flag = sick_pop_planet_@event_target:initial_pandemic
-# 					set_pop_flag = sick_pop_national_@root
+# 				every_owned_pop_group = {
+# 					limit = { has_pop_group_flag = sick_pop_planet_@event_target:initial_pandemic }
+# 					remove_pop_group_flag = sick_pop_planet_@event_target:initial_pandemic
+# 					set_pop_group_flag = sick_pop_national_@root
 # 				}
 # 				random_owned_species = {
 # 					limit = { has_species_flag = sick_species_planet@event_target:initial_pandemic }
@@ -729,10 +729,10 @@
 # 		else = {
 # 			situation_event = { id = civpan.8020 }
 # 			owner = {
-# 				every_owned_pop = {
-# 					limit = { has_pop_flag = sick_pop_sector_@event_target:initial_pandemic }
-# 					remove_pop_flag = sick_pop_sector_@event_target:initial_pandemic
-# 					set_pop_flag = sick_pop_national_@root
+# 				every_owned_pop_group = {
+# 					limit = { has_pop_group_flag = sick_pop_sector_@event_target:initial_pandemic }
+# 					remove_pop_group_flag = sick_pop_sector_@event_target:initial_pandemic
+# 					set_pop_group_flag = sick_pop_national_@root
 # 				}
 # 				every_owned_species = {
 # 					limit = { has_species_flag = sick_species_planet_@event_target:initial_pandemic }
@@ -770,10 +770,10 @@
 # 		custom_tooltip = situation_civstrife_pandemic_cured
 # 		hidden_effect = {
 # 			owner = {
-# 				every_owned_pop = {
-# 					limit = { has_pop_flag = sick_pop_national_@root }
-# 					remove_pop_flag = sick_pop_national_@root
-# 					remove_pop_flag = pandemic_pop
+# 				every_owned_pop_group = {
+# 					limit = { has_pop_group_flag = sick_pop_national_@root }
+# 					remove_pop_group_flag = sick_pop_national_@root
+# 					remove_pop_group_flag = pandemic_pop
 # 				}
 # 				every_owned_species = {
 # 					limit = { has_species_flag = sick_species_national_@root }
@@ -843,7 +843,7 @@
 # 	abort_trigger = {
 # 		owner = {
 # 			NOT = {
-# 				any_owned_pop = { has_pop_flag = sick_pop_national_@root }
+# 				any_owned_pop_group = { has_pop_group_flag = sick_pop_national_@root }
 # 			}
 # 		}
 # 	}
@@ -886,7 +886,7 @@
 # 			category = situations
 # 			upkeep = {
 # 				unity = 0.2
-# 				multiplier = target.owner.trigger:num_pops
+# 				multiplier = target.owner.trigger:pop_amount
 # 			}
 # 		}
 # 		ai_weight = {
@@ -903,7 +903,7 @@
 # 			upkeep = {
 # 				energy = 2.25
 # 				unity = 0.05
-# 				multiplier = target.owner.trigger:num_pops
+# 				multiplier = target.owner.trigger:pop_amount
 # 			}
 # 		}
 # 		ai_weight = {

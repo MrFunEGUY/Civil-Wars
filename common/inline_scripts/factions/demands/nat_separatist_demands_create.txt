@@ -1,0 +1,300 @@
+# Reunification
+demand = {
+	title = "NATIONALISM_DEMAND_REUNION_x"
+	unfulfilled_title = "NATIONALISM_DEMAND_REUNION_x"
+	desc = "NATIONALISM_DEMAND_REUNION_$NAT_FAC_NUM$_desc"
+
+	unfulfilled_effect = -30
+	fulfilled_effect = 0.001
+
+	potential = {
+		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+			is_exile_country = no
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = {
+				any_owned_pop_group = {
+					has_pop_group_flag = sep_pop_nat_@event_target:nat_separatist_$NAT_FAC_NUM$
+				}
+			}
+		}
+	}
+}
+
+# Reconstitution of dead country
+demand = {
+	title = "NATIONALISM_DEMAND_RECONSTITUTION_x"
+	unfulfilled_title = "NATIONALISM_DEMAND_RECONSTITUTION_x"
+	desc = "NATIONALISM_DEMAND_RECONSTITUTION_$NAT_FAC_NUM$_desc"
+
+	unfulfilled_effect = -30
+	fulfilled_effect = 0.001
+
+	potential = {
+		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+			is_exile_country = yes
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = {
+				any_owned_pop_group = {
+					has_pop_group_flag = sep_pop_nat_@event_target:nat_separatist_$NAT_FAC_NUM$
+				}
+			}
+		}
+	}
+}
+
+# Hosting Government-in-Exile
+demand = {
+	title = "NATIONALISM_DEMAND_HOSTING_x"
+	unfulfilled_title = "NATIONALISM_DEMAND_HOSTING_x"
+	desc = "NATIONALISM_DEMAND_HOSTING_$NAT_FAC_NUM$_desc"
+
+	unfulfilled_effect = -0.001
+	fulfilled_effect = 15
+
+	potential = {
+		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+			is_exile_country = yes
+			NOT = { has_country_flag = dead_nation }
+		}
+	}
+
+	trigger = {
+		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+			any_owned_fleet = {
+				is_ship_size = enclave_mercenary_station
+				exists = solar_system.space_owner
+				solar_system.space_owner = { is_same_empire = root.owner }
+			}
+		}
+	}
+}
+
+# Federalism - Government Policy - Ethics and Civics
+demand = {
+	title = "NATIONALISM_DEMAND_FEDERAL_x"
+	unfulfilled_title = "NATIONALISM_DEMAND_FEDERAL_x"
+	desc = "NATIONALISM_DEMAND_FEDERAL_$NAT_FAC_NUM$_desc"
+
+	unfulfilled_effect = -5
+	fulfilled_effect = 10
+
+	potential = {
+		has_global_flag = cultural_overhaul_active
+	}
+
+	trigger = {
+		owner = {
+			has_policy_flag = federal_state
+		}
+	}
+}
+
+# Migration Treaty with Former Homeland
+demand = {
+	title = "NATIONALISM_DEMAND_MIGRATION_x"
+	unfulfilled_title = "NATIONALISM_DEMAND_MIGRATION_x"
+	desc = "NATIONALISM_DEMAND_MIGRATION_$NAT_FAC_NUM$_desc"
+
+	unfulfilled_effect = -5
+	fulfilled_effect = 15
+
+	potential = {
+		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+			is_exile_country = no
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_migration_access = event_target:nat_separatist_$NAT_FAC_NUM$
+		}
+	}
+}
+
+# Commercial Pact with Former Homeland
+demand = {
+	title = "NATIONALISM_DEMAND_COMMERCIAL_x"
+	unfulfilled_title = "NATIONALISM_DEMAND_COMMERCIAL_x"
+	desc = "NATIONALISM_DEMAND_COMMERCIAL_$NAT_FAC_NUM$_desc"
+
+	unfulfilled_effect = -5
+	fulfilled_effect = 5
+
+	potential = {
+		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+			is_exile_country = no
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_commercial_pact = event_target:nat_separatist_$NAT_FAC_NUM$
+		}
+	}
+}
+
+# Defensive Pact with Former Homeland
+demand = {
+	title = "NATIONALISM_DEMAND_DEFENSE_x"
+	unfulfilled_title = "NATIONALISM_DEMAND_DEFENSE_x"
+	desc = "NATIONALISM_DEMAND_DEFENSE_$NAT_FAC_NUM$_desc"
+
+	unfulfilled_effect = -0.001
+	fulfilled_effect = 15
+
+	potential = {
+		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+			is_exile_country = no
+		}
+	}
+
+	trigger = {
+		owner = {
+			has_defensive_pact = event_target:nat_separatist_$NAT_FAC_NUM$
+		}
+	}
+}
+
+# No War with Former Homeland
+demand = {
+	title = "NATIONALISM_DEMAND_NO_WAR_x"
+	unfulfilled_title = "NATIONALISM_DEMAND_NO_WAR_x"
+	desc = "NATIONALISM_DEMAND_NO_WAR_$NAT_FAC_NUM$_desc"
+
+	unfulfilled_effect = -25
+	fulfilled_effect = 10
+
+	potential = {
+		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+			is_exile_country = no
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = {
+				is_at_war_with = event_target:nat_separatist_$NAT_FAC_NUM$
+			}
+		}
+	}
+}
+
+# Citizenship for former Citizens
+demand = {
+	title = "NATIONALISM_DEMAND_CITIZENSHIP_x"
+	unfulfilled_title = "NATIONALISM_DEMAND_CITIZENSHIP_x"
+	desc = "NATIONALISM_DEMAND_CITIZENSHIP_$NAT_FAC_NUM$_desc"
+
+	unfulfilled_effect = -20
+	fulfilled_effect = 5
+
+	potential = {
+		owner = {
+			any_owned_pop_group = {
+				has_pop_group_flag = citizen_of_@event_target:nat_separatist_$NAT_FAC_NUM$
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = {
+				any_owned_pop_group = {
+					has_pop_group_flag = citizen_of_@event_target:nat_separatist_$NAT_FAC_NUM$
+					has_citizenship_rights = no
+				}
+			}
+		}
+	}
+}
+
+# No Slavery for former Citizens
+demand = {
+	title = "NATIONALISM_DEMAND_NO_SLAVERY_x"
+	unfulfilled_title = "NATIONALISM_DEMAND_NO_SLAVERY_x"
+	desc = "NATIONALISM_DEMAND_NO_SLAVERY_$NAT_FAC_NUM$_desc"
+
+	unfulfilled_effect = -40
+	fulfilled_effect = 0.001
+
+	potential = {
+		owner = {
+			any_owned_pop_group = {
+				OR = {
+					has_pop_group_flag = citizen_of_@event_target:nat_separatist_$NAT_FAC_NUM$
+					has_pop_group_flag = resident_of_@event_target:nat_separatist_$NAT_FAC_NUM$
+				}
+				# is_enslaved = yes
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = {
+				any_owned_pop_group = {
+					has_pop_group_flag = sep_pop_nat_@event_target:nat_separatist_$NAT_FAC_NUM$
+					is_enslaved = yes
+				}
+			}
+		}
+	}
+}
+
+# No Purging for former Citizens
+demand = {
+	title = "NATIONALISM_DEMAND_NO_PURGING_x"
+	unfulfilled_title = "NATIONALISM_DEMAND_NO_PURGING_x"
+	desc = "NATIONALISM_DEMAND_NO_PURGING_$NAT_FAC_NUM$_desc"
+
+	unfulfilled_effect = -60
+	fulfilled_effect = 0.001
+
+	potential = {
+		owner = {
+			any_owned_pop_group = {
+				OR = {
+					has_pop_group_flag = citizen_of_@event_target:nat_separatist_$NAT_FAC_NUM$
+					has_pop_group_flag = resident_of_@event_target:nat_separatist_$NAT_FAC_NUM$
+				}
+				# is_being_purged = yes
+			}
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = {
+				any_owned_pop_group = {
+					OR = {
+						has_pop_group_flag = citizen_of_@event_target:nat_separatist_$NAT_FAC_NUM$
+						has_pop_group_flag = resident_of_@event_target:nat_separatist_$NAT_FAC_NUM$
+					}
+					is_being_purged = yes
+				}
+			}
+		}
+	}
+}
+
+on_create = {
+	event_target:nat_separatist_$NAT_FAC_NUM$ = { save_event_target_as = sep_target_loc }
+	nat_faction_first_effect = yes
+	set_name = {
+		key = nat_separatist_real_name
+		variable_string = "[sep_target_loc.GetAdj]"
+		variable_string = "[last_created_leader.GetName]"
+	}
+	nat_faction_second_effect = yes
+}
+
+
+actions = {}

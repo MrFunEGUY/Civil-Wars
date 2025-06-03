@@ -1,0 +1,77 @@
+##########################
+#
+# TIMELINE EVENTS
+#
+##########################
+
+namespace = timeline
+
+# War Declared
+country_event = {
+	id = timeline.4
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type = default
+		fromfrom = {
+			any_attacker = {
+				is_same_value = root
+				is_war_leader = yes
+			}
+			has_civil_war_goal = no
+		}
+	}
+
+	immediate = {
+		fromfrom = {
+			random_defender = {
+				save_event_target_as = this_country_defender
+			}
+			random_attacker = {
+				limit = {
+					is_same_value = root
+					is_war_leader = yes
+				}
+				save_event_target_as = this_country_attacker
+				if = {
+					limit = {
+						NOT = { has_country_flag = first_war_declared }
+					}
+					set_country_flag = first_war_declared
+					add_timeline_event = {
+						type = timeline_milestone
+						override_id = timeline_first_war_declared
+						override_tooltip = "TIMELINE_EVENT_FIRST_WAR_DECLARED_TOOLTIP"
+						override_types = { country country }
+						override_text = { "text:TIMELINE_FIRST_WAR_DECLARED" }
+						override_texture = { "background:GFX_evt_burning_city" }
+						targets = { event_target:this_country_attacker event_target:this_country_defender }
+					}
+				}
+				else = {
+					add_timeline_event = {
+						type = timeline_empire
+						override_id = timeline_war_declared_attacker
+						override_tooltip = "TIMELINE_EVENT_WAR_DECLARED_TOOLTIP"
+						override_types = { country country }
+						override_text = { "text:TIMELINE_WAR_DECLARED" }
+						override_texture = { "background:GFX_evt_small_space_battle" }
+						targets = { event_target:this_country_attacker event_target:this_country_defender }
+					}
+				}
+			}
+			event_target:this_country_defender = {
+				add_timeline_event = {
+					type = timeline_empire
+					override_id = timeline_war_declared_defender
+					override_tooltip = "TIMELINE_EVENT_WAR_DECLARED_TOOLTIP"
+					override_types = { country country }
+					override_text = { "text:TIMELINE_WAR_DECLARED" }
+					override_texture = { "background:GFX_evt_small_space_battle" }
+					targets = { event_target:this_country_attacker event_target:this_country_defender }
+				}
+			}
+		}
+	}
+}

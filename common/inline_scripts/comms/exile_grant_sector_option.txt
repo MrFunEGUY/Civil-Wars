@@ -1,8 +1,8 @@
-name = civcom.9210.restoration_planet_$NUM$
-trigger = { check_variable = { which = total_restoration_planets value >= $NUM$ } }
+name = civcom.9220.restoration_sector_$NUM$
+trigger = { check_variable = { which = total_restoration_sectors value >= $NUM$ } }
 add_resource = { unity = -1 mult = year_unity_prod }
 hidden_effect = {
-	event_target:restoration_planet_$NUM$= { exile_restore_planet_setup = yes }
+	event_target:restoration_sector_$NUM$= { exile_restore_sector_setup = yes }
 	exile_restoration_gen_effect = yes
 }
 ai_chance = { factor = 1 }

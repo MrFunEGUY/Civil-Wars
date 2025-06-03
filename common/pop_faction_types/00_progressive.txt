@@ -18,13 +18,23 @@ progressive = {
                 	OR = {
                 		years_passed > 10
                 		AND = {
-                			days_passed > 30
-                			has_valid_civic = civic_parliamentary_system
-                		}
-                		AND = {
-                			days_passed > 350
-                			has_origin = origin_broken_shackles
-                		}
+							days_passed > 30
+							OR = {
+								has_valid_civic = civic_parliamentary_system
+								has_valid_civic = civic_crowdsourcing
+								has_valid_civic = civic_corporate_crowdsourcing
+							}
+						}
+						AND = {
+							days_passed > 350
+							OR = {
+								has_origin = origin_broken_shackles
+								AND = {
+									has_origin = origin_unplugged
+									has_country_flag = unplugged_faction_allowed
+								}
+							}
+						}
                 	}
                 }
             }
@@ -155,7 +165,7 @@ progressive = {
 			owner = {
 				NOR = {
 					has_policy_flag = resettlement_allowed
-					any_owned_pop = {
+					any_owned_pop_group = {
 						has_migration_control = { type = yes }
 						is_sapient = yes
 						is_enslaved = no
@@ -385,7 +395,7 @@ progressive = {
 	}
 
 	on_create = {
-		pop_faction_event = { id = factions.1 }
+		pop_faction_event = { id = factions.0 }
 	}
 
 	on_destroy = {

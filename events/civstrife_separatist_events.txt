@@ -42,6 +42,8 @@ country_event = { # Planetary Unrest Counter
 				fundamental_planet_unrest_tick_check = yes
 			}
 		}
+		under_one_rule_check = yes
+		civwar_valid_trigger = yes
 	}
 
 	immediate = {
@@ -120,7 +122,7 @@ country_event = { # Planetary Decrease unrest Counter
 
 	trigger = {
 		any_owned_planet = {
-			num_pops > 0
+			pop_amount > 0
 			is_variable_set = revolt_tick
 			OR = {
 				AND = {
@@ -142,7 +144,7 @@ country_event = { # Planetary Decrease unrest Counter
 	immediate = {
 		every_owned_planet = {
 			limit = {
-				num_pops > 0
+				pop_amount > 0
 				is_variable_set = revolt_tick
 				OR = {
 					AND = {
@@ -192,7 +194,7 @@ country_event = { # Planetary Calm Counter
 
 	trigger = {
 		any_owned_planet = {
-			num_pops > 0
+			pop_amount > 0
 			combined_planet_unrest_calm_check = yes
 		}	
 	}
@@ -200,7 +202,7 @@ country_event = { # Planetary Calm Counter
 	immediate = {
 		every_owned_planet = {
 			limit = {
-				num_pops > 0
+				pop_amount > 0
 				combined_planet_unrest_calm_check = yes
 			}
 			if = {
@@ -464,40 +466,40 @@ planet_event = { # Create First Separatists, Planetary
 
 		if = {
 			limit = {
-				count_owned_pop = {
+				count_owned_pop_amount = {
 					limit = {
 						can_think = yes
 						pop_has_happiness = yes
 					}
-					count <= 10
+					count <= 1000
 				}
 			}
 			if = {
 				limit = {
-					count_owned_pop = {
+					count_owned_pop_amount = {
 						limit = {
 							can_think = yes
 							pop_has_happiness = yes
 						}
-						count = 3
+						count <= 300
 					}
 				}
 				random_list = {
 					60 = {
 						while = {
 							count = 2
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					40 = {
 						while = {
 							count = 3
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
@@ -505,36 +507,36 @@ planet_event = { # Create First Separatists, Planetary
 			}
 			else_if = {
 				limit = {
-					count_owned_pop = {
+					count_owned_pop_amount = {
 						limit = { can_think = yes }
-						count = 4
+						count <= 400
 					}
 				}
 				random_list = {
 					50 = {
 						while = {
 							count = 2
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					30 = {
 						while = {
 							count = 3
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					20 = {
 						while = {
 							count = 4
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
@@ -542,45 +544,45 @@ planet_event = { # Create First Separatists, Planetary
 			}
 			else_if = {
 				limit = {
-					count_owned_pop = {
+					count_owned_pop_amount = {
 						limit = { can_think = yes }
-						count = 5
+						count <= 500
 					}
 				}
 				random_list = {
 					40 = {
 						while = {
 							count = 2
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					30 = {
 						while = {
 							count = 3
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					20 = {
 						while = {
 							count = 4
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					10 = {
 						while = {
 							count = 5
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
@@ -588,54 +590,54 @@ planet_event = { # Create First Separatists, Planetary
 			}
 			else_if = {
 				limit = {
-					count_owned_pop = {
+					count_owned_pop_amount = {
 						limit = { can_think = yes }
-						count = 6
+						count <= 600
 					}
 				}
 				random_list = {
 					30 = {
 						while = {
 							count = 2
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					30 = {
 						while = {
 							count = 3
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					20 = {
 						while = {
 							count = 4
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					10 = {
 						while = {
 							count = 5
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					10 = {
 						while = {
 							count = 6
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
@@ -643,63 +645,63 @@ planet_event = { # Create First Separatists, Planetary
 			}
 			else_if = {
 				limit = {
-					count_owned_pop = {
+					count_owned_pop_amount = {
 						limit = { can_think = yes }
-						count = 7
+						count <= 700
 					}
 				}
 				random_list = {
 					25 = {
 						while = {
 							count = 2
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					25 = {
 						while = {
 							count = 3
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					20 = {
 						while = {
 							count = 4
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					10 = {
 						while = {
 							count = 5
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					10 = {
 						while = {
 							count = 6
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					10 = {
 						while = {
 							count = 7
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
@@ -707,72 +709,72 @@ planet_event = { # Create First Separatists, Planetary
 			}
 			else_if = {
 				limit = {
-					count_owned_pop = {
+					count_owned_pop_amount = {
 						limit = { can_think = yes }
-						count = 8
+						count <= 800
 					}
 				}
 				random_list = {
 					25 = {
 						while = {
 							count = 2
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					25 = {
 						while = {
 							count = 3
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					20 = {
 						while = {
 							count = 4
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					10 = {
 						while = {
 							count = 5
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					10 = {
 						while = {
 							count = 6
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					5 = {
 						while = {
 							count = 7
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					5 = {
 						while = {
 							count = 8
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
@@ -780,81 +782,81 @@ planet_event = { # Create First Separatists, Planetary
 			}
 			else_if = {
 				limit = {
-					count_owned_pop = {
+					count_owned_pop_amount = {
 						limit = { can_think = yes }
-						count = 9
+						count <= 900
 					}
 				}
 				random_list = {
 					20 = {
 						while = {
 							count = 2
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					25 = {
 						while = {
 							count = 3
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					20 = {
 						while = {
 							count = 4
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					10 = {
 						while = {
 							count = 5
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					10 = {
 						while = {
 							count = 6
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					5 = {
 						while = {
 							count = 7
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					5 = {
 						while = {
 							count = 8
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					5 = {
 						while = {
 							count = 9
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
@@ -862,90 +864,90 @@ planet_event = { # Create First Separatists, Planetary
 			}
 			else_if = {
 				limit = {
-					count_owned_pop = {
+					count_owned_pop_amount = {
 						limit = { can_think = yes }
-						count = 10
+						count <= 1000
 					}
 				}
 				random_list = {
 					20 = {
 						while = {
 							count = 2
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					20 = {
 						while = {
 							count = 3
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					20 = {
 						while = {
 							count = 4
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					10 = {
 						while = {
 							count = 5
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					10 = {
 						while = {
 							count = 6
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					5 = {
 						while = {
 							count = 7
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					5 = {
 						while = {
 							count = 8
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					5 = {
 						while = {
 							count = 9
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
 					5 = {
 						while = {
 							count = 10
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = { pop_can_be_separatist_gen = yes }
-								set_pop_flag = sep_pop
+								set_pop_group_flag = sep_pop
 							}
 						}
 					}
@@ -956,38 +958,35 @@ planet_event = { # Create First Separatists, Planetary
 		else = {
 
 			set_variable = { which = num_sep_pops value = 0 }
-			set_variable = { which = sep_pop_percentage value = 0 }
+			set_variable = { which = sep_pop_amount_percentage value = 0 }
 
-			every_owned_pop = {
-				limit = {
-					can_think = yes
-					pop_has_happiness = yes
-				}
+			every_owned_pop_group = {
+				limit = { pop_can_be_separatist_gen = yes }
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
 			}
 
 			random_list = {
-				40 = { set_variable = { which = sep_pop_percentage value = 0.2 } }
-				30 = { set_variable = { which = sep_pop_percentage value = 0.3 } }
-				10 = { set_variable = { which = sep_pop_percentage value = 0.4 } }
-				10 = { set_variable = { which = sep_pop_percentage value = 0.5 } }
-				5 = { set_variable = { which = sep_pop_percentage value = 0.6 } }
-				5 = { set_variable = { which = sep_pop_percentage value = 0.7 } }
+				40 = { set_variable = { which = sep_pop_amount_percentage value = 0.2 } }
+				30 = { set_variable = { which = sep_pop_amount_percentage value = 0.3 } }
+				10 = { set_variable = { which = sep_pop_amount_percentage value = 0.4 } }
+				10 = { set_variable = { which = sep_pop_amount_percentage value = 0.5 } }
+				5 = { set_variable = { which = sep_pop_amount_percentage value = 0.6 } }
+				5 = { set_variable = { which = sep_pop_amount_percentage value = 0.7 } }
 			}
 
-			multiply_variable = { which = num_sep_pops value = sep_pop_percentage }
+			multiply_variable = { which = num_sep_pops value = sep_pop_amount_percentage }
 			ceiling_variable = num_sep_pops
 
 			while = {
 				count = num_sep_pops
-				random_owned_pop = {
+				random_owned_pop_group = {
 					limit = { pop_can_be_separatist_gen = yes }
-					set_pop_flag = sep_pop
+					set_pop_group_flag = sep_pop
 				}
 			}
 
 			clear_variable = num_sep_pops
-			clear_variable = sep_pop_percentage
+			clear_variable = sep_pop_amount_percentage
 		}
 	}
 }
@@ -1008,7 +1007,7 @@ country_event = { # Create More Separatists Yearly Initializer
 					sector = { has_sector_flag = sector_sep_active }
 				}
 			}
-			any_owned_pop = { NOT = { has_pop_flag = sep_pop } }
+			any_owned_pop_group = { NOT = { has_pop_group_flag = sep_pop } }
 		}
 	}
 
@@ -1023,7 +1022,7 @@ country_event = { # Create More Separatists Yearly Initializer
 						sector = { has_sector_flag = sector_sep_active }
 					}
 				}
-				any_owned_pop = { NOT = { has_pop_flag = sep_pop } }
+				any_owned_pop_group = { NOT = { has_pop_group_flag = sep_pop } }
 			}
 			planet_event = { id = civsep.2015 days = 1 random = 359 }
 		}
@@ -1043,7 +1042,7 @@ planet_event = { # Create Separatists Yearly Event
 				sector = { has_sector_flag = sector_sep_active }
 			}
 		}
-		any_owned_pop = {
+		any_owned_pop_group = {
 			happiness <= 65
 			pop_can_be_separatist_gen = yes
 		}
@@ -1055,55 +1054,55 @@ planet_event = { # Create Separatists Yearly Event
 
 		set_variable = { which = num_sep_pops value = 0 }
 
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = { pop_can_be_separatist_gen = yes }
 			prev = { change_variable = { which = num_sep_pops value = 1 } }
 		}
 
 		while = {
 			count = num_sep_pops
-			random_owned_pop = {
+			random_owned_pop_group = {
 				limit = { pop_can_be_separatist_gen = yes }
 				if = {
 					limit = {
 						happiness <= 65
 						happiness > 50
 					}
-					random = { chance = 25 set_pop_flag = sep_pop }
+					random = { chance = 25 set_pop_group_flag = sep_pop }
 				}
 				else_if = {
 					limit = {
 						happiness <= 50
 						happiness > 40
 					}
-					random = { chance = 40 set_pop_flag = sep_pop }
+					random = { chance = 40 set_pop_group_flag = sep_pop }
 				}
 				else_if = {
 					limit = {
 						happiness <= 40
 						happiness > 30
 					}
-					random = { chance = 50 set_pop_flag = sep_pop }
+					random = { chance = 50 set_pop_group_flag = sep_pop }
 				}
 				else_if = {
 					limit = {
 						happiness <= 30
 						happiness > 20
 					}
-					random = { chance = 60 set_pop_flag = sep_pop }
+					random = { chance = 60 set_pop_group_flag = sep_pop }
 				}
 				else_if = {
 					limit = {
 						happiness <= 20
 						happiness > 10
 					}
-					random = { chance = 70 set_pop_flag = sep_pop }
+					random = { chance = 70 set_pop_group_flag = sep_pop }
 				}
 				else_if = {
 					limit = {
 						happiness <= 10
 					}
-					random = { chance = 80 set_pop_flag = sep_pop }
+					random = { chance = 80 set_pop_group_flag = sep_pop }
 				}
 			}
 		}
@@ -1116,7 +1115,7 @@ country_event = { # Remove Separatists Yearly Initializer
 	is_triggered_only = yes
 
 	trigger = {
-		any_owned_pop = {
+		any_owned_pop_group = {
 			planet = {
 				planet_stability >= 50
 				OR = {
@@ -1136,7 +1135,7 @@ country_event = { # Remove Separatists Yearly Initializer
 				}
 			}
 			happiness > 70
-			has_pop_flag = sep_pop
+			has_pop_group_flag = sep_pop
 			is_enslaved = no
 			is_being_purged = no
 		}
@@ -1144,7 +1143,7 @@ country_event = { # Remove Separatists Yearly Initializer
 
 	immediate = {
 
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = {
 				planet = {
 					planet_stability >= 50
@@ -1165,16 +1164,16 @@ country_event = { # Remove Separatists Yearly Initializer
 					}
 				}
 				happiness > 70
-				has_pop_flag = sep_pop
+				has_pop_group_flag = sep_pop
 				is_enslaved = no
 				is_being_purged = no
 			}
-			pop_event = { id = civsep.2105 days = 1 random = 359 }
+			pop_group_event = { id = civsep.2105 days = 1 random = 359 }
 		}
 	}
 }
 
-pop_event = { # Remove Separatists Annually
+pop_group_event = { # Remove Separatists Annually
 	id = civsep.2105
 	hide_window = yes
 	is_triggered_only = yes
@@ -1199,14 +1198,14 @@ pop_event = { # Remove Separatists Annually
 			}
 		}
 		happiness > 70
-		has_pop_flag = sep_pop
+		has_pop_group_flag = sep_pop
 		is_enslaved = no
 		is_being_purged = no
 	}
 
 	immediate = {
 
-		random = { chance = 60 remove_pop_flag = sep_pop }
+		random = { chance = 60 remove_pop_group_flag = sep_pop }
 	}
 }
 
@@ -1229,25 +1228,25 @@ country_event = { # Sector Separatist Party Form Check
 			OR = {
 				AND = {
 					has_sector_flag = frontier_sector_@root
-					pop_percentage = {
+					pop_amount_percentage = {
 						percentage >= 0.3
-						limit = { has_pop_flag = sep_pop }
+						limit = { has_pop_group_flag = sep_pop }
 						exclude = { can_think = no }
 					}
 				}
 				AND = {
 					has_sector_flag = integrated_sector_@root
-					pop_percentage = {
+					pop_amount_percentage = {
 						percentage >= 0.4
-						limit = { has_pop_flag = sep_pop }
+						limit = { has_pop_group_flag = sep_pop }
 						exclude = { can_think = no }
 					}
 				}
 				AND = {
 					has_sector_flag = fundamental_sector_@root
-					pop_percentage = {
+					pop_amount_percentage = {
 						percentage >= 0.5
-						limit = { has_pop_flag = sep_pop }
+						limit = { has_pop_group_flag = sep_pop }
 						exclude = { can_think = no }
 					}
 				}
@@ -1265,25 +1264,25 @@ country_event = { # Sector Separatist Party Form Check
 				OR = {
 					AND = {
 						has_sector_flag = frontier_sector_@root
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage >= 0.3
-							limit = { has_pop_flag = sep_pop }
+							limit = { has_pop_group_flag = sep_pop }
 							exclude = { can_think = no }
 						}
 					}
 					AND = {
 						has_sector_flag = integrated_sector_@root
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage >= 0.4
-							limit = { has_pop_flag = sep_pop }
+							limit = { has_pop_group_flag = sep_pop }
 							exclude = { can_think = no }
 						}
 					}
 					AND = {
 						has_sector_flag = fundamental_sector_@root
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage >= 0.5
-							limit = { has_pop_flag = sep_pop }
+							limit = { has_pop_group_flag = sep_pop }
 							exclude = { can_think = no }
 						}
 					}
@@ -1302,6 +1301,8 @@ country_event = { # Find isolated sectors
 	trigger = {
 		is_country_type_with_subjects = yes
 		these_are_rebels_in_rebellion = no
+		under_one_rule_check = yes
+		civwar_valid_trigger = yes
 	}
 
 	immediate = {
@@ -1407,7 +1408,13 @@ country_event = { # Start Isolated Sector Chains
 	trigger = {
 		is_country_type_with_subjects = yes
 		any_owned_sector = {
-			NOT = { has_sector_flag = sector_sep_active }
+			NOR = { ## Noticed 2 iso sec factions at the same time, so both below is to be doubly sure
+				has_sector_flag = sector_sep_active
+				any_owned_pop_group = {
+					exists = pop_faction
+					pop_faction = { is_iso_sector_separatist_faction = yes }
+				}
+			}
 			is_variable_set = isolated_sector_year
 			check_variable = { which = isolated_sector_year value >= 5 }
 		}
@@ -1416,7 +1423,13 @@ country_event = { # Start Isolated Sector Chains
 	immediate = {
 		every_owned_sector = {
 			limit = {
-				NOT = { has_sector_flag = sector_sep_active }
+				NOR = {
+					has_sector_flag = sector_sep_active
+					any_owned_pop_group = {
+						exists = pop_faction
+						pop_faction = { is_iso_sector_separatist_faction = yes }
+					}
+				}
 				is_variable_set = isolated_sector_year
 				check_variable = { which = isolated_sector_year value >= 5 }
 			}
@@ -1426,8 +1439,8 @@ country_event = { # Start Isolated Sector Chains
 					check_variable = { which = isolated_sector_year value < 10 }
 				}
 				random = {
-					#chance = 3
-					chance = 50
+					chance = 1
+					# chance = 50
 					get_iso_separatist_faction_sector = yes
 				}
 			}
@@ -1437,27 +1450,16 @@ country_event = { # Start Isolated Sector Chains
 					check_variable = { which = isolated_sector_year value < 15 }
 				}
 				random = {
-					#chance = 5
-					chance = 50
+					chance = 5
+					# chance = 50
 					get_iso_separatist_faction_sector = yes
 				}
 			}
 			else_if = {
-				limit = {
-					check_variable = { which = isolated_sector_year value >= 15 }
-					check_variable = { which = isolated_sector_year value < 20 }
-				}
+				limit = { check_variable = { which = isolated_sector_year value >= 15 } }
 				random = {
-					#chance = 7
-					chance = 50
-					get_iso_separatist_faction_sector = yes
-				}
-			}
-			else_if = {
-				limit = { check_variable = { which = isolated_sector_year value >= 20 } }
-				random = {
-					#chance = 10
-					chance = 50
+					chance = 10
+					# chance = 50
 					get_iso_separatist_faction_sector = yes
 				}
 			}
@@ -1479,14 +1481,14 @@ country_event = { # Check disapproving Factions every month
 		years_passed >= 15
 		NOT = { any_neighbor_country = { is_crisis_faction = yes } }
 		any_pop_faction = {
-			count_owned_pop = { count >= 5 }
+			count_owned_pop_amount = { count >= 500 }
 			is_separatist_faction = yes
 			NOT = { has_pop_faction_flag = faction_rebelled }
 			NOT = { has_pop_faction_flag = faction_sep_situation }
-			any_owned_pop = {
+			any_owned_pop_group = {
 				sector = {
 					NOT = {
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage >= 0.5
 							limit = {
 								exists = pop_faction
@@ -1505,14 +1507,14 @@ country_event = { # Check disapproving Factions every month
 	immediate = {
 		random_pop_faction = {
 			limit = {
-				count_owned_pop = { count >= 5 }
+				count_owned_pop_amount = { count >= 500 }
 				is_separatist_faction = yes
 				NOT = { has_pop_faction_flag = faction_rebelled }
 				NOT = { has_pop_faction_flag = faction_sep_situation }
-				any_owned_pop = {
+				any_owned_pop_group = {
 					sector = {
 						NOT = {
-							pop_percentage = {
+							pop_amount_percentage = {
 								percentage >= 0.5
 								limit = {
 									exists = pop_faction
@@ -1528,7 +1530,7 @@ country_event = { # Check disapproving Factions every month
 			if = {
 				limit = {
 					has_pop_faction_flag = sector_faction
-					NOT = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
+					NOT = { any_owned_pop_group = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
 				}
 				set_pop_faction_flag = faction_sep_situation
 				owner = {
@@ -1542,7 +1544,7 @@ country_event = { # Check disapproving Factions every month
 				limit = {
 					has_crisis = no
 					has_pop_faction_flag = iso_sector_faction
-					NOT = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
+					NOT = { any_owned_pop_group = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
 				}
 				set_pop_faction_flag = faction_sep_situation
 				owner = {
@@ -1567,11 +1569,11 @@ situation_event = { # Spread Separatists Every Month
 			situation_progress >= 90
 		}
 		target = {
-			any_owned_pop = {
+			any_owned_pop_group = {
 				planet = {
-					any_owned_pop = {
+					any_owned_pop_group = {
 						happiness <= 60
-						NOT = { has_pop_flag = sep_pop }
+						NOT = { has_pop_group_flag = sep_pop }
 					}
 				}
 			}
@@ -1583,7 +1585,7 @@ situation_event = { # Spread Separatists Every Month
 
 			set_variable = {
 				which = maybe_seps
-				value = trigger:num_pops
+				value = trigger:pop_amount
 			}
 
 			if = {
@@ -1641,30 +1643,30 @@ situation_event = { # Spread Separatists Every Month
 			owner = {
 				while = {
 					count = root.target.maybe_seps
-					random_owned_pop = {
+					random_owned_pop_group = {
 						limit = {
-							has_pop_flag = sep_pop
+							has_pop_group_flag = sep_pop
 							exists = pop_faction
 							OR = {
 								planet = { is_same_value = root.target }
 								pop_faction = { is_same_value = root.target }
 							}
 							planet = {
-								any_owned_pop = { NOT = { has_pop_flag = sep_pop } }
+								any_owned_pop_group = { NOT = { has_pop_group_flag = sep_pop } }
 							}
 						}
 						planet = {
-							ordered_owned_pop = {
+							ordered_owned_pop_group = {
 								limit = {
 									happiness <= 60
-									NOT = { has_pop_flag = sep_pop }
+									NOT = { has_pop_group_flag = sep_pop }
 								}
 								position = 0
 								order_by = trigger:happiness
 								inverse = yes
 								random = {
 									chance = root.target.gen_sep_chance
-									set_pop_flag = sep_pop
+									set_pop_group_flag = sep_pop
 								}
 							}
 						}
@@ -1673,8 +1675,8 @@ situation_event = { # Spread Separatists Every Month
 			}
 
 			set_variable = { which = gen_sep_upkeep value = 0 }
-			every_owned_pop = {
-				limit = { has_pop_flag = sep_pop }
+			every_owned_pop_group = {
+				limit = { has_pop_group_flag = sep_pop }
 				prev = { change_variable = { which = gen_sep_upkeep value = 1 } }
 			}
 		}
@@ -1695,9 +1697,9 @@ situation_event = { # Planetary Revolt Initializer
 				has_ground_combat = no
 				is_occupied_flag = no
 				has_orbital_bombardment = no
-				pop_percentage = {
+				pop_amount_percentage = {
 					percentage >= @civwar_pop_percent_needed
-					limit = { has_pop_flag = sep_pop }
+					limit = { has_pop_group_flag = sep_pop }
 					exclude = { can_think = no }
 				}
 			}
@@ -1723,10 +1725,9 @@ situation_event = { # Planetary Revolt Event
 				has_ground_combat = no
 				is_occupied_flag = no
 				has_orbital_bombardment = no
-				pop_percentage = {
+				pop_amount_percentage = {
 					percentage >= @civwar_pop_percent_needed
-					# percentage > 0
-					limit = { has_pop_flag = sep_pop }
+					limit = { has_pop_group_flag = sep_pop }
 					exclude = { can_think = no }
 				}
 			}
@@ -1742,10 +1743,9 @@ situation_event = { # Planetary Revolt Event
 					has_ground_combat = no
 					is_occupied_flag = no
 					has_orbital_bombardment = no
-					pop_percentage = {
+					pop_amount_percentage = {
 						percentage >= @civwar_pop_percent_needed
-						# percentage > 0
-						limit = { has_pop_flag = sep_pop }
+						limit = { has_pop_group_flag = sep_pop }
 						exclude = { can_think = no }
 					}
 				}
@@ -1753,12 +1753,12 @@ situation_event = { # Planetary Revolt Event
 				random = {
 					chance = @base_plan_rebellion_chance
 					set_variable = { which = fac_mil_support value = 0 }
-					every_owned_pop = {
-						limit = { has_pop_flag = sep_pop }
+					every_owned_pop_group = {
+						limit = { has_pop_group_flag = sep_pop }
 						root.target = { change_variable = { which = fac_mil_support value = 1 } }
 					}
-					random_owned_pop = {
-						limit = { has_pop_flag = sep_pop }
+					random_owned_pop_group = {
+						limit = { has_pop_group_flag = sep_pop }
 						species = { save_event_target_as = civwar_species }
 					}
 					solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
@@ -1792,7 +1792,7 @@ situation_event = { # Sectoral Revolt Initializer
 							has_orbital_bombardment = yes
 						}
 					}
-					pop_percentage = {
+					pop_amount_percentage = {
 						percentage >= 0.5
 						limit = {
 							exists = pop_faction
@@ -1802,7 +1802,7 @@ situation_event = { # Sectoral Revolt Initializer
 						exclude = { can_think = no }
 					}
 				}
-				pop_percentage = {
+				pop_amount_percentage = {
 					percentage >= @civwar_pop_percent_needed
 					limit = {
 						exists = pop_faction
@@ -1838,7 +1838,7 @@ situation_event = { # Sectoral Revolt Event
 							has_orbital_bombardment = yes
 						}
 					}
-					pop_percentage = {
+					pop_amount_percentage = {
 						percentage >= 0.5
 						limit = {
 							exists = pop_faction
@@ -1848,9 +1848,8 @@ situation_event = { # Sectoral Revolt Event
 						exclude = { can_think = no }
 					}
 				}
-				pop_percentage = {
+				pop_amount_percentage = {
 					percentage >= @civwar_pop_percent_needed
-					# percentage > 0
 					limit = {
 						exists = pop_faction
 						pop_faction = { is_same_value = root.target }
@@ -1879,9 +1878,8 @@ situation_event = { # Sectoral Revolt Event
 								}
 							}
 						}
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage >= @civwar_pop_percent_needed
-							# percentage > 0
 							limit = {
 								exists = pop_faction
 								pop_faction = { is_same_value = root.target }
@@ -1899,14 +1897,14 @@ situation_event = { # Sectoral Revolt Event
 							save_event_target_as = civwar_party
 						}
 						every_owned_planet = {
-							every_owned_pop = {
+							every_owned_pop_group = {
 								limit = {
 									exists = pop_faction
 									pop_faction = { is_same_value = root.target }
 								}
 								root.target = { change_variable = { which = fac_mil_support value = 1 } }
 							}
-							random_owned_pop = {
+							random_owned_pop_group = {
 								limit = {
 									exists = pop_faction
 									pop_faction = { is_same_value = root.target }
@@ -1949,9 +1947,8 @@ situation_event = { # Sectoral Revolt Event
 								}
 							}
 						}
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage >= @civwar_pop_percent_needed
-							# percentage > 0
 							limit = {
 								exists = pop_faction
 								pop_faction = { is_same_value = root.target }
@@ -2012,7 +2009,7 @@ situation_event = { # Sectoral Revolt Event
 				}
 				else = { # Create random leader if none exist
 					root.target = {
-						random_owned_pop = {
+						random_owned_pop_group = {
 							species = { save_event_target_as = civwar_species }
 							planet = { save_event_target_as = leader_homeworld }
 						}
@@ -2046,15 +2043,13 @@ situation_event = { # Sectoral Revolt Event
 				root.target = { save_event_target_as = civwar_party } # I Imagine this should stay past the first loop
 
 				create_party_name_leader = yes
-				last_created_leader = { leader_event = { id = civleader.1000 days = 720 } }
 
 				save_event_target_as = civwar_originator
 
 				random_owned_sector = {
 					limit = {
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage >= @civwar_pop_percent_needed
-							# percentage > 0
 							limit = {
 								exists = pop_faction
 								pop_faction = { is_same_value = root.target }
@@ -2141,7 +2136,7 @@ situation_event = { # Sectoral Revolt Event
 					}
 				}
 				last_created_leader = {
-					leader_event = { id = civleader.1000 days = 180 }
+					leader_event = { id = civ_misc_leader.1000 days = 180 }
 				}
 
 				make_isolated_sector_country = yes
@@ -2166,7 +2161,7 @@ country_event = { # Slave Unrest Counter
 			is_capital = no
 			has_ground_combat = no
 			is_occupied_flag = no
-			num_pops > 0
+			pop_amount > 0
 			OR = {
 				frontier_planet_slave_tick_check = yes
 				integrated_planet_slave_tick_check = yes
@@ -2182,7 +2177,7 @@ country_event = { # Slave Unrest Counter
 				is_capital = no
 				has_ground_combat = no
 				is_occupied_flag = no
-				num_pops > 0
+				pop_amount > 0
 				OR = {
 					frontier_planet_slave_tick_check = yes
 					integrated_planet_slave_tick_check = yes
@@ -2251,7 +2246,7 @@ country_event = { # Slave Decrease unrest Counter
 
 	trigger = {
 		any_owned_planet = {
-			num_pops > 0
+			pop_amount > 0
 			is_variable_set = slave_revolt_tick
 			OR = {
 				AND = {
@@ -2274,7 +2269,7 @@ country_event = { # Slave Decrease unrest Counter
 	immediate = {
 		every_owned_planet = {
 			limit = {
-				num_pops > 0
+				pop_amount > 0
 				is_variable_set = slave_revolt_tick
 				OR = {
 					AND = {
@@ -2336,7 +2331,7 @@ country_event = { # Slave Calm counter
 
 	trigger = {
 		any_owned_planet = {
-			num_pops > 0
+			pop_amount > 0
 			combined_planet_slave_calm_check = yes
 		}
 	}
@@ -2344,7 +2339,7 @@ country_event = { # Slave Calm counter
 	immediate = {
 		every_owned_planet = {
 			limit = {
-				num_pops > 0
+				pop_amount > 0
 				combined_planet_slave_calm_check = yes
 			}
 			if = {
@@ -2429,7 +2424,7 @@ country_event = { # Sectoral Slave Situation Form Check
 			OR = {
 				AND = {
 					has_sector_flag = frontier_sector_@root
-					pop_percentage = {
+					pop_amount_percentage = {
 						percentage >= 0.3
 						limit = {
 							is_enslaved_or_purged = yes
@@ -2440,7 +2435,7 @@ country_event = { # Sectoral Slave Situation Form Check
 				}
 				AND = {
 					has_sector_flag = integrated_sector_@root
-					pop_percentage = {
+					pop_amount_percentage = {
 						percentage >= 0.4
 						limit = {
 							is_enslaved_or_purged = yes
@@ -2451,7 +2446,7 @@ country_event = { # Sectoral Slave Situation Form Check
 				}
 				AND = {
 					has_sector_flag = fundamental_sector_@root
-					pop_percentage = {
+					pop_amount_percentage = {
 						percentage >= 0.5
 						limit = {
 							is_enslaved_or_purged = yes
@@ -2474,7 +2469,7 @@ country_event = { # Sectoral Slave Situation Form Check
 				OR = {
 					AND = {
 						has_sector_flag = frontier_sector_@root
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage >= 0.3
 							limit = {
 								is_enslaved_or_purged = yes
@@ -2485,7 +2480,7 @@ country_event = { # Sectoral Slave Situation Form Check
 					}
 					AND = {
 						has_sector_flag = integrated_sector_@root
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage >= 0.4
 							limit = {
 								is_enslaved_or_purged = yes
@@ -2496,7 +2491,7 @@ country_event = { # Sectoral Slave Situation Form Check
 					}
 					AND = {
 						has_sector_flag = fundamental_sector_@root
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage >= 0.5
 							limit = {
 								is_enslaved_or_purged = yes
@@ -2547,7 +2542,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 					NOT = {
 						any_owned_planet = {
 							planet_stability <= 25
-							any_owned_pop = { is_enslaved_or_purged = yes }
+							any_owned_pop_group = { is_enslaved_or_purged = yes }
 						}
 					}
 				}
@@ -2556,7 +2551,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 					NOT = {
 						any_owned_planet = {
 							planet_stability <= 20
-							any_owned_pop = { is_enslaved_or_purged = yes }
+							any_owned_pop_group = { is_enslaved_or_purged = yes }
 						}
 					}
 				}
@@ -2565,7 +2560,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 					NOT = {
 						any_owned_planet = {
 							planet_stability <= 15
-							any_owned_pop = { is_enslaved_or_purged = yes }
+							any_owned_pop_group = { is_enslaved_or_purged = yes }
 						}
 					}
 				}	
@@ -2586,7 +2581,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 							NOT = {
 								any_owned_planet = {
 									planet_stability <= 25
-									any_owned_pop = { is_enslaved_or_purged = yes }
+									any_owned_pop_group = { is_enslaved_or_purged = yes }
 								}
 							}
 						}
@@ -2595,7 +2590,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 							NOT = {
 								any_owned_planet = {
 									planet_stability <= 20
-									any_owned_pop = { is_enslaved_or_purged = yes }
+									any_owned_pop_group = { is_enslaved_or_purged = yes }
 								}
 							}
 						}
@@ -2604,7 +2599,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 							NOT = {
 								any_owned_planet = {
 									planet_stability <= 15
-									any_owned_pop = { is_enslaved_or_purged = yes }
+									any_owned_pop_group = { is_enslaved_or_purged = yes }
 								}
 							}
 						}	
@@ -2621,7 +2616,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 							NOT = {
 								any_owned_planet = {
 									planet_stability <= 25
-									any_owned_pop = { is_enslaved_or_purged = yes }
+									any_owned_pop_group = { is_enslaved_or_purged = yes }
 								}
 							}
 						}
@@ -2630,7 +2625,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 							NOT = {
 								any_owned_planet = {
 									planet_stability <= 20
-									any_owned_pop = { is_enslaved_or_purged = yes }
+									any_owned_pop_group = { is_enslaved_or_purged = yes }
 								}
 							}
 						}
@@ -2639,7 +2634,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 							NOT = {
 								any_owned_planet = {
 									planet_stability <= 15
-									any_owned_pop = { is_enslaved_or_purged = yes }
+									any_owned_pop_group = { is_enslaved_or_purged = yes }
 								}
 							}
 						}	
@@ -2777,7 +2772,7 @@ situation_event = { # Slave Revolt Upkeep and Initializer
 			limit = { is_situation_type = situation_civstrife_sep_slaves_plan }
 			target = {
 				set_variable = { which = slave_sep_upkeep value = 0 }
-				every_owned_pop = {
+				every_owned_pop_group = {
 					limit = {
 						is_enslaved_or_purged = yes
 						happiness < 60
@@ -2790,7 +2785,7 @@ situation_event = { # Slave Revolt Upkeep and Initializer
 			target = {
 				set_variable = { which = slave_sep_upkeep value = 0 }
 				every_owned_planet = {
-					every_owned_pop = {
+					every_owned_pop_group = {
 						limit = {
 							is_enslaved_or_purged = yes
 							happiness < 60
@@ -2834,14 +2829,14 @@ situation_event = { # Slave Revolt Event
 			limit = { is_situation_type = situation_civstrife_sep_slaves_plan }
 			target = {
 				set_variable = { which = fac_mil_support value = 0 }
-				every_owned_pop = {
+				every_owned_pop_group = {
 					limit = {
 						is_enslaved_or_purged = yes
 						happiness < 60
 					}
 					prev = { change_variable = { which = fac_mil_support value = 1 } }
 				}
-				random_owned_pop = {
+				random_owned_pop_group = {
 					limit = {
 						is_enslaved_or_purged = yes
 						happiness < 60
@@ -2857,7 +2852,7 @@ situation_event = { # Slave Revolt Event
 			target = {
 				set_variable = { which = fac_mil_support value = 0 }
 				every_owned_planet = {
-					every_owned_pop = {
+					every_owned_pop_group = {
 						limit = {
 							is_enslaved_or_purged = yes
 							happiness < 60
@@ -2866,8 +2861,8 @@ situation_event = { # Slave Revolt Event
 					}
 				}
 				random_owned_planet = {
-					limit = { any_owned_pop = { is_enslaved_or_purged = yes } }
-					random_owned_pop = {
+					limit = { any_owned_pop_group = { is_enslaved_or_purged = yes } }
+					random_owned_pop_group = {
 						limit = { is_enslaved_or_purged = yes }
 						save_event_target_as = leader_pop
 					}

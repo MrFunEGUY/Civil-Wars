@@ -17,8 +17,8 @@ planet_event = { # Never Fires
 	trigger = {
 		always = no
 		# planet_stability < @stabilitylevel2
-		# num_pops >= 10
-		# pop_percentage = {
+		# pop_amount >= 1000
+		# pop_amount_percentage = {
 		# 	percentage >= 0.4
 		# 	limit = {
 		# 		is_enslaved = yes
@@ -65,8 +65,8 @@ planet_event = { # Never Fires
 	trigger = {
 		always = no
 		# planet_stability < @stabilitylevel2
-		# num_pops >= 10
-		# pop_percentage = {
+		# pop_amount >= 1000
+		# pop_amount_percentage = {
 		# 	percentage >= 0.4
 		# 	limit = {
 		# 		is_enslaved = yes
@@ -129,13 +129,13 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					modifier = {
 						factor = 0
 						NOT = {
-							any_owned_pop = {
+							any_owned_pop_group = {
 								has_ethic = ethic_spiritualist
 							}
 						}
 					}
 					complex_trigger_modifier = {
-						trigger = count_owned_pop
+						trigger = count_owned_pop_amount
 						parameters = {
 							limit = { has_ethic = ethic_spiritualist }
 						}
@@ -152,13 +152,13 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					modifier = {
 						factor = 0
 						NOT = {
-							any_owned_pop = {
+							any_owned_pop_group = {
 								has_ethic = ethic_authoritarian
 							}
 						}
 					}
 					complex_trigger_modifier = {
-						trigger = count_owned_pop
+						trigger = count_owned_pop_amount
 						parameters = {
 							limit = { has_ethic = ethic_authoritarian }
 						}
@@ -183,13 +183,13 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					modifier = {
 						factor = 0
 						NOT = {
-							any_owned_pop = {
+							any_owned_pop_group = {
 								has_ethic = ethic_xenophobe
 							}
 						}
 					}
 					complex_trigger_modifier = {
-						trigger = count_owned_pop
+						trigger = count_owned_pop_amount
 						parameters = {
 							limit = { has_ethic = ethic_xenophobe }
 						}
@@ -202,7 +202,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					modifier = {
 						factor = 0.25
 						NOT = {
-							any_owned_pop = {
+							any_owned_pop_group = {
 								NOT = { is_same_species = owner }
 								pop_has_happiness = no
 							}
@@ -227,13 +227,13 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					modifier = {
 						factor = 0
 						NOT = {
-							any_owned_pop = {
+							any_owned_pop_group = {
 								has_ethic = ethic_materialist
 							}
 						}
 					}
 					complex_trigger_modifier = {
-						trigger = count_owned_pop
+						trigger = count_owned_pop_amount
 						parameters = {
 							limit = { has_ethic = ethic_materialist }
 						}
@@ -254,7 +254,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					modifier = {
 						factor = 0
 						NOT = {
-							any_owned_pop = {
+							any_owned_pop_group = {
 								has_ethic = ethic_xenophile
 							}
 						}
@@ -262,14 +262,14 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					modifier = {
 						factor = 0.25
 						NOT = {
-							any_owned_pop = {
+							any_owned_pop_group = {
 								NOT = { is_same_species = owner }
 								pop_has_happiness = no
 							}
 						}
 					}
 					complex_trigger_modifier = {
-						trigger = count_owned_pop
+						trigger = count_owned_pop_amount
 						parameters = {
 							limit = { has_ethic = ethic_xenophile }
 						}
@@ -286,13 +286,13 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					modifier = {
 						factor = 0
 						NOT = {
-							any_owned_pop = {
+							any_owned_pop_group = {
 								has_ethic = ethic_egalitarian
 							}
 						}
 					}
 					complex_trigger_modifier = {
-						trigger = count_owned_pop
+						trigger = count_owned_pop_amount
 						parameters = {
 							limit = { has_ethic = ethic_egalitarian }
 						}
@@ -317,13 +317,13 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					modifier = {
 						factor = 0
 						NOT = {
-							any_owned_pop = {
+							any_owned_pop_group = {
 								has_ethic = ethic_pacifist
 							}
 						}
 					}
 					complex_trigger_modifier = {
-						trigger = count_owned_pop
+						trigger = count_owned_pop_amount
 						parameters = {
 							limit = { has_ethic = ethic_pacifist }
 						}
@@ -344,13 +344,13 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					modifier = {
 						factor = 0
 						NOT = {
-							any_owned_pop = {
+							any_owned_pop_group = {
 								has_ethic = ethic_militarist
 							}
 						}
 					}
 					complex_trigger_modifier = {
-						trigger = count_owned_pop
+						trigger = count_owned_pop_amount
 						parameters = {
 							limit = { has_ethic = ethic_militarist }
 						}
@@ -384,7 +384,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 						factor = 0
 						OR = {
 							owner = { is_gestalt = no }
-							count_owned_pop = {
+							count_owned_pop_amount = {
 								limit = {
 									is_gestalt = no
 								}
@@ -424,7 +424,7 @@ situation_event = {
 			AND = {
 				NOT = { is_situation_type = situation_civstrife_sep_slaves_sec }
 				target = {
-					any_owned_pop = {
+					any_owned_pop_group = {
 						planet = {
 							exists = controller
 							controller = { is_same_empire = root.owner }
@@ -532,7 +532,7 @@ situation_event = {
 			AND = {
 				NOT = { is_situation_type = situation_civstrife_sep_slaves_sec }
 				target = {
-					any_owned_pop = {
+					any_owned_pop_group = {
 						planet = {
 							exists = controller
 							controller = { is_same_empire = root.owner }
@@ -565,7 +565,7 @@ situation_event = {
 		if = {
 			limit = { NOT = { is_situation_type = situation_civstrife_sep_slaves_sec } }
 			target = {
-				random_owned_pop = {
+				random_owned_pop_group = {
 					limit = {
 						planet = {
 							exists = controller
@@ -665,7 +665,7 @@ situation_event = {
 			AND = {
 				is_faction_based_situation = yes
 				target = {
-					any_owned_pop = {
+					any_owned_pop_group = {
 						planet = {
 							exists = controller
 							controller = { is_same_empire = root.owner }
@@ -719,7 +719,7 @@ situation_event = {
 		if = {
 			limit = { is_faction_based_situation = yes }
 			target = {
-				random_owned_pop = {
+				random_owned_pop_group = {
 					limit = {
 						planet = {
 							exists = controller
@@ -865,7 +865,7 @@ situation_event = {
 					any_owned_planet = {
 						exists = controller
 						controller = { is_same_empire = root.owner }
-						any_owned_pop = { is_enslaved_or_purged = yes }
+						any_owned_pop_group = { is_enslaved_or_purged = yes }
 						planet_stability < @stabilitylevel2
 						NOT = { has_planet_flag = recent_unrest_event }
 						has_orbital_bombardment = no

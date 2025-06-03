@@ -46,7 +46,7 @@ country_event = {
 					variable_string = "[From.GetSecondName]"
 				}
 				save_event_target_as = crisis_dynasty_name
-				leader_event = { id = civleader.1000 days = 720 }
+				leader_event = { id = civ_misc_leader.1000 days = 720 }
 			}
 
 			clone_leader = {
@@ -59,7 +59,7 @@ country_event = {
 				}
 			}
 			last_created_leader = { # Dont know why, but doesnt like when I do this in the effect
-				leader_event = { id = civleader.1000 days = 720 }
+				leader_event = { id = civ_misc_leader.1000 days = 720 }
 				save_event_target_as = prior_dead_ruler
 			}
 		}
@@ -281,7 +281,6 @@ country_event = {
 			}
 
 			event_target:seized_power_leader = {
-				log = "LEADER: [this.GetName]"
 				set_leader_flag = leader_seized_power
 			}
 		}
@@ -652,7 +651,7 @@ situation_event = { # Query Official
 	}
 }
 
-country_event = { # Officials/Dynasts are considering rebellion, start situation
+country_event = { # Succession Country Subjects Join War Fix
 	id = civroyal.1200
 	hide_window = yes
 	is_triggered_only = yes

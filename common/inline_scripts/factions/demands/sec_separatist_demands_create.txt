@@ -1,0 +1,291 @@
+# Independence
+demand = {
+	title = "SEPARATISM_DEMAND_IND_s_x"
+	unfulfilled_title = "SEPARATISM_DEMAND_IND_s_x"
+	desc = "SEPARATISM_DEMAND_IND_s_$SEC_FAC_NUM$_desc"
+
+	unfulfilled_effect = -30
+	fulfilled_effect = 0.001
+
+	potential = {
+		exists = event_target:sec_separatist_$SEC_FAC_NUM$
+	}
+
+	trigger = {
+		owner = {
+			NOR = {
+				any_owned_sector = {
+					is_same_value = event_target:sec_separatist_$SEC_FAC_NUM$
+				}
+			}
+		}
+	}
+}
+
+# No Military Personnel Jobs
+demand = {
+	title = "SEPARATISM_DEMAND_MIL_JOBS_s_x"
+	unfulfilled_title = "SEPARATISM_DEMAND_MIL_JOBS_s_x"
+	desc = "SEPARATISM_DEMAND_MIL_JOBS_s_$SEC_FAC_NUM$_desc"
+
+	unfulfilled_effect = -5
+	fulfilled_effect = 5
+
+	potential = {
+		exists = event_target:sec_separatist_$SEC_FAC_NUM$
+		event_target:sec_separatist_$SEC_FAC_NUM$ = {
+			NOT = {
+				any_owned_planet = {
+					OR = {
+						has_available_jobs = soldier
+						has_available_jobs = warrior_drone
+						num_assigned_jobs = {
+							job = soldier
+							value >= 1
+						}
+						num_assigned_jobs = {
+							job = warrior_drone
+							value >= 1
+						}
+					}
+				}
+			}
+		}
+	}
+
+	trigger = {
+		event_target:sec_separatist_$SEC_FAC_NUM$ = {
+			NOT = {
+				any_owned_planet = {
+					OR = {
+						has_available_jobs = soldier
+						has_available_jobs = warrior_drone
+						num_assigned_jobs = {
+							job = soldier
+							value >= 1
+						}
+						num_assigned_jobs = {
+							job = warrior_drone
+							value >= 1
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Military Personnel Exist - 1
+demand = {
+	title = "SEPARATISM_DEMAND_MIL_JOBS_s_x"
+	unfulfilled_title = "SEPARATISM_DEMAND_MIL_JOBS_s_x"
+	desc = "SEPARATISM_DEMAND_MIL_JOBS_s_$SEC_FAC_NUM$_desc"
+
+	unfulfilled_effect = -2.5
+	fulfilled_effect = 0.001
+
+	potential = {
+		exists = event_target:sec_separatist_$SEC_FAC_NUM$
+		event_target:sec_separatist_$SEC_FAC_NUM$ = {
+			any_owned_planet = {
+				OR = {
+					num_assigned_jobs = {
+						job = soldier
+						value > 100
+					}
+					num_assigned_jobs = {
+						job = warrior_drone
+						value > 100
+					}
+				}
+			}
+			
+		}
+	}
+
+	trigger = {
+		event_target:sec_separatist_$SEC_FAC_NUM$ = {
+			NOT = {
+				any_owned_planet = {
+					OR = {
+						num_assigned_jobs = {
+							job = soldier
+							value > 100
+						}
+						num_assigned_jobs = {
+							job = warrior_drone
+							value > 100
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Military Personnel Exist - 2
+demand = {
+	title = "SEPARATISM_DEMAND_MIL_JOBS_s_x"
+	unfulfilled_title = "SEPARATISM_DEMAND_MIL_JOBS_s_x"
+	desc = "SEPARATISM_DEMAND_MIL_JOBS_s_$SEC_FAC_NUM$_desc"
+
+	unfulfilled_effect = -5
+	fulfilled_effect = 0.001
+
+	potential = {
+		exists = event_target:sec_separatist_$SEC_FAC_NUM$
+		event_target:sec_separatist_$SEC_FAC_NUM$ = {
+			any_owned_planet = {
+				OR = {
+					num_assigned_jobs = {
+						job = soldier
+						value > 200
+					}
+					num_assigned_jobs = {
+						job = warrior_drone
+						value > 200
+					}
+				}
+			}
+			
+		}
+	}
+
+	trigger = {
+		event_target:sec_separatist_$SEC_FAC_NUM$ = {
+			NOT = {
+				any_owned_planet = {
+					OR = {
+						num_assigned_jobs = {
+							job = soldier
+							value > 200
+						}
+						num_assigned_jobs = {
+							job = warrior_drone
+							value > 200
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# # Military Personnel Exist - 3
+demand = {
+	title = "SEPARATISM_DEMAND_MIL_JOBS_s_x"
+	unfulfilled_title = "SEPARATISM_DEMAND_MIL_JOBS_s_x"
+	desc = "SEPARATISM_DEMAND_MIL_JOBS_s_$SEC_FAC_NUM$_desc"
+
+	unfulfilled_effect = -7.5
+	fulfilled_effect = 0.001
+
+	potential = {
+		exists = event_target:sec_separatist_$SEC_FAC_NUM$
+		event_target:sec_separatist_$SEC_FAC_NUM$ = {
+			any_owned_planet = {
+				OR = {
+					num_assigned_jobs = {
+						job = soldier
+						value > 300
+					}
+					num_assigned_jobs = {
+						job = warrior_drone
+						value > 300
+					}
+				}
+			}
+			
+		}
+	}
+
+	trigger = {
+		event_target:sec_separatist_$SEC_FAC_NUM$ = {
+			NOT = {
+				any_owned_planet = {
+					OR = {
+						num_assigned_jobs = {
+							job = soldier
+							value > 300
+						}
+						num_assigned_jobs = {
+							job = warrior_drone
+							value > 300
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# No Military Buildings
+demand = {
+	title = "SEPARATISM_DEMAND_MIL_BUILD_s_x"
+	unfulfilled_title = "SEPARATISM_DEMAND_MIL_BUILD_s_x"
+	desc = "SEPARATISM_DEMAND_MIL_BUILD_s_$SEC_FAC_NUM$_desc"
+
+	unfulfilled_effect = -20
+	fulfilled_effect = 5
+
+	potential = {
+		exists = event_target:sec_separatist_$SEC_FAC_NUM$
+	}
+
+	trigger = {
+		event_target:sec_separatist_$SEC_FAC_NUM$ = {
+			NOT = {
+				any_owned_planet = {
+					OR = {
+						has_building = building_military_academy
+						has_building = building_dread_encampment
+						has_building = building_stronghold
+						has_building = building_fortress
+					}
+				}
+			}
+		}
+	}
+}
+
+# Federal Government Policy - Ethics and Civics
+demand = {
+	title = "SEPARATISM_DEMAND_FEDERAL_s_x"
+	unfulfilled_title = "SEPARATISM_DEMAND_FEDERAL_s_x"
+	desc = "SEPARATISM_DEMAND_FEDERAL_s_$SEC_FAC_NUM$_desc"
+
+	unfulfilled_effect = -10
+	fulfilled_effect = 5
+
+	potential = {
+		has_global_flag = cultural_overhaul_active
+		exists = event_target:sec_separatist_$SEC_FAC_NUM$
+	}
+
+	trigger = {
+		owner = { has_policy_flag = federal_state }
+	}
+}
+
+on_create = {
+	event_target:sec_separatist_$SEC_FAC_NUM$ = { save_event_target_as = sep_target_loc }
+	sector_faction_first_effect = yes
+	set_name = {
+		key = sector_separatist_real_name
+		variable_string = "[sep_target_loc.GetName]"
+		variable_string = "[last_created_leader.GetName]"
+	}
+	sector_faction_second_effect = yes
+}
+
+on_destroy = {
+	# Allows planets to resume getting separatists, which in turn will allow this to re-form if necessary
+	# faction_kill_leader_effect = yes
+	if = {
+		limit = { exists = event_target:sec_separatist_$SEC_FAC_NUM$ }
+		event_target:sec_separatist_$SEC_FAC_NUM$ = { remove_sector_flag = sector_sep_active }
+		clear_global_event_target = sec_separatist_$SEC_FAC_NUM$
+	}
+}
+
+actions = {}

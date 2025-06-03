@@ -34,12 +34,10 @@ country_event = {
 		get_motherland_effect = yes
 	}
 
-	# Declare War on rebels 
+	# This means war
 	option = {
 		name = civcom.1000.war
-		hidden_effect = {
-			country_event = { id = civcom.2000 }
-		}
+		hidden_effect = { country_event = { id = civcom.2000 } }
 		ai_chance = {
 			factor = 5
 
@@ -110,7 +108,7 @@ country_event = {
 		room = event_target:civwar_rebels.ruler
 	}
 
-	# Declare War on the rebels
+	# This means war
 	option = {
 		name = civcom.1000.war
 		hidden_effect = {
@@ -272,7 +270,7 @@ country_event = {
 		room = event_target:civwar_rebels.ruler
 	}
 
-	# Declare War on the rebels
+	# This means war
 	option = {
 		name = civcom.1000.war
 		hidden_effect = { country_event = { id = civcom.2000 } }
@@ -551,8 +549,9 @@ country_event = {
 		room = event_target:civwar_rebels.ruler
 	}
 
-	option = {
-		name = civcom.2000.a
+	immediate = {
+		save_event_target_as = civwar_originator ## Just in Case...
+
 		hidden_effect = {
 			if = {
 				limit = { event_target:civwar_rebels = { has_country_flag = heir_rebel_country } }
@@ -583,7 +582,31 @@ country_event = {
 			}
 			
 		}
+	}
+
+	option = {
+		name = civcom.2000.a
 		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.spacer
+		trigger = { NOT = { has_country_flag = heir_rebel_country } }
+		response_text = civcom.2000.norm.desc
+		is_dialog_only = yes
+	}
+
+	option = {
+		name = civcom.spacer
+		trigger = { has_country_flag = heir_rebel_country }
+		response_text = civcom.2000.heir.desc
+		is_dialog_only = yes
+	}
+
+	option = {
+		name = civcom.swap_to_rebels
+		custom_tooltip = civcom.swap_to_rebels.tooltip
+		hidden_effect = { event_target:civwar_rebels = { set_player = root } }
 	}
 
 	after = {
@@ -612,15 +635,32 @@ country_event = {
 		room = event_target:civwar_rebels.ruler
 	}
 
-	option = {
-		name = civcom.2010.a
-		ai_chance = { factor = 1 }
-		event_target:civwar_rebels = {
-			set_subject_of = {
-				who = root
-				preset = preset_tributary
+	immediate = {
+		hidden_effect = {
+			event_target:civwar_rebels = {
+				set_subject_of = {
+					who = root
+					preset = preset_tributary
+				}
 			}
 		}
+	}
+
+	option = {
+		name = civcom.2010.a
+		ai_chance = { factor = 1 }	
+	}
+
+	option = {
+		name = civcom.spacer
+		response_text = civcom.2010.desc
+		is_dialog_only = yes
+	}
+
+	option = {
+		name = civcom.swap_to_rebels
+		custom_tooltip = civcom.swap_to_rebels.tooltip
+		hidden_effect = { event_target:civwar_rebels = { set_player = root } }
 	}
 
 	after = {
@@ -649,10 +689,7 @@ country_event = {
 		room = event_target:civwar_rebels.ruler
 	}
 
-	option = {
-		name = civcom.2020.a
-		ai_chance = { factor = 1 }
-		
+	immediate = {
 		hidden_effect = {
 			event_target:civwar_rebels = {
 				every_system_within_border = {
@@ -663,6 +700,23 @@ country_event = {
 				}
 			}
 		}
+	}
+
+	option = {
+		name = civcom.2020.a
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.spacer
+		response_text = civcom.2020.desc
+		is_dialog_only = yes
+	}
+
+	option = {
+		name = civcom.swap_to_rebels
+		custom_tooltip = civcom.swap_to_rebels.tooltip
+		hidden_effect = { event_target:civwar_rebels = { set_player = root } }
 	}
 
 	after = {
@@ -699,6 +753,18 @@ country_event = {
 	option = {
 		name = civcom.2020.a
 		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = civcom.spacer
+		response_text = civcom.2025.desc
+		is_dialog_only = yes
+	}
+
+	option = {
+		name = civcom.swap_to_rebels
+		custom_tooltip = civcom.swap_to_rebels.tooltip
+		hidden_effect = { event_target:civwar_rebels = { set_player = root } }
 	}
 
 	after = {
@@ -896,8 +962,17 @@ country_event = {
 	}
 
 	desc = {
-		text = civcom.3020.heir.desc
+		text = civcom.3020.heir_no_exist_no_exist.desc
 		trigger = {
+			NOT = { exists = heir }
+			event_target:crisis_sector = { has_sector_flag = gov_heir }
+		}
+	}
+
+	desc = {
+		text = civcom.3020.heir_no_exist_exists.desc
+		trigger = {
+			exists = heir
 			event_target:crisis_sector = { has_sector_flag = gov_heir }
 		}
 	}
@@ -911,38 +986,10 @@ country_event = {
 	}
 
 	immediate = {
-
-		export_trigger_value_to_variable = {
-			trigger = resource_revenue_compare
-			parameters = { resource = alloys }
-			variable = monthly_alloys
-		}
-
-		set_variable = { which = demand_energy value = monthly_energy }
-		set_variable = { which = demand_consumer_goods value = monthly_consumer_goods }
-		set_variable = { which = demand_alloys value = monthly_alloys }
-
-		multiply_variable = { which = demand_energy value = 24 }
-		multiply_variable = { which = demand_consumer_goods value = 18 }
-		multiply_variable = { which = demand_alloys value = 18 }
-
-		if = {
-			limit = { NOT = { exists = heir } }
-			event_target:crisis_sector = {
-				random_list = {
-					5 = { set_sector_flag = gov_monetary }
-					45 = { set_sector_flag = gov_subject }
-					50 = { set_sector_flag = gov_heir }
-				}
-			}
-		}
-		else = {
-			event_target:crisis_sector = {
-				random_list = {
-					5 = { set_sector_flag = gov_monetary }
-					95 = { set_sector_flag = gov_subject }
-				}
-			}
+		random_list = {
+			15 = { set_sector_flag = gov_monetary }
+			40 = { set_sector_flag = gov_subject }
+			45 = { set_sector_flag = gov_heir }
 		}
 	}
 
@@ -959,18 +1006,8 @@ country_event = {
 		}
 		if = {
 			limit = { event_target:crisis_sector = { has_sector_flag = gov_monetary } }
-			add_resource = {
-				energy = -1
-				mult = demand_energy
-			}
-			add_resource = {
-				consumer_goods = -1
-				mult = demand_consumer_goods
-			}
-			add_resource = {
-				alloys = -1
-				mult = demand_alloys
-			}
+			event_target:crisis_sector = { add_modifier = { modifier = civwar_gov_extort days = -1 } }
+			event_target:crisis_sector_leader = { set_cooldown = 18000 }
 		}
 		hidden_effect = {
 			if = {
@@ -1063,7 +1100,7 @@ country_event = {
 		room = event_target:civwar_rebels.ruler
 	}
 
-	# Declare War on rebels 
+	# This means war
 	option = {
 		name = civcom.1000.war
 		hidden_effect = {
@@ -2226,7 +2263,7 @@ country_event = {
 					save_event_target_as = civil_war_secretary
 				}
 			}
-			last_created_leader = { leader_event = { id = civleader.1000 days = 60 } }
+			last_created_leader = { leader_event = { id = civ_misc_leader.1000 days = 60 } }
 		}
 		get_helper_subjects_effect = yes
 	}
@@ -3331,6 +3368,14 @@ country_event = {
 					}
 				}
 			}
+
+			log = "======="
+			log = "Hosting Planet: [event_target:gov_hosting_planet.GetName]"
+			log = "Hosting System: [event_target:new_capital_station.solar_system.GetName]"
+			log = "Hosting Station: [event_target:new_capital_station.GetName]"
+			log = "Hosting Country: [event_target:hosting_country.GetName]"
+			log = "Exile Country: [event_target:old_nat_country.GetName]"
+			log = "======="
 		}
 		ai_chance = {
 			factor = 5

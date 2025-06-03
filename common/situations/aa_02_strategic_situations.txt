@@ -21,7 +21,7 @@ situation_planetary_revolt = {
 		trigger = {
 			owner = { is_gestalt = yes }
 			target = {
-				any_owned_pop = {
+				any_owned_pop_group = {
 					is_sapient = yes
 					NOT = { has_ethic = ethic_gestalt_consciousness }
 				}
@@ -33,7 +33,7 @@ situation_planetary_revolt = {
 		trigger = {
 			owner = { is_gestalt = yes }
 			target = {
-				count_owned_pop = {
+				count_owned_pop_amount = {
 					limit = {
 						is_sapient = yes
 						NOT = { has_ethic = ethic_gestalt_consciousness }
@@ -357,7 +357,7 @@ situation_planetary_revolt = {
 			desc = STRING_PURGING
 			target = {
 				has_current_purge = yes
-				any_owned_pop = {
+				any_owned_pop_group = {
 					is_being_purged = yes
 					NOT = {
 						has_purge_type = { type = purge_neutering }
@@ -431,7 +431,7 @@ situation_planetary_revolt = {
 				limit = {
 					NOT = { is_same_value = root.target }
 					planet_stability >= @stabilitylevel3
-					num_pops > 5
+					pop_amount > 500
 				}
 			}
 			potential = {
@@ -439,7 +439,7 @@ situation_planetary_revolt = {
 					any_system_colony = {
 						NOT = { is_same_value = root.target }
 						planet_stability >= @stabilitylevel3
-						num_pops > 5
+						pop_amount > 500
 					}
 				}
 			}
@@ -454,7 +454,7 @@ situation_planetary_revolt = {
 				limit = {
 					NOT = { is_same_value = root.target }
 					planet_stability < @stabilitylevel2
-					num_pops > 5
+					pop_amount > 500
 				}
 			}
 			potential = {
@@ -462,7 +462,7 @@ situation_planetary_revolt = {
 					any_system_colony = {
 						NOT = { is_same_value = root.target }
 						planet_stability < @stabilitylevel2
-						num_pops > 5
+						pop_amount > 500
 					}
 				}
 			}
@@ -478,7 +478,7 @@ situation_planetary_revolt = {
 		modifier = {
 			subtract = 1
 			desc = STRING_WEAK_PLANET
-			target = { num_pops < 30 }
+			target = { pop_amount < 3000 }
 			NOT = {
 				owner = {
 					any_owned_planet = {
@@ -490,7 +490,7 @@ situation_planetary_revolt = {
 		modifier = {
 			add = 1
 			desc = STRING_STRONG_PLANET
-			target = { num_pops > 60 }
+			target = { pop_amount > 6000 }
 		}
 		modifier = {
 			desc = STRING_REBELLIOUS_JOINER_PLANETS_IN_OWNER

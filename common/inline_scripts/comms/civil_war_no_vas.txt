@@ -4,13 +4,18 @@ desc = {
 	trigger = {
 
 		success_text = {
+			text = civcom.1100.under_one_rule.desc
+			event_target:civwar_rebels = { has_origin = origin_legendary_leader_death }
+		}
+
+		success_text = {
 			text = civcom.1100.leader.desc
-			NOT = { has_country_flag = rebs_help_eachother }
+			event_target:civwar_rebels = { NOT = { has_origin = origin_legendary_leader_death } }
 			event_target:civwar_rebels = { NOT = { has_origin = origin_nationalist_rebellion } }
 		}
 
 		success_text = {
-			text = civcom.1100.mult.leader.desc
+			text = civcom.allys.desc
 			has_country_flag = rebs_help_eachother
 			event_target:civwar_rebels = { NOT = { has_origin = origin_nationalist_rebellion } }
 		}

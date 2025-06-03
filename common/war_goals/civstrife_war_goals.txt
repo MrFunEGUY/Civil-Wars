@@ -4,12 +4,6 @@ wg_civwar = {
 	hide_if_no_cb = yes
 	set_defender_wargoal = wg_civwar_rebel
 
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
-
 	surrender_acceptance = -100
 
 	potential = {
@@ -97,12 +91,6 @@ wg_civwar_rebel = {
 
 	hide_if_no_cb = yes
 
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
-
 	surrender_acceptance = -100
 
 	potential = {
@@ -131,12 +119,6 @@ wg_planet_rebellion = {
 
 	hide_if_no_cb = yes
 	set_defender_wargoal = wg_planet_rebellion_rebels
-
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
 
 	surrender_acceptance = -100
 
@@ -233,12 +215,6 @@ wg_planet_rebellion_rebels = {
 
 	hide_if_no_cb = yes
 
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
-
 	surrender_acceptance = -100
 
 	potential = {
@@ -269,12 +245,6 @@ wg_natwar = {
 
 	hide_if_no_cb = yes
 	set_defender_wargoal = wg_natwar_rebel
-
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
 
 	surrender_acceptance = -100
 
@@ -363,12 +333,6 @@ wg_natwar_rebel = {
 
 	hide_if_no_cb = yes
 
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
-
 	surrender_acceptance = -100
 
 	potential = {
@@ -399,12 +363,6 @@ wg_civwar_heir = {
 
 	hide_if_no_cb = yes
 	set_defender_wargoal = wg_civwar_heir_rebel
-
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
 
 	surrender_acceptance = -100
 
@@ -497,12 +455,6 @@ wg_civwar_heir_rebel = {
 
 	hide_if_no_cb = yes
 
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
-
 	surrender_acceptance = -100
 
 	potential = {
@@ -535,9 +487,6 @@ wg_coup_successor = {
 	set_defender_wargoal = wg_coup_successor_opponent
 	total_war = yes
 
-	allowed_peace_offers = {
-		status_quo
-	}
 
 	on_wargoal_set = {
 		every_system_within_border = {
@@ -585,9 +534,6 @@ wg_coup_successor_opponent = {
 	hide_if_no_cb = yes
 	total_war = yes
 
-	allowed_peace_offers = {
-		status_quo
-	}
 
 	surrender_acceptance = -100
 
@@ -608,12 +554,6 @@ wg_coup_independent = {
 
 	hide_if_no_cb = yes
 	set_defender_wargoal = wg_coup_independent_opponent
-
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
 
 	surrender_acceptance = -100
 
@@ -677,12 +617,6 @@ wg_coup_independent_opponent = {
 
 	hide_if_no_cb = yes
 
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
-
 	surrender_acceptance = -100
 
 	potential = {
@@ -711,12 +645,6 @@ wg_coup_fealty = { # Currently Unused
 
 	hide_if_no_cb = yes
 	set_defender_wargoal = wg_coup_independent_opponent
-
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
 
 	surrender_acceptance = -100
 
@@ -769,12 +697,6 @@ wg_install_traitor = {
 	casus_belli = cb_install_traitor
 	hide_if_no_cb = yes
 
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
-
 	surrender_acceptance = -50
 
 	potential = {
@@ -819,12 +741,6 @@ wg_install_traitor = {
 wg_retrieve_traitor = {
 	casus_belli = cb_retrieve_traitor
 	hide_if_no_cb = yes
-
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
 
 	potential = {
 		always = yes
@@ -871,12 +787,6 @@ wg_install_traitor_heir = {
 	casus_belli = cb_install_traitor_heir
 	hide_if_no_cb = yes
 
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
-
 	surrender_acceptance = -50
 
 	potential = {
@@ -921,12 +831,6 @@ wg_install_traitor_heir = {
 wg_retrieve_traitor_heir = {
 	casus_belli = cb_retrieve_traitor_heir
 	hide_if_no_cb = yes
-
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
 
 	potential = {
 		always = yes
@@ -976,12 +880,6 @@ wg_slave_uprising = {
 
 	hide_if_no_cb = yes
 	set_defender_wargoal = wg_slave_uprising_rebel
-
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
 
 	surrender_acceptance = -100
 
@@ -1060,12 +958,6 @@ wg_slave_uprising_rebel = {
 	casus_belli = cb_event
 
 	hide_if_no_cb = yes
-
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
 
 	surrender_acceptance = -100
 

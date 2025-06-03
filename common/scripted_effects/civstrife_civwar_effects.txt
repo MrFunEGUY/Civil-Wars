@@ -549,6 +549,42 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator
 		# 	get_subject_decisions_effect = yes
 		# }
 	}
+
+	if = {
+		limit = { event_target:civwar_rebels = { is_at_war = yes } }
+		random_war = {
+			every_defender = {
+				limit = { has_country_flag = rebellion_of_@event_target:civwar_originator }
+				every_system_within_border = {
+					limit = { NOT = { event_target:civwar_originator = { has_claim = prev } } }
+					add_claims = { who = event_target:civwar_originator }
+				}
+			}
+		}
+	}
+
+	if = {
+		limit = { event_target:civwar_rebels = { has_origin = origin_legendary_leader_death } }
+		every_system_within_border = {
+			limit = { NOT = { event_target:civwar_rebels = { has_claim = prev } } }
+			add_claims = { who = event_target:civwar_rebels }
+		}
+	}
+	else_if = {
+		limit = {
+			event_target:civwar_rebels = {
+				is_at_war_with = root
+				OR = {
+					has_origin = origin_civwar
+					has_origin = origin_heir_rebellion
+				}
+			}
+		}
+		every_system_within_border = {
+			limit = { NOT = { event_target:civwar_rebels = { has_claim = prev } } }
+			add_claims = { who = event_target:civwar_rebels }
+		}
+	}
 }
 
 get_subject_decisions_effect = {
@@ -671,59 +707,59 @@ get_motherland_effect = {
 
 make_civil_war_faction_country = {
 	if = {
-		limit = { root.target = { is_authoritarian_faction = yes } }
+		limit = { event_target:civwar_party = { is_authoritarian_faction = yes } }
 		owner = { create_auth_fac_country = yes }
 	}
 	else_if = {
-		limit = { root.target = { is_egalitarian_faction = yes } }
+		limit = { event_target:civwar_party = { is_egalitarian_faction = yes } }
 		owner = { create_egal_fac_country = yes }
 	}
 	else_if = {
-		limit = { root.target = { is_militarist_faction = yes } }
+		limit = { event_target:civwar_party = { is_militarist_faction = yes } }
 		owner = { create_mil_fac_country = yes }
 	}
 	else_if = {
-		limit = { root.target = { is_pacifist_faction = yes } }
+		limit = { event_target:civwar_party = { is_pacifist_faction = yes } }
 		owner = { create_pac_fac_country = yes }
 	}
 	else_if = {
-		limit = { root.target = { is_materialist_faction = yes } }
+		limit = { event_target:civwar_party = { is_materialist_faction = yes } }
 		owner = { create_mat_fac_country = yes }
 	}
 	else_if = {
-		limit = { root.target = { is_spiritualist_faction = yes } }
+		limit = { event_target:civwar_party = { is_spiritualist_faction = yes } }
 		owner = { create_spi_fac_country = yes }
 	}
 	else_if = {
-		limit = { root.target = { is_xenophile_faction = yes } }
+		limit = { event_target:civwar_party = { is_xenophile_faction = yes } }
 		owner = { create_phile_fac_country = yes }
 	}
 	else_if = {
-		limit = { root.target = { is_xenophobe_faction = yes } }
+		limit = { event_target:civwar_party = { is_xenophobe_faction = yes } }
 		owner = { create_phobe_fac_country = yes }
 	}
 	else_if = {
-		limit = { root.target = { is_socialist_faction = yes } }
+		limit = { event_target:civwar_party = { is_socialist_faction = yes } }
 		owner = { create_soc_fac_country = yes }
 	}
 	else_if = {
-		limit = { root.target = { is_capitalism_faction = yes } }
+		limit = { event_target:civwar_party = { is_capitalism_faction = yes } }
 		owner = { create_cap_fac_country = yes }
 	}
 	else_if = {
-		limit = { root.target = { is_industrial_faction = yes } }
+		limit = { event_target:civwar_party = { is_industrial_faction = yes } }
 		owner = { create_indus_fac_country = yes }
 	}
 	else_if = {
-		limit = { root.target = { is_ecologist_faction = yes } }
+		limit = { event_target:civwar_party = { is_ecologist_faction = yes } }
 		owner = { create_eco_fac_country = yes }
 	}
 	else_if = {
-		limit = { root.target = { is_elitist_faction = yes } }
+		limit = { event_target:civwar_party = { is_elitist_faction = yes } }
 		owner = { create_elite_fac_country = yes }
 	}
 	else_if = {
-		limit = { root.target = { is_pluralist_faction = yes } }
+		limit = { event_target:civwar_party = { is_pluralist_faction = yes } }
 		owner = { create_plur_fac_country = yes }
 	}
 }
@@ -2753,249 +2789,67 @@ created_civwar_rebel_country_effect = {
 	save_event_target_as = civwar_rebels
 	if = {
 		limit = {
-			exists = root.target
-			root.target = {
+			exists = event_target:civwar_party
+			event_target:civwar_party = {
 				is_scope_type = pop_faction
 				is_regular_faction = yes
 			}
 		}
 		if = {
-			limit = { root.target = { is_authoritarian_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = authoritarian } }
-				get_homeworld_ethic_leader = { ETHIC = authoritarian }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_authoritarian } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_authoritarian }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = authoritarian } }
+			limit = { event_target:civwar_party = { is_authoritarian_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = authoritarian }
 		}
 		else_if = {
-			limit = { root.target = { is_egalitarian_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = egalitarian } }
-				get_homeworld_ethic_leader = { ETHIC = egalitarian }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_egalitarian } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_egalitarian }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = egalitarian } }
+			limit = { event_target:civwar_party = { is_egalitarian_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = egalitarian }
 		}
 		else_if = {
-			limit = { root.target = { is_militarist_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = militarist } }
-				get_homeworld_ethic_leader = { ETHIC = militarist }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_militarist } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_militarist }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = militarist } }
+			limit = { event_target:civwar_party = { is_militarist_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = militarist }
 		}
 		else_if = {
-			limit = { root.target = { is_pacifist_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = pacifist } }
-				get_homeworld_ethic_leader = { ETHIC = pacifist }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_pacifist } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_pacifist }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = pacifist } }
+			limit = { event_target:civwar_party = { is_pacifist_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = pacifist }
 		}
 		else_if = {
-			limit = { root.target = { is_materialist_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = materialist } }
-				get_homeworld_ethic_leader = { ETHIC = materialist }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_materialist } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_materialist }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = materialist } }
+			limit = { event_target:civwar_party = { is_materialist_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = materialist }
 		}
 		else_if = {
-			limit = { root.target = { is_spiritualist_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = spiritualist } }
-				get_homeworld_ethic_leader = { ETHIC = spiritualist }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_spiritualist } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_spiritualist }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = spiritualist } }
+			limit = { event_target:civwar_party = { is_spiritualist_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = spiritualist }
 		}
 		else_if = {
-			limit = { root.target = { is_xenophile_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = xenophile } }
-				get_homeworld_ethic_leader = { ETHIC = xenophile }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_xenophile } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_xenophile }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = xenophile } }
+			limit = { event_target:civwar_party = { is_xenophile_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = xenophile }
 		}
 		else_if = {
-			limit = { root.target = { is_xenophobe_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = xenophobe } }
-				get_homeworld_ethic_leader = { ETHIC = xenophobe }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_xenophobe } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_xenophobe }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = xenophobe } }
+			limit = { event_target:civwar_party = { is_xenophobe_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = xenophobe }
 		}
 		else_if = {
-			limit = { root.target = { is_socialist_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = socialism } }
-				get_homeworld_ethic_leader = { ETHIC = socialism }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_socialism } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_socialism }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = socialism } }
+			limit = { event_target:civwar_party = { is_socialist_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = socialism }
 		}
 		else_if = {
-			limit = { root.target = { is_capitalism_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = capitalism } }
-				get_homeworld_ethic_leader = { ETHIC = capitalism }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_capitalism } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_capitalism }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = capitalism } }
+			limit = { event_target:civwar_party = { is_capitalism_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = capitalism }
 		}
 		else_if = {
-			limit = { root.target = { is_industrial_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = industrial } }
-				get_homeworld_ethic_leader = { ETHIC = industrial }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_industrial } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_industrial }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = industrial } }
+			limit = { event_target:civwar_party = { is_industrial_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = industrial }
 		}
 		else_if = {
-			limit = { root.target = { is_ecologist_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = green } }
-				get_homeworld_ethic_leader = { ETHIC = green }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_green } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_green }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = green } }
+			limit = { event_target:civwar_party = { is_ecologist_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = green }
 		}
 		else_if = {
-			limit = { root.target = { is_elitist_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = elitist } }
-				get_homeworld_ethic_leader = { ETHIC = elitist }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_elitist } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_elitist }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = elitist } }
+			limit = { event_target:civwar_party = { is_elitist_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = elitist }
 		}
 		else_if = {
-			limit = { root.target = { is_pluralist_faction = yes } }
-			if = {
-				limit = { homeworld_ethic_leader_exists = { ETHIC = pluralist } }
-				get_homeworld_ethic_leader = { ETHIC = pluralist }
-			}
-			else_if = {
-				limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_pluralist } } }
-				event_target:civil_war_planet.owner = {
-					random_owned_leader = {
-						limit = { has_ethic = ethic_pluralist }
-						save_event_target_as = new_rebel_leader
-					}
-				}
-			}
-			else = { create_planetary_leader_with_ethic = { ETHIC = pluralist } }
+			limit = { event_target:civwar_party = { is_pluralist_faction = yes } }
+			created_civwar_rebel_leader_ethic = { ETHIC = pluralist }
 		}
 
 	}
@@ -3095,10 +2949,11 @@ created_civwar_rebel_country_effect = {
 	event_target:new_rebel_leader = {
 		if = {
 			limit = { NOT = { has_leader_flag = new_civwar_ruler } }
-			set_leader_flag = leader_defected
+			set_defected = yes
 		}
 	}
 	set_leader = event_target:new_rebel_leader # Needs to be after the above with the leader flags
+
 	event_target:civil_war_planet = {
 		planet_event = { id = civplan.2000 }
 	}
@@ -3135,501 +2990,567 @@ created_slave_rebel_country_effect = {
 	created_civwar_rebel_country_effect = yes
 }
 
+created_civwar_rebel_leader_ethic = {
+	if = {
+		limit = { homeworld_ethic_leader_exists = { ETHIC = $ETHIC$ } }
+		get_homeworld_ethic_leader = { ETHIC = $ETHIC$ }
+	}
+	else_if = {
+		limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_$ETHIC$ } } }
+		event_target:civil_war_planet.owner = {
+			random_owned_leader = {
+				limit = { has_ethic = ethic_$ETHIC$ }
+				save_event_target_as = new_rebel_leader
+			}
+		}
+	}
+	else = { create_planetary_leader_with_ethic = { ETHIC = $ETHIC$ } }
+}
+
 #####################
 # Civil War Type Effects
 
-get_multi_sector_effect = {
+create_civil_war = {
 
-	export_trigger_value_to_variable = {
-		trigger = num_sectors
-		variable = all_potential_sectors
-	}
+	root.owner = { save_event_target_as = civwar_originator }
 
-	set_variable = { which = maybe_rebel_sectors value = 0 }
-
-	every_owned_sector = { # Calculate the rebel percentage of each sector
+	if = {
 		limit = {
-			NOT = {
-				any_owned_planet = {
-					num_pops >= 1
-					OR = {
-						is_capital = yes
-						has_ground_combat = yes
-						is_occupied_flag = yes
-					}
-				}
+			OR = {
+				is_scope_type = faction
+				is_scope_type = country
 			}
 		}
-		set_sector_flag = potential_rebel
-		export_trigger_value_to_variable = {
-			trigger = num_pops
-			variable = total_sector_pops
-		}
-		set_variable = { which = fac_sep_percentage value = 0 }
-		every_owned_planet = {
-			every_owned_pop = {
-				limit = {
-					exists = pop_faction
-					pop_faction = { is_same_value = root.target }
-					has_pop_flag = sep_pop
-				}
-				prevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
-			}
-		}
-		divide_variable = {
-			which = fac_sep_percentage
-			value = total_sector_pops
-		}
-		multiply_variable = { # Needs to be done to ensure accurate ordering
-			which = fac_sep_percentage
-			value = 100
-		}
-		prev = { change_variable = { which = maybe_rebel_sectors value = 1 } }
-	}
 
-	random_list = {
-		21 = { multiply_variable = { which = all_potential_sectors value = 0.3 } }
-		31 = { multiply_variable = { which = all_potential_sectors value = 0.4 } }
-		46 = { multiply_variable = { which = all_potential_sectors value = 0.5 } }
-		2 = { multiply_variable = { which = all_potential_sectors value = 0.67 } }
-	}
-	ceiling_variable = all_potential_sectors
-
-	while = { # Pick the most separatist sectors to rebel
-		count = all_potential_sectors
-		ordered_owned_sector = {
-			limit = {
-				has_sector_flag = potential_rebel
-				NOT = { has_sector_flag = rebel_sector }
-			}
-			position = 0
-			order_by = fac_sep_percentage
-			set_sector_flag = rebel_sector
-		}
-	}
-
-	while = { # Associate bordering sectors with each other
-		count = all_potential_sectors
 		if = {
-			limit = {
-				any_owned_sector = {
-					has_sector_flag = rebel_sector
-					NOT = { has_sector_flag = counted_sector }
-				}
-			}
-			ordered_owned_sector = {
-				limit = {
-					has_sector_flag = rebel_sector
-					NOT = { has_sector_flag = counted_sector }
-				}
-				position = 0
-				order_by = fac_sep_percentage
-				save_event_target_as = rebel_sector_leader
-				set_sector_flag = rebel_sector_@this
-				set_sector_flag = leader_sector
-				set_sector_flag = counted_sector
-			}
-			while = {
-				count = all_potential_sectors
-				if = { # Any Sector that borders a more rebellious sector will rebel under them
-					limit = {
-						any_owned_sector = {
-							NOT = { has_sector_flag = counted_sector }
-							has_sector_flag = rebel_sector
-							any_system_within_border = {
-								closest_system = {
-									limit = {
-										exists = sector
-										sector = { has_sector_flag = rebel_sector_@event_target:rebel_sector_leader }
-									}
-									use_bypasses = yes
-									max_steps = 1
-								}
-							}
-						}
-					}
-					random_owned_sector = {
-						limit = {
-							NOT = { has_sector_flag = counted_sector }
-							has_sector_flag = rebel_sector
-							any_system_within_border = {
-								closest_system = {
-									limit = {
-										exists = sector
-										sector = { has_sector_flag = rebel_sector_@event_target:rebel_sector_leader }
-									}
-									use_bypasses = yes
-									max_steps = 1
-								}
-							}
-						}
-						set_sector_flag = counted_sector
-						set_sector_flag = rebel_sector_@event_target:rebel_sector_leader
-						set_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader
-					}
-				}
-			}
+			limit = { is_scope_type = faction }
+			save_event_target_as = civwar_party
 		}
-	}
-
-	if = {
-		limit = { root.target = { is_regular_faction = yes } }
-		set_recent_civwar_flag = yes
-	}
-
-	# I Imagine this should stay past the first loop
-	root.target = {
-		save_event_target_as = civwar_party
-		random_owned_pop = { species = { save_event_target_as = civwar_species } }
-	}
-
-	create_party_name_leader = yes
-	last_created_leader = { leader_event = { id = civleader.1000 days = 720 } }
-
-	set_variable = { which = total_reb_countries value = 0 }
-	every_owned_sector = {
-		limit = { has_sector_flag = leader_sector }
-		prev = { change_variable = { which = total_reb_countries value = 1 } }
-	}
-
-	if = {
-		limit = { check_variable = { which = total_reb_countries value > 1 } }
-		set_timed_country_flag = { flag = rebs_help_eachother months = 6 }
-	}
-
-	every_owned_sector = {
-		limit = { has_sector_flag = leader_sector }
-		set_variable = { which = fac_sep_percentage value = 0 }
-		export_trigger_value_to_variable = {
-			trigger = num_pops
-			variable = total_new_country_pops
-		}
-		every_owned_planet = {
-			every_owned_pop = {
-				limit = {
-					exists = pop_faction
-					pop_faction = { is_same_value = root.target }
-					has_pop_flag = sep_pop
-				}
-				prevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
-			}
-		}
+		
 		owner = {
-			every_owned_sector = {
-				limit = { has_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader }
-				prevprev = { change_variable = { which = total_new_country_pops value = trigger:num_pops } }
-				every_owned_planet = {
-					every_owned_pop = {
+			if = { # 2 Sectors, other Sector will revolt
+				limit = {
+					num_sectors = 2
+					any_owned_sector = {
+						NOT = { any_system_within_border = { is_capital_system = yes } }
+						any_owned_planet = {
+							pop_amount >= 100
+							is_capital = no
+							has_ground_combat = no
+							is_occupied_flag = no
+						}
+					}
+				}
+				log = "| 2 Sector Civwar"
+
+				if = {
+					limit = { root = { is_scope_type = country } }
+					random_pop_faction = {
+						limit = { is_regular_faction = yes }
+						save_event_target_as = civwar_party
+						random_owned_pop_group = { species = { save_event_target_as = civwar_species } }
+					}
+				}
+
+				if = {
+					limit = {
+						any_owned_pop_group = {
+							pop_faction = { is_same_value = event_target:civwar_party }
+							sector = { NOT = { any_system_within_border = { is_capital_system = yes } } }
+						}
+					}
+					random_owned_pop_group = {
 						limit = {
-							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
-							has_pop_flag = sep_pop
+							pop_faction = { is_same_value = event_target:civwar_party }
+							sector = { NOT = { any_system_within_border = { is_capital_system = yes } } }
 						}
-						prevprevprevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
+						species = { save_event_target_as = civwar_species }
 					}
 				}
-			}
-		}
-		divide_variable = {
-			which = fac_sep_percentage
-			value = total_new_country_pops
-		}
-		multiply_variable = { # Needs to be done to ensure accurate ordering
-			which = fac_sep_percentage
-			value = 100
-		}
-	}
-
-	while = {
-		count = total_reb_countries
-		ordered_owned_sector = {
-			limit = { has_sector_flag = leader_sector }
-			position = 0
-			order_by = fac_sep_percentage
-			if = {
-				limit = { root.target = { is_regular_faction = yes } }
-				make_civil_war_faction_country = yes
-			}
-			else = {
-				make_nat_war_country = yes
-			}
-		}
-	}
-	
-	every_owned_sector = {
-		limit = { has_sector_flag = potential_rebel }
-		remove_sector_flag = potential_rebel
-	}
-
-	if = {
-		limit = { root.target = { is_nationalist_faction = yes } }
-		root.target = {
-			every_owned_pop = {
-				limit = { has_pop_flag = sep_pop_nat }
-				random = {
-					chance = 80
-					remove_pop_flag = sep_pop_nat
-				}
-			}
-		}
-	}
-}
-
-get_two_sector_effect = {
-	log = "| 2 Sector Civwar"
-	if = {
-		limit = { root.target = { is_regular_faction = yes } }
-		set_recent_civwar_flag = yes
-	}
-
-	root.target = {
-		save_event_target_as = civwar_party
-		random_owned_pop = { species = { save_event_target_as = civwar_species } }
-	}
-
-	create_party_name_leader = yes
-	last_created_leader = { leader_event = { id = civleader.1000 days = 720 } }
-
-	random_owned_sector = {
-		limit = {
-			NOT = {
-				any_owned_planet = {
-					OR = {
-						is_capital = yes
-						is_occupied_flag = yes
-						has_ground_combat = yes
+				else = {
+					random_owned_sector = {
+						limit = { NOT = { any_system_within_border = { is_capital_system = yes } } }
+						random_owned_pop_group = { species = { save_event_target_as = civwar_species } }
 					}
 				}
+
+				set_recent_civwar_flag = yes
+
+				create_party_name_leader = yes
+
+				random_owned_sector = {
+					# limit = { NOT = { any_system_within_border = { is_capital_system = yes } }
+					limit = {
+						NOT = {
+							any_owned_planet = {
+								OR = {
+									is_capital = yes
+									is_occupied_flag = yes
+									has_ground_combat = yes
+								}
+							}
+						}
+					}
+					set_sector_flag = leader_sector
+					make_civil_war_faction_country = yes
+				}
+			}
+			else_if = { # > 2 Sectors, if applicable, up to 67% can revolt
+				limit = {
+					num_sectors > 2
+					any_owned_sector = {
+						NOT = { any_system_within_border = { is_capital_system = yes } }
+						any_owned_planet = {
+							pop_amount >= 100
+							is_capital = no
+							has_ground_combat = no
+							is_occupied_flag = no
+						}
+					}
+				}
+				log = "| Multi Sector Civwar"
+
+				if = {
+					limit = { root = { is_scope_type = country } }
+					random_pop_faction = {
+						limit = { is_regular_faction = yes }
+						save_event_target_as = civwar_party
+					}
+				}
+
+				export_trigger_value_to_variable = {
+					trigger = num_sectors
+					variable = all_potential_sectors
+				}
+
+				set_variable = { which = maybe_rebel_sectors value = 0 }
+
+				every_owned_sector = { # Calculate the rebel percentage of each sector
+					limit = {
+						NOT = {
+							any_owned_planet = {
+								pop_amount > 0
+								OR = {
+									is_capital = yes
+									has_ground_combat = yes
+									is_occupied_flag = yes
+								}
+							}
+						}
+					}
+					set_sector_flag = potential_rebel
+					export_trigger_value_to_variable = {
+						trigger = pop_amount
+						variable = total_sector_pops
+					}
+					set_variable = { which = fac_sep_percentage value = 0 }
+					every_owned_planet = {
+						every_owned_pop_group = {
+							limit = {
+								exists = pop_faction
+								pop_faction = { is_same_value = event_target:civwar_party }
+							}
+							prevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
+						}
+					}
+					divide_variable = {
+						which = fac_sep_percentage
+						value = total_sector_pops
+					}
+					multiply_variable = { # Needs to be done to ensure accurate ordering
+						which = fac_sep_percentage
+						value = 100
+					}
+					prev = { change_variable = { which = maybe_rebel_sectors value = 1 } }
+				}
+
+				random_list = {
+					21 = { multiply_variable = { which = all_potential_sectors value = 0.3 } }
+					31 = { multiply_variable = { which = all_potential_sectors value = 0.4 } }
+					46 = { multiply_variable = { which = all_potential_sectors value = 0.5 } }
+					2 = { multiply_variable = { which = all_potential_sectors value = 0.67 } }
+				}
+				ceiling_variable = all_potential_sectors
+
+				while = { # Pick the most separatist sectors to rebel
+					count = all_potential_sectors
+					ordered_owned_sector = {
+						limit = {
+							has_sector_flag = potential_rebel
+							NOT = { has_sector_flag = rebel_sector }
+						}
+						position = 0
+						order_by = fac_sep_percentage
+						set_sector_flag = rebel_sector
+					}
+				}
+
+				while = { # Associate bordering sectors with each other
+					count = all_potential_sectors
+					if = {
+						limit = {
+							any_owned_sector = {
+								has_sector_flag = rebel_sector
+								NOT = { has_sector_flag = counted_sector }
+							}
+						}
+						ordered_owned_sector = {
+							limit = {
+								has_sector_flag = rebel_sector
+								NOT = { has_sector_flag = counted_sector }
+							}
+							position = 0
+							order_by = fac_sep_percentage
+							save_event_target_as = rebel_sector_leader
+							set_sector_flag = rebel_sector_@this
+							set_sector_flag = leader_sector
+							set_sector_flag = counted_sector
+						}
+						while = {
+							count = all_potential_sectors
+							if = { # Any Sector that borders a more rebellious sector will rebel under them
+								limit = {
+									any_owned_sector = {
+										NOT = { has_sector_flag = counted_sector }
+										has_sector_flag = rebel_sector
+										any_system_within_border = {
+											closest_system = {
+												limit = {
+													exists = sector
+													sector = { has_sector_flag = rebel_sector_@event_target:rebel_sector_leader }
+												}
+												use_bypasses = yes
+												max_steps = 1
+											}
+										}
+									}
+								}
+								random_owned_sector = {
+									limit = {
+										NOT = { has_sector_flag = counted_sector }
+										has_sector_flag = rebel_sector
+										any_system_within_border = {
+											closest_system = {
+												limit = {
+													exists = sector
+													sector = { has_sector_flag = rebel_sector_@event_target:rebel_sector_leader }
+												}
+												use_bypasses = yes
+												max_steps = 1
+											}
+										}
+									}
+									set_sector_flag = counted_sector
+									set_sector_flag = rebel_sector_@event_target:rebel_sector_leader
+									set_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader
+								}
+							}
+						}
+					}
+				}
+
+				set_recent_civwar_flag = yes
+
+				# I Imagine this should stay past the first loop
+				event_target:civwar_party = {
+					save_event_target_as = civwar_party
+					random_owned_pop_group = { species = { save_event_target_as = civwar_species } }
+				}
+
+				create_party_name_leader = yes
+
+				set_variable = { which = total_reb_countries value = 0 }
+				every_owned_sector = {
+					limit = { has_sector_flag = leader_sector }
+					prev = { change_variable = { which = total_reb_countries value = 1 } }
+				}
+
+				if = {
+					limit = { check_variable = { which = total_reb_countries value > 1 } }
+					set_timed_country_flag = { flag = rebs_help_eachother months = 6 }
+				}
+
+				every_owned_sector = {
+					limit = { has_sector_flag = leader_sector }
+					set_variable = { which = fac_sep_percentage value = 0 }
+					export_trigger_value_to_variable = {
+						trigger = pop_amount
+						variable = total_new_country_pops
+					}
+					every_owned_planet = {
+						every_owned_pop_group = {
+							limit = {
+								exists = pop_faction
+								pop_faction = { is_same_value = event_target:civwar_party }
+							}
+							prevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
+						}
+					}
+					owner = {
+						every_owned_sector = {
+							limit = { has_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader }
+							prevprev = { change_variable = { which = total_new_country_pops value = trigger:pop_amount } }
+							every_owned_planet = {
+								every_owned_pop_group = {
+									limit = {
+										exists = pop_faction
+										pop_faction = { is_same_value = event_target:civwar_party }
+									}
+									prevprevprevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
+								}
+							}
+						}
+					}
+					divide_variable = {
+						which = fac_sep_percentage
+						value = total_new_country_pops
+					}
+					multiply_variable = { # Needs to be done to ensure accurate ordering
+						which = fac_sep_percentage
+						value = 100
+					}
+				}
+
+				while = {
+					count = total_reb_countries
+					ordered_owned_sector = {
+						limit = { has_sector_flag = leader_sector }
+						position = 0
+						order_by = fac_sep_percentage
+						event_target:civwar_party = {
+							random_owned_pop_group = {
+								limit = { sector = { is_same_value = prevprevprev } }
+								species = { save_event_target_as = civwar_species }
+							}
+						}
+						make_civil_war_faction_country = yes
+					}
+				}
+				
+				every_owned_sector = {
+					limit = { has_sector_flag = potential_rebel }
+					remove_sector_flag = potential_rebel
+				}
+			}
+			else_if = { # >= 2 Planets
+				limit = {
+					num_owned_planets >= 2
+					any_owned_planet = {
+						pop_amount > 0
+						solar_system = { is_capital_system = no }
+						has_ground_combat = no
+						is_occupied_flag = no
+					}
+				}
+
+				if = {
+					limit = { root = { is_scope_type = faction } }
+					root = { set_variable = { which = fac_mil_support value = 0 } }
+				}
+				else = {
+					random_pop_faction = {
+						limit = { is_regular_faction = yes }
+						save_event_target_as = civwar_party
+						set_variable = { which = fac_mil_support value = 0 }
+					}
+				}
+
+				if = { # If only 2 planets, get the other planet
+					limit = { num_owned_planets = 2 }
+					random_owned_planet = {
+						limit = {
+							pop_amount > 0
+							solar_system = { is_capital_system = no }
+							has_ground_combat = no
+							is_occupied_flag = no
+						}
+						save_event_target_as = civil_war_planet
+						solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
+						every_owned_pop_group = {
+							limit = {
+								exists = pop_faction
+								pop_faction = { is_same_value = event_target:civwar_party }
+							}
+							event_target:civwar_party = { change_variable = { which = fac_mil_support value = 1 } }
+						}
+						random_owned_pop_group = {
+							limit = {
+								exists = pop_faction
+								pop_faction = { is_same_value = event_target:civwar_party }
+							}
+							species = { save_event_target_as = civwar_species }
+						}
+						set_planet_flag = small_civil_war
+						get_ethic_plan_rebels = yes
+					}
+				}
+				else = { # If more than 2, potentially Balkanize
+					set_variable = { which = total_happiness_pops value = 0 }
+					every_owned_pop_group = {
+						limit = { pop_has_happiness = yes }
+						prev = { change_variable = { which = total_happiness_pops value = 1 } }
+					}
+					set_variable = { which = maybe_rebel_planets value = 0 }
+					if = {
+						limit = {
+							any_owned_planet = {
+								pop_amount > 0
+								solar_system = { is_capital_system = no }
+								has_ground_combat = no
+								is_occupied_flag = no
+								pop_amount_percentage = {
+									percentage >= @civwar_pop_percent_needed
+									limit = {
+										exists = pop_faction
+										pop_faction = { is_same_value = event_target:civwar_party }
+									}
+								}
+							}
+						}
+						every_owned_planet = {
+							limit = {
+								pop_amount >= 0
+								solar_system = { is_capital_system = no }
+								has_ground_combat = no
+								is_occupied_flag = no
+								pop_amount_percentage = {
+									percentage >= @civwar_pop_percent_needed
+									limit = {
+										exists = pop_faction
+										pop_faction = { is_same_value = event_target:civwar_party }
+									}
+								}
+							}
+							set_timed_planet_flag = { flag = maybe_balkan_war days = 30 }
+							prev = { change_variable = { which = yes_rebel_planets value = 1 } }
+						}
+					}
+					else = {
+						ordered_owned_planet = {
+							limit = {
+								pop_amount >= 0
+								solar_system = { is_capital_system = no }
+								has_ground_combat = no
+								is_occupied_flag = no
+								pop_amount_percentage = {
+									percentage >= 0
+									limit = {
+										exists = pop_faction
+										pop_faction = { is_same_value = event_target:civwar_party }
+									}
+								}
+							}
+							position = 0
+							order_by = trigger:pop_amount
+							set_timed_planet_flag = { flag = maybe_balkan_war days = 30 }
+							prev = { change_variable = { which = yes_rebel_planets value = 1 } }
+						}
+					}
+					while = {
+						count = yes_rebel_planets
+						ordered_owned_planet = {
+							limit = { has_planet_flag = maybe_balkan_war }
+							position = 0
+							order_by = trigger:pop_amount
+
+							save_event_target_as = civil_war_planet
+							solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
+							every_owned_pop_group = {
+								limit = {
+									exists = pop_faction
+									pop_faction = { is_same_value = event_target:civwar_party }
+								}
+								event_target:civwar_party = { change_variable = { which = fac_mil_support value = 1 } }
+							}
+							random_owned_pop_group = {
+								limit = {
+									exists = pop_faction
+									pop_faction = { is_same_value = event_target:civwar_party }
+								}
+								species = { save_event_target_as = civwar_species }
+							}
+
+							set_planet_flag = balkan_war
+							set_planet_flag = ethic_planet_rebellion_@this # Such that Balkanization doesnt result in a bunch of wars numbered different civil wars at the same time
+							get_ethic_plan_rebels = yes
+							set_recent_civwar_flag = yes
+						}
+					}
+				}
+				root = { country_event = { id = civethic.9001 } }
 			}
 		}
-		set_sector_flag = leader_sector
+	}
+	else_if = {
+		limit = { is_scope_type = sector }
+
+		save_event_target_as = saved_sector
+
 		if = {
-			limit = { root.target = { is_regular_faction = yes } }
-			make_civil_war_faction_country = yes
-		}
-		else = {
-			make_nat_war_country = yes
+			limit = { exists = root.target }
 			root.target = {
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_nat }
-					random = {
-						chance = 80
-						remove_pop_flag = sep_pop_nat
-					}
-				}
+				save_event_target_as = civwar_party
+				set_variable = { which = fac_mil_support value = 0 }
 			}
-		}
-	}
-}
 
-get_small_civwar_effect = {
-	root.target = {
-		set_variable = { which = fac_mil_support value = 0 }
-		save_event_target_as = civwar_party
-	}
-	if = { # If only 2 planets, get the other planet
-		limit = { num_owned_planets = 2 }
-		random_owned_planet = {
-			limit = {
-				num_pops >= 1
-				is_capital = no
-				has_ground_combat = no
-				is_occupied_flag = no
-			}
-			save_event_target_as = civil_war_planet
-			solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
-			every_owned_pop = {
-				limit = {
-					exists = pop_faction
-					pop_faction = { is_same_value = root.target }
-					has_pop_flag = sep_pop
-				}
-				root.target = { change_variable = { which = fac_mil_support value = 1 } }
-			}
-			random_owned_pop = {
-				limit = {
-					exists = pop_faction
-					pop_faction = { is_same_value = root.target }
-					has_pop_flag = sep_pop
-				}
-				species = { save_event_target_as = civwar_species }
-			}
-			set_planet_flag = small_civil_war
-			if = {
-				limit = { root.target = { is_regular_faction = yes } }
-				get_ethic_plan_rebels = yes
-			}
-			else = {
-				set_planet_flag = nat_planet_rebellion_@this # Such that Balkanization doesnt result in a bunch of wars numbered different civil wars at the same time
-				get_nat_plan_rebels = yes
-			}
-		}
-	}
-	else = { # If more than 2, potentially Balkanize
-		set_variable = { which = total_happiness_pops value = 0 }
-		every_owned_pop = {
-			limit = { pop_has_happiness = yes }
-			prev = { change_variable = { which = total_happiness_pops value = 1 } }
-		}
-		set_variable = { which = maybe_rebel_planets value = 0 }
-		every_owned_planet = {
-			limit = {
-				num_pops >= 1
-				solar_system = { is_capital_system = no }
-				has_ground_combat = no
-				is_occupied_flag = no
-				any_owned_pop = {
-					exists = pop_faction
-					pop_faction = { is_same_value = root.target }
-					OR = {
-						root = { is_ethic_situation = no }
-						has_pop_flag = sep_pop_ethic
-					}
-				}
-			}
-			set_variable = { which = fac_sep_percentage value = 0 }
-			every_owned_pop = {
-				limit = {
-					exists = pop_faction
-					pop_faction = { is_same_value = root.target }
-					has_pop_flag = sep_pop
-				}
-				prev = { change_variable = { which = fac_sep_percentage value = 1 } }
-			}
-			prev = { change_variable = { which = maybe_rebel_planets value = 1 } }
-			divide_variable = {
-				which = fac_sep_percentage
-				value = prev.total_happiness_pops
-			}
-		}
-		while = {
-			count = maybe_rebel_planets
-			ordered_owned_planet = {
-				limit = {
-					num_pops >= 1
-					solar_system = { is_capital_system = no }
-					has_ground_combat = no
-					is_occupied_flag = no
-					any_owned_pop = {
-						exists = pop_faction
-						pop_faction = { is_same_value = root.target }
-						OR = {
-							root = { is_ethic_situation = no }
-							has_pop_flag = sep_pop_ethic
-						}
-					}
-				}
-				position = 0
-				order_by = fac_sep_percentage
-				save_event_target_as = civil_war_planet
-				solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
-				every_owned_pop = {
+			every_owned_planet = {
+				every_owned_pop_group = {
 					limit = {
 						exists = pop_faction
-						pop_faction = { is_same_value = root.target }
-						has_pop_flag = sep_pop
+						pop_faction = { is_same_value = event_target:civwar_party }
+						has_pop_group_flag = sep_pop
 					}
-					root.target = { change_variable = { which = fac_mil_support value = 1 } }
+					event_target:civwar_party = { change_variable = { which = fac_mil_support value = 1 } }
 				}
-				random_owned_pop = {
+			}
+			random_owned_planet = {
+				random_owned_pop_group = {
 					limit = {
 						exists = pop_faction
-						pop_faction = { is_same_value = root.target }
-						has_pop_flag = sep_pop
+						pop_faction = { is_same_value = event_target:civwar_party }
+						has_pop_group_flag = sep_pop
 					}
 					species = { save_event_target_as = civwar_species }
 				}
-				set_planet_flag = balkan_war
-				
-				if = {
-					limit = { root.target = { is_regular_faction = yes } }
-					set_planet_flag = ethic_planet_rebellion_@this # Such that Balkanization doesnt result in a bunch of wars numbered different civil wars at the same time
-					get_ethic_plan_rebels = yes
-					set_recent_civwar_flag = yes
-				}
-				else = {
-					set_planet_flag = nat_planet_rebellion_@this # Such that Balkanization doesnt result in a bunch of wars numbered different civil wars at the same time
-					get_nat_plan_rebels = yes
-				}
 			}
-		}
-	}
-	root = {
-		if = {
-			limit = { target = { is_regular_faction = yes } }
-			situation_event = { id = civethic.9000 }
 		}
 		else = {
-			situation_event = { id = civnat.9010 }
-			target = {
-				every_owned_pop = {
-					limit = { has_pop_flag = sep_pop_nat }
-					random = {
-						chance = 80
-						remove_pop_flag = sep_pop_nat
+			owner = {
+				random_pop_faction = {
+					limit = {
+						is_regular_faction = yes
+						any_owned_pop_group = { sector = { is_same_value = event_target:saved_sector } }
 					}
+					save_event_target_as = civwar_party
+					set_variable = { which = fac_mil_support value = 0 }
 				}
 			}
-		}
-	}
-}
 
-get_sectoral_revolt_effect = {
-	root.target = { save_event_target_as = civwar_party }
-	last_created_leader = { leader_event = { id = civleader.1000 days = 720 } }
-	random_owned_sector = {
-		limit = {
-			NOT = {
-				any_owned_planet = {
-					is_under_colonization = no
-					OR = {
-						is_capital = yes
-						has_ground_combat = yes
-						is_occupied_flag = yes
+			every_owned_planet = {
+				every_owned_pop_group = {
+					limit = {
+						exists = pop_faction
+						pop_faction = { is_same_value = event_target:civwar_party }
 					}
+					event_target:civwar_party = { change_variable = { which = fac_mil_support value = 1 } }
 				}
 			}
-			pop_percentage = {
-				percentage >= @civwar_pop_percent_needed
-				# percentage > 0
-				limit = {
-					exists = pop_faction
-					pop_faction = { is_same_value = root.target }
-					has_pop_flag = sep_pop
+			random_owned_planet = {
+				random_owned_pop_group = {
+					limit = {
+						exists = pop_faction
+						pop_faction = { is_same_value = event_target:civwar_party }
+					}
+					species = { save_event_target_as = civwar_species }
 				}
-				exclude = { can_think = no }
 			}
 		}
-		save_event_target_as = saved_sector
-		root.target = {
-			set_variable = { which = fac_mil_support value = 0 }
-			save_event_target_as = civwar_party
-		}
-		every_owned_planet = {
-			every_owned_pop = {
-				limit = {
-					exists = pop_faction
-					pop_faction = { is_same_value = root.target }
-					has_pop_flag = sep_pop
-				}
-				root.target = { change_variable = { which = fac_mil_support value = 1 } }
-			}
-		}
-		random_owned_planet = {
-			random_owned_pop = {
-				limit = {
-					exists = pop_faction
-					pop_faction = { is_same_value = root.target }
-					has_pop_flag = sep_pop
-				}
-				species = { save_event_target_as = civwar_species }
-			}
-		}
+		
 		sector_capital = {
 			save_event_target_as = civil_war_planet
 			owner = { create_party_name_leader = yes }
 			if = {
-				limit = { root.target = { is_regular_faction = yes } }
+				limit = { event_target:civwar_party = { is_regular_faction = yes } }
 				set_planet_flag = ethic_sector_rebellion
 				get_ethic_plan_rebels = yes
 				set_recent_civwar_flag = yes
@@ -3645,77 +3566,87 @@ get_sectoral_revolt_effect = {
 		save_event_target_as = sector_name_local
 		
 		create_sector_name_leader = yes # Create a dummy leader to save the sector name for localisation
-		
-		root = {
-			if = {
-				limit = { target = { is_regular_faction = yes } }
+
+		if = {
+			limit = { exists = root.target }
+			root = {
 				situation_event = { id = civethic.9010 }
-			}
-			else = {
-				situation_event = { id = civnat.9010 }
-				target = {
-					every_owned_pop = {
-						limit = { has_pop_flag = sep_pop_nat }
-						random = {
-							chance = 80
-							remove_pop_flag = sep_pop_nat
+				if = {
+					limit = { target = { is_regular_faction = no } }
+					target = {
+						every_owned_pop_group = {
+							limit = { has_pop_group_flag = sep_pop_nat }
+							random = {
+								chance = 40
+								remove_pop_group_flag = sep_pop_nat
+							}
 						}
 					}
 				}
 			}
 		}
+		else = {
+			owner = { country_event = { id = civethic.9011 } }
+		}
+		
+		
 	}
-}
-
-get_planetary_revolt_effect = {
-	random_owned_planet = {
-		limit = {
-			is_under_colonization = no
-			is_capital = no
-			has_ground_combat = no
-			is_occupied_flag = no
-			sector = {
-				NOR = {
-					has_sector_flag = nat_sector_rebellion_@sector_capital
-					has_sector_flag = ethic_sector_rebellion_@sector_capital
-				}
-			}
-			pop_percentage = {
-				percentage >= @civwar_pop_percent_needed
-				# percentage > 0
-				limit = {
-					exists = pop_faction
-					pop_faction = { is_same_value = root.target }
-					has_pop_flag = sep_pop
-				}
-				exclude = { can_think = no }
-			}
-		}
+	else_if = {
+		limit = { is_scope_type = planet }
 		get_planetary_reb_number = yes
-		root.target = {
-			set_variable = { which = fac_mil_support value = 0 }
-			save_event_target_as = civwar_party
-		}
-		every_owned_pop = {
-			limit = {
-				exists = pop_faction
-				pop_faction = { is_same_value = root.target }
-				has_pop_flag = sep_pop
-			}
-			root.target = { change_variable = { which = fac_mil_support value = 1 } }
-		}
-		random_owned_pop = {
-			limit = {
-				exists = pop_faction
-				pop_faction = { is_same_value = root.target }
-				has_pop_flag = sep_pop
-			}
-			species = { save_event_target_as = civwar_species }
-		}
 		save_event_target_as = civil_war_planet
 		solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
+
 		if = {
-			limit = { root.target = { is_regular_faction = yes } }
+			limit = { exists = root.target }
+			root.target = {
+				set_variable = { which = fac_mil_support value = 0 }
+				save_event_target_as = civwar_party
+			}
+			every_owned_pop_group = {
+				limit = {
+					exists = pop_faction
+					pop_faction = { is_same_value = event_target:civwar_party }
+					has_pop_group_flag = sep_pop
+				}
+				event_target:civwar_party = { change_variable = { which = fac_mil_support value = 1 } }
+			}
+			random_owned_pop_group = {
+				limit = {
+					exists = pop_faction
+					pop_faction = { is_same_value = event_target:civwar_party }
+					has_pop_group_flag = sep_pop
+				}
+				species = { save_event_target_as = civwar_species }
+			}
+		}
+		else = {
+			owner = {
+				random_pop_faction = {
+					limit = { any_owned_pop_group = { planet = { is_same_value = event_target:civil_war_planet } } }
+					set_variable = { which = fac_mil_support value = 0 }
+					save_event_target_as = civwar_party
+				}
+			}
+			
+			every_owned_pop_group = {
+				limit = {
+					exists = pop_faction
+					pop_faction = { is_same_value = event_target:civwar_party }
+				}
+				event_target:civwar_party = { change_variable = { which = fac_mil_support value = 1 } }
+			}
+			random_owned_pop_group = {
+				limit = {
+					exists = pop_faction
+					pop_faction = { is_same_value = event_target:civwar_party }
+				}
+				species = { save_event_target_as = civwar_species }
+			}
+		}
+		
+		if = {
+			limit = { event_target:civwar_party = { is_regular_faction = yes } }
 			set_planet_flag = ethic_planet_rebellion_@this
 			owner = { create_party_name_leader = yes }
 			get_ethic_plan_rebels = yes
@@ -3729,16 +3660,525 @@ get_planetary_revolt_effect = {
 			root = {
 				situation_event = { id = civnat.9010 }
 				target = {
-					every_owned_pop = {
-						limit = { has_pop_flag = sep_pop_nat }
+					every_owned_pop_group = {
+						limit = { has_pop_group_flag = sep_pop_nat }
 						random = {
 							chance = 80
-							remove_pop_flag = sep_pop_nat
+							remove_pop_group_flag = sep_pop_nat
 						}
 					}
 				}
 			}
 		}
+	}
+	else_if = {
+		limit = { is_scope_type = leader }
+		# if = { # Fleet Commander revolts
+		# 	limit = {
+		# 		owner = {
+		# 			any_owned_fleet = {
+		# 				exists = leader
+		# 				leader = { is_same_value = prevprevprev }
+		# 			}
+		# 		}
+		# 	}
+		# 	fleet = { set_fleet_flag = civil_war_fleet }
+		# }
+		# else_if = { # Governor revolts
+		# 	limit = { exists = planet }
+		# 	planet = {
+		# 		if = {
+		# 			limit = {
+		# 				exists = sector
+		# 				sector.sector_capital = { is_same_value = prev }
+		# 			}
+		# 		}
+		# 		else = {
+
+		# 		}
+		# 	}
+		# }
+	}
+	else_if = { ### This one can hopefully be very versatile
+		limit = { is_scope_type = situation }
+		get_war_type_flag = yes
+		if = {
+			limit = { root.target = { is_scope_type = pop_faction } }
+			root.target = { save_event_target_as = civwar_party }
+			owner = {
+				if = { # 2 Sectors, other Sector will revolt
+					limit = {
+						num_sectors = 2
+						any_owned_sector = {
+							NOT = { any_system_within_border = { is_capital_system = yes } }
+							any_owned_planet = {
+								pop_amount >= 100
+								is_capital = no
+								has_ground_combat = no
+								is_occupied_flag = no
+							}
+						}
+					}
+					log = "| 2 Sector Civwar"
+
+					if = {
+						limit = { event_target:civwar_party = { is_regular_faction = yes } }
+						set_recent_civwar_flag = yes
+					}
+
+					event_target:civwar_party = {
+						random_owned_pop_group = { species = { save_event_target_as = civwar_species } }
+					}
+
+					create_party_name_leader = yes
+
+					random_owned_sector = {
+						limit = {
+							NOT = {
+								any_owned_planet = {
+									OR = {
+										is_capital = yes
+										is_occupied_flag = yes
+										has_ground_combat = yes
+									}
+								}
+							}
+						}
+						set_sector_flag = leader_sector
+						if = {
+							limit = { event_target:civwar_party = { is_regular_faction = yes } }
+							make_civil_war_faction_country = yes
+						}
+						else = {
+							make_nat_war_country = yes
+							event_target:civwar_party = {
+								every_owned_pop_group = {
+									limit = { has_pop_group_flag = sep_pop_nat }
+									random = {
+										chance = 80
+										remove_pop_group_flag = sep_pop_nat
+									}
+								}
+							}
+						}
+					}
+				}
+				else_if = { # > 2 Sectors, if applicable, up to 67% can revolt
+					limit = {
+						num_sectors > 2
+						any_owned_sector = {
+							NOT = { any_system_within_border = { is_capital_system = yes } }
+							any_owned_planet = {
+								pop_amount >= 100
+								is_capital = no
+								has_ground_combat = no
+								is_occupied_flag = no
+								any_owned_pop_group = {
+									exists = pop_faction
+									pop_faction = { is_same_value = event_target:civwar_party }
+								}
+							}
+						}
+					}
+					log = "| Multi Sector Civwar"
+					
+					export_trigger_value_to_variable = {
+						trigger = num_sectors
+						variable = all_potential_sectors
+					}
+
+					set_variable = { which = maybe_rebel_sectors value = 0 }
+
+					every_owned_sector = { # Calculate the rebel percentage of each sector
+						limit = {
+							NOT = {
+								any_owned_planet = {
+									pop_amount >= 100
+									OR = {
+										is_capital = yes
+										has_ground_combat = yes
+										is_occupied_flag = yes
+									}
+								}
+							}
+						}
+						set_sector_flag = potential_rebel
+						export_trigger_value_to_variable = {
+							trigger = pop_amount
+							variable = total_sector_pops
+						}
+						set_variable = { which = fac_sep_percentage value = 0 }
+						every_owned_planet = {
+							every_owned_pop_group = {
+								limit = {
+									exists = pop_faction
+									pop_faction = { is_same_value = event_target:civwar_party }
+									has_pop_group_flag = sep_pop
+								}
+								prevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
+							}
+						}
+						divide_variable = {
+							which = fac_sep_percentage
+							value = total_sector_pops
+						}
+						multiply_variable = { # Needs to be done to ensure accurate ordering
+							which = fac_sep_percentage
+							value = 100
+						}
+						prev = { change_variable = { which = maybe_rebel_sectors value = 1 } }
+					}
+
+					random_list = {
+						21 = { multiply_variable = { which = all_potential_sectors value = 0.3 } }
+						31 = { multiply_variable = { which = all_potential_sectors value = 0.4 } }
+						46 = { multiply_variable = { which = all_potential_sectors value = 0.5 } }
+						2 = { multiply_variable = { which = all_potential_sectors value = 0.67 } }
+					}
+					ceiling_variable = all_potential_sectors
+
+					while = { # Pick the most separatist sectors to rebel
+						count = all_potential_sectors
+						ordered_owned_sector = {
+							limit = {
+								has_sector_flag = potential_rebel
+								NOT = { has_sector_flag = rebel_sector }
+							}
+							position = 0
+							order_by = fac_sep_percentage
+							set_sector_flag = rebel_sector
+						}
+					}
+
+					while = { # Associate bordering sectors with each other
+						count = all_potential_sectors
+						if = {
+							limit = {
+								any_owned_sector = {
+									has_sector_flag = rebel_sector
+									NOT = { has_sector_flag = counted_sector }
+								}
+							}
+							ordered_owned_sector = {
+								limit = {
+									has_sector_flag = rebel_sector
+									NOT = { has_sector_flag = counted_sector }
+								}
+								position = 0
+								order_by = fac_sep_percentage
+								save_event_target_as = rebel_sector_leader
+								set_sector_flag = rebel_sector_@this
+								set_sector_flag = leader_sector
+								set_sector_flag = counted_sector
+							}
+							while = {
+								count = all_potential_sectors
+								if = { # Any Sector that borders a more rebellious sector will rebel under them
+									limit = {
+										any_owned_sector = {
+											NOT = { has_sector_flag = counted_sector }
+											has_sector_flag = rebel_sector
+											any_system_within_border = {
+												closest_system = {
+													limit = {
+														exists = sector
+														sector = { has_sector_flag = rebel_sector_@event_target:rebel_sector_leader }
+													}
+													use_bypasses = yes
+													max_steps = 1
+												}
+											}
+										}
+									}
+									random_owned_sector = {
+										limit = {
+											NOT = { has_sector_flag = counted_sector }
+											has_sector_flag = rebel_sector
+											any_system_within_border = {
+												closest_system = {
+													limit = {
+														exists = sector
+														sector = { has_sector_flag = rebel_sector_@event_target:rebel_sector_leader }
+													}
+													use_bypasses = yes
+													max_steps = 1
+												}
+											}
+										}
+										set_sector_flag = counted_sector
+										set_sector_flag = rebel_sector_@event_target:rebel_sector_leader
+										set_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader
+									}
+								}
+							}
+						}
+					}
+
+					if = {
+						limit = { event_target:civwar_party = { is_regular_faction = yes } }
+						set_recent_civwar_flag = yes
+					}
+
+					# I Imagine this should stay past the first loop
+					event_target:civwar_party = {
+						save_event_target_as = civwar_party
+						random_owned_pop_group = { species = { save_event_target_as = civwar_species } }
+					}
+
+					create_party_name_leader = yes
+
+					set_variable = { which = total_reb_countries value = 0 }
+					every_owned_sector = {
+						limit = { has_sector_flag = leader_sector }
+						prev = { change_variable = { which = total_reb_countries value = 1 } }
+					}
+
+					if = {
+						limit = { check_variable = { which = total_reb_countries value > 1 } }
+						set_timed_country_flag = { flag = rebs_help_eachother months = 6 }
+					}
+
+					every_owned_sector = {
+						limit = { has_sector_flag = leader_sector }
+						set_variable = { which = fac_sep_percentage value = 0 }
+						export_trigger_value_to_variable = {
+							trigger = pop_amount
+							variable = total_new_country_pops
+						}
+						every_owned_planet = {
+							every_owned_pop_group = {
+								limit = {
+									exists = pop_faction
+									pop_faction = { is_same_value = event_target:civwar_party }
+									has_pop_group_flag = sep_pop
+								}
+								prevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
+							}
+						}
+						owner = {
+							every_owned_sector = {
+								limit = { has_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader }
+								prevprev = { change_variable = { which = total_new_country_pops value = trigger:pop_amount } }
+								every_owned_planet = {
+									every_owned_pop_group = {
+										limit = {
+											exists = pop_faction
+											pop_faction = { is_same_value = event_target:civwar_party }
+											has_pop_group_flag = sep_pop
+										}
+										prevprevprevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
+									}
+								}
+							}
+						}
+						divide_variable = {
+							which = fac_sep_percentage
+							value = total_new_country_pops
+						}
+						multiply_variable = { # Needs to be done to ensure accurate ordering
+							which = fac_sep_percentage
+							value = 100
+						}
+					}
+
+					while = {
+						count = total_reb_countries
+						ordered_owned_sector = {
+							limit = { has_sector_flag = leader_sector }
+							position = 0
+							order_by = fac_sep_percentage
+							if = {
+								limit = { event_target:civwar_party = { is_regular_faction = yes } }
+								make_civil_war_faction_country = yes
+							}
+							else = {
+								make_nat_war_country = yes
+							}
+						}
+					}
+					
+					every_owned_sector = {
+						limit = { has_sector_flag = potential_rebel }
+						remove_sector_flag = potential_rebel
+					}
+
+					if = {
+						limit = { event_target:civwar_party = { is_nationalist_faction = yes } }
+						event_target:civwar_party = {
+							every_owned_pop_group = {
+								limit = { has_pop_group_flag = sep_pop_nat }
+								random = {
+									chance = 80
+									remove_pop_group_flag = sep_pop_nat
+								}
+							}
+						}
+					}
+				}
+				else_if = { # >= 2 Planets
+					limit = {
+						num_owned_planets >= 2
+						any_owned_planet = {
+							pop_amount >= 100
+							solar_system = { is_capital_system = no }
+							has_ground_combat = no
+							is_occupied_flag = no
+							any_owned_pop_group = {
+								exists = pop_faction
+								pop_faction = { is_same_value = event_target:civwar_party }
+							}
+						}
+					}
+
+					event_target:civwar_party = {
+						set_variable = { which = fac_mil_support value = 0 }
+						save_event_target_as = civwar_party
+					}
+					if = { # If only 2 planets, get the other planet
+						limit = { num_owned_planets = 2 }
+						random_owned_planet = {
+							limit = {
+								pop_amount >= 100
+								is_capital = no
+								has_ground_combat = no
+								is_occupied_flag = no
+							}
+							save_event_target_as = civil_war_planet
+							solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
+							every_owned_pop_group = {
+								limit = {
+									exists = pop_faction
+									pop_faction = { is_same_value = event_target:civwar_party }
+									has_pop_group_flag = sep_pop
+								}
+								event_target:civwar_party = { change_variable = { which = fac_mil_support value = 1 } }
+							}
+							random_owned_pop_group = {
+								limit = {
+									exists = pop_faction
+									pop_faction = { is_same_value = event_target:civwar_party }
+									has_pop_group_flag = sep_pop
+								}
+								species = { save_event_target_as = civwar_species }
+							}
+							set_planet_flag = small_civil_war
+							if = {
+								limit = { event_target:civwar_party = { is_regular_faction = yes } }
+								get_ethic_plan_rebels = yes
+							}
+							else = {
+								set_planet_flag = nat_planet_rebellion_@this # Such that Balkanization doesnt result in a bunch of wars numbered different civil wars at the same time
+								get_nat_plan_rebels = yes
+							}
+						}
+					}
+					else = { # If more than 2, potentially Balkanize
+						set_variable = { which = total_happiness_pops value = 0 }
+						every_owned_pop_group = {
+							limit = { pop_has_happiness = yes }
+							prev = { change_variable = { which = total_happiness_pops value = 1 } }
+						}
+						set_variable = { which = maybe_rebel_planets value = 0 }
+						every_owned_planet = {
+							limit = {
+								pop_amount >= 100
+								solar_system = { is_capital_system = no }
+								has_ground_combat = no
+								is_occupied_flag = no
+								any_owned_pop_group = {
+									exists = pop_faction
+									pop_faction = { is_same_value = event_target:civwar_party }
+								}
+							}
+							set_variable = { which = fac_sep_percentage value = 0 }
+							every_owned_pop_group = {
+								limit = {
+									exists = pop_faction
+									pop_faction = { is_same_value = event_target:civwar_party }
+									has_pop_group_flag = sep_pop
+								}
+								prev = { change_variable = { which = fac_sep_percentage value = 1 } }
+							}
+							prev = { change_variable = { which = maybe_rebel_planets value = 1 } }
+							divide_variable = {
+								which = fac_sep_percentage
+								value = prev.total_happiness_pops
+							}
+						}
+						while = {
+							count = maybe_rebel_planets
+							ordered_owned_planet = {
+								limit = {
+									pop_amount >= 100
+									solar_system = { is_capital_system = no }
+									has_ground_combat = no
+									is_occupied_flag = no
+									any_owned_pop_group = {
+										exists = pop_faction
+										pop_faction = { is_same_value = event_target:civwar_party }
+									}
+								}
+								position = 0
+								order_by = fac_sep_percentage
+								save_event_target_as = civil_war_planet
+								solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
+								every_owned_pop_group = {
+									limit = {
+										exists = pop_faction
+										pop_faction = { is_same_value = event_target:civwar_party }
+										has_pop_group_flag = sep_pop
+									}
+									event_target:civwar_party = { change_variable = { which = fac_mil_support value = 1 } }
+								}
+								random_owned_pop_group = {
+									limit = {
+										exists = pop_faction
+										pop_faction = { is_same_value = event_target:civwar_party }
+										has_pop_group_flag = sep_pop
+									}
+									species = { save_event_target_as = civwar_species }
+								}
+								set_planet_flag = balkan_war
+								
+								if = {
+									limit = { event_target:civwar_party = { is_regular_faction = yes } }
+									set_planet_flag = ethic_planet_rebellion_@this # Such that Balkanization doesnt result in a bunch of wars numbered different civil wars at the same time
+									get_ethic_plan_rebels = yes
+									set_recent_civwar_flag = yes
+								}
+								else = {
+									set_planet_flag = nat_planet_rebellion_@this # Such that Balkanization doesnt result in a bunch of wars numbered different civil wars at the same time
+									get_nat_plan_rebels = yes
+								}
+							}
+						}
+					}
+					root = {
+						if = {
+							limit = { target = { is_regular_faction = yes } }
+							situation_event = { id = civethic.9000 }
+						}
+						else = {
+							situation_event = { id = civnat.9010 }
+							target = {
+								every_owned_pop_group = {
+									limit = { has_pop_group_flag = sep_pop_nat }
+									random = {
+										chance = 80
+										remove_pop_group_flag = sep_pop_nat
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		# else_if = {
+		# 	limit = { root.target = { is_scope_type = leader } }
+			
+		# }
 	}
 }
 
@@ -3832,13 +4272,13 @@ get_heir_one_planet_effect = {
 		limit = {
 			any_owned_planet = {
 				is_capital = no
-				any_owned_pop = { can_think = yes }
+				any_owned_pop_group = { can_think = yes }
 			}
 		}
 		random_owned_planet = {
 			limit = {
 				is_capital = no
-				any_owned_pop = { can_think = yes }
+				any_owned_pop_group = { can_think = yes }
 			}
 			
 			save_event_target_as = civil_war_planet
@@ -5731,13 +6171,13 @@ get_plan_slave_rebels = {
 
 	every_owned_species = {
 		limit = {
-			any_species_pop = {
+			any_species_pop_group = {
 				is_enslaved = yes
 				planet = { is_same_value = event_target:civil_war_planet }
 			}
 		}
 		set_variable = { which = species_pop_count value = 0 }
-		every_species_pop = {
+		every_species_pop_group = {
 			limit = {
 				is_enslaved = yes
 				planet = { is_same_value = event_target:civil_war_planet }
@@ -5844,13 +6284,13 @@ get_sec_slave_rebels = {
 		every_owned_planet = {
 			every_owned_species = {
 				limit = {
-					any_species_pop = {
+					any_species_pop_group = {
 						is_enslaved = yes
 						planet = { is_same_value = prevprevprev }
 					}
 				}
 				set_variable = { which = species_pop_count value = 0 }
-				every_species_pop = {
+				every_species_pop_group = {
 					limit = {
 						is_enslaved = yes
 						planet = { is_same_value = prevprevprev }
@@ -5994,927 +6434,59 @@ get_civil_war_leader = {
 		limit = { is_standard_faction_country = yes }
 		if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_auth } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_authoritarian
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_authoritarian
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_authoritarian
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_authoritarian
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_authoritarian
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_authoritarian
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = authoritarian }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = authoritarian }
 		}
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_egal } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_egalitarian
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_egalitarian
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_egalitarian
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_egalitarian
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_egalitarian
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_egalitarian
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = egalitarian }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = egalitarian }
 		}
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_mil } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_militarist
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_militarist
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_militarist
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_militarist
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_militarist
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_militarist
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = militarist }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = militarist }
 		}
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_pac } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_pacifist
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_pacifist
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_pacifist
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_pacifist
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_pacifist
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_pacifist
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = pacifist }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = pacifist }
 		}
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_mat } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_materialist
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_materialist
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_materialist
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_materialist
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_materialist
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_materialist
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = materialist }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = materialist }
 		}
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_spi } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_spiritualist
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_spiritualist
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_spiritualist
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_spiritualist
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_spiritualist
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_spiritualist
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = spiritualist }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = spiritualist }
 		}
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_phobe } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_xenophobe
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_xenophobe
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_xenophobe
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_xenophobe
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_xenophobe
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_xenophobe
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = xenophobe }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = xenophobe }
 		}
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_phile } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_xenophile
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_xenophile
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_xenophile
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_xenophile
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_xenophile
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_xenophile
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = xenophile }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = xenophile }
 		}
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_soc } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_socialism
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_socialism
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_socialism
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_socialism
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_socialism
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_socialism
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = socialism }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = socialism }
 		}
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_cap } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_capitalism
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_capitalism
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_capitalism
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_capitalism
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_capitalism
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_capitalism
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = capitalism }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = capitalism }
 		}
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_indus } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_industrial
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_industrial
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_industrial
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_socialism
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_industrial
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_industrial
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = industrial }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = industrial }
 		}
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_eco } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_green
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_green
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_green
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_green
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_green
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_green
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = green }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = green }
 		}
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_elite } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_elitist
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_elitist
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_elitist
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_elitist
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_elitist
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_elitist
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = elitist }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = elitist }
 		}
 		else_if = {
 			limit = { event_target:civwar_rebels = { has_country_flag = civwar_plur } }
-			event_target:civwar_originator = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_pluralist
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_pluralist
-							background_planet = {
-								is_capital = yes
-								is_owned_by = event_target:civwar_rebels
-							}
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_pluralist
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_pluralist
-							background_planet = { is_owned_by = event_target:civwar_rebels }
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else_if = {
-					limit = {
-						any_owned_leader = {
-							can_be_traitor = yes
-							has_ethic = ethic_pluralist
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							can_be_traitor = yes
-							has_ethic = ethic_pluralist
-						}
-						setup_rebel_leader_effect = yes
-					}
-				}
-				else = {
-					event_target:civwar_rebels = {
-						random_owned_pop = { species = { save_event_target_as = civwar_species } }
-						create_civil_war_leader_with_ethic = { ETHIC = pluralist }
-					}
-				}
-			}
+			get_war_leader_ethic = { ETHIC = pluralist }
 		}
 		event_target:rebel_leader = {
 			if = {
@@ -6923,7 +6495,7 @@ get_civil_war_leader = {
 			}
 			if = {
 				limit = { NOT = { has_leader_flag = new_civwar_ruler } }
-				set_leader_flag = leader_defected
+				set_defected = yes
 			}
 		}
 		set_leader = event_target:rebel_leader # Needs to be after the above with the leader flags
@@ -6931,7 +6503,7 @@ get_civil_war_leader = {
 	else_if = {
 		limit = { has_origin = origin_nationalist_rebellion }
 		random_owned_planet = {
-			limit = { num_pops > 0 }
+			limit = { pop_amount > 0 }
 			save_event_target_as = leader_homeworld
 		}
 		create_leader = {
@@ -6960,7 +6532,7 @@ get_civil_war_leader = {
 		limit = { event_target:civwar_originator = { has_country_flag = heir_mother_country } }
 		set_leader = event_target:heir_civil_war_dummy_country.ruler
 		event_target:heir_civil_war_dummy_country.ruler = {
-			set_leader_flag = leader_defected
+			set_defected = yes
 			if = {
 				limit = { NOT = { is_owned_by = event_target:civwar_rebels } }
 				set_owner = event_target:civwar_rebels
@@ -6970,18 +6542,6 @@ get_civil_war_leader = {
 	}
 	else_if = {
 		limit = { event_target:civwar_originator.ruler = { has_leader_flag = sep_won_election } }
-		#clone_leader = {
-		#	target = event_target:civwar_originator.ruler
-		#	effect = {
-		#		set_leader_flag = civil_war_ruler_secession
-		#		save_event_target_as = secession_leader
-		#	}
-		#}
-		#set_leader = event_target:secession_leader
-		#event_target:civwar_originator.ruler = {
-		#	set_leader_flag = dead_ruler
-		#	kill_leader = { show_notification = no }
-		#}
 		set_leader = event_target:civwar_originator.ruler
 		event_target:civwar_originator.ruler = {
 			set_owner = event_target:civwar_rebels
@@ -6999,8 +6559,8 @@ get_civil_war_leader = {
 		}
 	}
 	else = {
-		random_owned_pop = {
-			limit = { has_pop_flag = sep_leader_species }
+		random_owned_pop_group = {
+			limit = { has_pop_group_flag = sep_leader_species }
 			species = { save_event_target_as = civwar_species }
 			planet = { save_event_target_as = leader_homeworld }
 		}
@@ -7027,6 +6587,11 @@ get_civil_war_leader = {
 		}
 		set_leader = event_target:new_rebel_leader
 	}
+
+	if = {
+		limit = { species = { NOT = { is_same_value = root.ruler.species } } }
+		change_species = ruler.species
+	}
 }
 
 get_civil_war_leader_dispute = {
@@ -7043,6 +6608,104 @@ get_civil_war_leader_dispute = {
 		event_target:dispute_party.leader = {
 			species = { save_event_target_as = civwar_species }
 			fleet = { set_fleet_flag = civil_war_fleet }
+		}
+	}
+}
+
+get_war_leader_ethic = {
+	if = {
+		limit = {
+			any_owned_leader = {
+				has_ethic = ethic_$ETHIC$
+				has_leader_flag = leader_defected
+			}
+		}
+		ordered_owned_leader = {
+			limit = {
+				has_ethic = ethic_$ETHIC$
+				has_leader_flag = leader_defected
+			}
+			position = 0
+			order_by = trigger:has_base_skill
+			setup_rebel_leader_effect = yes
+		}
+	}
+	else = {
+		event_target:civwar_originator = {
+			if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_$ETHIC$
+						background_planet = {
+							is_capital = yes
+							is_owned_by = event_target:civwar_rebels
+						}
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_$ETHIC$
+						background_planet = {
+							is_capital = yes
+							is_owned_by = event_target:civwar_rebels
+						}
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else_if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_$ETHIC$
+						background_planet = { is_owned_by = event_target:civwar_rebels }
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_$ETHIC$
+						background_planet = { is_owned_by = event_target:civwar_rebels }
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else_if = {
+				limit = {
+					any_owned_leader = {
+						can_be_traitor = yes
+						has_ethic = ethic_$ETHIC$
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						can_be_traitor = yes
+						has_ethic = ethic_$ETHIC$
+					}
+					setup_rebel_leader_effect = yes
+				}
+			}
+			else_if = {
+				limit = { event_target:civwar_rebels = { any_owned_leader = { has_leader_flag = leader_defected_@event_target:civwar_originator } } }
+				event_target:civwar_rebels = {
+					random_owned_leader = {
+						limit = { has_leader_flag = leader_defected_@event_target:civwar_originator }
+						setup_rebel_leader_effect = yes
+					}
+				}
+			}
+			else = {
+				event_target:civwar_rebels = {
+					if = {
+						limit = { has_origin = origin_legendary_leader_death }
+						event_target:civwar_originator.species = { save_event_target_as = civwar_species }
+					}
+					else = { random_owned_pop_group = { species = { save_event_target_as = civwar_species } } }
+					create_civil_war_leader_with_ethic = { ETHIC = $ETHIC$ }
+				}
+			}
 		}
 	}
 }
@@ -7072,8 +6735,7 @@ get_leader_homeworld = {
 			save_event_target_as = leader_homeworld
 		}
 	}
-	else_if = {
-		limit = { exists = event_target:civwar_originator }
+	else = {
 		event_target:civwar_originator = {
 			random_owned_planet = {
 				limit = { colony_age >= 10 }
@@ -7158,6 +6820,7 @@ create_party_name_leader = {
 			save_event_target_as = civwar_party_name_leader
 		}
 	}
+	last_created_leader = { leader_event = { id = civ_misc_leader.1000 days = 720 } }
 }
 
 # Create dummy sector name leader
@@ -7180,7 +6843,7 @@ create_sector_name_leader = {
 				save_event_target_as = test_dummy_leader
 			}
 		}
-		last_created_leader = { leader_event = { id = civleader.1000 days = 180 } }
+		last_created_leader = { leader_event = { id = civ_misc_leader.1000 days = 180 } }
 	}
 }
 
@@ -11721,7 +11384,7 @@ create_civwar_armies = {
 
 		if = {
 			limit = { owner = { has_country_flag = heir_rebel_country } }
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = { can_think = yes }
 				random = {
 					chance = 35
@@ -11731,70 +11394,144 @@ create_civwar_armies = {
 		}
 		else_if = {
 			limit = { root = { has_origin = origin_nationalist_rebellion } }
-			every_owned_pop = {
-				limit = { has_pop_flag = sep_pop_nat_@event_target:nat_motherland_model }
+			every_owned_pop_group = {
+				limit = { has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland_model }
 				prev = { change_variable = { which = num_sep_pops value = 1 } }
+			}
+		}
+		else_if = {
+			limit = { root = { has_origin = origin_legendary_leader_death } }
+			every_owned_pop_group = {
+				limit = { is_egalitarian = yes }
+				prev = { change_variable = { which = num_sep_pops value = 5 } }
+			}
+		}
+		else_if = {
+			limit = { exists = event_target:civwar_party }
+			every_owned_pop_group = {
+				limit = {
+					exists = pop_faction
+					pop_faction = { is_same_value = event_target:civwar_party }
+				}
+				random = {
+					chance = value:pop_to_army_chance
+					prev = { change_variable = { which = num_sep_pops value = 1 } }
+				}
+			}
+		}
+
+		if = {
+			limit = { check_variable = { which = num_sep_pops value > 0 }  }
+			while = {
+				count = num_sep_pops
+				random_list = {
+					75 = {
+						while = {
+							count = 1
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_defense_army"
+							}
+						}
+					}
+					20 = {
+						while = {
+							count = 1
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_assault_army"
+							}
+						}
+						while = {
+							count = 1
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_defense_army"
+							}
+						}
+					}
+					5 = {
+						while = {
+							count = 1
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_assault_army"
+							}
+						}
+						while = {
+							count = 2
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_defense_army"
+							}
+						}
+					}
+				}
 			}
 		}
 		else = {
-			every_owned_pop = {
-				limit = { has_pop_flag = sep_pop }
-				prev = { change_variable = { which = num_sep_pops value = 1 } }
-			}
-		}
-
-
-		while = {
-			count = num_sep_pops
-			random_list = {
-				75 = {
-					while = {
-						count = 1
-						create_army = {
-							name = random
-							owner = event_target:civwar_rebels
-							species = event_target:civwar_species
-							type = "civwar_defense_army"
+			while = {
+				count = 3
+				random_list = {
+					75 = {
+						while = {
+							count = 1
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_defense_army"
+							}
 						}
 					}
-				}
-				20 = {
-					while = {
-						count = 1
-						create_army = {
-							name = random
-							owner = event_target:civwar_rebels
-							species = event_target:civwar_species
-							type = "civwar_assault_army"
+					20 = {
+						while = {
+							count = 1
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_assault_army"
+							}
+						}
+						while = {
+							count = 1
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_defense_army"
+							}
 						}
 					}
-					while = {
-						count = 1
-						create_army = {
-							name = random
-							owner = event_target:civwar_rebels
-							species = event_target:civwar_species
-							type = "civwar_defense_army"
+					5 = {
+						while = {
+							count = 1
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_assault_army"
+							}
 						}
-					}
-				}
-				5 = {
-					while = {
-						count = 1
-						create_army = {
-							name = random
-							owner = event_target:civwar_rebels
-							species = event_target:civwar_species
-							type = "civwar_assault_army"
-						}
-					}
-					while = {
-						count = 2
-						create_army = {
-							name = random
-							owner = event_target:civwar_rebels
-							species = event_target:civwar_species
-							type = "civwar_defense_army"
+						while = {
+							count = 2
+							create_army = {
+								name = random
+								owner = event_target:civwar_rebels
+								species = event_target:civwar_species
+								type = "civwar_defense_army"
+							}
 						}
 					}
 				}
@@ -12273,7 +12010,26 @@ get_country_after_setup = {
 		set_name = event_target:civwar_originator
 	}
 	else = {
+		ordered_owned_planet = {
+			position = 0
+			order_by = trigger:pop_amount
+			save_event_target_as = should_be_capital
+		}
+		if = {
+			limit = { capital_scope = { NOT = { is_same_value = event_target:should_be_capital } } }
+			event_target:should_be_capital = { set_capital = yes }
+		}
 		set_name = random
+	}
+
+	capital_scope = {
+		if = {
+			limit = { NOT = { any_owned_pop_group = { species = { is_same_value = root.ruler.species } } } }
+			while = {
+				count = 3
+				create_pop_group = { species = root.ruler.species }
+			}
+		}
 	}
 
 	if = { # Dynastic Succession Crisis
@@ -12358,17 +12114,10 @@ get_country_after_setup = {
 get_remove_seps_after = {
 	# Remove Sep Flags
 	if = {
-		limit = { any_owned_pop = { has_pop_flag = sep_pop } }
-		every_owned_pop = {
-			limit = { has_pop_flag = sep_pop }
-			remove_pop_flag = sep_pop
-		}
-	}
-	if = {
-		limit = { any_owned_pop = { has_pop_flag = sep_pop_ethic } }
-		every_owned_pop = {
-			limit = { has_pop_flag = sep_pop_ethic }
-			remove_pop_flag = sep_pop_ethic
+		limit = { any_owned_pop_group = { has_pop_group_flag = sep_pop } }
+		every_owned_pop_group = {
+			limit = { has_pop_group_flag = sep_pop }
+			remove_pop_group_flag = sep_pop
 		}
 	}
 }
@@ -12599,6 +12348,17 @@ get_fleet_effect = {
 # Declare War Effects
 
 get_declare_war_civwar = {
+
+	add_timeline_event = {
+		type = timeline_empire
+		override_id = timeline_civwar
+		override_tooltip = "TIMELINE_EVENT_CIVIL_WAR_TOOLTIP"
+		override_types = { country country }
+		override_text = { "text:TIMELINE_CIVIL_WAR" }
+		override_texture = { "background:GFX_evt_open_revolt" }
+		targets = { event_target:civwar_originator event_target:civwar_rebels }
+	}
+
 	declare_war = {
 		target = event_target:civwar_rebels
 		name = "Civil War"
@@ -12772,6 +12532,16 @@ get_declare_war_civwar = {
 }
 
 get_declare_war_plan_rebellion = {
+
+	add_timeline_event = {
+		type = timeline_empire
+		override_id = timeline_plan_civwar
+		override_tooltip = "TIMELINE_EVENT_PLANET_CIVIL_WAR_TOOLTIP"
+		override_types = { country country planet }
+		override_text = { "text:TIMELINE_PLANET_CIVIL_WAR" }
+		override_texture = { "background:GFX_evt_open_revolt" }
+		targets = { event_target:civwar_originator event_target:civwar_rebels event_target:civil_war_planet }
+	}
 
 	declare_war = {
 		target = event_target:civwar_rebels
@@ -12951,6 +12721,16 @@ get_declare_war_sec_rebellion = {
 		save_event_target_as = sector_name
 	}
 
+	add_timeline_event = {
+		type = timeline_empire
+		override_id = timeline_sec_war
+		override_tooltip = "TIMELINE_EVENT_SECTOR_CIVIL_WAR_TOOLTIP"
+		override_types = { country country leader }
+		override_text = { "text:TIMELINE_SECTOR_CIVIL_WAR" }
+		override_texture = { "background:GFX_evt_open_revolt" }
+		targets = { event_target:civwar_originator event_target:civwar_rebels event_target:sector_name }
+	}
+
 	declare_war = {
 		target = event_target:civwar_rebels
 		name = "Sectoral Rebellion"
@@ -13124,6 +12904,16 @@ get_declare_war_sec_rebellion = {
 }
 
 get_declare_war_plan_slave_rebellion = {
+
+	add_timeline_event = {
+		type = timeline_empire
+		override_id = timeline_plan_slave_civwar
+		override_tooltip = "TIMELINE_EVENT_PLANET_SLAVE_CIVIL_WAR_TOOLTIP"
+		override_types = { country country planet }
+		override_text = { "text:TIMELINE_PLANET_SLAVE_CIVIL_WAR" }
+		override_texture = { "background:GFX_evt_open_revolt" }
+		targets = { event_target:civwar_originator event_target:civwar_rebels event_target:civil_war_planet }
+	}
 
 	declare_war = {
 		target = event_target:civwar_rebels
@@ -13310,6 +13100,16 @@ get_declare_war_sec_slave_rebellion = {
 		save_event_target_as = sector_name
 	}
 
+	add_timeline_event = {
+		type = timeline_empire
+		override_id = timeline_sec_slave_war
+		override_tooltip = "TIMELINE_EVENT_SECTOR_SLAVE_CIVIL_WAR_TOOLTIP"
+		override_types = { country country leader }
+		override_text = { "text:TIMELINE_SECTOR_SLAVE_CIVIL_WAR" }
+		override_texture = { "background:GFX_evt_open_revolt" }
+		targets = { event_target:civwar_originator event_target:civwar_rebels event_target:sector_name }
+	}
+
 	declare_war = {
 		target = event_target:civwar_rebels
 		name = "Sectoral Slave Uprising"
@@ -13491,6 +13291,16 @@ get_declare_war_sec_slave_rebellion = {
 
 get_declare_war_natwar = {
 
+	add_timeline_event = {
+		type = timeline_empire
+		override_id = timeline_nat_war
+		override_tooltip = "TIMELINE_EVENT_NAT_CIVIL_WAR_TOOLTIP"
+		override_types = { country country country }
+		override_text = { "text:TIMELINE_NAT_CIVIL_WAR" }
+		override_texture = { "background:GFX_evt_open_revolt" }
+		targets = { event_target:civwar_originator event_target:civwar_rebels event_target:nat_motherland_model }
+	}
+
 	if = {
 		limit = { event_target:nat_motherland_model = { is_exile_country = yes } }
 		declare_war = {
@@ -13523,6 +13333,16 @@ get_declare_war_natwar = {
 }
 
 get_declare_war_heirwar = {
+
+	add_timeline_event = {
+		type = timeline_empire
+		override_id = timeline_heir_war
+		override_tooltip = "TIMELINE_EVENT_HEIR_CIVIL_WAR_TOOLTIP"
+		override_types = { country country leader }
+		override_text = { "text:TIMELINE_HEIR_CIVIL_WAR" }
+		override_texture = { "background:GFX_evt_open_revolt" }
+		targets = { event_target:civwar_originator event_target:civwar_rebels event_target:civwar_rebels.ruler }
+	}
 
 	declare_war = {
 		target = event_target:civwar_rebels
@@ -14400,7 +14220,7 @@ nat_faction_first_effect = {
 			key = dummy_sep_leader
 			variable_string = "\\[Root.GetName]"
 		}
-		leader_event = { id = civleader.1000 days = 180 }
+		leader_event = { id = civ_misc_leader.1000 days = 180 }
 	}
 }
 
@@ -14408,7 +14228,7 @@ nat_faction_second_effect = {
 	last_created_leader = {
 		kill_leader = { show_notification = no }
 	}
-	# random_owned_pop = {
+	# random_owned_pop_group = {
 	# 	species = { save_global_event_target_as = nat_pop_species }
 	# }
 	# owner = {
@@ -14459,7 +14279,7 @@ sector_faction_first_effect = {
 			key = dummy_sep_leader
 			variable_string = "\\[Root.GetName]"
 		}
-		leader_event = { id = civleader.1000 days = 180 }
+		leader_event = { id = civ_misc_leader.1000 days = 180 }
 	}
 }
 
@@ -14467,7 +14287,7 @@ sector_faction_second_effect = {
 	last_created_leader = {
 		kill_leader = { show_notification = no }
 	}
-	random_owned_pop = {
+	random_owned_pop_group = {
 		species = { save_global_event_target_as = nat_pop_species }
 	}
 	if = {
@@ -14482,12 +14302,12 @@ sector_faction_second_effect = {
 get_cit_res_purgees = {
 	set_variable = { which = num_separatist_pops value = 0 }
 
-	every_owned_pop = {
+	every_owned_pop_group = {
 		limit = {
 			pop_can_be_separatist_gen = yes
 			OR = {
-				has_pop_flag = citizen_of_@event_target:nat_pops_country
-				has_pop_flag = resident_of_@event_target:nat_pops_country
+				has_pop_group_flag = citizen_of_@event_target:nat_pops_country
+				has_pop_group_flag = resident_of_@event_target:nat_pops_country
 			}
 			has_citizenship_type = { type = citizenship_purge }
 		}
@@ -14496,18 +14316,18 @@ get_cit_res_purgees = {
 
 	while = {
 		count = num_separatist_pops
-		random_owned_pop = {
+		random_owned_pop_group = {
 			limit = {
 				pop_can_be_separatist_gen = yes
 				OR = {
-					has_pop_flag = citizen_of_@event_target:nat_pops_country
-					has_pop_flag = resident_of_@event_target:nat_pops_country
+					has_pop_group_flag = citizen_of_@event_target:nat_pops_country
+					has_pop_group_flag = resident_of_@event_target:nat_pops_country
 				}
 				has_citizenship_type = { type = citizenship_purge }
 			}
-			set_pop_flag = sep_pop
-			set_pop_flag = sep_pop_nat
-			set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+			set_pop_group_flag = sep_pop
+			set_pop_group_flag = sep_pop_nat
+			set_pop_group_flag = sep_pop_nat_@event_target:nat_pops_country
 		}
 	}
 
@@ -14520,10 +14340,10 @@ get_nat_seps = {
 		# First, Get Citizens who are still Citzens, least likely to radicalize.
 		set_variable = { which = num_separatist_pops value = 0 }
 
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = {
 				pop_can_be_separatist_gen = yes
-				has_pop_flag = citizen_of_@event_target:nat_pops_country
+				has_pop_group_flag = citizen_of_@event_target:nat_pops_country
 				has_citizenship_type = { type = citizenship_full }
 			}
 			prev = { change_variable = { which = num_separatist_pops value = 1 } }
@@ -14574,25 +14394,25 @@ get_nat_seps = {
 
 		while = {
 			count = num_separatist_pops
-			random_owned_pop = {
+			random_owned_pop_group = {
 				limit = {
 					pop_can_be_separatist_gen = yes
-					has_pop_flag = citizen_of_@event_target:nat_pops_country
+					has_pop_group_flag = citizen_of_@event_target:nat_pops_country
 					has_citizenship_type = { type = citizenship_full }
 				}
-				set_pop_flag = sep_pop
-				set_pop_flag = sep_pop_nat
-				set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				set_pop_group_flag = sep_pop
+				set_pop_group_flag = sep_pop_nat
+				set_pop_group_flag = sep_pop_nat_@event_target:nat_pops_country
 			}
 		}
 
 		# Second, Get Citizens who've become residents
 		set_variable = { which = num_separatist_pops value = 0 }
 
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = {
 				pop_can_be_separatist_gen = yes
-				has_pop_flag = citizen_of_@event_target:nat_pops_country
+				has_pop_group_flag = citizen_of_@event_target:nat_pops_country
 				has_citizenship_type = { type = citizenship_limited }
 			}
 			prev = { change_variable = { which = num_separatist_pops value = 1 } }
@@ -14651,27 +14471,27 @@ get_nat_seps = {
 
 		while = {
 			count = num_separatist_pops
-			random_owned_pop = {
+			random_owned_pop_group = {
 				limit = {
 					pop_can_be_separatist_gen = yes
-					has_pop_flag = citizen_of_@event_target:nat_pops_country
+					has_pop_group_flag = citizen_of_@event_target:nat_pops_country
 					has_citizenship_type = { type = citizenship_limited }
 				}
-				set_pop_flag = sep_pop
-				set_pop_flag = sep_pop_nat
-				set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				set_pop_group_flag = sep_pop
+				set_pop_group_flag = sep_pop_nat
+				set_pop_group_flag = sep_pop_nat_@event_target:nat_pops_country
 			}
 		}
 
 		# Third, Get Citizens and Residents who've become enslaved
 		set_variable = { which = num_separatist_pops value = 0 }
 
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = {
 				pop_can_be_separatist_gen = yes
 				OR = {
-					has_pop_flag = citizen_of_@event_target:nat_pops_country
-					has_pop_flag = resident_of_@event_target:nat_pops_country
+					has_pop_group_flag = citizen_of_@event_target:nat_pops_country
+					has_pop_group_flag = resident_of_@event_target:nat_pops_country
 				}
 				has_citizenship_type = { type = citizenship_slavery }
 			}
@@ -14725,18 +14545,18 @@ get_nat_seps = {
 
 		while = {
 			count = num_separatist_pops
-			random_owned_pop = {
+			random_owned_pop_group = {
 				limit = {
 					pop_can_be_separatist_gen = yes
 					OR = {
-						has_pop_flag = citizen_of_@event_target:nat_pops_country
-						has_pop_flag = resident_of_@event_target:nat_pops_country
+						has_pop_group_flag = citizen_of_@event_target:nat_pops_country
+						has_pop_group_flag = resident_of_@event_target:nat_pops_country
 					}
 					has_citizenship_type = { type = citizenship_slavery }
 				}
-				set_pop_flag = sep_pop
-				set_pop_flag = sep_pop_nat
-				set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				set_pop_group_flag = sep_pop
+				set_pop_group_flag = sep_pop_nat
+				set_pop_group_flag = sep_pop_nat_@event_target:nat_pops_country
 			}
 		}
 	}
@@ -14745,10 +14565,10 @@ get_nat_seps = {
 		# First, Get Citizens who are still Citzens, least likely to radicalize.
 		set_variable = { which = num_separatist_pops value = 0 }
 
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = {
 				pop_can_be_separatist_gen = yes
-				has_pop_flag = citizen_of_@event_target:nat_pops_country
+				has_pop_group_flag = citizen_of_@event_target:nat_pops_country
 				has_citizenship_type = { type = citizenship_full }
 			}
 			prev = { change_variable = { which = num_separatist_pops value = 1 } }
@@ -14811,25 +14631,25 @@ get_nat_seps = {
 
 		while = {
 			count = num_separatist_pops
-			random_owned_pop = {
+			random_owned_pop_group = {
 				limit = {
 					pop_can_be_separatist_gen = yes
-					has_pop_flag = citizen_of_@event_target:nat_pops_country
+					has_pop_group_flag = citizen_of_@event_target:nat_pops_country
 					has_citizenship_type = { type = citizenship_full }
 				}
-				set_pop_flag = sep_pop
-				set_pop_flag = sep_pop_nat
-				set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				set_pop_group_flag = sep_pop
+				set_pop_group_flag = sep_pop_nat
+				set_pop_group_flag = sep_pop_nat_@event_target:nat_pops_country
 			}
 		}
 
 		# Second, Get Citizens who've become residents
 		set_variable = { which = num_separatist_pops value = 0 }
 
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = {
 				pop_can_be_separatist_gen = yes
-				has_pop_flag = citizen_of_@event_target:nat_pops_country
+				has_pop_group_flag = citizen_of_@event_target:nat_pops_country
 				has_citizenship_type = { type = citizenship_limited }
 			}
 			prev = { change_variable = { which = num_separatist_pops value = 1 } }
@@ -14896,27 +14716,27 @@ get_nat_seps = {
 
 		while = {
 			count = num_separatist_pops
-			random_owned_pop = {
+			random_owned_pop_group = {
 				limit = {
 					pop_can_be_separatist_gen = yes
-					has_pop_flag = citizen_of_@event_target:nat_pops_country
+					has_pop_group_flag = citizen_of_@event_target:nat_pops_country
 					has_citizenship_type = { type = citizenship_limited }
 				}
-				set_pop_flag = sep_pop
-				set_pop_flag = sep_pop_nat
-				set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				set_pop_group_flag = sep_pop
+				set_pop_group_flag = sep_pop_nat
+				set_pop_group_flag = sep_pop_nat_@event_target:nat_pops_country
 			}
 		}
 
 		# Third, Get Citizens and Residents who've become enslaved
 		set_variable = { which = num_separatist_pops value = 0 }
 
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = {
 				pop_can_be_separatist_gen = yes
 				OR = {
-					has_pop_flag = citizen_of_@event_target:nat_pops_country
-					has_pop_flag = resident_of_@event_target:nat_pops_country
+					has_pop_group_flag = citizen_of_@event_target:nat_pops_country
+					has_pop_group_flag = resident_of_@event_target:nat_pops_country
 				}
 				has_citizenship_type = { type = citizenship_slavery }
 			}
@@ -14970,18 +14790,18 @@ get_nat_seps = {
 
 		while = {
 			count = num_separatist_pops
-			random_owned_pop = {
+			random_owned_pop_group = {
 				limit = {
 					pop_can_be_separatist_gen = yes
 					OR = {
-						has_pop_flag = citizen_of_@event_target:nat_pops_country
-						has_pop_flag = resident_of_@event_target:nat_pops_country
+						has_pop_group_flag = citizen_of_@event_target:nat_pops_country
+						has_pop_group_flag = resident_of_@event_target:nat_pops_country
 					}
 					has_citizenship_type = { type = citizenship_slavery }
 				}
-				set_pop_flag = sep_pop
-				set_pop_flag = sep_pop_nat
-				set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				set_pop_group_flag = sep_pop
+				set_pop_group_flag = sep_pop_nat
+				set_pop_group_flag = sep_pop_nat_@event_target:nat_pops_country
 			}
 		}
 	}
@@ -14990,10 +14810,10 @@ get_nat_seps = {
 		# First, Get Citizens who are still Citzens, least likely to radicalize.
 		set_variable = { which = num_separatist_pops value = 0 }
 
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = {
 				pop_can_be_separatist_gen = yes
-				has_pop_flag = citizen_of_@event_target:nat_pops_country
+				has_pop_group_flag = citizen_of_@event_target:nat_pops_country
 				has_citizenship_type = { type = citizenship_full }
 			}
 			prev = { change_variable = { which = num_separatist_pops value = 1 } }
@@ -15072,25 +14892,25 @@ get_nat_seps = {
 
 		while = {
 			count = num_separatist_pops
-			random_owned_pop = {
+			random_owned_pop_group = {
 				limit = {
 					pop_can_be_separatist_gen = yes
-					has_pop_flag = citizen_of_@event_target:nat_pops_country
+					has_pop_group_flag = citizen_of_@event_target:nat_pops_country
 					has_citizenship_type = { type = citizenship_full }
 				}
-				set_pop_flag = sep_pop
-				set_pop_flag = sep_pop_nat
-				set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				set_pop_group_flag = sep_pop
+				set_pop_group_flag = sep_pop_nat
+				set_pop_group_flag = sep_pop_nat_@event_target:nat_pops_country
 			}
 		}
 
 		# Second, Get Citizens who've become residents
 		set_variable = { which = num_separatist_pops value = 0 }
 
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = {
 				pop_can_be_separatist_gen = yes
-				has_pop_flag = citizen_of_@event_target:nat_pops_country
+				has_pop_group_flag = citizen_of_@event_target:nat_pops_country
 				has_citizenship_type = { type = citizenship_limited }
 			}
 			prev = { change_variable = { which = num_separatist_pops value = 1 } }
@@ -15167,27 +14987,27 @@ get_nat_seps = {
 
 		while = {
 			count = num_separatist_pops
-			random_owned_pop = {
+			random_owned_pop_group = {
 				limit = {
 					pop_can_be_separatist_gen = yes
-					has_pop_flag = citizen_of_@event_target:nat_pops_country
+					has_pop_group_flag = citizen_of_@event_target:nat_pops_country
 					has_citizenship_type = { type = citizenship_limited }
 				}
-				set_pop_flag = sep_pop
-				set_pop_flag = sep_pop_nat
-				set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				set_pop_group_flag = sep_pop
+				set_pop_group_flag = sep_pop_nat
+				set_pop_group_flag = sep_pop_nat_@event_target:nat_pops_country
 			}
 		}
 
 		# Third, Get Citizens and Residents who've become enslaved
 		set_variable = { which = num_separatist_pops value = 0 }
 
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = {
 				pop_can_be_separatist_gen = yes
 				OR = {
-					has_pop_flag = citizen_of_@event_target:nat_pops_country
-					has_pop_flag = resident_of_@event_target:nat_pops_country
+					has_pop_group_flag = citizen_of_@event_target:nat_pops_country
+					has_pop_group_flag = resident_of_@event_target:nat_pops_country
 				}
 				has_citizenship_type = { type = citizenship_slavery }
 			}
@@ -15241,19 +15061,25 @@ get_nat_seps = {
 
 		while = {
 			count = num_separatist_pops
-			random_owned_pop = {
+			random_owned_pop_group = {
 				limit = {
 					pop_can_be_separatist_gen = yes
 					OR = {
-						has_pop_flag = citizen_of_@event_target:nat_pops_country
-						has_pop_flag = resident_of_@event_target:nat_pops_country
+						has_pop_group_flag = citizen_of_@event_target:nat_pops_country
+						has_pop_group_flag = resident_of_@event_target:nat_pops_country
 					}
 					has_citizenship_type = { type = citizenship_slavery }
 				}
-				set_pop_flag = sep_pop
-				set_pop_flag = sep_pop_nat
-				set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
+				set_pop_group_flag = sep_pop
+				set_pop_group_flag = sep_pop_nat
+				set_pop_group_flag = sep_pop_nat_@event_target:nat_pops_country
+				planet = {
+					set_planet_flag = sep_pop
+					set_planet_flag = sep_pop_nat
+					set_planet_flag = sep_pop_nat_@event_target:nat_pops_country
+				}
 			}
+			
 		}
 	}
 
@@ -15283,49 +15109,6 @@ get_nat_change_flags = {
 		establish_contact = { who = event_target:nat_pops_country location = root }
 	}
 
-	every_galaxy_pop = {
-		limit = {
-			OR = {
-				has_pop_flag = sep_pop_nat_@event_target:old_nat_country
-				has_pop_flag = citizen_of_@event_target:old_nat_country
-				has_pop_flag = resident_of_@event_target:old_nat_country
-				has_pop_flag = slave_of_@event_target:old_nat_country
-				has_pop_flag = bio_trophy_of_@event_target:old_nat_country
-				has_pop_flag = purgee_of_@event_target:old_nat_country
-			}
-		}
-		if = {
-			limit = { has_pop_flag = sep_pop_nat_@event_target:old_nat_country }
-			remove_pop_flag = sep_pop_nat_@event_target:old_nat_country
-			set_pop_flag = sep_pop_nat_@event_target:nat_pops_country
-		}
-		if = {
-			limit = { has_pop_flag = citizen_of_@event_target:old_nat_country }
-			remove_pop_flag = citizen_of_@event_target:old_nat_country
-			set_pop_flag = citizen_of_@event_target:nat_pops_country
-		}
-		else_if = {
-			limit = { has_pop_flag = resident_of_@event_target:old_nat_country }
-			remove_pop_flag = resident_of_@event_target:old_nat_country
-			set_pop_flag = resident_of_@event_target:nat_pops_country
-		}
-		else_if = {
-			limit = { has_pop_flag = slave_of_@event_target:old_nat_country }
-			remove_pop_flag = slave_of_@event_target:old_nat_country
-			set_pop_flag = slave_of_@event_target:nat_pops_country
-		}
-		else_if = {
-			limit = { has_pop_flag = bio_trophy_of_@event_target:old_nat_country }
-			remove_pop_flag = bio_trophy_of_@event_target:old_nat_country
-			set_pop_flag = bio_trophy_of_@event_target:nat_pops_country
-		}
-		else_if = {
-			limit = { has_pop_flag = purgee_of_@event_target:old_nat_country }
-			remove_pop_flag = purgee_of_@event_target:old_nat_country
-			set_pop_flag = purgee_of_@event_target:nat_pops_country
-		}
-	}
-
 	every_galaxy_planet = {
 		limit = {
 			OR = {
@@ -15333,6 +15116,16 @@ get_nat_change_flags = {
 				has_planet_flag = frontier_planet_@event_target:old_nat_country
 				has_planet_flag = integrated_planet_@event_target:old_nat_country
 				has_planet_flag = fundamental_planet_@event_target:old_nat_country
+				any_owned_pop_group = {
+					OR = {
+						has_pop_group_flag = sep_pop_nat_@event_target:old_nat_country
+						has_pop_group_flag = citizen_of_@event_target:old_nat_country
+						has_pop_group_flag = resident_of_@event_target:old_nat_country
+						has_pop_group_flag = slave_of_@event_target:old_nat_country
+						has_pop_group_flag = bio_trophy_of_@event_target:old_nat_country
+						has_pop_group_flag = purgee_of_@event_target:old_nat_country
+					}
+				}
 			}
 		}
 		if = {
@@ -15354,6 +15147,55 @@ get_nat_change_flags = {
 			limit = { has_planet_flag = fundamental_planet_@event_target:old_nat_country }
 			remove_planet_flag = fundamental_planet_@event_target:old_nat_country
 			set_planet_flag = fundamental_planet_@event_target:nat_pops_country
+		}
+
+		random_galaxy_planet = {
+			limit = { NOT = { exists = owner } }
+			save_event_target_as = dupe_planet
+		}
+
+		every_owned_pop_group = {
+			limit = {
+				OR = {
+					has_pop_group_flag = sep_pop_nat_@event_target:old_nat_country
+					has_pop_group_flag = citizen_of_@event_target:old_nat_country
+					has_pop_group_flag = resident_of_@event_target:old_nat_country
+					has_pop_group_flag = slave_of_@event_target:old_nat_country
+					has_pop_group_flag = bio_trophy_of_@event_target:old_nat_country
+					has_pop_group_flag = purgee_of_@event_target:old_nat_country
+				}
+			}
+			if = {
+				limit = { has_pop_group_flag = sep_pop_nat_@event_target:old_nat_country }
+				remove_pop_group_flag = sep_pop_nat_@event_target:old_nat_country
+				set_pop_group_flag = sep_pop_nat_@event_target:nat_pops_country
+			}
+			if = {
+				limit = { has_pop_group_flag = citizen_of_@event_target:old_nat_country }
+				remove_pop_group_flag = citizen_of_@event_target:old_nat_country
+				set_pop_group_flag = citizen_of_@event_target:nat_pops_country
+			}
+			else_if = {
+				limit = { has_pop_group_flag = resident_of_@event_target:old_nat_country }
+				remove_pop_group_flag = resident_of_@event_target:old_nat_country
+				set_pop_group_flag = resident_of_@event_target:nat_pops_country
+			}
+			else_if = {
+				limit = { has_pop_group_flag = slave_of_@event_target:old_nat_country }
+				remove_pop_group_flag = slave_of_@event_target:old_nat_country
+				set_pop_group_flag = slave_of_@event_target:nat_pops_country
+			}
+			else_if = {
+				limit = { has_pop_group_flag = bio_trophy_of_@event_target:old_nat_country }
+				remove_pop_group_flag = bio_trophy_of_@event_target:old_nat_country
+				set_pop_group_flag = bio_trophy_of_@event_target:nat_pops_country
+			}
+			else_if = {
+				limit = { has_pop_group_flag = purgee_of_@event_target:old_nat_country }
+				remove_pop_group_flag = purgee_of_@event_target:old_nat_country
+				set_pop_group_flag = purgee_of_@event_target:nat_pops_country
+			}
+
 		}
 	}
 }
@@ -15488,7 +15330,7 @@ create_exile_enclave_country = {
 		create_fleet = {
 			settings = { spawn_debris = no }
 			effect = {
-				set_owner = prev
+				set_owner = event_target:old_nat_country
 				create_ship = {
 					name = "Exiled Government Headquarters"
 					design = "NAME_Mercenary_Enclave_Station_1"
@@ -15496,9 +15338,10 @@ create_exile_enclave_country = {
 				}
 				set_location = {
 					target = event_target:gov_hosting_planet
-					distance = 45
+					distance = 30
 					angle = random
 				}
+				save_event_target_as = new_capital_station
 			}
 		}
 		if = {
@@ -15512,62 +15355,10 @@ create_exile_enclave_country = {
 		get_separatist_faction_nat = yes
 		country_event = { id = civnat.1320 }
 	}
-
-	## Trying new method above, lets them keep their origin and is cleaner
-	# create_country = {
-	# 	name = event_target:old_nat_country
-	# 	type = enclave_exiled_gov
-	# 	authority = event_target:old_nat_country
-	# 	civics = event_target:old_nat_country
-	# 	origin = "origin_exile_government"
-	# 	species = event_target:old_nat_country.species
-	# 	flag = event_target:old_nat_country
-	# 	ethos = event_target:old_nat_country
-	# 	ignore_initial_colony_error = yes
-	# 	effect = {
-	# 		save_event_target_as = nat_pops_country
-	# 		set_country_flag = exiled_gov_enclave_country
-	# 		set_graphical_culture = event_target:old_nat_country
-	# 		create_fleet = {
-	# 			settings = { spawn_debris = no }
-	# 			effect = {
-	# 				set_owner = prev
-	# 				create_ship = {
-	# 					name = "Exiled Government Headquarters"
-	# 					design = "NAME_Mercenary_Enclave_Station_1"
-	# 					graphical_culture = event_target:old_nat_country
-	# 				}
-	# 				set_location = {
-	# 					target = event_target:gov_hosting_planet
-	# 					distance = 45
-	# 					angle = random
-	# 				}
-	# 			}
-	# 		}
-	# 		copy_flags_and_variables_from = event_target:old_nat_country
-	# 		if = {
-	# 			limit = { has_secession_country_flag = yes }
-	# 			find_secession_number_flag = yes
-	# 		}
-	# 		set_custom_capital_location = event_target:gov_hosting_planet
-	# 		#Set ruler
-	# 		set_leader = event_target:old_nat_country.ruler
-	# 		establish_communications_no_message = root
-	# 		set_country_flag = has_host
-	# 		set_country_flag = host_is_@root
-	# 		get_separatist_faction_nat = yes
-	# 		country_event = { id = civnat.1320 }
-	# 	}
-	# }
-	
 	
 	event_target:gov_hosting_planet = {
 		set_planet_flag = exile_enclave_link_@event_target:nat_pops_country
 	}
-
-	get_nat_change_flags = yes
-
-	from = { destroy_country = yes }
 }
 
 get_restoration_planets = {
@@ -15575,11 +15366,10 @@ get_restoration_planets = {
 
 	every_owned_planet = {
 		limit = {
-			is_capital = no
 			is_occupied_flag = no
 			is_under_colonization = no
 			has_orbital_bombardment = no
-			solar_system = { NOT = { is_capital_system = yes } }
+			solar_system = { is_capital_system = no }
 		}
 		set_planet_flag = restoration_planet
 		prev = { change_variable = { which = total_restoration_planets value = 1 } }
@@ -16013,7 +15803,7 @@ exile_restoration_gen_effect = {
 					save_event_target_as = dummy_old_name_leader
 				}
 			}
-			last_created_leader = { leader_event = { id = civleader.1000 days = 180 } }
+			last_created_leader = { leader_event = { id = civ_misc_leader.1000 days = 180 } }
 		}
 		else_if = { # Ideally make the most habitable planet their capital, but idk if you can use the habitability trigger with order_by
 			limit = {
@@ -16061,7 +15851,7 @@ exile_restoration_gen_effect = {
 					save_event_target_as = dummy_old_name_leader
 				}
 			}
-			last_created_leader = { leader_event = { id = civleader.1000 days = 180 } }
+			last_created_leader = { leader_event = { id = civ_misc_leader.1000 days = 180 } }
 			capital_scope = { set_name = random }
 			set_name = random
 			set_country_flag = nat_country_new_name
@@ -16083,7 +15873,7 @@ exile_restoration_gen_effect = {
 					save_event_target_as = dummy_old_name_leader
 				}
 			}
-			last_created_leader = { leader_event = { id = civleader.1000 days = 180 } }
+			last_created_leader = { leader_event = { id = civ_misc_leader.1000 days = 180 } }
 			capital_scope = { set_name = random }
 			set_name = random
 			set_country_flag = nat_country_new_name
@@ -16091,18 +15881,18 @@ exile_restoration_gen_effect = {
 		}
 
 		# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
-		every_owned_pop = {
-			limit = { has_pop_flag = sep_pop_nat_@prev }
-			remove_pop_flag = sep_pop_nat_@prev
+		every_owned_pop_group = {
+			limit = { has_pop_group_flag = sep_pop_nat_@prev }
+			remove_pop_group_flag = sep_pop_nat_@prev
 			if = {
-				limit = { has_pop_flag = sep_pop }
-				remove_pop_flag = sep_pop
+				limit = { has_pop_group_flag = sep_pop }
+				remove_pop_group_flag = sep_pop
 			}
 		}
 
 		# If nationalists elsewhere exist for a country that then is restored, make them happy and potentially resettle them
-		every_galaxy_pop = {
-			limit = { has_pop_flag = sep_pop_nat_@event_target:new_homeland }
+		every_owned_pop_group = {
+			limit = { has_pop_group_flag = sep_pop_nat_@event_target:new_homeland }
 			add_modifier = { modifier = "restoration_of_motherland" years = 15 }
 			if = {
 				limit = {
@@ -16111,9 +15901,10 @@ exile_restoration_gen_effect = {
 				}
 				random = {
 					chance = 75
-					resettle_pop = {
-						pop = this
-						planet = event_target:new_homeland.capital_scope
+					resettle_pop_group = {
+						POP_GROUP = this
+						PLANET = event_target:new_homeland.capital_scope
+						AMOUNT = 100
 					}
 				}
 			}
@@ -16189,7 +15980,7 @@ exile_restoration_gen_effect = {
 		capital_scope = {
 			while = {
 				count = 3
-				create_pop = {
+				create_pop_group = {
 					species = owner_main_species
 					ethos = random
 				}
@@ -16562,6 +16353,58 @@ set_faction_rebellion_suppression_flag = {
 
 ######
 
+swap_fleets_in_system = {
+	every_fleet_in_system = {
+		limit = { is_owned_by = event_target:civwar_originator }
+		if = {
+			limit = { exists = leader }
+			leader = {
+				random = {
+					chance = value:leader_to_defect_chance
+					set_owner = root
+					set_defected = yes
+					fleet = {
+						every_owned_ship = {
+							limit = { is_ship_class = shipclass_military }
+							random = {
+								chance = 20
+								destroy_ship = this
+							}
+						}
+						set_owner = root
+					}
+				}
+			}
+		}
+		else = {
+			random = {
+				chance = value:fleet_swap_chance
+				every_owned_ship = {
+					limit = { is_ship_class = shipclass_military }
+					random = {
+						chance = 25
+						destroy_ship = this
+					}
+				}
+				set_owner = root
+			}
+		}
+	}
+}
+
+swap_leader_on_planet = {
+	if = {
+		limit = { exists = leader }
+		leader = {
+			random = {
+				chance = value:leader_to_defect_chance
+				set_owner = root
+				set_defected = yes
+			}
+		}
+	}
+}
+
 destroy_succession_crisis = {
 	if = {
 		limit = {
@@ -16591,4 +16434,9 @@ kill_gov_switch_country = {
 		limit = { exists = event_target:gov_switch_country }
 		event_target:gov_switch_country = { destroy_country = yes }
 	}	
+}
+
+set_defected = {
+	set_leader_flag = leader_defected
+	set_leader_flag = leader_defected_@event_target:civwar_originator
 }

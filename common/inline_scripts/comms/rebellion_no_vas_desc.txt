@@ -1,6 +1,13 @@
 # Rebellion Without Vassalization Descriptions
 
 desc = {
+	text = civcom.1000.under_one_rule.desc
+	trigger = {
+		event_target:civwar_rebels = { has_origin = origin_legendary_leader_death }
+	}
+}
+
+desc = {
 	text = civcom.1000.leader.plan.desc
 	trigger = {
 		event_target:civwar_rebels = {

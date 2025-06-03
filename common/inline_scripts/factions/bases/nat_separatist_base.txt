@@ -1,0 +1,122 @@
+election_header = "GFX_faction_header_blue"
+guiding_ethic = ethic_militarist # Irrelevant for Separatists factions
+use_guiding_ethic_as_pop_filter = no #this means that the faction will let pops that aren't militarist in too
+
+unique = yes
+support_multiplier = 1
+
+resources = {
+	category = pop_factions
+	produces = {
+		unity = -0.5
+	}
+}
+
+is_potential = {
+	is_faction_allowed = yes
+	exists = event_target:nat_separatist_$NAT_FAC_NUM$
+	count_owned_pop_group = { limit = { has_pop_group_flag = sep_pop_nat_@event_target:nat_separatist_$NAT_FAC_NUM$ } count >= 5 }
+}
+
+parameters = {
+	empire = {
+		type = country
+		valid_objects = {
+			is_same_value = root
+		}
+	}
+}
+
+can_join_pre_triggers = {
+	is_enslaved = no
+	is_being_purged = no
+}
+
+can_join_faction = {
+	has_pop_group_flag = sep_pop_nat_@event_target:nat_separatist_$NAT_FAC_NUM$
+	has_pop_group_flag = sep_pop_nat
+	can_think = yes
+	pop_was_saved = no
+	is_shackled_robot = no
+	owner = {
+		NOT = { is_same_value = event_target:nat_separatist_$NAT_FAC_NUM$ }
+		OR = {
+			NOT = { exists = overlord }
+			AND = {
+				exists = overlord
+				overlord = { NOT = { is_same_value = event_target:nat_separatist_$NAT_FAC_NUM$ } }
+			}
+		}
+	}
+}
+
+attraction = {
+	base = 150
+
+	modifier = {
+		factor = 0
+		happiness >= 0.7
+	}
+
+	modifier = {
+		factor = 0.25
+		has_citizenship_type = { type = citizenship_full }
+	}
+
+	modifier = {
+		factor = 1.1
+		happiness < 0.6
+		happiness > 0.5
+	}
+
+	modifier = {
+		factor = 1.3
+		happiness <= 0.5
+		happiness > 0.4
+	}
+
+	modifier = {
+		factor = 1.5
+		happiness <= 0.4
+		happiness > 0.3
+	}
+
+	modifier = {
+		factor = 1.7
+		happiness <= 0.3
+		happiness > 0.2
+	}
+
+	modifier = {
+		factor = 2
+		happiness <= 0.2
+		happiness > 0.1
+	}
+
+	modifier = {
+		factor = 2.5
+		happiness <= 0.1
+	}
+
+	modifier = { #Outcasts and radicals
+		factor = 1.5
+		OR = {
+			NOT = { has_citizenship_type = { type = citizenship_full } }
+			has_trait = trait_unruly
+		}
+	}
+
+	modifier = {
+		factor = 2
+		owner = { is_at_war_with = event_target:nat_separatist_$NAT_FAC_NUM$ }
+	}
+}
+
+leader = {
+	base = 100
+
+	modifier = {
+		factor = 0
+		NOT = { has_leader_flag = sep_leader }
+	}
+}

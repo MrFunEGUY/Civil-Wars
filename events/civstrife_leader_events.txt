@@ -6,13 +6,28 @@
 
 namespace = civleader
 
-leader_event = { # Kill Dummy Leaders
+###### Storylines:
+ ##### Authoritarian Government Leader Events
+  ##### 1000 - xxxx: Commander Gains Power
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+
+leader_event = { # Commander
 	id = civleader.1000
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
-		exists = this
+		OR = {
+			has_base_skill >= 5
+			has_leader_flag = leader_ambitious
+			has_leader_flag = leader_great_victory
+			has_leader_flag = leader_proven_worth
+		}
 	}
 
 	immediate = {
@@ -21,69 +36,5 @@ leader_event = { # Kill Dummy Leaders
 			set_leader_flag = dummy_leader
 		}
 		kill_leader = { show_notification = no }
-	}
-}
-
-country_event = { # Set Corrupt Official Flag
-	id = civleader.2000
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		is_country_type_with_subjects = yes
-		any_owned_leader = {
-			has_trait = leader_trait_corrupt
-			NOT = { has_leader_flag = corrupt_official }
-		}
-	}
-
-	immediate = {
-		every_owned_leader = {
-			limit = {
-				has_trait = leader_trait_corrupt
-				NOT = { has_leader_flag = corrupt_official }
-			}
-			set_leader_flag = corrupt_official
-		}
-	}
-}
-
-# on_ruler_set
-# Executed as new ruler has been set
-# This = Country
-country_event = { # Set Corrupt Ruler Trait
-	id = civleader.2005
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		ruler = {
-			has_leader_flag = corrupt_official
-			NOT = { has_trait = leader_trait_corrupt }
-		}
-	}
-
-	immediate = {
-		ruler = { add_trait = leader_trait_corrupt }
-	}
-}
-
-# on_ruler_set
-# Executed as new ruler has been set
-# This = Country
-country_event = { # Set Sep Won Election Flag
-	id = civleader.2100
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		ruler = {
-			exists = pop_faction
-			pop_faction = { is_separatist_faction = yes }
-		}
-	}
-
-	immediate = {
-		ruler = { set_timed_leader_flag = { flag = sep_won_election years = 7 } }
 	}
 }

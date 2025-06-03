@@ -1263,7 +1263,7 @@ pop_can_be_separatist_gen = {
 	pop_has_happiness = yes
 	can_think = yes
 	pop_was_saved = no
-	NOT = { has_pop_flag = sep_pop }
+	# NOT = { has_pop_group_flag = sep_pop }
 }
 
 pop_was_saved = {
@@ -1297,6 +1297,18 @@ has_rebel_war_goal = {
 	}
 }
 
+has_civil_war_goal = {
+	OR = {
+		using_war_goal = { type = wg_civwar owner = root }
+		using_war_goal = { type = wg_planet_rebellion owner = root }
+		using_war_goal = { type = wg_natwar owner = root }
+		using_war_goal = { type = wg_civwar_heir owner = root }
+		using_war_goal = { type = wg_coup_successor owner = root }
+		using_war_goal = { type = wg_coup_independent owner = root }
+		using_war_goal = { type = wg_slave_uprising owner = root }
+	}
+}
+
 #####################################################
 ########## Planet and Sector Rebellion Check Triggers
 #####################################################
@@ -1314,14 +1326,14 @@ frontier_planet_slave_tick_check = {
 			NOT = { has_sector_flag = sec_slave_sep_active }
 		}
 	}
-	count_owned_pop = {
+	count_owned_pop_amount = {
 		limit = {
 			can_think = yes
 			pop_has_happiness = yes
 		}
-		count >= 10
+		count >= 200
 	}
-	pop_percentage = {
+	pop_amount_percentage = {
 		percentage > 0.3
 		limit = {
 			is_enslaved_or_purged = yes
@@ -1344,14 +1356,14 @@ integrated_planet_slave_tick_check = {
 			NOT = { has_sector_flag = sec_slave_sep_active }
 		}
 	}
-	count_owned_pop = {
+	count_owned_pop_amount = {
 		limit = {
 			can_think = yes
 			pop_has_happiness = yes
 		}
-		count >= 15
+		count >= 500
 	}
-	pop_percentage = {
+	pop_amount_percentage = {
 		percentage > 0.4
 		limit = {
 			is_enslaved_or_purged = yes
@@ -1374,14 +1386,14 @@ fundamental_planet_slave_tick_check = {
 			NOT = { has_sector_flag = sec_slave_sep_active }
 		}
 	}
-	count_owned_pop = {
+	count_owned_pop_amount = {
 		limit = {
 			can_think = yes
 			pop_has_happiness = yes
 		}
-		count >= 20
+		count >= 1000
 	}
-	pop_percentage = {
+	pop_amount_percentage = {
 		percentage > 0.5
 		limit = {
 			is_enslaved_or_purged = yes
@@ -1405,16 +1417,16 @@ frontier_planet_unrest_tick_check = {
 			}
 		}
 	}
-	count_owned_pop = {
+	count_owned_pop_amount = {
 		limit = {
 			can_think = yes
 			pop_has_happiness = yes
 		}
-		count >= 3
+		count >= 300
 	}
 	if = { # So a slave rebellion is preferred over a general separatist rebellion
-		limit = { any_owned_pop = { is_enslaved_or_purged = yes } }
-		pop_percentage = {
+		limit = { any_owned_pop_group = { is_enslaved_or_purged = yes } }
+		pop_amount_percentage = {
 			percentage <= 0.3
 			limit = {
 				is_enslaved_or_purged = yes
@@ -1452,18 +1464,18 @@ integrated_planet_unrest_tick_check = {
 			}
 		}
 	}
-	count_owned_pop = {
+	count_owned_pop_amount = {
 		limit = {
 			can_think = yes
 			pop_has_happiness = yes
 		}
-		count >= 5
+		count >= 500
 	}
 	if = { # So a slave rebellion is preferred over a general separatist rebellion
 		limit = {
-			any_owned_pop = { is_enslaved_or_purged = yes }
+			any_owned_pop_group = { is_enslaved_or_purged = yes }
 		}
-		pop_percentage = {
+		pop_amount_percentage = {
 			percentage <= 0.4
 			limit = {
 				is_enslaved_or_purged = yes
@@ -1501,18 +1513,18 @@ fundamental_planet_unrest_tick_check = {
 			}
 		}
 	}
-	count_owned_pop = {
+	count_owned_pop_amount = {
 		limit = {
 			can_think = yes
 			pop_has_happiness = yes
 		}
-		count >= 10
+		count >= 1000
 	}
 	if = { # So a slave rebellion is preferred over a general separatist rebellion
 		limit = {
-			any_owned_pop = { is_enslaved_or_purged = yes }
+			any_owned_pop_group = { is_enslaved_or_purged = yes }
 		}
-		pop_percentage = {
+		pop_amount_percentage = {
 			percentage <= 0.5
 			limit = {
 				is_enslaved_or_purged = yes
@@ -1700,7 +1712,7 @@ combined_sector_calm_tick_check = {
 	has_sector_flag = sector_sep_active
 	NOT = { # Not Isolated Sectors
 		any_owned_planet = {
-			any_owned_pop = {
+			any_owned_pop_group = {
 				exists = pop_faction
 				pop_faction = { is_iso_sector_separatist_faction = yes }
 			}
@@ -1882,7 +1894,7 @@ combined_sector_slave_calm_retick_check = {
 
 has_any_planet_rebellion_stopper = {
 	OR = {
-		num_pops <= 0
+		pop_amount <= 0
 		is_colony = no
 		is_capital = yes
 		is_occupied_flag = yes
@@ -2577,7 +2589,7 @@ get_sector_leader_test = {
 		exists = sector
 		sector = {
 			root.target = {
-				any_owned_pop = {
+				any_owned_pop_group = {
 					sector = { is_same_value = prevprevprev }
 				}
 			}
@@ -2618,5 +2630,27 @@ is_modded_ship = {
 		# is_ship_size = eng_imp_amoeba
 		# is_ship_size = eng_imp_mother
 		# is_ship_size = eng_imp_cente
+	}
+}
+
+under_one_rule_check = {
+	OR = {
+		has_country_flag = had_under_one_rule_civil_war
+		NOR = {
+			has_origin = origin_legendary_leader
+			has_origin = origin_legendary_leader_imperial
+			has_origin = origin_legendary_leader_dictatorial
+			has_origin = origin_legendary_leader_death
+		}
+	}
+}
+
+civwar_valid_trigger = {
+	is_gestalt = no
+	num_owned_planets > 1
+	# years_passed >= 15
+	NOR = {
+		has_country_flag = recent_civil_war
+		has_country_flag = civwar_not_allowed
 	}
 }

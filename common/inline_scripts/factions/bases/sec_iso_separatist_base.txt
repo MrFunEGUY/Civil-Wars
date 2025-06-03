@@ -1,0 +1,95 @@
+election_header = "GFX_faction_header_yellow"
+guiding_ethic = ethic_militarist # Irrelevant for Separatists factions
+use_guiding_ethic_as_pop_filter = no #this means that the faction will let pops that aren't militarist in too
+
+unique = yes
+support_multiplier = 1
+
+resources = {
+	category = pop_factions
+	produces = {
+		unity = -0.5
+	}
+}
+
+is_potential = {
+	years_passed >= 5
+	exists = event_target:sec_iso_separatist_$ISO_SEC_FAC_NUM$
+	any_owned_sector = { is_same_value = event_target:sec_iso_separatist_$ISO_SEC_FAC_NUM$ }	
+}
+
+parameters = {
+	empire = {
+		type = country
+		valid_objects = {
+			is_same_value = root
+		}
+	}
+}
+
+can_join_pre_triggers = {
+	is_enslaved = no
+	is_being_purged = no
+}
+
+can_join_faction = {
+	exists = sector
+	sector = {
+		is_same_value = event_target:sec_iso_separatist_$ISO_SEC_FAC_NUM$
+		has_sector_flag = sector_sep_active
+	}
+	is_shackled_robot = no
+	can_think = yes
+}
+
+attraction = {
+	base = 100
+
+	modifier = {
+		factor = 1.05
+		happiness > 0.95
+	}
+
+	modifier = {
+		factor = 1.25
+		happiness <= 0.95
+		happiness > 0.5
+	}
+
+	modifier = {
+		factor = 1.5
+		happiness <= 0.5
+		happiness > 0.25
+	}
+
+	modifier = {
+		factor = 1.75
+		happiness <= 0.25
+		happiness > 0.1
+	}
+
+	modifier = {
+		factor = 2
+		happiness <= 0.1
+	}
+
+	modifier = { #Outcasts and radicals
+		factor = 1.5
+		OR = {
+			NOT = { has_citizenship_type = { type = citizenship_full } }
+			has_trait = trait_unruly
+		}
+	}
+}
+
+leader = {
+	base = 0.1
+
+	modifier = {
+		factor = 0
+		OR = {
+			NOT = { exists = sector }
+			sector = { NOT = { is_same_value = event_target:sec_iso_separatist_$ISO_SEC_FAC_NUM$ } }
+		}
+	}
+}

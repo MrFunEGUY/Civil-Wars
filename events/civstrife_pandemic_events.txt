@@ -29,8 +29,8 @@
 # 				has_ground_combat = no
 # 				has_orbital_bombardment = no
 # 				is_occupied_flag = no
-# 				num_pops >= 5
-# 				any_owned_pop = { is_robot_pop = no }
+# 				pop_amount >= 500
+# 				any_owned_pop_group = { is_robot_pop = no }
 # 			}
 # 			if = {
 # 				limit = {
@@ -107,8 +107,8 @@
 # 					has_orbital_bombardment = yes
 # 					is_occupied_flag = yes
 # 				}
-# 				num_pops >= 5
-# 				any_owned_pop = { is_robot_pop = no }
+# 				pop_amount >= 500
+# 				any_owned_pop_group = { is_robot_pop = no }
 # 			}
 # 			random_list = {
 # 				98 = { }
@@ -153,8 +153,8 @@
 # 	is_triggered_only = yes
 
 # 	trigger = {
-# 		any_owned_pop = {
-# 			has_pop_flag = pandemic_pop
+# 		any_owned_pop_group = {
+# 			has_pop_group_flag = pandemic_pop
 # 			species = {
 # 				NOT = { has_species_flag = pandemic_species }
 # 			}
@@ -164,8 +164,8 @@
 # 	immediate = {
 # 		random_owned_planet = {
 # 			limit = {
-# 				any_owned_pop = {
-# 					has_pop_flag = pandemic_pop
+# 				any_owned_pop_group = {
+# 					has_pop_group_flag = pandemic_pop
 # 					species = { NOT = { has_species_flag = pandemic_species } }
 # 				}
 # 			}
@@ -282,14 +282,14 @@
 # 					50 = {
 # 						owner = {
 # 							random_owned_planet = {
-# 								limit = { any_owned_pop = { has_pop_flag = sick_pop_planet_@root } }
-# 								random_owned_pop = {
+# 								limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_planet_@root } }
+# 								random_owned_pop_group = {
 # 									limit = {
 # 										species = { has_species_flag = sick_species_planet_@root }
-# 										NOT = { has_pop_flag = sick_pop_planet_@root }
+# 										NOT = { has_pop_group_flag = sick_pop_planet_@root }
 # 									}
-# 									set_pop_flag = sick_pop_planet_@root
-# 									set_pop_flag = pandemic_pop
+# 									set_pop_group_flag = sick_pop_planet_@root
+# 									set_pop_group_flag = pandemic_pop
 # 								}
 # 							}
 # 						}
@@ -309,14 +309,14 @@
 # 					15 = {
 # 						owner = {
 # 							random_owned_planet = {
-# 								limit = { any_owned_pop = { has_pop_flag = sick_pop_planet_@root } }
-# 								random_owned_pop = {
+# 								limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_planet_@root } }
+# 								random_owned_pop_group = {
 # 									limit = {
 # 										species = { has_species_flag = sick_species_planet_@root }
-# 										NOT = { has_pop_flag = sick_pop_planet_@root }
+# 										NOT = { has_pop_group_flag = sick_pop_planet_@root }
 # 									}
-# 									set_pop_flag = sick_pop_planet_@root
-# 									set_pop_flag = pandemic_pop
+# 									set_pop_group_flag = sick_pop_planet_@root
+# 									set_pop_group_flag = pandemic_pop
 # 								}
 # 							}
 # 						}
@@ -336,14 +336,14 @@
 # 					5 = {
 # 						owner = {
 # 							random_owned_planet = {
-# 								limit = { any_owned_pop = { has_pop_flag = sick_pop_planet_@root } }
-# 								random_owned_pop = {
+# 								limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_planet_@root } }
+# 								random_owned_pop_group = {
 # 									limit = {
 # 										species = { has_species_flag = sick_species_planet_@root }
-# 										NOT = { has_pop_flag = sick_pop_planet_@root }
+# 										NOT = { has_pop_group_flag = sick_pop_planet_@root }
 # 									}
-# 									set_pop_flag = sick_pop_planet_@root
-# 									set_pop_flag = pandemic_pop
+# 									set_pop_group_flag = sick_pop_planet_@root
+# 									set_pop_group_flag = pandemic_pop
 # 								}
 # 							}
 # 						}
@@ -368,14 +368,14 @@
 # 					65 = {
 # 						owner = {
 # 							random_owned_planet = {
-# 								limit = { any_owned_pop = { has_pop_flag = sick_pop_planet_@root } }
-# 								random_owned_pop = {
+# 								limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_planet_@root } }
+# 								random_owned_pop_group = {
 # 									limit = {
 # 										species = { has_species_flag = sick_species_planet_@root }
-# 										NOT = { has_pop_flag = sick_pop_planet_@root }
+# 										NOT = { has_pop_group_flag = sick_pop_planet_@root }
 # 									}
-# 									set_pop_flag = sick_pop_planet_@root
-# 									set_pop_flag = pandemic_pop
+# 									set_pop_group_flag = sick_pop_planet_@root
+# 									set_pop_group_flag = pandemic_pop
 # 								}
 # 							}
 # 						}
@@ -395,14 +395,14 @@
 # 					25 = {
 # 						owner = {
 # 							random_owned_planet = {
-# 								limit = { any_owned_pop = { has_pop_flag = sick_pop_planet_@root } }
-# 								random_owned_pop = {
+# 								limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_planet_@root } }
+# 								random_owned_pop_group = {
 # 									limit = {
 # 										species = { has_species_flag = sick_species_planet_@root }
-# 										NOT = { has_pop_flag = sick_pop_planet_@root }
+# 										NOT = { has_pop_group_flag = sick_pop_planet_@root }
 # 									}
-# 									set_pop_flag = sick_pop_planet_@root
-# 									set_pop_flag = pandemic_pop
+# 									set_pop_group_flag = sick_pop_planet_@root
+# 									set_pop_group_flag = pandemic_pop
 # 								}
 # 							}
 # 						}
@@ -422,14 +422,14 @@
 # 					10 = {
 # 						owner = {
 # 							random_owned_planet = {
-# 								limit = { any_owned_pop = { has_pop_flag = sick_pop_planet_@root } }
-# 								random_owned_pop = {
+# 								limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_planet_@root } }
+# 								random_owned_pop_group = {
 # 									limit = {
 # 										species = { has_species_flag = sick_species_planet_@root }
-# 										NOT = { has_pop_flag = sick_pop_planet_@root }
+# 										NOT = { has_pop_group_flag = sick_pop_planet_@root }
 # 									}
-# 									set_pop_flag = sick_pop_planet_@root
-# 									set_pop_flag = pandemic_pop
+# 									set_pop_group_flag = sick_pop_planet_@root
+# 									set_pop_group_flag = pandemic_pop
 # 								}
 # 							}
 # 						}
@@ -454,14 +454,14 @@
 # 					80 = {
 # 						owner = {
 # 							random_owned_planet = {
-# 								limit = { any_owned_pop = { has_pop_flag = sick_pop_planet_@root } }
-# 								random_owned_pop = {
+# 								limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_planet_@root } }
+# 								random_owned_pop_group = {
 # 									limit = {
 # 										species = { has_species_flag = sick_species_planet_@root }
-# 										NOT = { has_pop_flag = sick_pop_planet_@root }
+# 										NOT = { has_pop_group_flag = sick_pop_planet_@root }
 # 									}
-# 									set_pop_flag = sick_pop_planet_@root
-# 									set_pop_flag = pandemic_pop
+# 									set_pop_group_flag = sick_pop_planet_@root
+# 									set_pop_group_flag = pandemic_pop
 # 								}
 # 							}
 # 						}
@@ -481,14 +481,14 @@
 # 					30 = {
 # 						owner = {
 # 							random_owned_planet = {
-# 								limit = { any_owned_pop = { has_pop_flag = sick_pop_planet_@root } }
-# 								random_owned_pop = {
+# 								limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_planet_@root } }
+# 								random_owned_pop_group = {
 # 									limit = {
 # 										species = { has_species_flag = sick_species_planet_@root }
-# 										NOT = { has_pop_flag = sick_pop_planet_@root }
+# 										NOT = { has_pop_group_flag = sick_pop_planet_@root }
 # 									}
-# 									set_pop_flag = sick_pop_planet_@root
-# 									set_pop_flag = pandemic_pop
+# 									set_pop_group_flag = sick_pop_planet_@root
+# 									set_pop_group_flag = pandemic_pop
 # 								}
 # 							}
 # 						}
@@ -508,14 +508,14 @@
 # 					15 = {
 # 						owner = {
 # 							random_owned_planet = {
-# 								limit = { any_owned_pop = { has_pop_flag = sick_pop_planet_@root } }
-# 								random_owned_pop = {
+# 								limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_planet_@root } }
+# 								random_owned_pop_group = {
 # 									limit = {
 # 										species = { has_species_flag = sick_species_planet_@root }
-# 										NOT = { has_pop_flag = sick_pop_planet_@root }
+# 										NOT = { has_pop_group_flag = sick_pop_planet_@root }
 # 									}
-# 									set_pop_flag = sick_pop_planet_@root
-# 									set_pop_flag = pandemic_pop
+# 									set_pop_group_flag = sick_pop_planet_@root
+# 									set_pop_group_flag = pandemic_pop
 # 								}
 # 							}
 # 						}
@@ -539,9 +539,9 @@
 
 # 	trigger = {
 # 		owner = {
-# 			any_owned_pop = {
+# 			any_owned_pop_group = {
 # 				planet = { NOT = { is_same_value = root.target } }
-# 				has_pop_flag = sick_pop_planet_@root
+# 				has_pop_group_flag = sick_pop_planet_@root
 # 			}
 # 		}
 # 	}
@@ -552,7 +552,7 @@
 # 			random_owned_planet = {
 # 				limit = {
 # 					NOT = { is_same_value = root.target }
-# 					any_owned_pop = { has_pop_flag = sick_pop_planet_@root }
+# 					any_owned_pop_group = { has_pop_group_flag = sick_pop_planet_@root }
 # 				}
 # 				if = {
 # 					limit = {
@@ -924,7 +924,7 @@
 # 		owner = {
 # 			every_owned_planet = {
 # 				limit = {
-# 					any_owned_pop = { has_pop_flag = sick_with_sector_@root }
+# 					any_owned_pop_group = { has_pop_group_flag = sick_with_sector_@root }
 # 				}
 # 				root = { change_variable = { which = num_pandemic_planets value = 1 } }
 # 			}
@@ -945,14 +945,14 @@
 # 						50 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_sector_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_sector_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_sector_@root }
-# 											NOT = { has_pop_flag = sick_pop_sector_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_sector_@root }
 # 										}
-# 										set_pop_flag = sick_pop_sector_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_sector_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -972,14 +972,14 @@
 # 						15 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_sector_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_sector_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_sector_@root }
-# 											NOT = { has_pop_flag = sick_pop_sector_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_sector_@root }
 # 										}
-# 										set_pop_flag = sick_pop_sector_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_sector_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -999,14 +999,14 @@
 # 						5 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_sector_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_sector_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_sector_@root }
-# 											NOT = { has_pop_flag = sick_pop_sector_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_sector_@root }
 # 										}
-# 										set_pop_flag = sick_pop_sector_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_sector_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1031,14 +1031,14 @@
 # 						65 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_sector_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_sector_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_sector_@root }
-# 											NOT = { has_pop_flag = sick_pop_sector_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_sector_@root }
 # 										}
-# 										set_pop_flag = sick_pop_sector_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_sector_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1058,14 +1058,14 @@
 # 						25 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_sector_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_sector_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_sector_@root }
-# 											NOT = { has_pop_flag = sick_pop_sector_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_sector_@root }
 # 										}
-# 										set_pop_flag = sick_pop_sector_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_sector_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1085,14 +1085,14 @@
 # 						10 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_sector_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_sector_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_sector_@root }
-# 											NOT = { has_pop_flag = sick_pop_sector_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_sector_@root }
 # 										}
-# 										set_pop_flag = sick_pop_sector_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_sector_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1117,14 +1117,14 @@
 # 						80 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_sector_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_sector_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_sector_@root }
-# 											NOT = { has_pop_flag = sick_pop_sector_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_sector_@root }
 # 										}
-# 										set_pop_flag = sick_pop_sector_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_sector_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1144,14 +1144,14 @@
 # 						30 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_sector_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_sector_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_sector_@root }
-# 											NOT = { has_pop_flag = sick_pop_sector_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_sector_@root }
 # 										}
-# 										set_pop_flag = sick_pop_sector_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_sector_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1171,14 +1171,14 @@
 # 						15 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_sector_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_sector_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_sector_@root }
-# 											NOT = { has_pop_flag = sick_pop_sector_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_sector_@root }
 # 										}
-# 										set_pop_flag = sick_pop_sector_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_sector_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1203,12 +1203,12 @@
 
 # 	trigger = {
 # 		owner = {
-# 			any_owned_pop = {
+# 			any_owned_pop_group = {
 # 				exists = planet.sector
 # 				planet.sector = {
 # 					NOT = { any_owned_planet = { is_same_value = root.target } }
 # 				}
-# 				has_pop_flag = sick_pop_sector_@root
+# 				has_pop_group_flag = sick_pop_sector_@root
 # 			}
 # 		}
 # 	}
@@ -1244,7 +1244,7 @@
 # 		owner = {
 # 			every_owned_planet = {
 # 				limit = {
-# 					any_owned_pop = { has_pop_flag = sick_with_national_@root }
+# 					any_owned_pop_group = { has_pop_group_flag = sick_with_national_@root }
 # 				}
 # 				root = { change_variable = { which = num_pandemic_planets value = 1 } }
 # 			}
@@ -1265,14 +1265,14 @@
 # 						50 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_national_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_national_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_national_@root }
-# 											NOT = { has_pop_flag = sick_pop_national_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_national_@root }
 # 										}
-# 										set_pop_flag = sick_pop_national_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_national_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1292,14 +1292,14 @@
 # 						15 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_national_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_national_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_national_@root }
-# 											NOT = { has_pop_flag = sick_pop_national_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_national_@root }
 # 										}
-# 										set_pop_flag = sick_pop_national_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_national_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1319,14 +1319,14 @@
 # 						5 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_national_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_national_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_national_@root }
-# 											NOT = { has_pop_flag = sick_pop_national_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_national_@root }
 # 										}
-# 										set_pop_flag = sick_pop_national_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_national_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1351,14 +1351,14 @@
 # 						65 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_national_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_national_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_national_@root }
-# 											NOT = { has_pop_flag = sick_pop_national_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_national_@root }
 # 										}
-# 										set_pop_flag = sick_pop_national_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_national_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1378,14 +1378,14 @@
 # 						25 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_national_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_national_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_national_@root }
-# 											NOT = { has_pop_flag = sick_pop_national_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_national_@root }
 # 										}
-# 										set_pop_flag = sick_pop_national_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_national_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1405,14 +1405,14 @@
 # 						10 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_national_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_national_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_national_@root }
-# 											NOT = { has_pop_flag = sick_pop_national_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_national_@root }
 # 										}
-# 										set_pop_flag = sick_pop_national_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_national_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1437,14 +1437,14 @@
 # 						80 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_national_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_national_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_national_@root }
-# 											NOT = { has_pop_flag = sick_pop_national_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_national_@root }
 # 										}
-# 										set_pop_flag = sick_pop_national_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_national_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1464,14 +1464,14 @@
 # 						30 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_national_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_national_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_national_@root }
-# 											NOT = { has_pop_flag = sick_pop_national_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_national_@root }
 # 										}
-# 										set_pop_flag = sick_pop_national_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_national_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1491,14 +1491,14 @@
 # 						15 = {
 # 							owner = {
 # 								random_owned_planet = {
-# 									limit = { any_owned_pop = { has_pop_flag = sick_pop_national_@root } }
-# 									random_owned_pop = {
+# 									limit = { any_owned_pop_group = { has_pop_group_flag = sick_pop_national_@root } }
+# 									random_owned_pop_group = {
 # 										limit = {
 # 											species = { has_species_flag = sick_species_national_@root }
-# 											NOT = { has_pop_flag = sick_pop_national_@root }
+# 											NOT = { has_pop_group_flag = sick_pop_national_@root }
 # 										}
-# 										set_pop_flag = sick_pop_national_@root
-# 										set_pop_flag = pandemic_pop
+# 										set_pop_group_flag = sick_pop_national_@root
+# 										set_pop_group_flag = pandemic_pop
 # 									}
 # 								}
 # 							}
@@ -1547,14 +1547,14 @@
 # 							NOT = { has_species_flag = pandemic_species }
 # 						}
 # 					}
-# 					random_owned_pop = {
+# 					random_owned_pop_group = {
 # 						limit = {
 # 							species = {
 # 								is_same_species = root.owner_species
 # 								NOT = { has_species_flag = pandemic_species }
 # 							}
 # 						}
-# 						set_pop_flag = pandemic_pop
+# 						set_pop_group_flag = pandemic_pop
 # 					}
 # 				}
 # 			}
@@ -1622,12 +1622,12 @@
 # 		owner = {
 # 			if = {
 # 				limit = {
-# 					any_owned_pop = { has_pop_flag = sick_pop_planet_@root }
+# 					any_owned_pop_group = { has_pop_group_flag = sick_pop_planet_@root }
 # 				}
-# 				every_owned_pop = {
-# 					limit = { has_pop_flag = sick_pop_planet_@root }
-# 					remove_pop_flag = sick_pop_planet_@root
-# 					remove_pop_flag = pandemic_pop
+# 				every_owned_pop_group = {
+# 					limit = { has_pop_group_flag = sick_pop_planet_@root }
+# 					remove_pop_group_flag = sick_pop_planet_@root
+# 					remove_pop_group_flag = pandemic_pop
 # 				}
 # 				every_owned_species = {
 # 					limit = { has_species_flag = sick_species_planet_@root }
@@ -1637,12 +1637,12 @@
 # 			}
 # 			else_if = {
 # 				limit = {
-# 					any_owned_pop = { has_pop_flag = sick_pop_sector_@root }
+# 					any_owned_pop_group = { has_pop_group_flag = sick_pop_sector_@root }
 # 				}
-# 				every_owned_pop = {
-# 					limit = { has_pop_flag = sick_pop_sector_@root }
-# 					remove_pop_flag = sick_pop_sector_@root
-# 					remove_pop_flag = pandemic_pop
+# 				every_owned_pop_group = {
+# 					limit = { has_pop_group_flag = sick_pop_sector_@root }
+# 					remove_pop_group_flag = sick_pop_sector_@root
+# 					remove_pop_group_flag = pandemic_pop
 # 				}
 # 				every_owned_species = {
 # 					limit = { has_species_flag = sick_species_sector_@root }
@@ -1652,12 +1652,12 @@
 # 			}
 # 			else_if = {
 # 				limit = {
-# 					any_owned_pop = { has_pop_flag = sick_pop_national_@root }
+# 					any_owned_pop_group = { has_pop_group_flag = sick_pop_national_@root }
 # 				}
-# 				every_owned_pop = {
-# 					limit = { has_pop_flag = sick_pop_national_@root }
-# 					remove_pop_flag = sick_pop_national_@root
-# 					remove_pop_flag = pandemic_pop
+# 				every_owned_pop_group = {
+# 					limit = { has_pop_group_flag = sick_pop_national_@root }
+# 					remove_pop_group_flag = sick_pop_national_@root
+# 					remove_pop_group_flag = pandemic_pop
 # 				}
 # 				every_owned_species = {
 # 					limit = { has_species_flag = sick_species_national_@root }

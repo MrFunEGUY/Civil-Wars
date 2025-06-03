@@ -1,0 +1,65 @@
+
+###############################
+### Civil Wars by MrFunEGUY ###
+###############################
+
+
+namespace = civleader_init
+
+###### Storylines:
+ ##### Civil War Story Events
+  ##### xxxx - xxxx: Massacres/Genocide/Atrocities - Commander/Official/Scientist
+  ##### xxxx - xxxx: Internment Camps - Commander/Official/Scientist
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+ ##### General Leader Events
+  ##### 1000 - xxxx: Gains Power - Commander/Official/Scientist
+  ##### xxxx - xxxx: Rivalry - Commander/Official/Scientist?
+  ##### xxxx - xxxx: Defection - Commander/Official/Scientist
+  ##### xxxx - xxxx: Unethical Behavior - Commander/Official/Scientist
+  ##### xxxx - xxxx: (S)Election Dispute - Commander/Official/Scientist
+  ##### xxxx - xxxx: Religious Leader - Commander/Official/Scientist
+  ##### xxxx - xxxx: 
+ ##### Authoritarian Leader Events
+  ##### xxxx - xxxx: Attempted Coup against Immortal Leader - Commander/Official/Scientist
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+
+
+country_event = { # Commander
+	id = civleader_init.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_owned_leader = {
+			OR = {
+				has_base_skill >= 5
+				has_leader_flag = leader_ambitious
+				has_leader_flag = leader_great_victory
+				has_leader_flag = leader_proven_worth
+			}
+		}
+	}
+
+	immediate = {
+		every_owned_leader = {
+			limit = {
+				OR = {
+					has_base_skill >= 5
+					has_leader_flag = leader_ambitious
+					has_leader_flag = leader_great_victory
+					has_leader_flag = leader_proven_worth
+				}
+			}
+			random = {
+				chance = value:leader_gains_power
+			}
+		}
+	}
+}

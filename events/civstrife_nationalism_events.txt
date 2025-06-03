@@ -35,10 +35,10 @@ planet_event = { ## Initial Event to create separatists from transferred planets
 			NOT = { has_country_flag = civwar_rebel_timer }
 			is_country_type_with_subjects = yes
 		}
-		any_owned_pop = {
+		any_owned_pop_group = {
 			OR = {
-				has_pop_flag = citizen_of_@fromfrom
-				has_pop_flag = resident_of_@fromfrom
+				has_pop_group_flag = citizen_of_@fromfrom
+				has_pop_group_flag = resident_of_@fromfrom
 			}
 		}
 	}
@@ -80,6 +80,8 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 
 	immediate = {
 
+		save_event_target_as = old_nat_country
+
 		species = { # For some reason, this doesnt work during country creation and needs to be done after
 			save_event_target_as = original_nation_species
 		}
@@ -120,8 +122,6 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 
 		from = { set_timed_country_flag = { flag = destroyed_country_nat_@event_target:nat_pops_country days = 30 } }
 
-		save_event_target_as = old_nat_country
-
 		get_nat_change_flags = yes
 
 		from = { set_country_flag = exile_already_asked_@event_target:nat_pops_country }
@@ -136,8 +136,8 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 
 		if = {
 			limit = { NOT = { is_country_type = enclave_exiled_gov } }
-			every_galaxy_pop = {
-				limit = { has_pop_flag = sep_pop_nat_@event_target:nat_pops_country }
+			every_owned_pop_group = {
+				limit = { has_pop_group_flag = sep_pop_nat_@event_target:nat_pops_country }
 				add_modifier = { modifier = "death_of_motherland" years = 20 }
 				if = { # No need to have both of these, it's just overkill.
 					limit = { has_modifier = pop_recently_conquered }
@@ -452,9 +452,9 @@ country_event = { # Gov In Exile restoration, when released peacefully
 				# This needs to be done or the species will be the ruler species, very odd.
 				change_species = event_target:restored_country.species
 			}
-			every_owned_pop = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
-				limit = { has_pop_flag = sep_pop_nat_@root }
-				remove_pop_flag = sep_pop_nat_@root
+			every_owned_pop_group = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
+				limit = { has_pop_group_flag = sep_pop_nat_@root }
+				remove_pop_group_flag = sep_pop_nat_@root
 			}
 
 			copy_flags_and_variables_from = event_target:restored_country
@@ -466,63 +466,6 @@ country_event = { # Gov In Exile restoration, when released peacefully
 		}
 
 		# If nationalists elsewhere exist for a country that then is restored, make them happy and potentially resettle them
-		every_galaxy_pop = {
-			limit = { has_pop_flag = sep_pop_nat_@root }
-			remove_pop_flag = sep_pop_nat_@root
-			set_pop_flag = sep_pop_nat_@event_target:new_homeland
-			add_modifier = { modifier = "restoration_of_motherland" years = 15 }
-			if = {
-				limit = {
-					has_citizenship_rights = yes
-					has_migration_control = { type = no }
-				}
-				random = {
-					chance = 75
-					resettle_pop = {
-						pop = this
-						planet = event_target:new_homeland.capital_scope
-					}
-				}
-			}
-		}
-
-		every_galaxy_pop = {
-			limit = {
-				OR = {
-					has_pop_flag = citizen_of_@root
-					has_pop_flag = resident_of_@root
-					has_pop_flag = slave_of_@root
-					has_pop_flag = bio_trophy_of_@root
-					has_pop_flag = purgee_of_@root
-				}
-			}
-			if = {
-				limit = { has_pop_flag = citizen_of_@root }
-				remove_pop_flag = citizen_of_@root
-				set_pop_flag = citizen_of_@event_target:new_homeland
-			}
-			else_if = {
-				limit = { has_pop_flag = resident_of_@root }
-				remove_pop_flag = resident_of_@root
-				set_pop_flag = resident_of_@event_target:new_homeland
-			}
-			else_if = {
-				limit = { has_pop_flag = slave_of_@root }
-				remove_pop_flag = slave_of_@root
-				set_pop_flag = slave_of_@event_target:new_homeland
-			}
-			else_if = {
-				limit = { has_pop_flag = bio_trophy_of_@root }
-				remove_pop_flag = bio_trophy_of_@root
-				set_pop_flag = bio_trophy_of_@event_target:new_homeland
-			}
-			else_if = {
-				limit = { has_pop_flag = purgee_of_@root }
-				remove_pop_flag = purgee_of_@root
-				set_pop_flag = purgee_of_@event_target:new_homeland
-			}			
-		}
-
 		every_galaxy_planet = {
 			limit = {
 				OR = {
@@ -530,6 +473,16 @@ country_event = { # Gov In Exile restoration, when released peacefully
 					has_planet_flag = integrated_planet_@root
 					has_planet_flag = fundamental_planet_@root
 					has_planet_flag = capital_planet_@root
+					any_owned_pop_group = {
+						OR = {
+							has_pop_group_flag = citizen_of_@root
+							has_pop_group_flag = resident_of_@root
+							has_pop_group_flag = slave_of_@root
+							has_pop_group_flag = bio_trophy_of_@root
+							has_pop_group_flag = purgee_of_@root
+							has_pop_group_flag = sep_pop_nat_@root
+						}
+					}
 				}
 			}
 			if = {
@@ -552,6 +505,64 @@ country_event = { # Gov In Exile restoration, when released peacefully
 				remove_planet_flag = capital_planet_@root
 				set_planet_flag = capital_planet_@event_target:new_homeland
 			}
+
+			every_owned_pop_group = {
+				limit = { has_pop_group_flag = sep_pop_nat_@root }
+				remove_pop_group_flag = sep_pop_nat_@root
+				set_pop_group_flag = sep_pop_nat_@event_target:new_homeland
+				add_modifier = { modifier = "restoration_of_motherland" years = 15 }
+				if = {
+					limit = {
+						has_citizenship_rights = yes
+						has_migration_control = { type = no }
+					}
+					random = {
+						chance = 75
+						resettle_pop_group = {
+							POP_GROUP = this
+							PLANET = event_target:new_homeland.capital_scope
+							AMOUNT = 100
+						}
+					}
+				}
+			}
+	
+			every_owned_pop_group = {
+				limit = {
+					OR = {
+						has_pop_group_flag = citizen_of_@root
+						has_pop_group_flag = resident_of_@root
+						has_pop_group_flag = slave_of_@root
+						has_pop_group_flag = bio_trophy_of_@root
+						has_pop_group_flag = purgee_of_@root
+					}
+				}
+				if = {
+					limit = { has_pop_group_flag = citizen_of_@root }
+					remove_pop_group_flag = citizen_of_@root
+					set_pop_group_flag = citizen_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_group_flag = resident_of_@root }
+					remove_pop_group_flag = resident_of_@root
+					set_pop_group_flag = resident_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_group_flag = slave_of_@root }
+					remove_pop_group_flag = slave_of_@root
+					set_pop_group_flag = slave_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_group_flag = bio_trophy_of_@root }
+					remove_pop_group_flag = bio_trophy_of_@root
+					set_pop_group_flag = bio_trophy_of_@event_target:new_homeland
+				}
+				else_if = {
+					limit = { has_pop_group_flag = purgee_of_@root }
+					remove_pop_group_flag = purgee_of_@root
+					set_pop_group_flag = purgee_of_@event_target:new_homeland
+				}			
+			}
 		}
 
 		# Notifications to other countries
@@ -571,7 +582,7 @@ country_event = { # Gov In Exile restoration, when released peacefully
 					}
 				}
 				solar_system.space_owner = {
-					save_global_event_target_as = exile_host
+					save_event_target_as = exile_host
 					country_event = { id = civnat.9210 }
 				}
 			}
@@ -630,9 +641,9 @@ country_event = { # Gov In Exile restoration, on war won
 					}
 					set_leader = prev.ruler
 				}
-				every_owned_pop = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
-					limit = { has_pop_flag = sep_pop_nat_@prev }
-					remove_pop_flag = sep_pop_nat_@prev
+				every_owned_pop_group = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
+					limit = { has_pop_group_flag = sep_pop_nat_@prev }
+					remove_pop_group_flag = sep_pop_nat_@prev
 				}
 
 				copy_flags_and_variables_from = event_target:restored_country
@@ -644,63 +655,6 @@ country_event = { # Gov In Exile restoration, on war won
 			}
 
 			# If nationalists elsewhere exist for a country that then is restored, make them happy and potentially resettle them
-			every_galaxy_pop = {
-				limit = { has_pop_flag = sep_pop_nat_@prev }
-				remove_pop_flag = sep_pop_nat_@prev
-				set_pop_flag = sep_pop_nat_@event_target:new_homeland
-				add_modifier = { modifier = "restoration_of_motherland" years = 15 }
-				if = {
-					limit = {
-						has_citizenship_rights = yes
-						has_migration_control = { type = no }
-					}
-					random = {
-						chance = 75
-						resettle_pop = {
-							pop = this
-							planet = event_target:new_homeland.capital_scope
-						}
-					}
-				}
-			}
-
-			every_galaxy_pop = {
-				limit = {
-					OR = {
-						has_pop_flag = citizen_of_@prev
-						has_pop_flag = resident_of_@prev
-						has_pop_flag = slave_of_@prev
-						has_pop_flag = bio_trophy_of_@prev
-						has_pop_flag = purgee_of_@prev
-					}
-				}
-				if = {
-					limit = { has_pop_flag = citizen_of_@prev }
-					remove_pop_flag = citizen_of_@prev
-					set_pop_flag = citizen_of_@event_target:new_homeland
-				}
-				else_if = {
-					limit = { has_pop_flag = resident_of_@prev }
-					remove_pop_flag = resident_of_@prev
-					set_pop_flag = resident_of_@event_target:new_homeland
-				}
-				else_if = {
-					limit = { has_pop_flag = slave_of_@prev }
-					remove_pop_flag = slave_of_@prev
-					set_pop_flag = slave_of_@event_target:new_homeland
-				}
-				else_if = {
-					limit = { has_pop_flag = bio_trophy_of_@prev }
-					remove_pop_flag = bio_trophy_of_@prev
-					set_pop_flag = bio_trophy_of_@event_target:new_homeland
-				}
-				else_if = {
-					limit = { has_pop_flag = purgee_of_@prev }
-					remove_pop_flag = purgee_of_@prev
-					set_pop_flag = purgee_of_@event_target:new_homeland
-				}			
-			}
-
 			every_galaxy_planet = {
 				limit = {
 					OR = {
@@ -708,6 +662,16 @@ country_event = { # Gov In Exile restoration, on war won
 						has_planet_flag = integrated_planet_@prev
 						has_planet_flag = fundamental_planet_@prev
 						has_planet_flag = capital_planet_@prev
+						any_owned_pop_group = {
+							OR = {
+								has_pop_group_flag = citizen_of_@prev
+								has_pop_group_flag = resident_of_@prev
+								has_pop_group_flag = slave_of_@prev
+								has_pop_group_flag = bio_trophy_of_@prev
+								has_pop_group_flag = purgee_of_@prev
+								has_pop_group_flag = sep_pop_nat_@prev
+							}
+						}
 					}
 				}
 				if = {
@@ -730,6 +694,64 @@ country_event = { # Gov In Exile restoration, on war won
 					remove_planet_flag = capital_planet_@prev
 					set_planet_flag = capital_planet_@event_target:new_homeland
 				}
+
+				every_owned_pop_group = {
+					limit = { has_pop_group_flag = sep_pop_nat_@prev }
+					remove_pop_group_flag = sep_pop_nat_@prev
+					set_pop_group_flag = sep_pop_nat_@event_target:new_homeland
+					add_modifier = { modifier = "restoration_of_motherland" years = 15 }
+					if = {
+						limit = {
+							has_citizenship_rights = yes
+							has_migration_control = { type = no }
+						}
+						random = {
+							chance = 75
+							resettle_pop_group = {
+								POP_GROUP = this
+								PLANET = event_target:new_homeland.capital_scope
+								AMOUNT = 100
+							}
+						}
+					}
+				}
+	
+				every_owned_pop_group = {
+					limit = {
+						OR = {
+							has_pop_group_flag = citizen_of_@prev
+							has_pop_group_flag = resident_of_@prev
+							has_pop_group_flag = slave_of_@prev
+							has_pop_group_flag = bio_trophy_of_@prev
+							has_pop_group_flag = purgee_of_@prev
+						}
+					}
+					if = {
+						limit = { has_pop_group_flag = citizen_of_@prev }
+						remove_pop_group_flag = citizen_of_@prev
+						set_pop_group_flag = citizen_of_@event_target:new_homeland
+					}
+					else_if = {
+						limit = { has_pop_group_flag = resident_of_@prev }
+						remove_pop_group_flag = resident_of_@prev
+						set_pop_group_flag = resident_of_@event_target:new_homeland
+					}
+					else_if = {
+						limit = { has_pop_group_flag = slave_of_@prev }
+						remove_pop_group_flag = slave_of_@prev
+						set_pop_group_flag = slave_of_@event_target:new_homeland
+					}
+					else_if = {
+						limit = { has_pop_group_flag = bio_trophy_of_@prev }
+						remove_pop_group_flag = bio_trophy_of_@prev
+						set_pop_group_flag = bio_trophy_of_@event_target:new_homeland
+					}
+					else_if = {
+						limit = { has_pop_group_flag = purgee_of_@prev }
+						remove_pop_group_flag = purgee_of_@prev
+						set_pop_group_flag = purgee_of_@event_target:new_homeland
+					}			
+				}
 			}
 
 			# Notifications to other countries
@@ -749,8 +771,8 @@ country_event = { # Gov In Exile restoration, on war won
 						}
 					}
 					solar_system.space_owner = {
-						save_global_event_target_as = exile_host
-						country_event = { id = civnat.9210 }
+						save_event_target_as = exile_host
+						# country_event = { id = civnat.9210 } ## TODO
 					}
 				}
 				every_playable_country = {
@@ -811,9 +833,9 @@ country_event = { # Gov In Exile restoration, on status quo
 					}
 					set_leader = prev.ruler
 				}
-				every_owned_pop = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
-					limit = { has_pop_flag = sep_pop_nat_@prev }
-					remove_pop_flag = sep_pop_nat_@prev
+				every_owned_pop_group = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
+					limit = { has_pop_group_flag = sep_pop_nat_@prev }
+					remove_pop_group_flag = sep_pop_nat_@prev
 				}
 
 				copy_flags_and_variables_from = event_target:restored_country
@@ -825,63 +847,6 @@ country_event = { # Gov In Exile restoration, on status quo
 			}
 
 			# If nationalists elsewhere exist for a country that then is restored, make them happy and potentially resettle them
-			every_galaxy_pop = {
-				limit = { has_pop_flag = sep_pop_nat_@prev }
-				remove_pop_flag = sep_pop_nat_@prev
-				set_pop_flag = sep_pop_nat_@event_target:new_homeland
-				add_modifier = { modifier = "restoration_of_motherland" years = 15 }
-				if = {
-					limit = {
-						has_citizenship_rights = yes
-						has_migration_control = { type = no }
-					}
-					random = {
-						chance = 75
-						resettle_pop = {
-							pop = this
-							planet = event_target:new_homeland.capital_scope
-						}
-					}
-				}
-			}
-
-			every_galaxy_pop = {
-				limit = {
-					OR = {
-						has_pop_flag = citizen_of_@prev
-						has_pop_flag = resident_of_@prev
-						has_pop_flag = slave_of_@prev
-						has_pop_flag = bio_trophy_of_@prev
-						has_pop_flag = purgee_of_@prev
-					}
-				}
-				if = {
-					limit = { has_pop_flag = citizen_of_@prev }
-					remove_pop_flag = citizen_of_@prev
-					set_pop_flag = citizen_of_@event_target:new_homeland
-				}
-				else_if = {
-					limit = { has_pop_flag = resident_of_@prev }
-					remove_pop_flag = resident_of_@prev
-					set_pop_flag = resident_of_@event_target:new_homeland
-				}
-				else_if = {
-					limit = { has_pop_flag = slave_of_@prev }
-					remove_pop_flag = slave_of_@prev
-					set_pop_flag = slave_of_@event_target:new_homeland
-				}
-				else_if = {
-					limit = { has_pop_flag = bio_trophy_of_@prev }
-					remove_pop_flag = bio_trophy_of_@prev
-					set_pop_flag = bio_trophy_of_@event_target:new_homeland
-				}
-				else_if = {
-					limit = { has_pop_flag = purgee_of_@prev }
-					remove_pop_flag = purgee_of_@prev
-					set_pop_flag = purgee_of_@event_target:new_homeland
-				}			
-			}
-
 			every_galaxy_planet = {
 				limit = {
 					OR = {
@@ -889,6 +854,16 @@ country_event = { # Gov In Exile restoration, on status quo
 						has_planet_flag = integrated_planet_@prev
 						has_planet_flag = fundamental_planet_@prev
 						has_planet_flag = capital_planet_@prev
+						any_owned_pop_group = {
+							OR = {
+								has_pop_group_flag = citizen_of_@prev
+								has_pop_group_flag = resident_of_@prev
+								has_pop_group_flag = slave_of_@prev
+								has_pop_group_flag = bio_trophy_of_@prev
+								has_pop_group_flag = purgee_of_@prev
+								has_pop_group_flag = sep_pop_nat_@prev
+							}
+						}
 					}
 				}
 				if = {
@@ -910,6 +885,64 @@ country_event = { # Gov In Exile restoration, on status quo
 					limit = { has_planet_flag = capital_planet_@prev }
 					remove_planet_flag = capital_planet_@prev
 					set_planet_flag = capital_planet_@event_target:new_homeland
+				}
+
+				every_owned_pop_group = {
+					limit = { has_pop_group_flag = sep_pop_nat_@prev }
+					remove_pop_group_flag = sep_pop_nat_@prev
+					set_pop_group_flag = sep_pop_nat_@event_target:new_homeland
+					add_modifier = { modifier = "restoration_of_motherland" years = 15 }
+					if = {
+						limit = {
+							has_citizenship_rights = yes
+							has_migration_control = { type = no }
+						}
+						random = {
+							chance = 75
+							resettle_pop_group = {
+								POP_GROUP = this
+								PLANET = event_target:new_homeland.capital_scope
+								AMOUNT = 100
+							}
+						}
+					}
+				}
+	
+				every_owned_pop_group = {
+					limit = {
+						OR = {
+							has_pop_group_flag = citizen_of_@prev
+							has_pop_group_flag = resident_of_@prev
+							has_pop_group_flag = slave_of_@prev
+							has_pop_group_flag = bio_trophy_of_@prev
+							has_pop_group_flag = purgee_of_@prev
+						}
+					}
+					if = {
+						limit = { has_pop_group_flag = citizen_of_@prev }
+						remove_pop_group_flag = citizen_of_@prev
+						set_pop_group_flag = citizen_of_@event_target:new_homeland
+					}
+					else_if = {
+						limit = { has_pop_group_flag = resident_of_@prev }
+						remove_pop_group_flag = resident_of_@prev
+						set_pop_group_flag = resident_of_@event_target:new_homeland
+					}
+					else_if = {
+						limit = { has_pop_group_flag = slave_of_@prev }
+						remove_pop_group_flag = slave_of_@prev
+						set_pop_group_flag = slave_of_@event_target:new_homeland
+					}
+					else_if = {
+						limit = { has_pop_group_flag = bio_trophy_of_@prev }
+						remove_pop_group_flag = bio_trophy_of_@prev
+						set_pop_group_flag = bio_trophy_of_@event_target:new_homeland
+					}
+					else_if = {
+						limit = { has_pop_group_flag = purgee_of_@prev }
+						remove_pop_group_flag = purgee_of_@prev
+						set_pop_group_flag = purgee_of_@event_target:new_homeland
+					}			
 				}
 			}
 
@@ -940,8 +973,8 @@ country_event = { # Gov In Exile restoration, on status quo
 						}
 					}
 					solar_system.space_owner = {
-						save_global_event_target_as = exile_host
-						country_event = { id = civnat.9210 }
+						save_event_target_as = exile_host
+						# country_event = { id = civnat.9210 } ## TODO
 					}
 				}
 				every_playable_country = {
@@ -1023,13 +1056,13 @@ country_event = { # Gov In Give Resources
 
 	immediate = {
 		add_resource = {
-			energy = 50
-			minerals = 30
-			food = 30
-			consumer_goods = 20
-			alloys = 20
-			influence = 2
-			mult = trigger:num_pops
+			energy = 5
+			minerals = 3
+			food = 3
+			consumer_goods = 2
+			alloys = 2
+			influence = 0.2
+			mult = trigger:pop_amount
 		}
 
 		add_500_unity_per_year_passed = yes
@@ -1624,49 +1657,49 @@ country_event = { # Set and Remove Citizenship flags for species
 	trigger = {
 		NOT = { has_country_flag = civstrife_nat_timer }
 		
-		any_owned_pop = {
+		any_owned_pop_group = {
 			NOT = { has_modifier = pop_recently_conquered }
 			planet = { NOT = { has_modifier = planet_culture_shock } }
 			OR = {
 				AND = {
 					has_citizenship_type = { type = citizenship_full country = root }
-					NOT = { has_pop_flag = citizen_of_@root }
+					NOT = { has_pop_group_flag = citizen_of_@root }
 				}
 				AND = {
 					NOT = { has_citizenship_type = { type = citizenship_full country = root } }
-					has_pop_flag = citizen_of_@root
+					has_pop_group_flag = citizen_of_@root
 				}
 				AND = {
 					has_citizenship_type = { type = citizenship_limited country = root }
-					NOT = { has_pop_flag = resident_of_@root }
+					NOT = { has_pop_group_flag = resident_of_@root }
 				}
 				AND = {
 					NOT = { has_citizenship_type = { type = citizenship_limited country = root } }
-					has_pop_flag = resident_of_@root
+					has_pop_group_flag = resident_of_@root
 				}
 				AND = {
 					has_citizenship_type = { type = citizenship_slavery country = root }
-					NOT = { has_pop_flag = slave_of_@root }
+					NOT = { has_pop_group_flag = slave_of_@root }
 				}
 				AND = {
 					NOT = { has_citizenship_type = { type = citizenship_slavery country = root } }
-					has_pop_flag = slave_of_@root
+					has_pop_group_flag = slave_of_@root
 				}
 				AND = {
 					has_citizenship_type = { type = citizenship_organic_trophy country = root }
-					NOT = { has_pop_flag = bio_trophy_of_@root }
+					NOT = { has_pop_group_flag = bio_trophy_of_@root }
 				}
 				AND = {
 					NOT = { has_citizenship_type = { type = citizenship_organic_trophy country = root } }
-					has_pop_flag = bio_trophy_of_@root
+					has_pop_group_flag = bio_trophy_of_@root
 				}
 				AND = {
 					has_citizenship_type = { type = citizenship_purge country = root }
-					NOT = { has_pop_flag = purgee_of_@root }
+					NOT = { has_pop_group_flag = purgee_of_@root }
 				}
 				AND = {
 					NOT = { has_citizenship_type = { type = citizenship_purge country = root } }
-					has_pop_flag = purgee_of_@root
+					has_pop_group_flag = purgee_of_@root
 				}
 			}
 		}
@@ -1676,176 +1709,176 @@ country_event = { # Set and Remove Citizenship flags for species
 
 		if = {
 			limit = {
-				any_owned_pop = {
+				any_owned_pop_group = {
 					NOT = { has_modifier = pop_recently_conquered }
 					planet = { NOT = { has_modifier = planet_culture_shock } }
 					has_citizenship_type = { type = citizenship_full }
-					NOT = { has_pop_flag = citizen_of_@root }
+					NOT = { has_pop_group_flag = citizen_of_@root }
 				}
 			}
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
 					NOT = { has_modifier = pop_recently_conquered }
 					planet = { NOT = { has_modifier = planet_culture_shock } }
-					NOT = { has_pop_flag = citizen_of_@root }
+					NOT = { has_pop_group_flag = citizen_of_@root }
 					has_citizenship_type = { type = citizenship_full }
 				}
-				set_pop_flag = citizen_of_@root
+				set_pop_group_flag = citizen_of_@root
 			}
 		}
 		if = {
 			limit = {
-				any_owned_pop = {
+				any_owned_pop_group = {
 					NOT = { has_citizenship_type = { type = citizenship_full } }
-					has_pop_flag = citizen_of_@root
+					has_pop_group_flag = citizen_of_@root
 				}
 			}
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
 					NOT = { has_citizenship_type = { type = citizenship_full } }
-					has_pop_flag = citizen_of_@root
+					has_pop_group_flag = citizen_of_@root
 				}
-				remove_pop_flag = citizen_of_@root
+				remove_pop_group_flag = citizen_of_@root
 			}
 		}
 
 		if = {
 			limit = {
-				any_owned_pop = {
+				any_owned_pop_group = {
 					NOT = { has_modifier = pop_recently_conquered }
 					planet = { NOT = { has_modifier = planet_culture_shock } }
 					has_citizenship_type = { type = citizenship_limited }
-					NOT = { has_pop_flag = resident_of_@root }
+					NOT = { has_pop_group_flag = resident_of_@root }
 				}
 			}
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
 					NOT = { has_modifier = pop_recently_conquered }
 					planet = { NOT = { has_modifier = planet_culture_shock } }
 					has_citizenship_type = { type = citizenship_limited }
-					NOT = { has_pop_flag = resident_of_@root }
+					NOT = { has_pop_group_flag = resident_of_@root }
 				}
-				set_pop_flag = resident_of_@root
+				set_pop_group_flag = resident_of_@root
 			}
 		}
 		if = {
 			limit = {
-				any_owned_pop = {
+				any_owned_pop_group = {
 					NOT = { has_citizenship_type = { type = citizenship_limited } }
-					has_pop_flag = resident_of_@root
+					has_pop_group_flag = resident_of_@root
 				}
 			}
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
 					NOT = { has_citizenship_type = { type = citizenship_limited } }
-					has_pop_flag = resident_of_@root
+					has_pop_group_flag = resident_of_@root
 				}
-				remove_pop_flag = resident_of_@root
+				remove_pop_group_flag = resident_of_@root
 			}
 		}
 
 		if = {
 			limit = {
-				any_owned_pop = {
+				any_owned_pop_group = {
 					NOT = { has_modifier = pop_recently_conquered }
 					planet = { NOT = { has_modifier = planet_culture_shock } }
 					has_citizenship_type = { type = citizenship_slavery }
-					NOT = { has_pop_flag = slave_of_@root }
+					NOT = { has_pop_group_flag = slave_of_@root }
 				}
 			}
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
 					NOT = { has_modifier = pop_recently_conquered }
 					planet = { NOT = { has_modifier = planet_culture_shock } }
 					has_citizenship_type = { type = citizenship_slavery }
-					NOT = { has_pop_flag = slave_of_@root }
+					NOT = { has_pop_group_flag = slave_of_@root }
 				}
-				set_pop_flag = slave_of_@root
+				set_pop_group_flag = slave_of_@root
 			}
 		}
 		if = {
 			limit = {
-				any_owned_pop = {
+				any_owned_pop_group = {
 					NOT = { has_citizenship_type = { type = citizenship_slavery } }
-					has_pop_flag = slave_of_@root
+					has_pop_group_flag = slave_of_@root
 				}
 			}
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
 					NOT = { has_citizenship_type = { type = citizenship_slavery } }
-					has_pop_flag = slave_of_@root
+					has_pop_group_flag = slave_of_@root
 				}
-				remove_pop_flag = slave_of_@root
+				remove_pop_group_flag = slave_of_@root
 			}
 		}
 
 		if = {
 			limit = {
-				any_owned_pop = {
+				any_owned_pop_group = {
 					NOT = { has_modifier = pop_recently_conquered }
 					planet = { NOT = { has_modifier = planet_culture_shock } }
 					has_citizenship_type = { type = citizenship_organic_trophy }
-					NOT = { has_pop_flag = bio_trophy_of_@root }
+					NOT = { has_pop_group_flag = bio_trophy_of_@root }
 				}
 			}
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
 					NOT = { has_modifier = pop_recently_conquered }
 					planet = { NOT = { has_modifier = planet_culture_shock } }
 					has_citizenship_type = { type = citizenship_organic_trophy }
-					NOT = { has_pop_flag = bio_trophy_of_@root }
+					NOT = { has_pop_group_flag = bio_trophy_of_@root }
 				}
-				set_pop_flag = bio_trophy_of_@root
+				set_pop_group_flag = bio_trophy_of_@root
 			}
 		}
 		if = {
 			limit = {
-				any_owned_pop = {
+				any_owned_pop_group = {
 					NOT = { has_citizenship_type = { type = citizenship_organic_trophy } }
-					has_pop_flag = bio_trophy_of_@root
+					has_pop_group_flag = bio_trophy_of_@root
 				}
 			}
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
 					NOT = { has_citizenship_type = { type = citizenship_organic_trophy } }
-					has_pop_flag = bio_trophy_of_@root
+					has_pop_group_flag = bio_trophy_of_@root
 				}
-				remove_pop_flag = bio_trophy_of_@root
+				remove_pop_group_flag = bio_trophy_of_@root
 			}
 		}
 
 		if = {
 			limit = {
-				any_owned_pop = {
+				any_owned_pop_group = {
 					NOT = { has_modifier = pop_recently_conquered }
 					planet = { NOT = { has_modifier = planet_culture_shock } }
 					has_citizenship_type = { type = citizenship_purge }
-					NOT = { has_pop_flag = purgee_of_@root }
+					NOT = { has_pop_group_flag = purgee_of_@root }
 				}
 			}
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
 					NOT = { has_modifier = pop_recently_conquered }
 					planet = { NOT = { has_modifier = planet_culture_shock } }
 					has_citizenship_type = { type = citizenship_purge }
-					NOT = { has_pop_flag = purgee_of_@root }
+					NOT = { has_pop_group_flag = purgee_of_@root }
 				}
-				set_pop_flag = purgee_of_@root
+				set_pop_group_flag = purgee_of_@root
 			}
 		}
 		if = {
 			limit = {
-				any_owned_pop = {
+				any_owned_pop_group = {
 					NOT = { has_citizenship_type = { type = citizenship_purge } }
-					has_pop_flag = purgee_of_@root
+					has_pop_group_flag = purgee_of_@root
 				}
 			}
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
 					NOT = { has_citizenship_type = { type = citizenship_purge } }
-					has_pop_flag = purgee_of_@root
+					has_pop_group_flag = purgee_of_@root
 				}
-				remove_pop_flag = purgee_of_@root
+				remove_pop_group_flag = purgee_of_@root
 			}
 		}
 		
@@ -1990,20 +2023,20 @@ country_event = { # Spread Nationalism Initial Trigger
 			NOT = { is_same_value = root }
 			is_country_type_with_subjects = yes
 			any_owned_planet = {
-				num_pops >= 3
-				any_owned_pop = {
-					has_pop_flag = sep_pop_nat_@root
+				pop_amount >= 300
+				any_owned_pop_group = {
+					has_pop_group_flag = sep_pop_nat_@root
 					happiness < 75
 					planet = {
-						any_owned_pop = {
-							NOT = { has_pop_flag = sep_pop_nat_@root }
+						any_owned_pop_group = {
+							NOT = { has_pop_group_flag = sep_pop_nat_@root }
 							pop_was_saved = no
 							happiness <= 60
 							OR = {
 								is_same_species = prevprev.species 	# Nats can be made from species who were citizens, not just former citizens
 								is_same_species = root.species
-								has_pop_flag = citizen_of_@root
-								has_pop_flag = resident_of_@root
+								has_pop_group_flag = citizen_of_@root
+								has_pop_group_flag = resident_of_@root
 							}
 						}
 					}
@@ -2021,20 +2054,20 @@ country_event = { # Spread Nationalism Initial Trigger
 				NOT = { is_same_value = root }
 				is_country_type_with_subjects = yes
 				any_owned_planet = {
-					num_pops >= 3
-					any_owned_pop = {
-						has_pop_flag = sep_pop_nat_@event_target:nat_motherland
+					pop_amount >= 300
+					any_owned_pop_group = {
+						has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland
 						happiness < 75
 						planet = {
-							any_owned_pop = {
+							any_owned_pop_group = {
 								happiness <= 60
 								pop_was_saved = no
-								NOT = { has_pop_flag = sep_pop_nat_@event_target:nat_motherland }
+								NOT = { has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland }
 								OR = {
 									is_same_species = prevprev.species
 									is_same_species = event_target:nat_motherland.species
-									has_pop_flag = citizen_of_@event_target:nat_motherland
-									has_pop_flag = resident_of_@event_target:nat_motherland
+									has_pop_group_flag = citizen_of_@event_target:nat_motherland
+									has_pop_group_flag = resident_of_@event_target:nat_motherland
 								}
 							}
 						}
@@ -2044,20 +2077,20 @@ country_event = { # Spread Nationalism Initial Trigger
 
 			every_owned_planet = {
 				limit = {
-					num_pops >= 3
-					any_owned_pop = {
-						has_pop_flag = sep_pop_nat_@event_target:nat_motherland
+					pop_amount >= 300
+					any_owned_pop_group = {
+						has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland
 						happiness < 75
 						planet = {
-							any_owned_pop = {
+							any_owned_pop_group = {
 								happiness <= 60
 								pop_was_saved = no
-								NOT = { has_pop_flag = sep_pop_nat_@event_target:nat_motherland }
+								NOT = { has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland }
 								OR = {
 									is_same_species = prevprev.species
 									is_same_species = event_target:nat_motherland.species
-									has_pop_flag = citizen_of_@event_target:nat_motherland
-									has_pop_flag = resident_of_@event_target:nat_motherland
+									has_pop_group_flag = citizen_of_@event_target:nat_motherland
+									has_pop_group_flag = resident_of_@event_target:nat_motherland
 								}
 							}
 						}
@@ -2077,19 +2110,19 @@ planet_event = { # Spread Nationalism Event
 	is_triggered_only = yes
 
 	trigger = {
-		any_owned_pop = {
-			has_pop_flag = sep_pop_nat_@event_target:nat_motherland
+		any_owned_pop_group = {
+			has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland
 			happiness < 65
 			planet = {
-				any_owned_pop = {
+				any_owned_pop_group = {
 					happiness <= 60
 					pop_was_saved = no
-					NOT = { has_pop_flag = sep_pop_nat_@event_target:nat_motherland }
+					NOT = { has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland }
 					OR = {
 						is_same_species = prevprev.species
 						is_same_species = event_target:nat_motherland.species
-						has_pop_flag = citizen_of_@event_target:nat_motherland
-						has_pop_flag = resident_of_@event_target:nat_motherland
+						has_pop_group_flag = citizen_of_@event_target:nat_motherland
+						has_pop_group_flag = resident_of_@event_target:nat_motherland
 					}
 				}
 			}
@@ -2101,9 +2134,9 @@ planet_event = { # Spread Nationalism Event
 
 		set_variable = { which = nat_pop_converts value = 0 }
 
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = {
-				has_pop_flag = sep_pop_nat_@event_target:nat_motherland
+				has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland
 				happiness < 65
 			}
 			if = {
@@ -2137,30 +2170,30 @@ planet_event = { # Spread Nationalism Event
 
 		while = {
 			count = nat_pop_converts
-			random_owned_pop = {
+			random_owned_pop_group = {
 				limit = {
-					has_pop_flag = sep_pop_nat_@event_target:nat_motherland
+					has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland
 					happiness < 75
 				}
 				planet = {
-					ordered_owned_pop = {
+					ordered_owned_pop_group = {
 						limit = {
 							happiness <= 60
 							pop_was_saved = no
-							NOT = { has_pop_flag = sep_pop_nat_@event_target:nat_motherland }
+							NOT = { has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland }
 							OR = {
 								is_same_species = prevprev.species
 								is_same_species = event_target:nat_motherland.species
-								has_pop_flag = citizen_of_@event_target:nat_motherland
-								has_pop_flag = resident_of_@event_target:nat_motherland
+								has_pop_group_flag = citizen_of_@event_target:nat_motherland
+								has_pop_group_flag = resident_of_@event_target:nat_motherland
 							}
 						}
 						position = 0
 						order_by = trigger:happiness
 						inverse = yes
-						set_pop_flag = sep_pop
-						set_pop_flag = sep_pop_nat
-						set_pop_flag = sep_pop_nat_@event_target:nat_motherland
+						set_pop_group_flag = sep_pop
+						set_pop_group_flag = sep_pop_nat
+						set_pop_group_flag = sep_pop_nat_@event_target:nat_motherland
 					}
 				}
 			}
@@ -2176,47 +2209,47 @@ country_event = { # Remove Nationalism Initial Trigger
 	is_triggered_only = yes
 
 	trigger = {
-		any_owned_pop = { has_pop_flag = sep_pop_nat }
+		any_owned_pop_group = { has_pop_group_flag = sep_pop_nat }
 	}
 	
 
 	immediate = {
 
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = {
-				has_pop_flag = sep_pop_nat
+				has_pop_group_flag = sep_pop_nat
 				happiness >= 60
 				is_enslaved = no
 				is_being_purged = no
 			}
 			random = {
 				chance = 80
-				pop_event = { id = civnat.3030 days = 1 random = 359 }
+				pop_group_event = { id = civnat.3030 days = 1 random = 359 }
 			}
 		}
 
-		every_owned_pop = {
-			limit = { has_pop_flag = sep_pop_nat }
+		every_owned_pop_group = {
+			limit = { has_pop_group_flag = sep_pop_nat }
 			random = {
 				chance = 2
-				pop_event = { id = civnat.3030 days = 1 random = 359 }
+				pop_group_event = { id = civnat.3030 days = 1 random = 359 }
 			}
 		}
 	}
 }
 
-pop_event = { # Remove Nationalism Event
+pop_group_event = { # Remove Nationalism Event
 	id = civnat.3030
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
-		has_pop_flag = sep_pop_nat
+		has_pop_group_flag = sep_pop_nat
 	}
 	
 
 	immediate = {
-		remove_pop_flag = sep_pop_nat
+		remove_pop_group_flag = sep_pop_nat
 	}
 }
 
@@ -2230,9 +2263,9 @@ country_event = { # Destroy Government-In-Exile when no nats exist
 		NOT = {
 			any_country = {
 				is_country_type_with_subjects = yes
-				any_owned_pop = {
+				any_owned_pop_group = {
 					can_think = yes
-					has_pop_flag = sep_pop_nat_@root
+					has_pop_group_flag = sep_pop_nat_@root
 				}
 			}
 		}
@@ -2242,10 +2275,7 @@ country_event = { # Destroy Government-In-Exile when no nats exist
 	immediate = {
 		save_event_target_as = nat_gone
 
-		if = {
-			limit = { is_country_type = enclave_exiled_gov }
-			random_owned_fleet = { delete_fleet = this }
-		}
+		log = "| No Nats left for [this.GetName]"
 
 		every_playable_country = {
 			limit = { has_communications = event_target:nat_gone }
@@ -2255,7 +2285,7 @@ country_event = { # Destroy Government-In-Exile when no nats exist
 			observer_event = { id = civnat.8001 days = 2 random = 14 }
 		}
 
-		country_event = { id = civnat.3110 days = 90 }		
+		country_event = { id = civnat.3110 days = 90 }
 	}
 }
 
@@ -2269,9 +2299,9 @@ country_event = { # Destroy Government-In-Exile Actual
 		NOT = {
 			any_country = {
 				is_country_type_with_subjects = yes
-				any_owned_pop = {
+				any_owned_pop_group = {
 					can_think = yes
-					has_pop_flag = sep_pop_nat_@root
+					has_pop_group_flag = sep_pop_nat_@root
 				}
 			}
 		}
@@ -2280,6 +2310,12 @@ country_event = { # Destroy Government-In-Exile Actual
 
 	immediate = {
 		set_country_flag = truly_dead_country
+
+		if = {
+			limit = { is_country_type = enclave_exiled_gov }
+			random_owned_fleet = { delete_fleet = this }
+		}
+		
 		if = {
 			limit = { has_secession_country_flag = yes }
 			find_secession_number_flag = yes
@@ -2308,9 +2344,11 @@ country_event = { # Check disapproving Factions every month Initializer
 				has_pop_faction_flag = nat_faction_@root
 				faction_approval < 0.20
 				NOT = { has_pop_faction_flag = faction_sep_situation }
-				count_owned_pop = { count >= 5 }
+				count_owned_pop_amount = { count >= 500 }
 			}
 		}
+		under_one_rule_check = yes
+		civwar_valid_trigger = yes
 	}
 
 	immediate = {
@@ -2322,7 +2360,7 @@ country_event = { # Check disapproving Factions every month Initializer
 					has_pop_faction_flag = nat_faction_@root
 					faction_approval < 0.20
 					NOT = { has_pop_faction_flag = faction_sep_situation }
-					count_owned_pop = { count >= 5 }
+					count_owned_pop_amount = { count >= 500 }
 				}
 			}
 			country_event = { id = civnat.4010 days = 1 random = 359 }
@@ -2342,7 +2380,7 @@ country_event = { # Check disapproving Factions every month Event
 			has_pop_faction_flag = nat_faction_@from
 			faction_approval < 0.20
 			NOT = { has_pop_faction_flag = faction_sep_situation }
-			count_owned_pop = { count >= 5 }
+			count_owned_pop_amount = { count >= 500 }
 		}
 	}
 
@@ -2353,7 +2391,7 @@ country_event = { # Check disapproving Factions every month Event
 				has_pop_faction_flag = nat_faction_@from
 				faction_approval < 0.20
 				NOT = { has_pop_faction_flag = faction_sep_situation }
-				count_owned_pop = { count >= 5 }
+				count_owned_pop_amount = { count >= 500 }
 			}
 			set_pop_faction_flag = faction_sep_situation
 			owner = {
@@ -2554,7 +2592,6 @@ country_event = { # Exiled country has been restored, host granted land, general
 
 	option = {
 		name = INTERESTING
-		ai_chance = { factor = 1 }
 	}
 }
 

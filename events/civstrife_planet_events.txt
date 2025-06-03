@@ -24,7 +24,10 @@ country_event = {
 	trigger = {
 		from = {
 			is_country_type = rebel
-			has_civstrife_origin = yes
+			OR = {
+				has_origin = origin_legendary_leader_death
+				has_civstrife_origin = yes
+			}
 		}
 	}
 
@@ -35,6 +38,20 @@ country_event = {
 		FromFrom = {
 			set_owner = root.from
 			solar_system.starbase = { set_owner = root.from }
+		}
+
+		if = {
+			limit = { from = { has_origin = origin_legendary_leader_death } }
+			## Before fleets get swapped
+			export_trigger_value_to_variable = { trigger = used_naval_capacity_percent variable = mother_navy_size }
+			multiply_variable = { which = mother_navy_size value = 0.85 }
+
+			create_fleet_from_naval_cap = mother_navy_size
+			last_created_fleet = {
+				set_owner = root.from
+				set_location = root.from.capital_scope
+			}
+			clear_variable = mother_navy_size
 		}
 
 		from = { country_event = { id = civwar.1100 } }
@@ -96,7 +113,7 @@ country_event = {
 			random_owned_leader = {
 				limit = { has_leader_flag = dummy_party_leader_@FromFrom }
 				save_event_target_as = civwar_party_name_leader
-				leader_event = { id = civleader.1000 days = 90 }
+				leader_event = { id = civ_misc_leader.1000 days = 90 }
 			}
 		}
 
@@ -110,10 +127,13 @@ country_event = {
 		else_if = {
 			limit = {
 				event_target:civwar_rebels = { NOT = { has_country_flag = nat_civwar } }
-				FromFrom = {
-					OR = {
-						has_planet_flag = balkan_war
-						has_planet_flag = small_civil_war
+				OR = {
+					from = { has_origin = origin_legendary_leader_death }
+					FromFrom = {
+						OR = {
+							has_planet_flag = balkan_war
+							has_planet_flag = small_civil_war
+						}
 					}
 				}
 			}
@@ -126,6 +146,10 @@ country_event = {
 			else_if = {
 				limit = { FromFrom = { has_planet_flag = balkan_war } }
 				FromFrom = { remove_planet_flag = balkan_war }
+				country_event = { id = civcom.1000 }
+			}
+			else_if = {
+				limit = { from = { has_origin = origin_legendary_leader_death } }
 				country_event = { id = civcom.1000 }
 			}
 		}
@@ -301,19 +325,12 @@ planet_event = {
 					has_planet_flag = nat_planet_rebellion_@this
 					has_planet_flag = ethic_planet_rebellion_@this
 				}
+				NOT = { has_planet_flag = under_one_rule_small_civil_war }
 			}
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
-					OR = {
-						AND = {
-							has_pop_flag = sep_pop
-							planet = { has_planet_flag = sep_planet_rebellion }
-						}
-						AND = {
-							exists = pop_faction
-							pop_faction = { is_same_value = event_target:civwar_party }
-						}
-					}
+					exists = pop_faction
+					pop_faction = { is_same_value = event_target:civwar_party }
 				}
 				root = { change_variable = { which = num_sep_pops value = 1 } }
 			}
@@ -328,7 +345,7 @@ planet_event = {
 			}
 			sector = {
 				every_owned_planet = {
-					every_owned_pop = {
+					every_owned_pop_group = {
 						limit = {
 							exists = pop_faction
 							pop_faction = { is_same_value = event_target:civwar_party }
@@ -340,7 +357,7 @@ planet_event = {
 		}
 		else_if = {
 			limit = { has_planet_flag = heir_planetary_rebellion }
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = { can_think = yes }
 				random = {
 					chance = 35
@@ -350,7 +367,7 @@ planet_event = {
 		}
 		else_if = {
 			limit = { has_planet_flag = plan_slave_revolt }
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
 					is_enslaved_or_purged = yes
 					happiness < 60
@@ -362,7 +379,7 @@ planet_event = {
 			limit = { has_planet_flag = sec_slave_revolt }
 			sector = {
 				every_owned_planet = {
-					every_owned_pop = {
+					every_owned_pop_group = {
 						limit = {
 							is_enslaved_or_purged = yes
 							happiness < 60
@@ -373,8 +390,11 @@ planet_event = {
 			}
 		}
 		else_if = {
-			limit = { has_planet_flag = civstrife_debug_rebels }
-			root = { change_variable = { which = num_sep_pops value = 10 } }
+			limit = { has_planet_flag = under_one_rule_small_civil_war }
+			every_owned_pop_group = {
+				limit = { is_egalitarian = yes }
+				root = { change_variable = { which = num_sep_pops value = 5 } }	
+			}
 		}
 
 		while = {
@@ -446,7 +466,7 @@ country_event = {
 
 	trigger = {
 		any_owned_planet = {
-			num_pops >= 1
+			pop_amount >= 100
 			NOT = { exists = sector }
 			NOT = { has_modifier = planet_no_sector }
 		}

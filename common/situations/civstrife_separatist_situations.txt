@@ -10,8 +10,8 @@ situation_civstrife_sep_plan = {
 	on_start = {
 		target = {
 			set_variable = { which = gen_sep_upkeep value = 0 }
-			every_owned_pop = {
-				limit = { has_pop_flag = sep_pop }
+			every_owned_pop_group = {
+				limit = { has_pop_group_flag = sep_pop }
 				prev = { change_variable = { which = gen_sep_upkeep value = 1 } }
 			}
 		}
@@ -42,8 +42,8 @@ situation_civstrife_sep_plan = {
 			NOT = { exists = target }
 			target = { is_capital = yes }
 			target = { has_ground_combat = yes }
-			target = { count_owned_pop = { count < 5 } }
-			target = { count_owned_pop = { limit = { has_pop_flag = sep_pop } count = 0 } }
+			target = { count_owned_pop_amount = { count < 500 } }
+			target = { count_owned_pop_amount = { limit = { has_pop_group_flag = sep_pop } count = 0 } }
 			target = { has_planet_flag = rebellion_suppressed }
 			target = { has_planet_flag = situation_abort_flag }
 			AND = {
@@ -198,7 +198,7 @@ situation_civstrife_faction_sep_sec = {
 	on_start = {
 		target = {
 			set_variable = { which = gen_sep_upkeep value = 0 }
-			every_owned_pop = {
+			every_owned_pop_group = {
 				prev = { change_variable = { which = gen_sep_upkeep value = 1 } }
 			}
 		}
@@ -237,14 +237,14 @@ situation_civstrife_faction_sep_sec = {
 		OR = {
 			situation_progress < 0
 			NOT = { exists = target }
-			target = { count_owned_pop = { count < 5 } }
+			target = { count_owned_pop_amount = { count < 500 } }
 			target = { has_pop_faction_flag = faction_rebelled }
-			target = { any_owned_pop = { planet = { is_capital = yes } } }
-			target = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
+			target = { any_owned_pop_group = { planet = { is_capital = yes } } }
+			target = { any_owned_pop_group = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
 			#target = {
-			#	any_owned_pop = {
+			#	any_owned_pop_group = {
 			#		sector = {
-			#			pop_percentage = {
+			#			pop_amount_percentage = {
 			#				percentage >= 0.5
 			#				limit = {
 			#					exists = pop_faction
@@ -360,7 +360,7 @@ situation_civstrife_faction_sep_sec = {
 			desc = radicalisation_occurring
 			add = 3
 			situation_progress < 90
-			NOT = { target = { any_owned_pop = { sector = { combined_sector_calm_tick_check = yes } } } }
+			NOT = { target = { any_owned_pop_group = { sector = { combined_sector_calm_tick_check = yes } } } }
 		}
 
 		modifier = {
@@ -381,7 +381,7 @@ situation_civstrife_faction_sep_sec = {
 			desc = faction_derad
 			add = -1
 			situation_progress > 10
-			target = { any_owned_pop = { sector = { combined_sector_calm_tick_check = yes } } }
+			target = { any_owned_pop_group = { sector = { combined_sector_calm_tick_check = yes } } }
 		}
 	}
 }
@@ -397,7 +397,7 @@ situation_civstrife_faction_iso_sep_sec = {
 	on_start = {
 		target = {
 			set_variable = { which = gen_sep_upkeep value = 0 }
-			every_owned_pop = {
+			every_owned_pop_group = {
 				prev = { change_variable = { which = gen_sep_upkeep value = 1 } }
 			}
 		}
@@ -428,9 +428,9 @@ situation_civstrife_faction_iso_sep_sec = {
 			has_crisis = yes
 			situation_progress < 0
 			NOT = { exists = target }
-			target = { count_owned_pop = { count < 5 } }
-			target = { any_owned_pop = { sector = { any_owned_planet = { is_capital = yes } } } }
-			target = { any_owned_pop = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
+			target = { count_owned_pop_amount = { count < 500 } }
+			target = { any_owned_pop_group = { sector = { any_owned_planet = { is_capital = yes } } } }
+			target = { any_owned_pop_group = { sector.sector_capital = { has_planet_flag = rebellion_suppressed } } }
 		}
 	}
 
@@ -567,7 +567,7 @@ situation_civstrife_faction_sep_nat = {
 		}
 		target = {
 			set_variable = { which = nat_sep_upkeep value = 0 }
-			every_owned_pop = {
+			every_owned_pop_group = {
 				prev = { change_variable = { which = nat_sep_upkeep value = 1 } }
 			}
 		}
@@ -605,7 +605,7 @@ situation_civstrife_faction_sep_nat = {
 		OR = {
 			situation_progress < 0
 			NOT = { exists = target }
-			target = { count_owned_pop = { count < 5 } }
+			target = { count_owned_pop_amount = { count < 500 } }
 			target.owner = { num_owned_planets = 1 }
 			target = { has_pop_faction_flag = faction_rebelled }
 		}
@@ -757,7 +757,7 @@ situation_civstrife_sep_slaves_plan = {
 	on_start = {
 		target = {
 			set_variable = { which = slave_sep_upkeep value = 0 }
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
 					is_enslaved_or_purged = yes
 					happiness < 60
@@ -814,7 +814,7 @@ situation_civstrife_sep_slaves_plan = {
 				AND = {
 					target = {
 						has_planet_flag = frontier_planet_@root.owner
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage <= 0.15
 							limit = {
 								is_enslaved_or_purged = yes
@@ -827,7 +827,7 @@ situation_civstrife_sep_slaves_plan = {
 				AND = {
 					target = {
 						has_planet_flag = integrated_planet_@root.owner
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage <= 0.2
 							limit = {
 								is_enslaved_or_purged = yes
@@ -840,7 +840,7 @@ situation_civstrife_sep_slaves_plan = {
 				AND = {
 					target = {
 						has_planet_flag = fundamental_planet_@root.owner
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage <= 0.25
 							limit = {
 								is_enslaved_or_purged = yes
@@ -958,7 +958,7 @@ situation_civstrife_sep_slaves_plan = {
 			situation_progress < 90
 			target = {
 				has_current_purge = yes
-				any_owned_pop = {
+				any_owned_pop_group = {
 					is_being_purged = yes
 					NOT = { has_purge_type = { type = purge_neutering } }
 				}
@@ -996,7 +996,7 @@ situation_civstrife_sep_slaves_sec = {
 		target = {
 			set_variable = { which = slave_sep_upkeep value = 0 }
 			every_owned_planet = {
-				every_owned_pop = {
+				every_owned_pop_group = {
 					limit = {
 						is_enslaved_or_purged = yes
 						happiness < 60
@@ -1042,7 +1042,7 @@ situation_civstrife_sep_slaves_sec = {
 			target = {
 				NOT = {
 					any_owned_planet = {
-						any_owned_pop = { is_enslaved_or_purged = yes }
+						any_owned_pop_group = { is_enslaved_or_purged = yes }
 						planet_stability < 60
 					}
 				}
@@ -1051,7 +1051,7 @@ situation_civstrife_sep_slaves_sec = {
 				AND = {
 					target = {
 						has_sector_flag = frontier_sector_@root.owner
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage <= 0.15
 							limit = {
 								is_enslaved_or_purged = yes
@@ -1064,7 +1064,7 @@ situation_civstrife_sep_slaves_sec = {
 				AND = {
 					target = {
 						has_sector_flag = integrated_sector_@root.owner
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage <= 0.2
 							limit = {
 								is_enslaved_or_purged = yes
@@ -1077,7 +1077,7 @@ situation_civstrife_sep_slaves_sec = {
 				AND = {
 					target = {
 						has_sector_flag = fundamental_sector_@root.owner
-						pop_percentage = {
+						pop_amount_percentage = {
 							percentage <= 0.25
 							limit = {
 								is_enslaved_or_purged = yes
@@ -1196,7 +1196,7 @@ situation_civstrife_sep_slaves_sec = {
 			target = {
 				any_owned_planet = {
 					has_current_purge = yes
-					any_owned_pop = {
+					any_owned_pop_group = {
 						is_being_purged = yes
 						NOT = { has_purge_type = { type = purge_neutering } }
 					}

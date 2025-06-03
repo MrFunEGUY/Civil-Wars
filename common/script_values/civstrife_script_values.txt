@@ -1,0 +1,198 @@
+leader_gains_power = {
+	base = @base_leader_event_chance
+
+	inline_script = { script = script_values/leader_standard }
+
+	# Ethic
+	modifier = { is_pacifist = yes factor = 0.5 }
+	
+	modifier = { owner = { is_democratic_authority = yes }	factor = 0.33 }
+	modifier = { owner = { is_imperial_authority = yes }	factor = 1 }
+	modifier = { owner = { is_dictatorial_authority = yes }	factor = 1.25 }
+	modifier = { owner = { is_oligarchic_authority = yes }	factor = 1.5 }
+
+	## Traits
+	modifier = { has_trait = leader_trait_corrupt add = 5 }
+
+	## War Values
+	modifier = {
+		add = 1
+		exists = solar_system
+		solar_system = { is_capital_system = no }
+		owner.capital_scope = { is_occupied_flag = yes }
+	}
+
+	modifier = {
+		factor = 0.25
+		exists = planet
+		planet = { is_occupied_flag = yes }
+	}
+
+	modifier = {
+		factor = @system_occupation_crew_mult
+		exists = planet.starbase
+		NOT = { planet.starbase.controller = { is_same_value = prev.planet.starbase.owner } }
+	}
+
+	modifier = {
+		factor = planet.value:ecaf_crew_devastation_mult
+		planet = { planet_devastation > 0 }
+	}
+
+	modifier = {
+		factor = owner.value:ecaf_crew_att_exhaustion_mult
+		owner = {
+			is_at_war = yes
+			any_war = { any_attacker = {  is_same_value = prevprev  } }
+		}
+	}
+
+	modifier = {
+		factor = owner.value:ecaf_crew_def_exhaustion_mult
+		owner = {
+			is_at_war = yes
+			any_war = { any_defender = {  is_same_value = prevprev  } }
+		}
+	}
+
+	modifier = {
+		factor = owner.value:ecaf_crew_bonus_mult
+		owner = {
+			pop_amount < 5000
+			OR = {
+				is_rogue_colony = yes
+				has_civstrife_origin = yes
+			}
+		}
+	}
+
+	modifier = {
+		add = 500000
+		has_global_flag = ecaf_crew_cheat_enabled
+	}
+}
+
+fleet_swap_chance = {
+	base = @base_fleet_swap_chance ## 20
+
+	# modifier = {
+	# 	add = 20 ## 40 Base Chance
+	# 	event_target:civwar_rebels = { NOT = { has_country_flag = plan_rebel_country } }
+	# 	any_owned_ship = {
+	# 		OR = {
+	# 			is_ship_size = giga_massive_planet
+	# 			is_ship_size = giga_planet_behemoth
+	# 			is_ship_size = giga_systemcraft
+	# 		}
+	# 	}
+	# }
+	
+	modifier = { owner = { is_democratic_authority = yes }	factor = 1 }
+	modifier = { owner = { is_oligarchic_authority = yes }	factor = 1.15 }
+	modifier = { owner = { is_corporate_authority = yes }	factor = 1.2 }
+	modifier = { owner = { is_imperial_authority = yes }	factor = 1.25 }
+	modifier = { owner = { is_dictatorial_authority = yes }	factor = 1.5 }
+
+	modifier = { root = { has_origin = origin_legendary_leader_death }	add = 13 } ## 33 chance
+}
+
+leader_to_defect_chance = {
+	base = @base_leader_to_defect_chance ## 25
+
+	modifier = {
+		factor = 0.75
+		exists = leader
+		leader = { has_trait = leader_trait_peacekeeper }
+	}
+
+	modifier = {
+		factor = 0.25
+		is_pacifist = yes
+		owner = { is_militarist = no }
+	}
+
+	modifier = {
+		factor = 2.5
+		OR = {
+			exists = background_planet
+			background_planet = { is_owned_by = event_target:civwar_rebels }
+			AND = {
+				exists = planet
+				exists = background_planet
+				background_planet = { is_same_value = prev.planet }
+			}
+			AND = {
+				exists = sector
+				exists = background_planet
+				sector = { any_owned_planet = { is_same_value = root.background_planet } }
+				event_target:civwar_rebels.capital_scope.solar_system = { NOT = { has_star_flag = civwar_planet } }
+			}
+		}		
+	}
+
+	modifier = {
+		add = 30
+		has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner }
+		NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels } }
+	}
+
+	modifier = {
+		add = 25
+		has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner }
+		NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels } }
+		exists = fleet
+		fleet = { any_owned_ship = { is_ship_class = shipclass_military } }
+	}
+
+	modifier = {
+		subtract = 15
+		NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner } }
+		has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels }
+	}
+
+	# modifier = {
+	# 	add = 20 ## 45 Chance
+	# 	exists = fleet
+	# 	fleet = {
+	# 		any_owned_ship = {
+	# 			OR = {
+	# 				is_ship_size = giga_massive_planet
+	# 				is_ship_size = giga_planet_behemoth
+	# 				is_ship_size = giga_systemcraft
+	# 			}
+	# 		}
+	# 	}
+	# }
+
+	modifier = { owner = { is_democratic_authority = yes }	factor = 1 }
+	modifier = { owner = { is_oligarchic_authority = yes }	factor = 1.15 }
+	modifier = { owner = { is_corporate_authority = yes }	factor = 1.2 }
+	modifier = { owner = { is_imperial_authority = yes }	factor = 1.25 }
+	modifier = { owner = { is_dictatorial_authority = yes }	factor = 1.5 }
+
+	modifier = { root = { has_origin = origin_legendary_leader_death }	add = 8 } ## 33 chance
+}
+
+pop_to_army_chance = {
+	base = @base_pop_to_army_chance ## 50
+
+	modifier = {
+		add = 30
+		exists = planet.leader
+		planet.leader = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner } }
+		planet.leader = { NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels } } }
+	}
+
+	modifier = {
+		subtract = 15
+		exists = planet.leader
+		planet.leader = { NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner } } }
+		planet.leader = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels } }
+	}
+
+	modifier = { owner = { is_democratic_authority = yes }	factor = 1 }
+	modifier = { owner = { is_oligarchic_authority = yes }	factor = 1.15 }
+	modifier = { owner = { is_corporate_authority = yes }	factor = 1.2 }
+	modifier = { owner = { is_imperial_authority = yes }	factor = 1.25 }
+	modifier = { owner = { is_dictatorial_authority = yes }	factor = 1.5 }
+}
