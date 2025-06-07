@@ -1,90 +1,104 @@
 # Rebellion Without Vassalization Descriptions
 
 desc = {
-	text = civcom.1000.under_one_rule.desc
 	trigger = {
-		event_target:civwar_rebels = { has_origin = origin_legendary_leader_death }
-	}
-}
 
-desc = {
-	text = civcom.1000.leader.plan.desc
-	trigger = {
-		event_target:civwar_rebels = {
-			has_country_flag = plan_rebel_country
-			is_standard_faction_country = yes
+		success_text = {
+			text = civcom.1100.under_one_rule.desc
+			event_target:civwar_rebels = { has_origin = origin_legendary_leader_death }
 		}
-	}
-}
 
-desc = { # For Balkanization
-	text = civcom.1000.newleader.plan.desc
-	trigger = {
-		event_target:civwar_rebels = {
-			has_country_flag = plan_rebel_country
-			ruler = { has_leader_flag = civil_war_ruler_new }
-		}
-	}
-}
+		## Election Dispute
+			success_text = {
+				text = civcom.1100.election_dispute.orig_dem_still_dem.desc
+				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
+				event_target:civwar_originator = { has_democratic_elections = yes }
+				event_target:civwar_rebels = { has_democratic_elections = yes }
+			}
 
-desc = {
-	text = civcom.1000.separatist.plan.desc
-	trigger = {
-		event_target:civwar_rebels = {
-			has_country_flag = plan_rebel_country
-			is_standard_faction_country = no
-		}
-	}
-}
+			success_text = {
+				text = civcom.1100.election_dispute.orig_dem_not_dem.desc
+				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
+				event_target:civwar_originator = { has_democratic_elections = yes }
+				event_target:civwar_rebels = { has_democratic_elections = no }
+			}
 
-desc = {
-	text = civcom.1000.slaves.plan.desc
-	trigger = {
-		event_target:civwar_rebels = { has_country_flag = plan_slave_rebel_country }
-	}
-}
+			success_text = {
+				text = civcom.1100.election_dispute.not_dem.desc
+				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
+				event_target:civwar_originator = { has_democratic_elections = no }
+				event_target:civwar_originator = { is_megacorp = no }
+			}
 
-desc = {
-	text = civcom.1000.leader.sec.desc
-	trigger = {
-		event_target:civwar_rebels = {
-			OR = {
-				has_country_flag = ethic_sec_rebels
-				has_country_flag = sep_sec_rebels
+			success_text = {
+				text = civcom.1100.election_dispute.corp.desc
+				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
+				event_target:civwar_rebels = { is_megacorp = yes }
+				event_target:civwar_originator = { is_megacorp = yes }
+			}
+
+		success_text = {
+			text = civcom.1000.leader.plan.desc
+			event_target:civwar_rebels = {
+				has_country_flag = plan_rebel_country
+				is_standard_faction_country = yes
 			}
 		}
-	}
-}
 
-desc = {
-	text = civcom.1000.separatist.sec.desc
-	trigger = {
-		event_target:civwar_rebels = {
-			has_country_flag = sep_sec_rebels
-			is_standard_faction_country = no
+		success_text = { # For Balkanization
+			text = civcom.1000.newleader.plan.desc
+			event_target:civwar_rebels = {
+				has_country_flag = plan_rebel_country
+				ruler = { has_leader_flag = civil_war_ruler_new }
+			}
 		}
-	}
-}
 
-desc = {
-	text = civcom.1000.slaves.sec.desc
-	trigger = {
-		event_target:civwar_rebels = { has_country_flag = sec_slave_rebel_country }
-	}
-}
+		success_text = {
+			text = civcom.1000.separatist.plan.desc
+			event_target:civwar_rebels = {
+				has_country_flag = plan_rebel_country
+				is_standard_faction_country = no
+			}
+		}
 
-desc = {
-	text = civcom.1000.nationalist.support.desc
-	trigger = {
-		any_country = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
-		event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
-	}
-}
+		success_text = {
+			text = civcom.1000.slaves.plan.desc
+			event_target:civwar_rebels = { has_country_flag = plan_slave_rebel_country }
+		}
 
-desc = {
-	text = civcom.1000.nationalist.no_support.desc
-	trigger = {
-		any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-		event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
+		success_text = {
+			text = civcom.1000.leader.sec.desc
+			event_target:civwar_rebels = {
+				OR = {
+					has_country_flag = ethic_sec_rebels
+					has_country_flag = sep_sec_rebels
+				}
+			}
+		}
+
+		success_text = {
+			text = civcom.1000.separatist.sec.desc
+			event_target:civwar_rebels = {
+				has_country_flag = sep_sec_rebels
+				is_standard_faction_country = no
+			}
+		}
+
+		success_text = {
+			text = civcom.1000.slaves.sec.desc
+			event_target:civwar_rebels = { has_country_flag = sec_slave_rebel_country }
+		}
+
+		success_text = {
+			text = civcom.1000.nationalist.support.desc
+			any_country = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
+			event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
+		}
+
+		success_text = {
+			text = civcom.1000.nationalist.no_support.desc
+			any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+			event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
+		}
 	}
 }

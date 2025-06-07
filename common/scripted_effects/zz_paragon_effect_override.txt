@@ -22,10 +22,11 @@ paragon_origin_launch_rebelion = {
 
 
 		if = {
-			limit = { any_pop_faction = { is_egalitarian_faction = yes } }
+			limit = { any_pop_faction = { is_egalitarian = yes } }
 			random_pop_faction = {
-				limit = { is_egalitarian_faction = yes }
+				limit = { is_egalitarian = yes }
 				save_event_target_as = civwar_party
+				save_event_target_as = cw_scope_initializer
 			}
 		}
 
@@ -268,10 +269,11 @@ paragon_origin_launch_rebelion = {
 		log = "| Multi Sector Under One Rule Civwar"
 
 		if = {
-			limit = { any_pop_faction = { is_egalitarian_faction = yes } }
+			limit = { any_pop_faction = { is_egalitarian = yes } }
 			random_pop_faction = {
-				limit = { is_egalitarian_faction = yes }
+				limit = { is_egalitarian = yes }
 				save_event_target_as = civwar_party
+				save_event_target_as = cw_scope_initializer
 			}
 		}
 
@@ -471,6 +473,7 @@ paragon_origin_launch_rebelion = {
 		# I Imagine this should stay past the first loop
 		event_target:civwar_party = {
 			save_event_target_as = civwar_party
+			save_event_target_as = cw_scope_initializer
 			random_owned_pop_group = { species = { save_event_target_as = civwar_species } }
 		}
 
@@ -746,11 +749,12 @@ paragon_origin_launch_rebelion = {
 		log = "| Small Under One Rule Civwar"
 
 		if = {
-			limit = { any_pop_faction = { is_egalitarian_faction = yes } }
+			limit = { any_pop_faction = { is_egalitarian = yes } }
 			random_pop_faction = {
-				limit = { is_egalitarian_faction = yes }
+				limit = { is_egalitarian = yes }
 				save_event_target_as = civwar_party
-				set_variable = { which = fac_mil_support value = 0 }
+				save_event_target_as = cw_scope_initializer
+				set_variable = { which = mil_support value = 0 }
 			}
 		}
 
@@ -771,7 +775,7 @@ paragon_origin_launch_rebelion = {
 				solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
 				every_owned_pop_group = {
 					limit = { is_egalitarian = yes }
-					event_target:civwar_party = { change_variable = { which = fac_mil_support value = 1 } }
+					event_target:civwar_party = { change_variable = { which = mil_support value = 1 } }
 				}
 				random_owned_pop_group = {
 					limit = { is_egalitarian = yes }
@@ -835,7 +839,7 @@ paragon_origin_launch_rebelion = {
 			log = "| MORE THAN 2 PLANETS"
 			set_variable = { which = total_happiness_pops value = 0 }
 			every_owned_pop_group = {
-				limit = { pop_has_happiness = yes }
+				limit = { pop_group_has_happiness = yes }
 				prev = { change_variable = { which = total_happiness_pops value = 1 } }
 			}
 			set_variable = { which = maybe_rebel_planets value = 0 }
@@ -898,7 +902,7 @@ paragon_origin_launch_rebelion = {
 					solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
 					every_owned_pop_group = {
 						limit = { is_egalitarian = yes }
-						event_target:civwar_party = { change_variable = { which = fac_mil_support value = 1 } }
+						event_target:civwar_party = { change_variable = { which = mil_support value = 1 } }
 					}
 					random_owned_pop_group = {
 						limit = { is_egalitarian = yes }

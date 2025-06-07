@@ -26,19 +26,19 @@ on_abort = {
 		limit = { exists = target }
 		target = {
 			remove_pop_faction_flag = faction_sep_situation
-			clear_variable = ethic_sep_chance
-			clear_variable = num_sep_pops
-			clear_variable = sep_upkeep
 		}
 	}
 }
 
 abort_trigger = {
 	OR = {
-		NOT = { exists = root.target }
-		owner = { has_country_flag = civ_war_recent_$FACTION$ }
 		situation_progress < 0
-		num_owned_planets < 2
+		NOT = { exists = root.target }
+		root.target.owner = {
+			num_owned_planets < 2
+			has_country_flag = civ_war_recent_$FACTION$
+			these_are_rebels_in_rebellion = yes
+		}
 	}
 }
 
@@ -71,7 +71,7 @@ approach = {
 		category = situations
 		upkeep = {
 			unity = 0.5
-			multiplier = target.sep_upkeep
+			# multiplier = target.sep_upkeep
 		}
 	}
 	ai_weight = {
@@ -89,7 +89,7 @@ approach = {
 		upkeep = {
 			unity = 1
 			energy = 0.2
-			multiplier = target.sep_upkeep
+			# multiplier = target.sep_upkeep
 		}
 	}
 	# target_modifier = { pop_happiness = -0.05 }

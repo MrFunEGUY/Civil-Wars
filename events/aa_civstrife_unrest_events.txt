@@ -17,7 +17,7 @@ planet_event = { # Never Fires
 	trigger = {
 		always = no
 		# planet_stability < @stabilitylevel2
-		# pop_amount >= 1000
+		# pop_amount > 00
 		# pop_amount_percentage = {
 		# 	percentage >= 0.4
 		# 	limit = {
@@ -65,7 +65,7 @@ planet_event = { # Never Fires
 	trigger = {
 		always = no
 		# planet_stability < @stabilitylevel2
-		# pop_amount >= 1000
+		# pop_amount > 00
 		# pop_amount_percentage = {
 		# 	percentage >= 0.4
 		# 	limit = {
@@ -204,7 +204,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 						NOT = {
 							any_owned_pop_group = {
 								NOT = { is_same_species = owner }
-								pop_has_happiness = no
+								pop_group_has_happiness = no
 							}
 						}
 					}
@@ -264,7 +264,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 						NOT = {
 							any_owned_pop_group = {
 								NOT = { is_same_species = owner }
-								pop_has_happiness = no
+								pop_group_has_happiness = no
 							}
 						}
 					}

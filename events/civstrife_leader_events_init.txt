@@ -15,11 +15,11 @@ namespace = civleader_init
   ##### xxxx - xxxx: 
   ##### xxxx - xxxx: 
  ##### General Leader Events
+  ##### 1000 - xxxx: (S)Election Dispute - Commander/Official/Scientist
   ##### 1000 - xxxx: Gains Power - Commander/Official/Scientist
   ##### xxxx - xxxx: Rivalry - Commander/Official/Scientist?
   ##### xxxx - xxxx: Defection - Commander/Official/Scientist
   ##### xxxx - xxxx: Unethical Behavior - Commander/Official/Scientist
-  ##### xxxx - xxxx: (S)Election Dispute - Commander/Official/Scientist
   ##### xxxx - xxxx: Religious Leader - Commander/Official/Scientist
   ##### xxxx - xxxx: 
  ##### Authoritarian Leader Events
@@ -31,35 +31,204 @@ namespace = civleader_init
   ##### xxxx - xxxx: 
 
 
-country_event = { # Commander
+
+country_event = {
 	id = civleader_init.1000
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
-		any_owned_leader = {
-			OR = {
-				has_base_skill >= 5
-				has_leader_flag = leader_ambitious
-				has_leader_flag = leader_great_victory
-				has_leader_flag = leader_proven_worth
+		any_owned_leader = { NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } } }
+	}
+
+	immediate = {
+		country_event = { id = civleader_init.1001 days = 1 }
+	}
+}
+
+country_event = { #
+	id = civleader_init.1001
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		any_owned_leader = { NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } } }
+	}
+
+	immediate = {
+		ordered_owned_leader = {
+			limit = { NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } } }
+			position = 0
+			order_by = trigger:has_base_skill
+			random = {
+				# chance = value:leader_civil_war_chance
+				chance = 100
+				leader_event = { id = civleader_init.1002 days = 6 random = 14 }
+			}
+		}
+	}
+}
+
+leader_event = {
+	id = civleader_init.1002
+	title = civleader_init.1002.dem.name
+	picture = "GFX_evt_grand_speech"
+	is_triggered_only = yes
+
+	# Descriptions
+	inline_script = "events/leader_election_dispute"
+
+	trigger = {
+		NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } }
+	}
+
+	immediate = {
+		set_cooldown = 18000 ## 50 years
+		set_leader_flag = cw_cannot_be_fired
+		set_leader_flag = election_dispute_leader
+	}
+
+	option = {
+		name = OUTRAGEOUS
+		hidden_effect = {
+			owner = {
+				start_situation = {
+					type = situation_civstrife_election_dispute
+					target = root
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = civleader_init.1003
+	title = civleader_init.1003.name
+	picture = "GFX_evt_grand_speech"
+	is_triggered_only = yes
+
+	desc = {
+		text = civleader_init.1003.dem.desc
+		trigger = { is_democratic_authority = yes }
+	}
+
+	desc = {
+		text = civleader_init.1003.not_dem.desc
+		trigger = { is_democratic_authority = no }
+	}
+
+	option = {
+		name = GOOD
+	}
+}
+
+leader_event = { ## Declare War or Not Decision
+	id = civleader_init.1090
+	title = civleader_init.1090.name
+	picture = "GFX_evt_enclave_overlord"
+	is_triggered_only = yes
+
+	desc = {
+		text = civleader_init.1090.dem.desc
+		trigger = { owner = { has_democratic_elections = yes } }
+	}
+
+	desc = {
+		text = civleader_init.1090.not_dem.desc
+		trigger = { owner = { has_democratic_elections = no } }
+	}
+	
+	immediate = {
+		random = {
+			chance = value:election_out_is_allowed
+			# chance = 100
+			set_leader_flag = leader_can_be_pacified
+		}
+	}
+
+	option = {
+		name = {
+			trigger = { owner = { has_democratic_elections = yes } }
+			text = cw_leader_new_election
+		}
+		name = {
+			trigger = { owner = { has_democratic_elections = no } }
+			text = cw_leader_give_in
+		}
+		trigger = { has_leader_flag = leader_can_be_pacified }
+		if = {
+			limit = { owner = { has_democratic_elections = no } }
+			owner = { set_leader = root }
+		}
+		else = {
+			custom_tooltip = cw_leader_new_election_tooltip
+			## Only way to call elections rn is to kill ruler, so we will create dummy leader, set them ruler, kill them
+			hidden_effect = {
+				owner = {
+					create_leader = {
+						class = official
+						species = owner_main_species
+						name = random
+						effect = {
+							save_event_target_as = dummy_election_starter_leader
+						}
+					}
+					set_leader = event_target:dummy_election_starter_leader
+					event_target:dummy_election_starter_leader = { kill_leader = { show_notification = no } }
+				}
+			}
+		}
+		hidden_effect = {
+			remove_leader_flag = leader_can_be_pacified
+		}
+	}
+
+	option = {
+		name = cw_leader_ignore_them
+		hidden_effect = {
+			random = {
+				chance = value:leader_dispute_civil_war_chance
+				create_civil_war = yes
 			}
 		}
 	}
 
-	immediate = {
-		every_owned_leader = {
-			limit = {
-				OR = {
-					has_base_skill >= 5
-					has_leader_flag = leader_ambitious
-					has_leader_flag = leader_great_victory
-					has_leader_flag = leader_proven_worth
-				}
+	after = {
+		hidden_effect = {
+			set_cooldown = 0
+			remove_leader_flag = cw_cannot_be_fired
+			if = {
+				limit = { NOT = { has_leader_flag = personal_civil_war } }
+				leader_event = { id = civleader_init.1091 days = 6 random = 14 }
 			}
-			random = {
-				chance = value:leader_gains_power
+
+			if = {
+				limit = { exists = event_target:new_elections_leader }
+				set_owner = event_target:exile_leader_home
 			}
 		}
+	}
+}
+
+leader_event = { ## Declare War or Not Decision
+	id = civleader_init.1091
+	title = civleader_init.1091.name
+	picture = "GFX_evt_news_room"
+	is_triggered_only = yes
+
+	trigger = { NOT = { is_ruler = yes } } ## I can just do this here instead of checking above
+
+	desc = {
+		text = civleader_init.1091.dem.desc
+		trigger = { owner = { has_democratic_elections = yes } }
+	}
+
+	desc = {
+		text = civleader_init.1091.not_dem.desc
+		trigger = { owner = { has_democratic_elections = no } }
+	}
+
+	option = {
+		name = EXCELLENT
 	}
 }

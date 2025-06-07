@@ -688,7 +688,12 @@ country_event = { # Succession Country Subjects Join War Fix
 # 	immediate = {
 # 		random = {
 # 			chance = 2
-# 			heir = { add_trait = trait_disputed_heritage }
+# 			heir = {
+# 				add_trait = {
+# 					trait = trait_disputed_heritage
+# 					show_message = no
+# 				}
+# 			}
 # 			country_event = { id = civroyal.9010 }
 # 		}
 # 	}

@@ -118,6 +118,7 @@ country_event = { # Clear unused global event targets
 	}
 }
 
+
 country_event = {
 	# Set Birthday
 	id = civmisc.3000
@@ -137,7 +138,7 @@ country_event = {
 			limit = { exists = from.owner }
 			from.owner = { save_event_target_as = birth_event_owner }
 		}
-		country_event = { id = civmisc.3001 days = 1 }
+		country_event = { id = civmisc.3001 days = 2 }
 	}
 }
 
@@ -170,162 +171,41 @@ country_event = { # Set Birthday
 		change_variable = { which = birth_year value = this.years_passed_birthday }
 		clear_variable = years_passed_birthday
 
-		log = "| ========================================="
+		if = {
+			limit = {
+				OR = {
+					is_country_type = rebel
+					has_civstrife_origin = no
+					has_country_flag = allied_to_others
+				}
+			}
+			country_event = { id = civmisc.3002 }
+		}
+	}
+}
 
-		log = "| The [this.GetName] was formed on [this.birth_date]"
+country_event = { # Log
+	id = civmisc.3002
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+
+		log = "| ++++++++++++++++++++++++++++++++++++++++++++++++"
+		
 		if = {
 			limit = { is_country_type = rebel }
-			log = "| Planetary Rebellion: YES"
+			log = "| Planetary Rebellion"
+			log = "| Rebellion on [this.Capital.GetName] against [birth_event_owner.GetName] started on [this.birth_date]"
+			log = "| REBELS call themselves: [this.GetName]"
+		}
+		else = {
+			log = "| The [this.GetName] was formed on [this.birth_date]"
 		}
 		log = "| Capital World: [this.Capital.GetName]"
 		log = "| Origin: [this.GetOriginName]"
 		log = "| Ruler: [this.Ruler.GetName]"
-
-		if = {
-			limit = { is_standard_faction_country = yes }
-			log = "| Ethic Rebellion, Rebelling Ethic:"
-			if = {
-				limit = { has_country_flag = civwar_egal }
-				log = "| -- Egalitarian"
-			}
-			else_if = {
-				limit = { has_country_flag = civwar_auth }
-				log = "| -- Authoritarian"
-			}
-
-			if = {
-				limit = { has_country_flag = civwar_mil }
-				log = "| -- Militarist"
-			}
-			else_if = {
-				limit = { has_country_flag = civwar_pac }
-				log = "| -- Pacifist"
-			}
-
-			if = {
-				limit = { has_country_flag = civwar_spi }
-				log = "| -- Spiritualist"
-			}
-			else_if = {
-				limit = { has_country_flag = civwar_mat }
-				log = "| -- Materialist"
-			}
-
-			if = {
-				limit = { has_country_flag = civwar_phobe }
-				log = "| -- Xenophobe"
-			}
-			else_if = {
-				limit = { has_country_flag = civwar_phile }
-				log = "| -- Xenophile"
-			}
-
-			if = {
-				limit = { has_country_flag = civwar_soc }
-				log = "| -- Socialism"
-			}
-			else_if = {
-				limit = { has_country_flag = civwar_cap }
-				log = "| -- Capitalism"
-			}
-			log = "| ######"
-		}
-
-		if = {
-			limit = {
-				exists = event_target:birth_event_owner
-				has_civstrife_origin = yes
-			}
-			event_target:birth_event_owner = {
-				log = "| Rebelled from [this.GetName]; ETHICS:"
-				if = {
-					limit = { has_ethic = ethic_egalitarian }
-					log = "| -- Egalitarian"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_fanatic_egalitarian }
-					log = "| -- Fanatic Egalitarian"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_authoritarian }
-					log = "| -- Authoritarian"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_fanatic_authoritarian }
-					log = "| -- Fanatic Authoritarian"
-				}
-
-				if = {
-					limit = { has_ethic = ethic_militarist }
-					log = "| -- Militarist"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_fanatic_militarist }
-					log = "| -- Fanatic Militarist"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_pacifist }
-					log = "| -- Pacifist"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_fanatic_pacifist }
-					log = "| -- Fanatic Pacifist"
-				}
-
-				if = {
-					limit = { has_ethic = ethic_spiritualist }
-					log = "| -- Spiritualist"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_fanatic_spiritualist }
-					log = "| -- Fanatic Spiritualist"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_materialist }
-					log = "| -- Materialist"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_fanatic_materialist }
-					log = "| -- Fanatic Materialist"
-				}
-
-				if = {
-					limit = { has_ethic = ethic_xenophobe }
-					log = "| -- Xenophobe"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_fanatic_xenophobe }
-					log = "| -- Fanatic Xenophobe"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_xenophile }
-					log = "| -- Xenophile"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_fanatic_xenophile }
-					log = "| -- Fanatic Xenophile"
-				}
-
-				if = {
-					limit = { has_ethic = ethic_socialism }
-					log = "| -- Socialism"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_fanatic_socialism }
-					log = "| -- Fanatic Socialism"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_capitalism }
-					log = "| -- Capitalism"
-				}
-				else_if = {
-					limit = { has_ethic = ethic_fanatic_capitalism }
-					log = "| -- Fanatic Capitalism"
-				}
-			}
-		}
-
-		log = "| ========================================="
+		log = "| ++++++++++++++++++++++++++++++++++++++++++++++++"
 	}
 }
 
@@ -422,7 +302,6 @@ country_event = {
 	}
 }
 
-# Mod Menu support.
 event = {
 	id = civmisc.5010
 	title = civstrife.modmenu.title

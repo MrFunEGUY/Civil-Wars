@@ -550,7 +550,10 @@ country_event = {
 				subtract_variable = { which = years_exiled value = year_rebelled }
 
 				remove_trait = leader_trait_traitor
-				add_trait = leader_trait_vindicated_traitor
+				add_trait = {
+					trait = leader_trait_vindicated_traitor
+					show_message = no
+				}
 			}
 
 			if = {
@@ -558,7 +561,10 @@ country_event = {
 				subtract_variable = { which = years_exiled value = year_disinherited }
 
 				remove_trait = leader_trait_traitor_heir
-				add_trait = leader_trait_vindicated_heir
+				add_trait = {
+					trait = leader_trait_vindicated_heir
+					show_message = no
+				}
 			}
 		}
 	}
@@ -902,6 +908,20 @@ country_event = {
 					}
 				}
 				else_if = {
+					limit = { ruler = { is_cooperative = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_cooperative } }
+						shift_ethic = ethic_cooperative
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_competitive = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_competitive } }
+						shift_ethic = ethic_competitive
+					}
+				}
+				else_if = {
 					limit = { ruler = { is_industrial = yes } }
 					while = {
 						limit = { NOT = { has_ethic = ethic_fanatic_industrial } }
@@ -909,10 +929,24 @@ country_event = {
 					}
 				}
 				else_if = {
-					limit = { ruler = { is_ecologist = yes } }
+					limit = { ruler = { is_green = yes } }
 					while = {
 						limit = { NOT = { has_ethic = ethic_fanatic_green } }
 						shift_ethic = ethic_green
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_anthropocentric = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_anthropocentric } }
+						shift_ethic = ethic_anthropocentric
+					}
+				}
+				else_if = {
+					limit = { ruler = { is_ecocentric = yes } }
+					while = {
+						limit = { NOT = { has_ethic = ethic_fanatic_ecocentric } }
+						shift_ethic = ethic_ecocentric
 					}
 				}
 				else_if = {

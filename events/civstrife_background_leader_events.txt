@@ -64,7 +64,12 @@ country_event = { # Set Corrupt Ruler Trait
 	}
 
 	immediate = {
-		ruler = { add_trait = leader_trait_corrupt }
+		ruler = {
+			add_trait = {
+				trait = leader_trait_corrupt
+				show_message = no
+			}
+		}
 	}
 }
 

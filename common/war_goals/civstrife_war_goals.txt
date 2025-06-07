@@ -23,6 +23,10 @@ wg_civwar = {
 				min = @tier5materialmin
 			}
 		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
+		}
 	}
 
 	on_accept = {
@@ -33,6 +37,7 @@ wg_civwar = {
 			min = @tier3materialmin
 		}
 		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
 			from = {
 				every_system_within_border = {
 					limit = { exists = starbase }
@@ -107,6 +112,10 @@ wg_civwar_rebel = {
 			value = @tier5materialreward
 			min = @tier5materialmin
 		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
+		}
 	}
 
 	ai_weight = {
@@ -173,6 +182,10 @@ wg_planet_rebellion = {
 				min = @tier5materialmin
 			}
 		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
+		}
 	}
 	
 	on_accept = {
@@ -183,6 +196,7 @@ wg_planet_rebellion = {
 			min = @tier5materialmin
 		}
 		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
 			from = {
 				capital_scope = {
 					random_list = {
@@ -231,6 +245,10 @@ wg_planet_rebellion_rebels = {
 			value = @tier5materialreward
 			min = @tier5materialmin
 		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
+		}
 	}
 
 	ai_weight = {
@@ -265,6 +283,10 @@ wg_natwar = {
 				min = @tier5materialmin
 			}
 		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
+		}
 	}
 
 	on_accept = {
@@ -275,6 +297,7 @@ wg_natwar = {
 			min = @tier2materialmin
 		}
 		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
 			from = {
 				every_system_within_border = {
 					limit = { exists = starbase }
@@ -349,6 +372,10 @@ wg_natwar_rebel = {
 			value = @tier5materialreward
 			min = @tier5materialmin
 		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
+		}
 	}
 
 	ai_weight = {
@@ -383,6 +410,10 @@ wg_civwar_heir = {
 				min = @tier5materialmin
 			}
 		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
+		}
 	}
 
 	on_accept = {
@@ -393,6 +424,7 @@ wg_civwar_heir = {
 			min = @tier5materialmin
 		}
 		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
 			from = {
 				every_system_within_border = {
 					limit = { exists = starbase }
@@ -471,6 +503,10 @@ wg_civwar_heir_rebel = {
 			value = @tier5materialreward
 			min = @tier5materialmin
 		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
+		}
 	}
 
 	ai_weight = {
@@ -501,6 +537,10 @@ wg_coup_successor = {
 		}
 	}
 
+	on_accept = {
+		set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+	}
+
 	on_status_quo = {
 		custom_tooltip = wg_coup_disputed_end
 		hidden_effect = {
@@ -510,6 +550,8 @@ wg_coup_successor = {
 				capital_scope = { set_name = random }
 				set_name = random
 			}
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
 		}
 	}
 
@@ -542,6 +584,13 @@ wg_coup_successor_opponent = {
 	}
 	possible = {
 		always = yes
+	}
+
+	on_accept = {
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
+		}
 	}
 
 	ai_weight = {
@@ -586,6 +635,13 @@ wg_coup_independent = {
 		}
 	}
 
+	on_status_quo = {
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
+		}
+	}
+
 	on_accept = {
 		custom_tooltip = civil_war_won_tooltip
 		add_monthly_resource_mult = {
@@ -594,6 +650,7 @@ wg_coup_independent = {
 			min = @tier5materialmin
 		}
 		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
 			from = {
 				every_system_within_border = {
 					limit = { exists = starbase }
@@ -632,6 +689,10 @@ wg_coup_independent_opponent = {
 			resource = unity
 			value = @tier5materialreward
 			min = @tier5materialmin
+		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
 		}
 	}
 
@@ -673,6 +734,7 @@ wg_coup_fealty = { # Currently Unused
 			min = @tier5materialmin
 		}
 		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
 			from = {
 				every_system_within_border = {
 					limit = { exists = starbase }
@@ -900,11 +962,16 @@ wg_slave_uprising = {
 				min = @tier5materialmin
 			}
 		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
+		}
 	}
 
 	on_accept = {
 		custom_tooltip = slave_war_won_tooltip
 		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
 			from = {
 				every_system_within_border = {
 					limit = { exists = starbase }
@@ -974,6 +1041,10 @@ wg_slave_uprising_rebel = {
 			resource = unity
 			value = @tier5materialreward
 			min = @tier5materialmin
+		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
 		}
 	}
 

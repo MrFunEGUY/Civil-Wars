@@ -466,7 +466,7 @@ country_event = {
 
 	trigger = {
 		any_owned_planet = {
-			pop_amount >= 100
+			pop_amount > 0
 			NOT = { exists = sector }
 			NOT = { has_modifier = planet_no_sector }
 		}

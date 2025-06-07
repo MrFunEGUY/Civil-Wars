@@ -8,10 +8,42 @@ desc = {
 			event_target:civwar_rebels = { has_origin = origin_legendary_leader_death }
 		}
 
+		## Election Dispute
+			success_text = {
+				text = civcom.1100.election_dispute.orig_dem_still_dem.desc
+				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
+				event_target:civwar_originator = { has_democratic_elections = yes }
+				event_target:civwar_rebels = { has_democratic_elections = yes }
+			}
+
+			success_text = {
+				text = civcom.1100.election_dispute.orig_dem_not_dem.desc
+				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
+				event_target:civwar_originator = { has_democratic_elections = yes }
+				event_target:civwar_rebels = { has_democratic_elections = no }
+			}
+
+			success_text = {
+				text = civcom.1100.election_dispute.not_dem.desc
+				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
+				event_target:civwar_originator = { has_democratic_elections = no }
+				event_target:civwar_originator = { is_megacorp = no }
+			}
+
+			success_text = {
+				text = civcom.1100.election_dispute.corp.desc
+				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
+				event_target:civwar_rebels = { is_megacorp = yes }
+				event_target:civwar_originator = { is_megacorp = yes }
+			}
+
 		success_text = {
 			text = civcom.1100.leader.desc
-			event_target:civwar_rebels = { NOT = { has_origin = origin_legendary_leader_death } }
-			event_target:civwar_rebels = { NOT = { has_origin = origin_nationalist_rebellion } }
+			NOR = {
+				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
+				event_target:civwar_rebels = { has_origin = origin_legendary_leader_death }
+				event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
+			}
 		}
 
 		success_text = {
@@ -73,7 +105,7 @@ desc = {
 				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
-				is_imperial_authority =no
+				is_imperial_authority = no
 				has_origin = origin_nationalist_rebellion
 				has_country_flag = exile_restored_country
 			}
@@ -88,7 +120,7 @@ desc = {
 				event_target:nat_motherland_model = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
-				is_imperial_authority =no
+				is_imperial_authority = no
 				has_origin = origin_nationalist_rebellion
 				has_country_flag = exile_restored_country
 			}
@@ -136,32 +168,7 @@ desc = {
 		}
 
 		success_text = {
-			text = civcom.1100.secession.dem.desc
-			has_democratic_elections = yes
-			event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_secession }
-		}
-
-		success_text = {
-			text = civcom.1100.secession.not_dem.desc
-			has_democratic_elections = no
-			event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_secession }
-		}
-
-		success_text = {
-			text = civcom.1100.dispute.dem.desc
-			has_democratic_elections = yes
-			event_target:civwar_rebels = { has_country_flag = election_dispute_country }
-		}
-
-		success_text = {
-			text = civcom.1100.dispute.corp.desc
-			is_megacorp = yes
-			has_democratic_elections = no
-			event_target:civwar_rebels = { has_country_flag = election_dispute_country }
-		}
-
-		success_text = {
-			text = civcom.1100.dispute.other.desc
+			text = civcom.1100.election_dispute.other.desc
 			OR = {
 				is_oligarchy = yes
 				is_dictatorial_authority = yes

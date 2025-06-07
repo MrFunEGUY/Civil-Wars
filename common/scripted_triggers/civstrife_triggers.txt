@@ -1,16 +1,6 @@
 has_democratic_elections = {
 	NOT = { has_civic = civic_shadow_council }
-	OR = {
-		has_authority = auth_democratic
-		has_authority = auth_strict_democratic
-		has_authority = auth_dict_democratic
-		####
-		has_authority = auth_direct_democratic
-		has_authority = auth_bugged_direct_democratic
-		has_authority = auth_bugged_corporate_democratic
-		has_authority = auth_corporate_democratic
-		has_authority = auth_cooperative
-	}
+	is_democratic_authority = yes
 }
 
 check_civwar_capital = {
@@ -41,6 +31,7 @@ is_regular_faction = {
 		is_pop_faction_type = environmentalists
 		is_pop_faction_type = conservatives
 		is_pop_faction_type = labourites
+		is_pop_faction_type = environmentalist
 		# Divided Loyalties
 		is_pop_faction_type = indentured
 		is_pop_faction_type = aristocrat
@@ -49,7 +40,6 @@ is_regular_faction = {
 		is_pop_faction_type = survivalist
 		is_pop_faction_type = warmaker
 		is_pop_faction_type = activist
-		is_pop_faction_type = industrialist
 		is_pop_faction_type = perfectionist
 		is_pop_faction_type = adopter
 		is_pop_faction_type = crusader
@@ -57,6 +47,8 @@ is_regular_faction = {
 		is_pop_faction_type = holistic
 		is_pop_faction_type = warmaker
 		is_pop_faction_type = enslaver
+		## DL + Bug Branch
+		is_pop_faction_type = industrialist
 	}
 }
 
@@ -1260,7 +1252,7 @@ rebel_is_former_heir = {
 
 pop_can_be_separatist_gen = {
 
-	pop_has_happiness = yes
+	pop_group_has_happiness = yes
 	can_think = yes
 	pop_was_saved = no
 	# NOT = { has_pop_group_flag = sep_pop }
@@ -1285,27 +1277,28 @@ these_are_rebels_in_rebellion = {
 	any_war = { has_rebel_war_goal = yes }
 }
 
+## Scoping to .owner is a failsafe, country can scope to owner.
 has_rebel_war_goal = {
 	OR = {
-		using_war_goal = { type = wg_civwar_rebel owner = root }
-		using_war_goal = { type = wg_planet_rebellion_rebels owner = root }
-		using_war_goal = { type = wg_natwar_rebel owner = root }
-		using_war_goal = { type = wg_civwar_heir_rebel owner = root }
-		using_war_goal = { type = wg_coup_successor_opponent owner = root }
-		using_war_goal = { type = wg_coup_independent_opponent owner = root }
-		using_war_goal = { type = wg_slave_uprising_rebel owner = root }
+		using_war_goal = { type = wg_civwar_rebel owner = root.owner }
+		using_war_goal = { type = wg_planet_rebellion_rebels owner = root.owner }
+		using_war_goal = { type = wg_natwar_rebel owner = root.owner }
+		using_war_goal = { type = wg_civwar_heir_rebel owner = root.owner }
+		using_war_goal = { type = wg_coup_successor_opponent owner = root.owner }
+		using_war_goal = { type = wg_coup_independent_opponent owner = root.owner }
+		using_war_goal = { type = wg_slave_uprising_rebel owner = root.owner }
 	}
 }
 
 has_civil_war_goal = {
 	OR = {
-		using_war_goal = { type = wg_civwar owner = root }
-		using_war_goal = { type = wg_planet_rebellion owner = root }
-		using_war_goal = { type = wg_natwar owner = root }
-		using_war_goal = { type = wg_civwar_heir owner = root }
-		using_war_goal = { type = wg_coup_successor owner = root }
-		using_war_goal = { type = wg_coup_independent owner = root }
-		using_war_goal = { type = wg_slave_uprising owner = root }
+		using_war_goal = { type = wg_civwar owner = root.owner }
+		using_war_goal = { type = wg_planet_rebellion owner = root.owner }
+		using_war_goal = { type = wg_natwar owner = root.owner }
+		using_war_goal = { type = wg_civwar_heir owner = root.owner }
+		using_war_goal = { type = wg_coup_successor owner = root.owner }
+		using_war_goal = { type = wg_coup_independent owner = root.owner }
+		using_war_goal = { type = wg_slave_uprising owner = root.owner }
 	}
 }
 
@@ -1329,7 +1322,7 @@ frontier_planet_slave_tick_check = {
 	count_owned_pop_amount = {
 		limit = {
 			can_think = yes
-			pop_has_happiness = yes
+			pop_group_has_happiness = yes
 		}
 		count >= 200
 	}
@@ -1359,7 +1352,7 @@ integrated_planet_slave_tick_check = {
 	count_owned_pop_amount = {
 		limit = {
 			can_think = yes
-			pop_has_happiness = yes
+			pop_group_has_happiness = yes
 		}
 		count >= 500
 	}
@@ -1389,7 +1382,7 @@ fundamental_planet_slave_tick_check = {
 	count_owned_pop_amount = {
 		limit = {
 			can_think = yes
-			pop_has_happiness = yes
+			pop_group_has_happiness = yes
 		}
 		count >= 1000
 	}
@@ -1420,7 +1413,7 @@ frontier_planet_unrest_tick_check = {
 	count_owned_pop_amount = {
 		limit = {
 			can_think = yes
-			pop_has_happiness = yes
+			pop_group_has_happiness = yes
 		}
 		count >= 300
 	}
@@ -1467,7 +1460,7 @@ integrated_planet_unrest_tick_check = {
 	count_owned_pop_amount = {
 		limit = {
 			can_think = yes
-			pop_has_happiness = yes
+			pop_group_has_happiness = yes
 		}
 		count >= 500
 	}
@@ -1516,7 +1509,7 @@ fundamental_planet_unrest_tick_check = {
 	count_owned_pop_amount = {
 		limit = {
 			can_think = yes
-			pop_has_happiness = yes
+			pop_group_has_happiness = yes
 		}
 		count >= 1000
 	}
@@ -1906,117 +1899,118 @@ has_any_planet_rebellion_stopper = {
 	}
 }
 
-###########################
-########## Faction Triggers
-###########################
+#########################
+########## Ethic Triggers
+#########################
 
-is_pacifist_faction = {
-	OR = {
-		is_pop_faction_type = prosperity
-		is_pop_faction_type = activist					# Divided Loyalties
-		is_pop_faction_type = industrialist				# Divided Loyalties
-	}
-}
+# is_pacifist_faction = {
+# 	OR = {
+# 		is_pop_faction_type = prosperity
+# 		is_pop_faction_type = activist					# Divided Loyalties
+# 		is_pop_faction_type = industrialist				# Divided Loyalties
+# 	}
+# }
 
-is_militarist_faction = {
-	OR = {
-		is_pop_faction_type = imperialist
-		is_pop_faction_type = survivalist				# Divided Loyalties
-		is_pop_faction_type = warmaker					# Divided Loyalties
-	}
-}
+# is_militarist_faction = {
+# 	OR = {
+# 		is_pop_faction_type = imperialist
+# 		is_pop_faction_type = survivalist				# Divided Loyalties
+# 		is_pop_faction_type = warmaker					# Divided Loyalties
+# 	}
+# }
 
-is_materialist_faction = {
-	OR = {
-		is_pop_faction_type = technologist
-		is_pop_faction_type = perfectionist				# Divided Loyalties
-		is_pop_faction_type = adopter					# Divided Loyalties
-	}
-}
+# is_materialist_faction = {
+# 	OR = {
+# 		is_pop_faction_type = technologist
+# 		is_pop_faction_type = perfectionist				# Divided Loyalties
+# 		is_pop_faction_type = adopter					# Divided Loyalties
+# 	}
+# }
 
-is_spiritualist_faction = {
-	OR = {
-		is_pop_faction_type = traditionalist
-		is_pop_faction_type = crusader					# Divided Loyalties
-		is_pop_faction_type = shepherd					# Divided Loyalties
-	}
-}
+# is_spiritualist_faction = {
+# 	OR = {
+# 		is_pop_faction_type = traditionalist
+# 		is_pop_faction_type = crusader					# Divided Loyalties
+# 		is_pop_faction_type = shepherd					# Divided Loyalties
+# 	}
+# }
 
-is_egalitarian_faction = {
-	OR = {
-		is_pop_faction_type = progressive
-		is_pop_faction_type = elitist					# Divided Loyalties
-		is_pop_faction_type = labourite					# Divided Loyalties
-	}
-}
+# is_egalitarian_faction = {
+# 	OR = {
+# 		is_pop_faction_type = progressive
+# 		is_pop_faction_type = elitist					# Divided Loyalties
+# 		is_pop_faction_type = labourite					# Divided Loyalties
+# 	}
+# }
 
-is_authoritarian_faction = {
-	OR = {
-		is_pop_faction_type = totalitarian
-		is_pop_faction_type = indentured					# Divided Loyalties
-		is_pop_faction_type = aristocrat					# Divided Loyalties
-	}
-}
+# is_authoritarian_faction = {
+# 	OR = {
+# 		is_pop_faction_type = totalitarian
+# 		is_pop_faction_type = indentured					# Divided Loyalties
+# 		is_pop_faction_type = aristocrat					# Divided Loyalties
+# 	}
+# }
 
-is_xenophile_faction = {
-	OR = {
-		is_pop_faction_type = xenoist
-		is_pop_faction_type = holistic					# Divided Loyalties
-		is_pop_faction_type = warmaker					# Divided Loyalties
-	}
-}
+# is_xenophile_faction = {
+# 	OR = {
+# 		is_pop_faction_type = xenoist
+# 		is_pop_faction_type = holistic					# Divided Loyalties
+# 		is_pop_faction_type = warmaker					# Divided Loyalties
+# 	}
+# }
 
-is_xenophobe_faction = {
-	OR = {
-		is_pop_faction_type = supremacist
-		is_pop_faction_type = isolationist	# Divided Loyalties
-		is_pop_faction_type = enslaver						# Divided Loyalties
-	}
-}
+# is_xenophobe_faction = {
+# 	OR = {
+# 		is_pop_faction_type = supremacist
+# 		is_pop_faction_type = isolationist	# Divided Loyalties
+# 		is_pop_faction_type = enslaver						# Divided Loyalties
+# 	}
+# }
 
-is_ecologist_faction = {
-	OR = {
-		is_pop_faction_type = environmentalists		# Regular
-		is_pop_faction_type = environmentalist		# Bug Branch
-	}
-}
+# is_green_faction = {
+# 	OR = {
+# 		is_pop_faction_type = environmentalists		# Regular
+# 		is_pop_faction_type = environmentalist		# Bug Branch
+# 	}
+# }
 
-is_industrial_faction = {
-	OR = {
-		is_pop_faction_type = manufacturers		# Regular
-		is_pop_faction_type = industrialist		# Bug Branch
-	}
-}
+# is_industrial_faction = {
+# 	OR = {
+# 		is_pop_faction_type = manufacturers		# Regular
+# 		is_pop_faction_type = industrialist		# Bug Branch
+# 	}
+# }
 
-is_socialist_faction = {
-	OR = {
-		is_pop_faction_type = socialists		# Regular
-		is_pop_faction_type = socialist		# Bug Branch
-	}
-}
+# is_socialist_faction = {
+# 	OR = {
+# 		is_pop_faction_type = socialists		# Regular
+# 		is_pop_faction_type = socialist		# Bug Branch
+# 	}
+# }
 
-is_capitalism_faction = {
-	OR = {
-		is_pop_faction_type = bankers			# Regular
-		is_pop_faction_type = capitalist			# Bug Branch
-	}
-}
+# is_capitalism_faction = {
+# 	OR = {
+# 		is_pop_faction_type = bankers			# Regular
+# 		is_pop_faction_type = capitalist			# Bug Branch
+# 	}
+# }
 
-is_pluralist_faction = {
-	OR = {
-		is_pop_faction_type = labourites 	# Evolved
-		is_pop_faction_type = populist 		# Bug Branch
-	}
-}
+# is_pluralist_faction = {
+# 	OR = {
+# 		is_pop_faction_type = labourites 	# Evolved
+# 		is_pop_faction_type = populist 		# Bug Branch
+# 	}
+# }
 
-is_elitist_faction = {
-	OR = {
-		is_pop_faction_type = conservatives 		# Evolved
-		is_pop_faction_type = conservative 		# Bug Branch
-	}
-}
+# is_elitist_faction = {
+# 	OR = {
+# 		is_pop_faction_type = conservatives 		# Evolved
+# 		is_pop_faction_type = conservative 		# Bug Branch
+# 	}
+# }
 
 is_standard_faction_country = {
+	ruler = { NOT = { has_leader_flag = personal_civil_war } }
 	OR = {
 		has_country_flag = civwar_auth
 		has_country_flag = civwar_egal
@@ -2028,11 +2022,19 @@ is_standard_faction_country = {
 		has_country_flag = civwar_phile
 		has_country_flag = civwar_soc
 		has_country_flag = civwar_cap
+		has_country_flag = civwar_coop
+		has_country_flag = civwar_comp
 		has_country_flag = civwar_indus
+		has_country_flag = civwar_green
+		has_country_flag = civwar_anthro
 		has_country_flag = civwar_eco
 		has_country_flag = civwar_elite
 		has_country_flag = civwar_plur
 	}
+}
+
+check_rebellion_ethic = {
+	event_target:cw_scope_initializer = { is_$ETHIC$ = yes }
 }
 
 ###########################
@@ -2070,17 +2072,48 @@ homeworld_ethic_leader_exists = {
 	}
 }
 
+has_same_ethics = {
+	OR = {
+		AND = {
+			$SCOPE1$ = { is_pacifist = yes }
+			$SCOPE2$ = { is_pacifist = yes }
+		}
+		AND = {
+			$SCOPE1$ = { is_militarist = yes }
+			$SCOPE2$ = { is_militarist = yes }
+		}
+		AND = {
+			$SCOPE1$ = { is_xenophobe = yes }
+			$SCOPE2$ = { is_xenophobe = yes }
+		}
+		AND = {
+			$SCOPE1$ = { is_xenophile = yes }
+			$SCOPE2$ = { is_xenophile = yes }
+		}
+		AND = {
+			$SCOPE1$ = { is_egalitarian = yes }
+			$SCOPE2$ = { is_egalitarian = yes }
+		}
+		AND = {
+			$SCOPE1$ = { is_authoritarian = yes }
+			$SCOPE2$ = { is_authoritarian = yes }
+		}
+		AND = {
+			$SCOPE1$ = { is_spiritualist = yes }
+			$SCOPE2$ = { is_spiritualist = yes }
+		}
+		AND = {
+			$SCOPE1$ = { is_materialist = yes }
+			$SCOPE2$ = { is_materialist = yes }
+		}
+	}
+}
+
 ###########################
 ########## Other Triggers
 ###########################
 
 # Ethics and Civics Overwrites/Backups
-is_ecologist = {
- 	OR = {
-		has_ethic = ethic_green
-		has_ethic = ethic_fanatic_green
- 	}
-}
 
 is_socialism = {
 	OR = {
@@ -2096,12 +2129,6 @@ is_capitalism = {
 	}
 }
 
-is_pluralist = {
- 	OR = {
-		has_ethic = ethic_pluralist
-		has_ethic = ethic_fanatic_pluralist
- 	}
-}
 
 is_ethic_situation = {
 	OR = {
@@ -2116,7 +2143,7 @@ is_ethic_situation = {
 		is_situation_type = situation_civstrife_faction_soc
 		is_situation_type = situation_civstrife_faction_cap
 		is_situation_type = situation_civstrife_faction_indus
-		is_situation_type = situation_civstrife_faction_eco
+		is_situation_type = situation_civstrife_faction_green
 		is_situation_type = situation_civstrife_faction_elite
 		is_situation_type = situation_civstrife_faction_plur
 	}
@@ -2135,7 +2162,7 @@ is_faction_based_situation = {
 		is_situation_type = situation_civstrife_faction_soc
 		is_situation_type = situation_civstrife_faction_cap
 		is_situation_type = situation_civstrife_faction_indus
-		is_situation_type = situation_civstrife_faction_eco
+		is_situation_type = situation_civstrife_faction_green
 		is_situation_type = situation_civstrife_faction_elite
 		is_situation_type = situation_civstrife_faction_plur
 		is_situation_type = situation_civstrife_sep_plan
@@ -2169,7 +2196,7 @@ is_faction_happy_situation = {
 			}
 		}
 		AND = {
-			owner = { is_democratic_authority =no }
+			owner = { is_democratic_authority = no }
 			target = {
 				OR = {
 					AND = {
@@ -2650,7 +2677,6 @@ civwar_valid_trigger = {
 	num_owned_planets > 1
 	# years_passed >= 15
 	NOR = {
-		has_country_flag = recent_civil_war
 		has_country_flag = civwar_not_allowed
 	}
 }

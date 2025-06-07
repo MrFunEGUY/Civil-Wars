@@ -1,3 +1,172 @@
+civil_war_chance = {
+	base = @base_civil_war_chance ## 6
+
+	modifier = {
+		factor = 2
+		owner = {
+			OR = {
+				has_deficit = energy
+				has_deficit = minerals
+				has_deficit = trade
+			}
+		}
+	}
+
+	modifier = {
+		factor = 4
+		owner = { has_deficit = food }
+	}
+
+	modifier = { owner = { has_country_flag = recent_civwar_ended }	factor = 2 }
+}
+
+leader_civil_war_chance = {
+	base = @base_leader_civil_war_chance ## 5
+
+	modifier = { has_leader_flag = civwar_war_hero		add = 5 }
+
+	modifier = {
+		add = value:leader_service_value
+		leader_years_of_service >= 5
+	}
+
+	modifier = {
+		factor = 0.75
+		exists = leader
+		leader = { has_trait = leader_trait_peacekeeper }
+	}
+
+	modifier = {
+		factor = 0.25
+		is_pacifist = yes
+		owner = { is_militarist = no }
+	}
+
+	modifier = {
+		add = 25
+		exists = fleet
+		fleet = { any_owned_ship = { is_ship_class = shipclass_military } }
+	}
+
+	modifier = {
+		add = 5
+		exists = planet
+		planet = { is_capital = no }
+	}
+
+	modifier = {
+		add = 20
+		exists = planet
+		exists = planet.sector
+		planet = { is_capital = no }
+		planet = { is_sector_capital = yes }
+	}
+
+	modifier = {
+		factor = 2
+		owner = {
+			OR = {
+				has_deficit = energy
+				has_deficit = minerals
+				has_deficit = trade
+			}
+		}
+	}
+
+	modifier = {
+		factor = 3
+		owner = { has_deficit = food }
+	}
+
+	modifier = { owner = { has_country_flag = recent_civwar_ended }	factor = 2 }
+}
+
+leader_dispute_civil_war_chance = {
+	base = 50
+
+	modifier = {
+		add = value:leader_service_value
+		leader_years_of_service >= 5
+	}
+
+	modifier = {
+		subtract = 5
+		exists = leader
+		leader = { has_trait = leader_trait_peacekeeper }
+	}
+
+	modifier = {
+		factor = 0.75
+		is_pacifist = yes
+	}
+
+	modifier = {
+		add = 25
+		exists = fleet
+		fleet = { any_owned_ship = { is_ship_class = shipclass_military } }
+	}
+
+	modifier = {
+		add = 5
+		exists = planet
+		planet = { is_capital = no }
+	}
+
+	modifier = {
+		add = 20
+		exists = planet
+		exists = planet.sector
+		planet = { is_capital = no }
+		planet = { is_sector_capital = yes }
+	}
+
+	modifier = {
+		factor = 1.5
+		owner = {
+			OR = {
+				has_deficit = energy
+				has_deficit = minerals
+				has_deficit = trade
+			}
+		}
+	}
+
+	modifier = {
+		factor = 2
+		owner = { has_deficit = food }
+	}
+
+	modifier = { owner = { has_country_flag = recent_civwar_ended }	add = 15 }
+}
+
+leader_service_value = {
+	base = 0
+	add = trigger:leader_years_of_service
+	divide = 2
+}
+
+election_out_is_allowed = {
+	base = 10
+
+	modifier = {
+		factor = 0.5
+		owner = {
+			OR = {
+				has_deficit = energy
+				has_deficit = minerals
+				has_deficit = trade
+			}
+		}
+	}
+
+	modifier = {
+		factor = 0.25
+		owner = { has_deficit = food }
+	}
+
+	modifier = { owner = { has_country_flag = recent_civwar_ended }	factor = 0.5 }
+}
+
 leader_gains_power = {
 	base = @base_leader_event_chance
 
@@ -74,22 +243,10 @@ leader_gains_power = {
 
 fleet_swap_chance = {
 	base = @base_fleet_swap_chance ## 20
-
-	# modifier = {
-	# 	add = 20 ## 40 Base Chance
-	# 	event_target:civwar_rebels = { NOT = { has_country_flag = plan_rebel_country } }
-	# 	any_owned_ship = {
-	# 		OR = {
-	# 			is_ship_size = giga_massive_planet
-	# 			is_ship_size = giga_planet_behemoth
-	# 			is_ship_size = giga_systemcraft
-	# 		}
-	# 	}
-	# }
 	
 	modifier = { owner = { is_democratic_authority = yes }	factor = 1 }
 	modifier = { owner = { is_oligarchic_authority = yes }	factor = 1.15 }
-	modifier = { owner = { is_corporate_authority = yes }	factor = 1.2 }
+	modifier = { owner = { is_megacorp = yes }				factor = 1.2 }
 	modifier = { owner = { is_imperial_authority = yes }	factor = 1.25 }
 	modifier = { owner = { is_dictatorial_authority = yes }	factor = 1.5 }
 
@@ -166,7 +323,7 @@ leader_to_defect_chance = {
 
 	modifier = { owner = { is_democratic_authority = yes }	factor = 1 }
 	modifier = { owner = { is_oligarchic_authority = yes }	factor = 1.15 }
-	modifier = { owner = { is_corporate_authority = yes }	factor = 1.2 }
+	modifier = { owner = { is_megacorp = yes }				factor = 1.2 }
 	modifier = { owner = { is_imperial_authority = yes }	factor = 1.25 }
 	modifier = { owner = { is_dictatorial_authority = yes }	factor = 1.5 }
 
@@ -192,7 +349,7 @@ pop_to_army_chance = {
 
 	modifier = { owner = { is_democratic_authority = yes }	factor = 1 }
 	modifier = { owner = { is_oligarchic_authority = yes }	factor = 1.15 }
-	modifier = { owner = { is_corporate_authority = yes }	factor = 1.2 }
+	modifier = { owner = { is_megacorp = yes }				factor = 1.2 }
 	modifier = { owner = { is_imperial_authority = yes }	factor = 1.25 }
 	modifier = { owner = { is_dictatorial_authority = yes }	factor = 1.5 }
 }

@@ -3101,7 +3101,10 @@ country_event = {
 			event_target:defeated_traitor = {
 				set_owner = root
 				set_leader_flag = traitor_@event_target:traitor_home_country
-				add_trait = leader_trait_traitor
+				add_trait = {
+					trait = leader_trait_traitor
+					show_message = no
+				}
 			}
 			event_target:traitor_home_country = { country_event = { id = civend.5002 days = 14 random = 360 } }
 			log = "| [this.GetName] is HOST to the traitor [event_target:defeated_traitor.GetName]"
@@ -3208,7 +3211,10 @@ country_event = {
 				set_owner = root
 				set_leader_flag = heir_traitor_@event_target:traitor_home_country
 				get_heir_country_info = yes
-				add_trait = leader_trait_traitor_heir
+				add_trait = {
+					trait = leader_trait_traitor_heir
+					show_message = no
+				}
 			}
 			event_target:traitor_home_country = { country_event = { id = civheir.3030 days = 14 random = 360 } }
 			log = "| [this.GetName] is HOST to the traitor heir [event_target:disinherited_heir.GetName]"

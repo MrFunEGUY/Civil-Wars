@@ -1,0 +1,84 @@
+name = random
+species = event_target:civwar_species
+origin = origin_civwar
+civics = random
+flag = random
+randomize_ethos = yes
+effect = {
+	if = {
+		limit = { exists = event_target:cw_scope_initializer}
+		if = {
+			limit = { event_target:cw_scope_initializer = { is_authoritarian = yes } }
+			set_country_flag = civwar_auth
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_egalitarian = yes } }
+			set_country_flag = civwar_egal
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_militarist = yes } }
+			set_country_flag = civwar_mil
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_pacifist = yes } }
+			set_country_flag = civwar_pac
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_materialist = yes } }
+			set_country_flag = civwar_mat
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_spiritualist = yes } }
+			set_country_flag = civwar_spi
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_xenophile = yes } }
+			set_country_flag = civwar_phile
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_xenophobe = yes } }
+			set_country_flag = civwar_phobe
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_socialist = yes } }
+			set_country_flag = civwar_soc
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_capitalism = yes } }
+			set_country_flag = civwar_cap
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_cooperative = yes } }
+			set_country_flag = civwar_coop
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_competitive = yes } }
+			set_country_flag = civwar_comp
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_industrial = yes } }
+			set_country_flag = civwar_indus
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_green = yes } }
+			set_country_flag = civwar_green
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_anthropocentric = yes } }
+			set_country_flag = civwar_anthro
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_ecocentric = yes } }
+			set_country_flag = civwar_eco
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_elitist = yes } }
+			set_country_flag = civwar_elite
+		}
+		else_if = {
+			limit = { event_target:cw_scope_initializer = { is_pluralist = yes } }
+			set_country_flag = civwar_plur
+		}
+	}
+	created_civwar_rebel_country_effect = yes
+}
