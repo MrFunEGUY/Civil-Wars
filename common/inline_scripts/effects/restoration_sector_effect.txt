@@ -1,0 +1,6 @@
+limit = { check_variable = { which = total_restoration_sectors value >= $NUM$ } }
+random_owned_sector = {
+	limit = { has_sector_flag = restoration_sector }
+	remove_sector_flag = restoration_sector
+	save_event_target_as = restoration_sector_$NUM$
+}

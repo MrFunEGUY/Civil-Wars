@@ -1,0 +1,12 @@
+limit = { event_target:global_event_country = { check_variable = { which = secession_country_count value = $NUM$ } } }
+event_target:civwar_originator = {
+	set_country_flag = secession_country_$NUM$_flag
+	save_global_event_target_as = secession_country_$NUM$
+}
+event_target:civwar_rebels = {
+	set_country_flag = secession_country_$NUM$_seceder
+	if = {
+		limit = { exists = ruler }
+		ruler = { set_leader_flag = secession_country_$NUM$_traitor }
+	}
+}

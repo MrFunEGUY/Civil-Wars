@@ -109,7 +109,7 @@ country_event = { # Setup for Civil War (create_country)
 								starbase = { set_owner = root }
 								every_system_planet = {
 									limit = { is_owned_by = event_target:civwar_originator }
-									swap_leader_on_planet = yes
+									swap_leader = yes
 									set_owner = root
 								}
 							}
@@ -117,7 +117,7 @@ country_event = { # Setup for Civil War (create_country)
 						solar_system = {
 							every_system_planet = { # In case it takes over a system with multiple planets.
 								limit = { is_owned_by = event_target:civwar_originator }
-								swap_leader_on_planet = yes
+								swap_leader = yes
 								set_owner = root
 							}
 							swap_fleets_in_system = yes
@@ -160,11 +160,14 @@ country_event = { # Setup for Civil War (create_country)
 							}
 							every_owned_pop_group = {
 								limit = { has_same_ethics = { SCOPE1 = this SCOPE2 = event_target:cw_scope_initializer } }
-								event_target:cw_scope_initializer = { change_variable = { which = mil_support value = 1 } }
+								random = {
+									chance = value:pop_group_radicalized
+									event_target:cw_scope_initializer = { change_variable = { which = mil_support value = 1 } }
+								}
 							}
-							swap_leader_on_planet = yes
+							swap_leader = yes
 							set_owner = root
-							starbase = { set_owner = root }
+							# starbase = { set_owner = root }
 						}
 
 						every_system_within_border = { # Every Other system, changing this gets weird, so just leave it cause it works fine
@@ -181,9 +184,12 @@ country_event = { # Setup for Civil War (create_country)
 									limit = { is_owned_by = event_target:civwar_originator }
 									every_owned_pop_group = {
 										limit = { has_same_ethics = { SCOPE1 = this SCOPE2 = event_target:cw_scope_initializer } }
-										event_target:cw_scope_initializer = { change_variable = { which = mil_support value = 1 } }
+										random = {
+											chance = value:pop_group_radicalized
+											event_target:cw_scope_initializer = { change_variable = { which = mil_support value = 1 } }
+										}
 									}
-									swap_leader_on_planet = yes
+									swap_leader = yes
 									set_owner = root
 								}
 								starbase = { set_owner = root }
@@ -237,10 +243,98 @@ country_event = { # Setup for Civil War (create_country)
 					swap_fleets_in_system = yes
 					every_system_planet = {
 						limit = { is_owned_by = event_target:civwar_originator }
-						swap_leader_on_planet = yes
+						swap_leader = yes
 						set_owner = root
 					}
 					starbase = { set_owner = root }
+				}
+			}
+		}
+
+		if = {
+			limit = { has_origin = origin_civwar }
+			## Let all other leaders choose to switch or not
+			event_target:civwar_originator = {
+				every_owned_leader = {
+					limit = {
+						is_heir = no
+						is_ruler = no
+					}
+					random = {
+						chance = value:leader_to_defect_chance
+						if = {
+							limit = { exists = fleet }
+							fleet = {
+								every_owned_ship = {
+									limit = { is_ship_class = shipclass_military }
+									random = {
+										chance = 20
+										destroy_ship = this
+									}
+								}
+								set_owner = root
+							}
+						}
+						if = {
+							limit = {
+								exists = planet
+								planet.solar_system = {
+									closest_system = {
+										limit = {
+											exists = space_owner
+											space_owner = { is_same_value = event_target:civwar_rebels }
+										}
+										use_bypasses = yes
+										max_steps = 1
+									}
+								}
+							}
+							if = {
+								limit = { planet = { is_sector_capital = yes } }
+								planet.sector = {
+									every_owned_planet = { # Every system with planets
+										if = {
+											limit = { event_target:cw_scope_initializer = { is_scope_type = pop_faction } }
+											random_owned_pop_group = { # Get random pop species to be leader of secondary revolts
+												limit = {
+													exists = pop_faction
+													pop_faction = { is_same_value = event_target:civwar_party }
+												}
+												set_timed_pop_group_flag = { flag = sep_leader_species days = 10 }
+											}
+										}
+										every_owned_pop_group = {
+											limit = { has_same_ethics = { SCOPE1 = this SCOPE2 = event_target:cw_scope_initializer } }
+											random = {
+												chance = value:pop_group_radicalized
+												event_target:cw_scope_initializer = { change_variable = { which = mil_support value = 1 } }
+											}
+										}
+										swap_leader = yes
+										set_owner = root
+									}
+
+									every_system_within_border = { # Every Other system, changing this gets weird, so just leave it cause it works fine
+										starbase = { set_owner = root }
+										swap_fleets_in_system = yes
+									}
+								}
+							}
+							else = {
+								planet.solar_system = {
+									swap_fleets_in_system = yes
+									every_system_planet = {
+										limit = { is_owned_by = event_target:civwar_originator }
+										swap_leader = yes
+										set_owner = root
+									}
+									starbase = { set_owner = root }
+								}
+							}
+						}
+						set_owner = root
+						set_defected = yes
+					}
 				}
 			}
 		}
@@ -536,7 +630,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 				swap_fleets_in_system = yes
 				every_system_planet = { # In case it takes over a system with multiple planets.
 					limit = { is_owned_by = event_target:civwar_originator }
-					swap_leader_on_planet = yes
+					swap_leader = yes
 					set_owner = root
 				}
 				while = {
@@ -557,7 +651,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 						starbase = { set_owner = root }
 						every_system_planet = { # In case it takes over a system with multiple planets.
 							limit = { is_owned_by = event_target:civwar_originator }
-							swap_leader_on_planet = yes
+							swap_leader = yes
 							set_owner = root
 						}
 					}
@@ -571,7 +665,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 				random_owned_sector = {
 					limit = { has_sector_flag = ethic_sector_rebellion_@event_target:sector_capital_planet }
 					every_owned_planet = {
-						swap_leader_on_planet = yes
+						swap_leader = yes
 						set_owner = root
 					}
 					every_system_within_border = {
@@ -589,7 +683,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 				random_owned_sector = {
 					limit = { has_sector_flag = sep_sector_rebellion_@event_target:sector_capital_planet }
 					every_owned_planet = {
-						swap_leader_on_planet = yes
+						swap_leader = yes
 						set_owner = root
 					}
 					every_system_within_border = {
@@ -607,7 +701,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 				random_owned_sector = {
 					limit = { has_sector_flag = nat_sector_rebellion_@event_target:sector_capital_planet }
 					every_owned_planet = {
-						swap_leader_on_planet = yes
+						swap_leader = yes
 						set_owner = root
 					}
 					every_system_within_border = {
@@ -625,7 +719,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 				random_owned_sector = {
 					limit = { has_sector_flag = sec_slave_revolt_@event_target:sector_capital_planet }
 					every_owned_planet = {
-						swap_leader_on_planet = yes
+						swap_leader = yes
 						set_owner = root
 					}
 					every_system_within_border = {

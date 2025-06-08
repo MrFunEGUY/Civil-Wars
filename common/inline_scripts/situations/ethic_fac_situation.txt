@@ -34,10 +34,12 @@ abort_trigger = {
 	OR = {
 		situation_progress < 0
 		NOT = { exists = root.target }
-		root.target.owner = {
-			num_owned_planets < 2
-			has_country_flag = civ_war_recent_$FACTION$
-			these_are_rebels_in_rebellion = yes
+		owner = {
+			OR = {
+				num_owned_planets < 2
+				has_country_flag = civ_war_recent_$FACTION$
+				these_are_rebels_in_rebellion = yes
+			}
 		}
 	}
 }

@@ -98,39 +98,20 @@ country_event = { # Check disapproving Factions every month
 					owner = { NOT = { has_country_flag = civ_war_recent_ELITE } }
 				}
 			}
-			# Democracies are willing to deal with lower approval, as their will be an election in the future.
-			OR = {
-				AND = {
-					owner = { is_democratic_authority = yes }
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							support > 0.2
-							faction_approval < 0.35
-						}
-						AND = {
-							owner = { is_ai = yes }
-							support > 0.2
-							faction_approval < 0.3
-						}
-					}
-				}
-				AND = {
-					owner = { is_democratic_authority = no }
-					OR = {
-						AND = {
-							owner = { is_ai = no }
-							support > 0.15
-							faction_approval < 0.4
-						}
-						AND = {
-							owner = { is_ai = yes }
-							support > 0.2
-							faction_approval < 0.4
-						}
-					}
-				}
-			}
+			# OR = {
+			# 	AND = {
+			# 		owner = { is_ai = no }
+			# 		support > 0.15
+			# 		faction_approval < 0.35
+			# 	}
+			# 	AND = {
+			# 		owner = { is_ai = yes }
+			# 		support > 0.2
+			# 		faction_approval < 0.4
+			# 	}
+			# }
+			support > 0.15
+			faction_approval <= 0.35
 		}
 		under_one_rule_check = yes
 		civwar_valid_trigger = yes

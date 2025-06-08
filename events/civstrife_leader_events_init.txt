@@ -23,7 +23,7 @@ namespace = civleader_init
   ##### xxxx - xxxx: Religious Leader - Commander/Official/Scientist
   ##### xxxx - xxxx: 
  ##### Authoritarian Leader Events
-  ##### xxxx - xxxx: Attempted Coup against Immortal Leader - Commander/Official/Scientist
+  ##### 2000 - xxxx: Coup against Immortal Leader - Commander/Official/Scientist
   ##### xxxx - xxxx: 
   ##### xxxx - xxxx: 
   ##### xxxx - xxxx: 
@@ -38,6 +38,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		these_are_rebels_in_rebellion = no
 		any_owned_leader = { NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } } }
 	}
 
@@ -52,18 +53,23 @@ country_event = { #
 	is_triggered_only = yes
 
 	trigger = {
+		these_are_rebels_in_rebellion = no
 		any_owned_leader = { NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } } }
 	}
 
 	immediate = {
-		ordered_owned_leader = {
-			limit = { NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } } }
-			position = 0
-			order_by = trigger:has_base_skill
-			random = {
-				# chance = value:leader_civil_war_chance
-				chance = 100
-				leader_event = { id = civleader_init.1002 days = 6 random = 14 }
+		random = {
+			chance = value:leader_civil_war_oppurtunity
+			# chance = 100
+			ordered_owned_leader = {
+				limit = { NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } } }
+				position = 0
+				order_by = trigger:has_base_skill
+				random = {
+					chance = value:leader_election_dispute_chance
+					# chance = 100
+					leader_event = { id = civleader_init.1002 days = 6 random = 14 }
+				}
 			}
 		}
 	}
@@ -188,6 +194,7 @@ leader_event = { ## Declare War or Not Decision
 		hidden_effect = {
 			random = {
 				chance = value:leader_dispute_civil_war_chance
+				# chance = 100
 				create_civil_war = yes
 			}
 		}
@@ -230,5 +237,26 @@ leader_event = { ## Declare War or Not Decision
 
 	option = {
 		name = EXCELLENT
+	}
+}
+
+country_event = {
+	id = civleader_init.2000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		these_are_rebels_in_rebellion = no
+		ruler = { is_immortal = yes }
+		OR = {
+			is_dictatorial_dem = yes
+			is_imperial_authority = yes
+			is_dictatorial_authority = yes
+		}
+		any_owned_leader = { NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } } }
+	}
+
+	immediate = {
+		country_event = { id = civleader_init.2001 days = 0 random = 360 }
 	}
 }

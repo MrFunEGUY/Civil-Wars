@@ -160,7 +160,7 @@ country_event = { # Set Birthday
 
 		set_saved_date = {
 			key = birth_date
-			days_from_present = -1
+			days_from_present = -3
 		}
 
 		set_variable = { which = birth_year value = 2200 }
@@ -203,6 +203,7 @@ country_event = { # Log
 			log = "| The [this.GetName] was formed on [this.birth_date]"
 		}
 		log = "| Capital World: [this.Capital.GetName]"
+		log = "| Capital System: [this.Capital.System.GetName]"
 		log = "| Origin: [this.GetOriginName]"
 		log = "| Ruler: [this.Ruler.GetName]"
 		log = "| ++++++++++++++++++++++++++++++++++++++++++++++++"

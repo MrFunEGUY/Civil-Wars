@@ -1,0 +1,9 @@
+limit = { check_variable = { which = helper_subjects value >= $NUM$ } }
+random_subject = {
+	limit = {
+		has_country_flag = helper_sub_country
+		NOT = { exists = event_target:helper_subject_$NUM$ }
+	}
+	remove_country_flag = helper_sub_country
+	save_event_target_as = helper_subject_$NUM$
+}

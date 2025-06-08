@@ -108,10 +108,6 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 				# This needs to be done or the species will be the ruler species, very odd.
 				change_species = event_target:original_nation_species
 				if = {
-					limit = { root = { has_country_flag = integrated_subject } }
-					set_country_flag = integrated_subject
-				}
-				if = {
 					limit = { has_secession_country_flag = yes }
 					find_secession_number_flag = yes
 				}

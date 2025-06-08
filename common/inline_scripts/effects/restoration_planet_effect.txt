@@ -1,0 +1,6 @@
+limit = { check_variable = { which = total_restoration_planets value >= $NUM$ } }
+random_owned_planet = {
+	limit = { has_planet_flag = restoration_planet }
+	remove_planet_flag = restoration_planet
+	save_event_target_as = restoration_planet_$NUM$
+}

@@ -1,0 +1,6 @@
+limit = { event_target:global_event_country = { check_variable = { which = heir_country_count value = $NUM$ } } }
+event_target:traitor_home_country = {
+	set_country_flag = heir_country_$NUM$_flag
+	save_global_event_target_as = heir_country_$NUM$
+}
+event_target:disinherited_heir = { set_leader_flag = heir_country_$NUM$_traitor }
