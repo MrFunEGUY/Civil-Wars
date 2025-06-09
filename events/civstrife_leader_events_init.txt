@@ -240,23 +240,23 @@ leader_event = { ## Declare War or Not Decision
 	}
 }
 
-country_event = {
-	id = civleader_init.2000
-	hide_window = yes
-	is_triggered_only = yes
+# country_event = {
+# 	id = civleader_init.2000
+# 	hide_window = yes
+# 	is_triggered_only = yes
 
-	trigger = {
-		these_are_rebels_in_rebellion = no
-		ruler = { is_immortal = yes }
-		OR = {
-			is_dictatorial_dem = yes
-			is_imperial_authority = yes
-			is_dictatorial_authority = yes
-		}
-		any_owned_leader = { NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } } }
-	}
+# 	trigger = {
+# 		these_are_rebels_in_rebellion = no
+# 		ruler = { is_immortal = yes }
+# 		OR = {
+# 			is_dictatorial_dem = yes
+# 			is_imperial_authority = yes
+# 			is_dictatorial_authority = yes
+# 		}
+# 		any_owned_leader = { NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } } }
+# 	}
 
-	immediate = {
-		country_event = { id = civleader_init.2001 days = 0 random = 360 }
-	}
-}
+# 	immediate = {
+# 		country_event = { id = civleader_init.2001 days = 0 random = 360 }
+# 	}
+# }

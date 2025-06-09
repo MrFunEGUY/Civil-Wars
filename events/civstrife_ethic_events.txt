@@ -22,6 +22,7 @@ country_event = { # Check disapproving Factions every month
 			limit = { is_regular_faction = yes }
 		}
 		any_pop_faction = {
+			is_regular_faction = yes
 			NOT = { has_pop_faction_flag = faction_rebelled }
 			NOT = { has_pop_faction_flag = faction_sep_situation }
 			OR = {

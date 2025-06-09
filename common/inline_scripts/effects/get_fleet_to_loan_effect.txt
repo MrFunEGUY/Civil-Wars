@@ -1,0 +1,6 @@
+limit = {
+	NOT = { exists = event_target:military_fleet_$NUM$ }
+	owner = { check_variable = { which = civwar_total_fleets value >= $NUM$ } }
+}
+remove_fleet_flag = military_fleet
+save_event_target_as = military_fleet_$NUM$

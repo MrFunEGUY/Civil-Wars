@@ -1,0 +1,6 @@
+limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = $NUM$ } } }
+set_name = {
+	key = NAME_sec_rebellion_war_$NUM$
+	variable_string = "[sector_name.GetName]"
+	### Even this this is inside a scripted effect, the above cant use the preceding \\'s or else it breaks
+}

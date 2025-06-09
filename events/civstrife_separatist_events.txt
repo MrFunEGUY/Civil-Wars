@@ -2025,22 +2025,22 @@ situation_event = { # Sectoral Revolt Event
 								set_leader_flag = leader_for_@event_target:civil_war_planet
 								set_leader_flag = new_isolated_sector_ruler
 								set_leader_flag = situation_leader_@root
-								if = {
-									limit = {
-										leader_class = official
-										NOT = { has_global_flag = has_ALTM_mod }
-									}
-									add_trait = {
-										trait = trait_ruler_deep_connections_2
-										show_message = no
-									}
-								}
-								else = {
-									add_trait = {
-										trait = leader_trait_deep_connections_2
-										show_message = no
-									}
-								}
+								# if = {
+								# 	limit = {
+								# 		leader_class = official
+								# 		NOT = { has_global_flag = has_ALTM_mod }
+								# 	}
+								# 	add_trait = {
+								# 		trait = trait_ruler_deep_connections_2
+								# 		show_message = no
+								# 	}
+								# }
+								# else = {
+								# 	add_trait = {
+								# 		trait = leader_trait_deep_connections_2
+								# 		show_message = no
+								# 	}
+								# }
 							}
 						}
 					}

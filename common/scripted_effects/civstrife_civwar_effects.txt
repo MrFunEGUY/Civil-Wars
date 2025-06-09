@@ -288,7 +288,7 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 		}
 	}
 	
-
+	log = "||| AFTER COMMS 1"
 	if = { # Request assistance from neighbors
 		limit = {
 			exists = event_target:civwar_rebels
@@ -426,7 +426,7 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 			remove_country_flag = motherland_wont_join_@event_target:civwar_rebels
 		}
 	}
-
+	log = "||| AFTER COMMS 2"
 	if = { # Ally Rebels join war
 		limit = { any_country = { has_country_flag = ally_reb_@event_target:civwar_originator } }
 		every_country = {
@@ -478,7 +478,7 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 		limit = { has_country_flag = succession_mother_country }
 		remove_country_flag = succession_mother_country
 	}
-
+	log = "||| AFTER COMMS 3"
 	if = {
 		limit = { any_owned_leader = { has_leader_flag = dummy_sector_leader } }
 		random_owned_leader = {
@@ -523,6 +523,7 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 		# Need to change heirs
 		set_heir = event_target:new_heir
 	}
+	log = "||| AFTER COMMS 4"
 
 	if = {
 		limit = { is_variable_set = num_subjects }
@@ -551,6 +552,7 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 		# 	get_subject_decisions_effect = yes
 		# }
 	}
+	log = "||| AFTER COMMS 5"
 
 	if = {
 		limit = { event_target:civwar_rebels = { is_at_war = yes } }
@@ -587,6 +589,7 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 			add_claims = { who = event_target:civwar_rebels }
 		}
 	}
+	log = "||| AFTER COMMS 6"
 
 	###########
 	### Logging
@@ -701,6 +704,15 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 					else_if = {
 						limit = { has_country_flag = civwar_indus }
 						log = "| -- Industrial"
+					}
+
+					if = {
+						limit = { has_country_flag = civwar_elite }
+						log = "| -- Elitist"
+					}
+					else_if = {
+						limit = { has_country_flag = civwar_plur }
+						log = "| -- Pluralist"
 					}
 				}
 				else_if = {
@@ -852,6 +864,23 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 				else_if = {
 					limit = { has_ethic = ethic_fanatic_anthropocentric }
 					log = "| -- Fanatic Anthropocentric"
+				}
+
+				if = {
+					limit = { has_ethic = ethic_elitist }
+					log = "| -- Elitist"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_fanatic_elitist }
+					log = "| -- Fanatic Elitist"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_pluralist }
+					log = "| -- Pluralist"
+				}
+				else_if = {
+					limit = { has_ethic = ethic_fanatic_pluralist }
+					log = "| -- Fanatic Pluralist"
 				}
 
 			log = "| ======="
@@ -1017,6 +1046,7 @@ make_civil_war_ethic_country = {
 	}
 	else_if = {
 		limit = { check_rebellion_ethic = { ETHIC = egalitarian } }
+		log = "EGAL Country Correct"
 		owner = { create_egal_country = yes }
 	}
 	else_if = {
@@ -1879,6 +1909,7 @@ create_egal_country = {
 		}
 	}
 	else = {
+		log = "| Correct Egal Country Being Made"
 		create_country = {
 			authority = auth_democratic
 			ethos = { ethic = ethic_fanatic_egalitarian }
@@ -3303,6 +3334,7 @@ created_civwar_country_effect = {
 	establish_communications_no_message = root # If this isnt done here, a message will still pop up as of 3.5
 	set_timed_country_flag = { flag = civwar_rebel_timer months = 3 }
 	save_event_target_as = civwar_rebels
+	log = "||| CHECK PRE 1000"
 	country_event = { id = civwar.1000 }
 }
 
@@ -3470,22 +3502,22 @@ created_civwar_rebel_country_effect = {
 			effect = {
 				set_leader_flag = new_civwar_ruler
 				save_event_target_as = new_rebel_leader
-				if = {
-					limit = {
-						leader_class = official
-						NOT = { has_global_flag = has_ALTM_mod }
-					}
-					add_trait = {
-						trait = trait_ruler_deep_connections_2
-						show_message = no
-					}
-				}
-				else = {
-					add_trait = {
-						trait = leader_trait_deep_connections_2
-						show_message = no
-					}
-				}
+				# if = {
+				# 	limit = {
+				# 		leader_class = official
+				# 		NOT = { has_global_flag = has_ALTM_mod }
+				# 	}
+				# 	add_trait = {
+				# 		trait = trait_ruler_deep_connections_2
+				# 		show_message = no
+				# 	}
+				# }
+				# else = {
+				# 	add_trait = {
+				# 		trait = leader_trait_deep_connections_2
+				# 		show_message = no
+				# 	}
+				# }
 			}
 		}
 	}
@@ -3567,8 +3599,12 @@ created_civwar_rebel_leader_ethic = {
 # Civil War Type Effects
 
 create_civil_war = {
-
-	root.owner = { save_event_target_as = civwar_originator }
+	log = "--------------------------------"
+	log = "| Create Civil War Effect Called"
+	root.owner = {
+		save_event_target_as = civwar_originator
+		log = "| MOTHER: \\[this.GetName]"
+	}
 
 	if = {
 		limit = {
@@ -4250,6 +4286,7 @@ create_civil_war = {
 	else_if = {
 		limit = { is_scope_type = leader }
 		log = "| Leader Civil War"
+		log = "| Leader: \\[this.GetName]"
 		save_event_target_as = cw_war_leader
 		log = "EVENT TARGET SET: \\[cw_war_leader.GetName]"
 		set_timed_leader_flag = { flag = personal_civil_war months = 5 }
@@ -4665,13 +4702,16 @@ create_civil_war = {
 	}
 	else_if = { ### This one can hopefully be very versatile
 		limit = { is_scope_type = situation }
-		get_war_type_flag = yes
+		log = "| Situation Civil War"
+		log = "| Situation: \\[this.GetName]"
+		owner = { get_war_type_flag = yes }
 		if = {
 			limit = { root.target = { is_scope_type = pop_faction } }
 			root.target = {
 				save_event_target_as = civwar_party
 				save_event_target_as = cw_scope_initializer
 			}
+			log = "SCOPED OBJ: \\[cw_scope_initializer.GetName]"
 			owner = {
 				if = { # 2 Sectors, other Sector will revolt
 					limit = {
@@ -4728,6 +4768,7 @@ create_civil_war = {
 								}
 							}
 						}
+
 					}
 				}
 				else_if = { # > 2 Sectors, if applicable, up to 67% can revolt
@@ -5148,6 +5189,7 @@ create_civil_war = {
 			
 		# }
 	}
+	log = "--------------------------------"
 }
 
 get_heir_multi_sector_effect = {
@@ -7749,22 +7791,22 @@ get_civil_war_leader = {
 			effect = {
 				species = { save_event_target_as = civwar_species }
 				set_leader_flag = new_civwar_ruler
-				if = {
-					limit = {
-						leader_class = official
-						NOT = { has_global_flag = has_ALTM_mod }
-					}
-					add_trait = {
-						trait = trait_ruler_deep_connections_2
-						show_message = no
-					}
-				}
-				else = {
-					add_trait = {
-						trait = leader_trait_deep_connections_2
-						show_message = no
-					}
-				}
+				# if = {
+				# 	limit = {
+				# 		leader_class = official
+				# 		NOT = { has_global_flag = has_ALTM_mod }
+				# 	}
+				# 	add_trait = {
+				# 		trait = trait_ruler_deep_connections_2
+				# 		show_message = no
+				# 	}
+				# }
+				# else = {
+				# 	add_trait = {
+				# 		trait = leader_trait_deep_connections_2
+				# 		show_message = no
+				# 	}
+				# }
 			}
 		}
 	}
@@ -7813,22 +7855,22 @@ get_civil_war_leader = {
 			effect = {
 				save_event_target_as = new_rebel_leader
 				set_leader_flag = new_civwar_ruler
-				if = {
-					limit = {
-						leader_class = official
-						NOT = { has_global_flag = has_ALTM_mod }
-					}
-					add_trait = {
-						trait = trait_ruler_deep_connections_2
-						show_message = no
-					}
-				}
-				else = {
-					add_trait = {
-						trait = leader_trait_deep_connections_2
-						show_message = no
-					}
-				}
+				# if = {
+				# 	limit = {
+				# 		leader_class = official
+				# 		NOT = { has_global_flag = has_ALTM_mod }
+				# 	}
+				# 	add_trait = {
+				# 		trait = trait_ruler_deep_connections_2
+				# 		show_message = no
+				# 	}
+				# }
+				# else = {
+				# 	add_trait = {
+				# 		trait = leader_trait_deep_connections_2
+				# 		show_message = no
+				# 	}
+				# }
 			}
 		}
 		set_leader = event_target:new_rebel_leader
@@ -7984,22 +8026,22 @@ create_planetary_leader_with_ethic = {
 		effect = {
 			set_leader_flag = new_civwar_ruler
 			save_event_target_as = new_rebel_leader
-			if = {
-				limit = {
-					leader_class = official
-					NOT = { has_global_flag = has_ALTM_mod }
-				}
-				add_trait = {
-					trait = trait_ruler_deep_connections_2
-					show_message = no
-				}
-			}
-			else = {
-				add_trait = {
-					trait = leader_trait_deep_connections_2
-					show_message = no
-				}
-			}
+			# if = {
+			# 	limit = {
+			# 		leader_class = official
+			# 		NOT = { has_global_flag = has_ALTM_mod }
+			# 	}
+			# 	add_trait = {
+			# 		trait = trait_ruler_deep_connections_2
+			# 		show_message = no
+			# 	}
+			# }
+			# else = {
+			# 	add_trait = {
+			# 		trait = leader_trait_deep_connections_2
+			# 		show_message = no
+			# 	}
+			# }
 		}
 	}
 }
@@ -8018,22 +8060,22 @@ create_civil_war_leader_with_ethic = {
 		effect = {
 			set_leader_flag = new_civwar_ruler
 			setup_rebel_leader_effect = yes
-			if = {
-				limit = {
-					leader_class = official
-					NOT = { has_global_flag = has_ALTM_mod }
-				}
-				add_trait = {
-					trait = trait_ruler_deep_connections_2
-					show_message = no
-				}
-			}
-			else = {
-				add_trait = {
-					trait = leader_trait_deep_connections_2
-					show_message = no
-				}
-			}
+			# if = {
+			# 	limit = {
+			# 		leader_class = official
+			# 		NOT = { has_global_flag = has_ALTM_mod }
+			# 	}
+			# 	add_trait = {
+			# 		trait = trait_ruler_deep_connections_2
+			# 		show_message = no
+			# 	}
+			# }
+			# else = {
+			# 	add_trait = {
+			# 		trait = leader_trait_deep_connections_2
+			# 		show_message = no
+			# 	}
+			# }
 		}
 	}
 }
@@ -9474,7 +9516,7 @@ create_civwar_armies = {
 							create_army = {
 								name = random
 								owner = event_target:civwar_rebels
-								species = event_target:civwar_species
+								species = event_target:civwar_rebels.species
 								type = "civwar_defense_army"
 							}
 						}
@@ -9485,7 +9527,7 @@ create_civwar_armies = {
 							create_army = {
 								name = random
 								owner = event_target:civwar_rebels
-								species = event_target:civwar_species
+								species = event_target:civwar_rebels.species
 								type = "civwar_assault_army"
 							}
 						}
@@ -9494,7 +9536,7 @@ create_civwar_armies = {
 							create_army = {
 								name = random
 								owner = event_target:civwar_rebels
-								species = event_target:civwar_species
+								species = event_target:civwar_rebels.species
 								type = "civwar_defense_army"
 							}
 						}
@@ -9505,7 +9547,7 @@ create_civwar_armies = {
 							create_army = {
 								name = random
 								owner = event_target:civwar_rebels
-								species = event_target:civwar_species
+								species = event_target:civwar_rebels.species
 								type = "civwar_assault_army"
 							}
 						}
@@ -9514,7 +9556,7 @@ create_civwar_armies = {
 							create_army = {
 								name = random
 								owner = event_target:civwar_rebels
-								species = event_target:civwar_species
+								species = event_target:civwar_rebels.species
 								type = "civwar_defense_army"
 							}
 						}
@@ -9532,7 +9574,7 @@ create_civwar_armies = {
 							create_army = {
 								name = random
 								owner = event_target:civwar_rebels
-								species = event_target:civwar_species
+								species = event_target:civwar_rebels.species
 								type = "civwar_defense_army"
 							}
 						}
@@ -9543,7 +9585,7 @@ create_civwar_armies = {
 							create_army = {
 								name = random
 								owner = event_target:civwar_rebels
-								species = event_target:civwar_species
+								species = event_target:civwar_rebels.species
 								type = "civwar_assault_army"
 							}
 						}
@@ -9552,7 +9594,7 @@ create_civwar_armies = {
 							create_army = {
 								name = random
 								owner = event_target:civwar_rebels
-								species = event_target:civwar_species
+								species = event_target:civwar_rebels.species
 								type = "civwar_defense_army"
 							}
 						}
@@ -9563,7 +9605,7 @@ create_civwar_armies = {
 							create_army = {
 								name = random
 								owner = event_target:civwar_rebels
-								species = event_target:civwar_species
+								species = event_target:civwar_rebels.species
 								type = "civwar_assault_army"
 							}
 						}
@@ -9572,7 +9614,7 @@ create_civwar_armies = {
 							create_army = {
 								name = random
 								owner = event_target:civwar_rebels
-								species = event_target:civwar_species
+								species = event_target:civwar_rebels.species
 								type = "civwar_defense_army"
 							}
 						}
@@ -9819,6 +9861,38 @@ get_country_after_setup = {
 					has_country_flag = civwar_cap
 					NOT = { has_ethic = ethic_fanatic_capitalism }
 				}
+				AND = {
+					has_country_flag = civwar_coop
+					NOT = { has_ethic = ethic_fanatic_cooperative }
+				}
+				AND = {
+					has_country_flag = civwar_comp
+					NOT = { has_ethic = ethic_fanatic_competitive }
+				}
+				AND = {
+					has_country_flag = civwar_green
+					NOT = { has_ethic = ethic_fanatic_green }
+				}
+				AND = {
+					has_country_flag = civwar_indus
+					NOT = { has_ethic = ethic_fanatic_industrial }
+				}
+				AND = {
+					has_country_flag = civwar_eco
+					NOT = { has_ethic = ethic_fanatic_ecocentric }
+				}
+				AND = {
+					has_country_flag = civwar_anthro
+					NOT = { has_ethic = ethic_fanatic_anthropocentric }
+				}
+				AND = {
+					has_country_flag = civwar_elite
+					NOT = { has_ethic = ethic_fanatic_elitist }
+				}
+				AND = {
+					has_country_flag = civwar_plur
+					NOT = { has_ethic = ethic_fanatic_pluralist }
+				}
 			}
 		}
 		if = {
@@ -9919,6 +9993,86 @@ get_country_after_setup = {
 			while = {
 				limit = { NOT = { has_ethic = ethic_fanatic_capitalism } }
 				shift_ethic = ethic_capitalism
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_coop
+				NOT = { has_ethic = ethic_fanatic_cooperative }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_cooperative } }
+				shift_ethic = ethic_cooperative
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_comp
+				NOT = { has_ethic = ethic_fanatic_competitive }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_competitive } }
+				shift_ethic = ethic_competitive
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_green
+				NOT = { has_ethic = ethic_fanatic_green }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_green } }
+				shift_ethic = ethic_green
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_indus
+				NOT = { has_ethic = ethic_fanatic_industrial }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_industrial } }
+				shift_ethic = ethic_industrial
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_eco
+				NOT = { has_ethic = ethic_fanatic_ecocentric }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_ecocentric } }
+				shift_ethic = ethic_ecocentric
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_anthro
+				NOT = { has_ethic = ethic_fanatic_anthropocentric }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_anthropocentric } }
+				shift_ethic = ethic_anthropocentric
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_elite
+				NOT = { has_ethic = ethic_fanatic_elitist }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_elitist } }
+				shift_ethic = ethic_elitist
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = civwar_plur
+				NOT = { has_ethic = ethic_fanatic_pluralist }
+			}
+			while = {
+				limit = { NOT = { has_ethic = ethic_fanatic_pluralist } }
+				shift_ethic = ethic_pluralist
 			}
 		}
 
@@ -10176,164 +10330,64 @@ get_fleet_effect = {
 			order_by = trigger:fleet_power
 			inverse = yes
 			if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_1 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 1 } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_1
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 1 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_2 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 2 } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_2
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 2 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_3 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 3 } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_3
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 3 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_4 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 4 } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_4
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 4 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_5 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 5 } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_5
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 5 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_6 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 6 } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_6
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 6 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_7 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 7 } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_7
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 7 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_8 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 8 } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_8
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 8 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_9 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 9 } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_9
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 9 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_10 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_10
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 10 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_11 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_11
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 11 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_12 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_12
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 12 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_13 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_13
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 13 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_14 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_14
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 14 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_15 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_15
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 15 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_16 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_16
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 16 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_17 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_17
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 17 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_18 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_18
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 18 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_19 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 1  } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_19
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 19 }
 			}
 			else_if = {
-				limit = {
-					NOT = { exists = event_target:military_fleet_20 }
-					owner = { check_variable = { which = civwar_total_fleets value >= 2  } }
-				}
-				remove_fleet_flag = military_fleet
-				save_event_target_as = military_fleet_20
+				inline_script = { script = effects/get_fleet_to_loan_effect NUM = 20 }
 			}
 		}
 	}
@@ -10361,8 +10415,6 @@ get_declare_war_civwar = {
 		}
 	}
 
-	
-
 	declare_war = {
 		target = event_target:civwar_rebels
 		name = "Civil War"
@@ -10370,108 +10422,87 @@ get_declare_war_civwar = {
 		effect = {
 
 			if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 1 } } }
-				set_civwar_name_effect = { NUM = 1 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 1 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 2 } } }
-				set_civwar_name_effect = { NUM = 2 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 2 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 3 } } }
-				set_civwar_name_effect = { NUM = 3 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 3 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 4 } } }
-				set_civwar_name_effect = { NUM = 4 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 4 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 5 } } }
-				set_civwar_name_effect = { NUM = 5 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 5 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 6 } } }
-				set_civwar_name_effect = { NUM = 6 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 6 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 7 } } }
-				set_civwar_name_effect = { NUM = 7 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 7 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 8 } } }
-				set_civwar_name_effect = { NUM = 8 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 8 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 9 } } }
-				set_civwar_name_effect = { NUM = 9 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 9 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 10 } } }
-				set_civwar_name_effect = { NUM = 10 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 10 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 11 } } }
-				set_civwar_name_effect = { NUM = 11 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 11 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 12 } } }
-				set_civwar_name_effect = { NUM = 12 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 12 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 13 } } }
-				set_civwar_name_effect = { NUM = 13 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 13 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 14 } } }
-				set_civwar_name_effect = { NUM = 14 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 14 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 15 } } }
-				set_civwar_name_effect = { NUM = 15 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 15 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 16 } } }
-				set_civwar_name_effect = { NUM = 16 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 16 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 17 } } }
-				set_civwar_name_effect = { NUM = 17 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 17 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 18 } } }
-				set_civwar_name_effect = { NUM = 18 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 18 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = 19 } } }
-				set_civwar_name_effect = { NUM = 19 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 19 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value >= 20 } } }
-				set_civwar_name_effect = { NUM = 20 }
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 20 }
 			}
-
 		}
 	}
-
+	
 	remove_country_flag = entered_war_as_attacker
 }
 
@@ -10494,102 +10525,83 @@ get_declare_war_plan_rebellion = {
 		attacker_war_goal = "wg_planet_rebellion"
 		effect = {
 			if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 1 } } }
-				set_planwar_name_effect = { NUM = 1 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 1 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 2 } } }
-				set_planwar_name_effect = { NUM = 2 }
-			}
-			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 3 } } }
-				set_planwar_name_effect = { NUM = 3 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 2 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 4 } } }
-				set_planwar_name_effect = { NUM = 4 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 3 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 5 } } }
-				set_planwar_name_effect = { NUM = 5 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 4 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 6 } } }
-				set_planwar_name_effect = { NUM = 6 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 5 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 7 } } }
-				set_planwar_name_effect = { NUM = 7 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 6 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 8 } } }
-				set_planwar_name_effect = { NUM = 8 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 7 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 9 } } }
-				set_planwar_name_effect = { NUM = 9 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 8 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 10 } } }
-				set_planwar_name_effect = { NUM = 10 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 9 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 11 } } }
-				set_planwar_name_effect = { NUM = 11 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 10 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 12 } } }
-				set_planwar_name_effect = { NUM = 12 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 11 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 13 } } }
-				set_planwar_name_effect = { NUM = 13 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 12 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 14 } } }
-				set_planwar_name_effect = { NUM = 14 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 13 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 15 } } }
-				set_planwar_name_effect = { NUM = 15 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 14 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 16 } } }
-				set_planwar_name_effect = { NUM = 16 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 15 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 17 } } }
-				set_planwar_name_effect = { NUM = 17 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 16 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 18 } } }
-				set_planwar_name_effect = { NUM = 18 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 17 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value = 19 } } }
-				set_planwar_name_effect = { NUM = 19 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 18 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = reb_number value >= 20 } } }
-				set_planwar_name_effect = { NUM = 20 }
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 19 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_planwar_name_effect NUM = 20 }
 			}
 
 
@@ -10625,103 +10637,83 @@ get_declare_war_sec_rebellion = {
 		effect = {
 
 			if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 1 } } }
-					set_secwar_name_effect = { NUM = 1 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 1 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 2 } } }
-					set_secwar_name_effect = { NUM = 2 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 2 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 3 } } }
-					set_secwar_name_effect = { NUM = 3 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 3 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 4 } } }
-					set_secwar_name_effect = { NUM = 4 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 4 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 5 } } }
-					set_secwar_name_effect = { NUM = 5 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 5 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 6 } } }
-					set_secwar_name_effect = { NUM = 6 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 6 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 7 } } }
-					set_secwar_name_effect = { NUM = 7 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 7 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 8 } } }
-					set_secwar_name_effect = { NUM = 8 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 8 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 9 } } }
-					set_secwar_name_effect = { NUM = 9 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 9 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 10 } } }
-					set_secwar_name_effect = { NUM = 10 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 10 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 11 } } }
-					set_secwar_name_effect = { NUM = 11 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 11 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 12 } } }
-					set_secwar_name_effect = { NUM = 12 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 12 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 13 } } }
-					set_secwar_name_effect = { NUM = 13 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 13 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 14 } } }
-					set_secwar_name_effect = { NUM = 14 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 14 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 15 } } }
-					set_secwar_name_effect = { NUM = 15 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 15 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 16 } } }
-					set_secwar_name_effect = { NUM = 16 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 16 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 17 } } }
-					set_secwar_name_effect = { NUM = 17 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 17 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 18 } } }
-					set_secwar_name_effect = { NUM = 18 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 18 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value = 19 } } }
-					set_secwar_name_effect = { NUM = 19 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 19 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = sec_reb_number value >= 20 } } }
-					set_secwar_name_effect = { NUM = 20 }
+				inline_script = { script = effects/declare_secwar_name_effect NUM = 20 }
 			}
 
 		}
@@ -10750,103 +10742,83 @@ get_declare_war_plan_slave_rebellion = {
 		attacker_war_goal = "wg_slave_uprising"
 		effect = {
 			if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 1 } } }
-				set_slave_planwar_name_effect = { NUM = 1 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 1 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 2 } } }
-				set_slave_planwar_name_effect = { NUM = 2 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 2 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 3 } } }
-				set_slave_planwar_name_effect = { NUM = 3 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 3 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 4 } } }
-				set_slave_planwar_name_effect = { NUM = 4 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 4 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 5 } } }
-				set_slave_planwar_name_effect = { NUM = 5 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 5 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 6 } } }
-				set_slave_planwar_name_effect = { NUM = 6 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 6 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 7 } } }
-				set_slave_planwar_name_effect = { NUM = 7 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 7 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 8 } } }
-				set_slave_planwar_name_effect = { NUM = 8 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 8 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 9 } } }
-				set_slave_planwar_name_effect = { NUM = 9 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 9 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 10 } } }
-				set_slave_planwar_name_effect = { NUM = 10 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 10 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 11 } } }
-				set_slave_planwar_name_effect = { NUM = 11 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 11 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 12 } } }
-				set_slave_planwar_name_effect = { NUM = 12 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 12 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 13 } } }
-				set_slave_planwar_name_effect = { NUM = 13 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 13 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 14 } } }
-				set_slave_planwar_name_effect = { NUM = 14 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 14 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 15 } } }
-				set_slave_planwar_name_effect = { NUM = 15 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 15 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 16 } } }
-				set_slave_planwar_name_effect = { NUM = 16 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 16 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 17 } } }
-				set_slave_planwar_name_effect = { NUM = 17 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 17 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 18 } } }
-				set_slave_planwar_name_effect = { NUM = 18 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 18 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 19 } } }
-				set_slave_planwar_name_effect = { NUM = 19 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 19 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value >= 20 } } }
-				set_slave_planwar_name_effect = { NUM = 20 }
+				inline_script = { script = effects/declare_slave_planwar_name_effect NUM = 20 }
 			}
 		}
 	}
@@ -10880,103 +10852,83 @@ get_declare_war_sec_slave_rebellion = {
 		effect = {
 
 			if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 1 } } }
-				set_slave_secwar_name_effect = { NUM = 1 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 1 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 2 } } }
-				set_slave_secwar_name_effect = { NUM = 2 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 2 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 3 } } }
-				set_slave_secwar_name_effect = { NUM = 3 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 3 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 4 } } }
-				set_slave_secwar_name_effect = { NUM = 4 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 4 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 5 } } }
-				set_slave_secwar_name_effect = { NUM = 5 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 5 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 6 } } }
-				set_slave_secwar_name_effect = { NUM = 6 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 6 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 7 } } }
-				set_slave_secwar_name_effect = { NUM = 7 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 7 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 8 } } }
-				set_slave_secwar_name_effect = { NUM = 8 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 8 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 9 } } }
-				set_slave_secwar_name_effect = { NUM = 9 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 9 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 10 } } }
-				set_slave_secwar_name_effect = { NUM = 10 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 10 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 11 } } }
-				set_slave_secwar_name_effect = { NUM = 11 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 11 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 12 } } }
-				set_slave_secwar_name_effect = { NUM = 12 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 12 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 13 } } }
-				set_slave_secwar_name_effect = { NUM = 13 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 13 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 14 } } }
-				set_slave_secwar_name_effect = { NUM = 14 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 14 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 15 } } }
-				set_slave_secwar_name_effect = { NUM = 15 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 15 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 16 } } }
-				set_slave_secwar_name_effect = { NUM = 16 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 16 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 17 } } }
-				set_slave_secwar_name_effect = { NUM = 17 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 17 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 18 } } }
-				set_slave_secwar_name_effect = { NUM = 18 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 18 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value = 19 } } }
-				set_slave_secwar_name_effect = { NUM = 19 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 19 }
 			}
 
 			else_if = {
-				limit = { event_target:civwar_rebels.capital_scope = { check_variable = { which = slave_reb_number value >= 20 } } }
-				set_slave_secwar_name_effect = { NUM = 20 }
+				inline_script = { script = effects/declare_slave_secwar_name_effect NUM = 20 }
 			}
 		}
 	}
@@ -11095,43 +11047,6 @@ get_declare_war_subject = {
 	}
 
 	remove_country_flag = entered_war_as_attacker
-}
-
-####
-
-set_civwar_name_effect = {
-	set_name = {
-		key = NAME_civwar_war_$NUM$
-		variable_string = "\\[civwar_originator.GetAdj]"  ## Subject Civil Wars, you want the event target not mainattacker
-	}
-}
-
-set_planwar_name_effect = {
-	set_name = {
-		key = NAME_plan_rebellion_war_$NUM$
-		variable_string = "\\[This.MainDefender.Capital.GetAdj]"
-	}
-}
-
-set_secwar_name_effect = {
-	set_name = {
-		key = NAME_sec_rebellion_war_$NUM$
-		variable_string = "\\[sector_name.GetName]"
-	}
-}
-
-set_slave_planwar_name_effect = {
-	set_name = {
-		key = NAME_plan_slave_rebellion_war_$NUM$
-		variable_string = "\\[sector_name.GetName]"
-	}
-}
-
-set_slave_secwar_name_effect = {
-	set_name = {
-		key = NAME_sec_slave_rebellion_war_$NUM$
-		variable_string = "\\[sector_name.GetName]"
-	}
 }
 
 #####################
@@ -13852,6 +13767,15 @@ kill_gov_switch_country = {
 }
 
 set_defected = {
-	set_leader_flag = leader_defected
-	set_leader_flag = leader_defected_@event_target:civwar_originator
+	if = {
+		limit = { is_scope_type = leader }
+		set_leader_flag = leader_defected
+		set_leader_flag = leader_defected_@event_target:civwar_originator
+	}
+	else = {
+		leader = {
+			set_leader_flag = leader_defected
+			set_leader_flag = leader_defected_@event_target:civwar_originator
+		}
+	}
 }

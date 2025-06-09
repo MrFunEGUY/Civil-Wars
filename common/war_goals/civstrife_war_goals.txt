@@ -53,26 +53,16 @@ wg_civwar = {
 
 	on_wargoal_set = {
 		random_war = {
-			limit = {
-				using_war_goal = {
-					type = wg_civwar
-					owner = root
-				}
-			} 
+			limit = { using_war_goal = { type = wg_civwar owner = root } } 
 			every_war_participant = {
 				limit = { is_war_leader = no }
-				prev = { remove_war_participant = prev }
+				# prev = { remove_war_participant = prev }
 			}
 		}
 		if = {
 			limit = { has_country_flag = subject_civwar_timed_flag }
 			random_war = {
-				limit = {
-					using_war_goal = {
-						type = wg_civwar
-						owner = root
-					}
-				}
+				limit = { using_war_goal = { type = wg_civwar owner = root } }
 				set_timed_war_flag = { flag = war_for_subject_join days = 2 }
 			}
 		}

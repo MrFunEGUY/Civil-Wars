@@ -316,6 +316,26 @@ event = {
 	}
 }
 
+country_event = {
+	id = civmisc.5011
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		every_country = {
+			limit = { any_situation = { is_ethic_situation = yes } }
+			log = "============================"
+			log = "[this.GetName] Ethic Situations:"
+			log = "---------------------"
+			every_situation = {
+				limit = { is_ethic_situation = yes }
+				log = "[this.GetName]"
+			}
+			log = "============================"
+		}
+	}
+}
+
 # fires when a country finishes being integrated
 # This = overlord
 # From = subject

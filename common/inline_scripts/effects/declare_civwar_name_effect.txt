@@ -1,0 +1,6 @@
+limit = { event_target:civwar_originator = { check_variable = { which = civwar_number value = $NUM$ } } }
+set_name = {
+	key = NAME_civwar_war_$NUM$
+	variable_string = "[civwar_originator.GetAdj]"  ## Subject Civil Wars, you want the event target not mainattacker
+	### Even this this is inside a scripted effect, the above cant use the preceding \\'s or else it breaks
+}
