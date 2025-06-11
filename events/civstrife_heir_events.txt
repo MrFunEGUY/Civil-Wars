@@ -844,123 +844,27 @@ country_event = {
 			}
 			event_target:gov_switch_country = {
 				set_leader = event_target:disinherited_heir
-				if = {
-					limit = { ruler = { is_authoritarian = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_authoritarian } }
-						shift_ethic = ethic_authoritarian
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_militarist = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_militarist } }
-						shift_ethic = ethic_militarist
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_pacifist = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_pacifist } }
-						shift_ethic = ethic_pacifist
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_materialist = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_materialist } }
-						shift_ethic = ethic_materialist
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_spiritualist = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_spiritualist } }
-						shift_ethic = ethic_spiritualist
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_xenophile = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_xenophile } }
-						shift_ethic = ethic_xenophile
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_xenophobe = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
-						shift_ethic = ethic_xenophobe
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_socialist = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_socialism } }
-						shift_ethic = ethic_socialism
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_capitalism = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_capitalism } }
-						shift_ethic = ethic_capitalism
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_cooperative = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_cooperative } }
-						shift_ethic = ethic_cooperative
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_competitive = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_competitive } }
-						shift_ethic = ethic_competitive
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_industrial = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_industrial } }
-						shift_ethic = ethic_industrial
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_green = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_green } }
-						shift_ethic = ethic_green
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_anthropocentric = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_anthropocentric } }
-						shift_ethic = ethic_anthropocentric
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_ecocentric = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_ecocentric } }
-						shift_ethic = ethic_ecocentric
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_elitist = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_elitist } }
-						shift_ethic = ethic_elitist
-					}
-				}
-				else_if = {
-					limit = { ruler = { is_pluralist = yes } }
-					while = {
-						limit = { NOT = { has_ethic = ethic_fanatic_pluralist } }
-						shift_ethic = ethic_pluralist
+				ruler = {
+					switch = {
+						trigger = has_ethic
+						ethic_egalitarian = { owner = { cw_shift_ethic_effect = { ETHIC = authoritarian } } }
+						ethic_authoritarian = { owner = { cw_shift_ethic_effect = { ETHIC = authoritarian } } }
+						ethic_spiritualist = { owner = { cw_shift_ethic_effect = { ETHIC = spiritualist } } }
+						ethic_materialist = { owner = { cw_shift_ethic_effect = { ETHIC = materialist } } }
+						ethic_militarist = { owner = { cw_shift_ethic_effect = { ETHIC = militarist } } }
+						ethic_pacifist = { owner = { cw_shift_ethic_effect = { ETHIC = pacifist } } }
+						ethic_xenophile = { owner = { cw_shift_ethic_effect = { ETHIC = xenophile } } }
+						ethic_xenophobe = { owner = { cw_shift_ethic_effect = { ETHIC = xenophobe } } }
+						ethic_socialism = { owner = { cw_shift_ethic_effect = { ETHIC = socialism } } }
+						ethic_capitalism = { owner = { cw_shift_ethic_effect = { ETHIC = capitalism } } }
+						ethic_cooperative = { owner = { cw_shift_ethic_effect = { ETHIC = cooperative } } }
+						ethic_competitive = { owner = { cw_shift_ethic_effect = { ETHIC = competitive } } }
+						ethic_industrial = { owner = { cw_shift_ethic_effect = { ETHIC = industrial } } }
+						ethic_green = { owner = { cw_shift_ethic_effect = { ETHIC = green } } }
+						ethic_anthropocentric = { owner = { cw_shift_ethic_effect = { ETHIC = anthropocentric } } }
+						ethic_ecocentric = { owner = { cw_shift_ethic_effect = { ETHIC = ecocentric } } }
+						ethic_elitist = { owner = { cw_shift_ethic_effect = { ETHIC = elitist } } }
+						ethic_pluralist = { owner = { cw_shift_ethic_effect = { ETHIC = pluralist } } }
 					}
 				}
 				change_government = {

@@ -2,12 +2,18 @@ civil_war_chance = {
 	base = @base_civil_war_chance ## 6
 
 	modifier = {
+		factor = 0.15
+		exists = root.target
+		root.target = { is_pacifist = yes }
+	}
+
+	modifier = {
 		factor = 2
 		owner = {
 			OR = {
 				has_deficit = energy
 				has_deficit = minerals
-				has_deficit = trade
+				# has_deficit = trade
 			}
 		}
 	}
@@ -29,7 +35,7 @@ leader_civil_war_oppurtunity = {
 			OR = {
 				has_deficit = energy
 				has_deficit = minerals
-				has_deficit = trade
+				# has_deficit = trade
 			}
 		}
 	}
@@ -64,7 +70,12 @@ leader_election_dispute_chance = {
 	}
 
 	modifier = {
-		factor = 0.25
+		factor = 0.5
+		is_pacifist = yes
+	}
+
+	modifier = { ## Combines with above
+		factor = 0.5
 		is_pacifist = yes
 		owner = { is_militarist = no }
 	}
@@ -75,19 +86,19 @@ leader_election_dispute_chance = {
 	}
 
 	modifier = {
-		add = 25
+		factor = 4.5
 		exists = fleet
 		fleet = { any_owned_ship = { is_ship_class = shipclass_military } }
 	}
 
 	modifier = {
-		add = 20
+		factor = 3
 		exists = planet
 		planet = { is_capital = no }
 	}
 
 	modifier = {
-		add = 20
+		factor = 3.5
 		exists = planet
 		exists = planet.sector
 		planet = { is_capital = no }
@@ -100,7 +111,7 @@ leader_election_dispute_chance = {
 			OR = {
 				has_deficit = energy
 				has_deficit = minerals
-				has_deficit = trade
+				# has_deficit = trade
 			}
 		}
 	}
@@ -114,7 +125,7 @@ leader_election_dispute_chance = {
 }
 
 leader_dispute_civil_war_chance = {
-	base = 50
+	base = 25
 
 	modifier = {
 		subtract = value:leader_service_value
@@ -122,7 +133,7 @@ leader_dispute_civil_war_chance = {
 	}
 
 	modifier = {
-		subtract = 5
+		factor = 0.8
 		exists = leader
 		leader = { has_trait = leader_trait_peacekeeper }
 	}
@@ -133,19 +144,34 @@ leader_dispute_civil_war_chance = {
 	}
 
 	modifier = {
-		add = 25
+		factor = 1.5
+		has_leader_flag = watergate_happened
+	}
+
+	modifier = {
+		factor = 1.2
+		has_leader_flag = terror_happened
+	}
+
+	modifier = {
+		factor = 1.1
+		has_leader_flag = protests_happened
+	}
+
+	modifier = {
+		factor = 1.5
 		exists = fleet
 		fleet = { any_owned_ship = { is_ship_class = shipclass_military } }
 	}
 
 	modifier = {
-		add = 5
+		factor = 1.4
 		exists = planet
 		planet = { is_capital = no }
 	}
 
 	modifier = {
-		add = 20
+		factor = 1.45
 		exists = planet
 		exists = planet.sector
 		planet = { is_capital = no }
@@ -158,7 +184,7 @@ leader_dispute_civil_war_chance = {
 			OR = {
 				has_deficit = energy
 				has_deficit = minerals
-				has_deficit = trade
+				# has_deficit = trade
 			}
 		}
 	}
@@ -168,125 +194,7 @@ leader_dispute_civil_war_chance = {
 		owner = { has_deficit = food }
 	}
 
-	modifier = { owner = { has_country_flag = recent_civwar_ended }	add = 15 }
-}
-
-leader_service_value = {
-	base = 0
-	add = trigger:leader_years_of_service
-	divide = 1.5
-}
-
-leader_skill_value = {
-	base = 0
-	add = trigger:has_base_skill
-	mult = 2
-}
-
-election_out_is_allowed = {
-	base = 10
-
-	modifier = {
-		factor = 0.5
-		owner = {
-			OR = {
-				has_deficit = energy
-				has_deficit = minerals
-				has_deficit = trade
-			}
-		}
-	}
-
-	modifier = {
-		factor = 0.25
-		owner = { has_deficit = food }
-	}
-
-	modifier = { owner = { has_country_flag = recent_civwar_ended }	factor = 0.5 }
-}
-
-leader_gains_power = {
-	base = @base_leader_event_chance
-
-	inline_script = { script = script_values/leader_standard }
-
-	# Ethic
-	modifier = { is_pacifist = yes factor = 0.5 }
-	
-	modifier = { owner = { is_democratic_authority = yes }	factor = 0.33 }
-	modifier = { owner = { is_imperial_authority = yes }	factor = 1 }
-	modifier = { owner = { is_dictatorial_authority = yes }	factor = 1.25 }
-	modifier = { owner = { is_oligarchic_authority = yes }	factor = 1.5 }
-
-	## Traits
-	modifier = { has_trait = leader_trait_corrupt add = 5 }
-
-	## War Values
-	modifier = {
-		add = 1
-		exists = solar_system
-		solar_system = { is_capital_system = no }
-		owner.capital_scope = { is_occupied_flag = yes }
-	}
-
-	modifier = {
-		factor = 0.25
-		exists = planet
-		planet = { is_occupied_flag = yes }
-	}
-
-	modifier = {
-		factor = @system_occupation_crew_mult
-		exists = planet.starbase
-		NOT = { planet.starbase.controller = { is_same_value = prev.planet.starbase.owner } }
-	}
-
-	modifier = {
-		factor = planet.value:ecaf_crew_devastation_mult
-		planet = { planet_devastation > 0 }
-	}
-
-	modifier = {
-		factor = owner.value:ecaf_crew_att_exhaustion_mult
-		owner = {
-			is_at_war = yes
-			any_war = { any_attacker = {  is_same_value = prevprev  } }
-		}
-	}
-
-	modifier = {
-		factor = owner.value:ecaf_crew_def_exhaustion_mult
-		owner = {
-			is_at_war = yes
-			any_war = { any_defender = {  is_same_value = prevprev  } }
-		}
-	}
-
-	modifier = {
-		factor = owner.value:ecaf_crew_bonus_mult
-		owner = {
-			pop_amount < 5000
-			OR = {
-				is_rogue_colony = yes
-				has_civstrife_origin = yes
-			}
-		}
-	}
-
-	modifier = {
-		add = 500000
-		has_global_flag = ecaf_crew_cheat_enabled
-	}
-}
-
-fleet_swap_chance = { ## These are leaderless fleets
-	base = @base_fleet_swap_chance ## 50
-	
-	modifier = { owner = { is_democratic_authority = yes }	factor = 1 }
-	modifier = { owner = { is_oligarchic_authority = yes }	factor = 1.1 }
-	modifier = { owner = { is_megacorp = yes }				factor = 1.2 }
-	modifier = { owner = { is_imperial_authority = yes }	factor = 1.2 }
-	modifier = { owner = { is_dictatorial_authority = yes }	factor = 1.3 }
+	modifier = { owner = { has_country_flag = recent_civwar_ended }	factor = 2 }
 }
 
 leader_to_defect_chance = {
@@ -300,6 +208,12 @@ leader_to_defect_chance = {
 	modifier = { ## Lvl 10 Cancelled by 30 yrs service
 		add = value:leader_skill_value
 		has_base_skill >= 1
+	}
+
+	modifier = {
+		factor = 0.1
+		NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner } }
+		has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels }
 	}
 
 	modifier = {
@@ -330,14 +244,49 @@ leader_to_defect_chance = {
 		owner = { is_militarist = no }
 	}
 
+	#######################
+
 	modifier = {
-		factor = 2
-		exists = solar_system.space_owner
-		solar_system.space_owner = { is_same_empire = event_target:civwar_rebels }
+		factor = 1.15
+		has_leader_flag = hired_admiral_merc_leader
 	}
 
 	modifier = {
-		factor = 2.5
+		factor = 1.3
+		is_authoritarian = yes
+		owner = { has_democratic_elections = yes }
+		event_target:civwar_rebels = { has_democratic_elections = no }
+	}
+
+	modifier = {
+		factor = 1.3
+		is_egalitarian = yes
+		owner = { has_democratic_elections = no }
+		event_target:civwar_rebels = { has_democratic_elections = yes }
+	}
+
+	modifier = {
+		factor = 2
+		OR = {
+			AND = {
+				exists = planet
+				planet = { is_owned_by = event_target:civwar_rebels }
+			}
+			AND = { ## Fleet Folks too
+				exists = solar_system.space_owner
+				solar_system.space_owner = { is_same_empire = event_target:civwar_rebels }
+			}
+		}
+	}
+
+	modifier = {
+		factor = 1.3
+		exists = background_planet
+		background_planet = { is_owned_by = event_target:civwar_rebels }
+	}
+
+	modifier = {
+		factor = 1.5
 		exists = background_planet
 		background_planet = { is_owned_by = event_target:civwar_rebels }
 		NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels } }		
@@ -352,42 +301,155 @@ leader_to_defect_chance = {
 	}
 
 	modifier = {
-		add = 30
+		factor = 1.2
+		NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner } }
+		has_same_ethics = { SCOPE1 = this SCOPE2 = event_target:civwar_rebels }
+	}
+
+	modifier = {
+		factor = 1.3
 		has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner }
 		NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels } }
 	}
 
+	modifier = { ## Adds to above
+		factor = 1.65
+		has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner }
+		has_same_ethics = { SCOPE1 = this SCOPE2 = event_target:civwar_rebels }
+	}
+
 	modifier = {
-		add = 25
+		factor = 1.5
+		exists = fleet
 		has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner }
 		NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels } }
-		exists = fleet
 		fleet = { any_owned_ship = { is_ship_class = shipclass_military } }
 	}
 
-	modifier = {
-		subtract = 20
-		NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner } }
-		has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels }
+	modifier = { ## Adds from above
+		factor = 1.65
+		exists = fleet
+		has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner }
+		has_same_ethics = { SCOPE1 = this SCOPE2 = event_target:civwar_rebels }
+		fleet = { any_owned_ship = { is_ship_class = shipclass_military } }
 	}
 
 	modifier = { owner = { is_democratic_authority = yes }	factor = 1 }
 	modifier = { owner = { is_imperial_authority = yes }	factor = 1.1 }
 	modifier = { owner = { is_oligarchic_authority = yes }	factor = 1.2 }
-	modifier = { owner = { is_megacorp = yes }				factor = 1.2 }
+	modifier = { owner = { is_megacorp = yes }				factor = 1.3 }
 	modifier = { owner = { is_dictatorial_authority = yes }	factor = 1.3 }
 
 	modifier = { root = { has_origin = origin_legendary_leader_death }	add = 8 } ## 33 chance
+}
+
+fleet_swap_chance = { ## These are leaderless fleets
+	base = @base_fleet_swap_chance ## 50
+	
+	modifier = { owner = { is_democratic_authority = yes }	factor = 1 }
+	modifier = { owner = { is_imperial_authority = yes }	factor = 1.1 }
+	modifier = { owner = { is_oligarchic_authority = yes }	factor = 1.2 }
+	modifier = { owner = { is_megacorp = yes }				factor = 1.3 }
+	modifier = { owner = { is_dictatorial_authority = yes }	factor = 1.3 }
+}
+
+chance_to_claim_all = {
+	base = 50
+
+	modifier = {
+		factor = 1.2
+		has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_originator }
+	}
+	
+	modifier = {
+		factor = 100
+		OR = {
+			has_origin = origin_heir_rebellion
+			has_origin = origin_coup_successor
+			has_origin = origin_legendary_leader_death
+		}
+	}
+
+	modifier = {
+		factor = 1.5
+		has_origin = origin_civwar
+	}
+
+	modifier = {
+		factor = 0
+		OR = {
+			has_origin = origin_coup_independent
+			has_origin = origin_isolated_rebellion
+		}
+	}
+
+	modifier = {
+		factor = 0.1
+		OR = {
+			has_origin = origin_plan_rebellion
+			has_origin = origin_nationalist_rebellion
+		}
+	}
+
+	modifier = {
+		factor = 0.15
+		OR = {
+			has_origin = origin_sec_rebellion
+			has_origin = origin_civstrife_slave_rebellion
+		}
+	}
+}
+
+leader_service_value = {
+	base = 0
+	add = trigger:leader_years_of_service
+	# divide = 1.5
+	divide = 2
+}
+
+leader_skill_value = {
+	base = 0
+	add = trigger:has_base_skill
+	mult = 2
+}
+
+election_out_is_allowed = {
+	base = 10
+
+	modifier = {
+		factor = 0.5
+		owner = {
+			OR = {
+				has_deficit = energy
+				has_deficit = minerals
+				# has_deficit = trade
+			}
+		}
+	}
+
+	modifier = {
+		factor = 0.25
+		owner = { has_deficit = food }
+	}
+
+	modifier = { owner = { has_country_flag = recent_civwar_ended }	factor = 0.5 }
 }
 
 pop_to_army_chance = {
 	base = @base_pop_to_army_chance ## 50
 
 	modifier = {
-		add = 30
+		add = 15
 		exists = planet.leader
 		planet.leader = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner } }
 		planet.leader = { NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels } } }
+	}
+
+	modifier = {
+		add = 15
+		exists = planet.leader
+		planet.leader = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner } }
+		planet.leader = { has_same_ethics = { SCOPE1 = this SCOPE2 = event_target:civwar_rebels } }
 	}
 
 	modifier = {
@@ -398,9 +460,9 @@ pop_to_army_chance = {
 	}
 
 	modifier = { owner = { is_democratic_authority = yes }	factor = 1 }
-	modifier = { owner = { is_oligarchic_authority = yes }	factor = 1.15 }
-	modifier = { owner = { is_megacorp = yes }				factor = 1.2 }
-	modifier = { owner = { is_imperial_authority = yes }	factor = 1.25 }
+	modifier = { owner = { is_imperial_authority = yes }	factor = 1.1 }
+	modifier = { owner = { is_oligarchic_authority = yes }	factor = 1.2 }
+	modifier = { owner = { is_megacorp = yes }				factor = 1.3 }
 	modifier = { owner = { is_dictatorial_authority = yes }	factor = 1.5 }
 }
 
@@ -429,4 +491,13 @@ pop_group_rad_happiness = {
 pop_group_planet_dev = {
 	add = trigger:planet_devastation
 	divide = 2
+}
+
+system_claim_value_add = {
+	complex_trigger_modifier = {
+		trigger = count_system_within_border
+		trigger_scope = owner
+		parameters = { limit = { root = { has_claim = prev } } }
+		mode = add
+	}
 }

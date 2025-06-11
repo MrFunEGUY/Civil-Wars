@@ -28,34 +28,13 @@ country_event = {
 		OR = {
 			fromfrom = {
 				OR = {
-					using_war_goal = {
-						type = wg_civwar
-						owner = root
-					}
-					using_war_goal = {
-						type = wg_civwar_heir
-						owner = root
-					}
-					using_war_goal = {
-						type = wg_coup_successor
-						owner = root
-					}
-					using_war_goal = {
-						type = wg_coup_independent
-						owner = root
-					}
-					using_war_goal = {
-						type = wg_coup_successor
-						owner = root
-					}
-					using_war_goal = {
-						type = wg_coup_fealty
-						owner = root
-					}
-					using_war_goal = {
-						type = wg_planet_rebellion
-						owner = root
-					}
+					using_war_goal = { type = wg_civwar owner = root }
+					using_war_goal = { type = wg_civwar_heir owner = root }
+					using_war_goal = { type = wg_coup_successor owner = root }
+					using_war_goal = { type = wg_coup_independent owner = root }
+					using_war_goal = { type = wg_coup_successor owner = root }
+					using_war_goal = { type = wg_coup_fealty owner = root }
+					using_war_goal = { type = wg_planet_rebellion owner = root }
 				}
 			}
 		}
@@ -120,29 +99,14 @@ country_event = {
 			event_target:defeated_traitor = {
 				kill_leader = { show_notification = no }
 			}
-			if = {
-				limit = { has_country_flag = death_by_hanging }
-				remove_country_flag = death_by_hanging
-			}
-			else_if = {
-				limit = { has_country_flag = death_by_jumping }
-				remove_country_flag = death_by_jumping
-			}
-			else_if = {
-				limit = { has_country_flag = death_by_spacing }
-				remove_country_flag = death_by_spacing
-			}
-			else_if = {
-				limit = { has_country_flag = death_by_gun }
-				remove_country_flag = death_by_gun
-			}
-			else_if = {
-				limit = { has_country_flag = death_by_poison }
-				remove_country_flag = death_by_poison
-			}
-			else_if = {
-				limit = { has_country_flag = death_by_coup }
-				remove_country_flag = death_by_coup
+			switch = {
+				trigger = has_country_flag
+				death_by_hanging = { remove_country_flag = death_by_hanging }
+				death_by_jumping = { remove_country_flag = death_by_jumping }
+				death_by_spacing = { remove_country_flag = death_by_spacing }
+				death_by_gun = { remove_country_flag = death_by_gun }
+				death_by_poison = { remove_country_flag = death_by_poison }
+				death_by_coup = { remove_country_flag = death_by_coup }
 			}
 		}
 	}
@@ -220,39 +184,16 @@ country_event = {
 		OR = {
 			fromfrom = {
 				OR = {
-					using_war_goal = {
-						type = wg_civwar
-						owner = root
-					}
-					using_war_goal = {
-						type = wg_civwar_heir
-						owner = root
-					}
-					using_war_goal = {
-						type = wg_coup_successor
-						owner = root
-					}
-					using_war_goal = {
-						type = wg_coup_independent
-						owner = root
-					}
-					using_war_goal = {
-						type = wg_coup_successor
-						owner = root
-					}
-					using_war_goal = {
-						type = wg_coup_fealty
-						owner = root
-					}
+					using_war_goal = { type = wg_civwar owner = root }
+					using_war_goal = { type = wg_civwar_heir owner = root }
+					using_war_goal = { type = wg_coup_successor owner = root }
+					using_war_goal = { type = wg_coup_independent owner = root }
+					using_war_goal = { type = wg_coup_successor owner = root }
+					using_war_goal = { type = wg_coup_fealty owner = root }
 				}
 			}
 			AND = {
-				fromfrom = {
-					using_war_goal = {
-						type = wg_planet_rebellion
-						owner = root
-					}
-				}
+				fromfrom = { using_war_goal = { type = wg_planet_rebellion owner = root } }
 				from.ruler = {
 					NOR = {
 						has_leader_flag = civil_war_ruler_separatist
@@ -844,29 +785,15 @@ country_event = {
 		name = civend.6000.a
 		hidden_effect = {
 			event_target:defeated_traitor = { kill_leader = { show_notification = no } }
-			if = {
-				limit = { has_country_flag = traitor_hanged }
-				remove_country_flag = traitor_hanged
-			}
-			else_if = {
-				limit = { has_country_flag = traitor_firing_squad }
-				remove_country_flag = traitor_firing_squad
-			}
-			else_if = {
-				limit = { has_country_flag = traitor_guillotine }
-				remove_country_flag = traitor_guillotine
-			}
-			else_if = {
-				limit = { has_country_flag = traitor_flayed }
-				remove_country_flag = traitor_flayed
-			}
-			else_if = {
-				limit = { has_country_flag = traitor_stretched }
-				remove_country_flag = traitor_stretched
-			}
-			else_if = {
-				limit = { has_country_flag = traitor_piked }
-				remove_country_flag = traitor_piked
+			switch = {
+				trigger = has_country_flag
+				traitor_hanged = { remove_country_flag = traitor_hanged }
+				traitor_firing_squad = { remove_country_flag = traitor_firing_squad }
+				traitor_guillotine = { remove_country_flag = traitor_guillotine }
+				traitor_flayed = { remove_country_flag = traitor_flayed }
+				traitor_stretched = { remove_country_flag = traitor_stretched }
+				traitor_piked = { remove_country_flag = traitor_piked }
+
 			}
 		}
 	}
@@ -1019,9 +946,7 @@ country_event = {
 		from = { save_event_target_as = dead_traitor }
 
 		if = {
-			limit = {
-				has_country_flag = traitor_country_1_@root
-			}
+			limit = { has_country_flag = traitor_country_1_@root }
 			remove_country_flag = traitor_country_1_@root
 			random_country = {
 				limit = {
@@ -1032,9 +957,7 @@ country_event = {
 			}
 		}
 		else_if = {
-			limit = {
-				has_country_flag = traitor_country_2_@root
-			}
+			limit = { has_country_flag = traitor_country_2_@root }
 			remove_country_flag = traitor_country_2_@root
 			random_country = {
 				limit = {
@@ -1045,9 +968,7 @@ country_event = {
 			}
 		}
 		else_if = {
-			limit = {
-				has_country_flag = traitor_country_3_@root
-			}
+			limit = { has_country_flag = traitor_country_3_@root }
 			remove_country_flag = traitor_country_3_@root
 			random_country = {
 				limit = {
@@ -1058,9 +979,7 @@ country_event = {
 			}
 		}
 		else_if = {
-			limit = {
-				has_country_flag = traitor_country_4_@root
-			}
+			limit = { has_country_flag = traitor_country_4_@root }
 			remove_country_flag = traitor_country_4_@root
 			random_country = {
 				limit = {
@@ -1071,9 +990,7 @@ country_event = {
 			}
 		}
 		else_if = {
-			limit = {
-				has_country_flag = traitor_country_5_@root
-			}
+			limit = { has_country_flag = traitor_country_5_@root }
 			remove_country_flag = traitor_country_5_@root
 			random_country = {
 				limit = {

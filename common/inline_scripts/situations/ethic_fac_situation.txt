@@ -10,13 +10,24 @@ on_start = {
 
 on_progress_complete = {
 	custom_tooltip = situation_civstrife_separatist_end
+	hidden_effect = {
+		if = {
+			limit = { exists = target }
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+			}
+		}
+	}
 }
 
 on_fail = {
 	custom_tooltip = situation_civstrife_separatist_failed
 	hidden_effect = {
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
+		if = {
+			limit = { exists = target }
+			target = {
+				remove_pop_faction_flag = faction_sep_situation
+			}
 		}
 	}
 }
@@ -33,7 +44,8 @@ on_abort = {
 abort_trigger = {
 	OR = {
 		situation_progress < 0
-		NOT = { exists = root.target }
+		target = { has_pop_faction_flag = faction_rebelled }
+		NOT = { exists = target }
 		owner = {
 			OR = {
 				num_owned_planets < 2
@@ -72,8 +84,8 @@ approach = {
 	resources = {
 		category = situations
 		upkeep = {
-			unity = 0.5
-			# multiplier = target.sep_upkeep
+			unity = 0.02
+			multiplier = target.trigger:pop_amount
 		}
 	}
 	ai_weight = {
@@ -89,20 +101,17 @@ approach = {
 	resources = {
 		category = situations
 		upkeep = {
-			unity = 1
-			energy = 0.2
-			# multiplier = target.sep_upkeep
+			unity = 0.02
+			energy = 0.01
+			multiplier = target.trigger:pop_amount
 		}
 	}
-	# target_modifier = { pop_happiness = -0.05 }
+	target_modifier = { pop_happiness = -0.05 }
 	ai_weight = {
 		base = 2
 	}
 	potential = {
-		OR = {
-			current_stage = reb_situation_2
-			situation_progress >= 90
-		}
+		situation_progress >= 90
 	}
 }
 
@@ -114,21 +123,17 @@ approach = {
 	resources = {
 		category = situations
 		upkeep = {
-			unity = 1.5
-			energy = 0.5
-			multiplier = target.sep_upkeep
+			unity = 0.05
+			energy = 0.03
+			multiplier = target.trigger:pop_amount
 		}
 	}
-	# target_modifier = { pop_happiness = -0.15 }
+	target_modifier = { pop_happiness = -0.15 }
 	ai_weight = {
 		base = 1
 	}
 	potential = {
-		owner = { is_egalitarian = no }
-		OR = {
-			current_stage = reb_situation_2
-			situation_progress >= 90
-		}
+		situation_progress >= 90
 	}
 }
 
@@ -144,21 +149,21 @@ monthly_progress = {
 	base = 0
 	modifier = {
 		desc = radicalisation_occurring
-		add = 1
+		add = 5
 		situation_progress < 90
 		is_faction_happy_situation = no
 	}
 
 	modifier = {
 		desc = approach_pr_campaign
-		add = -0.25
+		add = -1
 		current_situation_approach = approach_pr_campaign
 		situation_progress < 90
 	}
 
 	modifier = {
 		desc = approach_faction_repression
-		add = -0.5
+		add = -2.5
 		current_situation_approach = approach_faction_repression
 		situation_progress < 90
 	}

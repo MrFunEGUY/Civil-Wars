@@ -39,6 +39,20 @@ defined_text = {
 }
 
 defined_text = {
+	name = GetGovermentBoard
+	random = no
+	text = {
+		trigger = { root = { is_megacorp = no } }
+		localization_key = government_is_gov
+	}
+	text = {
+		trigger = { root = { is_megacorp = yes } }
+		localization_key = government_is_corp
+	}
+	default = government_is_gov
+}
+
+defined_text = {
 	name = GetSecessionCountry
 	text = {
 		trigger = { has_country_flag = secession_country_1_seceder }

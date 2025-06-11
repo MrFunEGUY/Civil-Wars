@@ -26,10 +26,6 @@ situation_civstrife_election_dispute = {
 	complete_icon_frame = GFX_situation_outcome_frame_green
 
 	on_start = {
-		random_list = {
-			70 = { set_situation_flag = fraud_occurred }
-			30 = { set_situation_flag = fraud_did_not_occur }
-		}
 		owner = {
 
 			export_trigger_value_to_variable = {
@@ -47,15 +43,20 @@ situation_civstrife_election_dispute = {
 	}
 
 	on_progress_complete = {
-		# custom_tooltip = situation_civstrife_election_end
 		if = {
 			limit = { exists = target }
 			target = {
 				remove_leader_flag = cw_cannot_be_fired
-				leader_event = { id = civleader_init.1090 }
+				leader_event = { id = civleader.1090 }
 			}
 		}
-		hidden_effect = { destroy_situation = this }
+		hidden_effect = {
+			owner = {
+				clear_variable = monthly_energy
+				clear_variable = monthly_unity
+			}
+			destroy_situation = this
+		}
 	}
 
 	on_fail = { }
@@ -69,12 +70,15 @@ situation_civstrife_election_dispute = {
 			limit = { exists = target }
 			target = { remove_leader_flag = cw_cannot_be_fired }
 		}
-		owner = { country_event = { id = civleader_init.1003 } }
+		owner = { country_event = { id = civleader.1003 } }
 	}
 
 	abort_trigger = {
-		NOT = { exists = target }
-		NOT = { target = { is_owned_by = root.owner } }
+		OR = {
+			owner = { num_owned_planets < 2 }
+			NOT = { exists = target }
+			NOT = { target = { is_owned_by = root.owner } }
+		}
 	}
 
 	start_value = 0
@@ -138,10 +142,10 @@ situation_civstrife_election_dispute = {
 			# civelect.1050			# Random Events
 	    }
 	    random_events = {
-			91 = 0
-			3 = unrest.101
-			3 = unrest.105
-			3 = unrest.110
+			85 = 0
+			10 = civleader.1010		## Protests
+			3 = civleader.1011		## Terror
+			2 = civleader.1020		## Watergate
 		}
 	}
 

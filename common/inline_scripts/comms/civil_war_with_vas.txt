@@ -1,30 +1,150 @@
 # Civil War With Vassalization Descriptions
 
 desc = {
-	text = civcom.1105.leader.desc
 	trigger = {
-		event_target:civwar_rebels = { NOT = { has_origin = origin_nationalist_rebellion } }
-	}
-}
 
-desc = {
-	text = civcom.1105.nationalist.exile.reg.desc
-	trigger = {
-		event_target:nat_motherland_model = { is_exile_country = yes }
-		event_target:civwar_rebels = {
-			is_imperial_authority = no
-			has_origin = origin_nationalist_rebellion
+		success_text = {
+			text = civcom.1100.under_one_rule.desc
+			event_target:civwar_rebels = { has_origin = origin_legendary_leader_death }
 		}
-	}
-}
 
-desc = {
-	text = civcom.1105.nationalist.exile.imp.desc
-	trigger = {
-		event_target:nat_motherland_model = { is_exile_country = yes }
-		event_target:civwar_rebels = {
-			has_origin = origin_nationalist_rebellion
-			is_imperial_authority = yes
+		success_text = {
+			text = civcom.1105.leader.desc
+			event_target:civwar_rebels = { NOT = { has_origin = origin_nationalist_rebellion } }
 		}
+
+		success_text = {
+			text = civcom.1105.nationalist.exile.reg.desc
+			event_target:nat_motherland_model = { is_exile_country = yes }
+			event_target:civwar_rebels = {
+				is_imperial_authority = no
+				has_origin = origin_nationalist_rebellion
+			}
+		}
+
+		success_text = {
+			text = civcom.1105.nationalist.exile.imp.desc
+			event_target:nat_motherland_model = { is_exile_country = yes }
+			event_target:civwar_rebels = {
+				has_origin = origin_nationalist_rebellion
+				is_imperial_authority = yes
+			}
+		}
+
+		success_text = {
+			text = civcom.offer_vas_norm
+			is_megacorp = no
+		}
+
+		success_text = {
+			text = civcom.offer_vas_corp
+			is_megacorp = yes
+		}
+		
+		### Defecting Leaders
+			success_text = {
+				text = leaders_who_defected
+				event_target:civwar_rebels = { any_owned_leader = { has_leader_flag = leader_defected_@event_target:civwar_originator } }
+			}
+
+			success_text = {
+				text = defected_leader_1
+				exists = event_target:defected_leader_1
+			}
+
+			success_text = {
+				text = defected_leader_2
+				exists = event_target:defected_leader_2
+			}
+
+			success_text = {
+				text = defected_leader_3
+				exists = event_target:defected_leader_3
+			}
+
+			success_text = {
+				text = defected_leader_4
+				exists = event_target:defected_leader_4
+			}
+
+			success_text = {
+				text = defected_leader_5
+				exists = event_target:defected_leader_5
+			}
+
+			success_text = {
+				text = defected_leader_6
+				exists = event_target:defected_leader_6
+			}
+
+			success_text = {
+				text = defected_leader_7
+				exists = event_target:defected_leader_7
+			}
+
+			success_text = {
+				text = defected_leader_8
+				exists = event_target:defected_leader_8
+			}
+
+			success_text = {
+				text = defected_leader_9
+				exists = event_target:defected_leader_9
+			}
+
+			success_text = {
+				text = defected_leader_10
+				exists = event_target:defected_leader_10
+			}
+
+			success_text = {
+				text = defected_leader_10
+				exists = event_target:defected_leader_10
+			}
+
+			success_text = {
+				text = defected_leader_12
+				exists = event_target:defected_leader_12
+			}
+
+			success_text = {
+				text = defected_leader_13
+				exists = event_target:defected_leader_13
+			}
+
+			success_text = {
+				text = defected_leader_14
+				exists = event_target:defected_leader_14
+			}
+
+			success_text = {
+				text = defected_leader_15
+				exists = event_target:defected_leader_15
+			}
+
+			success_text = {
+				text = defected_leader_16
+				exists = event_target:defected_leader_16
+			}
+
+			success_text = {
+				text = defected_leader_17
+				exists = event_target:defected_leader_17
+			}
+
+			success_text = {
+				text = defected_leader_18
+				exists = event_target:defected_leader_18
+			}
+
+			success_text = {
+				text = defected_leader_19
+				exists = event_target:defected_leader_19
+			}
+
+			success_text = {
+				text = defected_leader_20
+				exists = event_target:defected_leader_20
+			}
 	}
 }

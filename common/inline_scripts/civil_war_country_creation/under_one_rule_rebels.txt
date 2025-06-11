@@ -39,7 +39,7 @@ effect = {
 	if = {
 		limit = { event_target:civwar_originator = { has_valid_civic = civic_fanatic_purifiers } }
 		if = {
-			limit = { NOT = { has_global_flag = cultural_overhaul_funefork_active } }
+			limit = { has_ecaf_mod = no }
 			country_add_ethic = ethic_fanatic_xenophobe
 			country_add_ethic = ethic_militarist
 			change_government = {

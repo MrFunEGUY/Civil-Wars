@@ -103,6 +103,12 @@ on_bi_yearly_pulse = {
 	}
 }
 
+on_five_year_pulse_country = {
+	events = {
+		civmisc.2300			# Kill Loc Countries
+	}
+}
+
 # this = country
 on_decade_pulse_country = {
 	events = {
@@ -182,15 +188,6 @@ on_country_destroyed = {
 on_operation_cancelled = {
 	events = {
 		# civesp.9100
-	}
-}
-
-# A war has ended
-# Root = Loser
-# From = Main Winner
-on_war_ended = {
-	events = {
-		civmisc.2300			# Set Recent Civwar Flag on war end
 	}
 }
 
@@ -319,7 +316,7 @@ on_election_started = {
 on_election_ended = {
 	events = {
 		# civelect.1000				# Election dispute initializer initializer
-		civleader_init.1000			# Election dispute initializer
+		civleader.1000			# Election dispute initializer
 	}
 }
 

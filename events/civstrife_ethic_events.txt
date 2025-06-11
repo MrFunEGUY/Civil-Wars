@@ -214,167 +214,26 @@ country_event = { # Check disapproving Factions every month
 				faction_approval <= 0.35
 			}
 			set_pop_faction_flag = faction_sep_situation
-			if = {
-				limit = { is_egalitarian = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_egal
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_authoritarian = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_auth
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_spiritualist = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_spi
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_materialist = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_mat
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_militarist = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_mil
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_pacifist = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_pac
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_xenophile = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_phile
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_xenophobe = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_phobe
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_socialist = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_soc
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_capitalism = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_cap
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_cooperative = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_coop
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_competitive = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_comp
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_industrial = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_indus
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_green = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_green
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_anthropocentric = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_anthro
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_ecocentric = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_eco
-						target = prev
-					}
-				}
-			}
-			else_if = {
-				limit = { is_elitist = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_elite
-						target = prev
-					}
-				}
-			}	
-			else_if = {
-				limit = { is_pluralist = yes }
-				owner = {
-					start_situation = {
-						type = situation_civstrife_faction_plur
-						target = prev
-					}
-				}
+			switch = {
+				trigger = has_ethic
+				ethic_egalitarian = { owner = { start_situation = { type = situation_civstrife_faction_egal target = prev } } }
+				ethic_authoritarian = { owner = { start_situation = { type = situation_civstrife_faction_auth target = prev } } }
+				ethic_spiritualist = { owner = { start_situation = { type = situation_civstrife_faction_spi target = prev } } }
+				ethic_materialist = { owner = { start_situation = { type = situation_civstrife_faction_mat target = prev } } }
+				ethic_militarist = { owner = { start_situation = { type = situation_civstrife_faction_mil target = prev } } }
+				ethic_pacifist = { owner = { start_situation = { type = situation_civstrife_faction_pac target = prev } } }
+				ethic_xenophile = { owner = { start_situation = { type = situation_civstrife_faction_phile target = prev } } }
+				ethic_xenophobe = { owner = { start_situation = { type = situation_civstrife_faction_phobe target = prev } } }
+				ethic_socialism = { owner = { start_situation = { type = situation_civstrife_faction_soc target = prev } } }
+				ethic_capitalism = { owner = { start_situation = { type = situation_civstrife_faction_cap target = prev } } }
+				ethic_cooperative = { owner = { start_situation = { type = situation_civstrife_faction_coop target = prev } } }
+				ethic_competitive = { owner = { start_situation = { type = situation_civstrife_faction_comp target = prev } } }
+				ethic_industrial = { owner = { start_situation = { type = situation_civstrife_faction_indus target = prev } } }
+				ethic_green = { owner = { start_situation = { type = situation_civstrife_faction_green target = prev } } }
+				ethic_anthropocentric = { owner = { start_situation = { type = situation_civstrife_faction_anthro target = prev } } }
+				ethic_ecocentric = { owner = { start_situation = { type = situation_civstrife_faction_eco target = prev } } }
+				ethic_elitist = { owner = { start_situation = { type = situation_civstrife_faction_elite target = prev } } }
+				ethic_pluralist = { owner = { start_situation = { type = situation_civstrife_faction_plur target = prev } } }
 			}
 		}
 	}

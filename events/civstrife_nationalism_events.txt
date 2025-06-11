@@ -334,10 +334,6 @@ country_event = { # Gov In Exile cannot find host, dissolves
 			limit = { is_country_type = enclave_exiled_gov }
 			set_country_flag = truly_dead_country
 			if = {
-				limit = { has_secession_country_flag = yes }
-				find_secession_number_flag = yes
-			}
-			if = {
 				limit = { NOT = { has_country_flag = country_needed_for_loc } }
 				destroy_country = yes
 			}
@@ -1034,10 +1030,6 @@ country_event = { # Gov In Exile Enclave destroyed
 	}
 	after = {
 		set_country_flag = truly_dead_country
-		if = {
-			limit = { has_secession_country_flag = yes }
-			find_secession_number_flag = yes
-		}
 		if = {
 			limit = { NOT = { has_country_flag = country_needed_for_loc } }
 			destroy_country = yes
@@ -2257,6 +2249,7 @@ country_event = { # Destroy Government-In-Exile when no nats exist
 	trigger = {
 		is_exile_country = yes
 		NOT = {
+			has_country_flag = truly_dead_country
 			any_country = {
 				is_country_type_with_subjects = yes
 				any_owned_pop_group = {
@@ -2271,7 +2264,9 @@ country_event = { # Destroy Government-In-Exile when no nats exist
 	immediate = {
 		save_event_target_as = nat_gone
 
-		log = "| No Nats left for [this.GetName]"
+		log = "=============================================="
+		log = "| No Nats left for [this.GetName] | [GetDate]"
+		log = "=============================================="
 
 		every_playable_country = {
 			limit = { has_communications = event_target:nat_gone }
@@ -2281,7 +2276,7 @@ country_event = { # Destroy Government-In-Exile when no nats exist
 			observer_event = { id = civnat.8001 days = 2 random = 14 }
 		}
 
-		country_event = { id = civnat.3110 days = 90 }
+		country_event = { id = civnat.3110 days = 30 }
 	}
 }
 
@@ -2312,10 +2307,6 @@ country_event = { # Destroy Government-In-Exile Actual
 			random_owned_fleet = { delete_fleet = this }
 		}
 		
-		if = {
-			limit = { has_secession_country_flag = yes }
-			find_secession_number_flag = yes
-		}
 		if = {
 			limit = { NOT = { has_country_flag = country_needed_for_loc } }
 			destroy_country = yes

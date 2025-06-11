@@ -1,0 +1,6 @@
+limit = { check_variable = { which = total_defectors value >= $NUM$ } }
+random_owned_leader = {
+	limit = { has_leader_flag = counted_leader }
+	remove_leader_flag = counted_leader
+	save_event_target_as = defected_leader_$NUM$
+}

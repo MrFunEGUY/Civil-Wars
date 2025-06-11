@@ -42,6 +42,15 @@ country_event = {
 			factor = 5
 
 			modifier = {
+				factor = 2
+				relative_power = {
+					who = event_target:civwar_rebels
+					category = fleet
+					value > equivalent
+				}
+			}
+
+			modifier = {
 				factor = 1.5
 				OR = {
 					is_authoritarian = yes
@@ -58,16 +67,11 @@ country_event = {
 			country_event = { id = civcom.2020 }
 		}
 		ai_chance = {
-			factor = 3
+			factor = 2
 
 			modifier = {
-				factor = 2
+				add = 2
 				is_pacifist = yes	
-			}
-
-			modifier = {
-				factor = 5
-				event_target:civwar_rebels = { has_origin = origin_isolated_rebellion }	
 			}
 
 			modifier = {
@@ -118,6 +122,15 @@ country_event = {
 			factor = 5
 
 			modifier = {
+				factor = 2
+				relative_power = {
+					who = event_target:civwar_rebels
+					category = fleet
+					value > equivalent
+				}
+			}
+
+			modifier = {
 				factor = 1.5
 				OR = {
 					is_authoritarian = yes
@@ -133,7 +146,7 @@ country_event = {
 		custom_tooltip = civcom.1005.vassal.tooltip
 		hidden_effect = { country_event = { id = civcom.2010 } }
 		ai_chance = {
-			factor = 3
+			factor = 2
 
 			modifier = {
 				factor = 2
@@ -201,48 +214,64 @@ country_event = {
 			if = {
 				limit = { is_overlord = yes }
 				if = {
-					limit = { subjects >= 1 }
-					random_subject = {
-						save_event_target_as = stolen_subject_1
-						set_country_flag = counted_stolen_sub
-					}
-					root = { set_variable = { which = stolen_subjects value = 1 } }
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 1 }
 				}
 				if = {
-					limit = { subjects >= 2 }
-					random_subject = {
-						limit = { NOT = { has_country_flag = counted_stolen_sub } }
-						save_event_target_as = stolen_subject_2
-						set_country_flag = counted_stolen_sub
-					}
-					root = { set_variable = { which = stolen_subjects value = 2 } }
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 2 }
 				}
 				if = {
-					limit = { subjects >= 3 }
-					random_subject = {
-						limit = { NOT = { has_country_flag = counted_stolen_sub } }
-						save_event_target_as = stolen_subject_3
-						set_country_flag = counted_stolen_sub
-					}
-					root = { set_variable = { which = stolen_subjects value = 3 } }
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 3 }
 				}
 				if = {
-					limit = { subjects >= 4 }
-					random_subject = {
-						limit = { NOT = { has_country_flag = counted_stolen_sub } }
-						save_event_target_as = stolen_subject_4
-						set_country_flag = counted_stolen_sub
-					}
-					root = { set_variable = { which = stolen_subjects value = 4 } }
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 4 }
 				}
 				if = {
-					limit = { subjects >= 5 }
-					random_subject = {
-						limit = { NOT = { has_country_flag = counted_stolen_sub } }
-						save_event_target_as = stolen_subject_5
-						set_country_flag = counted_stolen_sub
-					}
-					root = { set_variable = { which = stolen_subjects value = 5 } }
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 5 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 6 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 7 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 8 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 9 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 10 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 11 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 12 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 13 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 14 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 15 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 16 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 17 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 18 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 19 }
+				}
+				if = {
+					inline_script = { script = comms/get_traitor_subjects_effect NUM = 20 }
 				}
 				every_subject = { remove_country_flag = counted_stolen_sub }
 			}
@@ -278,6 +307,15 @@ country_event = {
 			factor = 5
 
 			modifier = {
+				factor = 2
+				relative_power = {
+					who = event_target:civwar_rebels
+					category = fleet
+					value > equivalent
+				}
+			}
+
+			modifier = {
 				factor = 1.5
 				OR = {
 					is_authoritarian = yes
@@ -292,11 +330,16 @@ country_event = {
 		name = civcom.1000.independence
 		hidden_effect = { country_event = { id = civcom.2020 } }
 		ai_chance = {
-			factor = 3
+			factor = 2
 
 			modifier = {
-				factor = 2
+				add = 2
 				is_pacifist = yes	
+			}
+
+			modifier = {
+				factor = 4.5
+				event_target:civwar_rebels = { has_origin = origin_isolated_rebellion }	
 			}
 
 			modifier = {
@@ -341,16 +384,20 @@ country_event = {
 			factor = 5
 
 			modifier = {
+				factor = 2
+				relative_power = {
+					who = event_target:civwar_rebels
+					category = fleet
+					value > equivalent
+				}
+			}
+
+			modifier = {
 				factor = 1.5
 				OR = {
 					is_authoritarian = yes
 					is_militarist = yes
 				}	
-			}
-
-			modifier = {
-				factor = 0
-				has_valid_civic = civic_fanatic_purifiers	
 			}
 		}
 	}
@@ -361,10 +408,10 @@ country_event = {
 		custom_tooltip = civcom.1105.b.tooltip
 		hidden_effect = { country_event = { id = civcom.2010 } }
 		ai_chance = {
-			factor = 3
+			factor = 2
 
 			modifier = {
-				factor = 2
+				add = 3
 				is_pacifist = yes	
 			}
 
@@ -429,6 +476,15 @@ country_event = {
 			factor = 5
 
 			modifier = {
+				factor = 2
+				relative_power = {
+					who = event_target:civwar_rebels
+					category = fleet
+					value > equivalent
+				}
+			}
+
+			modifier = {
 				factor = 1.5
 				OR = {
 					is_militarist = yes
@@ -471,12 +527,7 @@ country_event = {
 				remove_war_flag = war_for_subject_join
 				save_event_target_as = subject_war_join
 			}
-			event_target:civwar_originator = {
-				join_war_on_side = {
-					war = event_target:subject_war_join
-					side = root
-				}
-			}
+			event_target:civwar_originator = { join_war_on_side = { war = event_target:subject_war_join side = root } }
 			event_target:subject_war_join = {
 				every_war_participant = {
 					limit = {
@@ -1429,6 +1480,11 @@ country_event = {
 		}
 		ai_chance = {
 			factor = 1
+
+			modifier = {
+				add = event_target:civwar_originator.value:system_claim_value_add
+				event_target:civwar_originator = { any_system_within_border = { root = { has_claim = prev } } }
+			}
 
 			modifier = {
 				factor = 0
@@ -3108,7 +3164,12 @@ country_event = {
 				}
 			}
 			event_target:traitor_home_country = { country_event = { id = civend.5002 days = 14 random = 360 } }
-			log = "| [this.GetName] is HOST to the traitor [event_target:defeated_traitor.GetName]"
+			log = "-------------------------------------------------------------------"
+			log = "| TRAITOR HAS HOST | [GetDate]"
+			log = "| Traitor: [defeated_traitor.GetClass] [defeated_traitor.GetName]"
+			log = "| Motherland: [traitor_home_country.GetName]"
+			log = "| Host Country: [this.GetName]"
+			log = "-------------------------------------------------------------------"
 		}
 		ai_chance = {
 			factor = 75
@@ -3376,13 +3437,12 @@ country_event = {
 				}
 			}
 
-			log = "======="
-			log = "Hosting Planet: [event_target:gov_hosting_planet.GetName]"
-			log = "Hosting System: [event_target:new_capital_station.solar_system.GetName]"
-			log = "Hosting Station: [event_target:new_capital_station.GetName]"
-			log = "Hosting Country: [event_target:hosting_country.GetName]"
-			log = "Exile Country: [event_target:old_nat_country.GetName]"
-			log = "======="
+			log = "============+++++============"
+			log = "| Gov-in-Exile Found Host on [GetDate]:"
+			log = "| Exile Country: [from.GetName]"
+			log = "| Hosting Planet: [gov_hosting_planet.GetName] | System: [new_capital_station.solar_system.GetName]"
+			log = "| Hosting Country: [hosting_country.GetName]"
+			log = "============+++++============"
 		}
 		ai_chance = {
 			factor = 5

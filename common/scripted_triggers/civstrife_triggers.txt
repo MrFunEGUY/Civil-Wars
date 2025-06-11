@@ -1927,10 +1927,6 @@ is_standard_faction_country = {
 	}
 }
 
-check_rebellion_ethic = {
-	event_target:cw_scope_initializer = { is_$ETHIC$ = yes }
-}
-
 ###########################
 ########## Leader Triggers
 ###########################
@@ -2002,6 +1998,18 @@ has_same_ethics = {
 		}
 	}
 }
+
+is_fake_leader = {
+	OR = {
+		has_leader_flag = dead_ruler
+		has_leader_flag = dummy_leader
+		has_leader_flag = civil_war_leader_nationalist_faction
+		has_leader_flag = new_faction_ruler
+		## Useful Heirs
+		has_leader_flag = dynastic_name_leader
+	}
+}
+
 
 ###########################
 ########## Other Triggers
@@ -2480,7 +2488,7 @@ is_able_to_assist_rebels = {
 }
 
 subject_can_wage_war = {
-	NOT = { any_agreement = { has_term_value = { term = subject_diplomacy value = subject_can_not_do_diplomacy } } }
+	any_agreement = { has_term_value = { term = subject_diplomacy value = subject_can_do_diplomacy } }
 }
 
 # For My Sanity

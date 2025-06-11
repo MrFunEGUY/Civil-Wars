@@ -4,19 +4,9 @@ is_domineering_federation_type = { has_federation_type = hegemony_federation }
 is_strict_dem = { always = no }
 is_dictatorial_dem = { always = no }
 
+has_ecaf_mod = { always = no }
+
 has_adoptive_dynasties = { always = no }
-
-is_fake_leader = {
-	OR = {
-		# Civil Wars Compat
-		has_leader_flag = dead_ruler
-		has_leader_flag = dummy_leader
-		has_leader_flag = dynastic_name_leader
-		has_leader_flag = civil_war_leader_nationalist_faction
-		has_leader_flag = new_faction_ruler
-	}
-}
-
 
 is_socialist = { is_socialism = yes }
 
@@ -44,6 +34,8 @@ is_competitive = { always = no }
 is_anthropocentric = { always = no }
 is_ecocentric = { always = no }
 
+has_bug_branch = { always = no }
+
 #############
 
 has_civic_organic_zealots_active = {
@@ -52,12 +44,12 @@ has_civic_organic_zealots_active = {
 
 # this = country
 is_organic_zealots = {
-	has_civic = civic_organic_zealots
+	always = no
 }
 
 # this = country
 is_valid_organic_zealots = {
-	has_valid_civic = civic_organic_zealots
+	always = no
 }
 
 dmm_is_installed = {

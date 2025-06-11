@@ -16,7 +16,6 @@ country_event = { # Setup for Civil War (create_country)
 	is_triggered_only = yes
 
 	immediate = {
-		log = "||| CHECK 1000"
 
 		set_timed_country_flag = { flag = civwar_country months = 3 }
 		# Multi use, especially with multiple rebel states
@@ -44,7 +43,6 @@ country_event = { # Setup for Civil War (create_country)
 				root = { set_country_flag = mute_rebel_country }
 			}
 		}
-		log = "||| CHECK 1000 2"
 
 		# Flip Systems and Planets, count pops
 		# set_variable = { which = total_happiness_pops value = 0 }
@@ -111,16 +109,16 @@ country_event = { # Setup for Civil War (create_country)
 								starbase = { set_owner = root }
 								every_system_planet = {
 									limit = { is_owned_by = event_target:civwar_originator }
-									swap_leader = yes
 									set_owner = root
+									swap_leader = yes
 								}
 							}
 						}
 						solar_system = {
 							every_system_planet = { # In case it takes over a system with multiple planets.
 								limit = { is_owned_by = event_target:civwar_originator }
-								swap_leader = yes
 								set_owner = root
+								swap_leader = yes
 							}
 							swap_fleets_in_system = yes
 						}
@@ -167,9 +165,8 @@ country_event = { # Setup for Civil War (create_country)
 									event_target:cw_scope_initializer = { change_variable = { which = mil_support value = 1 } }
 								}
 							}
-							swap_leader = yes
 							set_owner = root
-							# starbase = { set_owner = root }
+							swap_leader = yes
 						}
 
 						every_system_within_border = { # Every Other system, changing this gets weird, so just leave it cause it works fine
@@ -191,8 +188,8 @@ country_event = { # Setup for Civil War (create_country)
 											event_target:cw_scope_initializer = { change_variable = { which = mil_support value = 1 } }
 										}
 									}
-									swap_leader = yes
 									set_owner = root
+									swap_leader = yes
 								}
 								starbase = { set_owner = root }
 								swap_fleets_in_system = yes
@@ -245,15 +242,15 @@ country_event = { # Setup for Civil War (create_country)
 					swap_fleets_in_system = yes
 					every_system_planet = {
 						limit = { is_owned_by = event_target:civwar_originator }
-						swap_leader = yes
 						set_owner = root
+						swap_leader = yes
 					}
 					starbase = { set_owner = root }
 				}
 			}
 		}
-		log = "||| CHECK 1000 3"
 
+		## Maybe other leaders flip for civwars
 		if = {
 			limit = { has_origin = origin_civwar }
 			## Let all other leaders choose to switch or not
@@ -265,6 +262,7 @@ country_event = { # Setup for Civil War (create_country)
 					}
 					random = {
 						chance = value:leader_to_defect_chance
+						# chance = 100
 						if = {
 							limit = { exists = fleet }
 							fleet = {
@@ -278,7 +276,7 @@ country_event = { # Setup for Civil War (create_country)
 								set_owner = root
 							}
 						}
-						if = {
+						else_if = {
 							limit = {
 								exists = planet
 								planet.solar_system = {
@@ -313,8 +311,8 @@ country_event = { # Setup for Civil War (create_country)
 												event_target:cw_scope_initializer = { change_variable = { which = mil_support value = 1 } }
 											}
 										}
-										swap_leader = yes
 										set_owner = root
+										swap_leader = yes
 									}
 
 									every_system_within_border = { # Every Other system, changing this gets weird, so just leave it cause it works fine
@@ -328,8 +326,8 @@ country_event = { # Setup for Civil War (create_country)
 									swap_fleets_in_system = yes
 									every_system_planet = {
 										limit = { is_owned_by = event_target:civwar_originator }
-										swap_leader = yes
 										set_owner = root
+										swap_leader = yes
 									}
 									starbase = { set_owner = root }
 								}
@@ -347,19 +345,15 @@ country_event = { # Setup for Civil War (create_country)
 			limit = { can_be_soldier = yes }
 			root = { change_variable = { which = num_mil_pops value = 1 } }
 		}
-		log = "||| CHECK 1000 4"
 
 		# Set leaders and other stuff
 		get_civil_war_leader = yes
 
-		log = "||| CHECK 1000 5"
 
 		get_country_immediate_setup = yes
-		log = "||| CHECK 1000 6"
 
 		# create armies
 		create_civwar_armies = yes
-		log = "||| CHECK 1000 7"
 	}
 
 	after = {
@@ -575,7 +569,6 @@ country_event = { # Setup for Civil War (create_country)
 				remove_country_flag = peaceful_secession
 			}
 		}
-		log = "||| CHECK 1000 8"
 		# # Create Armies, needs to be done later so pops are set ## this doesnt seem to be true?
 		# country_event = { id = civwar.3100 days = 1 }
 	}
@@ -637,8 +630,8 @@ country_event = { # Setup for Rebellions (create_rebels)
 				swap_fleets_in_system = yes
 				every_system_planet = { # In case it takes over a system with multiple planets.
 					limit = { is_owned_by = event_target:civwar_originator }
-					swap_leader = yes
 					set_owner = root
+					swap_leader = yes
 				}
 				while = {
 					count = 20
@@ -658,8 +651,8 @@ country_event = { # Setup for Rebellions (create_rebels)
 						starbase = { set_owner = root }
 						every_system_planet = { # In case it takes over a system with multiple planets.
 							limit = { is_owned_by = event_target:civwar_originator }
-							swap_leader = yes
 							set_owner = root
+							swap_leader = yes
 						}
 					}
 				}
@@ -672,8 +665,8 @@ country_event = { # Setup for Rebellions (create_rebels)
 				random_owned_sector = {
 					limit = { has_sector_flag = ethic_sector_rebellion_@event_target:sector_capital_planet }
 					every_owned_planet = {
-						swap_leader = yes
 						set_owner = root
+						swap_leader = yes
 					}
 					every_system_within_border = {
 						swap_fleets_in_system = yes
@@ -690,8 +683,8 @@ country_event = { # Setup for Rebellions (create_rebels)
 				random_owned_sector = {
 					limit = { has_sector_flag = sep_sector_rebellion_@event_target:sector_capital_planet }
 					every_owned_planet = {
-						swap_leader = yes
 						set_owner = root
+						swap_leader = yes
 					}
 					every_system_within_border = {
 						swap_fleets_in_system = yes
@@ -708,8 +701,8 @@ country_event = { # Setup for Rebellions (create_rebels)
 				random_owned_sector = {
 					limit = { has_sector_flag = nat_sector_rebellion_@event_target:sector_capital_planet }
 					every_owned_planet = {
-						swap_leader = yes
 						set_owner = root
+						swap_leader = yes
 					}
 					every_system_within_border = {
 						swap_fleets_in_system = yes
@@ -726,14 +719,104 @@ country_event = { # Setup for Rebellions (create_rebels)
 				random_owned_sector = {
 					limit = { has_sector_flag = sec_slave_revolt_@event_target:sector_capital_planet }
 					every_owned_planet = {
-						swap_leader = yes
 						set_owner = root
+						swap_leader = yes
 					}
 					every_system_within_border = {
 						swap_fleets_in_system = yes
 						starbase = { set_owner = root }
 					}
 					remove_sector_flag = nat_sector_rebellion_@event_target:sector_capital_planet
+				}
+			}
+		}
+
+		## Maybe other leaders flip for civwars
+		if = {
+			limit = { has_origin = origin_civwar }
+			## Let all other leaders choose to switch or not
+			event_target:civwar_originator = {
+				every_owned_leader = {
+					limit = {
+						is_heir = no
+						is_ruler = no
+					}
+					random = {
+						chance = value:leader_to_defect_chance
+						# chance = 100
+						if = {
+							limit = { exists = fleet }
+							fleet = {
+								every_owned_ship = {
+									limit = { is_ship_class = shipclass_military }
+									random = {
+										chance = 20
+										destroy_ship = this
+									}
+								}
+								set_owner = root
+							}
+						}
+						else_if = {
+							limit = {
+								exists = planet
+								planet.solar_system = {
+									closest_system = {
+										limit = {
+											exists = space_owner
+											space_owner = { is_same_value = event_target:civwar_rebels }
+										}
+										use_bypasses = yes
+										max_steps = 1
+									}
+								}
+							}
+							if = {
+								limit = { planet = { is_sector_capital = yes } }
+								planet.sector = {
+									every_owned_planet = { # Every system with planets
+										if = {
+											limit = { event_target:cw_scope_initializer = { is_scope_type = pop_faction } }
+											random_owned_pop_group = { # Get random pop species to be leader of secondary revolts
+												limit = {
+													exists = pop_faction
+													pop_faction = { is_same_value = event_target:civwar_party }
+												}
+												set_timed_pop_group_flag = { flag = sep_leader_species days = 10 }
+											}
+										}
+										every_owned_pop_group = {
+											limit = { has_same_ethics = { SCOPE1 = this SCOPE2 = event_target:cw_scope_initializer } }
+											random = {
+												chance = value:pop_group_radicalized
+												event_target:cw_scope_initializer = { change_variable = { which = mil_support value = 1 } }
+											}
+										}
+										set_owner = root
+										swap_leader = yes
+									}
+
+									every_system_within_border = { # Every Other system, changing this gets weird, so just leave it cause it works fine
+										starbase = { set_owner = root }
+										swap_fleets_in_system = yes
+									}
+								}
+							}
+							else = {
+								planet.solar_system = {
+									swap_fleets_in_system = yes
+									every_system_planet = {
+										limit = { is_owned_by = event_target:civwar_originator }
+										set_owner = root
+										swap_leader = yes
+									}
+									starbase = { set_owner = root }
+								}
+							}
+						}
+						set_owner = root
+						set_defected = yes
+					}
 				}
 			}
 		}
@@ -800,20 +883,11 @@ country_event = { # Has Vassals, Vassal Interaction
 		divide_variable = { which = combined_rebel_power_ratio value = root.mother_power }
 	
 		every_subject = {
-			export_trigger_value_to_variable = {
-				trigger = fleet_power
-				variable = subject_power
-			}
+			export_trigger_value_to_variable = { trigger = fleet_power variable = subject_power }
 
-			export_trigger_value_to_variable = {
-				trigger = fleet_power
-				variable = subject_power_ratio
-			}
+			export_trigger_value_to_variable = { trigger = fleet_power variable = subject_power_ratio }
 
-			export_trigger_value_to_variable = {
-				trigger = fleet_power
-				variable = combined_power_ratio
-			}
+			export_trigger_value_to_variable = { trigger = fleet_power variable = combined_power_ratio }
 
 			# Gives Subject Fleet Power Percentage vs mother
 			divide_variable = { which = subject_power_ratio value = root.mother_power }
@@ -844,13 +918,24 @@ country_event = { # Has Vassals, Vassal Interaction
 
 				# With succession conflicts, this doesnt always seem to work.
 				# May just need to make them a separate system
-
 				
 				set_country_flag = vas_borders_rebs_of_@root
 				save_event_target_as = border_subject
 				# Get Subject Rebel fleet power ratio
 				ordered_country = {
-					limit = { has_country_flag = ally_reb_@event_target:civwar_originator }
+					limit = {
+						has_country_flag = ally_reb_@event_target:civwar_originator
+						any_system_within_border = {
+							closest_system = {
+								limit = {
+									exists = space_owner
+									space_owner = { is_same_empire = event_target:border_subject }
+								}
+								use_bypasses = yes
+								max_steps = 1
+							}
+						}
+					}
 					position = 0
 					order_by = trigger:fleet_power
 					save_event_target_as = rebel_borders_subject
@@ -1045,6 +1130,183 @@ country_event = { # Has Vassals, Vassal Interaction
 	}
 }
 
+country_event = { # Has Vassals, Vassal Interaction After War Comms
+	id = civwar.1501
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_overlord = yes
+		count_subject = {
+			count >= 1
+			limit = { is_ai = yes }
+		}
+	}
+
+	immediate = {
+
+		export_trigger_value_to_variable = {
+			trigger = subjects
+			variable = num_subjects
+		}
+
+		set_variable = { which = combined_rebel_fleet_power value = 0 }
+		if = {
+			limit  = { any_country = { has_country_flag = ally_reb_@event_target:civwar_originator } }
+			every_country = {
+				limit = { has_country_flag = ally_reb_@event_target:civwar_originator }
+				prev = { change_variable = { which = combined_rebel_fleet_power value = rebel_power } }
+			}
+		}
+		else = {
+			event_target:civwar_rebels = {
+				prev = { change_variable = { which = combined_rebel_fleet_power value = rebel_power } }
+			}
+		}
+
+
+		# Gives Combined rebel Power Percentage vs mother
+		set_variable = { which = combined_rebel_power_ratio value = combined_rebel_fleet_power }
+		divide_variable = { which = combined_rebel_power_ratio value = root.mother_power }
+	
+		every_subject = {
+			export_trigger_value_to_variable = { trigger = fleet_power variable = subject_power }
+
+			export_trigger_value_to_variable = { trigger = fleet_power variable = subject_power_ratio }
+
+			export_trigger_value_to_variable = { trigger = fleet_power variable = combined_power_ratio }
+
+			# Gives Subject Fleet Power Percentage vs mother
+			divide_variable = { which = subject_power_ratio value = root.mother_power }
+
+			# Get Subject with rebels fleet power ratio vs mother
+			change_variable = { which = combined_power_ratio value = root.combined_rebel_fleet_power }
+			divide_variable = { which = combined_power_ratio value = root.mother_power }
+
+			# Get Subject with mother fleet power ratio vs rebels
+			set_variable = { which = subject_with_mother_power_ratio value = subject_power }
+			change_variable = { which = subject_with_mother_power_ratio value = root.mother_power }
+			divide_variable = { which = subject_with_mother_power_ratio value = root.combined_rebel_fleet_power } # Subject/Mother Combined Fleet vs Rebels ratio
+
+
+		}
+
+		if = {
+			limit = {
+				count_subject = {
+					count = 1
+					limit = { is_ai = yes }
+				}
+			}
+			random_subject = {
+				limit = { is_ai = yes }
+				# What are the options?
+				if = {
+					limit = { any_country = { has_country_flag = borders_the_subject_@prev } }
+					random_country = {
+						limit = { has_country_flag = borders_the_subject_@prev }
+						save_event_target_as = rebel_borders_subject
+					}
+				}
+				get_subject_choice_list_after = yes
+			}
+		}
+		else_if = {
+			limit = {
+				count_subject = {
+					count > 1
+					limit = { is_ai = yes }
+				}
+			}
+			set_variable = { which = combined_subject_fleet_power value = 0 }
+			every_subject = {
+				limit = { is_ai = yes }
+				export_trigger_value_to_variable = { trigger = fleet_power variable = subject_power }
+				save_event_target_as = subject_pow_saver
+				prev = { change_variable = { which = combined_subject_fleet_power value = event_target:subject_pow_saver.subject_power } }
+			}
+
+			# Get Subject mother fleet power ratio
+			set_variable = { which = combined_subject_fleet_power_ratio value = combined_subject_fleet_power }
+			divide_variable = { which = combined_subject_fleet_power_ratio value = root.mother_power } # All subjects combined fleet power ratio
+			
+			# Get combined fleet power ratio
+			set_variable = { which = combined_oppo_fleet_power_ratio value = combined_subject_fleet_power }
+			change_variable = { which = combined_oppo_fleet_power_ratio value = combined_rebel_fleet_power }
+			divide_variable = { which = combined_oppo_fleet_power_ratio value = root.mother_power } # All subjects + rebels combined fleet power ratio
+
+			# First, check if all the subjects want to band together to declare Independence
+			if = {
+				limit = { check_variable = { which = combined_subject_fleet_power_ratio value >= 0.75 } }
+				random = {
+					chance = 60
+					every_subject = {
+						limit = { is_ai = yes }
+						set_timed_country_flag = { flag = subject_free_from_@root days = 90 }
+					}
+					ordered_subject = {
+						limit = { is_ai = yes }
+						position = 0
+						order_by = trigger:fleet_power
+						save_event_target_as = leader_subject
+						every_war = {
+							limit = { root = { is_war_leader = yes } }
+							random_war_participant = {
+								limit = { is_same_empire = prevprev }
+								prev = { remove_war_participant = prev }
+							}
+						}
+						declare_war = {
+							target = root
+							attacker_war_goal = "wg_independence"
+							effect = {
+								save_event_target_as = indy_join_war
+							}
+						}
+					}
+					every_subject = {
+						limit = {
+							is_ai = yes
+							NOT = { is_same_empire = event_target:leader_subject }
+						}
+						every_war = {
+							limit = { root = { is_war_leader = yes } }
+							random_war_participant = {
+								limit = { is_same_empire = prevprev }
+								prev = { remove_war_participant = prev }
+							}
+						}
+						join_war_on_side = { war = event_target:indy_join_war side = attackers }
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { any_subject = { has_country_flag = subject_free_from_@root } } }
+				while = {
+					count = num_subjects
+					ordered_subject = {
+						limit = {
+							is_ai = yes
+							NOT = { has_country_flag = counted_subject }
+						}
+						position = 0
+						order_by = trigger:fleet_power # Doesnt really matter, just want it done sequentially
+						set_timed_country_flag = { flag = counted_subject days = 10 }
+						if = {
+							limit = { any_country = { has_country_flag = borders_the_subject_@prev } }
+							random_country = {
+								limit = { has_country_flag = borders_the_subject_@prev }
+								save_event_target_as = rebel_borders_subject
+							}
+						}
+						get_subject_choice_list_after = yes
+					}
+				}
+			}
+		}
+	}
+}
+
 ################
 # Communications
 
@@ -1110,10 +1372,6 @@ country_event = { # Former Leader - Communications
 		exists = event_target:civwar_rebels
 	}
 
-	immediate = {
-		log = "| 2010 START"
-	}
-
 	option = {
 		name = ON_SCREEN_REBELS
 		hidden_effect = {
@@ -1139,7 +1397,6 @@ country_event = { # Former Leader - Communications
 				}
 			}
 			else = { country_event = { id = civcom.1100 } }
-			log = "| 2010 BUTTON PRESS"
 		}
 		ai_chance = { factor = 1 }
 	}
@@ -1352,7 +1609,7 @@ country_event = { # Rebel - Query Neighbors
 
 	option = {
 		name = civwar.2100.deny
-		ai_chance = { factor = 0.5 }
+		ai_chance = { factor = 0 }
 	}
 }
 
@@ -1792,7 +2049,7 @@ country_event = { # Create Fleets and give resources
 		}
 
 		if = {
-			limit = { has_global_flag = cultural_overhaul_funefork_active }
+			limit = { has_ecaf_mod = yes }
 			add_crew_effect = yes
 		}
 
@@ -2208,7 +2465,7 @@ situation_event = { # Revolt/Civil War Event
 						set_faction_rebellion_suppression_flag = yes
 					}
 
-					root = { create_civil_war = yes }
+					root = { create_civil_war = yes set_situation_flag = war_declared_destroy }
 				}
 			}
 			else_if = { # Sectoral Revolt
@@ -2262,6 +2519,7 @@ situation_event = { # Revolt/Civil War Event
 							}
 						}
 						create_civil_war = yes
+						root = { set_situation_flag = war_declared_destroy }
 					}
 				}
 			}
@@ -2317,12 +2575,36 @@ situation_event = { # Revolt/Civil War Event
 							}
 						}
 						create_civil_war = yes
+						root = { set_situation_flag = war_declared_destroy }
 					}
 				}
 			}
 		}
 	}
+
+	# after = {
+	# 	if = {
+	# 		limit = { has_situation_flag = war_declared_destroy }
+	# 		situation_event = { id = civwar.5011 days = 2 }
+	# 	}
+	# }
 }
+
+# situation_event = { # Revolt/Civil War Event
+# 	id = civwar.5011
+# 	hide_window = yes
+# 	is_triggered_only = yes
+
+# 	trigger = { has_situation_flag = war_declared_destroy }
+
+# 	immediate = {
+# 		if = {
+# 			limit = { exists = target }
+# 			target = { remove_pop_faction_flag = faction_sep_situation }
+# 		}
+# 		destroy_situation = this
+# 	}
+# }
 
 #################
 # Misc

@@ -3,6 +3,7 @@ if = {
 	limit = { exists = event_target:civwar_rebels }
 	event_target:civwar_rebels = {
 		set_country_flag = secession_country_$NUM$_seceder
+		set_country_flag = secession_from_country_@event_target:civwar_originator
 		if = {
 			limit = { exists = ruler }
 			ruler = { set_leader_flag = secession_country_$NUM$_traitor }
@@ -14,7 +15,4 @@ else_if = {
 	save_global_event_target_as = secession_country_$NUM$
 }
 
-if = {
-	limit = { any_country = { has_country_flag = secession_country_$NUM$_seceder } }
-	set_country_flag = country_needed_for_loc
-}
+set_country_flag = country_needed_for_loc

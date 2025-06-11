@@ -5,79 +5,149 @@ civics = random
 flag = random
 randomize_ethos = yes
 effect = {
+	save_event_target_as = civwar_rebels
 	if = {
 		limit = { exists = event_target:cw_scope_initializer}
+		event_target:cw_scope_initializer = {
+			switch = {
+				trigger = has_ethic
+				ethic_authoritarian = { event_target:civwar_rebels = { set_country_flag = civwar_auth } }
+				ethic_egalitarian = { event_target:civwar_rebels = { set_country_flag = civwar_egal } }
+				ethic_militarist = { event_target:civwar_rebels = { set_country_flag = civwar_mil } }
+				ethic_pacifist = { event_target:civwar_rebels = { set_country_flag = civwar_pac } }
+				ethic_materialist = { event_target:civwar_rebels = { set_country_flag = civwar_mat } }
+				ethic_spiritualist = { event_target:civwar_rebels = { set_country_flag = civwar_spi } }
+				ethic_xenophile = { event_target:civwar_rebels = { set_country_flag = civwar_phile } }
+				ethic_xenophobe = { event_target:civwar_rebels = { set_country_flag = civwar_phobe } }
+				ethic_socialism = { event_target:civwar_rebels = { set_country_flag = civwar_soc } }
+				ethic_capitalism = { event_target:civwar_rebels = { set_country_flag = civwar_cap } }
+				ethic_cooperative = { event_target:civwar_rebels = { set_country_flag = civwar_coop } }
+				ethic_competitive = { event_target:civwar_rebels = { set_country_flag = civwar_comp } }
+				ethic_industrial = { event_target:civwar_rebels = { set_country_flag = civwar_indus } }
+				ethic_green = { event_target:civwar_rebels = { set_country_flag = civwar_green } }
+				ethic_anthropocentric = { event_target:civwar_rebels = { set_country_flag = civwar_anthro } }
+				ethic_ecocentric = { event_target:civwar_rebels = { set_country_flag = civwar_eco } }
+				ethic_elitist = { event_target:civwar_rebels = { set_country_flag = civwar_elite } }
+				ethic_pluralist = { event_target:civwar_rebels = { set_country_flag = civwar_plur } }
+			}
+		}
+
 		if = {
-			limit = { event_target:cw_scope_initializer = { is_authoritarian = yes } }
-			set_country_flag = civwar_auth
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_egalitarian = yes } }
-			set_country_flag = civwar_egal
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_militarist = yes } }
-			set_country_flag = civwar_mil
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_pacifist = yes } }
-			set_country_flag = civwar_pac
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_materialist = yes } }
-			set_country_flag = civwar_mat
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_spiritualist = yes } }
-			set_country_flag = civwar_spi
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_xenophile = yes } }
-			set_country_flag = civwar_phile
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_xenophobe = yes } }
-			set_country_flag = civwar_phobe
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_socialist = yes } }
-			set_country_flag = civwar_soc
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_capitalism = yes } }
-			set_country_flag = civwar_cap
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_cooperative = yes } }
-			set_country_flag = civwar_coop
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_competitive = yes } }
-			set_country_flag = civwar_comp
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_industrial = yes } }
-			set_country_flag = civwar_indus
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_green = yes } }
-			set_country_flag = civwar_green
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_anthropocentric = yes } }
-			set_country_flag = civwar_anthro
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_ecocentric = yes } }
-			set_country_flag = civwar_eco
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_elitist = yes } }
-			set_country_flag = civwar_elite
-		}
-		else_if = {
-			limit = { event_target:cw_scope_initializer = { is_pluralist = yes } }
-			set_country_flag = civwar_plur
+			limit = {
+				is_megacorp = no
+				event_target:civwar_originator = { is_megacorp = yes }
+				event_target:cw_scope_initializer = { is_socialist = no }
+			}
+			random = {
+				chance = 80
+				save_event_target_as = civwar_rebels
+				if = {
+					limit = {
+						has_ecaf_mod = no
+						has_bug_branch = no
+						event_target:cw_scope_initializer = { is_egalitarian = no }
+						event_target:cw_scope_initializer = { is_authoritarian = no }
+					}
+
+					if = {
+						limit = { has_global_flag = cultural_overhaul_active }
+						while = {
+							limit = { is_capitalism = no }
+							shift_ethic = ethic_capitalism
+						}
+					}
+
+					inline_script = { script = civil_war_country_creation/megacorp_type_country TYPE = corporate }
+					event_target:cw_scope_initializer = {
+						switch = {
+							trigger = has_ethic
+							ethic_militarist = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = militarist } } }
+							ethic_pacifist = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = pacifist } } }
+							ethic_materialist = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = materialist } } }
+							ethic_spiritualist = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = spiritualist } } }
+							ethic_xenophile = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = xenophile } } }
+							ethic_xenophobe = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = xenophobe } } }
+							ethic_capitalism = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = capitalism } } }
+							ethic_industrial = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = industrial } } }
+							ethic_green = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = green } } }
+						}
+					}
+					reset_civics_effect = yes
+				}
+				else_if = {
+					limit = {
+						has_ecaf_mod = yes
+						event_target:cw_scope_initializer = { is_egalitarian = no }
+					}
+					while = {
+						limit = { is_capitalism = no }
+						shift_ethic = ethic_capitalism
+					}
+					if = {
+						limit = { event_target:cw_scope_initializer = { is_authoritarian = yes } }
+						inline_script = { script = civil_war_country_creation/megacorp_type_country TYPE = corporate_imperial }
+					}
+					else_if = {
+						limit = { is_authoritarian = yes }
+						random_list = {
+							25 = { inline_script = { script = civil_war_country_creation/megacorp_type_country TYPE = corporate } }
+							75 = { inline_script = { script = civil_war_country_creation/megacorp_type_country TYPE = corporate_imperial } }
+						}
+					}
+					else = {
+						inline_script = { script = civil_war_country_creation/megacorp_type_country TYPE = corporate }
+					}
+					event_target:cw_scope_initializer = {
+						switch = {
+							trigger = has_ethic
+							ethic_authoritarian = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = authoritarian } } }
+							ethic_militarist = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = militarist } } }
+							ethic_pacifist = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = pacifist } } }
+							ethic_materialist = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = materialist } } }
+							ethic_spiritualist = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = spiritualist } } }
+							ethic_xenophile = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = xenophile } } }
+							ethic_xenophobe = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = xenophobe } } }
+							ethic_socialism = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = socialism } } }
+							ethic_capitalism = { event_target:civwar_rebels = { cw_shift_ethic_effect = { ETHIC = capitalism } } }
+						}
+					}
+					reset_civics_effect = yes
+				}
+				else_if = {
+					limit = { has_bug_branch = yes }
+					if = {
+						limit = {
+							OR = {
+								is_cooperative = yes
+								event_target:cw_scope_initializer = { is_egalitarian = yes }
+							}
+						}
+						inline_script = { script = civil_war_country_creation/megacorp_type_country TYPE = bugged_corporate_democratic }
+					}
+					else_if = {
+						limit = { event_target:cw_scope_initializer = { is_authoritarian = yes } }
+						inline_script = { script = civil_war_country_creation/megacorp_type_country TYPE = bugged_corporate_imperial }
+					}
+					else_if = {
+						limit = { is_authoritarian = yes }
+						random_list = {
+							40 = { inline_script = { script = civil_war_country_creation/megacorp_type_country TYPE = corporate } }
+							50 = { inline_script = { script = civil_war_country_creation/megacorp_type_country TYPE = bugged_corporate_imperial } }
+						}
+					}
+					else_if = {
+						limit = { is_egalitarian = yes }
+						random_list = {
+							50 = { inline_script = { script = civil_war_country_creation/megacorp_type_country TYPE = corporate } }
+							50 = { inline_script = { script = civil_war_country_creation/megacorp_type_country TYPE = bugged_corporate_democratic } }
+						}
+					}
+					else = {
+						inline_script = { script = civil_war_country_creation/megacorp_type_country TYPE = corporate }
+					}	
+					reset_civics_effect = yes
+				}
+			}
 		}
 	}
 	created_civwar_rebel_country_effect = yes

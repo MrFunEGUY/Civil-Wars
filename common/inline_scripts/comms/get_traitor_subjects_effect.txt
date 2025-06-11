@@ -1,0 +1,6 @@
+limit = { subjects >= $NUM$ }
+random_subject = {
+	save_event_target_as = traitor_subject_$NUM$
+	set_country_flag = counted_stolen_sub
+}
+root = { set_variable = { which = traitor_subjects value = $NUM$ } }

@@ -56,7 +56,7 @@ wg_civwar = {
 			limit = { using_war_goal = { type = wg_civwar owner = root } } 
 			every_war_participant = {
 				limit = { is_war_leader = no }
-				# prev = { remove_war_participant = prev }
+				prev = { remove_war_participant = prev }
 			}
 		}
 		if = {

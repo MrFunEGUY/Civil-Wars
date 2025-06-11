@@ -225,6 +225,31 @@ l_russian:
  dummy_old_name_leader: "[event_target:new_homeland.GetName]"
  dummy_party_leader: "[event_target:civwar_party.GetName]"
 
+ government_is_gov: "government"
+ government_is_corp: "board"
+
+ leaders_who_defected: "\n§RDefecting Traitors§!:"
+ defected_leader_1: "[defected_leader_1.GetClass] §Y[defected_leader_1.GetName]§!"
+ defected_leader_2: "[defected_leader_2.GetClass] §Y[defected_leader_2.GetName]§!"
+ defected_leader_3: "[defected_leader_3.GetClass] §Y[defected_leader_3.GetName]§!"
+ defected_leader_4: "[defected_leader_4.GetClass] §Y[defected_leader_4.GetName]§!"
+ defected_leader_5: "[defected_leader_5.GetClass] §Y[defected_leader_5.GetName]§!"
+ defected_leader_6: "[defected_leader_6.GetClass] §Y[defected_leader_6.GetName]§!"
+ defected_leader_7: "[defected_leader_7.GetClass] §Y[defected_leader_7.GetName]§!"
+ defected_leader_8: "[defected_leader_8.GetClass] §Y[defected_leader_8.GetName]§!"
+ defected_leader_9: "[defected_leader_9.GetClass] §Y[defected_leader_9.GetName]§!"
+ defected_leader_10: "[defected_leader_10.GetClass] §Y[defected_leader_10.GetName]§!"
+ defected_leader_11: "[defected_leader_11.GetClass] §Y[defected_leader_11.GetName]§!"
+ defected_leader_12: "[defected_leader_12.GetClass] §Y[defected_leader_12.GetName]§!"
+ defected_leader_13: "[defected_leader_13.GetClass] §Y[defected_leader_13.GetName]§!"
+ defected_leader_14: "[defected_leader_14.GetClass] §Y[defected_leader_14.GetName]§!"
+ defected_leader_15: "[defected_leader_15.GetClass] §Y[defected_leader_15.GetName]§!"
+ defected_leader_16: "[defected_leader_16.GetClass] §Y[defected_leader_16.GetName]§!"
+ defected_leader_17: "[defected_leader_17.GetClass] §Y[defected_leader_17.GetName]§!"
+ defected_leader_18: "[defected_leader_18.GetClass] §Y[defected_leader_18.GetName]§!"
+ defected_leader_19: "[defected_leader_19.GetClass] §Y[defected_leader_19.GetName]§!"
+ defected_leader_20: "[defected_leader_20.GetClass] §Y[defected_leader_20.GetName]§!"
+
  # Faction and Sector Planetary Rebellion # Восстание Планет и Секторов
 
  civcom.1000.name: "[civwar_rebels.GetRulerTitle] §H[civwar_rebels.Ruler.GetName]§!"
@@ -394,6 +419,16 @@ l_russian:
 
  civcom.1100.mult.leader.desc: "Приветствую вас. Раньше я был известен вам как [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, главу фракции §Y[civwar_party_name_leader.GetName]§!. Однако, ваше правительство пренебрегало нами слишком долго, теперь народ решил - пришла пора. С этого дня я не ваш [civwar_rebels.Ruler.GetClass]. Теперь, я стал правителем §H[civwar_rebels.GetName]§! как §Y[civwar_rebels.GetRulerTitle]§!.\n\nБолее того, мы находимся в союзе с другими восстаниями. §PАтаковав любого из нас, вы объявите войну нам всем§!. Принимая сказанное во внимание, я рекомендую вашему правительству принять это во внимание, дабы избежать дальнейшего кровопролития."
 
+ civcom.1100.leader.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people have had enough. I am a mere [civwar_rebels.Ruler.GetClass] no longer. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+
+ civcom.election_dispute.orig_dem_still_dem.desc: "It's unfortunate that it had to come to this, but its your arrogance that has torn this country apart. I could not allow the democratic process to be so subverted by you and your [GetGovermentBoard]. You are not the rightful §H[civwar_rebels.Ruler.GetTitle]§! and our citizens deserve better. In order to preserve democracy, I will lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of our people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+
+ civcom.election_dispute.orig_dem_not_dem.desc: "It's unfortunate that it had to come to this, but its your arrogance that has torn this country apart. I could not allow the will of our nation to be so subverted by you and your [GetGovermentBoard]. You are not the rightful §H[civwar_rebels.Ruler.GetTitle]§! and our citizens deserve better. The ideals of our citizens will live on in the §Y[civwar_rebels.GetName]§!, where I will serve as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of our people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+
+ civcom.election_dispute.not_dem.desc: "It's unfortunate that it had to come to this, but its your arrogance that has torn this country apart. I could not allow our country to fall into the hands of someone so incompetent. Our citizens deserve much better than you as our §H[civwar_originator.Ruler.GetTitle]§!. The true values of our people will live on in the §Y[civwar_rebels.GetName]§!, where I will serve as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of our people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+
+ civcom.election_dispute.corp.desc: "It's unfortunate that it had to come to this, but its your arrogance that has torn this organization apart. I could not allow our company to fall into the hands of someone so incompetent. Our shareholders deserve much better than you as our §H[civwar_originator.Ruler.GetTitle]§!. In order to ensure future profits, I will lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of our shareholders, and we are prepared to defend ourselves. I recommend that your board accept this, so that we may prevent any further drops in revenue."
+
  civcom.allys.desc: "\n\nFurthermore, we are allied to the other revolutionary states that have just risen in revolt. §PIf you attack one of us, you attack all of us§!."
 
  civcom.1100.leader.iso.sec.desc: "Приветствую вас. Раньше я был известен вам как [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§! сектора §Y[sector_name_leader.GetName]§!. Мой сектор был отрезан от поддержки центра последние несколько лет, что вынудило меня в активном участвовать в решении насущных вопросов и принять на себя роль лидера фракции §Y[civwar_party_name_leader.GetName]§!. Истина в том,что с вашим правительством невозможно наладить контакт, и народ сектора §Y[sector_name_leader.GetName]§! заслуживают правительства, к которому они могут обратиться. С этого дня я больше не ваш [civwar_rebels.Ruler.GetClass]. Теперь, я правлю §H[civwar_rebels.GetName]§! как §Y[civwar_rebels.GetRulerTitle]§!. Я обладаю полной поддержкой своего народа, и в случае, если вы каким-то образом долетите до нас, мы готовы защищать себя. Я рекомендую вашему правительству принять это во внимание, дабы избежать дальнейшего кровопролития."
@@ -413,11 +448,11 @@ l_russian:
  civcom.1100.nationalist.no_support.exile.imp.desc: "Приветствую вас. Меня зовут §H[civwar_rebels.Ruler.GetName]§!, и я являюсь бывшим членом фракции §Y[civwar_party_name_leader.GetName]§!. Теперь, я выступаю как представитель новообразованного государства §H[civwar_rebels.GetName]§! как временно исполняющий должность §Y[civwar_rebels.GetRulerTitle]§!.\n\nНаше государство организовано по образцу и подобию §Yнашей родины§!, исконного государства §H[nat_motherland_model.GetName]§!, и мы передадим власть истинному правителю этих систем, §Y[civwar_rebels.GetRulerTitle]§! §H[nat_motherland_model.ruler.GetName]§!, как только добьемся нашего полного освобождения. Я рекомендую вашему правительству признать наш суверенитет, дабы избежать дальнейшего кровопролития."
  civcom.1100.nationalist.mult.no_support.exile.imp.desc: "Приветствую вас. Меня зовут §H[civwar_rebels.Ruler.GetName]§!, и я являюсь бывшим членом фракции §Y[civwar_party_name_leader.GetName]§!. Теперь, я выступаю как представитель новообразованного государства §H[civwar_rebels.GetName]§! как временно исполняющий должность §Y[civwar_rebels.GetRulerTitle]§!.\n\nНаше новое правительство создано по образцу §Yнашей родины§!, исконного государства §H[nat_motherland_model.GetName]§!, и мы передадим власть истинному правителю этих систем, §Y[civwar_rebels.GetRulerTitle]§! §H[nat_motherland_model.ruler.GetName]§!, как только добьемся нашего полного освобождения. Если вы решите атаковать нас, вы также окажетесь в войне против других государств §Y[nat_motherland_model.GetAdj]§!, поднявших восстание против вас. Принимая сказанное во внимание, я рекомендую вашему правительству признать наш суверенитет, дабы избежать дальнейшего кровопролития."
 
- civcom.1100.election_dispute.dem.desc: "Своими действиями вы вынуждали §Y[civwar_party_name_leader.GetName]§! принять меры, и мы не замедлили их принять. Мы не станем терпеть ваши махинации на выборах. Игнорировать подобное означало бы предательство устоев демократии. Отныне, я §Y[civwar_rebels.GetRulerTitle]§!, кем я и должен быть по праву. Я возглавляю новое государство, §H[civwar_rebels.GetName]§!, которое будет защищать реальные ценности народа §Y[root.GetAdj]§!. С вашей стороны будет во всеобщих интересах признать наш суверенитет мирно. Мы не желаем проливать еще больше крови [root.GetAdj]."
+ civcom.election_dispute.dem.desc: "Своими действиями вы вынуждали §Y[civwar_party_name_leader.GetName]§! принять меры, и мы не замедлили их принять. Мы не станем терпеть ваши махинации на выборах. Игнорировать подобное означало бы предательство устоев демократии. Отныне, я §Y[civwar_rebels.GetRulerTitle]§!, кем я и должен быть по праву. Я возглавляю новое государство, §H[civwar_rebels.GetName]§!, которое будет защищать реальные ценности народа §Y[root.GetAdj]§!. С вашей стороны будет во всеобщих интересах признать наш суверенитет мирно. Мы не желаем проливать еще больше крови [root.GetAdj]."
 
- civcom.1100.election_dispute.other.desc: "Своими действиями вы вынуждали §Y[civwar_party_name_leader.GetName]§! принять меры, и мы не замедлили их принять. Мы не станем терпеть ваши махинации. Игнорировать подобное значило бы утратить остатки нашего достоинства. Отныне, я §Y[civwar_rebels.GetRulerTitle]§!, кем я и должен быть по праву. Я возглавляю новое государство, §H[civwar_rebels.GetName]§!, которое будет защищать реальные ценности народа §Y[root.GetAdj]§!. С вашей стороны будет во всеобщих интересах признать наш суверенитет мирно. Мы не желаем проливать еще больше крови [root.GetAdj]."
+ civcom.election_dispute.other.desc: "Своими действиями вы вынуждали §Y[civwar_party_name_leader.GetName]§! принять меры, и мы не замедлили их принять. Мы не станем терпеть ваши махинации. Игнорировать подобное значило бы утратить остатки нашего достоинства. Отныне, я §Y[civwar_rebels.GetRulerTitle]§!, кем я и должен быть по праву. Я возглавляю новое государство, §H[civwar_rebels.GetName]§!, которое будет защищать реальные ценности народа §Y[root.GetAdj]§!. С вашей стороны будет во всеобщих интересах признать наш суверенитет мирно. Мы не желаем проливать еще больше крови [root.GetAdj]."
 
- civcom.1100.election_dispute.corp.desc: "Своими действиями вы вынуждали §Y[civwar_party_name_leader.GetName]§! принять меры, и мы не замедлили их принять. Мы не станем терпеть ваши махинации. Игнорируя это, мы бы потеряли лишились прибыли в долгосрочном периоде. Отныне, я §Y[civwar_rebels.GetRulerTitle]§!, кем я и должен быть по праву. Я возглавляю новую корпорацию, §H[civwar_rebels.GetName]§!, которая будет защищать реальные ценности народа §Y[root.GetAdj]§!. С вашей стороны будет во всеобщих интересах признать наш суверенитет мирно. Мы не желаем проливать еще больше крови [root.GetAdj]."
+ civcom.election_dispute.corp.desc: "Своими действиями вы вынуждали §Y[civwar_party_name_leader.GetName]§! принять меры, и мы не замедлили их принять. Мы не станем терпеть ваши махинации. Игнорируя это, мы бы потеряли лишились прибыли в долгосрочном периоде. Отныне, я §Y[civwar_rebels.GetRulerTitle]§!, кем я и должен быть по праву. Я возглавляю новую корпорацию, §H[civwar_rebels.GetName]§!, которая будет защищать реальные ценности народа §Y[root.GetAdj]§!. С вашей стороны будет во всеобщих интересах признать наш суверенитет мирно. Мы не желаем проливать еще больше крови [root.GetAdj]."
 
  civcom.1100.secession.dem.desc: "Народ §H[root.GetName]§! честно и законно проголосовал за право моих людей на сецессию. На данном этапе нас больше не смогут остановить никакими бюрократическими уловками. Как действующий §Y[root.GetRulerTitle]§! этой нации, я сделал все, что в моих силах, чтобы обеспечить отделение §H[civwar_rebels.GetName]§!. Не пытайтесь оспорить это решение силой, ибо оно полностью законно. Мы все еще можем обойтись без войны."
  civcom.1100.secession.not_dem.desc: "Я, новый законно титулованный §Y[root.GetRulerTitle]§!, властью, данной мне, объявляю законную сецессию своего народа. На данном этапе нас больше не смогут остановить никакими бюрократическими уловками. Как действующий §Y[root.GetRulerTitle]§! этой нации, я сделал все, что в моих силах, чтобы обеспечить отделение §H[civwar_rebels.GetName]§!. Не пытайтесь оспорить это решение силой, ибо оно полностью законно. Мы все еще можем обойтись без войны."
@@ -821,6 +856,46 @@ l_russian:
  ### Election Events ###
  #######################
 
+ civleader.1002.dem.name: "Election Dispute"
+ civleader.1002.not_dem.name: "Selection Dispute"
+ civleader.1002.dem.desc: "§Y[this.GetName]§! has gone public with concerns regarding the last election. They've brought forward evidence of voting irregularities and voter intimidation. They have also claimed that the winner of the election, the §Y[ruler.pop_faction.GetName]§!, may have been behind some of the irregularities. A formal investigation of their claims has begun."
+ civleader.1002.not_dem.desc: "§Y[this.GetName]§! has brought forward concerns regarding the selection of the most recent §Y[owner.GetRulerTitle]§!. They believe that the selection process was tainted in some way, and that §H[ruler.GetName]§! of the §Y[ruler.pop_faction.GetName]§! wasn't fairly selected. A formal investigation of their claims has begun."
+
+ civleader.1003.name: "Dispute Settled"
+ civleader.1003.dem.desc: "Due to the fact that new elections for §Y[owner.GetRulerTitle]§! are being held, the investigation into the conduct of the prior election has been cancelled."
+ civleader.1003.not_dem.desc: "Due to the fact that a new §Y[owner.GetRulerTitle]§! selection is being held, the investigation into the conduct of the prior selection has been cancelled."
+
+ civleader.1010.name: "Protests Erupt"
+
+ civleader.1010.dem.desc: "Following §Y[target.GetName]'s§! claims of fraud in the prior election, disruptive protests have erupted nationwide. True or not, these protests will likely only bolster the claims of fraud."
+
+ civleader.1010.not_dem.desc: "Following §Y[target.GetName]'s§! claims that the process that led to §Y[owner.ruler.GetName]§! becoming §H[owner.ruler.GetTitle]§! was corrupt and that [owner.ruler.GetSheHe] will be an ineffective leader, disruptive protests have erupted nationwide. These protests will likely only bolster §Y[target.GetName]'s§! claims."
+
+ civleader.1011.name: "Terrorist Action!"
+
+ civleader.1011.dem.desc: "Claiming that §Y[target.GetName]'s§! claims of election fraud are true, a radical [target.GetBackgroundEthic] group has succedeed in carrying out a terrorist attack on our capital. Their stated goal was forcing a new round of elections. While state-critical facilities remain unscathed, extensive property damage and significant loss of life as a result of coordinated terrorist attacks have shaken the colony to its core."
+
+ civleader.1011.not_dem.desc: "Claiming that §Y[target.GetName]'s§! claims are true, a radical [target.GetBackgroundEthic] group has succedeed in carrying out coordinated terrorist attacks across our capital. Their stated goal was forcing the abdication of §Y[owner.ruler.GetName]§!. While state-critical facilities remain unscathed, extensive property damage and significant loss of life as a result of these attacks have shaken §Y[owner.Capital.GetName]§! to its core."
+
+ civleader.1020.name: "Break In!"
+
+ civleader.1020.dem.desc: "An explosive news report has provided damning evidence showing that members of §Y[owner.ruler.GetName]'s§! campaign team broke into the headquarters of multiple other candidates, stealing valuable information. This lends a lot of credence to the allegations and claims initially made by §Y[target.GetName]§!."
+
+ civleader.1020.not_dem.desc: "An explosive memo circulating in the highest levels of our government has provided damning evidence showing that §Y[owner.ruler.GetName]§! bribed multiple other officials in order to secure their position. This lends a lot of credence to the allegations and claims initially made by §Y[target.GetName]§!."
+
+ civleader.1090.name: "[this.GetName]'s Decision"
+ civleader.1090.dem.desc: "The situation regarding §Y[this.GetName]'s§! claims about the validity of the election of §Y[owner.ruler.GetName]§! as §H[owner.ruler.GetTitle]§! are coming to a head..."
+ civleader.1090.not_dem.desc: "The situation regarding §Y[this.GetName]'s§! claims about the selection of §Y[this.owner.ruler.GetName]§! as §H[this.owner.ruler.GetTitle]§! are coming to a head..."
+
+ cw_leader_give_in: "Enough. We will give them what they really want."
+ cw_leader_new_election: "Enough. We will hold new elections."
+ cw_leader_new_election_tooltip: "New elections will be held"
+ cw_leader_ignore_them: "Stay the course. Ignore them."
+
+ civleader.1091.name: "[this.GetName] Admits Defeat"
+ civleader.1091.dem.desc: "While they continue to insist there were irregularities in the election process, §Y[this.GetName]§! has given up any attempts to force §Y[this.owner.ruler.GetName]§! out of office."
+ civleader.1091.not_dem.desc: "While they continue to insist there were irregularities in the selection process, §Y[this.GetName]§! has given up any attempts to force §Y[this.owner.ruler.GetName]§! out of office."
+
  civelect.1010.name: "Сомнения в Честности Выборов"
  
  civelect.1010.desc: "§Y[dispute_party.GetName]§! опубликовала свои изыскания в отношении последних выборов. Их расследование продемонстрировало свидетельства нарушений протокола голосования и запугивания избирателей. В частности, они утверждают что победитель выборов, §Y[ruler.pop_faction.GetName]§!, может стоять за этими нарушениями. По их обвинениям заведено официальное расследование."
@@ -887,6 +962,12 @@ l_russian:
  civelect.9000.other.desc: "Ввиду того, в настоящее время избирается новый §Y[owner.GetRulerTitle]§! расследование предыдущего избрания было прекращено."
 
  # Election Disputes
+ election_dispute_dem_name: "Electoral Integrity"
+ election_dispute_dem_desc: "The integrity of our last election has been called into question by §H[target.GetName]§!. Whether there is any merit to their claims, or whether [target.GetSheHe] is simply trying to leverage the political situation has yet to be determined."
+
+ election_dispute_not_dem_name: "[owner.GetRulerTitle] Selection Dispute"
+ election_dispute_not_dem_desc: "§H[target.GetName]§! has been going around vigorously asserting that our government's selection of §Y[root.owner.ruler.GetName]§! to be our §Y[root.owner.ruler.GetTitle]§! was a critical mistake. [target.GetSheHeCap] has alleged that the process was corrupt and is seeking support for [target.GetHerHis] claims."
+
  situation_civstrife_election: "Расследование Честности Выборов"
  situation_civstrife_election_type: "Расследование Честности Выборов"
  situation_civstrife_election_desc: "Честность наших последних выборов была поставлена под сомнение. Следствие в процессе."

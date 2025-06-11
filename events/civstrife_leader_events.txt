@@ -7,34 +7,432 @@
 namespace = civleader
 
 ###### Storylines:
- ##### Authoritarian Government Leader Events
-  ##### 1000 - xxxx: Commander Gains Power
+ ##### Civil War Story Events
+  ##### xxxx - xxxx: Massacres/Genocide/Atrocities - Commander/Official/Scientist
+  ##### xxxx - xxxx: Internment Camps - Commander/Official/Scientist
   ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+  ##### xxxx - xxxx: 
+ ##### General Leader Events
+  ##### 1000 - xxxx: (S)Election Dispute - Commander/Official/Scientist
+  ##### 1000 - xxxx: Gains Power - Commander/Official/Scientist
+  ##### xxxx - xxxx: Rivalry - Commander/Official/Scientist?
+  ##### xxxx - xxxx: Defection - Commander/Official/Scientist
+  ##### xxxx - xxxx: Unethical Behavior - Commander/Official/Scientist
+  ##### xxxx - xxxx: Religious Leader - Commander/Official/Scientist
+  ##### xxxx - xxxx: 
+ ##### Authoritarian Leader Events
+  ##### 2000 - xxxx: Coup against Immortal Leader - Commander/Official/Scientist
   ##### xxxx - xxxx: 
   ##### xxxx - xxxx: 
   ##### xxxx - xxxx: 
   ##### xxxx - xxxx: 
   ##### xxxx - xxxx: 
 
-leader_event = { # Commander
+
+
+country_event = {
 	id = civleader.1000
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
-		OR = {
-			has_base_skill >= 5
-			has_leader_flag = leader_ambitious
-			has_leader_flag = leader_great_victory
-			has_leader_flag = leader_proven_worth
+		num_owned_planets > 1
+		these_are_rebels_in_rebellion = no
+		any_owned_leader = { NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } } }
+	}
+
+	immediate = {
+		random = {
+			chance = value:leader_civil_war_oppurtunity
+			# chance = 100
+			country_event = { id = civleader.1001 days = 1 }
+		}
+	}
+}
+
+country_event = { #
+	id = civleader.1001
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		num_owned_planets > 1
+		these_are_rebels_in_rebellion = no
+		any_owned_leader = {
+			is_fake_leader = no
+			NOT = { has_leader_flag = hired_admiral_merc_leader }
+			NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } }
 		}
 	}
 
 	immediate = {
-		if = {
-			limit = { NOT = { has_leader_flag = dummy_leader } }
-			set_leader_flag = dummy_leader
+		random_owned_leader = {
+			limit = {
+				is_fake_leader = no
+				NOT = { has_leader_flag = hired_admiral_merc_leader }
+				NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } }
+			}
+			random = {
+				chance = value:leader_election_dispute_chance
+				# chance = 100
+				leader_event = { id = civleader.1002 days = 6 random = 14 }
+			}
 		}
-		kill_leader = { show_notification = no }
 	}
 }
+
+leader_event = {
+	id = civleader.1002
+	title = civleader.1002.dem.name
+	picture = "GFX_evt_grand_speech"
+	is_triggered_only = yes
+
+	# Descriptions
+	inline_script = "events/leader_election_dispute"
+
+	trigger = {
+		NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } }
+	}
+
+	immediate = {
+		set_cooldown = 18000 ## 50 years
+		set_leader_flag = cw_cannot_be_fired
+		set_leader_flag = election_dispute_leader
+	}
+
+	option = {
+		name = OUTRAGEOUS
+		hidden_effect = {
+			owner = {
+				start_situation = {
+					type = situation_civstrife_election_dispute
+					target = root
+				}
+			}
+		}
+	}
+}
+
+### Crisis Over
+country_event = {
+	id = civleader.1003
+	title = civleader.1003.name
+	picture = "GFX_evt_grand_speech"
+	hide_window = no
+	is_triggered_only = yes
+
+	desc = {
+		text = civleader.1003.dem.desc
+		trigger = { is_democratic_authority = yes }
+	}
+
+	desc = {
+		text = civleader.1003.not_dem.desc
+		trigger = { is_democratic_authority = no }
+	}
+
+	option = {
+		name = GOOD
+	}
+}
+
+############ Random Election Events
+
+### Protests
+situation_event = {
+	id = civleader.1010
+	title = civleader.1010.name
+	picture = "GFX_evt_civil_action"
+	hide_window = no
+	is_triggered_only = yes
+
+	desc = {
+		text = civleader.1010.dem.desc
+		trigger = { is_democratic_authority = yes }
+	}
+
+	desc = {
+		text = civleader.1010.not_dem.desc
+		trigger = { is_democratic_authority = no }
+	}
+
+	trigger = {
+		NOT = { has_situation_flag = protests_happened }
+	}
+
+	immediate = {
+		set_situation_flag = protests_happened
+		target = { set_leader_flag = protests_happened }
+	}
+
+	option = {
+		name = DISAPPOINTING
+	}
+}
+
+### Terror Event
+situation_event = {
+	id = civleader.1011
+	title = civleader.1011.name
+	picture = "GFX_evt_burning_city"
+	hide_window = no
+	is_triggered_only = yes
+
+	desc = {
+		text = civleader.1011.dem.desc
+		trigger = { is_democratic_authority = yes }
+	}
+
+	desc = {
+		text = civleader.1011.not_dem.desc
+		trigger = { is_democratic_authority = no }
+	}
+
+	trigger = {
+		NOT = { has_situation_flag = terror_happened }
+	}
+
+	immediate = {
+		set_situation_flag = terror_happened
+		target = { set_leader_flag = terror_happened }
+		owner.capital_scope = {
+			add_modifier = {
+				modifier = major_terrorist_action
+				days = 3600 # 10 years
+			}
+			set_timed_planet_flag = {
+				flag = recent_unrest_event
+				days = @unrest_event_cooldown
+			}
+		}
+
+		random = {
+			chance = 30
+			set_situation_flag = sit_out_allowed
+		}
+	}
+
+	option = {
+		name = TERRIBLE
+	}
+
+	option = {
+		trigger = { has_situation_flag = sit_out_allowed }
+		name = {
+			trigger = { owner = { has_democratic_elections = yes } }
+			text = cw_leader_new_election
+		}
+		name = {
+			trigger = { owner = { has_democratic_elections = no } }
+			text = cw_leader_give_in
+		}
+		trigger = { has_leader_flag = leader_can_be_pacified }
+		if = {
+			limit = { owner = { has_democratic_elections = no } }
+			owner = { set_leader = root.target }
+		}
+		else = {
+			custom_tooltip = cw_leader_new_election_tooltip
+			## Only way to call elections rn is to kill ruler, so we will create dummy leader, set them ruler, kill them
+			hidden_effect = {
+				owner = {
+					create_leader = {
+						class = official
+						species = owner_main_species
+						name = random
+						effect = {
+							save_event_target_as = dummy_election_starter_leader
+						}
+					}
+					set_leader = event_target:dummy_election_starter_leader
+					event_target:dummy_election_starter_leader = { kill_leader = { show_notification = no } }
+				}
+			}
+		}
+		hidden_effect = {
+			owner = {
+				clear_variable = monthly_energy
+				clear_variable = monthly_unity
+			}
+			target = { remove_leader_flag = cw_cannot_be_fired }
+			destroy_situation = this
+		}
+	}
+
+}
+
+### Watergate (break in)
+situation_event = {
+	id = civleader.1020
+	title = civleader.10200.name
+	picture = "GFX_evt_news_room"
+	hide_window = no
+	is_triggered_only = yes
+
+	desc = {
+		text = civleader.1020.dem.desc
+		trigger = { has_democratic_elections = yes }
+	}
+
+	desc = {
+		text = civleader.1020.not_dem.desc
+		trigger = { has_democratic_elections = no }
+	}
+
+	trigger = {
+		NOT = { has_situation_flag = watergate_happened }
+	}
+
+	immediate = {
+		set_situation_flag = watergate_happened
+		target = { set_leader_flag = watergate_happened }
+	}
+
+	option = {
+		name = DISAPPOINTING
+	}
+}
+
+
+leader_event = { ## Declare War or Not Decision
+	id = civleader.1090
+	title = civleader.1090.name
+	picture = "GFX_evt_enclave_overlord"
+	is_triggered_only = yes
+
+	desc = {
+		text = civleader.1090.dem.desc
+		trigger = { owner = { has_democratic_elections = yes } }
+	}
+
+	desc = {
+		text = civleader.1090.not_dem.desc
+		trigger = { owner = { has_democratic_elections = no } }
+	}
+	
+	immediate = {
+		random = {
+			chance = value:election_out_is_allowed
+			# chance = 100
+			set_leader_flag = leader_can_be_pacified
+		}
+	}
+
+	option = {
+		name = {
+			trigger = { owner = { has_democratic_elections = yes } }
+			text = cw_leader_new_election
+		}
+		name = {
+			trigger = { owner = { has_democratic_elections = no } }
+			text = cw_leader_give_in
+		}
+		trigger = { has_leader_flag = leader_can_be_pacified }
+		if = {
+			limit = { owner = { has_democratic_elections = no } }
+			owner = { set_leader = root }
+		}
+		else = {
+			custom_tooltip = cw_leader_new_election_tooltip
+			## Only way to call elections rn is to kill ruler, so we will create dummy leader, set them ruler, kill them
+			hidden_effect = {
+				owner = {
+					create_leader = {
+						class = official
+						species = owner_main_species
+						name = random
+						effect = {
+							save_event_target_as = dummy_election_starter_leader
+						}
+					}
+					set_leader = event_target:dummy_election_starter_leader
+					event_target:dummy_election_starter_leader = { kill_leader = { show_notification = no } }
+				}
+			}
+		}
+		hidden_effect = {
+			remove_leader_flag = leader_can_be_pacified
+		}
+	}
+
+	option = {
+		name = cw_leader_ignore_them
+		hidden_effect = {
+			random = {
+				chance = value:leader_dispute_civil_war_chance
+				# chance = 100
+				create_civil_war = yes
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			set_cooldown = 0
+			remove_leader_flag = cw_cannot_be_fired
+			if = {
+				limit = { has_leader_flag = watergate_happened }
+				remove_leader_flag = watergate_happened
+			}
+			if = {
+				limit = { has_leader_flag = terror_happened }
+				remove_leader_flag = terror_happened
+			}
+			if = {
+				limit = { has_leader_flag = protests_happened }
+				remove_leader_flag = protests_happened
+			}
+
+			if = {
+				limit = { NOT = { has_leader_flag = personal_civil_war } }
+				leader_event = { id = civleader.1091 days = 6 random = 14 }
+			}
+		}
+	}
+}
+
+leader_event = { ## Leader Admits Defeat
+	id = civleader.1091
+	title = civleader.1091.name
+	picture = "GFX_evt_news_room"
+	is_triggered_only = yes
+
+	trigger = { NOT = { is_ruler = yes } } ## I can just do this here instead of checking above
+
+	desc = {
+		text = civleader.1091.dem.desc
+		trigger = { owner = { has_democratic_elections = yes } }
+	}
+
+	desc = {
+		text = civleader.1091.not_dem.desc
+		trigger = { owner = { has_democratic_elections = no } }
+	}
+
+	option = {
+		name = EXCELLENT
+	}
+}
+
+# country_event = {
+# 	id = civleader.2000
+# 	hide_window = yes
+# 	is_triggered_only = yes
+
+# 	trigger = {
+# 		these_are_rebels_in_rebellion = no
+# 		ruler = { is_immortal = yes }
+# 		OR = {
+# 			is_dictatorial_dem = yes
+# 			is_imperial_authority = yes
+# 			is_dictatorial_authority = yes
+# 		}
+# 		any_owned_leader = { NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } } }
+# 	}
+
+# 	immediate = {
+# 		country_event = { id = civleader.2001 days = 0 random = 360 }
+# 	}
+# }

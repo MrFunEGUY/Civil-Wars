@@ -118,6 +118,34 @@ country_event = { # Clear unused global event targets
 	}
 }
 
+country_event = { # Clear Loc Countries
+	id = civmisc.2300
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_exile_country = yes
+		# is_country_type_with_subjects = no
+		has_country_flag = country_needed_for_loc
+		NOR = {
+			any_playable_country = { has_country_flag = secession_from_country_@root }
+			any_country = {
+				is_country_type_with_subjects = yes
+				any_owned_pop_group = {
+					can_think = yes
+					has_pop_group_flag = sep_pop_nat_@root
+				}
+			}
+		}
+	}
+
+	immediate = {
+		remove_country_flag = country_needed_for_loc
+		country_event = { id = civnat.3110 days = 2 }
+	}
+}
+
+##########
 
 country_event = {
 	# Set Birthday
