@@ -47,6 +47,7 @@ planet_event = { ## Initial Event to create separatists from transferred planets
 
 		fromfrom = {
 			save_event_target_as = nat_pops_country
+			set_nat_country_flag = yes
 			set_country_flag = has_nats_in_@root.owner
 		}
 
@@ -108,6 +109,13 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 				# This needs to be done or the species will be the ruler species, very odd.
 				change_species = event_target:original_nation_species
 				if = {
+					limit = { has_nat_country_flag = no }
+					set_nat_country_flag = yes
+				}
+				else = { ## Probably only need this one, will remove if above eventually 
+					find_nat_number_flag = yes
+				}
+				if = {
 					limit = { has_secession_country_flag = yes }
 					find_secession_number_flag = yes
 				}
@@ -137,7 +145,7 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 				add_modifier = { modifier = "death_of_motherland" years = 20 }
 				if = { # No need to have both of these, it's just overkill.
 					limit = { has_modifier = pop_recently_conquered }
-					remove_modifier = pop_recently_conquered
+					# remove_modifier = pop_recently_conquered
 				}
 			}
 		}
@@ -286,8 +294,10 @@ country_event = { # Gov In Exile cannot find host, dissolves
 				ignore_initial_colony_error = yes
 				effect = {
 					copy_techs_from = { target = event_target:old_nat_country }
+					copy_flags_and_variables_from = event_target:old_nat_country
 					set_leader = event_target:old_nat_country.ruler
 					get_separatist_faction_nat = yes
+					find_nat_number_flag = yes
 					save_event_target_as = nat_pops_country
 				}
 			}
@@ -445,8 +455,9 @@ country_event = { # Gov In Exile restoration, when released peacefully
 				change_species = event_target:restored_country.species
 			}
 			every_owned_pop_group = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
-				limit = { has_pop_group_flag = sep_pop_nat_@root }
+				limit = { nats_modifier_flag_matcher = { SCOPE = root } }
 				remove_pop_group_flag = sep_pop_nat_@root
+				remove_nat_modifier_effect = yes
 			}
 
 			copy_flags_and_variables_from = event_target:restored_country
@@ -499,8 +510,9 @@ country_event = { # Gov In Exile restoration, when released peacefully
 			}
 
 			every_owned_pop_group = {
-				limit = { has_pop_group_flag = sep_pop_nat_@root }
+				limit = { nats_modifier_flag_matcher = { SCOPE = root } }
 				remove_pop_group_flag = sep_pop_nat_@root
+				remove_nat_modifier_effect = yes
 				set_pop_group_flag = sep_pop_nat_@event_target:new_homeland
 				add_modifier = { modifier = "restoration_of_motherland" years = 15 }
 				if = {
@@ -634,8 +646,9 @@ country_event = { # Gov In Exile restoration, on war won
 					set_leader = prev.ruler
 				}
 				every_owned_pop_group = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
-					limit = { has_pop_group_flag = sep_pop_nat_@prev }
+					limit = { nats_modifier_flag_matcher = { SCOPE = prev } }
 					remove_pop_group_flag = sep_pop_nat_@prev
+					remove_nat_modifier_effect = yes
 				}
 
 				copy_flags_and_variables_from = event_target:restored_country
@@ -688,8 +701,9 @@ country_event = { # Gov In Exile restoration, on war won
 				}
 
 				every_owned_pop_group = {
-					limit = { has_pop_group_flag = sep_pop_nat_@prev }
+					limit = { nats_modifier_flag_matcher = { SCOPE = prev } }
 					remove_pop_group_flag = sep_pop_nat_@prev
+					remove_nat_modifier_effect = yes
 					set_pop_group_flag = sep_pop_nat_@event_target:new_homeland
 					add_modifier = { modifier = "restoration_of_motherland" years = 15 }
 					if = {
@@ -826,8 +840,9 @@ country_event = { # Gov In Exile restoration, on status quo
 					set_leader = prev.ruler
 				}
 				every_owned_pop_group = {	# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
-					limit = { has_pop_group_flag = sep_pop_nat_@prev }
+					limit = { nats_modifier_flag_matcher = { SCOPE = prev } }
 					remove_pop_group_flag = sep_pop_nat_@prev
+					remove_nat_modifier_effect = yes
 				}
 
 				copy_flags_and_variables_from = event_target:restored_country
@@ -880,8 +895,9 @@ country_event = { # Gov In Exile restoration, on status quo
 				}
 
 				every_owned_pop_group = {
-					limit = { has_pop_group_flag = sep_pop_nat_@prev }
+					limit = { nats_modifier_flag_matcher = { SCOPE = prev } }
 					remove_pop_group_flag = sep_pop_nat_@prev
+					remove_nat_modifier_effect = yes
 					set_pop_group_flag = sep_pop_nat_@event_target:new_homeland
 					add_modifier = { modifier = "restoration_of_motherland" years = 15 }
 					if = {
@@ -943,7 +959,7 @@ country_event = { # Gov In Exile restoration, on status quo
 					limit = { NOT = { has_planet_flag = capital_planet_@event_target:new_homeland } }
 					prev = {
 						set_name = random
-						set_country_flag = nat_country_new_name
+						set_country_flag = nationalists_new_name
 					}
 				}
 			}
@@ -2254,7 +2270,8 @@ country_event = { # Destroy Government-In-Exile when no nats exist
 				is_country_type_with_subjects = yes
 				any_owned_pop_group = {
 					can_think = yes
-					has_pop_group_flag = sep_pop_nat_@root
+					nats_modifier_flag_matcher = { SCOPE = root }
+					# has_pop_group_flag = sep_pop_nat_@root
 				}
 			}
 		}
@@ -2292,7 +2309,8 @@ country_event = { # Destroy Government-In-Exile Actual
 				is_country_type_with_subjects = yes
 				any_owned_pop_group = {
 					can_think = yes
-					has_pop_group_flag = sep_pop_nat_@root
+					nats_modifier_flag_matcher = { SCOPE = root }
+					# has_pop_group_flag = sep_pop_nat_@root
 				}
 			}
 		}
@@ -2350,7 +2368,7 @@ country_event = { # Check disapproving Factions every month Initializer
 					count_owned_pop_amount = { count >= 500 }
 				}
 			}
-			country_event = { id = civnat.4010 days = 1 random = 359 }
+			country_event = { id = civnat.4010 days = 1 random = 29 }
 		}
 	}
 }
@@ -2381,12 +2399,7 @@ country_event = { # Check disapproving Factions every month Event
 				count_owned_pop_amount = { count >= 500 }
 			}
 			set_pop_faction_flag = faction_sep_situation
-			owner = {
-				start_situation = {
-					type = situation_civstrife_faction_sep_nat
-					target = prev
-				}
-			}
+			owner = { start_situation = { type = situation_civstrife_faction_sep_nat target = prev } }
 		}
 	}
 }
@@ -2514,14 +2527,14 @@ country_event = { # Exiled country has been restored, had host, general message
 	desc = {
 		text = civnat.9200.original_name.desc
 		trigger = {
-			event_target:new_homeland = { NOT = { has_country_flag = nat_country_new_name } }
+			event_target:new_homeland = { NOT = { has_country_flag = nationalists_new_name } }
 		}
 	}
 
 	desc = {
 		text = civnat.9200.new_name.desc
 		trigger = {
-			event_target:new_homeland = { has_country_flag = nat_country_new_name }
+			event_target:new_homeland = { has_country_flag = nationalists_new_name }
 		}
 	}
 
@@ -2542,7 +2555,7 @@ country_event = { # Exiled country has been restored, host granted land, general
 		trigger = {
 			event_target:new_homeland = {
 				has_country_flag = was_true_host
-				NOT = { has_country_flag = nat_country_new_name }
+				NOT = { has_country_flag = nationalists_new_name }
 			}
 		}
 	}
@@ -2552,7 +2565,7 @@ country_event = { # Exiled country has been restored, host granted land, general
 		trigger = {
 			event_target:new_homeland = {
 				NOT = { has_country_flag = was_true_host }
-				NOT = { has_country_flag = nat_country_new_name }
+				NOT = { has_country_flag = nationalists_new_name }
 			}
 		}
 	}
@@ -2562,7 +2575,7 @@ country_event = { # Exiled country has been restored, host granted land, general
 		trigger = {
 			event_target:new_homeland = {
 				has_country_flag = was_true_host
-				has_country_flag = nat_country_new_name
+				has_country_flag = nationalists_new_name
 			}
 		}
 	}
@@ -2572,7 +2585,7 @@ country_event = { # Exiled country has been restored, host granted land, general
 		trigger = {
 			event_target:new_homeland = {
 				NOT = { has_country_flag = was_true_host }
-				has_country_flag = nat_country_new_name
+				has_country_flag = nationalists_new_name
 			}
 		}
 	}
@@ -2592,14 +2605,14 @@ country_event = { # Exiled country has been restored, had host, host country mes
 	desc = {
 		text = civnat.9210.original_name.desc
 		trigger = {
-			event_target:new_homeland = { NOT = { has_country_flag = nat_country_new_name } }
+			event_target:new_homeland = { NOT = { has_country_flag = nationalists_new_name } }
 		}
 	}
 
 	desc = {
 		text = civnat.9210.new_name.desc
 		trigger = {
-			event_target:new_homeland = { has_country_flag = nat_country_new_name }
+			event_target:new_homeland = { has_country_flag = nationalists_new_name }
 		}
 	}
 
@@ -2618,14 +2631,14 @@ country_event = { # Exiled country has been restored, did not have host
 	desc = {
 		text = civnat.9230.original_name.desc
 		trigger = {
-			event_target:new_homeland = { NOT = { has_country_flag = nat_country_new_name } }
+			event_target:new_homeland = { NOT = { has_country_flag = nationalists_new_name } }
 		}
 	}
 
 	desc = {
 		text = civnat.9230.new_name.desc
 		trigger = {
-			event_target:new_homeland = { has_country_flag = nat_country_new_name }
+			event_target:new_homeland = { has_country_flag = nationalists_new_name }
 		}
 	}
 

@@ -56,6 +56,29 @@ leader_trait_traitor = {
     randomized = no
 }
 
+leader_trait_revolutionary = {
+    leader_trait_type = negative
+    inline_script = {
+        script = trait/civstrife_special_icon
+        CLASS = leader
+        ICON = "GFX_leader_trait_resolution_category_greatergood_focus"
+        RARITY = rare
+        COUNCIL = yes
+        TIER = none
+    }
+    self_modifier = {
+        leader_trait_selection_options_add = 1
+    }
+    councilor_modifier = {
+        intel_decryption_add = 2
+        diplo_weight_mult = 0.05
+    }
+    custom_tooltip_with_modifiers = leader_trait_revolutionary_tooltip
+    leader_class = { commander scientist official }
+    initial = no
+    randomized = no
+}
+
 leader_trait_traitor_heir = {
     leader_trait_type = negative
     inline_script = {

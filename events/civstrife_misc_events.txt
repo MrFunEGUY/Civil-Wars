@@ -133,7 +133,8 @@ country_event = { # Clear Loc Countries
 				is_country_type_with_subjects = yes
 				any_owned_pop_group = {
 					can_think = yes
-					has_pop_group_flag = sep_pop_nat_@root
+					nats_modifier_flag_matcher = { SCOPE = root }
+					# has_pop_group_flag = sep_pop_nat_@root
 				}
 			}
 		}
@@ -162,6 +163,12 @@ country_event = {
 	}
 
 	immediate = {
+
+		set_saved_date = {
+			key = birth_date
+			days_from_present = 0
+		}
+
 		if = {
 			limit = { exists = from.owner }
 			from.owner = { save_event_target_as = birth_event_owner }
@@ -185,11 +192,6 @@ country_event = { # Set Birthday
 	}
 
 	immediate = {
-
-		set_saved_date = {
-			key = birth_date
-			days_from_present = -3
-		}
 
 		set_variable = { which = birth_year value = 2200 }
 		export_trigger_value_to_variable = {

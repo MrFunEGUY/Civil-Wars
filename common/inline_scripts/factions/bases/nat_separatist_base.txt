@@ -14,8 +14,8 @@ resources = {
 
 is_potential = {
 	is_faction_allowed = yes
-	exists = event_target:nat_separatist_$NAT_FAC_NUM$
-	count_owned_pop_group = { limit = { has_pop_group_flag = sep_pop_nat_@event_target:nat_separatist_$NAT_FAC_NUM$ } count >= 5 }
+	exists = event_target:nat_country_$NAT_FAC_NUM$
+	count_owned_pop_group = { limit = { has_modifier = nat_country_$NAT_FAC_NUM$_modifier } count >= 5 }
 }
 
 parameters = {
@@ -33,18 +33,17 @@ can_join_pre_triggers = {
 }
 
 can_join_faction = {
-	has_pop_group_flag = sep_pop_nat_@event_target:nat_separatist_$NAT_FAC_NUM$
-	has_pop_group_flag = sep_pop_nat
+	has_modifier = nat_country_$NAT_FAC_NUM$_modifier
 	can_think = yes
 	pop_was_saved = no
 	is_shackled_robot = no
 	owner = {
-		NOT = { is_same_value = event_target:nat_separatist_$NAT_FAC_NUM$ }
+		NOT = { is_same_value = event_target:nat_country_$NAT_FAC_NUM$ }
 		OR = {
 			NOT = { exists = overlord }
 			AND = {
 				exists = overlord
-				overlord = { NOT = { is_same_value = event_target:nat_separatist_$NAT_FAC_NUM$ } }
+				overlord = { NOT = { is_same_value = event_target:nat_country_$NAT_FAC_NUM$ } }
 			}
 		}
 	}
@@ -108,7 +107,7 @@ attraction = {
 
 	modifier = {
 		factor = 2
-		owner = { is_at_war_with = event_target:nat_separatist_$NAT_FAC_NUM$ }
+		owner = { is_at_war_with = event_target:nat_country_$NAT_FAC_NUM$ }
 	}
 }
 

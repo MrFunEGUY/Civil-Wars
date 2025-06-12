@@ -24,6 +24,7 @@ country_event = { # Setup for Civil War (create_country)
 		# saving civwar and host as event targets
 		save_event_target_as = civwar_rebels
 		set_country_flag = rebellion_of_@event_target:civwar_originator
+		set_timed_country_flag = { flag = rebellion_log_of_@event_target:civwar_originator days = 45 }
 
 		event_target:civwar_originator = {
 			every_owned_fleet = { set_event_locked = yes }
@@ -585,6 +586,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 
 		save_event_target_as = civwar_rebels
 		set_country_flag = rebellion_of_@event_target:civwar_originator
+		set_timed_country_flag = { flag = rebellion_log_of_@event_target:civwar_originator days = 45 }
 		set_country_flag = born_planetary_rebellion
 
 		event_target:civwar_originator = {
@@ -1919,18 +1921,12 @@ country_event = { # Create Fleets and give resources
 	immediate = {
 
 		event_target:civwar_originator = {
-			export_trigger_value_to_variable = {
-				trigger = pop_amount
-				variable = num_mil_pops
-			}
-			export_trigger_value_to_variable = {
-				trigger = empire_size
-				variable = total_empire_size
-			}
+			export_trigger_value_to_variable = { trigger = pop_amount variable = num_mil_pops }
+			export_trigger_value_to_variable = { trigger = empire_size variable = total_empire_size }
 		}
 
 		if = { # Not Isolated Sector rebellions
-			limit = { ruler = { NOT = { has_leader_flag = leader_civil_war_isolated } } }
+			limit = { NOT = { has_origin = origin_isolated_rebellion } }
 			event_target:civwar_originator = {
 				export_trigger_value_to_variable = {
 					trigger = used_naval_capacity_percent
@@ -1994,6 +1990,33 @@ country_event = { # Create Fleets and give resources
 					}
 					create_fleet_from_naval_cap = mother_navy_size
 				}
+				else_if = { ## This is probably fine, but not the most ideal I admit
+					limit = { root = { has_country_flag = born_planetary_rebellion } }
+					set_variable = { which = mil_support value = 0 }
+					every_owned_pop_group = {
+						limit = { has_same_ethics = { SCOPE1 = this SCOPE2 = root.ruler } }
+						prev = { change_variable = { which = mil_support value = 1 } }
+					}
+					root = {
+						every_owned_pop_group = {
+							limit = { has_same_ethics = { SCOPE1 = this SCOPE2 = root.ruler } }
+							prevprev = { change_variable = { which = mil_support value = 1 } }
+						}
+					}
+					# log = "RULER: [event_target:civwar_rebels.ruler.GetName]"
+					# log = "REBEL POPS: [this.mil_support]"
+					# log = "MOTHER POPS: [event_target:civwar_originator.total_happiness_pops]"
+					divide_variable = {
+						which = mil_support
+						value = total_happiness_pops
+					}
+					# log = "REBEL PERCENTAGE: [this.mil_support]"
+					multiply_variable = {
+						which = mother_navy_size
+						value = mil_support
+					}
+					create_fleet_from_naval_cap = mother_navy_size
+				}
 				else = {
 					set_variable = { which = mil_support value = 0 }
 					root = {
@@ -2007,7 +2030,7 @@ country_event = { # Create Fleets and give resources
 					# log = "MOTHER POPS: [event_target:civwar_originator.total_happiness_pops]"
 					divide_variable = {
 						which = mil_support
-						value = event_target:civwar_originator.total_happiness_pops
+						value = total_happiness_pops
 					}
 					# log = "REBEL PERCENTAGE: [this.mil_support]"
 					multiply_variable = {
@@ -2097,6 +2120,12 @@ country_event = { # Destroy Fleets
 				floor_variable = mil_support
 			}
 			get_ship_delete_effect = { PERCENT = event_target:cw_scope_initializer.mil_support }
+		}
+		else_if = {
+			limit = { event_target:civwar_rebels = { has_country_flag = born_planetary_rebellion } }
+			multiply_variable = { which = mil_support value = 100 }
+			floor_variable = mil_support
+			get_ship_delete_effect = { PERCENT = mil_support }
 		}
 		# else = { # Shit, when is this gonna happen. Separatists?
 		# 	event_target:civwar_rebels = {

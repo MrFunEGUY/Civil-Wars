@@ -8,7 +8,7 @@ demand = {
 	fulfilled_effect = 0.001
 
 	potential = {
-		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+		event_target:nat_country_$NAT_FAC_NUM$ = {
 			is_exile_country = no
 		}
 	}
@@ -17,7 +17,7 @@ demand = {
 		owner = {
 			NOT = {
 				any_owned_pop_group = {
-					has_pop_group_flag = sep_pop_nat_@event_target:nat_separatist_$NAT_FAC_NUM$
+					has_pop_group_flag = sep_pop_nat_@event_target:nat_country_$NAT_FAC_NUM$
 				}
 			}
 		}
@@ -34,7 +34,7 @@ demand = {
 	fulfilled_effect = 0.001
 
 	potential = {
-		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+		event_target:nat_country_$NAT_FAC_NUM$ = {
 			is_exile_country = yes
 		}
 	}
@@ -43,7 +43,7 @@ demand = {
 		owner = {
 			NOT = {
 				any_owned_pop_group = {
-					has_pop_group_flag = sep_pop_nat_@event_target:nat_separatist_$NAT_FAC_NUM$
+					has_pop_group_flag = sep_pop_nat_@event_target:nat_country_$NAT_FAC_NUM$
 				}
 			}
 		}
@@ -60,14 +60,14 @@ demand = {
 	fulfilled_effect = 15
 
 	potential = {
-		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+		event_target:nat_country_$NAT_FAC_NUM$ = {
 			is_exile_country = yes
 			NOT = { has_country_flag = dead_nation }
 		}
 	}
 
 	trigger = {
-		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+		event_target:nat_country_$NAT_FAC_NUM$ = {
 			any_owned_fleet = {
 				is_ship_size = enclave_mercenary_station
 				exists = solar_system.space_owner
@@ -107,14 +107,14 @@ demand = {
 	fulfilled_effect = 15
 
 	potential = {
-		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+		event_target:nat_country_$NAT_FAC_NUM$ = {
 			is_exile_country = no
 		}
 	}
 
 	trigger = {
 		owner = {
-			has_migration_access = event_target:nat_separatist_$NAT_FAC_NUM$
+			has_migration_access = event_target:nat_country_$NAT_FAC_NUM$
 		}
 	}
 }
@@ -129,14 +129,14 @@ demand = {
 	fulfilled_effect = 5
 
 	potential = {
-		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+		event_target:nat_country_$NAT_FAC_NUM$ = {
 			is_exile_country = no
 		}
 	}
 
 	trigger = {
 		owner = {
-			has_commercial_pact = event_target:nat_separatist_$NAT_FAC_NUM$
+			has_commercial_pact = event_target:nat_country_$NAT_FAC_NUM$
 		}
 	}
 }
@@ -151,14 +151,14 @@ demand = {
 	fulfilled_effect = 15
 
 	potential = {
-		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+		event_target:nat_country_$NAT_FAC_NUM$ = {
 			is_exile_country = no
 		}
 	}
 
 	trigger = {
 		owner = {
-			has_defensive_pact = event_target:nat_separatist_$NAT_FAC_NUM$
+			has_defensive_pact = event_target:nat_country_$NAT_FAC_NUM$
 		}
 	}
 }
@@ -173,7 +173,7 @@ demand = {
 	fulfilled_effect = 10
 
 	potential = {
-		event_target:nat_separatist_$NAT_FAC_NUM$ = {
+		event_target:nat_country_$NAT_FAC_NUM$ = {
 			is_exile_country = no
 		}
 	}
@@ -181,7 +181,7 @@ demand = {
 	trigger = {
 		owner = {
 			NOT = {
-				is_at_war_with = event_target:nat_separatist_$NAT_FAC_NUM$
+				is_at_war_with = event_target:nat_country_$NAT_FAC_NUM$
 			}
 		}
 	}
@@ -199,7 +199,7 @@ demand = {
 	potential = {
 		owner = {
 			any_owned_pop_group = {
-				has_pop_group_flag = citizen_of_@event_target:nat_separatist_$NAT_FAC_NUM$
+				has_pop_group_flag = citizen_of_@event_target:nat_country_$NAT_FAC_NUM$
 			}
 		}
 	}
@@ -208,7 +208,7 @@ demand = {
 		owner = {
 			NOT = {
 				any_owned_pop_group = {
-					has_pop_group_flag = citizen_of_@event_target:nat_separatist_$NAT_FAC_NUM$
+					has_pop_group_flag = citizen_of_@event_target:nat_country_$NAT_FAC_NUM$
 					has_citizenship_rights = no
 				}
 			}
@@ -229,8 +229,8 @@ demand = {
 		owner = {
 			any_owned_pop_group = {
 				OR = {
-					has_pop_group_flag = citizen_of_@event_target:nat_separatist_$NAT_FAC_NUM$
-					has_pop_group_flag = resident_of_@event_target:nat_separatist_$NAT_FAC_NUM$
+					has_pop_group_flag = citizen_of_@event_target:nat_country_$NAT_FAC_NUM$
+					has_pop_group_flag = resident_of_@event_target:nat_country_$NAT_FAC_NUM$
 				}
 				# is_enslaved = yes
 			}
@@ -241,7 +241,7 @@ demand = {
 		owner = {
 			NOT = {
 				any_owned_pop_group = {
-					has_pop_group_flag = sep_pop_nat_@event_target:nat_separatist_$NAT_FAC_NUM$
+					has_pop_group_flag = sep_pop_nat_@event_target:nat_country_$NAT_FAC_NUM$
 					is_enslaved = yes
 				}
 			}
@@ -262,8 +262,8 @@ demand = {
 		owner = {
 			any_owned_pop_group = {
 				OR = {
-					has_pop_group_flag = citizen_of_@event_target:nat_separatist_$NAT_FAC_NUM$
-					has_pop_group_flag = resident_of_@event_target:nat_separatist_$NAT_FAC_NUM$
+					has_pop_group_flag = citizen_of_@event_target:nat_country_$NAT_FAC_NUM$
+					has_pop_group_flag = resident_of_@event_target:nat_country_$NAT_FAC_NUM$
 				}
 				# is_being_purged = yes
 			}
@@ -275,8 +275,8 @@ demand = {
 			NOT = {
 				any_owned_pop_group = {
 					OR = {
-						has_pop_group_flag = citizen_of_@event_target:nat_separatist_$NAT_FAC_NUM$
-						has_pop_group_flag = resident_of_@event_target:nat_separatist_$NAT_FAC_NUM$
+						has_pop_group_flag = citizen_of_@event_target:nat_country_$NAT_FAC_NUM$
+						has_pop_group_flag = resident_of_@event_target:nat_country_$NAT_FAC_NUM$
 					}
 					is_being_purged = yes
 				}
@@ -286,10 +286,10 @@ demand = {
 }
 
 on_create = {
-	event_target:nat_separatist_$NAT_FAC_NUM$ = { save_event_target_as = sep_target_loc }
+	event_target:nat_country_$NAT_FAC_NUM$ = { save_event_target_as = sep_target_loc }
 	nat_faction_first_effect = yes
 	set_name = {
-		key = nat_separatist_real_name
+		key = nat_country_real_name
 		variable_string = "[sep_target_loc.GetAdj]"
 		variable_string = "[last_created_leader.GetName]"
 	}

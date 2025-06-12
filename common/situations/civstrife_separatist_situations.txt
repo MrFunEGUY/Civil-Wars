@@ -576,10 +576,46 @@ situation_civstrife_faction_sep_nat = {
 
 	on_progress_complete = {
 		custom_tooltip = situation_civstrife_separatist_end
+		hidden_effect = {
+			random_country = {
+				limit = {
+					has_country_flag = nat_motherland_sit_@root
+					has_country_flag = nat_motherland_sit_@root.owner
+				}
+				remove_country_flag = nat_motherland_sit_@root
+				remove_country_flag = nat_motherland_sit_@root.owner
+			}
+			if = {
+				limit = { exists = target }
+				target = {
+					remove_pop_faction_flag = faction_sep_situation
+					clear_variable = num_sep_pops
+					clear_variable = nat_sep_upkeep
+				}
+			}
+		}
 	}
 
 	on_fail = {
 		custom_tooltip = situation_civstrife_separatist_failed
+		hidden_effect = {
+			random_country = {
+				limit = {
+					has_country_flag = nat_motherland_sit_@root
+					has_country_flag = nat_motherland_sit_@root.owner
+				}
+				remove_country_flag = nat_motherland_sit_@root
+				remove_country_flag = nat_motherland_sit_@root.owner
+			}
+			if = {
+				limit = { exists = target }
+				target = {
+					remove_pop_faction_flag = faction_sep_situation
+					clear_variable = num_sep_pops
+					clear_variable = nat_sep_upkeep
+				}
+			}
+		}
 	}
 
 	on_abort = {

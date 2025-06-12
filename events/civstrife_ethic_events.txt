@@ -9,8 +9,122 @@ namespace = civethic
 #######################
 # Ethic Faction Events
 
-country_event = { # Check disapproving Factions every month
+country_event = { # Check disapproving Factions twice a year
 	id = civethic.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type_with_subjects = yes
+		these_are_rebels_in_rebellion = no
+		count_pop_faction = {
+			count > 1
+			limit = { is_regular_faction = yes }
+		}
+		any_pop_faction = {
+			is_regular_faction = yes
+			NOT = { has_pop_faction_flag = faction_rebelled }
+			NOT = { has_pop_faction_flag = faction_sep_situation }
+			OR = {
+				AND = {
+					is_pacifist = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_PAC } }
+				}
+				AND = {
+					is_militarist = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_MIL } }
+				}
+				AND = {
+					is_materialist = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_MAT } }
+				}
+				AND = {
+					is_spiritualist = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_SPI } }
+				}
+				AND = {
+					is_egalitarian = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_EGAL } }
+				}
+				AND = {
+					is_authoritarian = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_AUTH } }
+				}
+				AND = {
+					is_xenophile = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_PHILE } }
+				}
+				AND = {
+					is_xenophobe = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_PHOBE } }
+				}
+				AND = {
+					is_green = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_GREEN } }
+				}
+				AND = {
+					is_industrial = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_INDUS } }
+				}
+				AND = {
+					is_ecocentric = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_ECO } }
+				}
+				AND = {
+					is_anthropocentric = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_ANTHRO } }
+				}
+				AND = {
+					is_socialist = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_SOC } }
+				}
+				AND = {
+					is_capitalism = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_CAP } }
+				}
+				AND = {
+					is_cooperative = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_COOP } }
+				}
+				AND = {
+					is_competitive = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_COMP } }
+				}
+				AND = {
+					is_pluralist = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_PLUR } }
+				}
+				AND = {
+					is_elitist = yes
+					owner = { NOT = { has_country_flag = civ_war_recent_ELITE } }
+				}
+			}
+			# OR = {
+			# 	AND = {
+			# 		owner = { is_ai = no }
+			# 		support > 0.15
+			# 		faction_approval < 0.35
+			# 	}
+			# 	AND = {
+			# 		owner = { is_ai = yes }
+			# 		support > 0.2
+			# 		faction_approval < 0.4
+			# 	}
+			# }
+			support > 0.15
+			faction_approval <= 0.35
+		}
+		under_one_rule_check = yes
+		civwar_valid_trigger = yes
+	}
+
+	immediate = {
+		country_event = { id = civethic.1001 days = 1 random = 179 }
+	}
+}
+
+country_event = { # Check disapproving Factions every month
+	id = civethic.1001
 	hide_window = yes
 	is_triggered_only = yes
 

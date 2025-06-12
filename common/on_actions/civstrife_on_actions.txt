@@ -33,7 +33,6 @@ on_game_start_country = {
 on_monthly_pulse_country = {
 	events = {
 
-		civethic.1000			# Checks Ethic factions, start Radicalization Situation
 
 		civsep.1000    			# Instability counter on stability decrease and add separatists
 		civsep.1010				# Decrease instability counter on stability increase before separatists appear
@@ -59,7 +58,6 @@ on_monthly_pulse_country = {
 		civnat.2300				# For planets changed sector, should be rare
 		civnat.2500				# Set and Remove Citizenship flags for species
 		
-		civnat.4000				# Checks Nationalist factions, start Radicalization Situation
 
 		civplan.4000			# Planet no Sector Malus
 		civplan.4010			# Planet Sector Malus Removal
@@ -67,6 +65,9 @@ on_monthly_pulse_country = {
 		civ_misc_leader.2000			# Set Corrupt Official Flag
 
 		civroyal.1200			# Fix Succession Country Bullshit
+		
+		civnat.4000				# Checks Nationalist factions, start Radicalization Situation
+
 	}
 }
 
@@ -100,6 +101,12 @@ on_yearly_pulse_country = {
 on_bi_yearly_pulse = {
 	events = {
 		civmisc.1000   			# Set Global Flag if not set, save-game compatibility
+	}
+}
+
+on_bi_yearly_pulse_country = {
+	events = {
+		civethic.1000			# Checks Ethic factions, start Radicalization Situation
 	}
 }
 
