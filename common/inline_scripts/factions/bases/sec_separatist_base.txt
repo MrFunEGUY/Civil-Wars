@@ -38,7 +38,8 @@ can_join_faction = {
 		is_same_value = event_target:sec_separatist_$SEC_FAC_NUM$
 		has_sector_flag = sector_sep_active
 	}
-	has_pop_group_flag = sep_pop
+	happiness <= 0.6
+	# has_pop_group_flag = sep_pop
 	is_shackled_robot = no
 	can_think = yes
 	pop_was_saved = no

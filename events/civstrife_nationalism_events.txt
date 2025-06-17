@@ -2030,7 +2030,7 @@ country_event = { # Spread Nationalism Initial Trigger
 				pop_amount >= 300
 				any_owned_pop_group = {
 					has_pop_group_flag = sep_pop_nat_@root
-					happiness < 75
+					happiness < 0.75
 					planet = {
 						any_owned_pop_group = {
 							NOT = { has_pop_group_flag = sep_pop_nat_@root }
@@ -2061,7 +2061,7 @@ country_event = { # Spread Nationalism Initial Trigger
 					pop_amount >= 300
 					any_owned_pop_group = {
 						has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland
-						happiness < 75
+						happiness < 0.75
 						planet = {
 							any_owned_pop_group = {
 								happiness <= 60
@@ -2084,7 +2084,7 @@ country_event = { # Spread Nationalism Initial Trigger
 					pop_amount >= 300
 					any_owned_pop_group = {
 						has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland
-						happiness < 75
+						happiness < 0.75
 						planet = {
 							any_owned_pop_group = {
 								happiness <= 60
@@ -2177,7 +2177,7 @@ planet_event = { # Spread Nationalism Event
 			random_owned_pop_group = {
 				limit = {
 					has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland
-					happiness < 75
+					happiness < 0.75
 				}
 				planet = {
 					ordered_owned_pop_group = {
@@ -2264,7 +2264,7 @@ country_event = { # Destroy Government-In-Exile when no nats exist
 
 	trigger = {
 		is_exile_country = yes
-		NOT = {
+		NOR = {
 			has_country_flag = truly_dead_country
 			any_country = {
 				is_country_type_with_subjects = yes
@@ -2304,7 +2304,7 @@ country_event = { # Destroy Government-In-Exile Actual
 
 	trigger = {
 		is_exile_country = yes
-		NOT = {
+		NOR = {
 			any_country = {
 				is_country_type_with_subjects = yes
 				any_owned_pop_group = {
@@ -2513,6 +2513,7 @@ situation_event = { # Nationalists Strike
 
 	option = {
 		name = civcom.this_is_bad
+		hidden_effect = { destroy_situation = this }
 		ai_chance = { factor = 1 }
 	}
 }

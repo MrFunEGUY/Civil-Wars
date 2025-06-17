@@ -359,7 +359,7 @@ country_event = { # Check disapproving Factions every month
 situation_event = { # Planetary Separatists Strike
 	id = civethic.9000
 	picture = GFX_evt_open_revolt
-	title = civsep.9020.name
+	title = separatists_strike.name
 	desc = civsep.9020.desc
 	location = event_target:civil_war_planet
 	hide_window = no
@@ -371,6 +371,7 @@ situation_event = { # Planetary Separatists Strike
 
 	option = {
 		name = civcom.this_is_bad
+		hidden_effect = { destroy_situation = this }
 		ai_chance = { factor = 1 }
 	}
 }
@@ -378,7 +379,7 @@ situation_event = { # Planetary Separatists Strike
 country_event = { # Planetary Separatists Strike
 	id = civethic.9001
 	picture = GFX_evt_open_revolt
-	title = civsep.9020.name
+	title = separatists_strike.name
 	desc = civsep.9020.desc
 	location = event_target:civil_war_planet
 	hide_window = no
@@ -397,7 +398,7 @@ country_event = { # Planetary Separatists Strike
 country_event = { # Planetary Separatists Strike
 	id = civethic.9005
 	picture = GFX_evt_open_revolt
-	title = civsep.9020.name
+	title = separatists_strike.name
 	desc = civsep.9020.desc
 	hide_window = no
 	is_triggered_only = yes
@@ -411,7 +412,7 @@ country_event = { # Planetary Separatists Strike
 situation_event = { # Sectoral Separatists Strike
 	id = civethic.9010
 	picture = GFX_evt_open_revolt
-	title = civsep.9020.name
+	title = separatists_strike.name
 	desc = civsep.9030.desc
 	location = event_target:civil_war_planet
 	hide_window = no
@@ -426,7 +427,7 @@ situation_event = { # Sectoral Separatists Strike
 country_event = { # Sectoral Separatists Strike
 	id = civethic.9011
 	picture = GFX_evt_open_revolt
-	title = civsep.9020.name
+	title = separatists_strike.name
 	desc = civsep.9030.desc
 	location = event_target:civil_war_planet
 	hide_window = no

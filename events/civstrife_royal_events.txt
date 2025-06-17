@@ -517,13 +517,13 @@ situation_event = { # Rebel Sectors Exist
 							owner = { NOT = { has_civic = civic_adoptive_dynasties } }
 						}
 						random_list = {
-							60 = { set_sector_flag = official_rebel_sector }
+							60 = { set_sector_flag = leader_rebel_sector }
 							40 = { set_sector_flag = dynast_rebel_sector }
 						}
 					}
 					else_if = { # Adoptive Dynasties only have officials rebel
 						limit = { owner = { has_civic = civic_adoptive_dynasties } }
-						set_sector_flag = official_rebel_sector
+						set_sector_flag = leader_rebel_sector
 					}
 					else = {
 						set_sector_flag = dynast_rebel_sector
@@ -594,7 +594,7 @@ situation_event = { # Query Official
 				set_timed_sector_flag = { flag = succesion_crisis_talked years = 1 }
 				save_event_target_as = crisis_sector
 				if = {
-					limit = { has_sector_flag = official_rebel_sector }
+					limit = { has_sector_flag = leader_rebel_sector }
 					if = {
 						limit = { exists = sector_capital.leader }
 						sector_capital.leader = { save_event_target_as = crisis_sector_leader }

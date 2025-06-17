@@ -125,10 +125,11 @@ country_event = { # Clear Loc Countries
 
 	trigger = {
 		is_exile_country = yes
-		# is_country_type_with_subjects = no
-		has_country_flag = country_needed_for_loc
+		secession_flag_matcher = no
+		fatherland_flag_matcher = no
+		## Is there another situation where they will be needed for loc besides fatherland and secessions?
+		# has_country_flag = country_needed_for_loc
 		NOR = {
-			any_playable_country = { has_country_flag = secession_from_country_@root }
 			any_country = {
 				is_country_type_with_subjects = yes
 				any_owned_pop_group = {
@@ -141,6 +142,9 @@ country_event = { # Clear Loc Countries
 	}
 
 	immediate = {
+		log = "=============================================="
+		log = "| Country LOC Removed: [this.GetName] | [GetDate]"
+		log = "=============================================="
 		remove_country_flag = country_needed_for_loc
 		country_event = { id = civnat.3110 days = 2 }
 	}
@@ -154,13 +158,13 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 
-	trigger = {
-		OR = {
-			is_country_type = rebel
-			is_country_type_with_subjects = yes
-			has_civstrife_origin = yes
-		}
-	}
+	# trigger = {
+	# 	OR = {
+	# 		is_country_type = rebel
+	# 		is_country_type_with_subjects = yes
+	# 		has_civstrife_origin = yes
+	# 	}
+	# }
 
 	immediate = {
 

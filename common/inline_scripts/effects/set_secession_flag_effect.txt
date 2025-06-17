@@ -7,8 +7,17 @@ event_target:civwar_originator = {
 event_target:civwar_rebels = {
 	set_country_flag = secession_country_$NUM$_seceder
 	set_country_flag = secession_from_country_@event_target:civwar_originator
-	if = {
-		limit = { exists = ruler }
-		ruler = { set_leader_flag = secession_country_$NUM$_traitor }
+	every_owned_leader = {
+		limit = { has_secession_leader_flag = yes }
+		remove_old_secession_link_flag = yes
+	}
+	every_owned_leader = {
+		limit = {
+			OR = {
+				is_ruler = yes
+				has_leader_flag = leader_defected_@event_target:civwar_originator
+			}
+		}
+		set_leader_flag = secession_country_$NUM$_traitor
 	}
 }

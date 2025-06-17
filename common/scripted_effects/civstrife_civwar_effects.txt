@@ -89,7 +89,7 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 						effect = {
 							set_name = {
 								key = NAME_succession_conflict
-								variable_string = "\\[civwar_originator.GetAdj]"
+								variable_string = "\\[This.MainAttacker.GetAdj]"
 							}
 							every_war_participant = {
 								limit = {
@@ -595,7 +595,6 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 		}
 		log = "| ========================================="
 		event_target:civwar_rebels = {
-
 			### Vars
 				export_trigger_value_to_variable = { trigger = max_naval_capacity 			variable = max_navy }
 				export_trigger_value_to_variable = { trigger = used_naval_capacity_integer 	variable = used_navy_num }
@@ -610,130 +609,57 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 
 
 			### Basic Info
-				log = "| The \\[this.GetName] was formed on \\[this.birth_date]"
+				log = "| Rebels: \\[this.GetName] - \\[this.GetAuthority]"
+				log = "| --------------------------------"
+				log = "| Formed On: \\[this.birth_date]"
+				log = "| Capital: \\[this.Capital.GetName] in \\[this.Capital.System.GetName]"
+				log = "| \\[this.GetRulerTitle]: \\[this.Ruler.GetName]"
+				if = {
+					limit = { ruler = { has_leader_flag = leader_defected_@event_target:civwar_originator } }
+					log = "| --- Defector"
+				}
+				log = "| Origin: \\[this.GetOriginName]"
 				if = {
 					limit = { has_country_flag = born_planetary_rebellion }
-					log = "| Planetary Rebellion: YES"
+					log = "| --- Planetary Rebellion"
 				}
-				log = "| Capital World: \\[this.Capital.GetName]"
-				log = "| Capital System: \\[this.Capital.System.GetName]"
-				log = "| Origin: \\[this.GetOriginName]"
-				log = "| Ruler: \\[this.Ruler.GetName]"
+			log = "| ------------------------"
+			### War Type
 				if = {
 					limit = { is_standard_faction_country = yes }
-					log = "| Type: Ethic Rebellion, Rebelling Ethic:"
 					switch = {
 						trigger = has_country_flag
-						civwar_egal = { log = "| -- Egalitarian" }
-						civwar_auth = { log = "| -- Authoritarian" }
-						civwar_mil = { log = "| -- Militarist" }
-						civwar_pac = { log = "| -- Pacifist" }
-						civwar_spi = { log = "| -- Spiritualist" }
-						civwar_mat = { log = "| -- Materialist" }
-						civwar_phobe = { log = "| -- Xenophobe" }
-						civwar_phile = { log = "| -- Xenophile" }
-						civwar_soc = { log = "| -- Socialism" }
-						civwar_cap = { log = "| -- Capitalism" }
-						civwar_coop = { log = "| -- Cooperative" }
-						civwar_comp = { log = "| -- Competitive" }
-						civwar_eco = { log = "| -- Ecocentric" }
-						civwar_anthro = { log = "| -- Anthropocentric" }
-						civwar_green = { log = "| -- Green" }
-						civwar_indus = { log = "| -- Industrial" }
-						civwar_elite = { log = "| -- Elitist" }
-						civwar_plur = { log = "| -- Pluralist" }
+						civwar_egal = { log = "| Type: Ethic Rebellion | Egalitarian" }
+						civwar_auth = { log = "| Type: Ethic Rebellion | Authoritarian" }
+						civwar_mil = { log = "| Type: Ethic Rebellion | Militarist" }
+						civwar_pac = { log = "| Type: Ethic Rebellion | Pacifist" }
+						civwar_spi = { log = "| Type: Ethic Rebellion | Spiritualist" }
+						civwar_mat = { log = "| Type: Ethic Rebellion | Materialist" }
+						civwar_phobe = { log = "| Type: Ethic Rebellion | Xenophobe" }
+						civwar_phile = { log = "| Type: Ethic Rebellion | Xenophile" }
+						civwar_soc = { log = "| Type: Ethic Rebellion | Socialism" }
+						civwar_cap = { log = "| Type: Ethic Rebellion | Capitalism" }
+						civwar_coop = { log = "| Type: Ethic Rebellion | Cooperative" }
+						civwar_comp = { log = "| Type: Ethic Rebellion | Competitive" }
+						civwar_eco = { log = "| Type: Ethic Rebellion | Ecocentric" }
+						civwar_anthro = { log = "| Type: Ethic Rebellion | Anthropocentric" }
+						civwar_green = { log = "| Type: Ethic Rebellion | Green" }
+						civwar_indus = { log = "| Type: Ethic Rebellion | Industrial" }
+						civwar_elite = { log = "| Type: Ethic Rebellion | Elitist" }
+						civwar_plur = { log = "| Type: Ethic Rebellion | Pluralist" }
 					}
 				}
 				else_if = {
 					limit = { ruler = { has_leader_flag = personal_civil_war } }
 					log = "| Type: Leader Rebellion"
 				}
-			log = "| ======="
-			### Navy
-				log = "| Used Cap: \\[this.used_navy_num]"
-				log = "| Naval Cap: \\[this.max_navy]"
-				log = "| Naval Cap Percent: \\[this.used_navy_percent]%"
-				log = "| Power Diff: \\[this.power_percent_difference]% of \\[event_target:civwar_originator.GetName]"
-		}
-		if = {
-			limit = {
-				any_playable_country = {
-					NOT = { is_same_empire = event_target:civwar_rebels }
-					has_country_flag = rebellion_log_of_@event_target:civwar_originator
+				else_if = {
+					limit = { has_origin = origin_civstrife_slave_rebellion }
+					log = "| Type: Slave Uprising"
 				}
-			}
-			log = "| OTHER REBELS: ==================================="
-			every_playable_country = {
-				limit = {
-					NOT = { is_same_empire = event_target:civwar_rebels }
-					has_country_flag = rebellion_log_of_@event_target:civwar_originator
-				}
-				log = "| ========================================="
-				### Vars
-					export_trigger_value_to_variable = { trigger = max_naval_capacity 			variable = max_navy }
-					export_trigger_value_to_variable = { trigger = used_naval_capacity_integer 	variable = used_navy_num }
-					export_trigger_value_to_variable = { trigger = used_naval_capacity_percent	variable = used_navy_percent }
-					multiply_variable = { 				which = used_navy_percent				value = 100 }
-					export_trigger_value_to_variable = { trigger = fleet_power					variable = total_navy_power }
-				
-					set_variable = { which = power_percent_difference			value = this.total_navy_power }
-					divide_variable = { which = power_percent_difference		value = root.total_navy_power }
-					multiply_variable = { which = power_percent_difference		value = 100 }
-					round_variable = power_percent_difference
-
-
-				### Basic Info
-					log = "| The \\[this.GetName] was formed on \\[this.birth_date]"
-					if = {
-						limit = { has_country_flag = born_planetary_rebellion }
-						log = "| Planetary Rebellion: YES"
-					}
-					log = "| Capital World: \\[this.Capital.GetName]"
-					log = "| Capital System: \\[this.Capital.System.GetName]"
-					log = "| Origin: \\[this.GetOriginName]"
-					log = "| Ruler: \\[this.Ruler.GetName]"
-					if = {
-						limit = { is_standard_faction_country = yes }
-						log = "| Type: Ethic Rebellion, Rebelling Ethic:"
-						switch = {
-							trigger = has_country_flag
-							civwar_egal = { log = "| -- Egalitarian" }
-							civwar_auth = { log = "| -- Authoritarian" }
-							civwar_mil = { log = "| -- Militarist" }
-							civwar_pac = { log = "| -- Pacifist" }
-							civwar_spi = { log = "| -- Spiritualist" }
-							civwar_mat = { log = "| -- Materialist" }
-							civwar_phobe = { log = "| -- Xenophobe" }
-							civwar_phile = { log = "| -- Xenophile" }
-							civwar_soc = { log = "| -- Socialism" }
-							civwar_cap = { log = "| -- Capitalism" }
-							civwar_coop = { log = "| -- Cooperative" }
-							civwar_comp = { log = "| -- Competitive" }
-							civwar_eco = { log = "| -- Ecocentric" }
-							civwar_anthro = { log = "| -- Anthropocentric" }
-							civwar_green = { log = "| -- Green" }
-							civwar_indus = { log = "| -- Industrial" }
-							civwar_elite = { log = "| -- Elitist" }
-							civwar_plur = { log = "| -- Pluralist" }
-						}
-					}
-					else_if = {
-						limit = { ruler = { has_leader_flag = personal_civil_war } }
-						log = "| Type: Leader Rebellion"
-					}
-				log = "| ======="
-				### Navy
-					log = "| Used Cap: \\[this.used_navy_num]"
-					log = "| Naval Cap: \\[this.max_navy]"
-					log = "| Naval Cap Percent: \\[this.used_navy_percent]%"
-					log = "| Power Diff: \\[this.power_percent_difference]% of \\[event_target:civwar_originator.GetName]"
-		
-			}
-		}
-		log = "| *****************************************"
-		event_target:civwar_originator = {
-			log = "| Rebelled from: \\[this.GetName]; ETHICS:"
+			log = "| ------------------------"
 			### Ethics
+				log = "| ETHICS:"
 				switch = {
 					trigger = has_ethic
 					ethic_egalitarian = { log = "| -- Egalitarian" }
@@ -805,35 +731,316 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 					ethic_elitist = { log = "| -- Pluralist" }
 					ethic_fanatic_pluralist = { log = "| -- Fanatic Pluralist" }
 				}
+			log = "| ------------------------"
+			### Navy
+				log = "| Naval Cap: \\[this.used_navy_num] / \\[this.max_navy] | \\[this.used_navy_percent]%"
+				log = "| Power Diff: \\[this.power_percent_difference]% of \\[event_target:civwar_originator.GetName]"
+		}
+		if = {
+			limit = {
+				any_playable_country = {
+					NOT = { is_same_empire = event_target:civwar_rebels }
+					has_country_flag = rebellion_log_of_@event_target:civwar_originator
+				}
+			}
+			log = "| OTHER REBELS: ==================================="
+			every_playable_country = {
+				limit = {
+					NOT = { is_same_empire = event_target:civwar_rebels }
+					has_country_flag = rebellion_log_of_@event_target:civwar_originator
+				}
+				log = "| ========================================="
+				### Vars
+					export_trigger_value_to_variable = { trigger = max_naval_capacity 			variable = max_navy }
+					export_trigger_value_to_variable = { trigger = used_naval_capacity_integer 	variable = used_navy_num }
+					export_trigger_value_to_variable = { trigger = used_naval_capacity_percent	variable = used_navy_percent }
+					multiply_variable = { 				which = used_navy_percent				value = 100 }
+					export_trigger_value_to_variable = { trigger = fleet_power					variable = total_navy_power }
+				
+					set_variable = { which = power_percent_difference			value = this.total_navy_power }
+					divide_variable = { which = power_percent_difference		value = root.total_navy_power }
+					multiply_variable = { which = power_percent_difference		value = 100 }
+					round_variable = power_percent_difference
 
-			log = "| ======="
+
+				### Basic Info
+					log = "| Rebels: \\[this.GetName] - \\[this.GetAuthority]"
+					log = "| --------------------------------"
+					log = "| Formed On: \\[this.birth_date]"
+					log = "| Capital: \\[this.Capital.GetName] in \\[this.Capital.System.GetName]"
+					log = "| \\[this.GetRulerTitle]: \\[this.Ruler.GetName]"
+					if = {
+						limit = { ruler = { has_leader_flag = leader_defected_@event_target:civwar_originator } }
+						log = "| --- Defector"
+					}
+					log = "| Origin: \\[this.GetOriginName]"
+					if = {
+						limit = { has_country_flag = born_planetary_rebellion }
+						log = "| --- Planetary Rebellion"
+					}
+				log = "| ------------------------"
+				### War Type
+					if = {
+						limit = { is_standard_faction_country = yes }
+						switch = {
+							trigger = has_country_flag
+							civwar_egal = { log = "| Type: Ethic Rebellion | Egalitarian" }
+							civwar_auth = { log = "| Type: Ethic Rebellion | Authoritarian" }
+							civwar_mil = { log = "| Type: Ethic Rebellion | Militarist" }
+							civwar_pac = { log = "| Type: Ethic Rebellion | Pacifist" }
+							civwar_spi = { log = "| Type: Ethic Rebellion | Spiritualist" }
+							civwar_mat = { log = "| Type: Ethic Rebellion | Materialist" }
+							civwar_phobe = { log = "| Type: Ethic Rebellion | Xenophobe" }
+							civwar_phile = { log = "| Type: Ethic Rebellion | Xenophile" }
+							civwar_soc = { log = "| Type: Ethic Rebellion | Socialism" }
+							civwar_cap = { log = "| Type: Ethic Rebellion | Capitalism" }
+							civwar_coop = { log = "| Type: Ethic Rebellion | Cooperative" }
+							civwar_comp = { log = "| Type: Ethic Rebellion | Competitive" }
+							civwar_eco = { log = "| Type: Ethic Rebellion | Ecocentric" }
+							civwar_anthro = { log = "| Type: Ethic Rebellion | Anthropocentric" }
+							civwar_green = { log = "| Type: Ethic Rebellion | Green" }
+							civwar_indus = { log = "| Type: Ethic Rebellion | Industrial" }
+							civwar_elite = { log = "| Type: Ethic Rebellion | Elitist" }
+							civwar_plur = { log = "| Type: Ethic Rebellion | Pluralist" }
+						}
+					}
+					else_if = {
+						limit = { ruler = { has_leader_flag = personal_civil_war } }
+						log = "| Type: Leader Rebellion"
+					}
+					else_if = {
+						limit = { has_origin = origin_civstrife_slave_rebellion }
+						log = "| Type: Slave Uprising"
+					}
+				log = "| ------------------------"
+				### Ethics
+					log = "| ETHICS:"
+					switch = {
+						trigger = has_ethic
+						ethic_egalitarian = { log = "| -- Egalitarian" }
+						ethic_fanatic_egalitarian = { log = "| -- Fanatic Egalitarian" }
+						ethic_authoritarian = { log = "| -- Authoritarian" }
+						ethic_fanatic_authoritarian = { log = "| -- Fanatic Authoritarian" }
+					}
+
+					switch = {
+						trigger = has_ethic
+						ethic_militarist = { log = "| -- Militarist" }
+						ethic_fanatic_militarist = { log = "| -- Fanatic Militarist" }
+						ethic_militarist = { log = "| -- Pacifist" }
+						ethic_fanatic_pacifist = { log = "| -- Fanatic Pacifist" }
+					}
+
+					switch = {
+						trigger = has_ethic
+						ethic_spiritualist = { log = "| -- Spiritualist" }
+						ethic_fanatic_spiritualist = { log = "| -- Fanatic Spiritualist" }
+						ethic_spiritualist = { log = "| -- Materialist" }
+						ethic_fanatic_materialist = { log = "| -- Fanatic Materialist" }
+					}
+
+					switch = {
+						trigger = has_ethic
+						ethic_xenophobe = { log = "| -- Xenophobe" }
+						ethic_fanatic_xenophobe = { log = "| -- Fanatic Xenophobe" }
+						ethic_xenophobe = { log = "| -- Xenophile" }
+						ethic_fanatic_xenophile = { log = "| -- Fanatic Xenophile" }
+					}
+
+					switch = {
+						trigger = has_ethic
+						ethic_socialism = { log = "| -- Socialism" }
+						ethic_fanatic_socialism = { log = "| -- Fanatic Socialism" }
+						ethic_socialism = { log = "| -- Capitalism" }
+						ethic_fanatic_capitalism = { log = "| -- Fanatic Capitalism" }
+					}
+
+					switch = {
+						trigger = has_ethic
+						ethic_green = { log = "| -- Green" }
+						ethic_fanatic_green = { log = "| -- Fanatic Green" }
+						ethic_industrial = { log = "| -- Industrial" }
+						ethic_fanatic_industrial = { log = "| -- Fanatic Industrial" }
+					}
+
+					switch = {
+						trigger = has_ethic
+						ethic_cooperative = { log = "| -- Cooperative" }
+						ethic_fanatic_cooperative = { log = "| -- Fanatic Cooperative" }
+						ethic_cooperative = { log = "| -- Competitive" }
+						ethic_fanatic_competitive = { log = "| -- Fanatic Competitive" }
+					}
+
+					switch = {
+						trigger = has_ethic
+						ethic_ecocentric = { log = "| -- Ecocentric" }
+						ethic_fanatic_ecocentric = { log = "| -- Fanatic Ecocentric" }
+						ethic_ecocentric = { log = "| -- Anthropocentric" }
+						ethic_fanatic_anthropocentric = { log = "| -- Fanatic Anthropocentric" }
+					}
+
+					switch = {
+						trigger = has_ethic
+						ethic_elitist = { log = "| -- Elitist" }
+						ethic_fanatic_elitist = { log = "| -- Fanatic Elitist" }
+						ethic_elitist = { log = "| -- Pluralist" }
+						ethic_fanatic_pluralist = { log = "| -- Fanatic Pluralist" }
+					}
+
+				log = "| ------------------------"
+				### Navy
+					log = "| Naval Cap: \\[this.used_navy_num] / \\[this.max_navy] | \\[this.used_navy_percent]%"
+					log = "| Power Diff: \\[this.power_percent_difference]% of \\[event_target:civwar_originator.GetName]"
+		
+			}
+		}
+		# log = "| #########################################"
+		log = "| *****************************************"
+		log = "| *****************************************"
+		event_target:civwar_originator = {
+			### Basic Info
+				log = "| Motherland: \\[this.GetName] - \\[this.GetAuthority]"
+				log = "| --------------------------------"
+				log = "| Formed On: \\[this.birth_date]"
+				log = "| Capital: \\[this.Capital.GetName] in \\[this.Capital.System.GetName]"
+				log = "| \\[this.GetRulerTitle]: \\[this.Ruler.GetName]"
+				if = {
+					limit = { ruler = { has_leader_flag = leader_defected } }
+					log = "| --- Defector"
+				}
+				log = "| Origin: \\[this.GetOriginName]"
+				if = {
+					limit = { has_country_flag = born_planetary_rebellion }
+					log = "| --- Planetary Rebellion"
+				}
+			log = "| ------------------------"
+			### Ethics
+				log = "| ETHICS:"
+				switch = {
+					trigger = has_ethic
+					ethic_egalitarian = { log = "| -- Egalitarian" }
+					ethic_fanatic_egalitarian = { log = "| -- Fanatic Egalitarian" }
+					ethic_authoritarian = { log = "| -- Authoritarian" }
+					ethic_fanatic_authoritarian = { log = "| -- Fanatic Authoritarian" }
+				}
+
+				switch = {
+					trigger = has_ethic
+					ethic_militarist = { log = "| -- Militarist" }
+					ethic_fanatic_militarist = { log = "| -- Fanatic Militarist" }
+					ethic_militarist = { log = "| -- Pacifist" }
+					ethic_fanatic_pacifist = { log = "| -- Fanatic Pacifist" }
+				}
+
+				switch = {
+					trigger = has_ethic
+					ethic_spiritualist = { log = "| -- Spiritualist" }
+					ethic_fanatic_spiritualist = { log = "| -- Fanatic Spiritualist" }
+					ethic_spiritualist = { log = "| -- Materialist" }
+					ethic_fanatic_materialist = { log = "| -- Fanatic Materialist" }
+				}
+
+				switch = {
+					trigger = has_ethic
+					ethic_xenophobe = { log = "| -- Xenophobe" }
+					ethic_fanatic_xenophobe = { log = "| -- Fanatic Xenophobe" }
+					ethic_xenophobe = { log = "| -- Xenophile" }
+					ethic_fanatic_xenophile = { log = "| -- Fanatic Xenophile" }
+				}
+
+				switch = {
+					trigger = has_ethic
+					ethic_socialism = { log = "| -- Socialism" }
+					ethic_fanatic_socialism = { log = "| -- Fanatic Socialism" }
+					ethic_socialism = { log = "| -- Capitalism" }
+					ethic_fanatic_capitalism = { log = "| -- Fanatic Capitalism" }
+				}
+
+				switch = {
+					trigger = has_ethic
+					ethic_green = { log = "| -- Green" }
+					ethic_fanatic_green = { log = "| -- Fanatic Green" }
+					ethic_industrial = { log = "| -- Industrial" }
+					ethic_fanatic_industrial = { log = "| -- Fanatic Industrial" }
+				}
+
+				switch = {
+					trigger = has_ethic
+					ethic_cooperative = { log = "| -- Cooperative" }
+					ethic_fanatic_cooperative = { log = "| -- Fanatic Cooperative" }
+					ethic_cooperative = { log = "| -- Competitive" }
+					ethic_fanatic_competitive = { log = "| -- Fanatic Competitive" }
+				}
+
+				switch = {
+					trigger = has_ethic
+					ethic_ecocentric = { log = "| -- Ecocentric" }
+					ethic_fanatic_ecocentric = { log = "| -- Fanatic Ecocentric" }
+					ethic_ecocentric = { log = "| -- Anthropocentric" }
+					ethic_fanatic_anthropocentric = { log = "| -- Fanatic Anthropocentric" }
+				}
+
+				switch = {
+					trigger = has_ethic
+					ethic_elitist = { log = "| -- Elitist" }
+					ethic_fanatic_elitist = { log = "| -- Fanatic Elitist" }
+					ethic_elitist = { log = "| -- Pluralist" }
+					ethic_fanatic_pluralist = { log = "| -- Fanatic Pluralist" }
+				}
+			log = "| ------------------------"
 			## Navy
 				### Vars
 					set_variable = { which = power_percent_difference			value = this.total_navy_power }
 					divide_variable = { which = power_percent_difference		value = event_target:civwar_rebels.total_navy_power }
 					multiply_variable = { which = power_percent_difference		value = 100 }
 					round_variable = power_percent_difference
-				log = "| Used Cap: \\[this.used_navy_num]"
-				log = "| Naval Cap: \\[this.max_navy]"
-				log = "| Naval Cap Percent: \\[this.used_navy_percent]%"
+				log = "| Naval Cap: \\[this.used_navy_num] / \\[this.max_navy] | \\[this.used_navy_percent]%"
 				log = "| Power Diff: \\[this.power_percent_difference]% of \\[event_target:civwar_rebels.GetName]"
 			## Subject?
 				if = {
 					limit = { is_subject = yes }
-					log = "| Is SUBJECT"
-					log = "| Overlord: \\[this.overlord.GetName]"
+					log = "| ------------------------"
+					log = "| Is Subject - Overlord: \\[this.overlord.GetName]"
+					if = {
+						limit = { subject_can_wage_war = yes }
+						log = "| --- Can Wage War"
+					}
+					else = {
+						log = "| --- Overlord Determines War"
+					}
 				}
 				log = "| **************************"
 			### War
 				if = {
 					limit = { is_at_war_with = event_target:civwar_rebels }
-					log = "| WAR DECLARED"
 					if = {
 						limit = { event_target:civwar_rebels = { any_war = { attacker = { is_same_empire = event_target:civwar_originator } } } }
-						log = "| Is War Leader"
+						log = "| WAR DECLARED: Is War Leader"
 					}
 					else = {
-						log = "| Is NOT War Leader"
+						log = "| WAR DECLARED: Is NOT War Leader"
+					}
+					random_war = {
+						limit = { any_war_participant = { is_same_empire = event_target:civwar_rebels } }
+						log = "| War Name: \\[this.GetName]"
+						log = "| --------------------------------"
+						if = {
+							limit = { any_attacker = { NOT = { is_same_empire = event_target:civwar_originator } } }
+							log = "| Government Side:"
+							every_attacker = {
+								limit = { NOT = { is_same_empire = event_target:civwar_originator } }
+								log = "| -- \\[this.GetName]"
+							}
+						}
+						if = {
+							limit = { any_defender = { NOT = { is_same_empire = event_target:civwar_rebels } } }
+							log = "| ------------"
+							log = "| Rebel Side:"
+							every_defender = {
+								limit = { NOT = { is_same_empire = event_target:civwar_rebels } }
+								log = "| -- \\[this.GetName]"
+							}
+						}
 					}
 				}
 				else = {
@@ -3307,8 +3514,8 @@ created_civwar_rebel_country_effect = {
 	}
 	else_if = {
 		limit = {
-			NOT = { exists = event_target:new_rebel_leader }
-			NOT = {
+			NOR = {
+				exists = event_target:new_rebel_leader
 				has_origin = origin_nationalist_rebellion
 				has_origin = origin_civstrife_slave_rebellion
 			}
@@ -3407,7 +3614,7 @@ created_civwar_rebel_country_effect = {
 	event_target:new_rebel_leader = {
 		if = {
 			limit = { NOT = { has_leader_flag = new_civwar_ruler } }
-			set_defected = yes
+			set_defected_real = yes ### Add_trait will break if nested inside 1 more scripted effect from here, so use _real
 		}
 	}
 	set_leader = event_target:new_rebel_leader # Needs to be after the above with the leader flags
@@ -3482,7 +3689,7 @@ created_civwar_rebel_leader_ethic = {
 
 create_civil_war = {
 	log = "--------------------------------"
-	log = "| Create Civil War Effect Called"
+	log = "| Create Civil War Effect Called - \\[GetDate]"
 	root.owner = {
 		save_event_target_as = civwar_originator
 		log = "| MOTHER: \\[this.GetName]"
@@ -3491,15 +3698,20 @@ create_civil_war = {
 	if = {
 		limit = {
 			OR = {
-				is_scope_type = faction
+				is_scope_type = pop_faction
 				is_scope_type = country
 			}
 		}
 
 		if = {
-			limit = { is_scope_type = faction }
+			limit = { is_scope_type = pop_faction }
+			log = "| Faction Civil War"
+			log = "| Faction: \\[this.GetName]"
 			save_event_target_as = civwar_party
 			save_event_target_as = cw_scope_initializer
+		}
+		else = {
+			log = "| Country Civil War"
 		}
 		
 		owner = {
@@ -3794,7 +4006,7 @@ create_civil_war = {
 				}
 
 				if = {
-					limit = { root = { is_scope_type = faction } }
+					limit = { root = { is_scope_type = pop_faction } }
 					root = { set_variable = { which = mil_support value = 0 } }
 				}
 				else = {
@@ -3934,7 +4146,8 @@ create_civil_war = {
 	}
 	else_if = {
 		limit = { is_scope_type = sector }
-
+		log = "| Sector Civil War"
+		log = "| Sector: \\[this.GetName]"
 		save_event_target_as = saved_sector
 
 		if = {
@@ -4045,6 +4258,8 @@ create_civil_war = {
 	}
 	else_if = {
 		limit = { is_scope_type = planet }
+		log = "| Planetary Rebellion"
+		log = "| Planet: \\[this.GetName]"
 		get_planetary_reb_number = yes
 		save_event_target_as = civil_war_planet
 		solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
@@ -4129,7 +4344,6 @@ create_civil_war = {
 		log = "| Leader Civil War"
 		log = "| Leader: \\[this.GetName]"
 		save_event_target_as = cw_war_leader
-		log = "EVENT TARGET SET: \\[cw_war_leader.GetName]"
 		set_timed_leader_flag = { flag = personal_civil_war months = 5 }
 		owner = {
 			if = { # 2 Sectors, other Sector will revolt
@@ -4870,10 +5084,10 @@ create_civil_war = {
 							solar_system = { is_capital_system = no }
 							has_ground_combat = no
 							is_occupied_flag = no
-							any_owned_pop_group = {
-								exists = pop_faction
-								pop_faction = { is_same_value = event_target:civwar_party }
-							}
+							# any_owned_pop_group = {
+							# 	exists = pop_faction
+							# 	pop_faction = { is_same_value = event_target:civwar_party }
+							# }
 						}
 					}
 
@@ -4883,6 +5097,7 @@ create_civil_war = {
 					}
 					if = { # If only 2 planets, get the other planet
 						limit = { num_owned_planets = 2 }
+						log = "| 2 Planet Civil War"
 						random_owned_planet = {
 							limit = {
 								pop_amount > 0
@@ -4892,22 +5107,32 @@ create_civil_war = {
 							}
 							save_event_target_as = civil_war_planet
 							solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
-							every_owned_pop_group = {
-								limit = {
-									exists = pop_faction
-									pop_faction = { is_same_value = event_target:civwar_party }
-									has_pop_group_flag = sep_pop
+							if = {
+								limit = { any_owned_pop_group = { pop_faction = { is_same_value = event_target:civwar_party } } }
+								every_owned_pop_group = {
+									limit = {
+										exists = pop_faction
+										pop_faction = { is_same_value = event_target:civwar_party }
+										# has_pop_group_flag = sep_pop
+									}
+									event_target:civwar_party = { change_variable = { which = mil_support value = 1 } }
 								}
-								event_target:civwar_party = { change_variable = { which = mil_support value = 1 } }
-							}
-							random_owned_pop_group = {
-								limit = {
-									exists = pop_faction
-									pop_faction = { is_same_value = event_target:civwar_party }
-									has_pop_group_flag = sep_pop
+								random_owned_pop_group = {
+									limit = {
+										exists = pop_faction
+										pop_faction = { is_same_value = event_target:civwar_party }
+										# has_pop_group_flag = sep_pop
+									}
+									species = { save_event_target_as = civwar_species }
 								}
-								species = { save_event_target_as = civwar_species }
 							}
+							else = {
+								event_target:civwar_party = {
+									every_owned_pop_group = { event_target:civwar_party = { change_variable = { which = mil_support value = 1 } } }
+									random_owned_pop_group = { species = { save_event_target_as = civwar_species } }
+								}
+							}
+							
 							set_planet_flag = small_civil_war
 							if = {
 								limit = { event_target:civwar_party = { is_regular_faction = yes } }
@@ -4925,6 +5150,7 @@ create_civil_war = {
 							limit = { pop_group_has_happiness = yes }
 							prev = { change_variable = { which = total_happiness_pops value = 1 } }
 						}
+						log = "| Potential Balkan Civil War"
 						set_variable = { which = maybe_rebel_planets value = 0 }
 						every_owned_planet = {
 							limit = {
@@ -4932,17 +5158,17 @@ create_civil_war = {
 								solar_system = { is_capital_system = no }
 								has_ground_combat = no
 								is_occupied_flag = no
-								any_owned_pop_group = {
-									exists = pop_faction
-									pop_faction = { is_same_value = event_target:civwar_party }
-								}
+								# any_owned_pop_group = {
+								# 	exists = pop_faction
+								# 	pop_faction = { is_same_value = event_target:civwar_party }
+								# }
 							}
 							set_variable = { which = fac_sep_percentage value = 0 }
 							every_owned_pop_group = {
 								limit = {
 									exists = pop_faction
 									pop_faction = { is_same_value = event_target:civwar_party }
-									has_pop_group_flag = sep_pop
+									# has_pop_group_flag = sep_pop
 								}
 								prev = { change_variable = { which = fac_sep_percentage value = 1 } }
 							}
@@ -4960,10 +5186,10 @@ create_civil_war = {
 									solar_system = { is_capital_system = no }
 									has_ground_combat = no
 									is_occupied_flag = no
-									any_owned_pop_group = {
-										exists = pop_faction
-										pop_faction = { is_same_value = event_target:civwar_party }
-									}
+									# any_owned_pop_group = {
+									# 	exists = pop_faction
+									# 	pop_faction = { is_same_value = event_target:civwar_party }
+									# }
 								}
 								position = 0
 								order_by = fac_sep_percentage
@@ -4973,7 +5199,7 @@ create_civil_war = {
 									limit = {
 										exists = pop_faction
 										pop_faction = { is_same_value = event_target:civwar_party }
-										has_pop_group_flag = sep_pop
+										# has_pop_group_flag = sep_pop
 									}
 									event_target:civwar_party = { change_variable = { which = mil_support value = 1 } }
 								}
@@ -4981,7 +5207,7 @@ create_civil_war = {
 									limit = {
 										exists = pop_faction
 										pop_faction = { is_same_value = event_target:civwar_party }
-										has_pop_group_flag = sep_pop
+										# has_pop_group_flag = sep_pop
 									}
 									species = { save_event_target_as = civwar_species }
 								}
@@ -9054,205 +9280,205 @@ find_nat_number_flag = {
 		inline_script = { script = effects/find_nat_flag_effect NUM = 50 }
 	}
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 51 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 51 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 52 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 52 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 53 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 53 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 54 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 54 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 55 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 55 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 56 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 56 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 57 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 57 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 58 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 58 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 59 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 59 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 60 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 60 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 61 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 61 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 62 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 62 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 63 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 63 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 64 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 64 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 65 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 65 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 66 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 66 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 67 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 67 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 68 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 68 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 69 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 69 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 70 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 70 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 71 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 71 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 72 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 72 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 73 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 73 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 74 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 74 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 75 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 75 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 76 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 76 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 77 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 77 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 78 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 78 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 79 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 79 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 80 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 80 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 81 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 81 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 82 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 82 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 83 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 83 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 84 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 84 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 85 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 85 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 86 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 86 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 87 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 87 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 88 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 88 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 89 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 89 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 90 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 90 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 91 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 91 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 92 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 92 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 93 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 93 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 94 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 94 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 95 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 95 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 96 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 96 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 97 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 97 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 98 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 98 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 99 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 99 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 100 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 100 }
+	# }
 }
 
 set_nat_country_flag = {
@@ -9456,205 +9682,205 @@ set_nat_country_flag = {
 		inline_script = { script = effects/set_nat_flag_effect NUM = 50 }
 	}
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 51 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 51 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 52 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 52 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 53 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 53 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 54 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 54 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 55 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 55 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 56 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 56 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 57 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 57 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 58 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 58 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 59 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 59 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 60 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 60 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 61 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 61 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 62 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 62 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 63 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 63 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 64 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 64 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 65 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 65 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 66 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 66 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 67 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 67 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 68 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 68 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 69 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 69 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 70 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 70 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 71 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 71 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 72 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 72 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 73 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 73 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 74 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 74 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 75 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 75 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 76 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 76 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 77 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 77 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 78 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 78 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 79 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 79 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 80 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 80 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 81 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 81 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 82 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 82 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 83 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 83 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 84 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 84 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 85 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 85 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 86 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 86 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 87 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 87 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 88 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 88 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 89 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 89 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 90 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 90 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 91 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 91 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 92 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 92 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 93 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 93 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 94 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 94 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 95 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 95 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 96 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 96 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 97 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 97 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 98 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 98 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 99 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 99 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nat_flag_effect NUM = 100 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nat_flag_effect NUM = 100 }
+	# }
 }
 
 find_nat_modifier_effect = {
@@ -9858,205 +10084,205 @@ find_nat_modifier_effect = {
 		inline_script = { script = effects/reset_nats_modifier_effect NUM = 50 }
 	}
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 51 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 51 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 52 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 52 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 53 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 53 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 54 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 54 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 55 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 55 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 56 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 56 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 57 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 57 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 58 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 58 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 59 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 59 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 60 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 60 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 61 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 61 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 62 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 62 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 63 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 63 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 64 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 64 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 65 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 65 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 66 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 66 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 67 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 67 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 68 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 68 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 69 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 69 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 70 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 70 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 71 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 71 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 72 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 72 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 73 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 73 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 74 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 74 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 75 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 75 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 76 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 76 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 77 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 77 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 78 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 78 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 79 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 79 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 80 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 80 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 81 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 81 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 82 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 82 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 83 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 83 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 84 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 84 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 85 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 85 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 86 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 86 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 87 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 87 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 88 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 88 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 89 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 89 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 90 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 90 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 91 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 91 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 92 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 92 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 93 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 93 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 94 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 94 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 95 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 95 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 96 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 96 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 97 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 97 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 98 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 98 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 99 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 99 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 100 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 100 }
+	# }
 }
 
 set_nat_modifier_effect = {
@@ -10260,205 +10486,205 @@ set_nat_modifier_effect = {
 		inline_script = { script = effects/set_nats_modifier_effect NUM = 50 }
 	}
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 51 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 51 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 52 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 52 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 53 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 53 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 54 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 54 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 55 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 55 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 56 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 56 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 57 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 57 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 58 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 58 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 59 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 59 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 60 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 60 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 61 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 61 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 62 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 62 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 63 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 63 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 64 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 64 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 65 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 65 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 66 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 66 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 67 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 67 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 68 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 68 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 69 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 69 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 70 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 70 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 71 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 71 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 72 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 72 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 73 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 73 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 74 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 74 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 75 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 75 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 76 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 76 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 77 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 77 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 78 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 78 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 79 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 79 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 80 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 80 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 81 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 81 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 82 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 82 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 83 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 83 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 84 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 84 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 85 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 85 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 86 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 86 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 87 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 87 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 88 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 88 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 89 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 89 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 90 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 90 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 91 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 91 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 92 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 92 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 93 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 93 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 94 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 94 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 95 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 95 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 96 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 96 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 97 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 97 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 98 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 98 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 99 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 99 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 100 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 100 }
+	# }
 }
 
 remove_nat_modifier_effect = {
@@ -10662,205 +10888,205 @@ remove_nat_modifier_effect = {
 		inline_script = { script = effects/remove_nats_modifier_effect NUM = 50 }
 	}
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 51 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 51 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 52 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 52 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 53 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 53 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 54 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 54 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 55 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 55 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 56 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 56 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 57 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 57 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 58 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 58 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 59 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 59 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 60 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 60 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 61 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 61 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 62 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 62 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 63 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 63 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 64 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 64 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 65 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 65 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 66 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 66 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 67 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 67 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 68 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 68 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 69 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 69 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 70 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 70 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 71 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 71 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 72 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 72 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 73 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 73 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 74 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 74 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 75 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 75 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 76 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 76 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 77 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 77 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 78 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 78 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 79 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 79 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 80 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 80 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 81 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 81 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 82 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 82 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 83 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 83 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 84 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 84 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 85 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 85 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 86 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 86 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 87 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 87 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 88 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 88 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 89 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 89 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 90 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 90 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 91 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 91 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 92 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 92 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 93 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 93 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 94 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 94 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 95 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 95 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 96 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 96 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 97 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 97 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 98 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 98 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 99 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 99 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 100 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 100 }
+	# }
 }
 
 get_heir_country_info = {
@@ -11377,6 +11603,97 @@ get_defected_leaders = {
 	}
 }
 
+get_defected_fleets = {
+
+	set_variable = { which = total_defector_fleets value = 0 }
+
+	every_owned_fleet = {
+		limit = { has_fleet_flag = fleet_defected_@event_target:civwar_originator }
+		set_fleet_flag = counted_fleet
+		prev = { change_variable = { which = total_defectors value = 1 } }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 1 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 2 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 3 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 4 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 5 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 6 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 7 }
+	}
+	
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 8 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 9 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 10 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 11 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 12 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 13 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 14 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 15 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 16 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 17 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 18 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 19 }
+	}
+
+	if = {
+		inline_script = { script = effects/get_defected_fleets_effect NUM = 20 }
+	}
+}
+
 #####################
 # Civwar Event stuff
 
@@ -11430,55 +11747,15 @@ create_civwar_armies = {
 				count = num_sep_pops
 				random_list = {
 					75 = {
-						while = {
-							count = 1
-							create_army = {
-								name = random
-								owner = event_target:civwar_rebels
-								species = event_target:civwar_rebels.species
-								type = "civwar_defense_army"
-							}
-						}
+						create_civwar_army = { TYPE = defense NUM = 1 }
 					}
 					20 = {
-						while = {
-							count = 1
-							create_army = {
-								name = random
-								owner = event_target:civwar_rebels
-								species = event_target:civwar_rebels.species
-								type = "civwar_assault_army"
-							}
-						}
-						while = {
-							count = 1
-							create_army = {
-								name = random
-								owner = event_target:civwar_rebels
-								species = event_target:civwar_rebels.species
-								type = "civwar_defense_army"
-							}
-						}
+						create_civwar_army = { TYPE = assault NUM = 1 }
+						create_civwar_army = { TYPE = defense NUM = 1 }
 					}
 					5 = {
-						while = {
-							count = 1
-							create_army = {
-								name = random
-								owner = event_target:civwar_rebels
-								species = event_target:civwar_rebels.species
-								type = "civwar_assault_army"
-							}
-						}
-						while = {
-							count = 2
-							create_army = {
-								name = random
-								owner = event_target:civwar_rebels
-								species = event_target:civwar_rebels.species
-								type = "civwar_defense_army"
-							}
-						}
+						create_civwar_army = { TYPE = assault NUM = 1 }
+						create_civwar_army = { TYPE = defense NUM = 2 }
 					}
 				}
 			}
@@ -11488,55 +11765,15 @@ create_civwar_armies = {
 				count = 3
 				random_list = {
 					75 = {
-						while = {
-							count = 1
-							create_army = {
-								name = random
-								owner = event_target:civwar_rebels
-								species = event_target:civwar_rebels.species
-								type = "civwar_defense_army"
-							}
-						}
+						create_civwar_army = { TYPE = defense NUM = 1 }
 					}
 					20 = {
-						while = {
-							count = 1
-							create_army = {
-								name = random
-								owner = event_target:civwar_rebels
-								species = event_target:civwar_rebels.species
-								type = "civwar_assault_army"
-							}
-						}
-						while = {
-							count = 1
-							create_army = {
-								name = random
-								owner = event_target:civwar_rebels
-								species = event_target:civwar_rebels.species
-								type = "civwar_defense_army"
-							}
-						}
+						create_civwar_army = { TYPE = defense NUM = 1 }
+						create_civwar_army = { TYPE = assault NUM = 1 }
 					}
 					5 = {
-						while = {
-							count = 1
-							create_army = {
-								name = random
-								owner = event_target:civwar_rebels
-								species = event_target:civwar_rebels.species
-								type = "civwar_assault_army"
-							}
-						}
-						while = {
-							count = 2
-							create_army = {
-								name = random
-								owner = event_target:civwar_rebels
-								species = event_target:civwar_rebels.species
-								type = "civwar_defense_army"
-							}
-						}
+						create_civwar_army = { TYPE = assault NUM = 1 }
+						create_civwar_army = { TYPE = defense NUM = 2 }
 					}
 				}
 			}
@@ -12007,6 +12244,7 @@ get_country_after_setup = {
 
 	get_secession_country_info = yes
 	get_defected_leaders = yes
+	get_defected_fleets = yes
 
 	ruler = {
 		if = {
@@ -12315,6 +12553,92 @@ get_fleet_effect = {
 	every_owned_fleet = {
 		limit = { has_fleet_flag = military_fleet }
 		remove_fleet_flag = military_fleet
+	}
+}
+
+swap_fleets_in_system = {
+	every_fleet_in_system = {
+		limit = { is_owned_by = event_target:civwar_originator }
+		if = {
+			limit = { exists = leader }
+			leader = {
+				random = {
+					chance = value:leader_to_defect_chance
+					fleet = {
+						if = {
+							limit = { any_owned_ship = { is_ship_class = shipclass_military } }
+							every_owned_ship = {
+								limit = { is_ship_class = shipclass_military }
+								random = {
+									chance = 20
+									destroy_ship = this
+								}
+							}
+							set_fleet_flag = fleet_defected_@event_target:civwar_originator
+						}
+						set_owner = root
+					}
+					set_owner = root
+					set_defected = yes
+				}
+			}
+		}
+		else = {
+			random = {
+				chance = value:fleet_swap_chance
+				every_owned_ship = {
+					limit = { is_ship_class = shipclass_military }
+					random = {
+						chance = 30
+						destroy_ship = this
+					}
+				}
+				set_owner = root
+			}
+		}
+	}
+}
+
+swap_leader = {
+	if = {
+		limit = { is_scope_type = leader }
+		random = {
+			chance = value:leader_to_defect_chance
+			set_owner = root
+			set_defected = yes
+		}
+	}
+	else_if = {
+		limit = { exists = leader }
+		leader = {
+			random = {
+				chance = value:leader_to_defect_chance
+				set_owner = root
+				set_defected = yes
+			}
+		}
+	}
+}
+
+set_defected = {
+	if = {
+		limit = { is_scope_type = leader }
+		set_defected_real = yes
+	}
+	else = {
+		leader = { set_defected_real = yes }
+	}
+}
+
+set_defected_real = {
+	set_leader_flag = leader_defected
+	set_leader_flag = leader_defected_@event_target:civwar_originator
+	if = { ## Good to check, they could be Che
+		limit = { NOT = { has_trait = leader_trait_revolutionary } }
+		add_trait = {
+			trait = leader_trait_revolutionary
+			show_message = no
+		}
 	}
 }
 
@@ -13242,6 +13566,10 @@ get_subject_choice_list_after = {
 						}
 					}
 				}
+			}
+			modifier = { ## If they are helping overlord, no
+				factor = 0
+				is_at_war_with = event_target:civwar_rebels
 			}
 			modifier = {
 				factor = 0.1
@@ -15835,67 +16163,75 @@ set_faction_rebellion_suppression_flag = {
 	}
 }
 
+remove_old_secession_link_flag = {
+	switch = {
+		trigger = has_leader_flag
+		secession_country_1_traitor = { remove_leader_flag = secession_country_1_traitor }
+		secession_country_2_traitor = { remove_leader_flag = secession_country_2_traitor }
+		secession_country_3_traitor = { remove_leader_flag = secession_country_3_traitor }
+		secession_country_4_traitor = { remove_leader_flag = secession_country_4_traitor }
+		secession_country_5_traitor = { remove_leader_flag = secession_country_5_traitor }
+		secession_country_6_traitor = { remove_leader_flag = secession_country_6_traitor }
+		secession_country_7_traitor = { remove_leader_flag = secession_country_7_traitor }
+		secession_country_8_traitor = { remove_leader_flag = secession_country_8_traitor }
+		secession_country_9_traitor = { remove_leader_flag = secession_country_9_traitor }
+		secession_country_10_traitor = { remove_leader_flag = secession_country_10_traitor }
+		secession_country_11_traitor = { remove_leader_flag = secession_country_11_traitor }
+		secession_country_12_traitor = { remove_leader_flag = secession_country_12_traitor }
+		secession_country_13_traitor = { remove_leader_flag = secession_country_13_traitor }
+		secession_country_14_traitor = { remove_leader_flag = secession_country_14_traitor }
+		secession_country_15_traitor = { remove_leader_flag = secession_country_15_traitor }
+		secession_country_16_traitor = { remove_leader_flag = secession_country_16_traitor }
+		secession_country_17_traitor = { remove_leader_flag = secession_country_17_traitor }
+		secession_country_18_traitor = { remove_leader_flag = secession_country_18_traitor }
+		secession_country_19_traitor = { remove_leader_flag = secession_country_19_traitor }
+		secession_country_20_traitor = { remove_leader_flag = secession_country_20_traitor }
+		secession_country_21_traitor = { remove_leader_flag = secession_country_21_traitor }
+		secession_country_22_traitor = { remove_leader_flag = secession_country_22_traitor }
+		secession_country_23_traitor = { remove_leader_flag = secession_country_23_traitor }
+		secession_country_24_traitor = { remove_leader_flag = secession_country_24_traitor }
+		secession_country_25_traitor = { remove_leader_flag = secession_country_25_traitor }
+		secession_country_26_traitor = { remove_leader_flag = secession_country_26_traitor }
+		secession_country_27_traitor = { remove_leader_flag = secession_country_27_traitor }
+		secession_country_28_traitor = { remove_leader_flag = secession_country_28_traitor }
+		secession_country_29_traitor = { remove_leader_flag = secession_country_29_traitor }
+		secession_country_30_traitor = { remove_leader_flag = secession_country_30_traitor }
+		secession_country_31_traitor = { remove_leader_flag = secession_country_31_traitor }
+		secession_country_32_traitor = { remove_leader_flag = secession_country_32_traitor }
+		secession_country_33_traitor = { remove_leader_flag = secession_country_33_traitor }
+		secession_country_34_traitor = { remove_leader_flag = secession_country_34_traitor }
+		secession_country_35_traitor = { remove_leader_flag = secession_country_35_traitor }
+		secession_country_36_traitor = { remove_leader_flag = secession_country_36_traitor }
+		secession_country_37_traitor = { remove_leader_flag = secession_country_37_traitor }
+		secession_country_38_traitor = { remove_leader_flag = secession_country_38_traitor }
+		secession_country_39_traitor = { remove_leader_flag = secession_country_39_traitor }
+		secession_country_40_traitor = { remove_leader_flag = secession_country_40_traitor }
+		secession_country_41_traitor = { remove_leader_flag = secession_country_41_traitor }
+		secession_country_42_traitor = { remove_leader_flag = secession_country_42_traitor }
+		secession_country_43_traitor = { remove_leader_flag = secession_country_43_traitor }
+		secession_country_44_traitor = { remove_leader_flag = secession_country_44_traitor }
+		secession_country_45_traitor = { remove_leader_flag = secession_country_45_traitor }
+		secession_country_46_traitor = { remove_leader_flag = secession_country_46_traitor }
+		secession_country_47_traitor = { remove_leader_flag = secession_country_47_traitor }
+		secession_country_48_traitor = { remove_leader_flag = secession_country_48_traitor }
+		secession_country_49_traitor = { remove_leader_flag = secession_country_49_traitor }
+		secession_country_50_traitor = { remove_leader_flag = secession_country_50_traitor }
+	}
+}
+
+create_civwar_army = {
+	while = {
+		count = $NUM$
+		create_army = {
+			name = random
+			owner = event_target:civwar_rebels
+			species = event_target:civwar_rebels.species
+			type = "civwar_$TYPE$_army"
+		}
+	}
+}
+
 ######
-
-swap_fleets_in_system = {
-	every_fleet_in_system = {
-		limit = { is_owned_by = event_target:civwar_originator }
-		if = {
-			limit = { exists = leader }
-			leader = {
-				random = {
-					chance = value:leader_to_defect_chance
-					fleet = {
-						every_owned_ship = {
-							limit = { is_ship_class = shipclass_military }
-							random = {
-								chance = 20
-								destroy_ship = this
-							}
-						}
-						set_owner = root
-					}
-					set_owner = root
-					set_defected = yes
-				}
-			}
-		}
-		else = {
-			random = {
-				chance = value:fleet_swap_chance
-				every_owned_ship = {
-					limit = { is_ship_class = shipclass_military }
-					random = {
-						chance = 30
-						destroy_ship = this
-					}
-				}
-				set_owner = root
-			}
-		}
-	}
-}
-
-swap_leader = {
-	if = {
-		limit = { is_scope_type = leader }
-		random = {
-			chance = value:leader_to_defect_chance
-			set_owner = root
-			set_defected = yes
-		}
-	}
-	else_if = {
-		limit = { exists = leader }
-		leader = {
-			random = {
-				chance = value:leader_to_defect_chance
-				set_owner = root
-				set_defected = yes
-			}
-		}
-	}
-}
 
 destroy_succession_crisis = {
 	if = {
@@ -15926,23 +16262,4 @@ kill_gov_switch_country = {
 		limit = { exists = event_target:gov_switch_country }
 		event_target:gov_switch_country = { destroy_country = yes }
 	}	
-}
-
-set_defected = {
-	if = {
-		limit = { is_scope_type = leader }
-		set_defected_real = yes
-	}
-	else = {
-		leader = { set_defected_real = yes }
-	}
-}
-
-set_defected_real = {
-	set_leader_flag = leader_defected
-	set_leader_flag = leader_defected_@event_target:civwar_originator
-	add_trait = {
-		trait = leader_trait_revolutionary
-		show_message = no
-	}
 }

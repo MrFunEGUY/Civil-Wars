@@ -23,9 +23,9 @@ defined_text = {
 	random = no
 	text = {
 		trigger = { gender = indeterminable }
-		localization_key = leader_trait_vindicated_traitor_genderless_desc
+		localization_key = leader_trait_vindicated_revolutionary_genderless_desc
 	}
-	default = leader_trait_vindicated_traitor_reg_desc
+	default = leader_trait_vindicated_revolutionary_reg_desc
 }
 
 defined_text = {
@@ -33,9 +33,9 @@ defined_text = {
 	random = no
 	text = {
 		trigger = { gender = indeterminable }
-		localization_key = leader_trait_vindicated_traitor_genderless_desc
+		localization_key = leader_trait_vindicated_revolutionary_genderless_desc
 	}
-	default = leader_trait_vindicated_traitor_reg_desc
+	default = leader_trait_vindicated_revolutionary_reg_desc
 }
 
 defined_text = {
@@ -68,6 +68,67 @@ defined_text = {
 	text = {
 		trigger = { root = { is_megacorp = yes } }
 		localization_key = government_is_corp
+	}
+	default = government_is_gov
+}
+
+defined_text = {
+	name = GetAuthority
+	random = no
+	text = {
+		trigger = { has_authority = auth_democratic }
+		localization_key = auth_democratic
+	}
+	text = {
+		trigger = { has_authority = auth_oligarchic }
+		localization_key = auth_oligarchic
+	}
+	text = {
+		trigger = { has_authority = auth_dictatorial }
+		localization_key = auth_dictatorial
+	}
+	text = {
+		trigger = { has_authority = auth_imperial }
+		localization_key = auth_imperial
+	}
+	text = {
+		trigger = { has_authority = auth_hive_mind }
+		localization_key = auth_hive_mind
+	}
+	text = {
+		trigger = { has_authority = auth_machine_intelligence }
+		localization_key = auth_machine_intelligence
+	}
+	text = {
+		trigger = { has_authority = auth_corporate }
+		localization_key = auth_corporate
+	}
+	## ECAF
+	text = {
+		trigger = { has_authority = auth_corporate_imperial }
+		localization_key = auth_corporate_imperial
+	}
+	text = {
+		trigger = { has_authority = auth_strict_democratic }
+		localization_key = auth_strict_democratic
+	}
+	text = {
+		trigger = { has_authority = auth_dict_democratic }
+		localization_key = auth_dict_democratic
+	}
+	## Bugged
+	text = {
+		trigger = { has_authority = auth_bugged_corporate_imperial }
+		localization_key = auth_bugged_corporate_imperial
+	}
+	text = {
+		trigger = { has_authority = auth_bugged_corporate_democratic }
+		localization_key = auth_bugged_corporate_democratic
+	}
+	## ECA
+	text = {
+		trigger = { has_authority = auth_direct_democratic }
+		localization_key = auth_direct_democratic
 	}
 	default = government_is_gov
 }
@@ -891,403 +952,403 @@ defined_text = {
 defined_text = {
 	name = GetSecessionCountry_Revolutionary
 	text = {
-		trigger = { has_leader_flag = secession_country_1_revolutionary }
+		trigger = { has_leader_flag = secession_country_1_traitor }
 		localization_key = revolutionary_country_1
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_2_revolutionary }
+		trigger = { has_leader_flag = secession_country_2_traitor }
 		localization_key = revolutionary_country_2
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_3_revolutionary }
+		trigger = { has_leader_flag = secession_country_3_traitor }
 		localization_key = revolutionary_country_3
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_4_revolutionary }
+		trigger = { has_leader_flag = secession_country_4_traitor }
 		localization_key = revolutionary_country_4
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_5_revolutionary }
+		trigger = { has_leader_flag = secession_country_5_traitor }
 		localization_key = revolutionary_country_5
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_6_revolutionary }
+		trigger = { has_leader_flag = secession_country_6_traitor }
 		localization_key = revolutionary_country_6
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_7_revolutionary }
+		trigger = { has_leader_flag = secession_country_7_traitor }
 		localization_key = revolutionary_country_7
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_8_revolutionary }
+		trigger = { has_leader_flag = secession_country_8_traitor }
 		localization_key = revolutionary_country_8
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_9_revolutionary }
+		trigger = { has_leader_flag = secession_country_9_traitor }
 		localization_key = revolutionary_country_9
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_10_revolutionary }
+		trigger = { has_leader_flag = secession_country_10_traitor }
 		localization_key = revolutionary_country_10
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_11_revolutionary }
+		trigger = { has_leader_flag = secession_country_11_traitor }
 		localization_key = revolutionary_country_11
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_12_revolutionary }
+		trigger = { has_leader_flag = secession_country_12_traitor }
 		localization_key = revolutionary_country_12
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_13_revolutionary }
+		trigger = { has_leader_flag = secession_country_13_traitor }
 		localization_key = revolutionary_country_13
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_14_revolutionary }
+		trigger = { has_leader_flag = secession_country_14_traitor }
 		localization_key = revolutionary_country_14
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_15_revolutionary }
+		trigger = { has_leader_flag = secession_country_15_traitor }
 		localization_key = revolutionary_country_15
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_16_revolutionary }
+		trigger = { has_leader_flag = secession_country_16_traitor }
 		localization_key = revolutionary_country_16
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_17_revolutionary }
+		trigger = { has_leader_flag = secession_country_17_traitor }
 		localization_key = revolutionary_country_17
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_18_revolutionary }
+		trigger = { has_leader_flag = secession_country_18_traitor }
 		localization_key = revolutionary_country_18
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_19_revolutionary }
+		trigger = { has_leader_flag = secession_country_19_traitor }
 		localization_key = revolutionary_country_19
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_20_revolutionary }
+		trigger = { has_leader_flag = secession_country_20_traitor }
 		localization_key = revolutionary_country_20
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_21_revolutionary }
+		trigger = { has_leader_flag = secession_country_21_traitor }
 		localization_key = revolutionary_country_21
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_22_revolutionary }
+		trigger = { has_leader_flag = secession_country_22_traitor }
 		localization_key = revolutionary_country_22
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_23_revolutionary }
+		trigger = { has_leader_flag = secession_country_23_traitor }
 		localization_key = revolutionary_country_23
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_24_revolutionary }
+		trigger = { has_leader_flag = secession_country_24_traitor }
 		localization_key = revolutionary_country_24
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_25_revolutionary }
+		trigger = { has_leader_flag = secession_country_25_traitor }
 		localization_key = revolutionary_country_25
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_26_revolutionary }
+		trigger = { has_leader_flag = secession_country_26_traitor }
 		localization_key = revolutionary_country_26
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_27_revolutionary }
+		trigger = { has_leader_flag = secession_country_27_traitor }
 		localization_key = revolutionary_country_27
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_28_revolutionary }
+		trigger = { has_leader_flag = secession_country_28_traitor }
 		localization_key = revolutionary_country_28
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_29_revolutionary }
+		trigger = { has_leader_flag = secession_country_29_traitor }
 		localization_key = revolutionary_country_29
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_30_revolutionary }
+		trigger = { has_leader_flag = secession_country_30_traitor }
 		localization_key = revolutionary_country_30
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_31_revolutionary }
+		trigger = { has_leader_flag = secession_country_31_traitor }
 		localization_key = revolutionary_country_31
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_32_revolutionary }
+		trigger = { has_leader_flag = secession_country_32_traitor }
 		localization_key = revolutionary_country_32
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_33_revolutionary }
+		trigger = { has_leader_flag = secession_country_33_traitor }
 		localization_key = revolutionary_country_33
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_34_revolutionary }
+		trigger = { has_leader_flag = secession_country_34_traitor }
 		localization_key = revolutionary_country_34
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_35_revolutionary }
+		trigger = { has_leader_flag = secession_country_35_traitor }
 		localization_key = revolutionary_country_35
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_36_revolutionary }
+		trigger = { has_leader_flag = secession_country_36_traitor }
 		localization_key = revolutionary_country_36
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_37_revolutionary }
+		trigger = { has_leader_flag = secession_country_37_traitor }
 		localization_key = revolutionary_country_37
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_38_revolutionary }
+		trigger = { has_leader_flag = secession_country_38_traitor }
 		localization_key = revolutionary_country_38
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_39_revolutionary }
+		trigger = { has_leader_flag = secession_country_39_traitor }
 		localization_key = revolutionary_country_39
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_40_revolutionary }
+		trigger = { has_leader_flag = secession_country_40_traitor }
 		localization_key = revolutionary_country_40
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_41_revolutionary }
+		trigger = { has_leader_flag = secession_country_41_traitor }
 		localization_key = revolutionary_country_41
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_42_revolutionary }
+		trigger = { has_leader_flag = secession_country_42_traitor }
 		localization_key = revolutionary_country_42
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_43_revolutionary }
+		trigger = { has_leader_flag = secession_country_43_traitor }
 		localization_key = revolutionary_country_43
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_44_revolutionary }
+		trigger = { has_leader_flag = secession_country_44_traitor }
 		localization_key = revolutionary_country_44
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_45_revolutionary }
+		trigger = { has_leader_flag = secession_country_45_traitor }
 		localization_key = revolutionary_country_45
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_46_revolutionary }
+		trigger = { has_leader_flag = secession_country_46_traitor }
 		localization_key = revolutionary_country_46
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_47_revolutionary }
+		trigger = { has_leader_flag = secession_country_47_traitor }
 		localization_key = revolutionary_country_47
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_48_revolutionary }
+		trigger = { has_leader_flag = secession_country_48_traitor }
 		localization_key = revolutionary_country_48
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_49_revolutionary }
+		trigger = { has_leader_flag = secession_country_49_traitor }
 		localization_key = revolutionary_country_49
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_50_revolutionary }
+		trigger = { has_leader_flag = secession_country_50_traitor }
 		localization_key = revolutionary_country_50
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_51_revolutionary }
+		trigger = { has_leader_flag = secession_country_51_traitor }
 		localization_key = revolutionary_country_51
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_52_revolutionary }
+		trigger = { has_leader_flag = secession_country_52_traitor }
 		localization_key = revolutionary_country_52
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_53_revolutionary }
+		trigger = { has_leader_flag = secession_country_53_traitor }
 		localization_key = revolutionary_country_53
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_54_revolutionary }
+		trigger = { has_leader_flag = secession_country_54_traitor }
 		localization_key = revolutionary_country_54
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_55_revolutionary }
+		trigger = { has_leader_flag = secession_country_55_traitor }
 		localization_key = revolutionary_country_55
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_56_revolutionary }
+		trigger = { has_leader_flag = secession_country_56_traitor }
 		localization_key = revolutionary_country_56
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_57_revolutionary }
+		trigger = { has_leader_flag = secession_country_57_traitor }
 		localization_key = revolutionary_country_57
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_58_revolutionary }
+		trigger = { has_leader_flag = secession_country_58_traitor }
 		localization_key = revolutionary_country_58
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_59_revolutionary }
+		trigger = { has_leader_flag = secession_country_59_traitor }
 		localization_key = revolutionary_country_59
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_60_revolutionary }
+		trigger = { has_leader_flag = secession_country_60_traitor }
 		localization_key = revolutionary_country_60
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_61_revolutionary }
+		trigger = { has_leader_flag = secession_country_61_traitor }
 		localization_key = revolutionary_country_61
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_62_revolutionary }
+		trigger = { has_leader_flag = secession_country_62_traitor }
 		localization_key = revolutionary_country_62
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_63_revolutionary }
+		trigger = { has_leader_flag = secession_country_63_traitor }
 		localization_key = revolutionary_country_63
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_64_revolutionary }
+		trigger = { has_leader_flag = secession_country_64_traitor }
 		localization_key = revolutionary_country_64
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_65_revolutionary }
+		trigger = { has_leader_flag = secession_country_65_traitor }
 		localization_key = revolutionary_country_65
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_66_revolutionary }
+		trigger = { has_leader_flag = secession_country_66_traitor }
 		localization_key = revolutionary_country_66
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_67_revolutionary }
+		trigger = { has_leader_flag = secession_country_67_traitor }
 		localization_key = revolutionary_country_67
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_68_revolutionary }
+		trigger = { has_leader_flag = secession_country_68_traitor }
 		localization_key = revolutionary_country_68
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_69_revolutionary }
+		trigger = { has_leader_flag = secession_country_69_traitor }
 		localization_key = revolutionary_country_69
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_70_revolutionary }
+		trigger = { has_leader_flag = secession_country_70_traitor }
 		localization_key = revolutionary_country_70
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_71_revolutionary }
+		trigger = { has_leader_flag = secession_country_71_traitor }
 		localization_key = revolutionary_country_71
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_72_revolutionary }
+		trigger = { has_leader_flag = secession_country_72_traitor }
 		localization_key = revolutionary_country_72
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_73_revolutionary }
+		trigger = { has_leader_flag = secession_country_73_traitor }
 		localization_key = revolutionary_country_73
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_74_revolutionary }
+		trigger = { has_leader_flag = secession_country_74_traitor }
 		localization_key = revolutionary_country_74
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_75_revolutionary }
+		trigger = { has_leader_flag = secession_country_75_traitor }
 		localization_key = revolutionary_country_75
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_76_revolutionary }
+		trigger = { has_leader_flag = secession_country_76_traitor }
 		localization_key = revolutionary_country_76
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_77_revolutionary }
+		trigger = { has_leader_flag = secession_country_77_traitor }
 		localization_key = revolutionary_country_77
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_78_revolutionary }
+		trigger = { has_leader_flag = secession_country_78_traitor }
 		localization_key = revolutionary_country_78
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_79_revolutionary }
+		trigger = { has_leader_flag = secession_country_79_traitor }
 		localization_key = revolutionary_country_79
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_80_revolutionary }
+		trigger = { has_leader_flag = secession_country_80_traitor }
 		localization_key = revolutionary_country_80
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_81_revolutionary }
+		trigger = { has_leader_flag = secession_country_81_traitor }
 		localization_key = revolutionary_country_81
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_82_revolutionary }
+		trigger = { has_leader_flag = secession_country_82_traitor }
 		localization_key = revolutionary_country_82
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_83_revolutionary }
+		trigger = { has_leader_flag = secession_country_83_traitor }
 		localization_key = revolutionary_country_83
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_84_revolutionary }
+		trigger = { has_leader_flag = secession_country_84_traitor }
 		localization_key = revolutionary_country_84
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_85_revolutionary }
+		trigger = { has_leader_flag = secession_country_85_traitor }
 		localization_key = revolutionary_country_85
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_86_revolutionary }
+		trigger = { has_leader_flag = secession_country_86_traitor }
 		localization_key = revolutionary_country_86
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_87_revolutionary }
+		trigger = { has_leader_flag = secession_country_87_traitor }
 		localization_key = revolutionary_country_87
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_88_revolutionary }
+		trigger = { has_leader_flag = secession_country_88_traitor }
 		localization_key = revolutionary_country_88
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_89_revolutionary }
+		trigger = { has_leader_flag = secession_country_89_traitor }
 		localization_key = revolutionary_country_89
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_90_revolutionary }
+		trigger = { has_leader_flag = secession_country_90_traitor }
 		localization_key = revolutionary_country_90
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_91_revolutionary }
+		trigger = { has_leader_flag = secession_country_91_traitor }
 		localization_key = revolutionary_country_91
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_92_revolutionary }
+		trigger = { has_leader_flag = secession_country_92_traitor }
 		localization_key = revolutionary_country_92
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_93_revolutionary }
+		trigger = { has_leader_flag = secession_country_93_traitor }
 		localization_key = revolutionary_country_93
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_94_revolutionary }
+		trigger = { has_leader_flag = secession_country_94_traitor }
 		localization_key = revolutionary_country_94
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_95_revolutionary }
+		trigger = { has_leader_flag = secession_country_95_traitor }
 		localization_key = revolutionary_country_95
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_96_revolutionary }
+		trigger = { has_leader_flag = secession_country_96_traitor }
 		localization_key = revolutionary_country_96
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_97_revolutionary }
+		trigger = { has_leader_flag = secession_country_97_traitor }
 		localization_key = revolutionary_country_97
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_98_revolutionary }
+		trigger = { has_leader_flag = secession_country_98_traitor }
 		localization_key = revolutionary_country_98
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_99_revolutionary }
+		trigger = { has_leader_flag = secession_country_99_traitor }
 		localization_key = revolutionary_country_99
 	}
 	text = {
-		trigger = { has_leader_flag = secession_country_100_revolutionary }
+		trigger = { has_leader_flag = secession_country_100_traitor }
 		localization_key = revolutionary_country_100
 	}
 	#text = {

@@ -322,7 +322,6 @@ planet_event = {
 				OR = {
 					has_planet_flag = balkan_war
 					has_planet_flag = small_civil_war
-					has_planet_flag = sep_planet_rebellion
 					has_planet_flag = nat_planet_rebellion_@this
 					has_planet_flag = ethic_planet_rebellion_@this
 				}
@@ -371,7 +370,7 @@ planet_event = {
 			every_owned_pop_group = {
 				limit = {
 					is_enslaved_or_purged = yes
-					happiness < 60
+					happiness < 0.6
 				}
 				root = { change_variable = { which = num_sep_pops value = 1 } }	
 			}
@@ -383,7 +382,7 @@ planet_event = {
 					every_owned_pop_group = {
 						limit = {
 							is_enslaved_or_purged = yes
-							happiness < 60
+							happiness < 0.6
 						}
 						root = { change_variable = { which = num_sep_pops value = 1 } }
 					}
@@ -397,60 +396,35 @@ planet_event = {
 				root = { change_variable = { which = num_sep_pops value = 5 } }	
 			}
 		}
+		else_if = {
+			limit = { has_planet_flag = sep_planet_rebellion }
+			every_owned_pop_group = {
+				limit = { happiness <= 0.5 }
+				root = { change_variable = { which = num_sep_pops value = 1 } }	
+			}
+		}
+		
+		if = {
+			limit = { check_variable = { which = num_sep_pops value = 0 } }
+			log = "| NOTE: BACKUP SEPS CREATED"
+			set_variable = { which = num_sep_pops value = event_target:cw_scope_initializer.mil_support }
+			# divide_variable = { which = num_sep_pops value = 3 }
+			ceiling_variable = num_sep_pops
+		}
 
 		while = {
 			count = num_sep_pops
 			random_list = {
 				50 = {
-					while = {
-						count = 1
-						create_army = {
-							name = random
-							owner = event_target:civwar_rebels
-							species = event_target:civwar_rebels.species
-							type = "civwar_assault_army"
-						}
-					}
+					create_civwar_army = { TYPE = assault NUM = 3 }
 				}
 				30 = {
-					while = {
-						count = 1
-						create_army = {
-							name = random
-							owner = event_target:civwar_rebels
-							species = event_target:civwar_rebels.species
-							type = "civwar_assault_army"
-						}
-					}
-					while = {
-						count = 1
-						create_army = {
-							name = random
-							owner = event_target:civwar_rebels
-							species = event_target:civwar_rebels.species
-							type = "civwar_defense_army"
-						}
-					}
+					create_civwar_army = { TYPE = assault NUM = 2 }
+					create_civwar_army = { TYPE = defense NUM = 2 }
 				}
 				20 = {
-					while = {
-						count = 1
-						create_army = {
-							name = random
-							owner = event_target:civwar_rebels
-							species = event_target:civwar_rebels.species
-							type = "civwar_assault_army"
-						}
-					}
-					while = {
-						count = 2
-						create_army = {
-							name = random
-							owner = event_target:civwar_rebels
-							species = event_target:civwar_rebels.species
-							type = "civwar_defense_army"
-						}
-					}
+					create_civwar_army = { TYPE = assault NUM = 3 }
+					create_civwar_army = { TYPE = defense NUM = 2 }
 				}
 			}
 		}

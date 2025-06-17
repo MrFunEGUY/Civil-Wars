@@ -80,7 +80,7 @@ country_event = {
 				}
 			}
 			random_list = {
-				# Disinherited Heir starts Civil War within year
+				# Disinherited Heir starts Civil War within few years
 				30 = {
 					country_event = { id = civheir.2000 }
 					modifier = {
@@ -240,8 +240,7 @@ country_event = {
 
 		set_country_flag = heir_mother_country_@last_created_country
 
-		# country_event = { id = civheir.2100 days = 7 random = 14 }
-		country_event = { id = civheir.2100 days = 7 random = 720 }
+		country_event = { id = civheir.2100 days = 7 random = 1080 }
 	}
 }
 
@@ -333,6 +332,9 @@ country_event = {
 				save_event_target_as = heir_civil_war_dummy_country
 			}
 		}
+
+		log = "--------------------------------"
+		log = "| Heir Civil War Effect Called - [GetDate]"
 
 		if = {
 			limit = { num_sectors = 2 }
@@ -551,7 +553,7 @@ country_event = {
 
 				remove_trait = leader_trait_traitor
 				add_trait = {
-					trait = leader_trait_vindicated_traitor
+					trait = leader_trait_vindicated_revolutionary
 					show_message = no
 				}
 			}

@@ -11,7 +11,7 @@ situation_civstrife_sep_plan = {
 		target = {
 			set_variable = { which = gen_sep_upkeep value = 0 }
 			every_owned_pop_group = {
-				limit = { has_pop_group_flag = sep_pop }
+				limit = { happiness <= 0.5 }
 				prev = { change_variable = { which = gen_sep_upkeep value = 1 } }
 			}
 		}
@@ -796,7 +796,7 @@ situation_civstrife_sep_slaves_plan = {
 			every_owned_pop_group = {
 				limit = {
 					is_enslaved_or_purged = yes
-					happiness < 60
+					happiness < 0.6
 				}
 				prev = { change_variable = { which = slave_sep_upkeep value = 1 } }
 			}
@@ -854,7 +854,7 @@ situation_civstrife_sep_slaves_plan = {
 							percentage <= 0.15
 							limit = {
 								is_enslaved_or_purged = yes
-								happiness < 60
+								happiness < 0.6
 							}
 							exclude = { can_think = no }
 						}
@@ -867,7 +867,7 @@ situation_civstrife_sep_slaves_plan = {
 							percentage <= 0.2
 							limit = {
 								is_enslaved_or_purged = yes
-								happiness < 60
+								happiness < 0.6
 							}
 							exclude = { can_think = no }
 						}
@@ -880,7 +880,7 @@ situation_civstrife_sep_slaves_plan = {
 							percentage <= 0.25
 							limit = {
 								is_enslaved_or_purged = yes
-								happiness < 60
+								happiness < 0.6
 							}
 							exclude = { can_think = no }
 						}
@@ -1035,7 +1035,7 @@ situation_civstrife_sep_slaves_sec = {
 				every_owned_pop_group = {
 					limit = {
 						is_enslaved_or_purged = yes
-						happiness < 60
+						happiness < 0.6
 					}
 					prevprev = { change_variable = { which = slave_sep_upkeep value = 1 } }
 				}
@@ -1091,7 +1091,7 @@ situation_civstrife_sep_slaves_sec = {
 							percentage <= 0.15
 							limit = {
 								is_enslaved_or_purged = yes
-								happiness < 60
+								happiness < 0.6
 							}
 							exclude = { can_think = no }
 						}
@@ -1104,7 +1104,7 @@ situation_civstrife_sep_slaves_sec = {
 							percentage <= 0.2
 							limit = {
 								is_enslaved_or_purged = yes
-								happiness < 60
+								happiness < 0.6
 							}
 							exclude = { can_think = no }
 						}
@@ -1117,7 +1117,7 @@ situation_civstrife_sep_slaves_sec = {
 							percentage <= 0.25
 							limit = {
 								is_enslaved_or_purged = yes
-								happiness < 60
+								happiness < 0.6
 							}
 							exclude = { can_think = no }
 						}

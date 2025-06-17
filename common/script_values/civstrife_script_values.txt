@@ -30,6 +30,16 @@ leader_civil_war_oppurtunity = {
 	base = @base_leader_civil_war_oppurtunity ## 15
 
 	modifier = {
+		add = value:reign_length_auth
+		owner = { is_autocracy = yes }
+	}
+
+	modifier = {
+		add = value:reign_length_demo
+		owner = { is_autocracy = no }
+	}
+
+	modifier = {
 		factor = 1.5
 		owner = {
 			OR = {
@@ -61,6 +71,16 @@ leader_election_dispute_chance = {
 	modifier = {
 		add = value:leader_skill_value
 		has_base_skill >= 1
+	}
+
+	modifier = {
+		add = value:reign_length_auth
+		owner = { is_autocracy = yes }
+	}
+
+	modifier = {
+		add = value:reign_length_demo
+		owner = { is_autocracy = no }
 	}
 
 	modifier = {
@@ -401,16 +421,15 @@ chance_to_claim_all = {
 }
 
 leader_service_value = {
-	base = 0
 	add = trigger:leader_years_of_service
 	# divide = 1.5
-	divide = 2
+	divide = 4
 }
 
 leader_skill_value = {
 	base = 0
 	add = trigger:has_base_skill
-	mult = 2
+	mult = 1.25
 }
 
 election_out_is_allowed = {
@@ -491,6 +510,27 @@ pop_group_rad_happiness = {
 pop_group_planet_dev = {
 	add = trigger:planet_devastation
 	divide = 2
+}
+
+prior_ruler_reign_length = {
+	add = owner.prior_ruler_reign_length
+}
+
+current_ruler_reign_length = {
+	add = owner.ruler.years_as_ruler_continuous
+}
+
+reign_length_auth = {
+	add = 200
+	divide = owner.prior_ruler_reign_length
+	# divide = value:prior_ruler_reign_length
+	divide = 3
+}
+
+reign_length_demo = {
+	add = owner.ruler.years_as_ruler_continuous
+	mult = owner.ruler.years_as_ruler_continuous
+	divide = 65
 }
 
 system_claim_value_add = {

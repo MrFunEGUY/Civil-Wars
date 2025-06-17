@@ -1,0 +1,6 @@
+limit = { check_variable = { which = total_defector_fleets value >= $NUM$ } }
+random_owned_fleet = {
+	limit = { has_fleet_flag = counted_fleet }
+	remove_fleet_flag = counted_fleet
+	save_event_target_as = defected_fleet_$NUM$
+}

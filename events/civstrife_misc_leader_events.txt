@@ -1,0 +1,64 @@
+
+###############################
+### Civil Wars by MrFunEGUY ###
+###############################
+
+
+namespace = civmisc_leader
+
+#################
+
+country_event = { ## Pulses
+	id = civmisc_leader.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = { exists = ruler }
+
+	immediate = {
+		ruler = {
+			change_variable = { which = years_as_ruler_total value = 1 }
+			change_variable = { which = years_as_ruler_continuous value = 1 }
+		}
+	}
+}
+
+country_event = { ## On Ruler Set
+	id = civmisc_leader.1001
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = { exists = ruler }
+
+	immediate = {
+		ruler = {
+			set_variable = { which = years_as_ruler_continuous value = 0 }
+			if = {
+				limit = { NOT = { is_variable_set = years_as_ruler_total } }
+				set_variable = { which = years_as_ruler_total value = 0 }
+			}
+		}
+	}
+}
+
+country_event = {
+	id = civmisc_leader.1050
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = { is_ruler = yes }
+	}
+
+	immediate = {
+		if = {
+			limit = { from = { is_variable_set = years_as_ruler_continuous } }
+			if = {
+				limit = { is_variable_set = prior_ruler_reign_length }
+				set_variable = { which = two_ruler_ago_reign_length value = prior_ruler_reign_length }
+				set_variable = { which = prior_ruler_reign_length value = from.years_as_ruler_continuous }
+			}
+			else = { set_variable = { which = prior_ruler_reign_length value = from.years_as_ruler_continuous } }
+		}
+	}
+}
