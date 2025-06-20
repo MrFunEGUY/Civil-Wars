@@ -114,12 +114,6 @@ on_bi_yearly_pulse_country = {
 	}
 }
 
-on_five_year_pulse_country = {
-	events = {
-		civmisc.2300			# Kill Loc Countries
-	}
-}
-
 # this = country
 on_decade_pulse_country = {
 	events = {
@@ -176,7 +170,7 @@ on_ruler_set = {
 		civ_misc_leader.2100			# Set Sep Won Election Flag
 		
 		# civelect.4000									# Separatist/Nationalist wins (s)election
-		civheir.6100			# Add Vindicated Traits to "former" traitors
+		civ_misc_leader.3000			# Add Vindicated Traits to "former" traitors
 	}
 }
 
@@ -219,6 +213,8 @@ on_war_won = {
 		civend.3100				# Remove Fleet Flags
 		civend.8000				# Traitorous Leader Installed at end of war
 		civnat.1341				# Gov In Exile restoration on war won
+
+		civmisc.3010			# Log War
 	}
 }
 
@@ -234,6 +230,8 @@ on_status_quo = {
 		civend.3032				# Remove Subject Flags
 		civend.3132				# Fleet Flag Remover
 		civnat.1342				# Gov In Exile restoration on status quo
+	
+		civmisc.3010			# Log War
 	}
 }
 
@@ -249,6 +247,8 @@ on_status_quo_forced = {
 		civend.3032				# Remove Subject Flags
 		civend.3132				# Fleet Flag Remover
 		civnat.1342				# Gov In Exile restoration on status quo
+	
+		civmisc.3010			# Log War
 	}
 }
 

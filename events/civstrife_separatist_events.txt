@@ -450,7 +450,7 @@ planet_event = { # Create First Separatists, Planetary
 	is_triggered_only = yes
 
 	trigger = {
-		is_capital = no
+		solar_system = { is_capital_system = no }
 		has_any_planet_rebellion_stopper = no
 		owner = { these_are_rebels_in_rebellion = no }
 	}
@@ -1696,7 +1696,7 @@ situation_event = { # Planetary Revolt Initializer
 		owner = {
 			any_owned_planet = {
 				is_under_colonization = no
-				is_capital = no
+				solar_system = { is_capital_system = no }
 				has_ground_combat = no
 				is_occupied_flag = no
 				has_orbital_bombardment = no
@@ -1725,7 +1725,7 @@ situation_event = { # Planetary Revolt Event
 		owner = {
 			any_owned_planet = {
 				is_under_colonization = no
-				is_capital = no
+				solar_system = { is_capital_system = no }
 				has_ground_combat = no
 				is_occupied_flag = no
 				has_orbital_bombardment = no
@@ -1744,7 +1744,7 @@ situation_event = { # Planetary Revolt Event
 			random_owned_planet = {
 				limit = {
 					is_under_colonization = no
-					is_capital = no
+					solar_system = { is_capital_system = no }
 					has_ground_combat = no
 					is_occupied_flag = no
 					has_orbital_bombardment = no
@@ -2172,7 +2172,7 @@ country_event = { # Slave Unrest Counter
 		is_country_type_with_subjects = yes
 		NOT = { years_passed < 15 }
 		any_owned_planet = {
-			is_capital = no
+			solar_system = { is_capital_system = no }
 			has_ground_combat = no
 			is_occupied_flag = no
 			pop_amount > 0
@@ -2188,7 +2188,7 @@ country_event = { # Slave Unrest Counter
 	immediate = {
 		every_owned_planet = {
 			limit = {
-				is_capital = no
+				solar_system = { is_capital_system = no }
 				has_ground_combat = no
 				is_occupied_flag = no
 				pop_amount > 0

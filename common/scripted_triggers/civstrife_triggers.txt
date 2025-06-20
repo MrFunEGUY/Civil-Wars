@@ -2123,7 +2123,7 @@ is_exile_country = {
 	OR = {
 		is_country_type = exile_country
 		is_country_type = enclave_exiled_gov
-		is_country_type = deat_nat_country
+		is_country_type = dead_nat_country
 	}
 }
 
@@ -2802,19 +2802,26 @@ has_civstrife_origin = {
 }
 
 traitor_can_flee_to_country = {
-	is_country_type = default
+	is_country_type_with_subjects = yes
 	has_communications = root
-	is_gestalt = no
+	# is_gestalt = no ## Dont love it, but let them have some interactions
 	OR = {
 		is_homicidal = no
-		is_organic_zealots = yes
+		AND = {
+			is_homicidal = yes
+			event_target:defeated_traitor = { is_same_species = prev }
+		}
+		AND = {
+			is_organic_zealots = yes
+			event_target:defeated_traitor = { is_mechanical_species = no }
+		}
 	}
 	NOR = {
 		is_loyal_to = root
-		is_overlord_to = root
-		is_custodial_to = root
-		is_same_value = root
+		is_same_empire = root
 		has_overlord = root
+		# is_overlord_to = root ## Fun lil bargaining chip
+		# is_custodial_to = root
 		has_country_flag = traitor_already_asked_@event_target:defeated_traitor
 	}
 }

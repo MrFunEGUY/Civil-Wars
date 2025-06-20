@@ -90,7 +90,14 @@ test_distance_effect = {
 			is_gestalt = no
 			OR = {
 				is_homicidal = no
-				is_organic_zealots = yes
+				AND = {
+					is_homicidal = yes
+					event_target:defeated_traitor = { is_same_species = prev }
+				}
+				AND = {
+					is_organic_zealots = yes
+					event_target:defeated_traitor = { is_mechanical_species = no }
+				}
 			}
 			NOR = {
 				is_loyal_to = root

@@ -48,7 +48,7 @@ country_event = {
 			exile_leader_as = defeated_traitor
 		}
 		from.capital_scope = { save_event_target_as = defeated_traitor_capitol }
-
+		from = { set_country_flag = traitor_already_asked_@event_target:defeated_traitor } ## This was being a lil weird, with traitors going to exile countries somehow
 		get_traitor_outcome = yes
 	}
 }
@@ -126,6 +126,7 @@ country_event = {
 	option = {
 		name = civend.1003.a
 		hidden_effect = {
+			set_fled_fled_year = yes
 			country_event = { id = civend.5000 }
 		}
 	}
@@ -679,7 +680,7 @@ country_event = {
 				}
 				divide_variable = { which = naval_cap_divided_distance value = distance_from_traitor }
 			}
-			ordered_country = {
+			ordered_playable_country = {
 				limit = { traitor_can_flee_to_country = yes }
 				order_by = naval_cap_divided_distance
 				position = 0

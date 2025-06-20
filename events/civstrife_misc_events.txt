@@ -118,39 +118,7 @@ country_event = { # Clear unused global event targets
 	}
 }
 
-country_event = { # Clear Loc Countries
-	id = civmisc.2300
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		is_exile_country = yes
-		secession_flag_matcher = no
-		fatherland_flag_matcher = no
-		## Is there another situation where they will be needed for loc besides fatherland and secessions?
-		# has_country_flag = country_needed_for_loc
-		NOR = {
-			any_country = {
-				is_country_type_with_subjects = yes
-				any_owned_pop_group = {
-					can_think = yes
-					nats_modifier_flag_matcher = { SCOPE = root }
-					# has_pop_group_flag = sep_pop_nat_@root
-				}
-			}
-		}
-	}
-
-	immediate = {
-		log = "=============================================="
-		log = "| Country LOC Removed: [this.GetName] | [GetDate]"
-		log = "=============================================="
-		remove_country_flag = country_needed_for_loc
-		country_event = { id = civnat.3110 days = 2 }
-	}
-}
-
-##########
+########## 3000 - Logging
 
 country_event = {
 	# Set Birthday
@@ -243,6 +211,69 @@ country_event = { # Log
 		log = "| ++++++++++++++++++++++++++++++++++++++++++++++++"
 	}
 }
+
+country_event = { # War Log, War won + Status Quo
+	id = civmisc.3010
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			AND = {
+				fromfrom = { is_scope_type = war }
+				OR = {
+					fromfrom = { has_civil_war_goal = yes }
+					fromfrom = { has_rebel_war_goal = yes }
+				}
+			}
+			AND = {
+				fromfromfromfrom = { is_scope_type = war }
+				OR = {
+					fromfromfromfrom = { has_civil_war_goal = yes }
+					fromfromfromfrom = { has_rebel_war_goal = yes }
+				}
+			}
+		}
+	}
+
+	immediate = {
+
+		log = "| ------------------------------"
+		
+
+		## This doesnt account for subject civil wars, yet
+		if = {
+			limit = { fromfrom = { is_scope_type = war } }
+			if = {
+				limit = { fromfrom = { has_civil_war_goal = yes } }
+				log = "| War: [fromfrom.GetName]"
+				log = "| Government: [root.GetName]"
+				log = "| Rebels: [from.GetName]"
+				log = "| Origin: [from.GetOriginName]"
+				log = "| GOVERNMENT WINS - [GetDate]"
+			}
+			else = {
+				log = "| War: [fromfrom.GetName]"
+				log = "| Government: [from.GetName]"
+				log = "| Rebels: [root.GetName]"
+				log = "| Origin: [root.GetOriginName]"
+				log = "| REBELS WIN - [GetDate]"
+			}
+		}
+		else = {
+			log = "| War: [fromfromfromfrom.GetName]"
+			log = "| Government: [fromfrom.GetName]"
+			log = "| Rebels: [fromfromfrom.GetName]"
+			log = "| Origin: [fromfromfrom.GetOriginName]"
+			log = "| STATUS QUO REBELS WIN - [GetDate]"
+		}
+
+		log = "| ------------------------------"
+		# log = "| /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/"
+	}
+}
+
+###########
 
 # Neighbor/Motherland ship loan indefinite
 fleet_event = {

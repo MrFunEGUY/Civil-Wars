@@ -283,7 +283,7 @@ country_event = { # Gov In Exile cannot find host, dissolves
 			# Create Country for nationalists, can still be restored by them via civil war
 			create_country = {
 				name = event_target:old_nat_country
-				type = deat_nat_country
+				type = dead_nat_country
 				species = event_target:old_nat_country.species
 				day_zero_contact = no
 				authority = event_target:old_nat_country
@@ -343,13 +343,14 @@ country_event = { # Gov In Exile cannot find host, dissolves
 		if = {
 			limit = { is_country_type = enclave_exiled_gov }
 			set_country_flag = truly_dead_country
-			if = {
-				limit = { NOT = { has_country_flag = country_needed_for_loc } }
-				destroy_country = yes
-			}
-			else = { set_country_type = deat_nat_country } ## Remove from Observer Outline
+			set_country_type = dead_nat_country ## We always keep now
+			# if = {
+			# 	limit = { NOT = { has_country_flag = country_needed_for_loc } }
+			# 	destroy_country = yes
+			# }
+			# else = { set_country_type = dead_nat_country } ## Remove from Observer Outline
 		}
-		else = { set_country_type = deat_nat_country } ## Remove from Observer Outline
+		else = { set_country_type = dead_nat_country } ## Remove from Observer Outline
 	}
 }
 
@@ -1014,6 +1015,7 @@ country_event = { # Gov In Exile restored, destroy exile country
 
 	immediate = {
 		set_country_flag = truly_dead_country
+			set_country_type = dead_nat_country ## We always keep now
 		destroy_country = yes
 	}
 }
@@ -1046,10 +1048,11 @@ country_event = { # Gov In Exile Enclave destroyed
 	}
 	after = {
 		set_country_flag = truly_dead_country
-		if = {
-			limit = { NOT = { has_country_flag = country_needed_for_loc } }
-			destroy_country = yes
-		}
+		set_country_type = dead_nat_country ## We always keep now
+		# if = {
+		# 	limit = { NOT = { has_country_flag = country_needed_for_loc } }
+		# 	destroy_country = yes
+		# }
 	}
 }
 
@@ -2293,31 +2296,6 @@ country_event = { # Destroy Government-In-Exile when no nats exist
 			observer_event = { id = civnat.8001 days = 2 random = 14 }
 		}
 
-		country_event = { id = civnat.3110 days = 30 }
-	}
-}
-
-country_event = { # Destroy Government-In-Exile Actual
-	id = civnat.3110
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		is_exile_country = yes
-		NOR = {
-			any_country = {
-				is_country_type_with_subjects = yes
-				any_owned_pop_group = {
-					can_think = yes
-					nats_modifier_flag_matcher = { SCOPE = root }
-					# has_pop_group_flag = sep_pop_nat_@root
-				}
-			}
-		}
-	}
-	
-
-	immediate = {
 		set_country_flag = truly_dead_country
 
 		if = {
@@ -2325,13 +2303,9 @@ country_event = { # Destroy Government-In-Exile Actual
 			random_owned_fleet = { delete_fleet = this }
 		}
 		
-		if = {
-			limit = { NOT = { has_country_flag = country_needed_for_loc } }
-			destroy_country = yes
-		}
+		set_country_type = dead_nat_country ## We always keep now
 	}
 }
-
 ###################
 # Situation Events
 

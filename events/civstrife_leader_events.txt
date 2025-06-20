@@ -182,12 +182,12 @@ situation_event = {
 
 	desc = {
 		text = civleader.1011.dem.desc
-		trigger = { is_democratic_authority = yes }
+		trigger = { owner = { is_democratic_authority = yes } }
 	}
 
 	desc = {
 		text = civleader.1011.not_dem.desc
-		trigger = { is_democratic_authority = no }
+		trigger = { owner = { is_democratic_authority = no } }
 	}
 
 	trigger = {

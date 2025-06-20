@@ -4772,7 +4772,7 @@ create_civil_war = {
 							NOT = { any_system_within_border = { is_capital_system = yes } }
 							any_owned_planet = {
 								pop_amount > 0
-								is_capital = no
+								solar_system = { is_capital_system = no }
 								has_ground_combat = no
 								is_occupied_flag = no
 							}
@@ -5101,7 +5101,7 @@ create_civil_war = {
 						random_owned_planet = {
 							limit = {
 								pop_amount > 0
-								is_capital = no
+								solar_system = { is_capital_system = no }
 								has_ground_combat = no
 								is_occupied_flag = no
 							}
@@ -5345,13 +5345,13 @@ get_heir_one_planet_effect = {
 	if = {
 		limit = {
 			any_owned_planet = {
-				is_capital = no
+				solar_system = { is_capital_system = no }
 				any_owned_pop_group = { can_think = yes }
 			}
 		}
 		random_owned_planet = {
 			limit = {
-				is_capital = no
+				solar_system = { is_capital_system = no }
 				any_owned_pop_group = { can_think = yes }
 			}
 			
@@ -5402,11 +5402,9 @@ get_heir_one_planet_effect = {
 		}
 	}
 	else_if = {
-		limit = { any_owned_planet = { is_capital = no } }
+		limit = { any_owned_planet = { solar_system = { is_capital_system = no } } }
 		random_owned_planet = {
-			limit = {
-				is_capital = no
-			}
+			limit = { solar_system = { is_capital_system = no } }
 			
 			save_event_target_as = civil_war_planet
 			set_planet_flag = heir_planetary_rebellion
@@ -13597,12 +13595,19 @@ get_subject_choice_list_after = {
 get_traitor_outcome = {
 	if = {
 		limit = {
-			any_country = {
+			any_playable_country = {
 				is_country_type_with_subjects = yes
 				has_communications = root
 				OR = {
 					is_homicidal = no
-					is_organic_zealots = yes
+					AND = {
+						is_homicidal = yes
+						event_target:defeated_traitor = { is_same_species = prev }
+					}
+					AND = {
+						is_organic_zealots = yes
+						event_target:defeated_traitor = { is_mechanical_species = no }
+					}
 				}
 				NOR = {
 					is_loyal_to = root
@@ -13613,7 +13618,7 @@ get_traitor_outcome = {
 			}
 		}
 		random_list = {
-			40 = { # Death
+			15 = { # Death
 				random_list = { # Suicide
 					25 = { set_country_flag = death_by_hanging }
 					15 = { set_country_flag = death_by_jumping }
@@ -13625,15 +13630,15 @@ get_traitor_outcome = {
 				}
 				country_event = { id = civend.1001 }
 			}
-			45 = { # Flees to work for foreign empire
-				# log = "-----------------------------------------"
-				# log = "FLEEING: \\[defeated_traitor.GetName]"
-				# log = "FROM: \\[traitor_home_country.GetName]"
-				# log = "-----------------------------------------"
+			75 = { # Flees to work for foreign empire
+				log = "-----------------------------------------"
+				log = "Fleeing Traitor: \\[defeated_traitor.GetName]"
+				log = "Motherland: \\[traitor_home_country.GetName]"
+				log = "-----------------------------------------"
 				country_event = { id = civend.1003 }
 				
 			}
-			15 = { # Captured
+			10 = { # Captured
 				random_list = {
 					# Those around them saw the end, killed the leader to gain lesser punishment
 					15 = { set_country_flag = captured_by_coup }
@@ -16255,6 +16260,17 @@ destroy_succession_crisis = {
 		get_subject_decisions_effect = yes
 	}
 	after_comms_cleanup_effect = yes
+}
+
+set_fled_fled_year = {
+	event_target:defeated_traitor = {
+		set_variable = { which = year_fled value = 2200 }
+		export_trigger_value_to_variable = {
+			trigger = years_passed
+			variable = years_passed_leader_fled
+		}
+		change_variable = { which = year_fled value = this.years_passed_leader_fled }
+	}
 }
 
 kill_gov_switch_country = {

@@ -601,6 +601,14 @@ country_event = { # Setup for Rebellions (create_rebels)
 				variable = mother_navy_size
 			}
 			multiply_variable = { which = mother_navy_size		value = 0.15 }
+			## Always give them a small fleet at min
+			event_target:civwar_originator = {
+				create_fleet_from_naval_cap = mother_navy_size
+				last_created_fleet = {
+					set_owner = event_target:civwar_rebels
+					set_location = event_target:civwar_rebels.capital_scope
+				}
+			}
 
 			every_owned_fleet = { set_event_locked = yes }
 			set_variable = { which = total_happiness_pops value = 0 } # If I move this anywhere else, shit gets crazy!
@@ -845,15 +853,6 @@ country_event = { # Setup for Rebellions (create_rebels)
 		every_owned_pop_group = {
 			limit = { can_be_soldier = yes }
 			root = { change_variable = { which = num_mil_pops value = 1 } }
-		}
-
-		## Always give them a small fleet at min
-		event_target:civwar_originator = {
-			create_fleet_from_naval_cap = mother_navy_size
-			last_created_fleet = {
-				set_owner = event_target:civwar_rebels
-				set_location = event_target:civwar_rebels.capital_scope
-			}
 		}
 
 		get_country_immediate_setup = yes
@@ -2351,7 +2350,7 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 					}
 				}
 				any_owned_planet = { # Planetary Revolt
-					is_capital = no
+					solar_system = { is_capital_system = no }
 					has_ground_combat = no
 					is_occupied_flag = no
 					pop_amount_percentage = {
@@ -2563,7 +2562,7 @@ situation_event = { # Revolt/Civil War Event
 					random_owned_planet = {
 						limit = {
 							is_under_colonization = no
-							is_capital = no
+							solar_system = { is_capital_system = no }
 							has_ground_combat = no
 							is_occupied_flag = no
 							sector = {

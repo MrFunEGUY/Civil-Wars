@@ -92,3 +92,58 @@ country_event = { # Set Sep Won Election Flag
 		ruler = { set_timed_leader_flag = { flag = sep_won_election years = 7 } }
 	}
 }
+
+country_event = {
+	id = civ_misc_leader.3000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		ruler = {
+			OR = {
+				has_leader_flag = traitor_@root
+				has_leader_flag = heir_traitor_@root
+			}
+			OR = {
+				has_trait = leader_trait_traitor
+				has_trait = leader_trait_traitor_heir
+			}
+		}
+	}
+
+	immediate = {
+
+		ruler = {
+			export_trigger_value_to_variable = {
+				trigger = years_passed
+				variable = year_restored
+			}
+
+			change_variable = { which = year_restored value = 2200 }
+
+			set_variable = { which = years_exiled value = year_restored }
+
+			if = {
+				limit = { has_trait = leader_trait_traitor }
+				subtract_variable = { which = years_exiled value = year_fled }
+
+				remove_trait = leader_trait_traitor
+				add_trait = {
+					trait = leader_trait_vindicated_revolutionary
+					show_message = no
+				}
+			}
+
+			if = {
+				limit = { has_trait = leader_trait_traitor_heir }
+				subtract_variable = { which = years_exiled value = year_disinherited }
+
+				remove_trait = leader_trait_traitor_heir
+				add_trait = {
+					trait = leader_trait_vindicated_heir
+					show_message = no
+				}
+			}
+		}
+	}
+}
