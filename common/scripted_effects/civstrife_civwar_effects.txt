@@ -70,6 +70,30 @@ set_installed_traitor_gov = {
 
 after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they are not a subject, then it is overlord
 
+	if = { ## Succession Crisis
+		limit = { exists = event_target:succession_crisis_sit }
+			if = {
+			limit = {
+				any_owned_sector = {
+					has_sector_flag = succession_crisis_rebel_sector
+					NOT = { has_sector_flag = succesion_crisis_talked }
+				}
+			}
+			event_target:succession_crisis_sit = {
+				situation_event = { id = civroyal.1120 }
+			}
+		}
+		else = {
+			event_target:succession_crisis_sit = { destroy_situation = this }
+			random_owned_leader = {
+				limit = { has_leader_flag = dead_crisis_leader }
+				kill_leader = { show_notification = no }
+			}
+			clear_global_event_target = civwar_originator
+			get_subject_decisions_effect = yes
+		}
+	}
+
 	if = {
 		limit = { exists = event_target:civwar_rebels }
 		event_target:civwar_rebels = {
@@ -586,6 +610,8 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 		## Encased for subject wars
 		event_target:civwar_originator = {
 			### Vars
+				export_trigger_value_to_variable = { trigger = pop_amount 					variable = pop_size }
+				export_trigger_value_to_variable = { trigger = num_owned_planets 			variable = num_planets }
 				export_trigger_value_to_variable = { trigger = max_naval_capacity 			variable = max_navy }
 				export_trigger_value_to_variable = { trigger = used_naval_capacity_integer 	variable = used_navy_num }
 				export_trigger_value_to_variable = { trigger = used_naval_capacity_percent	variable = used_navy_percent }
@@ -596,6 +622,8 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 		log = "| ========================================="
 		event_target:civwar_rebels = {
 			### Vars
+				export_trigger_value_to_variable = { trigger = pop_amount 					variable = pop_size }
+				export_trigger_value_to_variable = { trigger = num_owned_planets 			variable = num_planets }
 				export_trigger_value_to_variable = { trigger = max_naval_capacity 			variable = max_navy }
 				export_trigger_value_to_variable = { trigger = used_naval_capacity_integer 	variable = used_navy_num }
 				export_trigger_value_to_variable = { trigger = used_naval_capacity_percent	variable = used_navy_percent }
@@ -732,7 +760,8 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 					ethic_fanatic_pluralist = { log = "| -- Fanatic Pluralist" }
 				}
 			log = "| ------------------------"
-			### Navy
+			### Size
+				log = "| Population: \\[this.pop_size] pops on \\[this.num_planets] planets"
 				log = "| Naval Cap: \\[this.used_navy_num] / \\[this.max_navy] | \\[this.used_navy_percent]%"
 				log = "| Power Diff: \\[this.power_percent_difference]% of \\[event_target:civwar_originator.GetName]"
 		}
@@ -751,6 +780,8 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 				}
 				log = "| ========================================="
 				### Vars
+					export_trigger_value_to_variable = { trigger = pop_amount 					variable = pop_size }
+					export_trigger_value_to_variable = { trigger = num_owned_planets 			variable = num_planets }
 					export_trigger_value_to_variable = { trigger = max_naval_capacity 			variable = max_navy }
 					export_trigger_value_to_variable = { trigger = used_naval_capacity_integer 	variable = used_navy_num }
 					export_trigger_value_to_variable = { trigger = used_naval_capacity_percent	variable = used_navy_percent }
@@ -888,7 +919,8 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 					}
 
 				log = "| ------------------------"
-				### Navy
+				### Size
+					log = "| Population: \\[this.pop_size] pops on \\[this.num_planets] planets"
 					log = "| Naval Cap: \\[this.used_navy_num] / \\[this.max_navy] | \\[this.used_navy_percent]%"
 					log = "| Power Diff: \\[this.power_percent_difference]% of \\[event_target:civwar_originator.GetName]"
 		
@@ -988,12 +1020,13 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 					ethic_fanatic_pluralist = { log = "| -- Fanatic Pluralist" }
 				}
 			log = "| ------------------------"
-			## Navy
+			## Size
 				### Vars
 					set_variable = { which = power_percent_difference			value = this.total_navy_power }
 					divide_variable = { which = power_percent_difference		value = event_target:civwar_rebels.total_navy_power }
 					multiply_variable = { which = power_percent_difference		value = 100 }
 					round_variable = power_percent_difference
+				log = "| Population: \\[this.pop_size] pops on \\[this.num_planets] planets"
 				log = "| Naval Cap: \\[this.used_navy_num] / \\[this.max_navy] | \\[this.used_navy_percent]%"
 				log = "| Power Diff: \\[this.power_percent_difference]% of \\[event_target:civwar_rebels.GetName]"
 			## Subject?
@@ -9078,405 +9111,109 @@ find_secession_number_flag = {
 }
 
 find_nat_number_flag = {
-	if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 1 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 2 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 3 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 4 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 5 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 6 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 7 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 8 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 9 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 10 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 11 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 12 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 13 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 14 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 15 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 16 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 17 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 18 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 19 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 20 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 21 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 22 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 23 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 24 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 25 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 26 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 27 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 28 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 29 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 30 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 31 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 32 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 33 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 34 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 35 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 36 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 37 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 38 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 39 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 40 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 41 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 42 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 43 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 44 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 45 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 46 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 47 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 48 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 49 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_nat_flag_effect NUM = 50 }
-	}
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 51 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 52 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 53 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 54 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 55 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 56 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 57 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 58 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 59 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 60 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 61 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 62 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 63 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 64 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 65 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 66 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 67 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 68 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 69 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 70 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 71 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 72 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 73 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 74 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 75 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 76 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 77 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 78 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 79 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 80 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 81 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 82 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 83 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 84 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 85 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 86 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 87 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 88 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 89 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 90 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 91 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 92 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 93 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 94 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 95 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 96 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 97 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 98 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 99 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/find_nat_flag_effect NUM = 100 }
-	# }
+	switch = {
+		trigger = has_country_flag
+		nat_country_1_flag = { save_global_event_target_as = nat_country_1 }
+		nat_country_2_flag = { save_global_event_target_as = nat_country_2 }
+		nat_country_3_flag = { save_global_event_target_as = nat_country_3 }
+		nat_country_4_flag = { save_global_event_target_as = nat_country_4 }
+		nat_country_5_flag = { save_global_event_target_as = nat_country_5 }
+		nat_country_6_flag = { save_global_event_target_as = nat_country_6 }
+		nat_country_7_flag = { save_global_event_target_as = nat_country_7 }
+		nat_country_8_flag = { save_global_event_target_as = nat_country_8 }
+		nat_country_9_flag = { save_global_event_target_as = nat_country_9 }
+		nat_country_10_flag = { save_global_event_target_as = nat_country_10 }
+		nat_country_11_flag = { save_global_event_target_as = nat_country_11 }
+		nat_country_12_flag = { save_global_event_target_as = nat_country_12 }
+		nat_country_13_flag = { save_global_event_target_as = nat_country_13 }
+		nat_country_14_flag = { save_global_event_target_as = nat_country_14 }
+		nat_country_15_flag = { save_global_event_target_as = nat_country_15 }
+		nat_country_16_flag = { save_global_event_target_as = nat_country_16 }
+		nat_country_17_flag = { save_global_event_target_as = nat_country_17 }
+		nat_country_18_flag = { save_global_event_target_as = nat_country_18 }
+		nat_country_19_flag = { save_global_event_target_as = nat_country_19 }
+		nat_country_20_flag = { save_global_event_target_as = nat_country_20 }
+		nat_country_21_flag = { save_global_event_target_as = nat_country_21 }
+		nat_country_22_flag = { save_global_event_target_as = nat_country_22 }
+		nat_country_23_flag = { save_global_event_target_as = nat_country_23 }
+		nat_country_24_flag = { save_global_event_target_as = nat_country_24 }
+		nat_country_25_flag = { save_global_event_target_as = nat_country_25 }
+		nat_country_26_flag = { save_global_event_target_as = nat_country_26 }
+		nat_country_27_flag = { save_global_event_target_as = nat_country_27 }
+		nat_country_28_flag = { save_global_event_target_as = nat_country_28 }
+		nat_country_29_flag = { save_global_event_target_as = nat_country_29 }
+		nat_country_30_flag = { save_global_event_target_as = nat_country_30 }
+		nat_country_31_flag = { save_global_event_target_as = nat_country_31 }
+		nat_country_32_flag = { save_global_event_target_as = nat_country_32 }
+		nat_country_33_flag = { save_global_event_target_as = nat_country_33 }
+		nat_country_34_flag = { save_global_event_target_as = nat_country_34 }
+		nat_country_35_flag = { save_global_event_target_as = nat_country_35 }
+		nat_country_36_flag = { save_global_event_target_as = nat_country_36 }
+		nat_country_37_flag = { save_global_event_target_as = nat_country_37 }
+		nat_country_38_flag = { save_global_event_target_as = nat_country_38 }
+		nat_country_39_flag = { save_global_event_target_as = nat_country_39 }
+		nat_country_40_flag = { save_global_event_target_as = nat_country_40 }
+		nat_country_41_flag = { save_global_event_target_as = nat_country_41 }
+		nat_country_42_flag = { save_global_event_target_as = nat_country_42 }
+		nat_country_43_flag = { save_global_event_target_as = nat_country_43 }
+		nat_country_44_flag = { save_global_event_target_as = nat_country_44 }
+		nat_country_45_flag = { save_global_event_target_as = nat_country_45 }
+		nat_country_46_flag = { save_global_event_target_as = nat_country_46 }
+		nat_country_47_flag = { save_global_event_target_as = nat_country_47 }
+		nat_country_48_flag = { save_global_event_target_as = nat_country_48 }
+		nat_country_49_flag = { save_global_event_target_as = nat_country_49 }
+		nat_country_50_flag = { save_global_event_target_as = nat_country_50 }
+		nat_country_51_flag = { save_global_event_target_as = nat_country_51 }
+		nat_country_52_flag = { save_global_event_target_as = nat_country_52 }
+		nat_country_53_flag = { save_global_event_target_as = nat_country_53 }
+		nat_country_54_flag = { save_global_event_target_as = nat_country_54 }
+		nat_country_55_flag = { save_global_event_target_as = nat_country_55 }
+		nat_country_56_flag = { save_global_event_target_as = nat_country_56 }
+		nat_country_57_flag = { save_global_event_target_as = nat_country_57 }
+		nat_country_58_flag = { save_global_event_target_as = nat_country_58 }
+		nat_country_59_flag = { save_global_event_target_as = nat_country_59 }
+		nat_country_60_flag = { save_global_event_target_as = nat_country_60 }
+		nat_country_61_flag = { save_global_event_target_as = nat_country_61 }
+		nat_country_62_flag = { save_global_event_target_as = nat_country_62 }
+		nat_country_63_flag = { save_global_event_target_as = nat_country_63 }
+		nat_country_64_flag = { save_global_event_target_as = nat_country_64 }
+		nat_country_65_flag = { save_global_event_target_as = nat_country_65 }
+		nat_country_66_flag = { save_global_event_target_as = nat_country_66 }
+		nat_country_67_flag = { save_global_event_target_as = nat_country_67 }
+		nat_country_68_flag = { save_global_event_target_as = nat_country_68 }
+		nat_country_69_flag = { save_global_event_target_as = nat_country_69 }
+		nat_country_70_flag = { save_global_event_target_as = nat_country_70 }
+		nat_country_71_flag = { save_global_event_target_as = nat_country_71 }
+		nat_country_72_flag = { save_global_event_target_as = nat_country_72 }
+		nat_country_73_flag = { save_global_event_target_as = nat_country_73 }
+		nat_country_74_flag = { save_global_event_target_as = nat_country_74 }
+		nat_country_75_flag = { save_global_event_target_as = nat_country_75 }
+		nat_country_76_flag = { save_global_event_target_as = nat_country_76 }
+		nat_country_77_flag = { save_global_event_target_as = nat_country_77 }
+		nat_country_78_flag = { save_global_event_target_as = nat_country_78 }
+		nat_country_79_flag = { save_global_event_target_as = nat_country_79 }
+		nat_country_80_flag = { save_global_event_target_as = nat_country_80 }
+		nat_country_81_flag = { save_global_event_target_as = nat_country_81 }
+		nat_country_82_flag = { save_global_event_target_as = nat_country_82 }
+		nat_country_83_flag = { save_global_event_target_as = nat_country_83 }
+		nat_country_84_flag = { save_global_event_target_as = nat_country_84 }
+		nat_country_85_flag = { save_global_event_target_as = nat_country_85 }
+		nat_country_86_flag = { save_global_event_target_as = nat_country_86 }
+		nat_country_87_flag = { save_global_event_target_as = nat_country_87 }
+		nat_country_88_flag = { save_global_event_target_as = nat_country_88 }
+		nat_country_89_flag = { save_global_event_target_as = nat_country_89 }
+		nat_country_90_flag = { save_global_event_target_as = nat_country_90 }
+		nat_country_91_flag = { save_global_event_target_as = nat_country_91 }
+		nat_country_92_flag = { save_global_event_target_as = nat_country_92 }
+		nat_country_93_flag = { save_global_event_target_as = nat_country_93 }
+		nat_country_94_flag = { save_global_event_target_as = nat_country_94 }
+		nat_country_95_flag = { save_global_event_target_as = nat_country_95 }
+		nat_country_96_flag = { save_global_event_target_as = nat_country_96 }
+		nat_country_97_flag = { save_global_event_target_as = nat_country_97 }
+		nat_country_98_flag = { save_global_event_target_as = nat_country_98 }
+		nat_country_99_flag = { save_global_event_target_as = nat_country_99 }
+		nat_country_100_flag = { save_global_event_target_as = nat_country_100 }
+	}	
 }
 
 set_nat_country_flag = {
@@ -9881,608 +9618,311 @@ set_nat_country_flag = {
 	# }
 }
 
-find_nat_modifier_effect = {
-	if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 1 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 2 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 3 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 4 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 5 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 6 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 7 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 8 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 9 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 10 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 11 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 12 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 13 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 14 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 15 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 16 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 17 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 18 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 19 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 20 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 21 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 22 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 23 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 24 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 25 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 26 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 27 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 28 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 29 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 30 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 31 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 32 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 33 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 34 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 35 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 36 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 37 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 38 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 39 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 40 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 41 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 42 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 43 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 44 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 45 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 46 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 47 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 48 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 49 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/reset_nats_modifier_effect NUM = 50 }
-	}
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 51 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 52 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 53 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 54 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 55 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 56 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 57 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 58 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 59 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 60 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 61 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 62 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 63 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 64 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 65 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 66 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 67 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 68 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 69 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 70 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 71 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 72 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 73 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 74 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 75 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 76 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 77 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 78 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 79 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 80 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 81 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 82 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 83 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 84 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 85 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 86 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 87 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 88 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 89 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 90 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 91 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 92 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 93 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 94 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 95 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 96 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 97 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 98 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 99 }
-	# }
-
-	# else_if = {
-	# 	inline_script = { script = effects/reset_nats_modifier_effect NUM = 100 }
-	# }
-}
-
 set_nat_modifier_effect = {
-	if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 1 }
+	event_target:nat_pops_country = {
+		switch = {
+			trigger = has_country_flag
+			nat_country_1_flag = { prev = { add_modifier = { modifier = nat_country_1_modifier days = -1 } } }
+			nat_country_2_flag = { prev = { add_modifier = { modifier = nat_country_2_modifier days = -1 } } }
+			nat_country_3_flag = { prev = { add_modifier = { modifier = nat_country_3_modifier days = -1 } } }
+			nat_country_4_flag = { prev = { add_modifier = { modifier = nat_country_4_modifier days = -1 } } }
+			nat_country_5_flag = { prev = { add_modifier = { modifier = nat_country_5_modifier days = -1 } } }
+			nat_country_6_flag = { prev = { add_modifier = { modifier = nat_country_6_modifier days = -1 } } }
+			nat_country_7_flag = { prev = { add_modifier = { modifier = nat_country_7_modifier days = -1 } } }
+			nat_country_8_flag = { prev = { add_modifier = { modifier = nat_country_8_modifier days = -1 } } }
+			nat_country_9_flag = { prev = { add_modifier = { modifier = nat_country_9_modifier days = -1 } } }
+			nat_country_10_flag = { prev = { add_modifier = { modifier = nat_country_10_modifier days = -1 } } }
+			nat_country_11_flag = { prev = { add_modifier = { modifier = nat_country_11_modifier days = -1 } } }
+			nat_country_12_flag = { prev = { add_modifier = { modifier = nat_country_12_modifier days = -1 } } }
+			nat_country_13_flag = { prev = { add_modifier = { modifier = nat_country_13_modifier days = -1 } } }
+			nat_country_14_flag = { prev = { add_modifier = { modifier = nat_country_14_modifier days = -1 } } }
+			nat_country_15_flag = { prev = { add_modifier = { modifier = nat_country_15_modifier days = -1 } } }
+			nat_country_16_flag = { prev = { add_modifier = { modifier = nat_country_16_modifier days = -1 } } }
+			nat_country_17_flag = { prev = { add_modifier = { modifier = nat_country_17_modifier days = -1 } } }
+			nat_country_18_flag = { prev = { add_modifier = { modifier = nat_country_18_modifier days = -1 } } }
+			nat_country_19_flag = { prev = { add_modifier = { modifier = nat_country_19_modifier days = -1 } } }
+			nat_country_20_flag = { prev = { add_modifier = { modifier = nat_country_20_modifier days = -1 } } }
+			nat_country_21_flag = { prev = { add_modifier = { modifier = nat_country_21_modifier days = -1 } } }
+			nat_country_22_flag = { prev = { add_modifier = { modifier = nat_country_22_modifier days = -1 } } }
+			nat_country_23_flag = { prev = { add_modifier = { modifier = nat_country_23_modifier days = -1 } } }
+			nat_country_24_flag = { prev = { add_modifier = { modifier = nat_country_24_modifier days = -1 } } }
+			nat_country_25_flag = { prev = { add_modifier = { modifier = nat_country_25_modifier days = -1 } } }
+			nat_country_26_flag = { prev = { add_modifier = { modifier = nat_country_26_modifier days = -1 } } }
+			nat_country_27_flag = { prev = { add_modifier = { modifier = nat_country_27_modifier days = -1 } } }
+			nat_country_28_flag = { prev = { add_modifier = { modifier = nat_country_28_modifier days = -1 } } }
+			nat_country_29_flag = { prev = { add_modifier = { modifier = nat_country_29_modifier days = -1 } } }
+			nat_country_30_flag = { prev = { add_modifier = { modifier = nat_country_30_modifier days = -1 } } }
+			nat_country_31_flag = { prev = { add_modifier = { modifier = nat_country_31_modifier days = -1 } } }
+			nat_country_32_flag = { prev = { add_modifier = { modifier = nat_country_32_modifier days = -1 } } }
+			nat_country_33_flag = { prev = { add_modifier = { modifier = nat_country_33_modifier days = -1 } } }
+			nat_country_34_flag = { prev = { add_modifier = { modifier = nat_country_34_modifier days = -1 } } }
+			nat_country_35_flag = { prev = { add_modifier = { modifier = nat_country_35_modifier days = -1 } } }
+			nat_country_36_flag = { prev = { add_modifier = { modifier = nat_country_36_modifier days = -1 } } }
+			nat_country_37_flag = { prev = { add_modifier = { modifier = nat_country_37_modifier days = -1 } } }
+			nat_country_38_flag = { prev = { add_modifier = { modifier = nat_country_38_modifier days = -1 } } }
+			nat_country_39_flag = { prev = { add_modifier = { modifier = nat_country_39_modifier days = -1 } } }
+			nat_country_40_flag = { prev = { add_modifier = { modifier = nat_country_40_modifier days = -1 } } }
+			nat_country_41_flag = { prev = { add_modifier = { modifier = nat_country_41_modifier days = -1 } } }
+			nat_country_42_flag = { prev = { add_modifier = { modifier = nat_country_42_modifier days = -1 } } }
+			nat_country_43_flag = { prev = { add_modifier = { modifier = nat_country_43_modifier days = -1 } } }
+			nat_country_44_flag = { prev = { add_modifier = { modifier = nat_country_44_modifier days = -1 } } }
+			nat_country_45_flag = { prev = { add_modifier = { modifier = nat_country_45_modifier days = -1 } } }
+			nat_country_46_flag = { prev = { add_modifier = { modifier = nat_country_46_modifier days = -1 } } }
+			nat_country_47_flag = { prev = { add_modifier = { modifier = nat_country_47_modifier days = -1 } } }
+			nat_country_48_flag = { prev = { add_modifier = { modifier = nat_country_48_modifier days = -1 } } }
+			nat_country_49_flag = { prev = { add_modifier = { modifier = nat_country_49_modifier days = -1 } } }
+			nat_country_50_flag = { prev = { add_modifier = { modifier = nat_country_50_modifier days = -1 } } }
+			nat_country_51_flag = { prev = { add_modifier = { modifier = nat_country_51_modifier days = -1 } } }
+			nat_country_52_flag = { prev = { add_modifier = { modifier = nat_country_52_modifier days = -1 } } }
+			nat_country_53_flag = { prev = { add_modifier = { modifier = nat_country_53_modifier days = -1 } } }
+			nat_country_54_flag = { prev = { add_modifier = { modifier = nat_country_54_modifier days = -1 } } }
+			nat_country_55_flag = { prev = { add_modifier = { modifier = nat_country_55_modifier days = -1 } } }
+			nat_country_56_flag = { prev = { add_modifier = { modifier = nat_country_56_modifier days = -1 } } }
+			nat_country_57_flag = { prev = { add_modifier = { modifier = nat_country_57_modifier days = -1 } } }
+			nat_country_58_flag = { prev = { add_modifier = { modifier = nat_country_58_modifier days = -1 } } }
+			nat_country_59_flag = { prev = { add_modifier = { modifier = nat_country_59_modifier days = -1 } } }
+			nat_country_60_flag = { prev = { add_modifier = { modifier = nat_country_60_modifier days = -1 } } }
+			nat_country_61_flag = { prev = { add_modifier = { modifier = nat_country_61_modifier days = -1 } } }
+			nat_country_62_flag = { prev = { add_modifier = { modifier = nat_country_62_modifier days = -1 } } }
+			nat_country_63_flag = { prev = { add_modifier = { modifier = nat_country_63_modifier days = -1 } } }
+			nat_country_64_flag = { prev = { add_modifier = { modifier = nat_country_64_modifier days = -1 } } }
+			nat_country_65_flag = { prev = { add_modifier = { modifier = nat_country_65_modifier days = -1 } } }
+			nat_country_66_flag = { prev = { add_modifier = { modifier = nat_country_66_modifier days = -1 } } }
+			nat_country_67_flag = { prev = { add_modifier = { modifier = nat_country_67_modifier days = -1 } } }
+			nat_country_68_flag = { prev = { add_modifier = { modifier = nat_country_68_modifier days = -1 } } }
+			nat_country_69_flag = { prev = { add_modifier = { modifier = nat_country_69_modifier days = -1 } } }
+			nat_country_70_flag = { prev = { add_modifier = { modifier = nat_country_70_modifier days = -1 } } }
+			nat_country_71_flag = { prev = { add_modifier = { modifier = nat_country_71_modifier days = -1 } } }
+			nat_country_72_flag = { prev = { add_modifier = { modifier = nat_country_72_modifier days = -1 } } }
+			nat_country_73_flag = { prev = { add_modifier = { modifier = nat_country_73_modifier days = -1 } } }
+			nat_country_74_flag = { prev = { add_modifier = { modifier = nat_country_74_modifier days = -1 } } }
+			nat_country_75_flag = { prev = { add_modifier = { modifier = nat_country_75_modifier days = -1 } } }
+			nat_country_76_flag = { prev = { add_modifier = { modifier = nat_country_76_modifier days = -1 } } }
+			nat_country_77_flag = { prev = { add_modifier = { modifier = nat_country_77_modifier days = -1 } } }
+			nat_country_78_flag = { prev = { add_modifier = { modifier = nat_country_78_modifier days = -1 } } }
+			nat_country_79_flag = { prev = { add_modifier = { modifier = nat_country_79_modifier days = -1 } } }
+			nat_country_80_flag = { prev = { add_modifier = { modifier = nat_country_80_modifier days = -1 } } }
+			nat_country_81_flag = { prev = { add_modifier = { modifier = nat_country_81_modifier days = -1 } } }
+			nat_country_82_flag = { prev = { add_modifier = { modifier = nat_country_82_modifier days = -1 } } }
+			nat_country_83_flag = { prev = { add_modifier = { modifier = nat_country_83_modifier days = -1 } } }
+			nat_country_84_flag = { prev = { add_modifier = { modifier = nat_country_84_modifier days = -1 } } }
+			nat_country_85_flag = { prev = { add_modifier = { modifier = nat_country_85_modifier days = -1 } } }
+			nat_country_86_flag = { prev = { add_modifier = { modifier = nat_country_86_modifier days = -1 } } }
+			nat_country_87_flag = { prev = { add_modifier = { modifier = nat_country_87_modifier days = -1 } } }
+			nat_country_88_flag = { prev = { add_modifier = { modifier = nat_country_88_modifier days = -1 } } }
+			nat_country_89_flag = { prev = { add_modifier = { modifier = nat_country_89_modifier days = -1 } } }
+			nat_country_90_flag = { prev = { add_modifier = { modifier = nat_country_90_modifier days = -1 } } }
+			nat_country_91_flag = { prev = { add_modifier = { modifier = nat_country_91_modifier days = -1 } } }
+			nat_country_92_flag = { prev = { add_modifier = { modifier = nat_country_92_modifier days = -1 } } }
+			nat_country_93_flag = { prev = { add_modifier = { modifier = nat_country_93_modifier days = -1 } } }
+			nat_country_94_flag = { prev = { add_modifier = { modifier = nat_country_94_modifier days = -1 } } }
+			nat_country_95_flag = { prev = { add_modifier = { modifier = nat_country_95_modifier days = -1 } } }
+			nat_country_96_flag = { prev = { add_modifier = { modifier = nat_country_96_modifier days = -1 } } }
+			nat_country_97_flag = { prev = { add_modifier = { modifier = nat_country_97_modifier days = -1 } } }
+			nat_country_98_flag = { prev = { add_modifier = { modifier = nat_country_98_modifier days = -1 } } }
+			nat_country_99_flag = { prev = { add_modifier = { modifier = nat_country_99_modifier days = -1 } } }
+			nat_country_100_flag = { prev = { add_modifier = { modifier = nat_country_100_modifier days = -1 } } }
+		}
 	}
+	# if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 1 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 2 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 2 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 3 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 3 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 4 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 4 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 5 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 5 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 6 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 6 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 7 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 7 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 8 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 8 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 9 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 9 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 10 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 10 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 11 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 11 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 12 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 12 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 13 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 13 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 14 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 14 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 15 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 15 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 16 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 16 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 17 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 17 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 18 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 18 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 19 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 19 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 20 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 20 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 21 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 21 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 22 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 22 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 23 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 23 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 24 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 24 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 25 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 25 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 26 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 26 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 27 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 27 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 28 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 28 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 29 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 29 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 30 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 30 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 31 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 31 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 32 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 32 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 33 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 33 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 34 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 34 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 35 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 35 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 36 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 36 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 37 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 37 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 38 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 38 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 39 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 39 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 40 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 40 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 41 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 41 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 42 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 42 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 43 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 43 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 44 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 44 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 45 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 45 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 46 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 46 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 47 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 47 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 48 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 48 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 49 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 49 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/set_nats_modifier_effect NUM = 50 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 50 }
+	# }
 
 	# else_if = {
 	# 	inline_script = { script = effects/set_nats_modifier_effect NUM = 51 }
@@ -10686,205 +10126,308 @@ set_nat_modifier_effect = {
 }
 
 remove_nat_modifier_effect = {
-	if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 1 }
+	switch = {
+		trigger = has_modifier
+		nat_country_1_modifier = { remove_modifier = nat_country_1_modifier }
+		nat_country_2_modifier = { remove_modifier = nat_country_2_modifier }
+		nat_country_3_modifier = { remove_modifier = nat_country_3_modifier }
+		nat_country_4_modifier = { remove_modifier = nat_country_4_modifier }
+		nat_country_5_modifier = { remove_modifier = nat_country_5_modifier }
+		nat_country_6_modifier = { remove_modifier = nat_country_6_modifier }
+		nat_country_7_modifier = { remove_modifier = nat_country_7_modifier }
+		nat_country_8_modifier = { remove_modifier = nat_country_8_modifier }
+		nat_country_9_modifier = { remove_modifier = nat_country_9_modifier }
+		nat_country_10_modifier = { remove_modifier = nat_country_10_modifier }
+		nat_country_11_modifier = { remove_modifier = nat_country_11_modifier }
+		nat_country_12_modifier = { remove_modifier = nat_country_12_modifier }
+		nat_country_13_modifier = { remove_modifier = nat_country_13_modifier }
+		nat_country_14_modifier = { remove_modifier = nat_country_14_modifier }
+		nat_country_15_modifier = { remove_modifier = nat_country_15_modifier }
+		nat_country_16_modifier = { remove_modifier = nat_country_16_modifier }
+		nat_country_17_modifier = { remove_modifier = nat_country_17_modifier }
+		nat_country_18_modifier = { remove_modifier = nat_country_18_modifier }
+		nat_country_19_modifier = { remove_modifier = nat_country_19_modifier }
+		nat_country_20_modifier = { remove_modifier = nat_country_20_modifier }
+		nat_country_21_modifier = { remove_modifier = nat_country_21_modifier }
+		nat_country_22_modifier = { remove_modifier = nat_country_22_modifier }
+		nat_country_23_modifier = { remove_modifier = nat_country_23_modifier }
+		nat_country_24_modifier = { remove_modifier = nat_country_24_modifier }
+		nat_country_25_modifier = { remove_modifier = nat_country_25_modifier }
+		nat_country_26_modifier = { remove_modifier = nat_country_26_modifier }
+		nat_country_27_modifier = { remove_modifier = nat_country_27_modifier }
+		nat_country_28_modifier = { remove_modifier = nat_country_28_modifier }
+		nat_country_29_modifier = { remove_modifier = nat_country_29_modifier }
+		nat_country_30_modifier = { remove_modifier = nat_country_30_modifier }
+		nat_country_31_modifier = { remove_modifier = nat_country_31_modifier }
+		nat_country_32_modifier = { remove_modifier = nat_country_32_modifier }
+		nat_country_33_modifier = { remove_modifier = nat_country_33_modifier }
+		nat_country_34_modifier = { remove_modifier = nat_country_34_modifier }
+		nat_country_35_modifier = { remove_modifier = nat_country_35_modifier }
+		nat_country_36_modifier = { remove_modifier = nat_country_36_modifier }
+		nat_country_37_modifier = { remove_modifier = nat_country_37_modifier }
+		nat_country_38_modifier = { remove_modifier = nat_country_38_modifier }
+		nat_country_39_modifier = { remove_modifier = nat_country_39_modifier }
+		nat_country_40_modifier = { remove_modifier = nat_country_40_modifier }
+		nat_country_41_modifier = { remove_modifier = nat_country_41_modifier }
+		nat_country_42_modifier = { remove_modifier = nat_country_42_modifier }
+		nat_country_43_modifier = { remove_modifier = nat_country_43_modifier }
+		nat_country_44_modifier = { remove_modifier = nat_country_44_modifier }
+		nat_country_45_modifier = { remove_modifier = nat_country_45_modifier }
+		nat_country_46_modifier = { remove_modifier = nat_country_46_modifier }
+		nat_country_47_modifier = { remove_modifier = nat_country_47_modifier }
+		nat_country_48_modifier = { remove_modifier = nat_country_48_modifier }
+		nat_country_49_modifier = { remove_modifier = nat_country_49_modifier }
+		nat_country_50_modifier = { remove_modifier = nat_country_50_modifier }
+		# nat_country_51_modifier = { remove_modifier = nat_country_51_modifier }
+		# nat_country_52_modifier = { remove_modifier = nat_country_52_modifier }
+		# nat_country_53_modifier = { remove_modifier = nat_country_53_modifier }
+		# nat_country_54_modifier = { remove_modifier = nat_country_54_modifier }
+		# nat_country_55_modifier = { remove_modifier = nat_country_55_modifier }
+		# nat_country_56_modifier = { remove_modifier = nat_country_56_modifier }
+		# nat_country_57_modifier = { remove_modifier = nat_country_57_modifier }
+		# nat_country_58_modifier = { remove_modifier = nat_country_58_modifier }
+		# nat_country_59_modifier = { remove_modifier = nat_country_59_modifier }
+		# nat_country_60_modifier = { remove_modifier = nat_country_60_modifier }
+		# nat_country_61_modifier = { remove_modifier = nat_country_61_modifier }
+		# nat_country_62_modifier = { remove_modifier = nat_country_62_modifier }
+		# nat_country_63_modifier = { remove_modifier = nat_country_63_modifier }
+		# nat_country_64_modifier = { remove_modifier = nat_country_64_modifier }
+		# nat_country_65_modifier = { remove_modifier = nat_country_65_modifier }
+		# nat_country_66_modifier = { remove_modifier = nat_country_66_modifier }
+		# nat_country_67_modifier = { remove_modifier = nat_country_67_modifier }
+		# nat_country_68_modifier = { remove_modifier = nat_country_68_modifier }
+		# nat_country_69_modifier = { remove_modifier = nat_country_69_modifier }
+		# nat_country_70_modifier = { remove_modifier = nat_country_70_modifier }
+		# nat_country_71_modifier = { remove_modifier = nat_country_71_modifier }
+		# nat_country_72_modifier = { remove_modifier = nat_country_72_modifier }
+		# nat_country_73_modifier = { remove_modifier = nat_country_73_modifier }
+		# nat_country_74_modifier = { remove_modifier = nat_country_74_modifier }
+		# nat_country_75_modifier = { remove_modifier = nat_country_75_modifier }
+		# nat_country_76_modifier = { remove_modifier = nat_country_76_modifier }
+		# nat_country_77_modifier = { remove_modifier = nat_country_77_modifier }
+		# nat_country_78_modifier = { remove_modifier = nat_country_78_modifier }
+		# nat_country_79_modifier = { remove_modifier = nat_country_79_modifier }
+		# nat_country_80_modifier = { remove_modifier = nat_country_80_modifier }
+		# nat_country_81_modifier = { remove_modifier = nat_country_81_modifier }
+		# nat_country_82_modifier = { remove_modifier = nat_country_82_modifier }
+		# nat_country_83_modifier = { remove_modifier = nat_country_83_modifier }
+		# nat_country_84_modifier = { remove_modifier = nat_country_84_modifier }
+		# nat_country_85_modifier = { remove_modifier = nat_country_85_modifier }
+		# nat_country_86_modifier = { remove_modifier = nat_country_86_modifier }
+		# nat_country_87_modifier = { remove_modifier = nat_country_87_modifier }
+		# nat_country_88_modifier = { remove_modifier = nat_country_88_modifier }
+		# nat_country_89_modifier = { remove_modifier = nat_country_89_modifier }
+		# nat_country_90_modifier = { remove_modifier = nat_country_90_modifier }
+		# nat_country_91_modifier = { remove_modifier = nat_country_91_modifier }
+		# nat_country_92_modifier = { remove_modifier = nat_country_92_modifier }
+		# nat_country_93_modifier = { remove_modifier = nat_country_93_modifier }
+		# nat_country_94_modifier = { remove_modifier = nat_country_94_modifier }
+		# nat_country_95_modifier = { remove_modifier = nat_country_95_modifier }
+		# nat_country_96_modifier = { remove_modifier = nat_country_96_modifier }
+		# nat_country_97_modifier = { remove_modifier = nat_country_97_modifier }
+		# nat_country_98_modifier = { remove_modifier = nat_country_98_modifier }
+		# nat_country_99_modifier = { remove_modifier = nat_country_99_modifier }
+		# nat_country_100_modifier = { remove_modifier = nat_country_100_modifier }
 	}
+	# if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 1 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 2 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 2 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 3 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 3 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 4 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 4 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 5 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 5 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 6 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 6 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 7 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 7 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 8 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 8 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 9 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 9 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 10 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 10 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 11 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 11 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 12 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 12 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 13 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 13 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 14 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 14 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 15 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 15 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 16 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 16 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 17 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 17 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 18 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 18 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 19 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 19 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 20 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 20 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 21 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 21 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 22 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 22 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 23 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 23 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 24 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 24 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 25 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 25 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 26 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 26 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 27 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 27 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 28 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 28 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 29 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 29 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 30 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 30 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 31 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 31 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 32 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 32 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 33 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 33 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 34 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 34 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 35 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 35 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 36 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 36 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 37 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 37 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 38 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 38 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 39 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 39 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 40 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 40 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 41 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 41 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 42 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 42 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 43 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 43 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 44 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 44 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 45 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 45 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 46 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 46 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 47 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 47 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 48 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 48 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 49 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 49 }
+	# }
 
-	else_if = {
-		inline_script = { script = effects/remove_nats_modifier_effect NUM = 50 }
-	}
+	# else_if = {
+	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 50 }
+	# }
 
 	# else_if = {
 	# 	inline_script = { script = effects/remove_nats_modifier_effect NUM = 51 }
@@ -11308,202 +10851,59 @@ set_heir_country_flags = {
 }
 
 find_heir_number_flag = {
-	if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 1 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 2 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 3 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 4 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 5 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 6 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 7 }
-	}
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 8 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 9 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 10 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 11 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 12 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 13 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 14 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 15 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 16 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 17 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 18 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 19 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 20 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 21 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 22 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 23 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 24 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 25 }
-	}
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 26 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 27 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 28 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 29 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 30 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 31 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 32 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 33 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 34 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 35 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 36 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 37 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 38 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 39 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 40 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 41 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 42 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 43 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 44 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 45 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 46 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 47 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 48 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 49 }
-	}
-
-	else_if = {
-		inline_script = { script = effects/find_heir_country_flag_effect NUM = 50 }
+	
+	switch = {
+		trigger = has_country_flag
+		heir_country_1_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_1_traitor } }
+		heir_country_2_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_2_traitor } }
+		heir_country_3_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_3_traitor } }
+		heir_country_4_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_4_traitor } }
+		heir_country_5_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_5_traitor } }
+		heir_country_6_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_6_traitor } }
+		heir_country_7_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_7_traitor } }
+		heir_country_8_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_8_traitor } }
+		heir_country_9_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_9_traitor } }
+		heir_country_10_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_10_traitor } }
+		heir_country_11_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_11_traitor } }
+		heir_country_12_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_12_traitor } }
+		heir_country_13_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_13_traitor } }
+		heir_country_14_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_14_traitor } }
+		heir_country_15_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_15_traitor } }
+		heir_country_16_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_16_traitor } }
+		heir_country_17_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_17_traitor } }
+		heir_country_18_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_18_traitor } }
+		heir_country_19_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_19_traitor } }
+		heir_country_20_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_20_traitor } }
+		heir_country_21_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_21_traitor } }
+		heir_country_22_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_22_traitor } }
+		heir_country_23_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_23_traitor } }
+		heir_country_24_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_24_traitor } }
+		heir_country_25_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_25_traitor } }
+		heir_country_26_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_26_traitor } }
+		heir_country_27_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_27_traitor } }
+		heir_country_28_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_28_traitor } }
+		heir_country_29_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_29_traitor } }
+		heir_country_30_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_30_traitor } }
+		heir_country_31_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_31_traitor } }
+		heir_country_32_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_32_traitor } }
+		heir_country_33_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_33_traitor } }
+		heir_country_34_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_34_traitor } }
+		heir_country_35_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_35_traitor } }
+		heir_country_36_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_36_traitor } }
+		heir_country_37_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_37_traitor } }
+		heir_country_38_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_38_traitor } }
+		heir_country_39_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_39_traitor } }
+		heir_country_40_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_40_traitor } }
+		heir_country_41_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_41_traitor } }
+		heir_country_42_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_42_traitor } }
+		heir_country_43_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_43_traitor } }
+		heir_country_44_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_44_traitor } }
+		heir_country_45_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_45_traitor } }
+		heir_country_46_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_46_traitor } }
+		heir_country_47_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_47_traitor } }
+		heir_country_48_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_48_traitor } }
+		heir_country_49_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_49_traitor } }
+		heir_country_50_flag = { event_target:disinherited_heir = { set_leader_flag = heir_country_50_traitor } }
 	}
 }
 
@@ -13787,6 +13187,7 @@ get_separatist_faction_nat = {
 	# 	# event_target:nat_separatist_100 = { save_global_event_target_as = nat_separatist_100 }
 	# }
 
+	#####
 		 if = { limit = { NOT = { exists = event_target:nat_separatist_1 } } save_global_event_target_as = nat_separatist_1 }
 	else_if = { limit = { NOT = { exists = event_target:nat_separatist_2 } } save_global_event_target_as = nat_separatist_2 }
 	else_if = { limit = { NOT = { exists = event_target:nat_separatist_3 } } save_global_event_target_as = nat_separatist_3 }
@@ -15370,94 +14771,6 @@ get_nat_change_flags = {
 	}
 }
 
-get_dispute_faction = {
-	random_pop_faction = {
-		limit = {
-			OR = {
-				root = { NOT = { is_variable_set = faction_one_support } }
-				support >= root.faction_one_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_two_support } }
-				support >= root.faction_two_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_three_support } }
-				support >= root.faction_three_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_four_support } }
-				support >= root.faction_four_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_five_support } }
-				support >= root.faction_five_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_six_support } }
-				support >= root.faction_six_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_seven_support } }
-				support >= root.faction_seven_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_eight_support } }
-				support >= root.faction_eight_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_nine_support } }
-				support >= root.faction_nine_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_ten_support } }
-				support >= root.faction_ten_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_eleven_support } }
-				support >= root.faction_eleven_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_twelve_support } }
-				support >= root.faction_twelve_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_thirteen_support } }
-				support >= root.faction_thirteen_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_fourteen_support } }
-				support >= root.faction_fourteen_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_fifteen_support } }
-				support >= root.faction_fifteen_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_sixteen_support } }
-				support >= root.faction_sixteen_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_seventeen_support } }
-				support >= root.faction_seventeen_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_eighteen_support } }
-				support >= root.faction_eighteen_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_nineteen_support } }
-				support >= root.faction_nineteen_support
-			}
-			OR = {
-				root = { NOT = { is_variable_set = faction_twenty_support } }
-				support >= root.faction_twenty_support
-			}
-		}
-		set_pop_faction_flag = disputed_election_faction
-	}
-}
-
 # Government in Exile
 
 create_exile_enclave_country = {
@@ -15522,7 +14835,7 @@ create_exile_enclave_country = {
 		#Set ruler
 		set_country_flag = has_host
 		set_country_flag = host_is_@root
-		find_nat_number_flag = yes
+		# find_nat_number_flag = yes ## This shouldnt be necessary here, its the same target
 		get_separatist_faction_nat = yes
 		country_event = { id = civnat.1320 }
 	}
@@ -16237,30 +15550,6 @@ create_civwar_army = {
 }
 
 ######
-
-destroy_succession_crisis = {
-	if = {
-		limit = {
-			any_owned_sector = {
-				has_sector_flag = succession_crisis_rebel_sector
-				NOT = { has_sector_flag = succesion_crisis_talked }
-			}
-		}
-		event_target:succession_crisis_sit = {
-			situation_event = { id = civroyal.1120 }
-		}
-	}
-	else = {
-		event_target:succession_crisis_sit = { destroy_situation = this }
-		random_owned_leader = {
-			limit = { has_leader_flag = dead_crisis_leader }
-			kill_leader = { show_notification = no }
-		}
-		clear_global_event_target = civwar_originator
-		get_subject_decisions_effect = yes
-	}
-	after_comms_cleanup_effect = yes
-}
 
 set_fled_fled_year = {
 	event_target:defeated_traitor = {

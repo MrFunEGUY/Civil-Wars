@@ -28,7 +28,7 @@ planet_event = { ## Initial Event to create separatists from transferred planets
 			NOR = {
 				is_overlord_to = from
 				has_government = gov_marauder_khanate
-				has_country_flag = civstrife_nat_timer
+				# has_country_flag = civstrife_nat_timer
 			}
 		}
 		from = {
@@ -45,9 +45,12 @@ planet_event = { ## Initial Event to create separatists from transferred planets
 
 	immediate = {
 
+		# log = "civnat.1000 OCCURRED - [this.GetName]"
+
 		fromfrom = {
 			save_event_target_as = nat_pops_country
 			set_nat_country_flag = yes
+			# log = "civnat.1000 OCCURRED Country - [this.GetName]"
 			set_country_flag = has_nats_in_@root.owner
 		}
 
@@ -75,13 +78,20 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 		NOR = {
 			has_government = gov_marauder_khanate
 			has_country_flag = truly_dead_country
-			has_country_flag = civstrife_nat_timer
+			# has_country_flag = civstrife_nat_timer
 		}
 	}
 
 	immediate = {
 
+		# log = "civnat.1010 OCCURRED Country - [this.GetName]"
 		save_event_target_as = old_nat_country
+
+		if = {
+			limit = { has_nat_country_flag = no }
+			# log = "civnat.1010 NAT IF"
+			set_nat_country_flag = yes
+		}
 
 		species = { # For some reason, this doesnt work during country creation and needs to be done after
 			save_event_target_as = original_nation_species
@@ -102,19 +112,14 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 			effect = {
 				copy_techs_from = { target = root }
 				copy_flags_and_variables_from = root
-				set_leader = root.ruler
-				set_graphical_culture = root
-				save_event_target_as = nat_pops_country
-				get_separatist_faction_nat = yes
 				# This needs to be done or the species will be the ruler species, very odd.
 				change_species = event_target:original_nation_species
-				if = {
-					limit = { has_nat_country_flag = no }
-					set_nat_country_flag = yes
-				}
-				else = { ## Probably only need this one, will remove if above eventually 
-					find_nat_number_flag = yes
-				}
+				set_leader = root.ruler
+				set_graphical_culture = root
+
+				save_event_target_as = nat_pops_country
+				get_separatist_faction_nat = yes
+				find_nat_number_flag = yes
 				if = {
 					limit = { has_secession_country_flag = yes }
 					find_secession_number_flag = yes
@@ -2175,6 +2180,8 @@ planet_event = { # Spread Nationalism Event
 			}
 		}
 
+		event_target:nat_motherland = { save_event_target_as = nat_pops_country } ## For Modifier Effect
+
 		while = {
 			count = nat_pop_converts
 			random_owned_pop_group = {
@@ -2201,6 +2208,7 @@ planet_event = { # Spread Nationalism Event
 						set_pop_group_flag = sep_pop
 						set_pop_group_flag = sep_pop_nat
 						set_pop_group_flag = sep_pop_nat_@event_target:nat_motherland
+						set_nat_modifier_effect = yes
 					}
 				}
 			}

@@ -15,15 +15,15 @@ technologist = {
 		produces = {
             trigger = {
                 owner = {
+					NOR = {
+						has_civic = civic_crowdsourcing
+						has_civic = civic_corporate_crowdsourcing
+					}
                 	OR = {
                 		years_passed > 10
                 		AND = {
 							days_passed > 30
-							OR = {
-								has_valid_civic = civic_parliamentary_system
-								has_valid_civic = civic_crowdsourcing
-								has_valid_civic = civic_corporate_crowdsourcing
-							}
+							has_valid_civic = civic_parliamentary_system
 						}
 						AND = {
 							days_passed > 350
@@ -40,13 +40,48 @@ technologist = {
             }
             unity = @faction_base_output
         }
+		produces = {
+            trigger = {
+				days_passed > 30
+                owner = {
+					OR = {
+						has_civic = civic_crowdsourcing
+						has_civic = civic_corporate_crowdsourcing
+					}
+				}
+            }
+            engineering_research = @faction_major_output
+			society_research = @faction_minor_output
+			mult = @crowdsourcing_multiplier
+        }
 	}
 
 	extortion_resource = {
 		category = pop_factions
 		produces = {
+			trigger = {
+				owner = {
+					NOR = {
+						has_civic = civic_crowdsourcing
+						has_civic = civic_corporate_crowdsourcing
+					}
+				}
+			}
 			physics_research = @faction_base_output
 			mult = @faction_extortion_research_ratio
+		}
+		produces = {
+			trigger = {
+				owner = {
+					OR = {
+						has_civic = civic_crowdsourcing
+						has_civic = civic_corporate_crowdsourcing
+					}
+				}
+			}
+			physics_research = @faction_major_output
+			engineering_research = @faction_minor_output
+			mult = @faction_extortion_crowdsourcing_ratio
 		}
 	}
 
