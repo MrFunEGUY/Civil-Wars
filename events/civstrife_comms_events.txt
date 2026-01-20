@@ -18,6 +18,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	# Descriptions
 	inline_script = "comms/rebellion_no_vas_desc"
@@ -63,6 +65,7 @@ country_event = {
 	# Let them be fully independent.
 	option = {
 		name = civcom.1000.independence
+		trigger = { event_target:civwar_rebels = { is_rival_government = no } }
 		hidden_effect = {
 			country_event = { id = civcom.2020 }
 		}
@@ -96,6 +99,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	# Descriptions
 	inline_script = "comms/rebellion_with_vas_desc"
@@ -205,6 +210,16 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
+
+	picture_event_data = {
+		portrait = event_target:civwar_rebels.ruler
+		planet_background = event_target:civwar_rebels.capital_scope
+		graphical_culture = event_target:civwar_rebels
+		city_level = event_target:civwar_rebels.capital_scope
+		room = event_target:civwar_rebels.ruler
+	}
 
 	# Descriptions
 	inline_script = "comms/civil_war_no_vas"
@@ -291,14 +306,6 @@ country_event = {
 		get_motherland_effect = yes		
 	}	
 
-	picture_event_data = {
-		portrait = event_target:civwar_rebels.ruler
-		planet_background = event_target:civwar_rebels.capital_scope
-		graphical_culture = event_target:civwar_rebels
-		city_level = event_target:civwar_rebels.capital_scope
-		room = event_target:civwar_rebels.ruler
-	}
-
 	# This means war
 	option = {
 		name = civcom.1000.war
@@ -328,6 +335,7 @@ country_event = {
 	# Let them be fully independent.
 	option = {
 		name = civcom.1000.independence
+		trigger = { event_target:civwar_rebels = { is_rival_government = no } }
 		hidden_effect = { country_event = { id = civcom.2020 } }
 		ai_chance = {
 			factor = 2
@@ -360,6 +368,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	# Descriptions
 	inline_script = "comms/civil_war_with_vas"
@@ -455,6 +465,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:civwar_originator.ruler
@@ -579,6 +591,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	desc = {
 		text = civcom.2000.norm.desc
@@ -630,6 +644,10 @@ country_event = {
 				limit = { event_target:civwar_rebels = { has_country_flag = nat_civwar } }
 				get_declare_war_natwar = yes
 			}
+			else_if = {
+				limit = { event_target:civwar_rebels = { is_rival_government = yes } }
+				get_declare_war_total_civwar = yes
+			}
 			else = {
 				get_declare_war_civwar = yes
 			}
@@ -678,6 +696,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:civwar_rebels.ruler
@@ -732,6 +752,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:civwar_rebels.ruler
@@ -793,6 +815,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:civwar_rebels.ruler
@@ -839,6 +863,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	desc = {
 		text = civcom.3000.gov_may_deal.desc
@@ -927,6 +953,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:crisis_sector_leader
@@ -966,6 +994,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:crisis_sector_leader
@@ -998,6 +1028,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	desc = {
 		text = civcom.3020.monetary.desc
@@ -1100,6 +1132,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	desc = {
 		text = civcom.3100.norm.desc
@@ -1209,6 +1243,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	desc = {
 		text = civcom.4000.nat.desc
@@ -1509,6 +1545,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	desc = {
 		text = civcom.4100.norm.desc
@@ -1562,6 +1600,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:civwar_rebels.ruler
@@ -1697,6 +1737,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:civwar_rebels.ruler
@@ -1834,6 +1876,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:civwar_rebels.ruler
@@ -2085,6 +2129,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:leased_civwar_fleet.controller.ruler
@@ -2208,6 +2254,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	desc = {
 		text = civcom.4125.nat.desc
@@ -2290,6 +2338,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	# Descriptions
 	inline_script = "comms/civil_war_subject_interaction"
@@ -2718,6 +2768,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:defeated_traitor
@@ -2788,6 +2840,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:defeated_traitor
@@ -2816,6 +2870,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:defeated_traitor
@@ -2844,6 +2900,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:defeated_traitor
@@ -2874,6 +2932,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:defeated_traitor
@@ -2904,6 +2964,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:defeated_traitor
@@ -2937,6 +2999,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:defeated_traitor
@@ -2990,6 +3054,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	desc = {
 		text = civcom.7001.desc
@@ -3060,6 +3126,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:defeated_traitor
@@ -3094,6 +3162,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:defeated_traitor
@@ -3212,6 +3282,8 @@ country_event = {
 	is_triggered_only = yes
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = event_target:defeated_traitor
@@ -3340,6 +3412,8 @@ country_event = {
 	}
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 
 	picture_event_data = {
 		portrait = from.ruler
@@ -3515,6 +3589,8 @@ country_event = {
 	}
 
 	diplomatic = yes
+	# event_window_type = leader_conversation
+	# picture = GFX_leader_recruitment_bg_civil_war
 	custom_gui = "enclave_exiled_gov_window"
 	custom_gui_option = "enclave_exiled_gov_option"
 	picture_event_data = {

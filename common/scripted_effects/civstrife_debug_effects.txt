@@ -41,6 +41,19 @@ get_traitors_effect = {
 	log = "===================="
 }
 
+get_civwar_sits_effect = {
+	every_country = {
+		limit = { any_situation = { is_faction_based_situation = yes } }
+		log = "Country: \\[this.GetName]"
+		log = "--------------------------"
+		every_situation = {
+			limit = { is_faction_based_situation = yes }
+			log = "Situation: \\[this.GetName]"
+		}
+	}
+	log = "==========================="
+}
+
 get_test_country_effect = {
 	random_rim_system = {
 		spawn_system = {

@@ -8,12 +8,18 @@ desc = {
 			event_target:civwar_rebels = { has_origin = origin_legendary_leader_death }
 		}
 
+		success_text = {
+			text = civcom.total_civwar.desc
+			event_target:civwar_rebels = { is_rival_government = yes }
+		}
+
 		## Election Dispute
 			success_text = {
 				text = civcom.election_dispute.orig_dem_still_dem.desc
 				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
 				event_target:civwar_originator = { has_democratic_elections = yes }
 				event_target:civwar_rebels = { has_democratic_elections = yes }
+				event_target:civwar_rebels = { is_rival_government = no }
 			}
 
 			success_text = {
@@ -21,6 +27,7 @@ desc = {
 				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
 				event_target:civwar_originator = { has_democratic_elections = yes }
 				event_target:civwar_rebels = { has_democratic_elections = no }
+				event_target:civwar_rebels = { is_rival_government = no }
 			}
 
 			success_text = {
@@ -28,6 +35,7 @@ desc = {
 				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
 				event_target:civwar_originator = { has_democratic_elections = no }
 				event_target:civwar_originator = { is_megacorp = no }
+				event_target:civwar_rebels = { is_rival_government = no }
 			}
 
 			success_text = {
@@ -35,6 +43,7 @@ desc = {
 				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
 				event_target:civwar_rebels = { is_megacorp = yes }
 				event_target:civwar_originator = { is_megacorp = yes }
+				event_target:civwar_rebels = { is_rival_government = no }
 			}
 
 		success_text = {
@@ -43,6 +52,7 @@ desc = {
 				has_country_flag = plan_rebel_country
 				is_standard_faction_country = yes
 			}
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = { # For Balkanization
@@ -51,6 +61,7 @@ desc = {
 				has_country_flag = plan_rebel_country
 				ruler = { has_leader_flag = civil_war_ruler_new }
 			}
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = {
@@ -59,11 +70,13 @@ desc = {
 				has_country_flag = plan_rebel_country
 				is_standard_faction_country = no
 			}
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = {
 			text = civcom.1000.slaves.plan.desc
 			event_target:civwar_rebels = { has_country_flag = plan_slave_rebel_country }
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = {
@@ -73,6 +86,7 @@ desc = {
 					has_country_flag = ethic_sec_rebels
 					has_country_flag = sep_sec_rebels
 				}
+				is_rival_government = no
 			}
 		}
 
@@ -81,24 +95,28 @@ desc = {
 			event_target:civwar_rebels = {
 				has_country_flag = sep_sec_rebels
 				is_standard_faction_country = no
+				is_rival_government = no
 			}
 		}
 
 		success_text = {
 			text = civcom.1000.slaves.sec.desc
 			event_target:civwar_rebels = { has_country_flag = sec_slave_rebel_country }
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = {
 			text = civcom.1000.nationalist.support.desc
 			any_country = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = {
 			text = civcom.1000.nationalist.no_support.desc
 			any_country = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		### Defecting fleets

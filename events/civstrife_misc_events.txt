@@ -9,17 +9,29 @@ namespace = civmisc
 #################
 # Misc
 
-event = { # Set Global Flag
+event = { # Set Global Flags
 	id = civmisc.1000
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
-		NOT = { has_global_flag = civil_wars_active }
+		NOT = { has_global_flag = CWM_active }
 	}
 
 	immediate = {
-		set_global_flag = civil_wars_active
+		set_global_flag = CWM_active
+
+		set_global_flag = CWM_civil_wars_ON
+		set_global_flag = civil_war_base_chance
+
+		set_global_flag = CWM_total_wars_ON
+		set_global_flag = total_war_base_chance
+
+		set_global_flag = CWM_coup_trap_ON
+		set_global_flag = coup_trap_one_and_half
+
+		set_global_flag = CWM_coup_contagion_ON
+		set_global_flag = coup_contagion_one_and_half
 	}
 }
 
@@ -312,7 +324,10 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		has_civstrife_origin = yes
+		OR = {
+			is_rival_government = yes
+			has_civstrife_origin = yes
+		}
 		NOT = { has_origin = origin_exile_government }
 		NOT = { has_origin = origin_disinherited_heir }
 		NOT = { has_origin = origin_restored_government }
@@ -325,6 +340,10 @@ country_event = {
 			if = {
 				limit = { root = { has_origin = origin_civwar } }
 				change_variable = { which = total_gal_civil_wars value = 1 }
+			}
+			else_if = {
+				limit = { root = { is_rival_government = yes } }
+				change_variable = { which = total_gal_total_civwars value = 1 }
 			}
 			else_if = {
 				limit = { root = { has_origin = origin_nationalist_rebellion } }
@@ -349,21 +368,22 @@ country_event = {
 			else_if = {
 				limit = {
 					OR = {
-						root = { has_origin = origin_coup_successor }
-						root = { has_origin = origin_coup_independent }
-					}
-				}
-				change_variable = { which = total_gal_coup_rebs value = 1 }
-			}
-			else_if = {
-				limit = {
-					OR = {
 						root = { has_origin = origin_sec_rebellion }
 						root = { has_origin = origin_isolated_rebellion }
 					}
 				}
 				change_variable = { which = total_gal_sector_rebs value = 1 }
 			}
+			# else_if = {
+			# 	limit = {
+			# 		OR = {
+			# 			root = { has_origin = origin_coup_successor }
+			# 			root = { has_origin = origin_coup_independent }
+			# 		}
+			# 	}
+			# 	# change_variable = { which = total_gal_coup_rebs value = 1 }
+			# 	## Done in civroyal.1110 to ensure multiple-country crises are only counted once
+			# }
 		}
 	}
 }
@@ -379,6 +399,368 @@ event = {
 	option = {
 		name = OK
 	}
+
+	option = {
+		trigger = { civil_wars_enabled = yes }
+		name = civstrife.modmenu.civwars_enabled
+		hidden_effect = {
+			remove_global_flag = CWM_civil_wars_ON
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		trigger = { civil_wars_enabled = no }
+		name = civstrife.modmenu.civwars_disabled
+		hidden_effect = {
+			set_global_flag = CWM_civil_wars_ON
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.civwars_very_low_percent
+		trigger = {
+			civil_wars_enabled = yes
+			has_global_flag = civil_war_very_low_chance
+		}
+		hidden_effect = {
+			remove_global_flag = civil_war_very_low_chance
+			set_global_flag = civil_war_low_chance
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.civwars_low_percent
+		trigger = {
+			civil_wars_enabled = yes
+			has_global_flag = civil_war_low_chance
+		}
+		hidden_effect = {
+			remove_global_flag = civil_war_low_chance
+			set_global_flag = civil_war_base_chance
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.civwars_base_percent
+		trigger = {
+			civil_wars_enabled = yes
+			has_global_flag = civil_war_base_chance
+		}
+		hidden_effect = {
+			remove_global_flag = civil_war_base_chance
+			set_global_flag = civil_war_high_chance
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.civwars_high_percent
+		trigger = {
+			civil_wars_enabled = yes
+			has_global_flag = civil_war_high_chance
+		}
+		hidden_effect = {
+			remove_global_flag = civil_war_high_chance
+			set_global_flag = civil_war_very_high_chance
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.civwars_very_high_percent
+		trigger = {
+			civil_wars_enabled = yes
+			has_global_flag = civil_war_very_high_chance
+		}
+		hidden_effect = {
+			remove_global_flag = civil_war_very_high_chance
+			set_global_flag = civil_war_very_low_chance
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = { ################################
+		name = civcom.spacer
+		trigger = { civil_wars_enabled = yes }
+		hidden_effect = { country_event = { id = civmisc.5010 } }
+	}
+
+	option = {
+		trigger = {
+			civil_wars_enabled = yes
+			total_civil_wars_enabled = yes
+		}
+		name = civstrife.modmenu.total_war_enabled
+		custom_tooltip = civstrife.modmenu.total_war_tooltip
+		hidden_effect = {
+			remove_global_flag = CWM_total_wars_ON
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		trigger = {
+			civil_wars_enabled = yes
+			total_civil_wars_enabled = no
+		}
+		name = civstrife.modmenu.total_war_disabled
+		custom_tooltip = civstrife.modmenu.total_war_tooltip
+		hidden_effect = {
+			set_global_flag = CWM_total_wars_ON
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.total_war_very_low_percent
+		trigger = {
+			civil_wars_enabled = yes
+			total_civil_wars_enabled = yes
+			has_global_flag = total_war_very_low_chance
+		}
+		hidden_effect = {
+			remove_global_flag = total_war_very_low_chance
+			set_global_flag = total_war_low_chance
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.total_war_low_percent
+		trigger = {
+			civil_wars_enabled = yes
+			total_civil_wars_enabled = yes
+			has_global_flag = total_war_low_chance
+		}
+		hidden_effect = {
+			remove_global_flag = total_war_low_chance
+			set_global_flag = total_war_base_chance
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.total_war_base_percent
+		trigger = {
+			civil_wars_enabled = yes
+			total_civil_wars_enabled = yes
+			has_global_flag = total_war_base_chance
+		}
+		hidden_effect = {
+			remove_global_flag = total_war_base_chance
+			set_global_flag = total_war_high_chance
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.total_war_high_percent
+		trigger = {
+			civil_wars_enabled = yes
+			total_civil_wars_enabled = yes
+			has_global_flag = total_war_high_chance
+		}
+		hidden_effect = {
+			remove_global_flag = total_war_high_chance
+			set_global_flag = total_war_very_high_chance
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.total_war_very_high_percent
+		trigger = {
+			civil_wars_enabled = yes
+			total_civil_wars_enabled = yes
+			has_global_flag = total_war_very_high_chance
+		}
+		hidden_effect = {
+			remove_global_flag = total_war_very_high_chance
+			set_global_flag = total_war_very_low_chance
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = { ################################
+		name = civcom.spacer
+		trigger = { civil_wars_enabled = yes }
+		hidden_effect = { country_event = { id = civmisc.5010 } }
+	}
+
+	option = {
+		trigger = {
+			civil_wars_enabled = yes
+			coup_trap_enabled = yes
+		}
+		name = civstrife.modmenu.coup_trap_enabled
+		custom_tooltip = civstrife.modmenu.coup_trap_tooltip
+		hidden_effect = {
+			remove_global_flag = CWM_coup_trap_ON
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		trigger = {
+			civil_wars_enabled = yes
+			coup_trap_enabled = no
+		}
+		name = civstrife.modmenu.coup_trap_disabled
+		custom_tooltip = civstrife.modmenu.coup_trap_tooltip
+		hidden_effect = {
+			set_global_flag = CWM_coup_trap_ON
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.coup_trap_one_and_half
+		trigger = {
+			civil_wars_enabled = yes
+			coup_trap_enabled = yes
+			has_global_flag = coup_trap_one_and_half
+		}
+		hidden_effect = {
+			remove_global_flag = coup_trap_one_and_half
+			set_global_flag = coup_trap_double
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.coup_trap_double
+		trigger = {
+			civil_wars_enabled = yes
+			coup_trap_enabled = yes
+			has_global_flag = coup_trap_double
+		}
+		hidden_effect = {
+			remove_global_flag = coup_trap_double
+			set_global_flag = coup_trap_triple
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.coup_trap_triple
+		trigger = {
+			civil_wars_enabled = yes
+			coup_trap_enabled = yes
+			has_global_flag = coup_trap_triple
+		}
+		hidden_effect = {
+			remove_global_flag = coup_trap_triple
+			set_global_flag = coup_trap_quadruple
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.coup_trap_quadruple
+		trigger = {
+			civil_wars_enabled = yes
+			coup_trap_enabled = yes
+			has_global_flag = coup_trap_quadruple
+		}
+		hidden_effect = {
+			remove_global_flag = coup_trap_quadruple
+			set_global_flag = coup_trap_one_and_half
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = { ################################
+		name = civcom.spacer
+		trigger = { civil_wars_enabled = yes }
+		hidden_effect = { country_event = { id = civmisc.5010 } }
+	}
+
+	option = {
+		trigger = {
+			civil_wars_enabled = yes
+			coup_contagion_enabled = yes
+		}
+		name = civstrife.modmenu.coup_contagion_enabled
+		custom_tooltip = civstrife.modmenu.coup_contagion_tooltip
+		hidden_effect = {
+			remove_global_flag = CWM_coup_contagion_ON
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		trigger = {
+			civil_wars_enabled = yes
+			coup_contagion_enabled = no
+		}
+		name = civstrife.modmenu.coup_contagion_disabled
+		custom_tooltip = civstrife.modmenu.coup_contagion_tooltip
+		hidden_effect = {
+			set_global_flag = CWM_coup_contagion_ON
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.coup_contagion_one_and_half
+		trigger = {
+			civil_wars_enabled = yes
+			coup_contagion_enabled = yes
+			has_global_flag = coup_contagion_one_and_half
+		}
+		hidden_effect = {
+			remove_global_flag = coup_contagion_one_and_half
+			set_global_flag = coup_contagion_double
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.coup_contagion_double
+		trigger = {
+			civil_wars_enabled = yes
+			coup_contagion_enabled = yes
+			has_global_flag = coup_contagion_double
+		}
+		hidden_effect = {
+			remove_global_flag = coup_contagion_double
+			set_global_flag = coup_contagion_triple
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.coup_contagion_triple
+		trigger = {
+			civil_wars_enabled = yes
+			coup_contagion_enabled = yes
+			has_global_flag = coup_contagion_triple
+		}
+		hidden_effect = {
+			remove_global_flag = coup_contagion_triple
+			set_global_flag = coup_contagion_quadruple
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
+	option = {
+		name = civstrife.modmenu.coup_contagion_quadruple
+		trigger = {
+			civil_wars_enabled = yes
+			coup_contagion_enabled = yes
+			has_global_flag = coup_contagion_quadruple
+		}
+		hidden_effect = {
+			remove_global_flag = coup_contagion_quadruple
+			set_global_flag = coup_contagion_one_and_half
+			country_event = { id = civmisc.5010 }
+		}
+	}
+
 }
 
 country_event = {

@@ -1,0 +1,31 @@
+
+# Change your subject type
+civil_wars_settings = {
+
+	icon = "GFX_edict_type_policy"
+	length = 1
+
+	resources = {
+		category = edicts
+		cost = {
+			influence = 0
+		}
+	}
+
+	effect = {
+		custom_tooltip = civil_wars_settings_tooltip
+		hidden_effect = { country_event = { id = civmisc.5010 } }
+	}
+
+	potential = {
+		dmm_is_installed = no
+	}
+
+	allow = {
+		always = yes
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+}

@@ -151,7 +151,7 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 								effect = {
 									set_name = {
 										key = NAME_succession_conflict
-										variable_string = "\\[civwar_originator.GetAdj]"
+										variable_string = "\\[This.MainAttacker.GetAdj]"
 									}
 									every_war_participant = {
 										limit = {
@@ -260,7 +260,7 @@ after_comms_cleanup_effect = { # root is event_target:civwar_originator, if they
 								effect = {
 									set_name = {
 										key = NAME_succession_conflict
-										variable_string = "\\[civwar_originator.GetAdj]"
+										variable_string = "\\[This.MainAttacker.GetAdj]"
 									}
 									every_war_participant = {
 										limit = {
@@ -1201,26 +1201,46 @@ get_motherland_effect = {
 
 make_civil_war_ethic_country = {
 	event_target:cw_scope_initializer = {
-		switch = {
-			trigger = has_ethic
-			ethic_authoritarian = { owner = { create_auth_country = yes } }
-			ethic_egalitarian = { owner = { create_egal_country = yes } }
-			ethic_militarist = { owner = { create_mil_country = yes } }
-			ethic_pacifist = { owner = { create_pac_country = yes } }
-			ethic_materialist = { owner = { create_mat_country = yes } }
-			ethic_spiritualist = { owner = { create_spi_country = yes } }
-			ethic_xenophile = { owner = { create_phile_country = yes } }
-			ethic_xenophobe = { owner = { create_phobe_country = yes } }
-			ethic_socialism = { owner = { create_soc_country = yes } }
-			ethic_capitalism = { owner = { create_cap_country = yes } }
-			ethic_cooperative = { owner = { create_coop_country = yes } }
-			ethic_competitive = { owner = { create_comp_country = yes } }
-			ethic_industrial = { owner = { create_indus_country = yes } }
-			ethic_green = { owner = { create_green_country = yes } }
-			ethic_anthropocentric = { owner = { create_anthro_country = yes } }
-			ethic_ecocentric = { owner = { create_eco_country = yes } }
-			ethic_elitist = { owner = { create_elite_country = yes } }
-			ethic_pluralist = { owner = { create_plur_country = yes } }
+		## If country shares ethic with initializer, possible they claim full legitimacy and start TOTAL war
+		if = { ##Multi Sector Civil Wars determine this earlier
+			limit = { check_variable = { which = multi_sector_TW_trigger value = 1 } }
+			owner = { create_country = { inline_script = { script = civil_war_country_creation/total_civil_war } } }
+			set_variable = { which = total_war_happened value = 1 }
+		}
+		else = {
+			random = {
+				chance = value:total_war_chance
+				owner = { create_country = { inline_script = { script = civil_war_country_creation/total_civil_war } } }
+				set_variable = { which = total_war_happened value = 1 }
+			}
+		}
+
+		if = {
+			limit = { check_variable = { which = total_war_happened value = 1 } }
+			clear_variable = total_war_happened
+		}
+		else = {
+			switch = {
+				trigger = has_ethic
+				ethic_authoritarian = { owner = { create_auth_country = yes } }
+				ethic_egalitarian = { owner = { create_egal_country = yes } }
+				ethic_militarist = { owner = { create_mil_country = yes } }
+				ethic_pacifist = { owner = { create_pac_country = yes } }
+				ethic_materialist = { owner = { create_mat_country = yes } }
+				ethic_spiritualist = { owner = { create_spi_country = yes } }
+				ethic_xenophile = { owner = { create_phile_country = yes } }
+				ethic_xenophobe = { owner = { create_phobe_country = yes } }
+				ethic_socialism = { owner = { create_soc_country = yes } }
+				ethic_capitalism = { owner = { create_cap_country = yes } }
+				ethic_cooperative = { owner = { create_coop_country = yes } }
+				ethic_competitive = { owner = { create_comp_country = yes } }
+				ethic_industrial = { owner = { create_indus_country = yes } }
+				ethic_green = { owner = { create_green_country = yes } }
+				ethic_anthropocentric = { owner = { create_anthro_country = yes } }
+				ethic_ecocentric = { owner = { create_eco_country = yes } }
+				ethic_elitist = { owner = { create_elite_country = yes } }
+				ethic_pluralist = { owner = { create_plur_country = yes } }
+			}
 		}
 	}
 }
@@ -1380,7 +1400,7 @@ make_isolated_sector_country = {
 						15 = { # Imperial
 							create_country = {
 								authority = auth_imperial
-								ethos = event_target:civwar_originator
+								ethos = random
 								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
@@ -1441,7 +1461,7 @@ make_isolated_sector_country = {
 						5 = { # Imperial
 							create_country = {
 								authority = auth_imperial
-								ethos = event_target:civwar_originator
+								ethos = random
 								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
@@ -1467,7 +1487,7 @@ make_isolated_sector_country = {
 						10 = { # Imperial
 							create_country = {
 								authority = auth_imperial
-								ethos = event_target:civwar_originator
+								ethos = random
 								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
@@ -1556,7 +1576,7 @@ make_isolated_sector_country = {
 						10 = { # Imperial
 							create_country = {
 								authority = auth_imperial
-								ethos = event_target:civwar_originator
+								ethos = random
 								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
@@ -1603,7 +1623,7 @@ make_isolated_sector_country = {
 						5 = { # Imperial
 							create_country = {
 								authority = auth_imperial
-								ethos = event_target:civwar_originator
+								ethos = random
 								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
@@ -1629,7 +1649,7 @@ make_isolated_sector_country = {
 						10 = { # Imperial
 							create_country = {
 								authority = auth_imperial
-								ethos = event_target:civwar_originator
+								ethos = random
 								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
@@ -1650,7 +1670,7 @@ make_isolated_sector_country = {
 						3 = { # Direct Democratic
 							create_country = {
 								authority = auth_direct_democratic
-								ethos = event_target:civwar_originator
+								ethos = random
 								inline_script = { script = civil_war_country_creation/isolated_sector }
 							}
 						}
@@ -1815,10 +1835,8 @@ make_succession_crisis_gov_country = {
 		ignore_initial_colony_error = yes
 		day_zero_contact = no
 		authority = auth_imperial
-		ethos = { 
-			ethic = ethic_fanatic_authoritarian
-			ethic = random
-		}
+		ethos = { ethic = ethic_fanatic_authoritarian }
+		randomize_ethos = yes
 		origin = origin_coup_independent
 		civics = random
 		flag = random
@@ -3015,24 +3033,14 @@ create_cap_country = {
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = imperial }
 			}
-			25 = {
-				create_country = {
-					authority = auth_corporate_imperial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
-					ethos = {
-						ethic = ethic_fanatic_capitalism
-						ethic = ethic_authoritarian
-					}
-				}
-				inline_script = { script = modifiers/authority_doubler_modifier AUTH = corporate_imperial }
-			}
-			25 = {
+			50 = {
 				create_country = {
 					authority = auth_corporate
 					inline_script = { script = civil_war_country_creation/gen_civil_war }
 					ethos = { ethic = ethic_fanatic_capitalism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = corporate }
+				inline_script = { script = modifiers/authority_doubler_modifier AUTH = corporate_imperial }
 			}
 			10 = {
 				create_country = {
@@ -3091,6 +3099,7 @@ create_cap_country = {
 					ethos = { ethic = ethic_fanatic_capitalism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = corporate }
+				inline_script = { script = modifiers/authority_doubler_modifier AUTH = corporate_imperial }
 			}
 			10 = {
 				create_country = {
@@ -3213,6 +3222,7 @@ create_comp_country = {
 				ethos = { ethic = ethic_fanatic_competitive }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = corporate }
+			inline_script = { script = modifiers/authority_doubler_modifier AUTH = corporate_imperial }
 		}
 		10 = {
 			create_country = {
@@ -3805,17 +3815,6 @@ create_civil_war = {
 
 				random_owned_sector = {
 					limit = { NOT = { any_system_within_border = { is_capital_system = yes } } }
-					# limit = {
-					# 	NOT = {
-					# 		any_owned_planet = {
-					# 			OR = {
-					# 				is_capital = yes
-					# 				is_occupied_flag = yes
-					# 				has_ground_combat = yes
-					# 			}
-					# 		}
-					# 	}
-					# }
 					set_sector_flag = leader_sector
 					make_civil_war_ethic_country = yes
 				}
@@ -3999,21 +3998,55 @@ create_civil_war = {
 				if = {
 					limit = { check_variable = { which = total_reb_countries value > 1 } }
 					set_timed_country_flag = { flag = rebs_help_eachother months = 6 }
+					random = { ## For multiple disparate sectors, this needs to be handled differently
+						chance = value:total_war_chance
+						ordered_owned_sector = {
+							limit = { has_sector_flag = leader_sector }
+							position = 0
+							order_by = fac_sep_percentage
+							set_sector_flag = TW_counted_sector
+							save_event_target_as = rebel_sector_leader
+						}
+						every_owned_sector = { ## Get rid of other leader sectors
+							limit = {
+								has_sector_flag = leader_sector
+								NOT = { has_sector_flag = TW_counted_sector }
+							}
+							remove_sector_flag = leader_sector
+						}
+						every_owned_sector = {
+							limit = {
+								NOT = { has_sector_flag = TW_counted_sector }
+								has_sector_flag = rebel_sector
+							}
+							set_sector_flag = TW_counted_sector
+							set_sector_flag = rebel_sector_@event_target:rebel_sector_leader
+							set_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader
+						}
+						event_target:cw_scope_initializer = { set_variable = { which = multi_sector_TW_trigger value = 1 } }
+						make_civil_war_ethic_country = yes
+					}
 				}
 
-				while = {
-					count = total_reb_countries
-					ordered_owned_sector = {
-						limit = { has_sector_flag = leader_sector }
-						position = 0
-						order_by = fac_sep_percentage
-						event_target:civwar_party = {
-							random_owned_pop_group = {
-								limit = { sector = { is_same_value = prevprevprev } }
-								species = { save_event_target_as = civwar_species }
+				if = {
+					limit = { event_target:cw_scope_initializer = { check_variable = { which = multi_sector_TW_trigger value = 1 } } }
+					event_target:cw_scope_initializer = { clear_variable = multi_sector_TW_trigger }
+				}
+				else = {
+					while = {
+						count = total_reb_countries
+						ordered_owned_sector = {
+							limit = { has_sector_flag = leader_sector }
+							position = 0
+							order_by = fac_sep_percentage
+							event_target:civwar_party = {
+								random_owned_pop_group = {
+									limit = { sector = { is_same_value = prevprevprev } }
+									species = { save_event_target_as = civwar_species }
+								}
 							}
+							make_civil_war_ethic_country = yes
 						}
-						make_civil_war_ethic_country = yes
 					}
 				}
 
@@ -4612,8 +4645,6 @@ create_civil_war = {
 					}
 				}
 
-				# set_recent_civwar_flag = yes
-
 				# I Imagine this should stay past the first loop
 				if = {
 					limit = { exists = event_target:civwar_party }
@@ -4623,6 +4654,34 @@ create_civil_war = {
 					}
 				}
 
+				random = { ## For multiple disparate sectors, this needs to be handled differently
+					chance = value:total_war_chance
+					ordered_owned_sector = {
+						limit = { has_sector_flag = leader_sector }
+						position = 0
+						order_by = fac_sep_percentage
+						set_sector_flag = TW_counted_sector
+						save_event_target_as = rebel_sector_leader
+					}
+					every_owned_sector = { ## Get rid of other leader sectors
+						limit = {
+							has_sector_flag = leader_sector
+							NOT = { has_sector_flag = TW_counted_sector }
+						}
+						remove_sector_flag = leader_sector
+					}
+					every_owned_sector = {
+						limit = {
+							NOT = { has_sector_flag = TW_counted_sector }
+							has_sector_flag = rebel_sector
+						}
+						set_sector_flag = TW_counted_sector
+						set_sector_flag = rebel_sector_@event_target:rebel_sector_leader
+						set_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader
+					}
+					event_target:cw_scope_initializer = { set_variable = { which = multi_sector_TW_trigger value = 1 } }
+				}
+
 				## Only 1 rebel for leader Civil Wars
 				make_civil_war_ethic_country = yes
 				
@@ -4630,6 +4689,8 @@ create_civil_war = {
 					limit = { has_sector_flag = potential_rebel }
 					remove_sector_flag = potential_rebel
 				}
+
+				event_target:cw_scope_initializer = { clear_variable = multi_sector_TW_trigger }
 			}
 			else_if = { # >= 2 Planets
 				limit = {
@@ -4781,7 +4842,7 @@ create_civil_war = {
 						}
 					}
 				}
-				root = { country_event = { id = civethic.9001 } }
+				root.owner = { country_event = { id = civethic.9001 } }
 			}
 		}
 	}
@@ -4907,7 +4968,7 @@ create_civil_war = {
 								limit = {
 									exists = pop_faction
 									pop_faction = { is_same_value = event_target:civwar_party }
-									has_pop_group_flag = sep_pop
+									# has_pop_group_flag = sep_pop
 								}
 								prevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
 							}
@@ -4941,6 +5002,8 @@ create_civil_war = {
 							position = 0
 							order_by = fac_sep_percentage
 							set_sector_flag = rebel_sector
+							log = "==============================="
+							log = "REBEL SECTOR: [this.GetName]"
 						}
 					}
 
@@ -4965,6 +5028,8 @@ create_civil_war = {
 								set_sector_flag = leader_sector
 								set_sector_flag = counted_sector
 							}
+							# log = "==============================="
+							# log = "LEADER SECTOR: [rebel_sector_leader.GetName]"
 							while = {
 								count = all_potential_sectors
 								if = { # Any Sector that borders a more rebellious sector will rebel under them
@@ -5019,7 +5084,7 @@ create_civil_war = {
 						random_owned_pop_group = { species = { save_event_target_as = civwar_species } }
 					}
 
-					create_party_name_leader = yes
+					# create_party_name_leader = yes
 
 					set_variable = { which = total_reb_countries value = 0 }
 					every_owned_sector = {
@@ -5030,63 +5095,97 @@ create_civil_war = {
 					if = {
 						limit = { check_variable = { which = total_reb_countries value > 1 } }
 						set_timed_country_flag = { flag = rebs_help_eachother months = 6 }
+						random = { ## For multiple disparate sectors, this needs to be handled differently
+							chance = value:total_war_chance
+							ordered_owned_sector = {
+								limit = { has_sector_flag = leader_sector }
+								position = 0
+								order_by = fac_sep_percentage
+								set_sector_flag = TW_counted_sector
+								save_event_target_as = rebel_sector_leader
+							}
+							every_owned_sector = { ## Get rid of other leader sectors
+								limit = {
+									has_sector_flag = leader_sector
+									NOT = { has_sector_flag = TW_counted_sector }
+								}
+								remove_sector_flag = leader_sector
+							}
+							every_owned_sector = {
+								limit = {
+									NOT = { has_sector_flag = TW_counted_sector }
+									has_sector_flag = rebel_sector
+								}
+								set_sector_flag = TW_counted_sector
+								set_sector_flag = rebel_sector_@event_target:rebel_sector_leader
+								set_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader
+							}
+							event_target:cw_scope_initializer = { set_variable = { which = multi_sector_TW_trigger value = 1 } }
+							make_civil_war_ethic_country = yes
+						}
 					}
 
-					# every_owned_sector = {
-					# 	limit = { has_sector_flag = leader_sector }
-					# 	set_variable = { which = fac_sep_percentage value = 0 }
-					# 	export_trigger_value_to_variable = {
-					# 		trigger = pop_amount
-					# 		variable = total_new_country_pops
-					# 	}
-					# 	every_owned_planet = {
-					# 		every_owned_pop_group = {
-					# 			limit = {
-					# 				exists = pop_faction
-					# 				pop_faction = { is_same_value = event_target:civwar_party }
-					# 				has_pop_group_flag = sep_pop
-					# 			}
-					# 			prevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
-					# 		}
-					# 	}
-					# 	owner = {
-					# 		every_owned_sector = {
-					# 			limit = { has_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader }
-					# 			prevprev = { change_variable = { which = total_new_country_pops value = trigger:pop_amount } }
-					# 			every_owned_planet = {
-					# 				every_owned_pop_group = {
-					# 					limit = {
-					# 						exists = pop_faction
-					# 						pop_faction = { is_same_value = event_target:civwar_party }
-					# 						has_pop_group_flag = sep_pop
-					# 					}
-					# 					prevprevprevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
-					# 				}
-					# 			}
-					# 		}
-					# 	}
-					# 	divide_variable = {
-					# 		which = fac_sep_percentage
-					# 		value = total_new_country_pops
-					# 	}
-					# 	multiply_variable = { # Needs to be done to ensure accurate ordering
-					# 		which = fac_sep_percentage
-					# 		value = 100
-					# 	}
-					# }
+					# ## OLD Method
+					# 	# every_owned_sector = {
+					# 	# 	limit = { has_sector_flag = leader_sector }
+					# 	# 	set_variable = { which = fac_sep_percentage value = 0 }
+					# 	# 	export_trigger_value_to_variable = {
+					# 	# 		trigger = pop_amount
+					# 	# 		variable = total_new_country_pops
+					# 	# 	}
+					# 	# 	every_owned_planet = {
+					# 	# 		every_owned_pop_group = {
+					# 	# 			limit = {
+					# 	# 				exists = pop_faction
+					# 	# 				pop_faction = { is_same_value = event_target:civwar_party }
+					# 	# 				has_pop_group_flag = sep_pop
+					# 	# 			}
+					# 	# 			prevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
+					# 	# 		}
+					# 	# 	}
+					# 	# 	owner = {
+					# 	# 		every_owned_sector = {
+					# 	# 			limit = { has_sector_flag = rebel_sector_follower_@event_target:rebel_sector_leader }
+					# 	# 			prevprev = { change_variable = { which = total_new_country_pops value = trigger:pop_amount } }
+					# 	# 			every_owned_planet = {
+					# 	# 				every_owned_pop_group = {
+					# 	# 					limit = {
+					# 	# 						exists = pop_faction
+					# 	# 						pop_faction = { is_same_value = event_target:civwar_party }
+					# 	# 						has_pop_group_flag = sep_pop
+					# 	# 					}
+					# 	# 					prevprevprevprev = { change_variable = { which = fac_sep_percentage value = 1 } }
+					# 	# 				}
+					# 	# 			}
+					# 	# 		}
+					# 	# 	}
+					# 	# 	divide_variable = {
+					# 	# 		which = fac_sep_percentage
+					# 	# 		value = total_new_country_pops
+					# 	# 	}
+					# 	# 	multiply_variable = { # Needs to be done to ensure accurate ordering
+					# 	# 		which = fac_sep_percentage
+					# 	# 		value = 100
+					# 	# 	}
+					# 	# }
+					# ###
 
-					while = {
-						count = total_reb_countries
-						ordered_owned_sector = {
-							limit = { has_sector_flag = leader_sector }
-							position = 0
-							order_by = fac_sep_percentage
-							if = {
-								limit = { event_target:civwar_party = { is_regular_faction = yes } }
-								make_civil_war_ethic_country = yes
-							}
-							else = {
-								make_nat_war_country = yes
+					if = {
+						limit = { event_target:cw_scope_initializer = { check_variable = { which = multi_sector_TW_trigger value = 1 } } }
+						event_target:cw_scope_initializer = { clear_variable = multi_sector_TW_trigger }
+					}
+					else = {
+						while = {
+							count = total_reb_countries
+							ordered_owned_sector = {
+								limit = { has_sector_flag = leader_sector }
+								position = 0
+								order_by = fac_sep_percentage
+								if = {
+									limit = { event_target:civwar_party = { is_regular_faction = yes } }
+									make_civil_war_ethic_country = yes
+								}
+								else = { make_nat_war_country = yes }
 							}
 						}
 					}
@@ -6745,17 +6844,7 @@ get_ethic_plan_rebels = {
 									}
 								}
 							}
-							25 = {
-								create_rebels = {
-									authority = auth_corporate_imperial
-									inline_script = { script = civil_war_country_creation/gen_rebels }
-									ethos = {
-										ethic = ethic_fanatic_capitalism
-										ethic = ethic_authoritarian
-									}
-								}
-							}
-							20 = {
+							45 = {
 								create_rebels = {
 									authority = auth_corporate
 									inline_script = { script = civil_war_country_creation/gen_rebels }
@@ -6909,17 +6998,7 @@ get_ethic_plan_rebels = {
 								}
 							}
 						}
-						25 = {
-							create_rebels = {
-								authority = auth_corporate_imperial
-								inline_script = { script = civil_war_country_creation/gen_rebels }
-								ethos = {
-									ethic = ethic_fanatic_competitive
-									ethic = ethic_authoritarian
-								}
-							}
-						}
-						20 = {
+						45 = {
 							create_rebels = {
 								authority = auth_corporate
 								inline_script = { script = civil_war_country_creation/gen_rebels }
@@ -7937,7 +8016,10 @@ get_civil_war_leader = {
 	}
 
 	if = {
-		limit = { species = { NOT = { is_same_value = root.ruler.species } } }
+		limit = {
+			is_rival_government = no
+			species = { NOT = { is_same_value = root.ruler.species } }
+		}
 		change_species = ruler.species
 	}
 }
@@ -9672,56 +9754,56 @@ set_nat_modifier_effect = {
 			nat_country_48_flag = { prev = { add_modifier = { modifier = nat_country_48_modifier days = -1 } } }
 			nat_country_49_flag = { prev = { add_modifier = { modifier = nat_country_49_modifier days = -1 } } }
 			nat_country_50_flag = { prev = { add_modifier = { modifier = nat_country_50_modifier days = -1 } } }
-			nat_country_51_flag = { prev = { add_modifier = { modifier = nat_country_51_modifier days = -1 } } }
-			nat_country_52_flag = { prev = { add_modifier = { modifier = nat_country_52_modifier days = -1 } } }
-			nat_country_53_flag = { prev = { add_modifier = { modifier = nat_country_53_modifier days = -1 } } }
-			nat_country_54_flag = { prev = { add_modifier = { modifier = nat_country_54_modifier days = -1 } } }
-			nat_country_55_flag = { prev = { add_modifier = { modifier = nat_country_55_modifier days = -1 } } }
-			nat_country_56_flag = { prev = { add_modifier = { modifier = nat_country_56_modifier days = -1 } } }
-			nat_country_57_flag = { prev = { add_modifier = { modifier = nat_country_57_modifier days = -1 } } }
-			nat_country_58_flag = { prev = { add_modifier = { modifier = nat_country_58_modifier days = -1 } } }
-			nat_country_59_flag = { prev = { add_modifier = { modifier = nat_country_59_modifier days = -1 } } }
-			nat_country_60_flag = { prev = { add_modifier = { modifier = nat_country_60_modifier days = -1 } } }
-			nat_country_61_flag = { prev = { add_modifier = { modifier = nat_country_61_modifier days = -1 } } }
-			nat_country_62_flag = { prev = { add_modifier = { modifier = nat_country_62_modifier days = -1 } } }
-			nat_country_63_flag = { prev = { add_modifier = { modifier = nat_country_63_modifier days = -1 } } }
-			nat_country_64_flag = { prev = { add_modifier = { modifier = nat_country_64_modifier days = -1 } } }
-			nat_country_65_flag = { prev = { add_modifier = { modifier = nat_country_65_modifier days = -1 } } }
-			nat_country_66_flag = { prev = { add_modifier = { modifier = nat_country_66_modifier days = -1 } } }
-			nat_country_67_flag = { prev = { add_modifier = { modifier = nat_country_67_modifier days = -1 } } }
-			nat_country_68_flag = { prev = { add_modifier = { modifier = nat_country_68_modifier days = -1 } } }
-			nat_country_69_flag = { prev = { add_modifier = { modifier = nat_country_69_modifier days = -1 } } }
-			nat_country_70_flag = { prev = { add_modifier = { modifier = nat_country_70_modifier days = -1 } } }
-			nat_country_71_flag = { prev = { add_modifier = { modifier = nat_country_71_modifier days = -1 } } }
-			nat_country_72_flag = { prev = { add_modifier = { modifier = nat_country_72_modifier days = -1 } } }
-			nat_country_73_flag = { prev = { add_modifier = { modifier = nat_country_73_modifier days = -1 } } }
-			nat_country_74_flag = { prev = { add_modifier = { modifier = nat_country_74_modifier days = -1 } } }
-			nat_country_75_flag = { prev = { add_modifier = { modifier = nat_country_75_modifier days = -1 } } }
-			nat_country_76_flag = { prev = { add_modifier = { modifier = nat_country_76_modifier days = -1 } } }
-			nat_country_77_flag = { prev = { add_modifier = { modifier = nat_country_77_modifier days = -1 } } }
-			nat_country_78_flag = { prev = { add_modifier = { modifier = nat_country_78_modifier days = -1 } } }
-			nat_country_79_flag = { prev = { add_modifier = { modifier = nat_country_79_modifier days = -1 } } }
-			nat_country_80_flag = { prev = { add_modifier = { modifier = nat_country_80_modifier days = -1 } } }
-			nat_country_81_flag = { prev = { add_modifier = { modifier = nat_country_81_modifier days = -1 } } }
-			nat_country_82_flag = { prev = { add_modifier = { modifier = nat_country_82_modifier days = -1 } } }
-			nat_country_83_flag = { prev = { add_modifier = { modifier = nat_country_83_modifier days = -1 } } }
-			nat_country_84_flag = { prev = { add_modifier = { modifier = nat_country_84_modifier days = -1 } } }
-			nat_country_85_flag = { prev = { add_modifier = { modifier = nat_country_85_modifier days = -1 } } }
-			nat_country_86_flag = { prev = { add_modifier = { modifier = nat_country_86_modifier days = -1 } } }
-			nat_country_87_flag = { prev = { add_modifier = { modifier = nat_country_87_modifier days = -1 } } }
-			nat_country_88_flag = { prev = { add_modifier = { modifier = nat_country_88_modifier days = -1 } } }
-			nat_country_89_flag = { prev = { add_modifier = { modifier = nat_country_89_modifier days = -1 } } }
-			nat_country_90_flag = { prev = { add_modifier = { modifier = nat_country_90_modifier days = -1 } } }
-			nat_country_91_flag = { prev = { add_modifier = { modifier = nat_country_91_modifier days = -1 } } }
-			nat_country_92_flag = { prev = { add_modifier = { modifier = nat_country_92_modifier days = -1 } } }
-			nat_country_93_flag = { prev = { add_modifier = { modifier = nat_country_93_modifier days = -1 } } }
-			nat_country_94_flag = { prev = { add_modifier = { modifier = nat_country_94_modifier days = -1 } } }
-			nat_country_95_flag = { prev = { add_modifier = { modifier = nat_country_95_modifier days = -1 } } }
-			nat_country_96_flag = { prev = { add_modifier = { modifier = nat_country_96_modifier days = -1 } } }
-			nat_country_97_flag = { prev = { add_modifier = { modifier = nat_country_97_modifier days = -1 } } }
-			nat_country_98_flag = { prev = { add_modifier = { modifier = nat_country_98_modifier days = -1 } } }
-			nat_country_99_flag = { prev = { add_modifier = { modifier = nat_country_99_modifier days = -1 } } }
-			nat_country_100_flag = { prev = { add_modifier = { modifier = nat_country_100_modifier days = -1 } } }
+			# nat_country_51_flag = { prev = { add_modifier = { modifier = nat_country_51_modifier days = -1 } } }
+			# nat_country_52_flag = { prev = { add_modifier = { modifier = nat_country_52_modifier days = -1 } } }
+			# nat_country_53_flag = { prev = { add_modifier = { modifier = nat_country_53_modifier days = -1 } } }
+			# nat_country_54_flag = { prev = { add_modifier = { modifier = nat_country_54_modifier days = -1 } } }
+			# nat_country_55_flag = { prev = { add_modifier = { modifier = nat_country_55_modifier days = -1 } } }
+			# nat_country_56_flag = { prev = { add_modifier = { modifier = nat_country_56_modifier days = -1 } } }
+			# nat_country_57_flag = { prev = { add_modifier = { modifier = nat_country_57_modifier days = -1 } } }
+			# nat_country_58_flag = { prev = { add_modifier = { modifier = nat_country_58_modifier days = -1 } } }
+			# nat_country_59_flag = { prev = { add_modifier = { modifier = nat_country_59_modifier days = -1 } } }
+			# nat_country_60_flag = { prev = { add_modifier = { modifier = nat_country_60_modifier days = -1 } } }
+			# nat_country_61_flag = { prev = { add_modifier = { modifier = nat_country_61_modifier days = -1 } } }
+			# nat_country_62_flag = { prev = { add_modifier = { modifier = nat_country_62_modifier days = -1 } } }
+			# nat_country_63_flag = { prev = { add_modifier = { modifier = nat_country_63_modifier days = -1 } } }
+			# nat_country_64_flag = { prev = { add_modifier = { modifier = nat_country_64_modifier days = -1 } } }
+			# nat_country_65_flag = { prev = { add_modifier = { modifier = nat_country_65_modifier days = -1 } } }
+			# nat_country_66_flag = { prev = { add_modifier = { modifier = nat_country_66_modifier days = -1 } } }
+			# nat_country_67_flag = { prev = { add_modifier = { modifier = nat_country_67_modifier days = -1 } } }
+			# nat_country_68_flag = { prev = { add_modifier = { modifier = nat_country_68_modifier days = -1 } } }
+			# nat_country_69_flag = { prev = { add_modifier = { modifier = nat_country_69_modifier days = -1 } } }
+			# nat_country_70_flag = { prev = { add_modifier = { modifier = nat_country_70_modifier days = -1 } } }
+			# nat_country_71_flag = { prev = { add_modifier = { modifier = nat_country_71_modifier days = -1 } } }
+			# nat_country_72_flag = { prev = { add_modifier = { modifier = nat_country_72_modifier days = -1 } } }
+			# nat_country_73_flag = { prev = { add_modifier = { modifier = nat_country_73_modifier days = -1 } } }
+			# nat_country_74_flag = { prev = { add_modifier = { modifier = nat_country_74_modifier days = -1 } } }
+			# nat_country_75_flag = { prev = { add_modifier = { modifier = nat_country_75_modifier days = -1 } } }
+			# nat_country_76_flag = { prev = { add_modifier = { modifier = nat_country_76_modifier days = -1 } } }
+			# nat_country_77_flag = { prev = { add_modifier = { modifier = nat_country_77_modifier days = -1 } } }
+			# nat_country_78_flag = { prev = { add_modifier = { modifier = nat_country_78_modifier days = -1 } } }
+			# nat_country_79_flag = { prev = { add_modifier = { modifier = nat_country_79_modifier days = -1 } } }
+			# nat_country_80_flag = { prev = { add_modifier = { modifier = nat_country_80_modifier days = -1 } } }
+			# nat_country_81_flag = { prev = { add_modifier = { modifier = nat_country_81_modifier days = -1 } } }
+			# nat_country_82_flag = { prev = { add_modifier = { modifier = nat_country_82_modifier days = -1 } } }
+			# nat_country_83_flag = { prev = { add_modifier = { modifier = nat_country_83_modifier days = -1 } } }
+			# nat_country_84_flag = { prev = { add_modifier = { modifier = nat_country_84_modifier days = -1 } } }
+			# nat_country_85_flag = { prev = { add_modifier = { modifier = nat_country_85_modifier days = -1 } } }
+			# nat_country_86_flag = { prev = { add_modifier = { modifier = nat_country_86_modifier days = -1 } } }
+			# nat_country_87_flag = { prev = { add_modifier = { modifier = nat_country_87_modifier days = -1 } } }
+			# nat_country_88_flag = { prev = { add_modifier = { modifier = nat_country_88_modifier days = -1 } } }
+			# nat_country_89_flag = { prev = { add_modifier = { modifier = nat_country_89_modifier days = -1 } } }
+			# nat_country_90_flag = { prev = { add_modifier = { modifier = nat_country_90_modifier days = -1 } } }
+			# nat_country_91_flag = { prev = { add_modifier = { modifier = nat_country_91_modifier days = -1 } } }
+			# nat_country_92_flag = { prev = { add_modifier = { modifier = nat_country_92_modifier days = -1 } } }
+			# nat_country_93_flag = { prev = { add_modifier = { modifier = nat_country_93_modifier days = -1 } } }
+			# nat_country_94_flag = { prev = { add_modifier = { modifier = nat_country_94_modifier days = -1 } } }
+			# nat_country_95_flag = { prev = { add_modifier = { modifier = nat_country_95_modifier days = -1 } } }
+			# nat_country_96_flag = { prev = { add_modifier = { modifier = nat_country_96_modifier days = -1 } } }
+			# nat_country_97_flag = { prev = { add_modifier = { modifier = nat_country_97_modifier days = -1 } } }
+			# nat_country_98_flag = { prev = { add_modifier = { modifier = nat_country_98_modifier days = -1 } } }
+			# nat_country_99_flag = { prev = { add_modifier = { modifier = nat_country_99_modifier days = -1 } } }
+			# nat_country_100_flag = { prev = { add_modifier = { modifier = nat_country_100_modifier days = -1 } } }
 		}
 	}
 	# if = {
@@ -11008,7 +11090,7 @@ get_defected_fleets = {
 	every_owned_fleet = {
 		limit = { has_fleet_flag = fleet_defected_@event_target:civwar_originator }
 		set_fleet_flag = counted_fleet
-		prev = { change_variable = { which = total_defectors value = 1 } }
+		prev = { change_variable = { which = total_defector_fleets value = 1 } }
 	}
 
 	if = {
@@ -11374,6 +11456,7 @@ get_country_after_setup = {
 	## Fix ethics (sometimes needed if country is created too fast, like with multiple sectors
 	if = {
 		limit = {
+			is_rival_government = no ## These are done on setup
 			OR = {
 				AND = {
 					has_country_flag = civwar_mil
@@ -11449,6 +11532,7 @@ get_country_after_setup = {
 				}
 			}
 		}
+		log = "AFTER FIXING"
 		if = {
 			limit = {
 				has_country_flag = civwar_mil
@@ -11630,12 +11714,63 @@ get_country_after_setup = {
 			}
 		}
 
-		change_government = {
-			authority = random
-			cooldown = no
-			remove_invalid_civics = yes
-			civics = random
+		if = {
+			limit = {
+				is_megacorp = no
+				has_country_flag = civwar_cap
+			}
+			random = {
+				chance = 50
+				if = {
+					limit = {
+						has_ecaf_mod = yes
+						is_authoritarian = yes
+					}
+					change_government = {
+						authority = auth_corporate_imperial
+						cooldown = no
+						remove_invalid_civics = yes
+						civics = random
+					}
+					set_variable = { which = gov_fixed value = 1 }
+				}
+				else_if = {
+					limit = {
+						NOR = {
+							has_ethic = ethic_fanatic_authoritarian
+							has_ethic = ethic_fanatic_egalitarian
+						}
+					}
+					change_government = {
+						authority = auth_corporate
+						cooldown = no
+						remove_invalid_civics = yes
+						civics = random
+					}
+					set_variable = { which = gov_fixed value = 1 }
+				}
+			}
+			if = {
+				limit = { NOT = { is_variable_set = gov_fixed } }
+				change_government = {
+					authority = random
+					cooldown = no
+					remove_invalid_civics = yes
+					civics = random
+				}
+			}
+			else = { clear_variable = gov_fixed }
 		}
+		else = {
+			change_government = {
+				authority = random
+				cooldown = no
+				remove_invalid_civics = yes
+				civics = random
+			}
+		}
+
+
 	}
 
 	country_event = { id = civwar.3200 days = 8 } # Border cleanup 2, needs delay because sometimes the core sector is deleted for no reason.
@@ -11661,28 +11796,6 @@ get_country_after_setup = {
 		limit = { NOT = { is_variable_set = birth_year } }
 		country_event = { id = civmisc.3001 }
 	}
-
-	# To fix names like "Empire of Sirius VII" to be like "Empire of Earth"
-	# I think this has been resolved.
-	#if = {
-	#	limit = {
-	#		NOT = { has_country_flag = exile_restored_country }
-	#		exists = capital_scope
-	#		capital_scope = { NOT = { has_planet_flag = civwar_name_changed } }
-	#		event_target:civwar_originator = { is_ai = yes }
-	#		#event_target:civwar_rebels = {
-	#		#	OR = {
-	#		#		has_origin = origin_coup_independent
-	#		#		has_origin = origin_nationalist_rebellion
-	#		#		has_origin = origin_civstrife_slave_rebellion
-	#		#	}
-	#		#}
-	#	}
-	#	capital_scope = {
-	#		set_name = random
-	#		set_planet_flag = civwar_name_changed
-	#	}
-	#}
 
 	# Renaming Stuff
 	if = {
@@ -11729,7 +11842,10 @@ get_country_after_setup = {
 			limit = { capital_scope = { NOT = { is_same_value = event_target:should_be_capital } } }
 			event_target:should_be_capital = { set_capital = yes }
 		}
-		set_name = random
+		if = {
+			limit = { is_rival_government = no }
+			set_name = random
+		}
 	}
 
 	capital_scope = {
@@ -11759,6 +11875,7 @@ get_country_after_setup = {
 			limit = {
 				event_target:civwar_rebels = {
 					OR = {
+						is_rival_government = yes
 						has_origin = origin_civwar
 						has_origin = origin_sec_rebellion
 						has_origin = origin_nationalist_rebellion
@@ -11819,6 +11936,199 @@ get_country_after_setup = {
 
 	# Please let this work
 	every_owned_fleet = { set_event_locked = no }
+}
+
+after_declare_war_effect = {
+	if = {
+		limit = {
+			NOR = {
+				has_country_flag = peaceful_secession
+				event_target:civwar_rebels = { has_country_flag = mute_rebel_country }
+			}
+		}
+		if = {
+			limit = { is_overlord = no }
+			if = {
+				limit = { # Succession Conflicts Declare War in a different way
+					event_target:civwar_rebels = {
+						NOR = {
+							has_origin = origin_coup_successor
+							has_origin = origin_coup_independent
+						}
+					}
+				}
+				# Subject Civil War
+				if = {
+					limit = { overlord_protects_subject = yes }
+					event_target:civwar_originator = { # Make subjects fall into civil war less often
+						set_timed_country_flag = { flag = civwar_not_allowed years = 20 }
+					}
+					if = {
+						limit = {
+							event_target:civwar_rebels.ruler = {
+								OR = {
+									rebel_is_former_heir = yes
+									rebel_is_former_leader = yes
+									has_leader_flag = civil_war_ruler_new
+									has_leader_flag = civil_war_ruler_secession
+								}
+							}
+						}
+						country_event = { id = civwar.2005 }
+						overlord = { country_event = { id = civwar.2000 days = 1 } }
+					}
+					else_if = {
+						limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_nationalist } }
+						if = { # Query Motherland if possible
+							limit = {
+								event_target:nat_motherland_model = {
+									is_exile_country = no
+									# For now, I will make this work for subjects in the future
+									is_subject = no
+								}
+							}
+							event_target:nat_motherland_model = { country_event = { id = civcom.4000 } }
+						}
+						else = {
+							event_target:nat_motherland_model = { set_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+							country_event = { id = civwar.2055 }
+						}
+						country_event = { id = civwar.2005 }
+						overlord = { country_event = { id = civwar.2000 days = 1 } }
+					}
+				}
+				# Nationalist
+				else_if = {
+					limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_nationalist } }
+					if = { # Query Motherland if possible
+						limit = {
+							event_target:nat_motherland_model = {
+								is_exile_country = no
+								# For now, I will make this work for subjects in the near future
+								is_subject = no
+							}
+						}
+						event_target:nat_motherland_model = { country_event = { id = civcom.4000 } }
+					}
+					else = {
+						event_target:nat_motherland_model = { set_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+						country_event = { id = civwar.2055 days = 1 }
+					}
+				}
+				# Isolated Sectoral Separatist Heir
+				else_if = {
+					limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_isolated } }
+					country_event = { id = civwar.2065 days = 1 }
+				}
+				# Disinherited Heir
+				else_if = {
+					limit = {
+						event_target:civwar_rebels.ruler = {
+							OR = {
+								has_leader_flag = civil_war_ruler_heir_gov_changed
+								has_leader_flag = civil_war_ruler_heir_disinherited
+							}
+						}
+					}
+					country_event = { id = civwar.2066 days = 1 }
+				}
+				# Disallowed Secession
+				else_if = {
+					limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_secession } }
+					country_event = { id = civwar.2067 days = 1 }
+				}
+				# Former Official/Commander/Scientist
+				else_if = {
+					limit = {
+						event_target:civwar_rebels.ruler = {
+							OR = {
+								rebel_is_former_leader = yes
+								has_leader_flag = civil_war_ruler_new
+							}
+						}
+					}
+					country_event = { id = civwar.2010 days = 1 }
+				}
+
+
+				if = {
+					limit  = { is_variable_set = total_reb_countries }
+					if = {
+						limit = { NOT = { is_variable_set = total_reb_countries_2 } }
+						set_variable = { which = total_reb_countries_2 value = 0 }
+					}
+					
+					change_variable = { which = total_reb_countries_2 value = 1 }
+
+					if = {
+						limit = {
+							check_variable = {
+								which = total_reb_countries_2
+								value = total_reb_countries
+							}
+						}
+
+						every_country = {
+							limit = { has_country_flag = ally_reb_@event_target:civwar_originator }
+							set_variable = { which = rebel_power_ratio value = rebel_power }
+							divide_variable = { which = rebel_power_ratio value = event_target:civwar_originator.mother_power }
+						}
+
+						clear_variable = total_reb_countries
+						clear_variable = total_reb_countries_2
+					}
+				}
+				else = {
+					root = {
+						set_variable = { which = rebel_power_ratio value = rebel_power }
+						divide_variable = { which = rebel_power_ratio value = event_target:civwar_originator.mother_power }
+					}
+				}
+			}
+		}
+		else = {
+			if = {
+				limit  = {
+					is_variable_set = total_reb_countries
+					event_target:civwar_rebels = { is_rival_government = no } ## Should always be 1 country, even if above var is set
+				}
+				if = {
+					limit = { NOT = { is_variable_set = total_reb_countries_2 } }
+					set_variable = { which = total_reb_countries_2 value = 0 }
+				}
+
+				change_variable = { which = total_reb_countries_2 value = 1 }
+
+				if = {
+					limit = {
+						check_variable = {
+							which = total_reb_countries_2
+							value = total_reb_countries
+						}
+					}
+					every_country = {
+						limit = { has_country_flag = ally_reb_@event_target:civwar_originator }
+						set_variable = { which = rebel_power_ratio value = rebel_power }
+						divide_variable = { which = rebel_power_ratio value = event_target:civwar_originator.mother_power }
+					}
+					country_event = { id = civwar.1500 days = 1 } # Without delay, vassal wont be set to new owner
+				}
+			}
+			else = {
+				root = {
+					set_variable = { which = rebel_power_ratio value = rebel_power }
+					divide_variable = { which = rebel_power_ratio value = event_target:civwar_originator.mother_power }
+				}
+				country_event = { id = civwar.1500 days = 1 } # Without delay, vassal wont be set to new owner
+			}
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = peaceful_secession }
+		# Notify of newly created country
+		country_event = { id = civwar.2200 }
+		remove_country_flag = peaceful_secession
+	}
 }
 
 get_remove_seps_after = {
@@ -11956,7 +12266,15 @@ get_fleet_effect = {
 
 swap_fleets_in_system = {
 	every_fleet_in_system = {
-		limit = { is_owned_by = event_target:civwar_originator }
+		limit = {
+			is_owned_by = event_target:civwar_originator
+			any_owned_ship = {
+				OR = {
+					is_ship_class = science
+					is_ship_class = shipclass_military
+				}
+			}
+		}
 		if = {
 			limit = { exists = leader }
 			leader = {
@@ -11992,6 +12310,7 @@ swap_fleets_in_system = {
 					}
 				}
 				set_owner = root
+				set_fleet_flag = fleet_defected_@event_target:civwar_originator
 			}
 		}
 	}
@@ -12148,7 +12467,117 @@ get_declare_war_civwar = {
 	remove_country_flag = entered_war_as_attacker
 }
 
+get_declare_war_total_civwar = {
+
+	event_target:civwar_originator = { ## In case of subject wars, put in this scope
+		add_timeline_event = {
+			type = timeline_empire
+			override_id = timeline_civwar
+			override_tooltip = "TIMELINE_EVENT_CIVIL_WAR_TOOLTIP"
+			override_types = { country country }
+			override_text = { "text:TIMELINE_CIVIL_WAR" }
+			override_texture = { "background:GFX_evt_open_revolt" }
+			targets = { event_target:civwar_originator event_target:civwar_rebels }
+		}
+	}
+
+	declare_war = {
+		target = event_target:civwar_rebels
+		name = "Civil War"
+		attacker_war_goal = "wg_total_civwar"
+		effect = {
+
+			if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 1 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 2 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 3 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 4 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 5 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 6 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 7 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 8 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 9 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 10 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 11 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 12 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 13 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 14 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 15 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 16 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 17 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 18 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 19 }
+			}
+
+			else_if = {
+				inline_script = { script = effects/declare_civwar_name_effect NUM = 20 }
+			}
+		}
+	}
+	
+	remove_country_flag = entered_war_as_attacker
+}
+
 get_declare_war_plan_rebellion = {
+
+	if = {
+		limit = { exists != event_target:civil_war_planet }
+		event_target:civwar_rebels.capital_scope = { save_event_target_as = civil_war_planet }
+	}
 
 	event_target:civwar_originator = { ## In case of subject wars, put in this scope
 		add_timeline_event = {

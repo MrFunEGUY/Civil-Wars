@@ -8,12 +8,18 @@ desc = {
 			event_target:civwar_rebels = { has_origin = origin_legendary_leader_death }
 		}
 
+		success_text = {
+			text = civcom.total_civwar.desc
+			event_target:civwar_rebels = { is_rival_government = yes }
+		}
+
 		## Election Dispute
 			success_text = {
 				text = civcom.election_dispute.orig_dem_still_dem.desc
 				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
 				event_target:civwar_originator = { has_democratic_elections = yes }
 				event_target:civwar_rebels = { has_democratic_elections = yes }
+				event_target:civwar_rebels = { is_rival_government = no }
 			}
 
 			success_text = {
@@ -21,6 +27,7 @@ desc = {
 				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
 				event_target:civwar_originator = { has_democratic_elections = yes }
 				event_target:civwar_rebels = { has_democratic_elections = no }
+				event_target:civwar_rebels = { is_rival_government = no }
 			}
 
 			success_text = {
@@ -28,6 +35,7 @@ desc = {
 				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
 				event_target:civwar_originator = { has_democratic_elections = no }
 				event_target:civwar_originator = { is_megacorp = no }
+				event_target:civwar_rebels = { is_rival_government = no }
 			}
 
 			success_text = {
@@ -35,6 +43,7 @@ desc = {
 				event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
 				event_target:civwar_rebels = { is_megacorp = yes }
 				event_target:civwar_originator = { is_megacorp = yes }
+				event_target:civwar_rebels = { is_rival_government = no }
 			}
 
 		success_text = {
@@ -44,12 +53,14 @@ desc = {
 				event_target:civwar_rebels = { has_origin = origin_legendary_leader_death }
 				event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
 			}
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = {
 			text = civcom.allys.desc
 			has_country_flag = rebs_help_eachother
 			event_target:civwar_rebels = { NOT = { has_origin = origin_nationalist_rebellion } }
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = { # New Nat Country, motherland will join war
@@ -58,6 +69,7 @@ desc = {
 			exists = event_target:nat_motherland_model
 			event_target:nat_motherland_model = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = { # Multiple New Nat Countries, motherland will join war
@@ -66,6 +78,7 @@ desc = {
 			exists = event_target:nat_motherland_model
 			event_target:nat_motherland_model = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = { # New Nat Country, motherland wont join war
@@ -80,6 +93,7 @@ desc = {
 				NOT = { has_country_flag = exile_restored_country }
 				has_origin = origin_nationalist_rebellion
 			}
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = { # Multiple New Nat Countries, motherland wont join war
@@ -94,6 +108,7 @@ desc = {
 				NOT = { has_country_flag = exile_restored_country }
 				has_origin = origin_nationalist_rebellion
 			}
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = { # Restored Country
@@ -109,6 +124,7 @@ desc = {
 				has_origin = origin_nationalist_rebellion
 				has_country_flag = exile_restored_country
 			}
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = { # Restored Country, other states as well
@@ -124,6 +140,7 @@ desc = {
 				has_origin = origin_nationalist_rebellion
 				has_country_flag = exile_restored_country
 			}
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = { # Restored Country, Old Dynasty will take over
@@ -139,6 +156,7 @@ desc = {
 				has_origin = origin_nationalist_rebellion
 				has_country_flag = exile_restored_country
 			}
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = { # Restored Country, Old Dynasty will take over, other states as well
@@ -154,17 +172,20 @@ desc = {
 				has_origin = origin_nationalist_rebellion
 				has_country_flag = exile_restored_country
 			}
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = {
 			text = civcom.1100.leader.iso.sec.desc
 			event_target:civwar_rebels = { has_origin = origin_isolated_rebellion }
 			NOT = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_isolated } }
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = {
 			text = civcom.1100.heir.iso.sec.desc
 			event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_isolated }
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = {
@@ -173,6 +194,7 @@ desc = {
 				is_overlord = yes
 				subjects = 1
 			}
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		success_text = {
@@ -181,6 +203,7 @@ desc = {
 				is_overlord = yes
 				subjects > 1
 			}
+			event_target:civwar_rebels = { is_rival_government = no }
 		}
 
 		### Stolen Subjects
@@ -332,113 +355,6 @@ desc = {
 			}
 		}
 
-		### Defecting fleets
-			success_text = {
-				text = fleets_who_defected
-				event_target:civwar_rebels = { any_owned_fleet = { has_fleet_flag = fleet_defected_@event_target:civwar_originator } }
-			}
-
-			success_text = {
-				text = defected_fleet_1
-				exists = event_target:defected_fleet_1
-			}
-
-			success_text = {
-				text = defected_fleet_2
-				exists = event_target:defected_fleet_2
-			}
-
-			success_text = {
-				text = defected_fleet_3
-				exists = event_target:defected_fleet_3
-			}
-
-			success_text = {
-				text = defected_fleet_4
-				exists = event_target:defected_fleet_4
-			}
-
-			success_text = {
-				text = defected_fleet_5
-				exists = event_target:defected_fleet_5
-			}
-
-			success_text = {
-				text = defected_fleet_6
-				exists = event_target:defected_fleet_6
-			}
-
-			success_text = {
-				text = defected_fleet_7
-				exists = event_target:defected_fleet_7
-			}
-
-			success_text = {
-				text = defected_fleet_8
-				exists = event_target:defected_fleet_8
-			}
-
-			success_text = {
-				text = defected_fleet_9
-				exists = event_target:defected_fleet_9
-			}
-
-			success_text = {
-				text = defected_fleet_10
-				exists = event_target:defected_fleet_10
-			}
-
-			success_text = {
-				text = defected_fleet_10
-				exists = event_target:defected_fleet_10
-			}
-
-			success_text = {
-				text = defected_fleet_12
-				exists = event_target:defected_fleet_12
-			}
-
-			success_text = {
-				text = defected_fleet_13
-				exists = event_target:defected_fleet_13
-			}
-
-			success_text = {
-				text = defected_fleet_14
-				exists = event_target:defected_fleet_14
-			}
-
-			success_text = {
-				text = defected_fleet_15
-				exists = event_target:defected_fleet_15
-			}
-
-			success_text = {
-				text = defected_fleet_16
-				exists = event_target:defected_fleet_16
-			}
-
-			success_text = {
-				text = defected_fleet_17
-				exists = event_target:defected_fleet_17
-			}
-
-			success_text = {
-				text = defected_fleet_18
-				exists = event_target:defected_fleet_18
-			}
-
-			success_text = {
-				text = defected_fleet_19
-				exists = event_target:defected_fleet_19
-			}
-
-			success_text = {
-				text = defected_fleet_20
-				exists = event_target:defected_fleet_20
-			}
-	
-
 		### Defecting Leaders
 			success_text = {
 				text = leaders_who_defected
@@ -543,6 +459,112 @@ desc = {
 			success_text = {
 				text = defected_leader_20
 				exists = event_target:defected_leader_20
+			}
+
+		### Defecting fleets
+			success_text = {
+				text = fleets_who_defected
+				event_target:civwar_rebels = { any_owned_fleet = { has_fleet_flag = fleet_defected_@event_target:civwar_originator } }
+			}
+
+			success_text = {
+				text = defected_fleet_1
+				exists = event_target:defected_fleet_1
+			}
+
+			success_text = {
+				text = defected_fleet_2
+				exists = event_target:defected_fleet_2
+			}
+
+			success_text = {
+				text = defected_fleet_3
+				exists = event_target:defected_fleet_3
+			}
+
+			success_text = {
+				text = defected_fleet_4
+				exists = event_target:defected_fleet_4
+			}
+
+			success_text = {
+				text = defected_fleet_5
+				exists = event_target:defected_fleet_5
+			}
+
+			success_text = {
+				text = defected_fleet_6
+				exists = event_target:defected_fleet_6
+			}
+
+			success_text = {
+				text = defected_fleet_7
+				exists = event_target:defected_fleet_7
+			}
+
+			success_text = {
+				text = defected_fleet_8
+				exists = event_target:defected_fleet_8
+			}
+
+			success_text = {
+				text = defected_fleet_9
+				exists = event_target:defected_fleet_9
+			}
+
+			success_text = {
+				text = defected_fleet_10
+				exists = event_target:defected_fleet_10
+			}
+
+			success_text = {
+				text = defected_fleet_10
+				exists = event_target:defected_fleet_10
+			}
+
+			success_text = {
+				text = defected_fleet_12
+				exists = event_target:defected_fleet_12
+			}
+
+			success_text = {
+				text = defected_fleet_13
+				exists = event_target:defected_fleet_13
+			}
+
+			success_text = {
+				text = defected_fleet_14
+				exists = event_target:defected_fleet_14
+			}
+
+			success_text = {
+				text = defected_fleet_15
+				exists = event_target:defected_fleet_15
+			}
+
+			success_text = {
+				text = defected_fleet_16
+				exists = event_target:defected_fleet_16
+			}
+
+			success_text = {
+				text = defected_fleet_17
+				exists = event_target:defected_fleet_17
+			}
+
+			success_text = {
+				text = defected_fleet_18
+				exists = event_target:defected_fleet_18
+			}
+
+			success_text = {
+				text = defected_fleet_19
+				exists = event_target:defected_fleet_19
+			}
+
+			success_text = {
+				text = defected_fleet_20
+				exists = event_target:defected_fleet_20
 			}
 	}
 }

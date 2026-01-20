@@ -1,5 +1,3 @@
-[h1]Steam is having an INSANE bug right now where it is reverting this mod to 3.11 and not allowing it to be updated. Hopefully it can be resolved soon.[/h1]
-
 [h1]Civil Wars:[/h1]
 
 So you thought you could just build a galaxy-spanning empire and never have to worry about internal strife? Wrong.
@@ -63,7 +61,7 @@ Native:
 
 - Huge amount of credit to mr_trousers, creator of the Interstellar Incorporated mod. He helped me a ton on the Stellaris Modding Den Discord.
 
-- Russian Localisation by [url=https://steamcommunity.com/id/mahpell/]Mahpell[/url]. Thank you!
+- Russian Localisation originally by [url=https://steamcommunity.com/id/mahpell/]Mahpell[/url], updated by [url=https://steamcommunity.com/profiles/76561199209349358/]Stepanida[/url]. Thank you!
 
 - Chinese Localisation by [url=https://steamcommunity.com/profiles/76561198840278562]Del[/url]. Thank you!
 
@@ -75,8 +73,6 @@ Native:
 [hr][/hr]
 
 [h1]Some Other Mods I've Made/Updated:[/h1]
-
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2158334880]- More Authorities[/url]
 
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2114559224]- Viable Feudalism and Imperialism - Empire Federation[/url]
 

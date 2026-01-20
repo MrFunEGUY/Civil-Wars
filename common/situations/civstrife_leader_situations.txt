@@ -75,6 +75,7 @@ situation_civstrife_election_dispute = {
 
 	abort_trigger = {
 		OR = {
+			civil_wars_enabled = no
 			owner = { num_owned_planets < 2 }
 			NOT = { exists = target }
 			NOT = { target = { is_owned_by = root.owner } }

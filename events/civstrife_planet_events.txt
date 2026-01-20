@@ -191,8 +191,13 @@ country_event = {
 			}
 			country_event = { id = civcom.1000 }
 		}
-		else = {
+		else_if = {
+			limit = { event_target:civwar_rebels = { is_rival_government = yes } }
 			# log = "6"
+			country_event = { id = civcom.1000 }
+		}
+		else = {
+			# log = "7"
 			random_list = {
 				65 = { country_event = { id = civcom.1000 } }
 				35 = { country_event = { id = civcom.1005 } }

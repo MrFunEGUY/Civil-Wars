@@ -104,7 +104,10 @@ l_korean:
  origin_civwar: "Separatist State"
  origin_civwar_desc: "This state was formed after political disagreements led to their secession from another nation."
 
- origin_plan_rebellion: "Planetary Rebellion"
+ origin_total_civwar: "Rival Government"
+ origin_total_civwar_desc: "This government is embroiled in a civil war in which it claims total legitimacy over its rivals."
+
+ origin_plan_rebellion:  "Planetary Rebellion"
  origin_plan_rebellion_desc: "This state was formed from a planet that seceded from a larger empire."
 
  origin_sec_rebellion: "Sectoral Rebellion"
@@ -234,7 +237,7 @@ l_korean:
  government_is_gov: "government"
  government_is_corp: "board"
 
- leaders_who_defected: "\n§RDefecting Traitors§!:"
+ leaders_who_defected: "\n§RDefectors§!:"
  defected_leader_1: "[defected_leader_1.GetClass] §Y[defected_leader_1.GetName]§!"
  defected_leader_2: "[defected_leader_2.GetClass] §Y[defected_leader_2.GetName]§!"
  defected_leader_3: "[defected_leader_3.GetClass] §Y[defected_leader_3.GetName]§!"
@@ -259,14 +262,14 @@ l_korean:
  # Faction and Sector Planetary Rebellion
 
  civcom.1000.name: "[civwar_rebels.GetRulerTitle] §H[civwar_rebels.Ruler.GetName]§!"
- civcom.1000.leader.plan.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people of §Y[civwar_rebels.capital_scope.GetName]§! have had enough. I am a mere [civwar_rebels.Ruler.GetClass] no longer. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+ civcom.1000.leader.plan.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people of §Y[civwar_rebels.capital_scope.GetName]§! have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
  civcom.1000.newleader.plan.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am former member of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
  civcom.1000.separatist.plan.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I represent the people of §Y[civwar_rebels.capital_scope.GetName]§!, who have long been left neglected and impoverished by your [GetGovermentBoard]. Now, they have chosen me to lead the newly-formed §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
  civcom.1000.slaves.plan.desc: "My name is §H[civwar_rebels.Ruler.GetName]§!. Our valiant freedom fighters have routed your forces, securing §Y[civwar_rebels.capital_scope.GetName]§! and the surrounding systems. We have done this thing because it is just. Blood demands blood. We have lived and lost at the whims of our masters for too long. I would not have it so. As such, I have been elected to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. You may challenge us, but our freedom is worth dying for.."
 
  civcom.1000.under_one_rule.desc: "$civcom.1100.under_one_rule.desc$"
 
- civcom.1000.leader.sec.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people of §Y[sector_name_leader.GetName]§! have had enough. I am a mere [civwar_rebels.Ruler.GetClass] no longer. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+ civcom.1000.leader.sec.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people of §Y[sector_name_leader.GetName]§! have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
  civcom.1000.slaves.sec.desc: "My name is §H[civwar_rebels.Ruler.GetName]§!. Our valiant freedom fighters have routed your forces and secured the §Y[sector_name_leader.GetName]§! sector. No longer will the people of this sector be enslaved by your [GetGovermentBoard]. I have been elected to lead the newly-formed §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we have already demonstrated our willingness to die for our cause. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
 
  civcom.1000.nationalist.support.desc: "It's unfortunate that it had to come to this. I am §H[civwar_rebels.Ruler.GetName]§!, a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I lead a new state, the §H[civwar_rebels.GetName]§!, as their §Y[civwar_rebels.GetRulerTitle]§!.\n\nOur new state is modeled after §Your motherland§!, the §Y[nat_motherland_model.GetName]§!, who have pledged their §Yfull support for our cause§!. If you decide to attack us, §Pyou will also be going to war with them§!. That being the case, I recommend that your [GetGovermentBoard] accept our new state, so that we may prevent any further bloodshed."
@@ -279,12 +282,12 @@ l_korean:
  civcom.1000.nationalist.sec.support.desc: "$civcom.1000.nationalist.support.desc$"
  civcom.1000.nationalist.sec.no_support.desc: "$civcom.1000.nationalist.no_support.desc$"
 
- civcom.1005.leader.plan.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people of §Y[civwar_rebels.capital_scope.GetName]§! have had enough. I am a mere [civwar_rebels.Ruler.GetClass] no longer. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
+ civcom.1005.leader.plan.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people of §Y[civwar_rebels.capital_scope.GetName]§! have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
  civcom.1005.separatist.plan.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I represent the people of §Y[civwar_rebels.capital_scope.GetName]§!, who have long been left neglected and impoverished by your [GetGovermentBoard]. Now, they have chosen me to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!.\n\nWe recognize the odds of us holding this planet in a war are slim. However, we have the resources to make any potential war long and costly. Therefore, in the interest of preventing further bloodshed, we're willing to forgo declaring complete independence.\n\nWe're willing to pay you tribute in exchange for our autonomy."
  civcom.1005.nationalist.desc: "$civcom.1000.nationalist.no_support.desc$"
  civcom.1000.newleader.plan.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am former member of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
 
- civcom.1005.leader.sec.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people of the §Y[sector_name_leader.GetName]§! sector have had enough. I am a mere [civwar_rebels.Ruler.GetClass] no longer. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
+ civcom.1005.leader.sec.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people of the §Y[sector_name_leader.GetName]§! sector have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
  civcom.1005.separatist.sec.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I represent the people of the §Y[sector_name_leader.GetName]§! sector, who have long been left neglected and impoverished by your [GetGovermentBoard]. Now, they have chosen me to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!.\n\nHowever, in the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
  civcom.1005.nationalist.sec.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am former member of the §Y[civwar_party_name_leader.GetName]§!. Now, as §Y[civwar_rebels.GetRulerTitle]§!, I lead a new §Y[nat_motherland_model.GetAdj]§! state, the §H[civwar_rebels.GetName]§!.\n\nOur new state is modeled after §Your motherland§!, the §Y[nat_motherland_model.GetName]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
 
@@ -429,21 +432,21 @@ l_korean:
  all_subjects_rebel_plus_fealty_more: "\nFurther, it seems that with this discord you've forced upon us, your other subjects have taken the opportunity §Pto rebel§!. I suggest you worry about putting them down, as opposed to worrying about us."
  some_subjects_rebel: "\nFurther, it seems that with this discord you've forced upon us, §Ysome of your subjects§! have taken the opportunity §Pto rebel§!. I suggest you worry about putting them down, as opposed to worrying about us."
 
- civcom.1100.leader.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people have had enough. I am a mere [civwar_rebels.Ruler.GetClass] no longer. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+ civcom.1100.leader.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
 
- civcom.1100.leader.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people have had enough. I am a mere [civwar_rebels.Ruler.GetClass] no longer. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+ civcom.1100.leader.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
 
- civcom.election_dispute.orig_dem_still_dem.desc: "It's unfortunate that it had to come to this, but its your arrogance that has torn this country apart. I could not allow the democratic process to be so subverted by you and your [GetGovermentBoard]. You are not the rightful §H[civwar_rebels.Ruler.GetTitle]§! and our citizens deserve better. In order to preserve democracy, I will lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of our people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+ civcom.election_dispute.orig_dem_still_dem.desc: "It's unfortunate that it had to come to this, but your arrogance has torn this country apart. I could not allow the democratic process to be so subverted by you and your [GetGovermentBoard]. You are not the rightful §H[civwar_rebels.Ruler.GetTitle]§! and our citizens deserve better. In order to preserve democracy, I will lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of our people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
 
- civcom.election_dispute.orig_dem_not_dem.desc: "It's unfortunate that it had to come to this, but its your arrogance that has torn this country apart. I could not allow the will of our nation to be so subverted by you and your [GetGovermentBoard]. You are not the rightful §H[civwar_rebels.Ruler.GetTitle]§! and our citizens deserve better. The ideals of our citizens will live on in the §Y[civwar_rebels.GetName]§!, where I will serve as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of our people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+ civcom.election_dispute.orig_dem_not_dem.desc: "It's unfortunate that it had to come to this, but your arrogance has torn this country apart. I could not allow the will of our nation to be so subverted by you and your [GetGovermentBoard]. You are not the rightful §H[civwar_rebels.Ruler.GetTitle]§! and our citizens deserve better. The ideals of our citizens will live on in the §Y[civwar_rebels.GetName]§!, where I will serve as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of our people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
 
- civcom.election_dispute.not_dem.desc: "It's unfortunate that it had to come to this, but its your arrogance that has torn this country apart. I could not allow our country to fall into the hands of someone so incompetent. Our citizens deserve much better than you as our §H[civwar_originator.Ruler.GetTitle]§!. The true values of our people will live on in the §Y[civwar_rebels.GetName]§!, where I will serve as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of our people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+ civcom.election_dispute.not_dem.desc: "It's unfortunate that it had to come to this, but your arrogance has torn this country apart. I could not allow our country to fall into the hands of someone so incompetent. Our citizens deserve much better than you as our §H[civwar_originator.Ruler.GetTitle]§!. The true values of our people will live on in the §Y[civwar_rebels.GetName]§!, where I will serve as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of our people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
 
  civcom.election_dispute.corp.desc: "It's unfortunate that it had to come to this, but its your arrogance that has torn this organization apart. I could not allow our company to fall into the hands of someone so incompetent. Our shareholders deserve much better than you as our §H[civwar_originator.Ruler.GetTitle]§!. In order to ensure future profits, I will lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of our shareholders, and we are prepared to defend ourselves. I recommend that your board accept this, so that we may prevent any further drops in revenue."
 
  civcom.allys.desc: "\n\nFurthermore, we are allied to the other revolutionary states that have just risen in revolt. §PIf you attack one of us, you attack all of us§!."
 
- civcom.1100.leader.iso.sec.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§! of the §Y[sector_name_leader.GetName]§! sector. My sector has been cut off from the central government for quite a few years, which led me to active partipation in and then leadership of the §Y[civwar_party_name_leader.GetName]§!. The simple truth is that your [GetGovermentBoard] is distant and unreachable, and the people of §Y[sector_name_leader.GetName]§! deserve a government that they actually have access to. I am a mere [civwar_rebels.Ruler.GetClass] no longer. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and should you somehow manage to actually get any ships here, we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+ civcom.1100.leader.iso.sec.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§! of the §Y[sector_name_leader.GetName]§! sector. My sector has been cut off from the central government for quite a few years, which led me to active partipation in and then leadership of the §Y[civwar_party_name_leader.GetName]§!. The simple truth is that your [GetGovermentBoard] is distant and unreachable, and the people of §Y[sector_name_leader.GetName]§! deserve a government that they actually have access to. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and should you somehow manage to actually get any ships here, we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
 
  civcom.1100.heir.iso.sec.desc: "It's unfortunate that it had to come to this. You knew me as §Y[civwar_originator.GetHeirTitle]§! §H[civwar_rebels.Ruler.GetName]§!. In the time I spent in the §Y[sector_name_leader.GetName]§! sector, I grew to love it and to consider it my true home. This naturally led to me getting involved with the §Y[civwar_party_name_leader.GetName]§!. Our government was distant and unreachable, and the people of §Y[sector_name_leader.GetName]§! deserve a government that they actually have access to. The former §Y[sector_name_leader.GetName]§! sector has been reorganized into the §H[civwar_rebels.GetName]§!, and I have been proclaimed its §Y[civwar_rebels.GetRulerTitle]§!. Additionally, I renounce all claims to the throne of the §Y[civwar_originator.GetName]§!. I have the support of the people, and should you somehow manage to actually get any ships here, we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
 
@@ -475,7 +478,7 @@ l_korean:
 
  ############## With Vassalization
 
- civcom.1105.leader.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people have had enough. I am a mere [civwar_rebels.Ruler.GetClass] no longer. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
+ civcom.1105.leader.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
 
  civcom.1105.nationalist.exile.reg.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!.\n\nOur new state is modeled after §Your motherland§!, the original §Y[nat_motherland_model.GetName]§!. In the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
 
@@ -875,6 +878,9 @@ l_korean:
  leader_trait_traitor_reg_desc: "[Root.GetName] rebelled against [root.GetHerHis] government in [this.year_rebelled]. However, after losing [root.GetHerHis] war, [root.GetSheHe] chose to flee. Now, [root.GetSheHe] is providing [root.GetHerHis] services to the [root.owner.GetName] in exchange for asylum, along with the possibility that they might one day assist [root.GetHerHim] in "liberating" [root.GetHerHis] people."
  leader_trait_traitor_genderless_desc: "[Root.GetName] rebelled against their homeland in [this.year_rebelled]. However, after losing the war, they chose to flee. Now, they are providing their services to the [root.owner.GetName] in exchange for asylum, along with the possibility that they might one day assist them in "liberating" their people."
 
+ leader_trait_revolutionary_total_desc: "[Root.GetName] revolted against [root.GetHerHis] government, claiming to have the true mandate to rule."
+ leader_trait_revolutionary_total_genderless_desc: "[Root.GetName] revolted against their government, claiming to have the true mandate to rule."
+
  leader_trait_vindicated_revolutionary: "Vindicated Revolutionary"
  leader_trait_vindicated_revolutionary_desc: "[triggered_vindicated_traitor_desc]"
  leader_trait_vindicated_revolutionary_reg_desc: "[Root.GetName]'s path to power was an arduous one. In [root.year_fled], [root.GetSheHe] fled after a failed rebellion against the government. Not willing accept defeat, [root.GetSheHe] chose to try and build support for their cause from abroad. After [root.years_exiled] years of careful planning, [root.GetSheHe] was able to successfully utilize the alliances [root.GetSheHe] had built in order to return home in [root.year_restored] and liberate their people."
@@ -1175,7 +1181,7 @@ l_korean:
  civpan.7000.name: "Pandemic Research Breakthrough!"
  civpan.7000.excellent: "Excellent."
  civpan.7000.cured: "Amazing News!"
- eureka_large_progress: "A recent breakthrough from researchers working on the §Y[Target.GetAdj]§! pandemic has us significantly closer to completeing the development of a cure."
+ eureka_large_progress: "A recent breakthrough from researchers working on the §Y[Target.GetAdj]§! pandemic has us significantly closer to completing the development of a cure."
  eureka_large_progress_cured: "A recent breakthrough from researchers working on the §Y[Target.GetAdj]§! pandemic has led us to complete the development of a cure much earlier than anticipated!"
 
  civpan.7100.name: "Pandemic Cure Found!"
@@ -1445,6 +1451,12 @@ l_korean:
  war_goal_wg_civwar: "Civil War"
  war_goal_wg_civwar_desc: "War is waged to preserve the territorial integrity of the state."
 
+ war_goal_wg_total_civwar: "Legitimacy War"
+ war_goal_wg_total_civwar_desc: "War is waged for the entire state."
+
+ war_goal_wg_total_civwar_rebel: "Legitimacy War"
+ war_goal_wg_total_civwar_rebel_desc: "War is waged for the entire state."
+
  war_goal_wg_civwar_rebel: "Revolution"
  war_goal_wg_civwar_rebel_desc: "War is waged to establish a new government."
 
@@ -1594,26 +1606,26 @@ l_korean:
  NAME_plan_slave_rebellion_war_19: "Nineteenth [This.MainDefender.Capital.GetAdj] Slave Uprising"
  NAME_plan_slave_rebellion_war_20: "Another [This.MainDefender.Capital.GetAdj] Slave Uprising"
 
- NAME_sec_slave_rebellion_war_1: "[sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_2: "Second [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_3: "Third [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_4: "Fourth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_5: "Fifth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_6: "Sixth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_7: "Seventh [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_8: "Eighth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_9: "Ninth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_10: "Tenth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_11: "Eleventh [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_12: "Twelfth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_13: "Thirteenth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_14: "Fourteenth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_15: "Fifteenth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_16: "Sixteenth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_17: "Seventeenth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_18: "Eighteenth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_19: "Nineteenth [sector_name.GetName] Sector Slave Uprising"
- NAME_sec_slave_rebellion_war_20: "Another [sector_name.GetName] Sector Slave Uprising"
+ NAME_sec_slave_rebellion_war_1: "[civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_2: "Second [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_3: "Third [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_4: "Fourth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_5: "Fifth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_6: "Sixth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_7: "Seventh [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_8: "Eighth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_9: "Ninth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_10: "Tenth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_11: "Eleventh [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_12: "Twelfth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_13: "Thirteenth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_14: "Fourteenth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_15: "Fifteenth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_16: "Sixteenth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_17: "Seventeenth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_18: "Eighteenth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_19: "Nineteenth [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_20: "Another [civwar_rebels.GetAdj] Servile War"
 
  ################
  # Faction Events
@@ -1771,6 +1783,9 @@ l_korean:
 
  civstrife.modmenu.title: "Civil Wars Stats"
  civstrife.modmenu.desc: "§Y[global_event_country.total_gal_civstrife_events]§! = Total Civil Strife Events \n\n§Y[global_event_country.total_gal_civil_wars]§! = Civil Wars \n§Y[global_event_country.total_gal_plan_rebs]§! = Planetary Rebellions \n§Y[global_event_country.total_gal_sector_rebs]§! = Sectoral Rebellions \n§Y[global_event_country.total_gal_nat_events]§! = Nationalist Rebellions \n§Y[global_event_country.total_gal_slave_rebs]§! = Slave Rebellions \n§Y[global_event_country.total_gal_heir_rebs]§! = Heir Rebellions \n§Y[global_event_country.total_gal_coup_rebs]§! = Succession Crises \n§Y[global_event_country.total_gal_secession_rebs]§! = Secessions"
+
+ edict_civil_wars_settings: "Civil Wars Menu"
+ civil_wars_settings_tooltip: "Mod Menu for the Civil Wars mod"
 
  ethic_socialism: "Socialist"
  ethic_fanatic_socialism: "Fanatic Socialist"

@@ -25,7 +25,8 @@ wg_civwar = {
 		}
 		hidden_effect = {
 			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
-			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
+			set_timed_country_flag = { flag = recent_civwar_success years = 15 }
+			from = { set_timed_country_flag = { flag = recent_civwar_success years = 15 } }
 		}
 	}
 
@@ -106,6 +107,101 @@ wg_civwar_rebel = {
 			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
 			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
 		}
+	}
+
+	ai_weight = {
+		weight = 100
+	}
+}
+
+wg_total_civwar = {
+	casus_belli = cb_event
+
+	hide_if_no_cb = yes
+	total_war = yes
+
+	set_defender_wargoal = wg_total_civwar_rebel
+
+	surrender_acceptance = -500
+
+	forbidden_peace_offers = {
+		demand_surrender = ""
+		status_quo = ""
+		surrender = ""
+	}
+
+	potential = {
+		always = no # event only
+	}
+
+	possible = {
+		always = yes
+	}
+
+	# on_status_quo = {
+	# 	custom_tooltip = civil_war_status_quo_tooltip
+	# 	from = {
+	# 		add_monthly_resource_mult = {
+	# 			resource = unity
+	# 			value = @tier3materialreward
+	# 			min = @tier3materialmin
+	# 		}
+	# 	}
+	# 	hidden_effect = {
+	# 		set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
+	# 		from = {
+	# 			remove_country_flag = rival_to_@root
+	# 			set_timed_country_flag = { flag = recent_civwar_success years = 15 }
+	# 			set_name = random
+	# 			set_empire_flag = random
+	# 		}
+	# 	}
+	# }
+
+	on_wargoal_set = {
+		random_war = {
+			limit = { using_war_goal = { type = wg_total_civwar owner = root } } 
+			every_war_participant = {
+				limit = { is_war_leader = no }
+				prev = { remove_war_participant = prev }
+			}
+		}
+		every_system_within_border = {
+			limit = { NOT = { from = { has_claim = prev } } }
+			add_claims = { who = from }
+		}
+		from = {
+			every_system_within_border = {
+				limit = { NOT = { root = { has_claim = prev } } }
+				add_claims = { who = root }
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 100
+	}
+}
+
+wg_total_civwar_rebel = {
+	casus_belli = cb_event
+
+	hide_if_no_cb = yes
+	total_war = yes
+
+	surrender_acceptance = -500
+
+	forbidden_peace_offers = {
+		demand_surrender = ""
+		status_quo = ""
+		surrender = ""
+	}
+
+	potential = {
+		always = no # event only
+	}
+	possible = {
+		always = yes
 	}
 
 	ai_weight = {
@@ -513,6 +609,10 @@ wg_coup_successor = {
 	set_defender_wargoal = wg_coup_successor_opponent
 	total_war = yes
 
+	forbidden_peace_offers = {
+		demand_surrender = ""
+		surrender = ""
+	}
 
 	on_wargoal_set = {
 		every_system_within_border = {
@@ -525,10 +625,6 @@ wg_coup_successor = {
 				add_claims = { who = root }
 			}
 		}
-	}
-
-	on_accept = {
-		set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
 	}
 
 	on_status_quo = {
@@ -569,18 +665,16 @@ wg_coup_successor_opponent = {
 
 	surrender_acceptance = -100
 
+	forbidden_peace_offers = {
+		demand_surrender = ""
+		surrender = ""
+	}
+
 	potential = {
 		always = no # event only
 	}
 	possible = {
 		always = yes
-	}
-
-	on_accept = {
-		hidden_effect = {
-			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
-			from = { set_timed_country_flag = { flag = recent_civwar_ended years = 15 } }
-		}
 	}
 
 	ai_weight = {

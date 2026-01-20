@@ -66,7 +66,7 @@
 
 - Огромная благодарность mr_trousers, создателю мода Interstellar Incorporated. Он очень мне помог на сервере Discord «Stellaris Modding Den».
 
-- Русская локализация -  от [url=https://steamcommunity.com/id/mahpell/]Mahpell[/url]. Большое спасибо!
+- Русская локализация первоначально выполнена [url=https://steamcommunity.com/id/mahpell/]Mahpell[/url], обновлена [url=https://steamcommunity.com/profiles/76561199209349358/]Stepanida[/url]. Спасибо!
 
 - Китайская локализация от [url=https://steamcommunity.com/profiles/76561198840278562]Del[/url]. Большое спасибо!
 

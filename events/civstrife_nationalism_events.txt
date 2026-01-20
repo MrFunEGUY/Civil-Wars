@@ -78,6 +78,7 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 		NOR = {
 			has_government = gov_marauder_khanate
 			has_country_flag = truly_dead_country
+			from = { has_country_flag = rival_to_@root } ## Total War countries get separate event
 			# has_country_flag = civstrife_nat_timer
 		}
 	}

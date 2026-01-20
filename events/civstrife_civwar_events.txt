@@ -269,7 +269,6 @@ country_event = { # Setup for Civil War (create_country)
 					}
 					random = {
 						chance = value:leader_to_defect_chance
-						# chance = 100
 						if = {
 							limit = { exists = fleet }
 							fleet = {
@@ -281,6 +280,7 @@ country_event = { # Setup for Civil War (create_country)
 									}
 								}
 								set_owner = root
+								set_fleet_flag = fleet_defected_@event_target:civwar_originator
 							}
 						}
 						else_if = {
@@ -388,192 +388,30 @@ country_event = { # Setup for Civil War (create_country)
 			every_owned_fleet = { set_event_locked = no }
 
 			# Declare War
-			if = {
+			after_declare_war_effect = yes
+
+			if = { ## Countries engaged in total civil wars should both get the option
 				limit = {
-					NOR = {
-						has_country_flag = peaceful_secession
-						event_target:civwar_rebels = { has_country_flag = mute_rebel_country }
-					}
-				}
-				if = {
-					limit = { is_overlord = no }
-					if = {
-						limit = { # Succession Conflicts Declare War in a different way
-							event_target:civwar_rebels = {
-								NOR = {
-									has_origin = origin_coup_successor
-									has_origin = origin_coup_independent
-								}
-							}
-						}
-						# Subject Civil War
-						if = {
-							limit = { overlord_protects_subject = yes }
-							event_target:civwar_originator = { # Make subjects fall into civil war less often
-								set_timed_country_flag = { flag = civwar_not_allowed years = 20 }
-							}
-							if = {
-								limit = {
-									event_target:civwar_rebels.ruler = {
-										OR = {
-											rebel_is_former_heir = yes
-											rebel_is_former_leader = yes
-											has_leader_flag = civil_war_ruler_new
-											has_leader_flag = civil_war_ruler_secession
-										}
-									}
-								}
-								country_event = { id = civwar.2005 }
-								overlord = { country_event = { id = civwar.2000 days = 1 } }
-							}
-							else_if = {
-								limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_nationalist } }
-								if = { # Query Motherland if possible
-									limit = {
-										event_target:nat_motherland_model = {
-											is_exile_country = no
-											# For now, I will make this work for subjects in the future
-											is_subject = no
-										}
-									}
-									event_target:nat_motherland_model = { country_event = { id = civcom.4000 } }
-								}
-								else = {
-									event_target:nat_motherland_model = { set_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-									country_event = { id = civwar.2055 }
-								}
-								country_event = { id = civwar.2005 }
-								overlord = { country_event = { id = civwar.2000 days = 1 } }
-							}
-						}
-						# Nationalist
-						else_if = {
-							limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_nationalist } }
-							if = { # Query Motherland if possible
-								limit = {
-									event_target:nat_motherland_model = {
-										is_exile_country = no
-										# For now, I will make this work for subjects in the near future
-										is_subject = no
-									}
-								}
-								event_target:nat_motherland_model = { country_event = { id = civcom.4000 } }
-							}
-							else = {
-								event_target:nat_motherland_model = { set_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-								country_event = { id = civwar.2055 days = 1 }
-							}
-						}
-						# Isolated Sectoral Separatist Heir
-						else_if = {
-							limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_heir_isolated } }
-							country_event = { id = civwar.2065 days = 1 }
-						}
-						# Disinherited Heir
-						else_if = {
-							limit = {
-								event_target:civwar_rebels.ruler = {
-									OR = {
-										has_leader_flag = civil_war_ruler_heir_gov_changed
-										has_leader_flag = civil_war_ruler_heir_disinherited
-									}
-								}
-							}
-							country_event = { id = civwar.2066 days = 1 }
-						}
-						# Disallowed Secession
-						else_if = {
-							limit = { event_target:civwar_rebels.ruler = { has_leader_flag = civil_war_ruler_secession } }
-							country_event = { id = civwar.2067 days = 1 }
-						}
-						# Former Official/Commander/Scientist
-						else_if = {
-							limit = {
-								event_target:civwar_rebels.ruler = {
-									OR = {
-										rebel_is_former_leader = yes
-										has_leader_flag = civil_war_ruler_new
-									}
-								}
-							}
-							country_event = { id = civwar.2010 days = 1 }
-						}
-
-
-						if = {
-							limit  = { is_variable_set = total_reb_countries }
-							if = {
-								limit = { NOT = { is_variable_set = total_reb_countries_2 } }
-								set_variable = { which = total_reb_countries_2 value = 0 }
-							}
-							
-							change_variable = { which = total_reb_countries_2 value = 1 }
-
-							if = {
-								limit = {
-									check_variable = {
-										which = total_reb_countries_2
-										value = total_reb_countries
-									}
-								}
-
-								every_country = {
-									limit = { has_country_flag = ally_reb_@event_target:civwar_originator }
-									set_variable = { which = rebel_power_ratio value = rebel_power }
-									divide_variable = { which = rebel_power_ratio value = event_target:civwar_originator.mother_power }
-								}
-
-								clear_variable = total_reb_countries
-								clear_variable = total_reb_countries_2
-							}
-						}
-						else = {
-							root = {
-								set_variable = { which = rebel_power_ratio value = rebel_power }
-								divide_variable = { which = rebel_power_ratio value = event_target:civwar_originator.mother_power }
-							}
+					any_playable_country = {
+						is_at_war_with = event_target:civwar_originator
+						# NOT = { is_same_empire = event_target:civwar_originator }
+						OR = {
+							has_country_flag = rival_to_@event_target:civwar_originator
+							has_country_flag = mother_rival_to_@event_target:civwar_originator
 						}
 					}
 				}
-				else = {
-					if = {
-						limit  = { is_variable_set = total_reb_countries }
-						if = {
-							limit = { NOT = { is_variable_set = total_reb_countries_2 } }
-							set_variable = { which = total_reb_countries_2 value = 0 }
-						}
-
-						change_variable = { which = total_reb_countries_2 value = 1 }
-
-						if = {
-							limit = {
-								check_variable = {
-									which = total_reb_countries_2
-									value = total_reb_countries
-								}
-							}
-							every_country = {
-								limit = { has_country_flag = ally_reb_@event_target:civwar_originator }
-								set_variable = { which = rebel_power_ratio value = rebel_power }
-								divide_variable = { which = rebel_power_ratio value = event_target:civwar_originator.mother_power }
-							}
-							country_event = { id = civwar.1500 days = 1 } # Without delay, vassal wont be set to new owner
+				every_playable_country = {
+					limit = {
+						is_at_war_with = event_target:civwar_originator
+						# NOT = { is_same_empire = event_target:civwar_originator }
+						OR = {
+							has_country_flag = rival_to_@event_target:civwar_originator
+							has_country_flag = mother_rival_to_@event_target:civwar_originator
 						}
 					}
-					else = {
-						root = {
-							set_variable = { which = rebel_power_ratio value = rebel_power }
-							divide_variable = { which = rebel_power_ratio value = event_target:civwar_originator.mother_power }
-						}
-						country_event = { id = civwar.1500 days = 1 } # Without delay, vassal wont be set to new owner
-					}
+					after_declare_war_effect = yes
 				}
-			}
-			else_if = {
-				limit = { has_country_flag = peaceful_secession }
-				# Notify of newly created country
-				country_event = { id = civwar.2200 }
-				remove_country_flag = peaceful_secession
 			}
 		}
 		# # Create Armies, needs to be done later so pops are set ## this doesnt seem to be true?
@@ -771,7 +609,6 @@ country_event = { # Setup for Rebellions (create_rebels)
 					}
 					random = {
 						chance = value:leader_to_defect_chance
-						# chance = 100
 						if = {
 							limit = { exists = fleet }
 							fleet = {
@@ -783,6 +620,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 									}
 								}
 								set_owner = root
+								set_fleet_flag = fleet_defected_@event_target:civwar_originator
 							}
 						}
 						else_if = {
@@ -1405,6 +1243,7 @@ country_event = { # Former Leader - Communications
 		hidden_effect = {
 			if = {
 				limit = {
+					event_target:civwar_rebels = { is_rival_government = no }
 					NOR = {
 						any_country = { has_country_flag = ally_reb_@event_target:civwar_originator }
 						event_target:civwar_rebels.ruler = { has_leader_flag = personal_civil_war }
@@ -1504,6 +1343,7 @@ country_event = { # New Leader/Separatist - Communications
 			if = {
 				limit = {
 					event_target:civwar_rebels = {
+						is_rival_government = no
 						NOR = {
 							is_overlord = yes
 							check_variable = { which = num_mil_pops value >= root.num_mil_pops }
@@ -2305,7 +2145,6 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 
 	trigger = {
 		situation_progress >= 90
-		
 		owner = {
 			OR = {
 				AND = { # Civil War
@@ -2377,6 +2216,7 @@ situation_event = { # Revolt/Civil War Event
 	is_triggered_only = yes
 
 	trigger = {
+		civil_wars_enabled = yes
 		situation_progress >= 90
 		owner = {
 			OR = {

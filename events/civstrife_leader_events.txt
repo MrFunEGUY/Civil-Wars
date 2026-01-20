@@ -38,6 +38,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		civil_wars_enabled = yes
 		num_owned_planets > 1
 		these_are_rebels_in_rebellion = no
 		any_owned_leader = { NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } } }
@@ -46,7 +47,6 @@ country_event = {
 	immediate = {
 		random = {
 			chance = value:leader_civil_war_oppurtunity
-			# chance = 100
 			country_event = { id = civleader.1001 days = 3 }
 		}
 	}
@@ -76,7 +76,6 @@ country_event = { #
 			}
 			random = {
 				chance = value:leader_election_dispute_chance
-				# chance = 100
 				leader_event = { id = civleader.1002 days = 4 random = 14 }
 			}
 		}
@@ -93,6 +92,7 @@ leader_event = {
 	inline_script = "events/leader_election_dispute"
 
 	trigger = {
+		civil_wars_enabled = yes
 		NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner.ruler } }
 	}
 
@@ -315,7 +315,6 @@ leader_event = { ## Declare War or Not Decision
 	immediate = {
 		random = {
 			chance = value:election_out_is_allowed
-			# chance = 100
 			set_leader_flag = leader_can_be_pacified
 		}
 	}
@@ -362,7 +361,6 @@ leader_event = { ## Declare War or Not Decision
 		hidden_effect = {
 			random = {
 				chance = value:leader_dispute_civil_war_chance
-				# chance = 100
 				create_civil_war = yes
 			}
 		}

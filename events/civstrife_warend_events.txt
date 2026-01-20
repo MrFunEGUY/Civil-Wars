@@ -169,6 +169,117 @@ country_event = {
 	}
 }
 
+
+# Initializer, total Civil Wars rebels won
+country_event = { ## If the rebels win, just literally switch them to the motherland country
+	id = civend.1500
+	hide_window = yes
+	is_triggered_only = yes
+
+	#This = destroyed country
+	#From = optional, destroyer (country)
+
+	trigger = {
+		any_playable_country = { has_country_flag = rival_to_@root } ## Total War countries get separate event
+	}
+
+	immediate = {
+
+
+		random_playable_country = {
+			limit = { has_country_flag = rival_to_@root }
+			save_event_target_as = winner_country
+		}
+
+		log = "=================="
+		log = "DESTROYER: [from.GetName]"
+		log = "DESTROYED: [root.GetName]"
+		log = "WINNER: [winner_country.GetName]"
+		log = "=================="
+		
+		ruler = {
+			save_event_target_as = defeated_traitor
+			set_owner = event_target:winner_country
+		}
+		every_owned_starbase = { set_owner = event_target:winner_country }
+		every_owned_fleet = { set_owner = event_target:winner_country }
+
+		event_target:winner_country = {
+			copy_flags_and_variables_from = root
+			find_nat_number_flag = yes
+			find_secession_number_flag = yes
+			capital_scope = { save_event_target_as = defeated_traitor_capitol }
+			set_country_flag = traitor_already_asked_@event_target:defeated_traitor ## This was being a lil weird, with traitors going to exile countries somehow
+			get_traitor_outcome = yes
+			if = {
+				limit = { is_ai = yes }
+				country_event = { id = civend.1501 days = 45 } ## Delay because if they didnt take the last planet, it might need to switch owners
+			}
+		}
+	}
+}
+
+country_event = {
+	id = civend.1501
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		## So this should usually capture the original homeworld, but if not, it does make for an interesting narrative change. Will need to see how often its not the original.
+		ordered_owned_planet = {
+			position = 0
+			inverse = yes
+			order_by = trigger:pop_amount
+			save_event_target_as = should_be_capital
+		}
+		if = {
+			limit = { capital_scope = { NOT = { is_same_value = event_target:should_be_capital } } }
+			event_target:should_be_capital = { set_capital = yes }
+		}
+	}
+}
+
+# Initializer, total Civil Wars rebels lost
+country_event = { ## If the rebels win, just literally switch them to the motherland country
+	id = civend.1510
+	hide_window = yes
+	is_triggered_only = yes
+
+	#This = destroyed country
+	#From = optional, destroyer (country)
+
+	# A war has ended
+	# Root = Loser
+	# From = Main Winner
+
+	trigger = {
+		any_playable_country = { has_country_flag = mother_rival_to_@root }
+	}
+
+	immediate = {
+
+		random_playable_country = {
+			limit = { has_country_flag = mother_rival_to_@root }
+			save_event_target_as = winner_rival
+		}
+
+		event_target:defeated_traitor.solar_system = { save_event_target_as = defeated_traitor_capitol } ## I think this should always exist?
+		ruler = {
+			set_owner = event_target:winner_rival
+			save_event_target_as = defeated_traitor
+			exile_leader_as = defeated_traitor
+		}
+		every_owned_leader = {
+			kill_leader = { show_notification = yes }
+		}
+
+		event_target:winner_rival = {
+			set_country_flag = traitor_already_asked_@event_target:defeated_traitor
+			get_traitor_outcome = yes
+		}
+	}
+}
+
 # Initializer, subject Civil Wars
 country_event = {
 	id = civend.2000

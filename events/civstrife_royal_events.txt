@@ -498,6 +498,8 @@ situation_event = { # Rebel Sectors Exist
 
 	immediate = {
 
+		event_target:global_event_country = { change_variable = { which = total_gal_coup_rebs value = 1 } }
+
 		target = {
 			set_variable = { which = num_rebel_sectors value = 0 }
 			if = {
@@ -533,6 +535,7 @@ situation_event = { # Rebel Sectors Exist
 				}
 			}
 		}
+
 	}
 
 	option = {

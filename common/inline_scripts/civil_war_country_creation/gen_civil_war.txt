@@ -35,7 +35,21 @@ effect = {
 			}
 		}
 
-		if = {
+		log = "AUTH: [this.GetAuthority]"
+
+		if = { ## Cant create auth_corporate_imperial via create_country, will give a broken country, so just change it when it works is the best solution
+			limit = {
+				is_megacorp = yes
+				has_ecaf_mod = yes
+				is_authoritarian = yes
+			}
+			random = {
+				chance = 75
+				change_government = { authority = auth_corporate_imperial }
+			}
+			log = "NEW AUTH: [this.GetAuthority]"
+		}
+		else_if = {
 			limit = {
 				is_megacorp = no
 				event_target:civwar_originator = { is_megacorp = yes }
@@ -58,7 +72,6 @@ effect = {
 							shift_ethic = ethic_capitalism
 						}
 					}
-
 					inline_script = { script = civil_war_country_creation/megacorp_type_country TYPE = corporate }
 					event_target:cw_scope_initializer = {
 						switch = {

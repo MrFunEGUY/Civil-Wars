@@ -1,3 +1,8 @@
+civil_wars_enabled = { has_global_flag = CWM_civil_wars_ON }
+total_civil_wars_enabled = { has_global_flag = CWM_total_wars_ON }
+coup_trap_enabled = { has_global_flag = CWM_coup_trap_ON }
+coup_contagion_enabled = { has_global_flag = CWM_coup_contagion_ON }
+
 has_democratic_elections = {
 	NOT = { has_civic = civic_shadow_council }
 	is_democratic_authority = yes
@@ -1233,6 +1238,10 @@ is_succession_country = {
 		has_origin = origin_coup_successor
 		has_origin = origin_coup_independent
 	}
+}
+
+is_rival_government = {
+	has_country_flag = total_civil_war_government
 }
 
 rebel_is_former_leader = {

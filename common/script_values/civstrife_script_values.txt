@@ -1,10 +1,97 @@
 civil_war_chance = {
 	base = @base_civil_war_chance ## 6
 
+	# modifier = { ### Test
+	# 	factor = 1000
+	# 	always = yes
+	# }
+
+	### Menu Modifiers
+	modifier = {
+		factor = 0.2
+		has_global_flag = civil_war_very_low_chance
+	}
+
+	modifier = {
+		factor = 0.5
+		has_global_flag = civil_war_low_chance
+	}
+
+	modifier = {
+		factor = 1.7
+		has_global_flag = civil_war_high_chance
+	}
+
+	modifier = {
+		factor = 2.5
+		has_global_flag = civil_war_very_high_chance
+	}
+
+	modifier = {
+		factor = 1.5
+		coup_trap_enabled = yes
+		owner = { has_country_flag = recent_civwar_success }
+		has_global_flag = coup_trap_one_and_half
+	}
+
+	modifier = {
+		factor = 2
+		coup_trap_enabled = yes
+		owner = { has_country_flag = recent_civwar_success }
+		has_global_flag = coup_trap_double
+	}
+
+	modifier = {
+		factor = 3
+		coup_trap_enabled = yes
+		owner = { has_country_flag = recent_civwar_success }
+		has_global_flag = coup_trap_triple
+	}
+
+	modifier = {
+		factor = 4
+		coup_trap_enabled = yes
+		owner = { has_country_flag = recent_civwar_success }
+		has_global_flag = coup_trap_quadruple
+	}
+
+	modifier = {
+		factor = 1.5
+		coup_contagion_enabled = yes
+		any_neighbor_country = { has_country_flag = recent_civwar_success }
+		has_global_flag = coup_contagion_one_and_half
+	}
+
+	modifier = {
+		factor = 2
+		coup_contagion_enabled = yes
+		any_neighbor_country = { has_country_flag = recent_civwar_success }
+		has_global_flag = coup_contagion_double
+	}
+
+	modifier = {
+		factor = 3
+		coup_contagion_enabled = yes
+		any_neighbor_country = { has_country_flag = recent_civwar_success }
+		has_global_flag = coup_contagion_triple
+	}
+
+	modifier = {
+		factor = 4
+		coup_contagion_enabled = yes
+		any_neighbor_country = { has_country_flag = recent_civwar_success }
+		has_global_flag = coup_contagion_quadruple
+	}
+
 	modifier = {
 		factor = 0.2
 		exists = root.target
 		root.target = { is_pacifist = yes }
+	}
+
+	modifier = {
+		factor = 1.25
+		owner = { has_modifier = trade_deficit }
 	}
 
 	modifier = {
@@ -13,7 +100,6 @@ civil_war_chance = {
 			OR = {
 				has_deficit = energy
 				has_deficit = minerals
-				# has_deficit = trade
 			}
 		}
 	}
@@ -22,12 +108,58 @@ civil_war_chance = {
 		factor = 4
 		owner = { has_deficit = food }
 	}
+}
 
-	modifier = { owner = { has_country_flag = recent_civwar_ended }	factor = 2 }
+total_war_chance = {
+	base = @base_total_war_chance ## 10
+
+	# modifier = { ### Test
+	# 	factor = 1000
+	# 	always = yes
+	# }
+
+	### Menu Modifiers
+	modifier = {
+		factor = 0.1
+		has_global_flag = total_war_very_low_chance
+	}
+
+	modifier = {
+		factor = 0.5
+		has_global_flag = total_war_low_chance
+	}
+
+	modifier = {
+		factor = 1.5
+		has_global_flag = total_war_high_chance
+	}
+
+	modifier = {
+		factor = 2
+		has_global_flag = total_war_very_high_chance
+	}
+
+	modifier = {
+		factor = 0
+		OR = {
+			has_global_flag = CWM_no_total_wars
+			AND = {
+				exists = event_target:civwar_party
+				event_target:civwar_party = { is_regular_faction = no }
+			}
+			NOT = { has_same_ethics = { SCOPE1 = event_target:cw_scope_initializer SCOPE2 = event_target:cw_scope_initializer.owner } }
+		}
+	}
+
 }
 
 leader_civil_war_oppurtunity = {
 	base = @base_leader_civil_war_oppurtunity ## 15
+
+	# modifier = { ### Test
+	# 	factor = 1000
+	# 	always = yes
+	# }
 
 	modifier = {
 		add = value:reign_length_auth
@@ -61,7 +193,15 @@ leader_civil_war_oppurtunity = {
 leader_election_dispute_chance = {
 	base = @base_leader_election_dispute_chance ## 5
 
-	modifier = { has_leader_flag = civwar_war_hero		add = 5 }
+	# modifier = { ### Test
+	# 	factor = 1000
+	# 	always = yes
+	# }
+
+	modifier = {
+		add = 5
+		has_leader_flag = civwar_war_hero
+	}
 
 	modifier = {
 		subtract = value:leader_service_value
@@ -147,6 +287,11 @@ leader_election_dispute_chance = {
 leader_dispute_civil_war_chance = {
 	base = 25
 
+	# modifier = { ### Test
+	# 	factor = 1000
+	# 	always = yes
+	# }
+
 	modifier = {
 		subtract = value:leader_service_value
 		leader_years_of_service >= 5
@@ -220,14 +365,15 @@ leader_dispute_civil_war_chance = {
 leader_to_defect_chance = {
 	base = @base_leader_to_defect_chance ## 15
 
+	# modifier = { ### Test
+	# 	factor = 1000
+	# 	always = yes
+	# }
+
 	modifier = {
 		subtract = value:leader_service_value
 		leader_years_of_service >= 5
-	}
-
-	modifier = { ## Lvl 10 Cancelled by 30 yrs service
-		add = value:leader_skill_value
-		has_base_skill >= 1
+		event_target:civwar_rebels = { is_rival_government = no } ## In this situation, years of service is meaningless
 	}
 
 	modifier = {
@@ -286,7 +432,22 @@ leader_to_defect_chance = {
 	}
 
 	modifier = {
-		factor = 2
+		factor = 2.5
+		OR = {
+			AND = {
+				exists = planet
+				planet = { is_owned_by = event_target:civwar_rebels }
+			}
+			AND = { ## Fleet Folks too
+				exists = solar_system.space_owner
+				solar_system.space_owner = { is_same_empire = event_target:civwar_rebels }
+			}
+		}
+	}
+
+	modifier = { ## Adds to Above
+		factor = 1.75
+		NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels } }	
 		OR = {
 			AND = {
 				exists = planet
@@ -321,13 +482,13 @@ leader_to_defect_chance = {
 	}
 
 	modifier = {
-		factor = 1.2
+		factor = 2
 		NOT = { has_same_ethics = { SCOPE1 = this SCOPE2 = this.owner } }
 		has_same_ethics = { SCOPE1 = this SCOPE2 = event_target:civwar_rebels }
 	}
 
 	modifier = {
-		factor = 1.3
+		factor = 1.4
 		has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner }
 		NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels } }
 	}
@@ -343,7 +504,6 @@ leader_to_defect_chance = {
 		exists = fleet
 		has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner }
 		NOT = { has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_rebels } }
-		fleet = { any_owned_ship = { is_ship_class = shipclass_military } }
 	}
 
 	modifier = { ## Adds from above
@@ -351,7 +511,26 @@ leader_to_defect_chance = {
 		exists = fleet
 		has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = this.owner }
 		has_same_ethics = { SCOPE1 = this SCOPE2 = event_target:civwar_rebels }
-		fleet = { any_owned_ship = { is_ship_class = shipclass_military } }
+	}
+
+	modifier = {
+		factor = 1.1
+		event_target:civwar_rebels = { is_rival_government = yes }
+	}
+
+	modifier = {
+		factor = 4.6
+		event_target:civwar_rebels = { is_rival_government = yes }
+		OR = {
+			AND = {
+				exists = planet
+				planet = { is_owned_by = event_target:civwar_rebels }
+			}
+			AND = { ## Fleet Folks too
+				exists = solar_system.space_owner
+				solar_system.space_owner = { is_same_empire = event_target:civwar_rebels }
+			}
+		}
 	}
 
 	modifier = { owner = { is_democratic_authority = yes }	factor = 1 }
@@ -365,6 +544,11 @@ leader_to_defect_chance = {
 
 fleet_swap_chance = { ## These are leaderless fleets
 	base = @base_fleet_swap_chance ## 50
+
+	# modifier = { ### Test
+	# 	factor = 1000
+	# 	always = yes
+	# }
 	
 	modifier = { owner = { is_democratic_authority = yes }	factor = 1 }
 	modifier = { owner = { is_imperial_authority = yes }	factor = 1.1 }
@@ -375,6 +559,11 @@ fleet_swap_chance = { ## These are leaderless fleets
 
 chance_to_claim_all = {
 	base = 50
+
+	# modifier = { ### Test
+	# 	factor = 1000
+	# 	always = yes
+	# }
 
 	modifier = {
 		factor = 1.2
@@ -434,6 +623,11 @@ leader_skill_value = {
 
 election_out_is_allowed = {
 	base = 10
+
+	# modifier = { ### Test
+	# 	factor = 1000
+	# 	always = yes
+	# }
 
 	modifier = {
 		factor = 0.5

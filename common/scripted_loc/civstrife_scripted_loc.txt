@@ -5,6 +5,20 @@ defined_text = {
 		trigger = { gender = indeterminable }
 		localization_key = leader_trait_revolutionary_genderless_desc
 	}
+	text = {
+		trigger = {
+			is_ruler = yes
+			owner = { is_rival_government = yes }
+		}
+		localization_key = leader_trait_revolutionary_total_ruler_desc
+	}
+	text = {
+		trigger = {
+			is_ruler = no
+			owner = { is_rival_government = yes }
+		}
+		localization_key = leader_trait_revolutionary_total_desc
+	}
 	default = leader_trait_revolutionary_reg_desc
 }
 
