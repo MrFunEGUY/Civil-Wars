@@ -67,6 +67,8 @@ Native:
 
 - German Localisation by [url=https://steamcommunity.com/profiles/76561198028539261]Heinrich Honkler[/url]. Thank you!
 
+- Korean Localisation by [url=https://steamcommunity.com/profiles/76561198005833464]The Engineer Pop[/url]. Thank you!
+
 - Thumbnail Image: [i][url=https://www.artstation.com/artwork/A9do5V]Urban Combat[/url][/i] by Richard Yang
 
 

@@ -171,7 +171,7 @@ country_event = {
 
 
 # Initializer, total Civil Wars rebels won
-country_event = { ## If the rebels win, just literally switch them to the motherland country
+country_event = { ## If the rebels win, effectively make them the motherland country
 	id = civend.1500
 	hide_window = yes
 	is_triggered_only = yes
@@ -185,17 +185,16 @@ country_event = { ## If the rebels win, just literally switch them to the mother
 
 	immediate = {
 
-
 		random_playable_country = {
 			limit = { has_country_flag = rival_to_@root }
 			save_event_target_as = winner_country
 		}
 
-		log = "=================="
-		log = "DESTROYER: [from.GetName]"
-		log = "DESTROYED: [root.GetName]"
-		log = "WINNER: [winner_country.GetName]"
-		log = "=================="
+		# log = "=================="
+		# log = "DESTROYER: [from.GetName]"
+		# log = "DESTROYED: [root.GetName]"
+		# log = "WINNER: [winner_country.GetName]"
+		# log = "=================="
 		
 		ruler = {
 			save_event_target_as = defeated_traitor
@@ -214,6 +213,14 @@ country_event = { ## If the rebels win, just literally switch them to the mother
 			if = {
 				limit = { is_ai = yes }
 				country_event = { id = civend.1501 days = 45 } ## Delay because if they didnt take the last planet, it might need to switch owners
+			}
+
+			if = { ## End the war if other participants exist
+				limit = { any_war = { using_war_goal = { type = wg_total_civwar_rebel owner = event_target:winner_country } } }
+				random_war = {
+					limit = { using_war_goal = { type = wg_total_civwar_rebel owner = event_target:winner_country } }
+					every_war_participant = { prev = { remove_war_participant = prev } }
+				}
 			}
 		}
 	}
@@ -240,7 +247,7 @@ country_event = {
 }
 
 # Initializer, total Civil Wars rebels lost
-country_event = { ## If the rebels win, just literally switch them to the motherland country
+country_event = {
 	id = civend.1510
 	hide_window = yes
 	is_triggered_only = yes
@@ -260,12 +267,12 @@ country_event = { ## If the rebels win, just literally switch them to the mother
 
 		random_playable_country = {
 			limit = { has_country_flag = mother_rival_to_@root }
-			save_event_target_as = winner_rival
+			save_event_target_as = winner_country
 		}
 
 		event_target:defeated_traitor.solar_system = { save_event_target_as = defeated_traitor_capitol } ## I think this should always exist?
 		ruler = {
-			set_owner = event_target:winner_rival
+			set_owner = event_target:winner_country
 			save_event_target_as = defeated_traitor
 			exile_leader_as = defeated_traitor
 		}
@@ -273,9 +280,17 @@ country_event = { ## If the rebels win, just literally switch them to the mother
 			kill_leader = { show_notification = yes }
 		}
 
-		event_target:winner_rival = {
+		event_target:winner_country = {
 			set_country_flag = traitor_already_asked_@event_target:defeated_traitor
 			get_traitor_outcome = yes
+
+			if = { ## End the war if other participants exist
+				limit = { any_war = { using_war_goal = { type = wg_total_civwar owner = event_target:winner_country } } }
+				random_war = {
+					limit = { using_war_goal = { type = wg_total_civwar owner = event_target:winner_country } }
+					every_war_participant = { prev = { remove_war_participant = prev } }
+				}
+			}
 		}
 	}
 }

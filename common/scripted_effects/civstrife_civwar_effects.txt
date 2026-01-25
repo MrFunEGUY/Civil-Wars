@@ -1203,11 +1203,12 @@ make_civil_war_ethic_country = {
 	event_target:cw_scope_initializer = {
 		## If country shares ethic with initializer, possible they claim full legitimacy and start TOTAL war
 		if = { ##Multi Sector Civil Wars determine this earlier
-			limit = { check_variable = { which = multi_sector_TW_trigger value = 1 } }
+			limit = { is_variable_set = multi_sector_TW_trigger }
 			owner = { create_country = { inline_script = { script = civil_war_country_creation/total_civil_war } } }
 			set_variable = { which = total_war_happened value = 1 }
 		}
-		else = {
+		else_if = {
+			limit = { NOT = { is_variable_set = disallow_total_war } }
 			random = {
 				chance = value:total_war_chance
 				owner = { create_country = { inline_script = { script = civil_war_country_creation/total_civil_war } } }
@@ -1216,7 +1217,7 @@ make_civil_war_ethic_country = {
 		}
 
 		if = {
-			limit = { check_variable = { which = total_war_happened value = 1 } }
+			limit = { is_variable_set = total_war_happened }
 			clear_variable = total_war_happened
 		}
 		else = {
@@ -4029,10 +4030,11 @@ create_civil_war = {
 				}
 
 				if = {
-					limit = { event_target:cw_scope_initializer = { check_variable = { which = multi_sector_TW_trigger value = 1 } } }
+					limit = { event_target:cw_scope_initializer = { is_variable_set = multi_sector_TW_trigger } }
 					event_target:cw_scope_initializer = { clear_variable = multi_sector_TW_trigger }
 				}
 				else = {
+					event_target:cw_scope_initializer = { set_variable = { which = disallow_total_war value = 1 } } ## This is necessary so that the second/third/etc rebel country does not turn into a total civil war country
 					while = {
 						count = total_reb_countries
 						ordered_owned_sector = {
@@ -4059,6 +4061,14 @@ create_civil_war = {
 					limit = { has_sector_flag = potential_rebel }
 					remove_sector_flag = potential_rebel
 				}
+
+				event_target:cw_scope_initializer = {
+					if = {
+						limit = { is_variable_set = disallow_total_war }
+						clear_variable = disallow_total_war
+					}
+				}
+				
 			}
 			else_if = { # >= 2 Planets
 				limit = {
@@ -11453,6 +11463,12 @@ get_country_immediate_setup = {
 
 get_country_after_setup = {
 
+	## Add Claims
+	every_system_within_border = {
+		limit = { NOT = { event_target:civwar_originator = { has_claim = prev } } }
+		add_claims = { who = event_target:civwar_originator num_of_claims = 3 }
+	}
+
 	## Fix ethics (sometimes needed if country is created too fast, like with multiple sectors
 	if = {
 		limit = {
@@ -11460,43 +11476,43 @@ get_country_after_setup = {
 			OR = {
 				AND = {
 					has_country_flag = civwar_mil
-					NOT = { has_ethic = ethic_fanatic_militarist }
+					is_fanatic_materialist = no
 				}
 				AND = {
 					has_country_flag = civwar_pac
-					NOT = { has_ethic = ethic_fanatic_pacifist }
+					is_fanatic_pacifist = no
 				}
 				AND = {
 					has_country_flag = civwar_mat
-					NOT = { has_ethic = ethic_fanatic_materialist }
+					is_fanatic_materialist = no
 				}
 				AND = {
 					has_country_flag = civwar_spi
-					NOT = { has_ethic = ethic_fanatic_spiritualist }
+					is_fanatic_spiritualist = no
 				}
 				AND = {
 					has_country_flag = civwar_auth
-					NOT = { has_ethic = ethic_fanatic_authoritarian }
+					is_fanatic_authoritarian = no
 				}
 				AND = {
 					has_country_flag = civwar_egal
-					NOT = { has_ethic = ethic_fanatic_egalitarian }
+					is_fanatic_egalitarian = no
 				}
 				AND = {
 					has_country_flag = civwar_phobe
-					NOT = { has_ethic = ethic_fanatic_xenophobe }
+					is_fanatic_xenophobe = no
 				}
 				AND = {
 					has_country_flag = civwar_phile
-					NOT = { has_ethic = ethic_fanatic_xenophile }
+					is_fanatic_xenophile = no
 				}
 				AND = {
 					has_country_flag = civwar_soc
-					NOT = { has_ethic = ethic_fanatic_socialism }
+					is_fanatic_socialist = no
 				}
 				AND = {
 					has_country_flag = civwar_cap
-					NOT = { has_ethic = ethic_fanatic_capitalism }
+					is_fanatic_capitalist = no
 				}
 				AND = {
 					has_country_flag = civwar_coop
@@ -11536,100 +11552,100 @@ get_country_after_setup = {
 		if = {
 			limit = {
 				has_country_flag = civwar_mil
-				NOT = { has_ethic = ethic_fanatic_militarist }
+				is_fanatic_materialist = no
 			}
 			while = {
-				limit = { NOT = { has_ethic = ethic_fanatic_militarist } }
+				limit = { is_fanatic_materialist = no }
 				shift_ethic = ethic_militarist
 			}
 		}
 		else_if = {
 			limit = {
 				has_country_flag = civwar_pac
-				NOT = { has_ethic = ethic_fanatic_pacifist }
+				is_fanatic_pacifist = no
 			}
 			while = {
-				limit = { NOT = { has_ethic = ethic_fanatic_pacifist } }
+				limit = { is_fanatic_pacifist = no }
 				shift_ethic = ethic_pacifist
 			}
 		}
 		else_if = {
 			limit = {
 				has_country_flag = civwar_mat
-				NOT = { has_ethic = ethic_fanatic_materialist }
+				is_fanatic_materialist = no
 			}
 			while = {
-				limit = { NOT = { has_ethic = ethic_fanatic_materialist } }
+				limit = { is_fanatic_materialist = no }
 				shift_ethic = ethic_materialist
 			}
 		}
 		else_if = {
 			limit = {
 				has_country_flag = civwar_spi
-				NOT = { has_ethic = ethic_fanatic_spiritualist }
+				is_fanatic_spiritualist = no
 			}
 			while = {
-				limit = { NOT = { has_ethic = ethic_fanatic_spiritualist } }
+				limit = { is_fanatic_spiritualist = no }
 				shift_ethic = ethic_spiritualist
 			}
 		}
 		else_if = {
 			limit = {
 				has_country_flag = civwar_auth
-				NOT = { has_ethic = ethic_fanatic_authoritarian }
+				is_fanatic_authoritarian = no
 			}
 			while = {
-				limit = { NOT = { has_ethic = ethic_fanatic_authoritarian } }
+				limit = { is_fanatic_authoritarian = no }
 				shift_ethic = ethic_authoritarian
 			}
 		}
 		else_if = {
 			limit = {
 				has_country_flag = civwar_egal
-				NOT = { has_ethic = ethic_fanatic_egalitarian }
+				is_fanatic_egalitarian = no
 			}
 			while = {
-				limit = { NOT = { has_ethic = ethic_fanatic_egalitarian } }
+				limit = { is_fanatic_egalitarian = no }
 				shift_ethic = ethic_egalitarian
 			}
 		}
 		else_if = {
 			limit = {
 				has_country_flag = civwar_phobe
-				NOT = { has_ethic = ethic_fanatic_xenophobe }
+				is_fanatic_xenophobe = no
 			}
 			while = {
-				limit = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+				limit = { is_fanatic_xenophobe = no }
 				shift_ethic = ethic_xenophobe
 			}
 		}
 		else_if = {
 			limit = {
 				has_country_flag = civwar_phile
-				NOT = { has_ethic = ethic_fanatic_xenophile }
+				is_fanatic_xenophile = no
 			}
 			while = {
-				limit = { NOT = { has_ethic = ethic_fanatic_xenophile } }
+				limit = { is_fanatic_xenophile = no }
 				shift_ethic = ethic_xenophile
 			}
 		}
 		else_if = {
 			limit = {
 				has_country_flag = civwar_soc
-				NOT = { has_ethic = ethic_fanatic_socialism }
+				is_fanatic_socialist = no
 			}
 			while = {
-				limit = { NOT = { has_ethic = ethic_fanatic_socialism } }
+				limit = { is_fanatic_socialist = no }
 				shift_ethic = ethic_socialism
 			}
 		}
 		else_if = {
 			limit = {
 				has_country_flag = civwar_cap
-				NOT = { has_ethic = ethic_fanatic_capitalism }
+				is_fanatic_capitalist = no
 			}
 			while = {
-				limit = { NOT = { has_ethic = ethic_fanatic_capitalism } }
+				limit = { is_fanatic_capitalist = no }
 				shift_ethic = ethic_capitalism
 			}
 		}
@@ -11736,10 +11752,8 @@ get_country_after_setup = {
 				}
 				else_if = {
 					limit = {
-						NOR = {
-							has_ethic = ethic_fanatic_authoritarian
-							has_ethic = ethic_fanatic_egalitarian
-						}
+						is_fanatic_egalitarian = no
+						is_fanatic_authoritarian = no
 					}
 					change_government = {
 						authority = auth_corporate
@@ -11895,6 +11909,13 @@ get_country_after_setup = {
 		if = {
 			limit = { NOT = { has_starbase_size >= starbase_starport } }
 			set_starbase_size = starbase_starport
+			set_starbase_module = { slot = 1 module = shipyard }
+			set_starbase_module = { slot = 2 module = shipyard }
+		}
+		else_if = {
+			limit = { count_starbase_modules = { type = shipyard count < 2 } }
+			set_starbase_module = { slot = 1 module = shipyard }
+			set_starbase_module = { slot = 2 module = shipyard }
 		}
 	}
 

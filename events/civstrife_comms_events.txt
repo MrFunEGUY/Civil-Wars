@@ -1290,6 +1290,7 @@ country_event = {
 			modifier = {
 				factor = 0.5
 				has_rival = event_target:civwar_originator
+				event_target:civwar_rebels = { is_rival_government = no }
 			}
 
 			modifier = {
@@ -1310,11 +1311,16 @@ country_event = {
 		allow = {
 			custom_tooltip = {
 				fail_text = not_enough_support_resources
+				has_country_resource = { type = trade amount >= 2000 }
 				has_country_resource = { type = energy amount >= 1000 }
 				has_country_resource = { type = minerals amount >= 1000 }
 				has_country_resource = { type = food amount >= 1000 }
 				has_country_resource = { type = consumer_goods amount >= 500 }
 				has_country_resource = { type = alloys amount >= 500 }
+			}
+			custom_tooltip = {
+				fail_text = not_allowed_defense_pact
+				NOT = { has_defensive_pact = event_target:civwar_originator }
 			}
 			custom_tooltip = {
 				fail_text = we_must_border_rebels
@@ -1368,18 +1374,29 @@ country_event = {
 			factor = 1
 
 			modifier = {
-				factor = 2
-				has_rival = event_target:civwar_originator
+				factor = 0.25
+				has_non_aggression_pact = event_target:civwar_originator
 			}
 
 			modifier = {
-				factor = 3
-				is_at_war_with = event_target:civwar_originator
+				factor = 1.15
+				has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_originator }
+				# event_target:civwar_rebels = { is_rival_government = no }
 			}
 
 			modifier = {
 				factor = 1.5
 				opinion = { who = event_target:civwar_originator value < 0 }
+				# event_target:civwar_rebels = { is_rival_government = no }
+			}
+
+			modifier = {
+				factor = 2
+				OR = {
+					has_rival = event_target:civwar_originator
+					is_at_war_with = event_target:civwar_originator
+				}
+				# event_target:civwar_rebels = { is_rival_government = no }
 			}
 		}
 	}
@@ -1395,6 +1412,10 @@ country_event = {
 			}
 		}
 		allow = {
+			custom_tooltip = {
+				fail_text = not_allowed_defense_pact
+				NOT = { has_defensive_pact = event_target:civwar_originator }
+			}
 			custom_tooltip = {
 				fail_text = we_must_border_rebels
 				OR = {
@@ -1452,13 +1473,26 @@ country_event = {
 			}
 
 			modifier = {
-				factor = 1.5
-				has_rival = event_target:civwar_originator
+				factor = 0.25
+				has_non_aggression_pact = event_target:civwar_originator
 			}
 
 			modifier = {
 				factor = 1.1
 				opinion = { who = event_target:civwar_originator value < 0 }
+				# event_target:civwar_rebels = { is_rival_government = no }
+			}
+
+			modifier = {
+				factor = 1.15
+				has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_originator }
+				event_target:civwar_rebels = { is_rival_government = no }
+			}
+
+			modifier = {
+				factor = 1.5
+				has_rival = event_target:civwar_originator
+				# event_target:civwar_rebels = { is_rival_government = no }
 			}
 		}
 	}
@@ -1470,12 +1504,20 @@ country_event = {
 			hidden_trigger = {
 				OR = {
 					is_ai = no
-					AND = {
-						opinion = { who = event_target:civwar_originator value < 0 }
-						NOT = { has_defensive_pact = event_target:civwar_originator }
-						NOT = { has_non_aggression_pact = event_target:civwar_originator }
-					}
+					opinion = { who = event_target:civwar_originator value < 0 }
 				}
+			}
+			custom_tooltip = {
+				fail_text = not_allowed_defense_pact
+				NOT = { has_defensive_pact = event_target:civwar_originator }
+			}
+			custom_tooltip = {
+				fail_text = not_allowed_nonag_pact
+				NOT = { has_non_aggression_pact = event_target:civwar_originator }
+			}
+			custom_tooltip = {
+				fail_text = not_allowed_truce
+				NOT = { has_truce = event_target:civwar_originator }
 			}
 			custom_tooltip = { # This is checked for everyone else before this point
 				fail_text = we_must_border_rebels
@@ -1523,14 +1565,53 @@ country_event = {
 			modifier = {
 				factor = 0
 				OR = {
-					is_at_war = yes
+					AND = {
+						is_at_war = yes
+						NOT = { is_at_war_with = event_target:civwar_originator }
+					}
 					opinion = { who = event_target:civwar_originator value > -50 }
 				}
 			}
 
 			modifier = {
+				factor = 0.1
+				is_fanatic_xenophobe = yes
+				root.species = { NOT = { is_same_species = event_target:civwar_rebels.species } }
+			}
+
+			modifier = {
+				factor = 0.25
+				OR = {
+					AND = {
+						has_ethic = ethic_xenophobe
+						root.species = { NOT = { is_same_species = event_target:civwar_rebels.species } }
+					}
+					AND = {
+						relative_power = {
+							who = event_target:civwar_originator
+							category = fleet
+							value < equivalent
+						}
+					}
+				}
+			}
+
+			modifier = {
+				factor = 1.1
+				opinion = { who = event_target:civwar_originator value < 0 }
+				event_target:civwar_rebels = { is_rival_government = no }
+			}
+
+			modifier = {
 				factor = 1.15
+				has_opposing_ethics = { COUNTRY1 = this COUNTRY2 = event_target:civwar_originator }
+				event_target:civwar_rebels = { is_rival_government = no }
+			}
+
+			modifier = {
+				factor = 1.25
 				has_rival = event_target:civwar_originator
+				event_target:civwar_rebels = { is_wrival_government = no }
 			}
 		}
 	}
@@ -1621,6 +1702,7 @@ country_event = {
 	option = {
 		name = civcom.2115.small
 		allow = {
+			has_country_resource = { type = trade amount >= 2000 }
 			has_country_resource = { type = energy amount >= 1000 }
 			has_country_resource = { type = minerals amount >= 1000 }
 			has_country_resource = { type = food amount >= 1000 }
@@ -1629,6 +1711,7 @@ country_event = {
 		}
 		event_target:civwar_rebels = {
 			add_resource = {
+				trade = 2000
 				energy = 1000
 				minerals = 1000
 				food = 1000
@@ -1641,6 +1724,7 @@ country_event = {
 			}
 		}
 		add_resource = {
+			trade = -2000
 			energy = -1000
 			minerals = -1000
 			food = -1000
@@ -1654,6 +1738,7 @@ country_event = {
 	option = {
 		name = civcom.2115.medium
 		allow = {
+			has_country_resource = { type = trade amount >= 5000 }
 			has_country_resource = { type = energy amount >= 3000 }
 			has_country_resource = { type = minerals amount >= 3000 }
 			has_country_resource = { type = food amount >= 3000 }
@@ -1662,6 +1747,7 @@ country_event = {
 		}
 		event_target:civwar_rebels = {
 			add_resource = {
+				trade = 5000
 				energy = 3000
 				minerals = 3000
 				food = 3000
@@ -1674,6 +1760,7 @@ country_event = {
 			}
 		}
 		add_resource = {
+			trade = -5000
 			energy = -3000
 			minerals = -3000
 			food = -3000
@@ -1687,6 +1774,7 @@ country_event = {
 	option = {
 		name = civcom.2115.large
 		allow = {
+			has_country_resource = { type = trade amount >= 10000 }
 			has_country_resource = { type = energy amount >= 5000 }
 			has_country_resource = { type = minerals amount >= 5000 }
 			has_country_resource = { type = food amount >= 5000 }
@@ -1695,6 +1783,7 @@ country_event = {
 		}
 		event_target:civwar_rebels = {
 			add_resource = {
+				trade = 10000
 				energy = 5000
 				minerals = 5000
 				food = 5000
@@ -1707,6 +1796,7 @@ country_event = {
 			}
 		}
 		add_resource = {
+			trade = -10000
 			energy = -5000
 			minerals = -5000
 			food = -5000

@@ -1991,7 +1991,7 @@ country_event = { # Destroy Fleets
 			limit = { event_target:civwar_rebels = { has_country_flag = born_planetary_rebellion } }
 			multiply_variable = { which = mil_support value = 100 }
 			floor_variable = mil_support
-			get_ship_delete_effect = { PERCENT = mil_support }
+			get_ship_delete_effect = { PERCENT = root.mil_support }
 		}
 		# else = { # Shit, when is this gonna happen. Separatists?
 		# 	event_target:civwar_rebels = {
@@ -2126,7 +2126,10 @@ country_event = { # Give Systems
 					starbase = { set_owner = root }
 					if = {
 						limit = { event_target:civwar_originator = { is_at_war_with = root } }
-						add_claims = { who = event_target:civwar_originator }
+						add_claims = { who = event_target:civwar_originator num_of_claims = 10 }
+					}
+					else = {
+						add_claims = { who = event_target:civwar_originator num_of_claims = 3 } ## Add claims regardless of war						
 					}
 				}
 			}

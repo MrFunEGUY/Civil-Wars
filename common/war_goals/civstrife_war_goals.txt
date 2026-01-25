@@ -70,8 +70,8 @@ wg_civwar = {
 		else = {
 			from = {
 				every_system_within_border = {
-					limit = { NOT = { root = { has_claim = prev } } }
-					add_claims = { who = root }
+					# limit = { NOT = { root = { has_claim = prev } } }
+					add_claims = { who = root num_of_claims = 10 }
 				}
 			}
 		}
@@ -167,13 +167,13 @@ wg_total_civwar = {
 			}
 		}
 		every_system_within_border = {
-			limit = { NOT = { from = { has_claim = prev } } }
-			add_claims = { who = from }
+			# limit = { NOT = { from = { has_claim = prev } } }
+			add_claims = { who = from num_of_claims = 10 }
 		}
 		from = {
 			every_system_within_border = {
-				limit = { NOT = { root = { has_claim = prev } } }
-				add_claims = { who = root }
+				# limit = { NOT = { root = { has_claim = prev } } }
+				add_claims = { who = root num_of_claims = 10 }
 			}
 		}
 	}
@@ -252,8 +252,8 @@ wg_planet_rebellion = {
 		else = {
 			from = {
 				every_system_within_border = {
-					limit = { NOT = { root = { has_claim = prev } } }
-					add_claims = { who = root }
+					# limit = { NOT = { root = { has_claim = prev } } }
+					add_claims = { who = root num_of_claims = 10 }
 				}
 			}
 		}
@@ -425,8 +425,8 @@ wg_natwar = {
 		else = {
 			from = {
 				every_system_within_border = {
-					limit = { NOT = { root = { has_claim = prev } } }
-					add_claims = { who = root }
+					# limit = { NOT = { root = { has_claim = prev } } }
+					add_claims = { who = root num_of_claims = 10 }
 				}
 			}
 		}
@@ -552,13 +552,13 @@ wg_civwar_heir = {
 		else = {
 			from = {
 				every_system_within_border = {
-					limit = { NOT = { root = { has_claim = prev } } }
-					add_claims = { who = root }
+					# limit = { NOT = { root = { has_claim = prev } } }
+					add_claims = { who = root num_of_claims = 10 }
 				}
 			}
 			every_system_within_border = {
-				limit = { NOT = { from = { has_claim = prev } } }
-				add_claims = { who = from }
+				# limit = { NOT = { from = { has_claim = prev } } }
+				add_claims = { who = from num_of_claims = 10 }
 			}
 		}
 	}
@@ -616,13 +616,13 @@ wg_coup_successor = {
 
 	on_wargoal_set = {
 		every_system_within_border = {
-			limit = { NOT = { from = { has_claim = prev } } }
-			add_claims = { who = from }
+			# limit = { NOT = { from = { has_claim = prev } } }
+			add_claims = { who = from num_of_claims = 10 }
 		}
 		from = {
 			every_system_within_border = {
-				limit = { NOT = { root = { has_claim = prev } } }
-				add_claims = { who = root }
+				# limit = { NOT = { root = { has_claim = prev } } }
+				add_claims = { who = root num_of_claims = 10 }
 			}
 		}
 	}
@@ -713,8 +713,8 @@ wg_coup_independent = {
 		}
 		from = {
 			every_system_within_border = {
-				limit = { NOT = { root = { has_claim = prev } } }
-				add_claims = { who = root }
+				# limit = { NOT = { root = { has_claim = prev } } }
+				add_claims = { who = root num_of_claims = 10 }
 			}
 		}
 	}
@@ -804,8 +804,8 @@ wg_coup_fealty = { # Currently Unused
 	on_wargoal_set = {
 		from = {
 			every_system_within_border = {
-				limit = { NOT = { root = { has_claim = prev } } }
-				add_claims = { who = root }
+				# limit = { NOT = { root = { has_claim = prev } } }
+				add_claims = { who = root num_of_claims = 10 }
 			}
 		}
 	}
@@ -1093,8 +1093,8 @@ wg_slave_uprising = {
 		else = {
 			from = {
 				every_system_within_border = {
-					limit = { NOT = { root = { has_claim = prev } } }
-					add_claims = { who = root }
+					# limit = { NOT = { root = { has_claim = prev } } }
+					add_claims = { who = root num_of_claims = 10 }
 				}
 			}
 		}

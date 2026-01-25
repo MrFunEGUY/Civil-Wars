@@ -1289,6 +1289,7 @@ these_are_rebels_in_rebellion = {
 has_rebel_war_goal = {
 	OR = {
 		using_war_goal = { type = wg_civwar_rebel owner = root.owner }
+		using_war_goal = { type = wg_total_civwar_rebel owner = root.owner }
 		using_war_goal = { type = wg_planet_rebellion_rebels owner = root.owner }
 		using_war_goal = { type = wg_natwar_rebel owner = root.owner }
 		using_war_goal = { type = wg_civwar_heir_rebel owner = root.owner }
@@ -1301,6 +1302,7 @@ has_rebel_war_goal = {
 has_civil_war_goal = {
 	OR = {
 		using_war_goal = { type = wg_civwar owner = root.owner }
+		using_war_goal = { type = wg_total_civwar owner = root.owner }
 		using_war_goal = { type = wg_planet_rebellion owner = root.owner }
 		using_war_goal = { type = wg_natwar owner = root.owner }
 		using_war_goal = { type = wg_civwar_heir owner = root.owner }
@@ -2003,6 +2005,14 @@ has_same_ethics = {
 			$SCOPE1$ = { is_materialist = yes }
 			$SCOPE2$ = { is_materialist = yes }
 		}
+		AND = {
+			$SCOPE1$ = { is_capitalism = yes }
+			$SCOPE2$ = { is_capitalism = yes }
+		}
+		AND = {
+			$SCOPE1$ = { is_socialism = yes }
+			$SCOPE2$ = { is_socialism = yes }
+		}
 	}
 }
 
@@ -2023,21 +2033,6 @@ is_fake_leader = {
 ###########################
 
 # Ethics and Civics Overwrites/Backups
-
-is_socialism = {
-	OR = {
-		has_ethic = ethic_socialism
-		has_ethic = ethic_fanatic_socialism
-	}
-}
-
-is_capitalism = {
-	OR = {
-		has_ethic = ethic_capitalism
-		has_ethic = ethic_fanatic_capitalism
-	}
-}
-
 
 is_ethic_situation = {
 	OR = {
@@ -2578,56 +2573,56 @@ nats_modifier_flag_matcher = {
 		inline_script = { script = triggers/nats_modifier_matcher NUM = 48 SCOPE = $SCOPE$ }
 		inline_script = { script = triggers/nats_modifier_matcher NUM = 49 SCOPE = $SCOPE$ }
 		inline_script = { script = triggers/nats_modifier_matcher NUM = 50 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 51 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 52 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 53 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 54 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 55 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 56 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 57 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 58 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 59 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 60 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 61 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 62 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 63 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 64 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 65 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 66 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 67 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 68 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 69 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 70 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 71 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 72 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 73 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 74 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 75 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 76 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 77 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 78 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 79 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 80 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 81 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 82 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 83 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 84 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 85 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 86 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 87 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 88 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 89 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 90 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 91 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 92 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 93 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 94 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 95 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 96 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 97 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 98 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 99 SCOPE = $SCOPE$ }
-		inline_script = { script = triggers/nats_modifier_matcher NUM = 100 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 51 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 52 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 53 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 54 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 55 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 56 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 57 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 58 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 59 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 60 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 61 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 62 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 63 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 64 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 65 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 66 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 67 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 68 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 69 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 70 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 71 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 72 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 73 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 74 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 75 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 76 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 77 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 78 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 79 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 80 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 81 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 82 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 83 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 84 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 85 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 86 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 87 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 88 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 89 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 90 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 91 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 92 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 93 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 94 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 95 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 96 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 97 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 98 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 99 SCOPE = $SCOPE$ }
+		# inline_script = { script = triggers/nats_modifier_matcher NUM = 100 SCOPE = $SCOPE$ }
 	}
 }
 
@@ -2793,6 +2788,7 @@ has_seceder_country_flag = {
 
 has_civstrife_origin = {
 	OR = {
+		is_rival_government = yes
 		has_origin = origin_civwar
 		has_origin = origin_plan_rebellion
 		has_origin = origin_sec_rebellion

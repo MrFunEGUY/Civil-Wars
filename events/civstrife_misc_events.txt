@@ -324,10 +324,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		OR = {
-			is_rival_government = yes
-			has_civstrife_origin = yes
-		}
+		has_civstrife_origin = yes
 		NOT = { has_origin = origin_exile_government }
 		NOT = { has_origin = origin_disinherited_heir }
 		NOT = { has_origin = origin_restored_government }
@@ -337,13 +334,14 @@ country_event = {
 	immediate = {
 		event_target:global_event_country = {
 			change_variable = { which = total_gal_civstrife_events value = 1 }
+			
 			if = {
-				limit = { root = { has_origin = origin_civwar } }
-				change_variable = { which = total_gal_civil_wars value = 1 }
-			}
-			else_if = {
 				limit = { root = { is_rival_government = yes } }
 				change_variable = { which = total_gal_total_civwars value = 1 }
+			}
+			else_if = {
+				limit = { root = { has_origin = origin_civwar } }
+				change_variable = { which = total_gal_civil_wars value = 1 }
 			}
 			else_if = {
 				limit = { root = { has_origin = origin_nationalist_rebellion } }

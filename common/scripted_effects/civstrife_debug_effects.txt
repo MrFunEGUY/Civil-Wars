@@ -3,7 +3,227 @@
 ### Civil Wars by MrFunEGUY ###
 ###############################
 
-# Set Installed Heir Setup
+get_civwar_countries = {
+	if = {
+		limit = { any_playable_country = { is_rival_government = yes } }
+		log = "Rival Government:"
+		every_playable_country = {
+			limit = { is_rival_government = yes }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_civwar } }
+		log = "Separatist State:"
+		every_playable_country = {
+			limit = { has_origin = origin_civwar }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_nationalist_rebellion } }
+		log = "Nationalist Uprising:"
+		every_playable_country = {
+			limit = { has_origin = origin_nationalist_rebellion }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_plan_rebellion } }
+		log = "Planetary Rebellion:"
+		every_playable_country = {
+			limit = { has_origin = origin_plan_rebellion }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_civstrife_slave_rebellion } }
+		log = "Slave Uprising:"
+		every_playable_country = {
+			limit = { has_origin = origin_civstrife_slave_rebellion }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_heir_rebellion } }
+		log = "Disinherited Heir:"
+		every_playable_country = {
+			limit = { has_origin = origin_heir_rebellion }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_sec_rebellion } }
+		log = "Sectoral Rebellion:"
+		every_playable_country = {
+			limit = { has_origin = origin_sec_rebellion }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_isolated_rebellion } }
+		log = "Isolated Territory:"
+		every_playable_country = {
+			limit = { has_origin = origin_isolated_rebellion }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_coup_successor } }
+		log = "Disputed Successor:"
+		every_playable_country = {
+			limit = { has_origin = origin_coup_successor }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_coup_independent } }
+		log = "Disputed Fealty:"
+		every_playable_country = {
+			limit = { has_origin = origin_coup_independent }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_civsecession } }
+		log = "Political Secession:"
+		every_playable_country = {
+			limit = { has_origin = origin_civsecession }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = {
+			any_playable_country = {
+				OR = {
+					has_origin = origin_exile_government
+					has_origin = origin_disinherited_heir
+					has_origin = origin_restored_government
+					has_origin = origin_restored_successor_government
+				}
+			}
+		}
+		log = "========================"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_exile_government } }
+		log = "Exiled Government:"
+		every_playable_country = {
+			limit = { has_origin = origin_exile_government }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_disinherited_heir } }
+		log = "Disinherited Heir in Waiting:"
+		every_playable_country = {
+			limit = { has_origin = origin_disinherited_heir }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_restored_government } }
+		log = "Restored Nation:"
+		every_playable_country = {
+			limit = { has_origin = origin_restored_government }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+	if = {
+		limit = { any_playable_country = { has_origin = origin_restored_successor_government } }
+		log = "Successor State:"
+		every_playable_country = {
+			limit = { has_origin = origin_restored_successor_government }
+			log = "\\[this.GetName]"
+		}
+		log = "-------------------------"
+	}
+
+	set_variable = { which = total_civwar_countries value = 0 }
+	every_playable_country = {
+		limit = { has_civstrife_origin = yes }
+		root = { change_variable = { which = total_civwar_countries value = 1 } }
+	}
+	log = "Total Civwar Countries: \\[this.total_civwar_countries]"
+}
+
+get_civwar_num = {
+	every_playable_country = {
+		limit = {
+			OR = {
+				is_variable_set = civwar_number
+				any_owned_planet = {
+					OR = {
+						is_variable_set = reb_number
+						is_variable_set = sec_reb_number
+						is_variable_set = slave_reb_number
+						is_variable_set = sec_slave_reb_number
+					}
+				}
+			}
+		}
+		log = "\\[this.GetName]:"
+		if = {
+			limit = { is_variable_set = civwar_number }
+			log = "\\[this.civwar_number] - Civil Wars"
+		}
+		if = {
+			limit = {
+				any_owned_planet = {
+					OR = {
+						is_variable_set = reb_number
+						is_variable_set = sec_reb_number
+						is_variable_set = slave_reb_number
+						is_variable_set = sec_slave_reb_number
+					}
+				}
+			}
+			every_owned_planet = {
+				limit = {
+					OR = {
+						is_variable_set = reb_number
+						is_variable_set = sec_reb_number
+						is_variable_set = slave_reb_number
+						is_variable_set = sec_slave_reb_number
+					}
+				}
+				log = "-------------"
+				if = {
+					limit = { is_variable_set = reb_number }
+					log = "\\[this.GetName]: \\[this.reb_number] - Planetary Rebellions"
+				}
+				if = {
+					limit = { is_variable_set = sec_reb_number }
+					log = "\\[this.GetName]: \\[this.sec_reb_number] - Sectoral Rebellions"
+				}
+				if = {
+					limit = { is_variable_set = slave_reb_number }
+					log = "\\[this.GetName]: \\[this.slave_reb_number] - Planetary Slave Rebellions"
+				}
+				if = {
+					limit = { is_variable_set = sec_slave_reb_number }
+					log = "\\[this.GetName]: \\[this.sec_slave_reb_number] - Sectoral Slave Rebellions"
+				}
+				log = "-------------------------"
+			}
+		}
+		log = "==============================="
+	}
+}
 
 get_separatists_effect = {
 	every_country = {
@@ -42,7 +262,7 @@ get_traitors_effect = {
 }
 
 get_civwar_sits_effect = {
-	every_country = {
+	every_playable_country = {
 		limit = { any_situation = { is_faction_based_situation = yes } }
 		log = "Country: \\[this.GetName]"
 		log = "--------------------------"

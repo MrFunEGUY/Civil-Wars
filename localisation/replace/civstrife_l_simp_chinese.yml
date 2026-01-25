@@ -87,6 +87,7 @@ l_simp_chinese:
  ON_SCREEN_REBELS: "What!? On screen!"
 
  # Planetary Rebellion
+ ###################
 
  civplan.9000.name: "§RHeir's Forces Strike!§!"
  civplan.9000.desc: "The forces of the former §Yheir§!, §H[civwar_rebels.ruler.GetName]§!, have mobilized on §Y[civil_war_planet.GetName]§! and are attempting to seize the planet!"
@@ -100,6 +101,7 @@ l_simp_chinese:
  civplan.9020.a: "Excellent."
 
  # Origins
+ ###################
 
  origin_civwar: "Separatist State"
  origin_civwar_desc: "This state was formed after political disagreements led to their secession from another nation."
@@ -117,7 +119,7 @@ l_simp_chinese:
  origin_coup_successor_desc: "Amid a succession crisis, an extended member of the royal family managed to garner enough support to claim the throne."
 
  origin_coup_independent: "Disputed Fealty"
- origin_coup_independent_desc: "The imperial dynasty of this state were once just one among many great noble houses in another empire. However, a succession crisis led the house to declare their independence, claiming that they owed no fealty to a pretender."
+ origin_coup_independent_desc: "The imperial dynasty of this state was once just one among many great noble houses in another empire. However, a succession crisis led the house to declare their independence, claiming that they owed no fealty to a pretender."
 
  origin_disinherited_heir: "Disinherited Heir"
  origin_disinherited_heir_desc: "This heir was exiled, but is awaiting the opportunity to strike back."
@@ -147,6 +149,7 @@ l_simp_chinese:
  origin_civsecession_desc: "This state was formed after their people gained their independence peacefully through legal political procedures."
 
  # Opinion Modifiers
+ ###################
  opinion_civwar: "Declared Independence From Us"
  opinion_civwar_peace: "Declared Independence From Us"
  opinion_civwar_planet: "Declared Independence From Us"
@@ -170,32 +173,44 @@ l_simp_chinese:
  opinion_gave_fleet_50: "$opinion_supported_rebellion_militarily$"
  opinion_gave_fleet_major: "$opinion_supported_rebellion_militarily$"
  
- opinion_gives_small_resources: "$opinion_supported_rebellion$"
- opinion_gives_medium_resources: "$opinion_supported_rebellion$"
- opinion_gives_large_resources: "$opinion_supported_rebellion$"
+ opinion_gives_small_resources: "$opinion_supported_rebellion_financially$"
+ opinion_gives_medium_resources: "$opinion_supported_rebellion_financially$"
+ opinion_gives_large_resources: "$opinion_supported_rebellion_financially$"
 
  # Army Names
+ ###################
  civwar_defense_army: "Separatist Defense Militia"
  civwar_defense_army_desc: "This Defense Militia is ready to defend their planet to protect their revolution."
  civwar_assault_army: "Separatist Forward Militia"
  civwar_assault_army_desc: "This Assault Militia is ready to land on other planets to support their revoltion."
 
  # Planetary Modifiers
+ ###################
  planetary_rebels: "Separatists Organizing"
  planetary_rebels_desc: "Months of turmoil and instability have made the local populace begin to question our governance of the planet. There are whispers of secession and separatist groups have begun to organize."
  planet_no_sector: "No Sectoral Support"
  planet_no_sector_desc: "The lack of support that comes from being in an official sector makes this planet a hotbed for crime."
 
  planet_frontier_sector: "Frontier Sector"
- planet_frontier_sector_desc: "This planet is on the frontier, in a newly created sector. The law is almost non-existent, and services are more unreliable. The population here feels less attachment to the distant central government."
+ planet_frontier_sector_desc: "This is a newly created sector. The law is almost non-existent, and government services are unreliable. The population here feels less attachment to the distant central government."
 
  planet_integrated_sector: "Integrated Sector"
- planet_integrated_sector_desc: "This planet belongs to a sector that is fully integrated into the country. All major services are operational, and the presence of the government can be felt."
+ planet_integrated_sector_desc: "This sector is fully integrated into the country."
 
  planet_fundamental_sector: "Fundamental Sector"
- planet_fundamental_sector_desc: "This planet belongs to a sector that is fundamental to the identity of the country. This sector has been held by this country for generations, and the citizens here take pride in that."
+ planet_fundamental_sector_desc: "This sector is fundamental to the identity of the country. This sector has been held by this country for generations, and the citizens here take pride in that."
+
+ planet_frontier_planet: "Infrastructure: Sparse"
+ planet_frontier_planet_desc: "The law is almost non-existent, and government services are unreliable."
+
+ planet_integrated_planet: "Infrastructure: Serviceable"
+ planet_integrated_planet_desc: "All essential services are operational, and the presence of the government can be felt"
+
+ planet_fundamental_planet: "Infrastructure: Developed"
+ planet_fundamental_planet_desc: "This planet belongs to a sector that is fundamental to the identity of the country. This sector has been held by this country for generations, and the citizens here take pride in that."
 
  # Modifiers
+ ###################
  rigged_elections_pop: "Electoral Fraud"
  rigged_elections_faction: "Electoral Fraud"
  ruler_once_rigged_elections: "Past Electoral Fraud"
@@ -204,9 +219,9 @@ l_simp_chinese:
  restoration_of_motherland: "Motherland has been restored"
  faction_happy_no_support: "Faction is either content or cannot support radicalization"
  civwar_country_boost: "National Emergency"
- 
 
  # Enclaves
+ ###################
  enclave_exiled_gov: "Government-in-Exile"
  enclave_exiled_gov_desc: "Governments-in-Exile are governments of nations that have lost all their territory. They continue on with the hope that at least some of their territory may eventually be restored."
 
@@ -219,6 +234,7 @@ l_simp_chinese:
  RT_EXILE_LEADER: "Exiled Government Head"
 
  # Fail Texts
+ ###################
  resource_fail_text: "§RWe do not have enough resources.§!"
  war_leader_engaged: "§RLeader is engaged in ongoing operations and cannot be dismissed.§!"
  two_year_unity_fail_text: "§RRequires§! §Y[Root.year_unity_prod]§! £unity£ §YUnity§!"
@@ -231,9 +247,8 @@ l_simp_chinese:
  ##################
 
  dummy_sector_leader: "[sector_name_local.GetName]"
- dummy_old_name_leader: "[event_target:new_homeland.GetName]"
- dummy_party_leader: "[event_target:civwar_party.GetName]"
-
+ dummy_old_name_leader: "[new_homeland.GetName]"
+ dummy_party_leader: "[civwar_party.GetName]"
  government_is_gov: "government"
  government_is_corp: "board"
 
@@ -259,35 +274,64 @@ l_simp_chinese:
  defected_leader_19: "[defected_leader_19.GetClass] §Y[defected_leader_19.GetName]§!"
  defected_leader_20: "[defected_leader_20.GetClass] §Y[defected_leader_20.GetName]§!"
 
+ fleets_who_defected: "\n§RDefecting Fleets§!:"
+ defected_fleet_1: "[defected_fleet_1.GetClass] §Y[defected_fleet_1.GetName]§!"
+ defected_fleet_2: "[defected_fleet_2.GetClass] §Y[defected_fleet_2.GetName]§!"
+ defected_fleet_3: "[defected_fleet_3.GetClass] §Y[defected_fleet_3.GetName]§!"
+ defected_fleet_4: "[defected_fleet_4.GetClass] §Y[defected_fleet_4.GetName]§!"
+ defected_fleet_5: "[defected_fleet_5.GetClass] §Y[defected_fleet_5.GetName]§!"
+ defected_fleet_6: "[defected_fleet_6.GetClass] §Y[defected_fleet_6.GetName]§!"
+ defected_fleet_7: "[defected_fleet_7.GetClass] §Y[defected_fleet_7.GetName]§!"
+ defected_fleet_8: "[defected_fleet_8.GetClass] §Y[defected_fleet_8.GetName]§!"
+ defected_fleet_9: "[defected_fleet_9.GetClass] §Y[defected_fleet_9.GetName]§!"
+ defected_fleet_10: "[defected_fleet_10.GetClass] §Y[defected_fleet_10.GetName]§!"
+ defected_fleet_11: "[defected_fleet_11.GetClass] §Y[defected_fleet_11.GetName]§!"
+ defected_fleet_12: "[defected_fleet_12.GetClass] §Y[defected_fleet_12.GetName]§!"
+ defected_fleet_13: "[defected_fleet_13.GetClass] §Y[defected_fleet_13.GetName]§!"
+ defected_fleet_14: "[defected_fleet_14.GetClass] §Y[defected_fleet_14.GetName]§!"
+ defected_fleet_15: "[defected_fleet_15.GetClass] §Y[defected_fleet_15.GetName]§!"
+ defected_fleet_16: "[defected_fleet_16.GetClass] §Y[defected_fleet_16.GetName]§!"
+ defected_fleet_17: "[defected_fleet_17.GetClass] §Y[defected_fleet_17.GetName]§!"
+ defected_fleet_18: "[defected_fleet_18.GetClass] §Y[defected_fleet_18.GetName]§!"
+ defected_fleet_19: "[defected_fleet_19.GetClass] §Y[defected_fleet_19.GetName]§!"
+ defected_fleet_20: "[defected_fleet_20.GetClass] §Y[defected_fleet_20.GetName]§!"
+
  # Faction and Sector Planetary Rebellion
+ ########################################
 
  civcom.1000.name: "[civwar_rebels.GetRulerTitle] §H[civwar_rebels.Ruler.GetName]§!"
- civcom.1000.leader.plan.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people of §Y[civwar_rebels.capital_scope.GetName]§! have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+ civcom.1000.leader.plan.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people of §Y[civwar_rebels.capital_scope.GetName]§! have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+
  civcom.1000.newleader.plan.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am former member of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+
  civcom.1000.separatist.plan.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I represent the people of §Y[civwar_rebels.capital_scope.GetName]§!, who have long been left neglected and impoverished by your [GetGovermentBoard]. Now, they have chosen me to lead the newly-formed §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+
  civcom.1000.slaves.plan.desc: "My name is §H[civwar_rebels.Ruler.GetName]§!. Our valiant freedom fighters have routed your forces, securing §Y[civwar_rebels.capital_scope.GetName]§! and the surrounding systems. We have done this thing because it is just. Blood demands blood. We have lived and lost at the whims of our masters for too long. I would not have it so. As such, I have been elected to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. You may challenge us, but our freedom is worth dying for.."
 
  civcom.1000.under_one_rule.desc: "$civcom.1100.under_one_rule.desc$"
 
- civcom.1000.leader.sec.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people of §Y[sector_name_leader.GetName]§! have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+ civcom.1000.leader.sec.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people of §Y[sector_name_leader.GetName]§! have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+
  civcom.1000.slaves.sec.desc: "My name is §H[civwar_rebels.Ruler.GetName]§!. Our valiant freedom fighters have routed your forces and secured the §Y[sector_name_leader.GetName]§! sector. No longer will the people of this sector be enslaved by your [GetGovermentBoard]. I have been elected to lead the newly-formed §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we have already demonstrated our willingness to die for our cause. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
 
  civcom.1000.nationalist.support.desc: "It's unfortunate that it had to come to this. I am §H[civwar_rebels.Ruler.GetName]§!, a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I lead a new state, the §H[civwar_rebels.GetName]§!, as their §Y[civwar_rebels.GetRulerTitle]§!.\n\nOur new state is modeled after §Your motherland§!, the §Y[nat_motherland_model.GetName]§!, who have pledged their §Yfull support for our cause§!. If you decide to attack us, §Pyou will also be going to war with them§!. That being the case, I recommend that your [GetGovermentBoard] accept our new state, so that we may prevent any further bloodshed."
+
  civcom.1000.nationalist.no_support.desc: "It's unfortunate that it had to come to this. I am §H[civwar_rebels.Ruler.GetName]§!, a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, as §Y[civwar_rebels.GetRulerTitle]§!, I lead a new §Y[nat_motherland_model.GetAdj]§! state, the §H[civwar_rebels.GetName]§!, which is modeled after §Your motherland§! the §Y[nat_motherland]§! as their .\n\nOur new state is modeled after §Your motherland§!, the §Y[nat_motherland_model.GetName]§!. I recommend that your [GetGovermentBoard] accept our new state, so that we may prevent any further bloodshed."
 
  civcom.1000.nationalist.mult.support.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I lead a new state, the §H[civwar_rebels.GetName]§!, as their §Y[civwar_rebels.GetRulerTitle]§!.\n\nOur new state is modeled after §Your motherland§!, the §Y[nat_motherland_model.GetName]§!, who have pledged their §Yfull support for our cause§!. If you decide to attack us, §Pyou will also be going to war with them§!, and with the other §Y[nat_motherland_model.GetAdj]§! states that have just risen in revolt. That being the case, I recommend that your [GetGovermentBoard] accept our new states, so that we may prevent any further bloodshed."
+
  civcom.1000.nationalist.mult.no_support.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am former member of the §Y[civwar_party_name_leader.GetName]§!. Now, as §Y[civwar_rebels.GetRulerTitle]§!, I lead a new §Y[nat_motherland_model.GetAdj]§! state, the §H[civwar_rebels.GetName]§!.\n\nOur new state is modeled after §Your motherland§!, the §Y[nat_motherland_model.GetName]§!. We are allied to the other §Y[nat_motherland_model.GetAdj]§! states that have just risen in revolt, and are commited to our mutual defense. That being the case, I recommend that your [GetGovermentBoard] accept our new states, so that we may prevent any further bloodshed."
 
  civcom.1000.separatist.sec.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I represent the people of the §Y[sector_name_leader.GetName]§! sector, who have long been left neglected and impoverished by your [GetGovermentBoard]. Now, they have chosen me to lead the newly-formed §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
  civcom.1000.nationalist.sec.support.desc: "$civcom.1000.nationalist.support.desc$"
  civcom.1000.nationalist.sec.no_support.desc: "$civcom.1000.nationalist.no_support.desc$"
 
- civcom.1005.leader.plan.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people of §Y[civwar_rebels.capital_scope.GetName]§! have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
+ civcom.1005.leader.plan.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people of §Y[civwar_rebels.capital_scope.GetName]§! have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
  civcom.1005.separatist.plan.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I represent the people of §Y[civwar_rebels.capital_scope.GetName]§!, who have long been left neglected and impoverished by your [GetGovermentBoard]. Now, they have chosen me to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!.\n\nWe recognize the odds of us holding this planet in a war are slim. However, we have the resources to make any potential war long and costly. Therefore, in the interest of preventing further bloodshed, we're willing to forgo declaring complete independence.\n\nWe're willing to pay you tribute in exchange for our autonomy."
  civcom.1005.nationalist.desc: "$civcom.1000.nationalist.no_support.desc$"
  civcom.1000.newleader.plan.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am former member of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
 
- civcom.1005.leader.sec.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people of the §Y[sector_name_leader.GetName]§! sector have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
+ civcom.1005.leader.sec.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people of the §Y[sector_name_leader.GetName]§! sector have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
  civcom.1005.separatist.sec.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I represent the people of the §Y[sector_name_leader.GetName]§! sector, who have long been left neglected and impoverished by your [GetGovermentBoard]. Now, they have chosen me to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!.\n\nHowever, in the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
  civcom.1005.nationalist.sec.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am former member of the §Y[civwar_party_name_leader.GetName]§!. Now, as §Y[civwar_rebels.GetRulerTitle]§!, I lead a new §Y[nat_motherland_model.GetAdj]§! state, the §H[civwar_rebels.GetName]§!.\n\nOur new state is modeled after §Your motherland§!, the §Y[nat_motherland_model.GetName]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
 
@@ -298,6 +342,12 @@ l_simp_chinese:
  civcom.1005.a: "This is treason. We will reunite our nation. This means war."
  civcom.1005.vassal: "Interesting. We accept your offer."
  civcom.1005.vassal.tooltip: "The §H[civwar_rebels.GetName]§! will become a §YTributary§!. \n§RWe will never be able to integrate them.§!"
+
+ civcom.1105.desc: "I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.Ruler.GetName]§! and I lead the newly-formed §H[civwar_rebels.GetName]§!. We've routed your forces, securing this planet and the surrounding systems. No longer will the people of §Y[rebellion_planet.GetName]§! be neglected and left impoverished by your [GetGovermentBoard].\n\nWe recognize the odds of us holding this planet in a war are slim. However, we have the resources to make any potential war long and costly. Therefore, in the interest of preventing further bloodshed, we're willing to forgo declaring complete independence.\n\nWe're willing to pay you tribute in exchange for our autonomy."
+
+ civcom.1105.a: "This is treason. We will reunite our nation. This means war."
+ civcom.1105.b: "Interesting. We accept your offer."
+ civcom.1105.b.tooltip: "The §H[civwar_rebels.GetName]§! will become a §YTributary§! of our nation."
 
  civcom.2000.norm.desc: "We knew this was the most likely outcome, and we are prepared to defend our independence."
  civcom.2000.heir.desc: "I knew this was the course you would most likely take, seeing as you have a tendency to make poor decisions. Ever more the reason that I should lead."
@@ -317,26 +367,11 @@ l_simp_chinese:
  civcom.1100.name: "[civwar_rebels.GetRulerTitle] §H[civwar_rebels.Ruler.GetName]§!"
 
  civcom.1000.war: "This is treason. We will reunite our nation. This means war."
- civcom.5030.a: "This is treason. This means war."
  civcom.1000.independence: "We're better off without you."
-
- civcom.5062.desc: "I knew this was the most likely outcome. My fleet is prepared to defend itself."
- civcom.5063.desc: "I knew this was the most likely outcome, and I'm prepared to defend what is rightfully mine."
-
- civcom.2120.desc: "We're glad you feel that way. The feeling is mutual."
- civcom.5042.desc: "I'm glad you feel that way. The feeling is mutual."
-
- civcom.2120.a: "So be it."
- civcom.5052.a: "Be gone."
-
- civcom.1105.desc: "I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.Ruler.GetName]§! and I lead the newly-formed §H[civwar_rebels.GetName]§!. We've routed your forces, securing this planet and the surrounding systems. No longer will the people of §Y[rebellion_planet.GetName]§! be neglected and left impoverished by your [GetGovermentBoard].\n\nWe recognize the odds of us holding this planet in a war are slim. However, we have the resources to make any potential war long and costly. Therefore, in the interest of preventing further bloodshed, we're willing to forgo declaring complete independence.\n\nWe're willing to pay you tribute in exchange for our autonomy."
-
- civcom.1105.a: "This is treason. We will reunite our nation. This means war."
- civcom.1105.b: "Interesting. We accept your offer."
- civcom.1105.b.tooltip: "The §H[civwar_rebels.GetName]§! will become a §YTributary§! of our nation."
 
  #####################
  # Government-in-Exile
+ #####################
 
  civcom.9000.name: "The Government-in-Exile of the §Y[from.GetName]§!"
  civcom.9000.regular: "Greetings, esteemed §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. I am §H[from.ruler.GetName]§!, leader of the §Y[from.GetName]§!. As you may already be aware, our territory has been completely conquered by foreign forces. In the interests of the §Y[from.GetSpeciesAdj]§! people, our leadership has formed a §HGovernment-in-Exile§!. However, this government will be unable to function unless we have a space to operate. The purpose of my audience with you today is to request that you host us."
@@ -372,6 +407,7 @@ l_simp_chinese:
  civcom.9220.desc: "This is amazing news. We would be extremely grateful for any sector."
 
  # Restoration Planets
+ #####################
  civcom.9210.restoration_planet_1: "§Y[restoration_planet_1.GetName]§! with §Y[restoration_planet_1.solar_system.GetName]§!"
  civcom.9210.restoration_planet_2: "§Y[restoration_planet_2.GetName]§! with §Y[restoration_planet_2.solar_system.GetName]§!"
  civcom.9210.restoration_planet_3: "§Y[restoration_planet_3.GetName]§! with §Y[restoration_planet_3.solar_system.GetName]§!"
@@ -394,6 +430,7 @@ l_simp_chinese:
  civcom.9210.restoration_planet_20: "§Y[restoration_planet_20.GetName]§! with §Y[restoration_planet_20.solar_system.GetName]§!"
 
  # Restoration Sectors
+ #####################
  civcom.9220.restoration_sector_1: "§Y[restoration_sector_1.GetName]§!"
  civcom.9220.restoration_sector_2: "§Y[restoration_sector_2.GetName]§!"
  civcom.9220.restoration_sector_3: "§Y[restoration_sector_3.GetName]§!"
@@ -418,7 +455,7 @@ l_simp_chinese:
  #### Civil War Communications ####
  ##################################
 
- civcom.spacer: "==================="
+ civcom.spacer: "§Y===================§!"
  civcom.swap_to_rebels: "You've made some good points..."
  civcom.swap_to_rebels.tooltip: "You will continue your game as the §Prebels§!, the §H[event_target:civwar_rebels.GetName]§!"
 
@@ -428,13 +465,41 @@ l_simp_chinese:
  rebel_overlord_text_more: "\nAdditionally, your former subjects the have sworn fealty to us. They will join us in fighting against you, should you attempt it."
 
  all_subjects_rebel_1: "\nFurther, it seems that with this discord you've forced upon us, the §Y[free_subject.GetName]§! has taken the opportunity §Pto rebel§!. I suggest you worry about putting them down, as opposed to worrying about us."
+
  all_subjects_rebel_more: "\nFurther, it seems that with this discord you've forced upon us, your subjects have taken the opportunity §Pto rebel§!. I suggest you worry about putting them down, as opposed to worrying about us."
+
  all_subjects_rebel_plus_fealty_more: "\nFurther, it seems that with this discord you've forced upon us, your other subjects have taken the opportunity §Pto rebel§!. I suggest you worry about putting them down, as opposed to worrying about us."
+
  some_subjects_rebel: "\nFurther, it seems that with this discord you've forced upon us, §Ysome of your subjects§! have taken the opportunity §Pto rebel§!. I suggest you worry about putting them down, as opposed to worrying about us."
 
- civcom.1100.leader.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+ traitor_subjects: "\n§RTraitorous Subjects§!:"
+ traitor_subject_1: "§Y[traitor_subject_1.GetName]§!"
+ traitor_subject_2: "§Y[traitor_subject_2.GetName]§!"
+ traitor_subject_3: "§Y[traitor_subject_3.GetName]§!"
+ traitor_subject_4: "§Y[traitor_subject_4.GetName]§!"
+ traitor_subject_5: "§Y[traitor_subject_5.GetName]§!"
+ traitor_subject_6: "§Y[traitor_subject_6.GetName]§!"
+ traitor_subject_7: "§Y[traitor_subject_7.GetName]§!"
+ traitor_subject_8: "§Y[traitor_subject_8.GetName]§!"
+ traitor_subject_9: "§Y[traitor_subject_9.GetName]§!"
+ traitor_subject_10: "§Y[traitor_subject_10.GetName]§!"
+ traitor_subject_11: "§Y[traitor_subject_11.GetName]§!"
+ traitor_subject_12: "§Y[traitor_subject_12.GetName]§!"
+ traitor_subject_13: "§Y[traitor_subject_13.GetName]§!"
+ traitor_subject_14: "§Y[traitor_subject_14.GetName]§!"
+ traitor_subject_15: "§Y[traitor_subject_15.GetName]§!"
+ traitor_subject_16: "§Y[traitor_subject_16.GetName]§!"
+ traitor_subject_17: "§Y[traitor_subject_17.GetName]§!"
+ traitor_subject_18: "§Y[traitor_subject_18.GetName]§!"
+ traitor_subject_19: "§Y[traitor_subject_19.GetName]§!"
+ traitor_subject_20: "§Y[traitor_subject_20.GetName]§!"
+
 
  civcom.1100.leader.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
+
+ civcom.megacorp.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The shareholders have had enough. In order to protect our profits, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as its §H[civwar_rebels.GetRulerTitle]§!. I have the support of my shareholders, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further revenue loss."
+
+ civcom.total_civwar.desc: "It's unfortunate that it had to come to this, but your arrogance has torn this country apart. I could not allow our great nation to be so subverted by you and your [GetGovermentBoard]. You can no longer be our §H[civwar_originator.Ruler.GetTitle]§! - our citizens demand better. In order to save our country, I will be our new §H[civwar_rebels.GetRulerTitle]§!. Our movement has the support of the people. Through our people, we will achieve victory."
 
  civcom.election_dispute.orig_dem_still_dem.desc: "It's unfortunate that it had to come to this, but your arrogance has torn this country apart. I could not allow the democratic process to be so subverted by you and your [GetGovermentBoard]. You are not the rightful §H[civwar_rebels.Ruler.GetTitle]§! and our citizens deserve better. In order to preserve democracy, I will lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of our people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
 
@@ -450,6 +515,8 @@ l_simp_chinese:
 
  civcom.1100.heir.iso.sec.desc: "It's unfortunate that it had to come to this. You knew me as §Y[civwar_originator.GetHeirTitle]§! §H[civwar_rebels.Ruler.GetName]§!. In the time I spent in the §Y[sector_name_leader.GetName]§! sector, I grew to love it and to consider it my true home. This naturally led to me getting involved with the §Y[civwar_party_name_leader.GetName]§!. Our government was distant and unreachable, and the people of §Y[sector_name_leader.GetName]§! deserve a government that they actually have access to. The former §Y[sector_name_leader.GetName]§! sector has been reorganized into the §H[civwar_rebels.GetName]§!, and I have been proclaimed its §Y[civwar_rebels.GetRulerTitle]§!. Additionally, I renounce all claims to the throne of the §Y[civwar_originator.GetName]§!. I have the support of the people, and should you somehow manage to actually get any ships here, we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
 
+ civcom.1100.nationalist.restored.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I lead the reforged §H[civwar_rebels.GetName]§!, as their §Y[civwar_rebels.GetRulerTitle]§!.\n\nI recommend that your [GetGovermentBoard] accept our sovereignty, so that we may prevent any further bloodshed."
+
  civcom.1100.nationalist.support.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I lead a new state, the §H[civwar_rebels.GetName]§!, as their §Y[civwar_rebels.GetRulerTitle]§!.\n\nOur new state is modeled after §Your motherland§!, the §H[nat_motherland_model.GetName]§!, who have pledged their §Yfull support for our cause§!. If you decide to attack us, §Pyou will also be going to war with them§!. That being the case, I recommend that your [GetGovermentBoard] accept our sovereignty, so that we may prevent any further bloodshed."
 
  civcom.1100.nationalist.mult.support.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!.\n\nOur new state is modeled after §Your motherland§!, the §H[nat_motherland_model.GetName]§!, who have pledged their §Yfull support for our cause§!. If you decide to attack us, §Pyou will also be going to war with them§!, and with the other §Y[nat_motherland_model.GetAdj]§! states that have just risen in revolt. That being the case, I recommend that your [GetGovermentBoard] accept our sovereignty, so that we may prevent any further bloodshed."
@@ -463,26 +530,25 @@ l_simp_chinese:
  civcom.1100.nationalist.no_support.exile.imp.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I represent the newly constituted §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§! on a provisional basis.\n\nOur state is modeled after §Your motherland§!, the original §H[nat_motherland_model.GetName]§!, and I will relinquish power to our true leader, §Y[civwar_rebels.GetRulerTitle]§! §H[nat_motherland_model.ruler.GetName]§!, once our liberation is complete. I recommend that your [GetGovermentBoard] accept our sovereignty, so that we may prevent any further bloodshed."
  civcom.1100.nationalist.mult.no_support.exile.imp.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I represent the newly constituted §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§! on a provisional basis.\n\nOur new state is modeled after §Your motherland§!, the original §H[nat_motherland_model.GetName]§!, and I will relinquish power to our true leader, §Y[civwar_rebels.GetRulerTitle]§! §H[nat_motherland_model.ruler.GetName]§!, once our liberation is complete. If you decide to attack us, you will also be going to war the other §Y[nat_motherland_model.GetAdj]§! states that have just risen in revolt. That being the case, I recommend that your [GetGovermentBoard] accept our sovereignty, so that we may prevent any further bloodshed."
 
- civcom.election_dispute.dem.desc: "You forced the §Y[civwar_party_name_leader.GetName]§! to take action, and so we did. We couldn't let your electoral fraud stand. To do so would've been an affront to democracy. Now, I am the §Y[civwar_rebels.GetRulerTitle]§!, as I rightfully should have been. I lead a new state, the §H[civwar_rebels.GetName]§!, which was created to represent the true values of the §Y[root.GetAdj]§! people. It would be in everyone's best interest if you accepted our sovereignty peacefully. We don't want to spill any more [root.GetAdj] blood."
-
- civcom.election_dispute.other.desc: "You forced the §Y[civwar_party_name_leader.GetName]§! to take action, and so we did. We couldn't let your fraud stand. To do so would've been an affront to our dignity. Now, I am the §Y[civwar_rebels.GetRulerTitle]§!, as I rightfully should have been. I lead a new state, the §H[civwar_rebels.GetName]§!, which was created to represent the true values of the §Y[root.GetAdj]§! people. It would be in everyone's best interest if you accepted our sovereignty peacefully. We don't want to spill any more [root.GetAdj] blood."
-
- civcom.election_dispute.corp.desc: "You forced the §Y[civwar_party_name_leader.GetName]§! to take action, and so we did. We couldn't let your fraud stand. To do so wouldn't have been profitable in the long run. Now, I am the §Y[civwar_rebels.GetRulerTitle]§!, as I rightfully should have been. I lead a new corporation, the §H[civwar_rebels.GetName]§!, which was created to represent the true interests of the §Y[root.GetAdj]§! people. It would be in everyone's best interest if you accepted our sovereignty peacefully. We don't want to spill any more [root.GetAdj] blood."
-
  civcom.1100.secession.dem.desc: "The people of the §H[root.GetName]§! fairly and legally voted to allow my people to secede. No bureaucratic shenanigans were going to stop us at that point. Using my legal authority as §Y[root.GetRulerTitle]§!, I've done what I can to ensure the success of the secession of the §H[civwar_rebels.GetName]§!. You should not try to fight this, as this was legally done. War can stil be averted."
  civcom.1100.secession.not_dem.desc: "I legally secured the position of §Y[root.GetRulerTitle]§!, which by all rights should have allowed me to lead the secession of my people. No bureaucratic shenanigans were going to stop us at that point. Using my legal authority as §Y[root.GetRulerTitle]§!, I've done what I can to ensure the success of the secession of the §H[civwar_rebels.GetName]§!. You should not try to fight this, as this was legally done. War can stil be averted."
-
 
  civcom.1100.under_one_rule.desc: "The tyrannical rule of the §YLuminary§! has been ended! The people have had enough, and yearn to be free of the yoke of authoritarianism. Now, I have been chosen to represent the §H[civwar_rebels.GetName]§!, a revolutionary state founded on the principles of freedom and democracy, as their §Y[civwar_rebels.GetRulerTitle]§!. By making peace impossible, you made violence inevitable. However, you still have the chance to prevent any further bloodshed."
 
 
  ############## With Vassalization
 
- civcom.1105.leader.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!, leader of the §Y[civwar_party_name_leader.GetName]§!. However, your [GetGovermentBoard] has neglected our concerns for too long, and the people have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves.\n\nHowever, I hope that will not be necessary. In the interest of preventing any further bloodshed, I'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
+ civcom.1105.leader.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves."
 
- civcom.1105.nationalist.exile.reg.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!.\n\nOur new state is modeled after §Your motherland§!, the original §Y[nat_motherland_model.GetName]§!. In the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
+ civcom.megacorp.vas.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The shareholders have had enough. In order to protect our profits, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as its §H[civwar_rebels.GetRulerTitle]§!. I have the support of my shareholders, and we are prepared to defend ourselves."
 
- civcom.1105.nationalist.exile.imp.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle] on a provisional basis§!.\n\nOur new state is modeled after §Your motherland§!, the original §Y[nat_motherland_model.GetName]§!, and I will relinquish power to our true leader, §Y[civwar_rebels.GetRulerTitle]§! §H[nat_motherland_model.ruler.GetName]§!, once our liberation is complete. In the interest of preventing any further bloodshed, we'd like to offer you a deal.\n\nWe're willing to pay you tribute in exchange for our autonomy."
+ civcom.1105.nationalist.exile.reg.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!.\n\nOur new state is modeled after §Your motherland§!, the original §Y[nat_motherland_model.GetName]§!."
+
+ civcom.1105.nationalist.exile.imp.desc: "It's unfortunate that it had to come to this. My name is §H[civwar_rebels.Ruler.GetName]§!, and I am a former member of the §Y[civwar_party_name_leader.GetName]§!. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle] on a provisional basis§!.\n\nOur new state is modeled after §Your motherland§!, the original §Y[nat_motherland_model.GetName]§!, and I will relinquish power to our true leader, §Y[civwar_rebels.GetRulerTitle]§! §H[nat_motherland_model.ruler.GetName]§!, once our liberation is complete."
+
+ civcom.offer_vas_norm: "\n\nHowever, in the interest of preventing any further bloodshed, we'd like to offer you a deal:\n\nWe're willing to pay you tribute in exchange for our autonomy."
+
+ civcom.offer_vas_corp: "\n\nHowever, in the interest of preventing any further revenue loss, we'd like to offer you a deal:\n\nWe're willing to operate as a fully-autonomous subsidiary under you."
 
  civcom.3100.norm.desc: "Did you really think I would just stand by and let my birthright be stolen from me? During my time as heir, I made allies. There are many throughout the realm who support me. As such, I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.Ruler.GetName]§!, as I always should have been. You should consider yourself lucky, as I don't intend on waging war for the rest of §Rmy§! territory. I recommend we go our separate ways here. I have enough support to win a conflict between us, should you make any further attempts to steal my birthright from me."
 
@@ -526,6 +592,7 @@ l_simp_chinese:
  civcom.4000.help: "You have our fully military support."
  not_enough_support_resources: "We do not have enough resources."
  no_shared_borders_civwar: "We have no §Yshared borders§!."
+ 
 
  civcom.4100.norm.desc: "We knew the chances were slim. Have a good day."
  civcom.4100.nat.desc: "Really? This is dissapointing. We thought we could surely count on our fellow §Y[Root.GetSpeciesAdj]§! to assist us."
@@ -620,7 +687,6 @@ l_simp_chinese:
 
  civcom.6000.name: "[mad_faction_leader.GetTitle] §H[mad_faction_leader.GetName]§!"
 
-
  civcom.6000.normal: "Ah, I was wondering when you would finally come calling. You already know what my party wants, so how do you propose we resolve this situation?"
 
  civcom.6000.funding: "More funding for your party?"
@@ -703,9 +769,9 @@ l_simp_chinese:
  civheir.3115.a: "That doesn't sound good."
 
  civheir.8100.name: "§YFormer Heir Found§!"
- civheir.8100.planet.desc: "It seems that after being disinherited, the former heir of the §Y[root.GetName]§! began conspiring to take back the throne. That was all for naught, however, as our intelligence agencies found them dead today. It seems that they were holed up in a remote region of §Y[heir_hiding_planet.GetName]§!."
+ civheir.8100.planet.desc: "It seems that after being disinherited, the former heir of the §Y[root.GetName]§! began conspiring to take back the throne. That was all for naught, however, as our intelligence agencies found them dead today. It seems that they were holed up in a remote region on §Y[heir_hiding_planet.GetName]§!."
  civheir.8100.foreign.desc: "It seems that after being disinherited, the former heir of the §Y[root.GetName]§! began conspiring to take back the throne. That was all for naught, however, as our intelligence apparatus has uncovered strong evidence of their death. It seems that they were hiding out in §Y[heir_hiding_foreign.GetName]§! territory. Right now, we have no reason to suspect the involvement of the §Y[heir_hiding_foreign.GetAdj]§! authorities in any way whatsoever."
- civheir.8100.capital.desc: "It seems that after being disinherited, the former heir of the §Y[root.GetName]§! began conspiring to take back the throne. That was all for naught, however, as our intelligence agencies found them dead today. It seems that they were holed up in some random backwater neighborhood."
+ civheir.8100.capital.desc: "It seems that after being disinherited, the former heir of the §Y[root.GetName]§! began conspiring to take back the throne. That was all for naught, however, as our intelligence agencies found them dead today. It seems that they were holed up in some backwater neighborhood right here on the capital."
 
  civheir.8100.a: "Interesting. On screen."
 
@@ -792,8 +858,8 @@ l_simp_chinese:
  ####################################
 
  civroyal.1020.name: "Succession Crisis"
- civroyal.1020.desc_reg: "The death of §H[prior_dead_ruler.GetName]§! without an heir has created a constitutional crisis. Without first being anointed as heir, §H[root.GetRulerName]§! has ascended to the throne and declared [root.ruler.GetHerselfHimself] §Y[root.GetRulerTitle]§!. In the wake of their coronation, there are still other members of the §Y[crisis_dynasty_name.GetSecondName]§! family looking to assert their claim to the throne, along with ambitious regional officials that are trying to assert their autonomy. The realm is in a state of instability."
- civroyal.1020.desc_seized: "The death of §H[prior_dead_ruler.GetName]§! without an heir has created a constitutional crisis. Taking advantage of the chaos, §H[root.GetRulerName]§! managed to seize the throne, declaring [root.ruler.GetHerselfHimself] §Y[root.GetRulerTitle]§!. In the wake of their coronation, there are still members of the §Y[crisis_dynasty_name.GetSecondName]§! family looking to assert their claim to the throne, along with ambitious regional officials that are trying to assert their autonomy. The realm is in a state of instability."
+ civroyal.1020.desc_reg: "The death of §H[prior_dead_ruler.GetName]§! without an heir has created a constitutional crisis. Without first being anointed as heir, §H[root.GetRulerName]§! has ascended to the throne and declared [root.ruler.GetHerselfHimself] §Y[root.GetRulerTitle]§!. In the wake of [root.ruler.GetHerHis] coronation, there are still other members of the §Y[crisis_dynasty_name.GetSecondName]§! family looking to assert their claim to the throne, along with ambitious regional officials that are trying to assert their autonomy. The realm is in a state of instability."
+ civroyal.1020.desc_seized: "The death of §H[prior_dead_ruler.GetName]§! without an heir has created a constitutional crisis. Taking advantage of the chaos, §H[root.GetRulerName]§! managed to seize the throne, declaring [root.ruler.GetHerselfHimself] §Y[root.GetRulerTitle]§!. In the wake of [root.ruler.GetHerHis] coronation, there are still members of the §Y[crisis_dynasty_name.GetSecondName]§! family looking to assert their claim to the throne, along with ambitious regional officials that are trying to assert their autonomy. The realm is in a state of instability."
  civroyal.1020.rightful: "I am the rightful [root.GetRulerTitle]!"
 
  civroyal.1105.name: "Establishing Support"
@@ -823,9 +889,10 @@ l_simp_chinese:
 
  civcom.3015.life: "This mistake will cost you your life."
 
- civcom.3020.monetary.desc: "My financial situation has been less than ideal as of late. I would surely be able to swear the oath of loyalty if my accounts were put in order.\n\nI will speak plainly and state that for the stability of the realm, you should do this. As if I do not get what I want, I will be taking full control over the §H[crisis_sector.GetName]§! sector."
- civcom.3020.subject.desc: "Cede full administrative control over the §H[crisis_sector.GetName]§! sector to me. We would still swear fealty to the [root.GetName], of course. We would simply be more autonomous. We could even say that I would be acting as your Viceroy.\n\nI will speak plainly and state that for the stability of the realm, you should do this. As whether I get your permission or not, I will be taking control of the §H[crisis_sector.GetName]§! sector. The only difference is whether or not I continue to swear fealty to the §Y[root.GetName]§!."
- civcom.3020.heir_no_exist.desc: "You are the §Y[root.GetRulerTitle]§!, but you are in need of an heir. Choose me. As your heir, you will have my full support.\n\nI will speak plainly and state that for the stability of the realm, you should do this. As if I do not become your heir, I will have no choice but to take full control over my sector."
+ civcom.3020.monetary.desc: "My financial situation has been less than ideal as of late. I would surely be able to swear the oath of loyalty if I had greater control over the budget of my sector.\n\nI will speak plainly and state that for the stability of the realm, you should agree to this. As if I do not get what I want, I will be taking full control over the §H[crisis_sector.GetName]§! sector."
+ civcom.3020.subject.desc: "Cede full administrative control over the §H[crisis_sector.GetName]§! sector to me. We would still swear fealty to the [root.GetName], of course. We would simply be more autonomous. We could even say that I would be acting as your Viceroy.\n\nI will speak plainly and state that for the stability of the realm, you should agree to this. As whether I get your permission or not, I will be taking control of the §H[crisis_sector.GetName]§! sector. The only difference is whether or not I continue to swear fealty to the §Y[root.GetName]§!."
+ civcom.3020.heir_no_exist.desc: "You are the §Y[root.GetRulerTitle]§!, but you are in need of an heir. Choose me. As your heir, you will have my full support.\n\nI will speak plainly and state that for the stability of the realm, you should agree to this. As if I do not become your heir, I will have no choice but to take full control over my sector."
+ civcom.3020.heir_exists.desc: "As §Y[root.GetRulerTitle]§!, you need a capable §H[root.GetHeirTitle]§!, and §Y[root.heir.GetName]§ is not that. Remove them and choose me. As your heir, you will have my full support.\n\nI will speak plainly and state that for the stability of the realm, you should agree to this. If I am not made your heir, I will have no choice but to take full control over my sector."
 
  civcom.3020.no: "No deal. This means war."
 
@@ -878,22 +945,26 @@ l_simp_chinese:
  leader_trait_traitor_reg_desc: "[Root.GetName] rebelled against [root.GetHerHis] government in [this.year_rebelled]. However, after losing [root.GetHerHis] war, [root.GetSheHe] chose to flee. Now, [root.GetSheHe] is providing [root.GetHerHis] services to the [root.owner.GetName] in exchange for asylum, along with the possibility that they might one day assist [root.GetHerHim] in "liberating" [root.GetHerHis] people."
  leader_trait_traitor_genderless_desc: "[Root.GetName] rebelled against their homeland in [this.year_rebelled]. However, after losing the war, they chose to flee. Now, they are providing their services to the [root.owner.GetName] in exchange for asylum, along with the possibility that they might one day assist them in "liberating" their people."
 
- leader_trait_revolutionary_total_desc: "[Root.GetName] revolted against [root.GetHerHis] government, claiming to have the true mandate to rule."
- leader_trait_revolutionary_total_genderless_desc: "[Root.GetName] revolted against their government, claiming to have the true mandate to rule."
+ leader_trait_revolutionary: "Revolutionary"
+ leader_trait_revolutionary_desc: "[triggered_revolutionary_desc]"
+ leader_trait_revolutionary_reg_desc: "[Root.GetName] revolted against [root.GetHerHis] government and helped found a new state.\n\n[GetSecessionCountry_Revolutionary]"
+ leader_trait_revolutionary_genderless_desc: "[Root.GetName] revolted against their government and helped found a new state.\n\n[GetSecessionCountry_Revolutionary]"
+ leader_trait_revolutionary_total_desc: "[Root.GetName] joined a revolutionary faction claiming to be the legitimate government."
+ leader_trait_revolutionary_total_ruler_desc: "[Root.GetName] formed a revolutionary faction claiming to be the legitimate government."
 
  leader_trait_vindicated_revolutionary: "Vindicated Revolutionary"
- leader_trait_vindicated_revolutionary_desc: "[triggered_vindicated_traitor_desc]"
- leader_trait_vindicated_revolutionary_reg_desc: "[Root.GetName]'s path to power was an arduous one. In [root.year_fled], [root.GetSheHe] fled after a failed rebellion against the government. Not willing accept defeat, [root.GetSheHe] chose to try and build support for their cause from abroad. After [root.years_exiled] years of careful planning, [root.GetSheHe] was able to successfully utilize the alliances [root.GetSheHe] had built in order to return home in [root.year_restored] and liberate their people."
- leader_trait_vindicated_revolutionary_genderless_desc: "[Root.GetName]'s path to power was an arduous one. In [root.year_fled], [root.GetSheHe] fled after a failed rebellion against the government. Not willing accept defeat, [root.GetSheHe] chose to try and build support for their cause from abroad. After [root.years_exiled] years of careful planning, [root.GetSheHe] were able to successfully utilize the alliances [root.GetSheHe] had built in order to return home in [root.year_restored] and liberate their people."
+#  leader_trait_vindicated_revolutionary_desc: "[triggered_vindicated_traitor_desc]"
+ leader_trait_vindicated_revolutionary_desc: "[Root.GetName]'s path to power was an arduous one. In [root.year_fled], [root.GetSheHe] fled after a failed rebellion against the government. Not willing accept defeat, [root.GetSheHe] chose to try and build support for [root.GetHerHis] cause from abroad. After [root.years_exiled] years of careful planning, [root.GetSheHe] was able to successfully utilize the alliances [root.GetSheHe] had built in order to return home in [root.year_restored] and liberate [root.GetHerHis] people."
+#  leader_trait_vindicated_revolutionary_genderless_desc: "[Root.GetName]'s path to power was an arduous one. In [root.year_fled], [root.GetSheHe] fled after a failed rebellion against the government. Not willing accept defeat, [root.GetSheHe] chose to try and build support for their cause from abroad. After [root.years_exiled] years of careful planning, [root.GetSheHe] were able to successfully utilize the alliances [root.GetSheHe] had built in order to return home in [root.year_restored] and liberate their people."
 
  leader_trait_traitor_heir: "Former Heir"
  leader_trait_traitor_heir_desc: "[triggered_traitor_heir_desc]"
  leader_trait_traitor_heir_reg_desc: "[Root.GetName] used to be heir to the throne of [root.GetHerHis] homeland. However, after political maneuvering by [root.GetHerHis] enemies, [root.GetSheHe] was disinherited in [root.year_disinherited]. Not willing to be denied [root.GetHerHis] birthright, [root.GetSheHe] chose to flee and build support for [root.GetHerHis] cause. Now, [root.GetSheHe] is providing [root.GetHerHis] services to the [root.owner.GetName] in exchange for asylum, along with the possibility that they might one day be of assistance in restoring [root.GetHerHim] to the throne that is "rightfully" theirs."
- leader_trait_traitor_heir_genderless_desc: "[Root.GetName] used to be heir to the throne of [root.GetHerHis] homeland. However, after political maneuvering by [root.GetHerHis] enemies, [root.GetSheHe] were disinherited in [root.year_disinherited]. Not willing to be denied [root.GetHerHis] birthright, [root.GetSheHe] chose to flee and build support for [root.GetHerHis] cause. Now, [root.GetSheHe] are providing [root.GetHerHis] services to the [root.owner.GetName] in exchange for asylum, along with the possibility that they might one day be of assistance in restoring [root.GetHerHim] to the throne that is "rightfully" theirs."
+ leader_trait_traitor_heir_genderless_desc: "[Root.GetName] used to be heir to the throne of their homeland. However, after political maneuvering by their enemies, they were disinherited in [root.year_disinherited]. Not willing to be denied their birthright, they chose to flee and build support for their cause. Now, they are providing their services to the [root.owner.GetName] in exchange for asylum, along with the possibility that they might one day be of assistance in restoring them to the throne that is "rightfully" theirs."
 
  leader_trait_vindicated_heir: "Vindicated Sovereign"
  leader_trait_vindicated_heir_desc: "[triggered_vindicated_heir_desc]"
- leader_trait_vindicated_heir_reg_desc: "[Root.GetName]'s path to the throne was an arduous one. [root.GetSheHeCap] was once the [root.owner.GetHeirTitle], but, [root.GetSheHe] was disinherited. Not willing to be denied [root.GetHerHis] birthright, [root.GetSheHe] fled to build support for their cause. While abroad, [root.GetSheHe] worked to build a coalition of allies that had an interest in seeing them in power. After [root.years_exiled] years of careful planning, [root.GetSheHe] was able to successfully utilize the alliances [root.GetSheHe] had built in order to return home in [root.year_restored] and claim the throne that was rightfully theirs."
+ leader_trait_vindicated_heir_reg_desc: "[Root.GetName]'s path to the throne was an arduous one. [root.GetSheHeCap] was once the [root.owner.GetHeirTitle], but [root.GetSheHe] was disinherited in [root.year_disinherited]. Not willing to be denied [root.GetHerHis] birthright, [root.GetSheHe] fled to build support for their cause. While abroad, [root.GetSheHe] worked to build a coalition of allies that had an interest in seeing them in power. After [root.years_exiled] years of careful planning, [root.GetSheHe] was able to successfully utilize the alliances [root.GetSheHe] had built in order to return home in [root.year_restored] and claim the throne that was rightfully theirs."
  leader_trait_vindicated_heir_genderless_desc: "[Root.GetName]'s path to the throne was an arduous one. [root.GetSheHeCap] were once the [root.owner.GetHeirTitle], but [root.GetSheHe] were disinherited in [root.year_disinherited]. Not willing to be denied [root.GetHerHis] birthright, [root.GetSheHe] fled to build support for their cause. While abroad, [root.GetSheHe] worked to build a coalition of allies that had an interest in seeing them in power. After [root.years_exiled] years of careful planning, [root.GetSheHe] were able to successfully utilize the alliances [root.GetSheHe] had built in order to return home in [root.year_restored] and claim the throne that was rightfully theirs."
 
  wg_coup_disputed_end: "The war will end end in a stalemate. Both empires will maintain their claims, but §H[root.Ruler.GetName]§! will agree to change the name of their state."
@@ -930,7 +1001,7 @@ l_simp_chinese:
  cannot_fire_leader_during_crisis: "$TRIGGER_FAIL$ Will refuse to step down during this succession crisis."
 
  #######################
- ### Election Events ###
+ ### Leader Events ###
  #######################
 
  civleader.1002.dem.name: "Election Dispute"
@@ -1028,7 +1099,7 @@ l_simp_chinese:
 
  civelect.4010.name: "The Secession"
  civelect.4010.plan.desc: "§Y[root.GetRulerTitle]§! §H[Ruler.GetName]§! has drawn up all the plans for the secession of §Y[ruler_sep_planet.GetName]§!. The new state will take control all systems connected to the §Y[ruler_sep_planet.solar_system.GetName]§! system. All that needs to happen now is the ratification of the document, giving it the force of law. Will ratification of the document be allowed?"
- civelect.4010.sec.desc: "§Y[root.GetRulerTitle]§! §H[Ruler.GetName]§! has drawn up all the plans for the secession of the §Y[ruler_sep_sector.GetName]§! sector. Due to a sector having it's own administration, it will be as simple as transferring over that administration to the new government. All that needs to happen now is the ratification of the document, giving it the force of law. Will ratification of the document be allowed?"
+ civelect.4010.sec.desc: "§Y[root.GetRulerTitle]§! §H[Ruler.GetName]§! has drawn up all the plans for the secession of the §Y[ruler_sep_sector.GetName]§! sector. Due to a sector having it's own administration, it will be as simple as declaring that administration a sovereign entity. All that needs to happen now is the ratification of the document, giving it the force of law. Will ratification of the document be allowed?"
  civelect.4010.nat.desc: "§Y[root.GetRulerTitle]§! §H[Ruler.GetName]§! has drawn up all the plans to create a new state for their people. All that needs to happen now is the ratification of the document, giving it the force of law. Will ratification of the document be allowed?"
 
  civelect.4010.ratify: "Ratify the secession."
@@ -1606,26 +1677,26 @@ l_simp_chinese:
  NAME_plan_slave_rebellion_war_19: "Nineteenth [This.MainDefender.Capital.GetAdj] Slave Uprising"
  NAME_plan_slave_rebellion_war_20: "Another [This.MainDefender.Capital.GetAdj] Slave Uprising"
 
- NAME_sec_slave_rebellion_war_1: "[civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_2: "Second [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_3: "Third [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_4: "Fourth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_5: "Fifth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_6: "Sixth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_7: "Seventh [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_8: "Eighth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_9: "Ninth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_10: "Tenth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_11: "Eleventh [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_12: "Twelfth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_13: "Thirteenth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_14: "Fourteenth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_15: "Fifteenth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_16: "Sixteenth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_17: "Seventeenth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_18: "Eighteenth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_19: "Nineteenth [civwar_rebels.GetAdj] Servile War"
- NAME_sec_slave_rebellion_war_20: "Another [civwar_rebels.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_1: "[This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_2: "Second [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_3: "Third [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_4: "Fourth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_5: "Fifth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_6: "Sixth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_7: "Seventh [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_8: "Eighth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_9: "Ninth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_10: "Tenth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_11: "Eleventh [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_12: "Twelfth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_13: "Thirteenth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_14: "Fourteenth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_15: "Fifteenth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_16: "Sixteenth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_17: "Seventeenth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_18: "Eighteenth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_19: "Nineteenth [This.MainDefender.Species.GetAdj] Servile War"
+ NAME_sec_slave_rebellion_war_20: "Another [This.MainDefender.Species.GetAdj] Servile War"
 
  ################
  # Faction Events
@@ -1782,10 +1853,43 @@ l_simp_chinese:
  civstrife_menu_name: "Civil Wars"
 
  civstrife.modmenu.title: "Civil Wars Stats"
- civstrife.modmenu.desc: "§Y[global_event_country.total_gal_civstrife_events]§! = Total Civil Strife Events \n\n§Y[global_event_country.total_gal_civil_wars]§! = Civil Wars \n§Y[global_event_country.total_gal_plan_rebs]§! = Planetary Rebellions \n§Y[global_event_country.total_gal_sector_rebs]§! = Sectoral Rebellions \n§Y[global_event_country.total_gal_nat_events]§! = Nationalist Rebellions \n§Y[global_event_country.total_gal_slave_rebs]§! = Slave Rebellions \n§Y[global_event_country.total_gal_heir_rebs]§! = Heir Rebellions \n§Y[global_event_country.total_gal_coup_rebs]§! = Succession Crises \n§Y[global_event_country.total_gal_secession_rebs]§! = Secessions"
+ civstrife.modmenu.desc: "§Y[global_event_country.total_gal_civstrife_events]§! = Total Civil Strife Events \n\n§Y[global_event_country.total_gal_civil_wars]§! = Civil Wars \n§Y[global_event_country.total_gal_total_civwars]§! = Total Wars \n§Y[global_event_country.total_gal_plan_rebs]§! = Planetary Rebellions \n§Y[global_event_country.total_gal_sector_rebs]§! = Sectoral Rebellions \n§Y[global_event_country.total_gal_nat_events]§! = Nationalist Rebellions \n§Y[global_event_country.total_gal_slave_rebs]§! = Slave Rebellions \n§Y[global_event_country.total_gal_heir_rebs]§! = Heir Rebellions \n§Y[global_event_country.total_gal_coup_rebs]§! = Succession Crises \n\n"
+
+ civstrife.modmenu.civwars_enabled: "Civil Wars: §GEnabled§!"
+ civstrife.modmenu.civwars_disabled: "Civil Wars: §RDisabled§!"
+ civstrife.modmenu.civwars_very_low_percent: "Chance: §EVery Low§!"
+ civstrife.modmenu.civwars_low_percent: "Chance: §CLow§!"
+ civstrife.modmenu.civwars_base_percent: "Chance: §GNormal§!"
+ civstrife.modmenu.civwars_high_percent: "Chance: §PHigh§!"
+ civstrife.modmenu.civwars_very_high_percent: "Chance: §RVery High§!"
+
+ civstrife.modmenu.total_war_enabled: "Total Wars: §GEnabled§!"
+ civstrife.modmenu.total_war_disabled: "Total Wars: §RDisabled§!"
+ civstrife.modmenu.total_war_tooltip: "If enabled, there is a chance that certain Civil Wars, where the rebel faction/leader shares the ethic of the country, will be §Ptotal wars§! where surrender is §Rnot possible§! and victory is the §Ronly option.§!"
+ civstrife.modmenu.total_war_very_low_percent: "Chance: §EVery Low§!"
+ civstrife.modmenu.total_war_low_percent: "Chance: §CLow§!"
+ civstrife.modmenu.total_war_base_percent: "Chance: §GNormal§!"
+ civstrife.modmenu.total_war_high_percent: "Chance: §PHigh§!"
+ civstrife.modmenu.total_war_very_high_percent: "Chance: §RVery High§!"
+
+ civstrife.modmenu.coup_trap_enabled: "Coup Traps: §GEnabled§"
+ civstrife.modmenu.coup_trap_disabled: "Coup Traps: §RDisabled§!"
+ civstrife.modmenu.coup_trap_tooltip: "If enabled, a successful Civil War increases the chance of further Civil Wars in the afflicted country."
+ civstrife.modmenu.coup_trap_one_and_half: "Chance: §G1.5x§!"
+ civstrife.modmenu.coup_trap_double: "Chance: §B2x§!"
+ civstrife.modmenu.coup_trap_triple: "Chance: §P3x§!"
+ civstrife.modmenu.coup_trap_quadruple: "Chance: §R4x§!"
+
+ civstrife.modmenu.coup_contagion_enabled: "Coup Contagion: §GEnabled§"
+ civstrife.modmenu.coup_contagion_disabled: "Coup Contagion: §RDisabled§!"
+ civstrife.modmenu.coup_contagion_tooltip: "If enabled, a successful Civil War increases the chance of Civil Wars in neighboring countries."
+ civstrife.modmenu.coup_contagion_one_and_half: "Chance: §G1.5x§!"
+ civstrife.modmenu.coup_contagion_double: "Chance: §B2x§!"
+ civstrife.modmenu.coup_contagion_triple: "Chance: §P3x§!"
+ civstrife.modmenu.coup_contagion_quadruple: "Chance: §R4x§!"
 
  edict_civil_wars_settings: "Civil Wars Menu"
- civil_wars_settings_tooltip: "Mod Menu for the Civil Wars mod"
+ civil_wars_settings_tooltip: "Settings Menu for the Civil Wars mod"
 
  ethic_socialism: "Socialist"
  ethic_fanatic_socialism: "Fanatic Socialist"
@@ -1805,33 +1909,107 @@ l_simp_chinese:
  ethic_pluralist: "Pluralist"
  ethic_fanatic_pluralist: "Fanatic Pluralist"
 
- ##################
- ###   Unused   ###
- ##################
-
- #############################
- # Pretender Events
- #############################
-
- pretender.1.name: "[From.GetRegnalName] Dies Heirless"
- 
- pretender.1.desc_01: "[From.GetRegnalName] has passed away, and seven days of mourning have been announced on [Root.Capital.GetName]. Unfortunately, there was no declared heir and two separate claims have been made on the throne.\n\nThe strongest contender has been crowned [Root.GetRulerTitle] under the name [Root.GetRulerName], but this has done little to settle the issue."
- 
- pretender.1.desc_02: "[From.GetRegnalName] has transcended this realm of existence and begun the journey towards the next. Unfortunately, the Spirits have not yet seen fit to bless us with sufficient signs and portents to conclusively identify a successor.\n\nAfter a heated debate, [Root.GetRulerName] has been crowned as the next [Root.GetRulerTitle] but not without opposition. Pretenders from the senior ranks of the clergy are now attempting to galvanize support."
- 
- pretender.1.desc_03: "[From.GetRegnalName] has died without a clear heir, leaving our government in disarray. [Root.GetRulerName] has been named successor, after having managed to gather enough support among the military on [Root.Capital.GetName], but the situation remains tenuous and pretenders are attempting to gather enough support to challenge the new [Root.GetRulerTitle]'s rule."
- 
- pretender.1.desc_04: "The flesh of [From.GetRegnalName] has failed, and our algorithms have been unable to identify an optimal replacement. To maintain efficiency a new [Root.GetRulerTitle] has been chosen at random, and it now falls on [Root.GetRulerName] to interpret the infallible will of the Main Computer.\n\nDoubts have been raised, however, and there are those who see themselves as better qualified to perform this honor."
- 
- pretender.1.desc_05: "[From.GetRegnalName] has passed away and the entire [Root.GetName] is in mourning. There is sadly no declared heir, and this has raised some contention among the nobility.\n\n[Root.GetRulerName] has already been crowned on [Root.Capital.GetName], but Pretenders claiming distant kinship with [From.GetRegnalName] has challenged the new [Root.GetRulerTitle]."
- 
- pretender.1.tooltip: "Pretender factions have arisen."
-
- # unrest.55.name: "Revolt Brewing on [Root.GetName]"
- # unrest.55.desc.standard: "The populace of [Root.GetName] has been discontent with our rule for some time now. Now their defiance is becoming ever more brazen, and dissidents are openly calling for independence from the [Root.GetName]. A show of authority may be necessary if we are to keep control of the colony."
- # unrest.55.desc.gestalt_standard: "The singleton populace of [Root.GetName] refuses to accept the control of our [Owner.GetGovernmentName]. Now their defiance is becoming ever more brazen, and dissidents are openly organizing a movement towards "independence." A show of authority may be necessary if we are to keep control of the colony."
- # unrest.55.desc.gestalt_breakaway_gestalt: "Deviant elements on [Root.GetName] are proving ever harder for our [Owner.GetGovernmentName] to control. Unless we can snuff out their independent thoughts and reestablish control, it may be difficult for us to keep control of the colony."
- # unrest.55.A: "They will have to be dealt with."
+########################
+ nat_country_1_modifier: "Nationalist"
+ # nat_country_1_modifier: "Nationalist of the §Y[nat_country_1.GetName]§!"
+ nat_country_2_modifier: "Nationalist"
+ # nat_country_2_modifier: "Nationalist of the §Y[nat_country_2.GetName]§!"
+ nat_country_3_modifier: "Nationalist"
+ # nat_country_3_modifier: "Nationalist of the §Y[nat_country_3.GetName]§!"
+ nat_country_4_modifier: "Nationalist"
+ # nat_country_4_modifier: "Nationalist of the §Y[nat_country_4.GetName]§!"
+ nat_country_5_modifier: "Nationalist"
+ # nat_country_5_modifier: "Nationalist of the §Y[nat_country_5.GetName]§!"
+ nat_country_6_modifier: "Nationalist"
+ # nat_country_6_modifier: "Nationalist of the §Y[nat_country_6.GetName]§!"
+ nat_country_7_modifier: "Nationalist"
+ # nat_country_7_modifier: "Nationalist of the §Y[nat_country_7.GetName]§!"
+ nat_country_8_modifier: "Nationalist"
+ # nat_country_8_modifier: "Nationalist of the §Y[nat_country_8.GetName]§!"
+ nat_country_9_modifier: "Nationalist"
+ # nat_country_9_modifier: "Nationalist of the §Y[nat_country_9.GetName]§!"
+ nat_country_10_modifier: "Nationalist"
+ # nat_country_10_modifier: "Nationalist of the §Y[nat_country_10.GetName]§!"
+ nat_country_11_modifier: "Nationalist"
+ # nat_country_11_modifier: "Nationalist of the §Y[nat_country_11.GetName]§!"
+ nat_country_12_modifier: "Nationalist"
+ # nat_country_12_modifier: "Nationalist of the §Y[nat_country_12.GetName]§!"
+ nat_country_13_modifier: "Nationalist"
+ # nat_country_13_modifier: "Nationalist of the §Y[nat_country_13.GetName]§!"
+ nat_country_14_modifier: "Nationalist"
+ # nat_country_14_modifier: "Nationalist of the §Y[nat_country_14.GetName]§!"
+ nat_country_15_modifier: "Nationalist"
+ # nat_country_15_modifier: "Nationalist of the §Y[nat_country_15.GetName]§!"
+ nat_country_16_modifier: "Nationalist"
+ # nat_country_16_modifier: "Nationalist of the §Y[nat_country_16.GetName]§!"
+ nat_country_17_modifier: "Nationalist"
+ # nat_country_17_modifier: "Nationalist of the §Y[nat_country_17.GetName]§!"
+ nat_country_18_modifier: "Nationalist"
+ # nat_country_18_modifier: "Nationalist of the §Y[nat_country_18.GetName]§!"
+ nat_country_19_modifier: "Nationalist"
+ # nat_country_19_modifier: "Nationalist of the §Y[nat_country_19.GetName]§!"
+ nat_country_20_modifier: "Nationalist"
+ # nat_country_20_modifier: "Nationalist of the §Y[nat_country_20.GetName]§!"
+ nat_country_21_modifier: "Nationalist"
+ # nat_country_21_modifier: "Nationalist of the §Y[nat_country_21.GetName]§!"
+ nat_country_22_modifier: "Nationalist"
+ # nat_country_22_modifier: "Nationalist of the §Y[nat_country_22.GetName]§!"
+ nat_country_23_modifier: "Nationalist"
+ # nat_country_23_modifier: "Nationalist of the §Y[nat_country_23.GetName]§!"
+ nat_country_24_modifier: "Nationalist"
+ # nat_country_24_modifier: "Nationalist of the §Y[nat_country_24.GetName]§!"
+ nat_country_25_modifier: "Nationalist"
+ # nat_country_25_modifier: "Nationalist of the §Y[nat_country_25.GetName]§!"
+ nat_country_26_modifier: "Nationalist"
+ # nat_country_26_modifier: "Nationalist of the §Y[nat_country_26.GetName]§!"
+ nat_country_27_modifier: "Nationalist"
+ # nat_country_27_modifier: "Nationalist of the §Y[nat_country_27.GetName]§!"
+ nat_country_28_modifier: "Nationalist"
+ # nat_country_28_modifier: "Nationalist of the §Y[nat_country_28.GetName]§!"
+ nat_country_29_modifier: "Nationalist"
+ # nat_country_29_modifier: "Nationalist of the §Y[nat_country_29.GetName]§!"
+ nat_country_30_modifier: "Nationalist"
+ # nat_country_30_modifier: "Nationalist of the §Y[nat_country_30.GetName]§!"
+ nat_country_31_modifier: "Nationalist"
+ # nat_country_31_modifier: "Nationalist of the §Y[nat_country_31.GetName]§!"
+ nat_country_32_modifier: "Nationalist"
+ # nat_country_32_modifier: "Nationalist of the §Y[nat_country_32.GetName]§!"
+ nat_country_33_modifier: "Nationalist"
+ # nat_country_33_modifier: "Nationalist of the §Y[nat_country_33.GetName]§!"
+ nat_country_34_modifier: "Nationalist"
+ # nat_country_34_modifier: "Nationalist of the §Y[nat_country_34.GetName]§!"
+ nat_country_35_modifier: "Nationalist"
+ # nat_country_35_modifier: "Nationalist of the §Y[nat_country_35.GetName]§!"
+ nat_country_36_modifier: "Nationalist"
+ # nat_country_36_modifier: "Nationalist of the §Y[nat_country_36.GetName]§!"
+ nat_country_37_modifier: "Nationalist"
+ # nat_country_37_modifier: "Nationalist of the §Y[nat_country_37.GetName]§!"
+ nat_country_38_modifier: "Nationalist"
+ # nat_country_38_modifier: "Nationalist of the §Y[nat_country_38.GetName]§!"
+ nat_country_39_modifier: "Nationalist"
+ # nat_country_39_modifier: "Nationalist of the §Y[nat_country_39.GetName]§!"
+ nat_country_40_modifier: "Nationalist"
+ # nat_country_40_modifier: "Nationalist of the §Y[nat_country_40.GetName]§!"
+ nat_country_41_modifier: "Nationalist"
+ # nat_country_41_modifier: "Nationalist of the §Y[nat_country_41.GetName]§!"
+ nat_country_42_modifier: "Nationalist"
+ # nat_country_42_modifier: "Nationalist of the §Y[nat_country_42.GetName]§!"
+ nat_country_43_modifier: "Nationalist"
+ # nat_country_43_modifier: "Nationalist of the §Y[nat_country_43.GetName]§!"
+ nat_country_44_modifier: "Nationalist"
+ # nat_country_44_modifier: "Nationalist of the §Y[nat_country_44.GetName]§!"
+ nat_country_45_modifier: "Nationalist"
+ # nat_country_45_modifier: "Nationalist of the §Y[nat_country_45.GetName]§!"
+ nat_country_46_modifier: "Nationalist"
+ # nat_country_46_modifier: "Nationalist of the §Y[nat_country_46.GetName]§!"
+ nat_country_47_modifier: "Nationalist"
+ # nat_country_47_modifier: "Nationalist of the §Y[nat_country_47.GetName]§!"
+ nat_country_48_modifier: "Nationalist"
+ # nat_country_48_modifier: "Nationalist of the §Y[nat_country_48.GetName]§!"
+ nat_country_49_modifier: "Nationalist"
+ # nat_country_49_modifier: "Nationalist of the §Y[nat_country_49.GetName]§!"
+ nat_country_50_modifier: "Nationalist"
+ # nat_country_50_modifier: "Nationalist of the §Y[nat_country_50.GetName]§!"
 
  origin_secession_motherland_tooltip: "[GetSecessionCountry]"
  secession_country_1: "Seceded from the §Y[event_target:secession_country_1.GetName]§! in [owner.birth_year]"
@@ -1935,8 +2113,7 @@ l_simp_chinese:
  secession_country_99: "Seceded from the §Y[event_target:secession_country_99.GetName]§! in [owner.birth_year]"
  secession_country_100: "Seceded from the §Y[event_target:secession_country_100.GetName]§! in [owner.birth_year]"
 
-
-  leader_trait_traitor_tooltip: "\n\n[GetSecessionCountry_Traitor]\n\nAs the host of §H[root.GetName]§!, the §Y[root.owner.GetName]§! will gain the §Y$casus_belli_cb_install_traitor$§! Casus Belli against [GetSecessionCountry_Only], letting them install §H[root.GetName]§! as the ruler of that country.\n\nThe [GetSecessionCountry_Only] will gain the §Y$casus_belli_cb_retrieve_traitor$§! Casus Belli against the §Y[root.owner.GetName]§!, allowing them to retrieve §H[this.GetName]§! and bring [root.GetHerHim] to justice."
+ leader_trait_traitor_tooltip: "\n\n[GetSecessionCountry_Traitor]\n\nAs the host of §H[root.GetName]§!, the §Y[root.owner.GetName]§! will gain the §Y$casus_belli_cb_install_traitor$§! Casus Belli against [GetSecessionCountry_Only], letting them install §H[root.GetName]§! as the ruler of that country.\n\nThe [GetSecessionCountry_Only] will gain the §Y$casus_belli_cb_retrieve_traitor$§! Casus Belli against the §Y[root.owner.GetName]§!, allowing them to retrieve §H[this.GetName]§! and bring [root.GetHerHim] to justice."
  traitor_country_1: "Traitor to the §Y[event_target:secession_country_1.GetName]§!"
  traitor_country_2: "Traitor to the §Y[event_target:secession_country_2.GetName]§!"
  traitor_country_3: "Traitor to the §Y[event_target:secession_country_3.GetName]§!"
@@ -2038,7 +2215,109 @@ l_simp_chinese:
  traitor_country_99: "Traitor to the §Y[event_target:secession_country_99.GetName]§!"
  traitor_country_100: "Traitor to the §Y[event_target:secession_country_100.GetName]§!"
 
- leader_trait_traitor_heir_tooltip: "[GetHeirCountry_Heir]$traitor_leader_trait_loc$"
+#  leader_trait_revolutionary_tooltip: "\n\n[GetSecessionCountry_Revolutionary]"
+ revolutionary_country_1: "§WRevolutionary from the§! §Y[event_target:secession_country_1.GetName]§!"
+ revolutionary_country_2: "§WRevolutionary from the§! §Y[event_target:secession_country_2.GetName]§!"
+ revolutionary_country_3: "§WRevolutionary from the§! §Y[event_target:secession_country_3.GetName]§!"
+ revolutionary_country_4: "§WRevolutionary from the§! §Y[event_target:secession_country_4.GetName]§!"
+ revolutionary_country_5: "§WRevolutionary from the§! §Y[event_target:secession_country_5.GetName]§!"
+ revolutionary_country_6: "§WRevolutionary from the§! §Y[event_target:secession_country_6.GetName]§!"
+ revolutionary_country_7: "§WRevolutionary from the§! §Y[event_target:secession_country_7.GetName]§!"
+ revolutionary_country_8: "§WRevolutionary from the§! §Y[event_target:secession_country_8.GetName]§!"
+ revolutionary_country_9: "§WRevolutionary from the§! §Y[event_target:secession_country_9.GetName]§!"
+ revolutionary_country_10: "§WRevolutionary from the§! §Y[event_target:secession_country_10.GetName]§!"
+ revolutionary_country_11: "§WRevolutionary from the§! §Y[event_target:secession_country_11.GetName]§!"
+ revolutionary_country_12: "§WRevolutionary from the§! §Y[event_target:secession_country_12.GetName]§!"
+ revolutionary_country_13: "§WRevolutionary from the§! §Y[event_target:secession_country_13.GetName]§!"
+ revolutionary_country_14: "§WRevolutionary from the§! §Y[event_target:secession_country_14.GetName]§!"
+ revolutionary_country_15: "§WRevolutionary from the§! §Y[event_target:secession_country_15.GetName]§!"
+ revolutionary_country_16: "§WRevolutionary from the§! §Y[event_target:secession_country_16.GetName]§!"
+ revolutionary_country_17: "§WRevolutionary from the§! §Y[event_target:secession_country_17.GetName]§!"
+ revolutionary_country_18: "§WRevolutionary from the§! §Y[event_target:secession_country_18.GetName]§!"
+ revolutionary_country_19: "§WRevolutionary from the§! §Y[event_target:secession_country_19.GetName]§!"
+ revolutionary_country_20: "§WRevolutionary from the§! §Y[event_target:secession_country_20.GetName]§!"
+ revolutionary_country_21: "§WRevolutionary from the§! §Y[event_target:secession_country_21.GetName]§!"
+ revolutionary_country_22: "§WRevolutionary from the§! §Y[event_target:secession_country_22.GetName]§!"
+ revolutionary_country_23: "§WRevolutionary from the§! §Y[event_target:secession_country_23.GetName]§!"
+ revolutionary_country_24: "§WRevolutionary from the§! §Y[event_target:secession_country_24.GetName]§!"
+ revolutionary_country_25: "§WRevolutionary from the§! §Y[event_target:secession_country_25.GetName]§!"
+ revolutionary_country_26: "§WRevolutionary from the§! §Y[event_target:secession_country_26.GetName]§!"
+ revolutionary_country_27: "§WRevolutionary from the§! §Y[event_target:secession_country_27.GetName]§!"
+ revolutionary_country_28: "§WRevolutionary from the§! §Y[event_target:secession_country_28.GetName]§!"
+ revolutionary_country_29: "§WRevolutionary from the§! §Y[event_target:secession_country_29.GetName]§!"
+ revolutionary_country_30: "§WRevolutionary from the§! §Y[event_target:secession_country_30.GetName]§!"
+ revolutionary_country_31: "§WRevolutionary from the§! §Y[event_target:secession_country_31.GetName]§!"
+ revolutionary_country_32: "§WRevolutionary from the§! §Y[event_target:secession_country_32.GetName]§!"
+ revolutionary_country_33: "§WRevolutionary from the§! §Y[event_target:secession_country_33.GetName]§!"
+ revolutionary_country_34: "§WRevolutionary from the§! §Y[event_target:secession_country_34.GetName]§!"
+ revolutionary_country_35: "§WRevolutionary from the§! §Y[event_target:secession_country_35.GetName]§!"
+ revolutionary_country_36: "§WRevolutionary from the§! §Y[event_target:secession_country_36.GetName]§!"
+ revolutionary_country_37: "§WRevolutionary from the§! §Y[event_target:secession_country_37.GetName]§!"
+ revolutionary_country_38: "§WRevolutionary from the§! §Y[event_target:secession_country_38.GetName]§!"
+ revolutionary_country_39: "§WRevolutionary from the§! §Y[event_target:secession_country_39.GetName]§!"
+ revolutionary_country_40: "§WRevolutionary from the§! §Y[event_target:secession_country_40.GetName]§!"
+ revolutionary_country_41: "§WRevolutionary from the§! §Y[event_target:secession_country_41.GetName]§!"
+ revolutionary_country_42: "§WRevolutionary from the§! §Y[event_target:secession_country_42.GetName]§!"
+ revolutionary_country_43: "§WRevolutionary from the§! §Y[event_target:secession_country_43.GetName]§!"
+ revolutionary_country_44: "§WRevolutionary from the§! §Y[event_target:secession_country_44.GetName]§!"
+ revolutionary_country_45: "§WRevolutionary from the§! §Y[event_target:secession_country_45.GetName]§!"
+ revolutionary_country_46: "§WRevolutionary from the§! §Y[event_target:secession_country_46.GetName]§!"
+ revolutionary_country_47: "§WRevolutionary from the§! §Y[event_target:secession_country_47.GetName]§!"
+ revolutionary_country_48: "§WRevolutionary from the§! §Y[event_target:secession_country_48.GetName]§!"
+ revolutionary_country_49: "§WRevolutionary from the§! §Y[event_target:secession_country_49.GetName]§!"
+ revolutionary_country_50: "§WRevolutionary from the§! §Y[event_target:secession_country_50.GetName]§!"
+ revolutionary_country_51: "§WRevolutionary from the§! §Y[event_target:secession_country_51.GetName]§!"
+ revolutionary_country_52: "§WRevolutionary from the§! §Y[event_target:secession_country_52.GetName]§!"
+ revolutionary_country_53: "§WRevolutionary from the§! §Y[event_target:secession_country_53.GetName]§!"
+ revolutionary_country_54: "§WRevolutionary from the§! §Y[event_target:secession_country_54.GetName]§!"
+ revolutionary_country_55: "§WRevolutionary from the§! §Y[event_target:secession_country_55.GetName]§!"
+ revolutionary_country_56: "§WRevolutionary from the§! §Y[event_target:secession_country_56.GetName]§!"
+ revolutionary_country_57: "§WRevolutionary from the§! §Y[event_target:secession_country_57.GetName]§!"
+ revolutionary_country_58: "§WRevolutionary from the§! §Y[event_target:secession_country_58.GetName]§!"
+ revolutionary_country_59: "§WRevolutionary from the§! §Y[event_target:secession_country_59.GetName]§!"
+ revolutionary_country_60: "§WRevolutionary from the§! §Y[event_target:secession_country_60.GetName]§!"
+ revolutionary_country_61: "§WRevolutionary from the§! §Y[event_target:secession_country_61.GetName]§!"
+ revolutionary_country_62: "§WRevolutionary from the§! §Y[event_target:secession_country_62.GetName]§!"
+ revolutionary_country_63: "§WRevolutionary from the§! §Y[event_target:secession_country_63.GetName]§!"
+ revolutionary_country_64: "§WRevolutionary from the§! §Y[event_target:secession_country_64.GetName]§!"
+ revolutionary_country_65: "§WRevolutionary from the§! §Y[event_target:secession_country_65.GetName]§!"
+ revolutionary_country_66: "§WRevolutionary from the§! §Y[event_target:secession_country_66.GetName]§!"
+ revolutionary_country_67: "§WRevolutionary from the§! §Y[event_target:secession_country_67.GetName]§!"
+ revolutionary_country_68: "§WRevolutionary from the§! §Y[event_target:secession_country_68.GetName]§!"
+ revolutionary_country_69: "§WRevolutionary from the§! §Y[event_target:secession_country_69.GetName]§!"
+ revolutionary_country_70: "§WRevolutionary from the§! §Y[event_target:secession_country_70.GetName]§!"
+ revolutionary_country_71: "§WRevolutionary from the§! §Y[event_target:secession_country_71.GetName]§!"
+ revolutionary_country_72: "§WRevolutionary from the§! §Y[event_target:secession_country_72.GetName]§!"
+ revolutionary_country_73: "§WRevolutionary from the§! §Y[event_target:secession_country_73.GetName]§!"
+ revolutionary_country_74: "§WRevolutionary from the§! §Y[event_target:secession_country_74.GetName]§!"
+ revolutionary_country_75: "§WRevolutionary from the§! §Y[event_target:secession_country_75.GetName]§!"
+ revolutionary_country_76: "§WRevolutionary from the§! §Y[event_target:secession_country_76.GetName]§!"
+ revolutionary_country_77: "§WRevolutionary from the§! §Y[event_target:secession_country_77.GetName]§!"
+ revolutionary_country_78: "§WRevolutionary from the§! §Y[event_target:secession_country_78.GetName]§!"
+ revolutionary_country_79: "§WRevolutionary from the§! §Y[event_target:secession_country_79.GetName]§!"
+ revolutionary_country_80: "§WRevolutionary from the§! §Y[event_target:secession_country_80.GetName]§!"
+ revolutionary_country_81: "§WRevolutionary from the§! §Y[event_target:secession_country_81.GetName]§!"
+ revolutionary_country_82: "§WRevolutionary from the§! §Y[event_target:secession_country_82.GetName]§!"
+ revolutionary_country_83: "§WRevolutionary from the§! §Y[event_target:secession_country_83.GetName]§!"
+ revolutionary_country_84: "§WRevolutionary from the§! §Y[event_target:secession_country_84.GetName]§!"
+ revolutionary_country_85: "§WRevolutionary from the§! §Y[event_target:secession_country_85.GetName]§!"
+ revolutionary_country_86: "§WRevolutionary from the§! §Y[event_target:secession_country_86.GetName]§!"
+ revolutionary_country_87: "§WRevolutionary from the§! §Y[event_target:secession_country_87.GetName]§!"
+ revolutionary_country_88: "§WRevolutionary from the§! §Y[event_target:secession_country_88.GetName]§!"
+ revolutionary_country_89: "§WRevolutionary from the§! §Y[event_target:secession_country_89.GetName]§!"
+ revolutionary_country_90: "§WRevolutionary from the§! §Y[event_target:secession_country_90.GetName]§!"
+ revolutionary_country_91: "§WRevolutionary from the§! §Y[event_target:secession_country_91.GetName]§!"
+ revolutionary_country_92: "§WRevolutionary from the§! §Y[event_target:secession_country_92.GetName]§!"
+ revolutionary_country_93: "§WRevolutionary from the§! §Y[event_target:secession_country_93.GetName]§!"
+ revolutionary_country_94: "§WRevolutionary from the§! §Y[event_target:secession_country_94.GetName]§!"
+ revolutionary_country_95: "§WRevolutionary from the§! §Y[event_target:secession_country_95.GetName]§!"
+ revolutionary_country_96: "§WRevolutionary from the§! §Y[event_target:secession_country_96.GetName]§!"
+ revolutionary_country_97: "§WRevolutionary from the§! §Y[event_target:secession_country_97.GetName]§!"
+ revolutionary_country_98: "§WRevolutionary from the§! §Y[event_target:secession_country_98.GetName]§!"
+ revolutionary_country_99: "§WRevolutionary from the§! §Y[event_target:secession_country_99.GetName]§!"
+ revolutionary_country_100: "§WRevolutionary from the§! §Y[event_target:secession_country_100.GetName]§!"
+
+ leader_trait_traitor_heir_tooltip: "\n[GetHeirCountry_Heir]\n\nAs the host of §H[root.GetName]§!, the §Y[root.owner.GetName]§! will gain the §Y$casus_belli_cb_install_traitor$§! Casus Belli against [GetHeirCountry_Only], letting them install §H[root.GetName]§! as the ruler of that country.\n\nThe [GetHeirCountry_Only] will gain the §Y$casus_belli_cb_retrieve_traitor$§! Casus Belli against the §Y[root.owner.GetName]§!, allowing them to retrieve §H[this.GetName]§! and bring [root.GetHerHim] to justice."
  heir_country_1_heir: "Former Heir of the §Y[event_target:heir_country_1.GetName]§!"
  heir_country_2_heir: "Former Heir of the §Y[event_target:heir_country_2.GetName]§!"
  heir_country_3_heir: "Former Heir of the §Y[event_target:heir_country_3.GetName]§!"
@@ -2241,3 +2520,31 @@ l_simp_chinese:
  traitor_country_98_only: "§Y[event_target:secession_country_98.GetName]§!"
  traitor_country_99_only: "§Y[event_target:secession_country_99.GetName]§!"
  traitor_country_100_only: "§Y[event_target:secession_country_100.GetName]§!"
+
+ #######################
+ #######################
+ #######################
+ ##   Timeline Stuff  ##
+ #######################
+ #######################
+ #######################
+
+ TIMELINE_EVENT_CIVIL_WAR_TOOLTIP: "§HCivil War Erupts§!\n§YEmpire Event§!\n\n[EVENT_TARGET_0.GetName] declared war on rebels calling themselves the [EVENT_TARGET_1.GetName] - §L[GetDate]§!"
+ TIMELINE_EVENT_PLANET_CIVIL_WAR_TOOLTIP: "§HPlanet Rebels§!\n§YEmpire Event§!\n\n[EVENT_TARGET_0.GetName] declares war on the illegitimate [EVENT_TARGET_2.GetName], a revolutionary government that seized control of the planet [EVENT_TARGET_3.GetName] after it erupted in rebellion - §L[GetDate]§!"
+ TIMELINE_EVENT_SECTOR_CIVIL_WAR_TOOLTIP: "§HSector Rebels§!\n§YEmpire Event§!\n\n[EVENT_TARGET_0.GetName] declares war on the illegitimate [EVENT_TARGET_2.GetName], a revolutionary government that seized control of the [EVENT_TARGET_3.GetName] sector after it erupted in rebellion - §L[GetDate]§!"
+ TIMELINE_EVENT_PLANET_SLAVE_CIVIL_WAR_TOOLTIP: "§HSlaves Capture Planet§!\n§YEmpire Event§!\n\n[EVENT_TARGET_0.GetName] declares war on the illegitimate [EVENT_TARGET_2.GetName], a revolutionary government that seized control of the planet [EVENT_TARGET_3.GetName] after it's slaves erupted in rebellion - §L[GetDate]§!"
+ TIMELINE_EVENT_SECTOR_SLAVE_CIVIL_WAR_TOOLTIP: "§HSlaves Capture Sector§!\n§YEmpire Event§!\n\n[EVENT_TARGET_0.GetName] declares war on the illegitimate [EVENT_TARGET_2.GetName], a revolutionary government that seized control of the [EVENT_TARGET_3.GetName] sector after it's slaves erupted in rebellion - §L[GetDate]§!"
+ TIMELINE_EVENT_NAT_CIVIL_WAR_TOOLTIP: "§HForeign Nationalists Revolt§!\n§YEmpire Event§!\n\n[EVENT_TARGET_0.GetName] declared war on rebels calling themselves the [EVENT_TARGET_1.GetName] - §L[GetDate]§!"
+ TIMELINE_EVENT_HEIR_CIVIL_WAR_TOOLTIP: "§HHeir Revolt§!\n§YEmpire Event§!\n\n[EVENT_TARGET_0.GetName] declared war on the former heir [EVENT_TARGET_3.GetName] after they seized territory and founded the [EVENT_TARGET_2.GetName] - §L[GetDate]§!"
+
+ TIMELINE_CIVIL_WAR: "Civil War Erupted\n§L[GetDate]§!"
+ TIMELINE_PLANET_CIVIL_WAR: "Planet Revolts\n§L[GetDate]§!"
+ TIMELINE_SECTOR_CIVIL_WAR: "Sector Revolts\n§L[GetDate]§!"
+ TIMELINE_PLANET_SLAVE_CIVIL_WAR: "Planetary Slave Rebellion Erupts\n§L[GetDate]§!"
+ TIMELINE_SECTOR_SLAVE_CIVIL_WAR: "Sectoral Slave Rebellion Erupts\n§L[GetDate]§!"
+ TIMELINE_NAT_CIVIL_WAR: "Nationalist Rebellion Erupts\n§L[GetDate]§!"
+ TIMELINE_HEIR_CIVIL_WAR: "Heir Revolts\n§L[GetDate]§!"
+
+#  paragon.5210.d.tt:2 "§Y[Ruler.GetTitle] [Ruler.GetRegnalName]§! will be assassinated.\n§RThe nation will fracture and a civil war will begin.§!\n§LThe nation is in disarray. People are desperate to light the flame of revolution. We have heard their call. All tyrants must be deposed!§!"
+
+ paragon.5210.d.tt:2 "§Y[Ruler.GetTitle] [Ruler.GetRegnalName]§! will be assassinated.\n§RThe nation will fracture and a civil war will begin.§!\n§LThe nation is in disarray. People are desperate to light the flame of revolution. They must be stopped!§!"
