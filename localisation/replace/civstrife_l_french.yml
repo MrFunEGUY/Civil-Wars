@@ -1698,6 +1698,12 @@ l_french:
  NAME_sec_slave_rebellion_war_19: "Nineteenth [This.MainDefender.Species.GetAdj] Servile War"
  NAME_sec_slave_rebellion_war_20: "Another [This.MainDefender.Species.GetAdj] Servile War"
 
+ war_intervention: "Intervention"
+ war_intercession: "Intercession"
+ war_imposition: "Imposition"
+ war_retrieval: "Retrieval of"
+ war_throne: "War for the Throne"
+
  ################
  # Faction Events
 
@@ -1857,6 +1863,7 @@ l_french:
 
  civstrife.modmenu.civwars_enabled: "Civil Wars: §GEnabled§!"
  civstrife.modmenu.civwars_disabled: "Civil Wars: §RDisabled§!"
+ civstrife.modmenu.civil_war_tooltip: "$concept_civil_war_desc$"
  civstrife.modmenu.civwars_very_low_percent: "Chance: §EVery Low§!"
  civstrife.modmenu.civwars_low_percent: "Chance: §CLow§!"
  civstrife.modmenu.civwars_base_percent: "Chance: §GNormal§!"
@@ -1865,7 +1872,7 @@ l_french:
 
  civstrife.modmenu.total_war_enabled: "Total Wars: §GEnabled§!"
  civstrife.modmenu.total_war_disabled: "Total Wars: §RDisabled§!"
- civstrife.modmenu.total_war_tooltip: "If enabled, there is a chance that certain Civil Wars, where the rebel faction/leader shares the ethic of the country, will be §Ptotal wars§! where surrender is §Rnot possible§! and victory is the §Ronly option.§!"
+ civstrife.modmenu.total_war_tooltip: "If enabled, there is a chance that certain ['concept_civil_wars'], where the rebel faction/leader shares the ethic of the country, will be a §Rtotal war§! where surrender is §Pnot possible§! and victory is the §Ponly option.§!"
  civstrife.modmenu.total_war_very_low_percent: "Chance: §EVery Low§!"
  civstrife.modmenu.total_war_low_percent: "Chance: §CLow§!"
  civstrife.modmenu.total_war_base_percent: "Chance: §GNormal§!"
@@ -1874,7 +1881,7 @@ l_french:
 
  civstrife.modmenu.coup_trap_enabled: "Coup Traps: §GEnabled§"
  civstrife.modmenu.coup_trap_disabled: "Coup Traps: §RDisabled§!"
- civstrife.modmenu.coup_trap_tooltip: "If enabled, a successful Civil War increases the chance of further Civil Wars in the afflicted country."
+ civstrife.modmenu.coup_trap_tooltip: "If enabled, a §Bsuccessful§! ['concept_civil_war'] increases the chance of further Civil Wars in the afflicted country."
  civstrife.modmenu.coup_trap_one_and_half: "Chance: §G1.5x§!"
  civstrife.modmenu.coup_trap_double: "Chance: §B2x§!"
  civstrife.modmenu.coup_trap_triple: "Chance: §P3x§!"
@@ -1882,14 +1889,14 @@ l_french:
 
  civstrife.modmenu.coup_contagion_enabled: "Coup Contagion: §GEnabled§"
  civstrife.modmenu.coup_contagion_disabled: "Coup Contagion: §RDisabled§!"
- civstrife.modmenu.coup_contagion_tooltip: "If enabled, a successful Civil War increases the chance of Civil Wars in neighboring countries."
+ civstrife.modmenu.coup_contagion_tooltip: "If enabled, a §Bsuccessful§! ['concept_civil_war'] increases the chance of Civil Wars in neighboring countries."
  civstrife.modmenu.coup_contagion_one_and_half: "Chance: §G1.5x§!"
  civstrife.modmenu.coup_contagion_double: "Chance: §B2x§!"
  civstrife.modmenu.coup_contagion_triple: "Chance: §P3x§!"
  civstrife.modmenu.coup_contagion_quadruple: "Chance: §R4x§!"
 
  edict_civil_wars_settings: "Civil Wars Menu"
- civil_wars_settings_tooltip: "Settings Menu for the Civil Wars mod"
+ edict_civil_wars_settings_desc: "Settings Menu for the ['concept_civil_wars'] mod"
 
  ethic_socialism: "Socialist"
  ethic_fanatic_socialism: "Fanatic Socialist"
@@ -2520,6 +2527,16 @@ l_french:
  traitor_country_98_only: "§Y[event_target:secession_country_98.GetName]§!"
  traitor_country_99_only: "§Y[event_target:secession_country_99.GetName]§!"
  traitor_country_100_only: "§Y[event_target:secession_country_100.GetName]§!"
+
+
+ #################
+ ##   Concepts  ##
+ #################
+
+ concept_civil_war: "Civil War"
+ concept_civil_wars: "Civil Wars"
+ concept_civil_war_desc: "§HCivil Wars§! are internal wars that can occur in multiple ways: A §Yfaction§! being dissatisfied over a prolonged period of time, a §Yleader§! feeling an election/selection was unfair, §Yslaves§! rebelling, an §Yheir§! being disinherited, an §Yimperial ruler§! dying without an heir, or an §Yunstable planet/sector§! can all trigger §HCivil Wars§!."
+
 
  #######################
  #######################

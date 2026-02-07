@@ -1,0 +1,15 @@
+if = {
+	limit = { homeworld_ethic_leader_exists = { ETHIC = $ETHIC$ } }
+	# get_homeworld_ethic_leader = { ETHIC = $ETHIC$ }
+	inline_script = { script = effects/get_homeworld_ethic_leader ETHIC = $ETHIC$ }
+}
+else_if = {
+	limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_$ETHIC$ } } }
+	event_target:civil_war_planet.owner = {
+		random_owned_leader = {
+			limit = { has_ethic = ethic_$ETHIC$ }
+			save_event_target_as = new_rebel_leader
+		}
+	}
+}
+else = { inline_script = { script = effects/create_planetary_leader_with_ethic ETHIC = $ETHIC$ } }

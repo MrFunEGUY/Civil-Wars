@@ -150,12 +150,12 @@ situation_event = {
 
 	desc = {
 		text = civleader.1010.dem.desc
-		trigger = { is_democratic_authority = yes }
+		trigger = { owner = { is_democratic_authority = yes } }
 	}
 
 	desc = {
 		text = civleader.1010.not_dem.desc
-		trigger = { is_democratic_authority = no }
+		trigger = { owner = { is_democratic_authority = no } }
 	}
 
 	trigger = {
@@ -228,7 +228,6 @@ situation_event = {
 			trigger = { owner = { has_democratic_elections = no } }
 			text = cw_leader_give_in
 		}
-		trigger = { has_leader_flag = leader_can_be_pacified }
 		if = {
 			limit = { owner = { has_democratic_elections = no } }
 			owner = { set_leader = root.target }
@@ -273,12 +272,12 @@ situation_event = {
 
 	desc = {
 		text = civleader.1020.dem.desc
-		trigger = { has_democratic_elections = yes }
+		trigger = { owner = { has_democratic_elections = yes } }
 	}
 
 	desc = {
 		text = civleader.1020.not_dem.desc
-		trigger = { has_democratic_elections = no }
+		trigger = { owner = {has_democratic_elections = no } }
 	}
 
 	trigger = {

@@ -149,10 +149,10 @@ country_event = { ## Initial Event to create nationalists from destroyed countri
 			every_owned_pop_group = {
 				limit = { has_pop_group_flag = sep_pop_nat_@event_target:nat_pops_country }
 				add_modifier = { modifier = "death_of_motherland" years = 20 }
-				if = { # No need to have both of these, it's just overkill.
-					limit = { has_modifier = pop_recently_conquered }
-					# remove_modifier = pop_recently_conquered
-				}
+				# if = { # No need to have both of these, it's just overkill.
+				# 	limit = { has_modifier = pop_recently_conquered }
+				# 	remove_modifier = pop_recently_conquered
+				# }
 			}
 		}
 
@@ -2301,9 +2301,7 @@ country_event = { # Destroy Government-In-Exile when no nats exist
 			limit = { has_communications = event_target:nat_gone }
 			country_event = { id = civnat.8000 days = 2 random = 14 }
 		}
-		random_playable_country = {
-			observer_event = { id = civnat.8001 days = 2 random = 14 }
-		}
+		observer_event = { id = civnat.8001 days = 2 random = 14 }
 
 		set_country_flag = truly_dead_country
 

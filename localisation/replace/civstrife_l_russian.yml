@@ -1736,6 +1736,12 @@ civend.9005.a: "Превосходно"
  NAME_sec_slave_rebellion_war_19: "Девятнадцатое восстание рабов в секрторе [sector_name.GetName]"
  NAME_sec_slave_rebellion_war_20: "Очередное восстание рабов в секрторе [sector_name.GetName]"
 
+ war_intervention: "Вмешательство"
+ war_intercession: "Заступничество"
+ war_imposition: "Наложение"
+ war_retrieval: "Поиск"
+ war_throne: "Война за трон"
+
  ################
  # Faction Events
 
@@ -1895,6 +1901,7 @@ civend.9005.a: "Превосходно"
 
  civstrife.modmenu.civwars_enabled: "Гражданские войны: §GВключены§!"
  civstrife.modmenu.civwars_disabled: "Гражданские войны: §RОтключены§!"
+ civstrife.modmenu.civil_war_tooltip: "$concept_civil_war_desc$"
  civstrife.modmenu.civwars_very_low_percent: "Вероятность: §EОчень низкая§!"
  civstrife.modmenu.civwars_low_percent: "Вероятность: §CНизкая§!"
  civstrife.modmenu.civwars_base_percent: "Вероятность: §GНормальная§!"
@@ -1903,7 +1910,7 @@ civend.9005.a: "Превосходно"
 
  civstrife.modmenu.total_war_enabled: "Тотальные войны: §GВключены§!"
  civstrife.modmenu.total_war_disabled: "Тотальные войны: §RОтключены§!"
- civstrife.modmenu.total_war_tooltip: "Если включено, некоторые гражданские войны будут §Pтотальными войнами§!, в которых §Rкапитуляция невозможна§!, а победа является §Rединственным исходом§!."
+ civstrife.modmenu.total_war_tooltip: "Если включено, некоторые гражданские войны будут §Rтотальными войнами§!, в которых §Pкапитуляция невозможна§!, а победа является §Pединственным исходом§!."
  civstrife.modmenu.total_war_very_low_percent: "Вероятность: §EОчень низкая§!"
  civstrife.modmenu.total_war_low_percent: "Вероятность: §CНизкая§!"
  civstrife.modmenu.total_war_base_percent: "Вероятность: §GНормальная§!"
@@ -1927,7 +1934,7 @@ civend.9005.a: "Превосходно"
  civstrife.modmenu.coup_contagion_quadruple: "Вероятность: §R4x§!"
 
  edict_civil_wars_settings: "Меню гражданских войн"
- civil_wars_settings_tooltip: "Меню настроек мода «Гражданские войны»"
+ edict_civil_wars_settings_desc: "Меню настроек для ['concept_civil_wars'] мод"
 
  ethic_socialism: "Социализм"
  ethic_fanatic_socialism: "Фанатичный социализм"
@@ -2560,6 +2567,16 @@ leader_trait_traitor_heir_tooltip: "\n[GetHeirCountry_Heir]\n\nЕсли §H[root
  traitor_country_98_only: "§Y[event_target:secession_country_98.GetName]§!"
  traitor_country_99_only: "§Y[event_target:secession_country_99.GetName]§!"
  traitor_country_100_only: "§Y[event_target:secession_country_100.GetName]§!"
+
+
+ #################
+ ##   Concepts  ##
+ #################
+
+ concept_civil_war: "Гражданские войны"
+ concept_civil_wars: "Гражданские войны"
+ concept_civil_war_desc: "Гражданские войны — это внутренние войны, которые могут возникать по разным причинам: длительное недовольство одной из фракций, мнение лидера о несправедливости выборов/выбора, восстание рабов, лишение наследника прав на наследство, смерть императора без наследника или восстание на нестабильной планете/в нестабильном секторе — все это может вызвать гражданскую войну."
+
 
  #######################
  #######################

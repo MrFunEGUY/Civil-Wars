@@ -650,7 +650,10 @@ l_simp_chinese:
  civcom.4125.norm.desc: "You are a true ally. We'll surely win this war now."
  civcom.4125.nat.desc: "We greatly appreciate the assistance. We knew we would be able to count on our motherland for support."
 
- we_must_border_rebels: "We do not border the §Y[civwar_rebels.GetName]§!"
+ we_must_border_rebels: "We do not border the §H[civwar_rebels.GetName]§!"
+ not_allowed_defense_pact: "We have a §YDefense Pact§! with the §H[civwar_originator.GetName]§!"
+ not_allowed_nonag_pact: "We have a §YNon-Aggression Pact§! with the §H[civwar_originator.GetName]§!"
+ not_allowed_truce: "We have a §YTruce§! with the §H[civwar_originator.GetName]§!"
 
  civcom.3001.desc: "Greetings my esteemed, §Y[Root.GetRulerTitle]§!. I come before you today as your humble vassal, requesting aid in maintaining stability over my realm. A a rogue commander has taken control over one of our fleets and has declared themselves independent from both us and you. In the worst case, the rebels could take control of some, or all, of our territory. If you want to retain overlordship over any potential territory they seize and ensure stability in my realm, we need to crush their rebellion."
 
@@ -1698,6 +1701,12 @@ l_simp_chinese:
  NAME_sec_slave_rebellion_war_19: "Nineteenth [This.MainDefender.Species.GetAdj] Servile War"
  NAME_sec_slave_rebellion_war_20: "Another [This.MainDefender.Species.GetAdj] Servile War"
 
+ war_intervention: "Intervention"
+ war_intercession: "Intercession"
+ war_imposition: "Imposition"
+ war_retrieval: "Retrieval of"
+ war_throne: "War for the Throne"
+
  ################
  # Faction Events
 
@@ -1857,6 +1866,7 @@ l_simp_chinese:
 
  civstrife.modmenu.civwars_enabled: "Civil Wars: §GEnabled§!"
  civstrife.modmenu.civwars_disabled: "Civil Wars: §RDisabled§!"
+ civstrife.modmenu.civil_war_tooltip: "$concept_civil_war_desc$"
  civstrife.modmenu.civwars_very_low_percent: "Chance: §EVery Low§!"
  civstrife.modmenu.civwars_low_percent: "Chance: §CLow§!"
  civstrife.modmenu.civwars_base_percent: "Chance: §GNormal§!"
@@ -1865,7 +1875,7 @@ l_simp_chinese:
 
  civstrife.modmenu.total_war_enabled: "Total Wars: §GEnabled§!"
  civstrife.modmenu.total_war_disabled: "Total Wars: §RDisabled§!"
- civstrife.modmenu.total_war_tooltip: "If enabled, there is a chance that certain Civil Wars, where the rebel faction/leader shares the ethic of the country, will be §Ptotal wars§! where surrender is §Rnot possible§! and victory is the §Ronly option.§!"
+ civstrife.modmenu.total_war_tooltip: "If enabled, there is a chance that certain ['concept_civil_wars'], where the rebel faction/leader shares the ethic of the country, will be §Rtotal wars§! where surrender is §Pnot possible§! and victory is the §Ponly option.§!"
  civstrife.modmenu.total_war_very_low_percent: "Chance: §EVery Low§!"
  civstrife.modmenu.total_war_low_percent: "Chance: §CLow§!"
  civstrife.modmenu.total_war_base_percent: "Chance: §GNormal§!"
@@ -1874,7 +1884,7 @@ l_simp_chinese:
 
  civstrife.modmenu.coup_trap_enabled: "Coup Traps: §GEnabled§"
  civstrife.modmenu.coup_trap_disabled: "Coup Traps: §RDisabled§!"
- civstrife.modmenu.coup_trap_tooltip: "If enabled, a successful Civil War increases the chance of further Civil Wars in the afflicted country."
+ civstrife.modmenu.coup_trap_tooltip: "If enabled, a §Bsuccessful§! ['concept_civil_war'] increases the chance of further Civil Wars in the §Yafflicted country§!."
  civstrife.modmenu.coup_trap_one_and_half: "Chance: §G1.5x§!"
  civstrife.modmenu.coup_trap_double: "Chance: §B2x§!"
  civstrife.modmenu.coup_trap_triple: "Chance: §P3x§!"
@@ -1882,14 +1892,14 @@ l_simp_chinese:
 
  civstrife.modmenu.coup_contagion_enabled: "Coup Contagion: §GEnabled§"
  civstrife.modmenu.coup_contagion_disabled: "Coup Contagion: §RDisabled§!"
- civstrife.modmenu.coup_contagion_tooltip: "If enabled, a successful Civil War increases the chance of Civil Wars in neighboring countries."
+ civstrife.modmenu.coup_contagion_tooltip: "If enabled, a §Bsuccessful§! ['concept_civil_war'] increases the chance of Civil Wars in §Yneighboring countries§!."
  civstrife.modmenu.coup_contagion_one_and_half: "Chance: §G1.5x§!"
  civstrife.modmenu.coup_contagion_double: "Chance: §B2x§!"
  civstrife.modmenu.coup_contagion_triple: "Chance: §P3x§!"
  civstrife.modmenu.coup_contagion_quadruple: "Chance: §R4x§!"
 
  edict_civil_wars_settings: "Civil Wars Menu"
- civil_wars_settings_tooltip: "Settings Menu for the Civil Wars mod"
+ edict_civil_wars_settings_desc: "Settings Menu for the ['concept_civil_wars'] mod"
 
  ethic_socialism: "Socialist"
  ethic_fanatic_socialism: "Fanatic Socialist"
@@ -2520,6 +2530,16 @@ l_simp_chinese:
  traitor_country_98_only: "§Y[event_target:secession_country_98.GetName]§!"
  traitor_country_99_only: "§Y[event_target:secession_country_99.GetName]§!"
  traitor_country_100_only: "§Y[event_target:secession_country_100.GetName]§!"
+
+
+ #################
+ ##   Concepts  ##
+ #################
+
+ concept_civil_war: "Civil War"
+ concept_civil_wars: "Civil Wars"
+ concept_civil_war_desc: "§HCivil Wars§! are internal wars that can occur in multiple ways: A §Yfaction§! being dissatisfied over a prolonged period of time, a §Yleader§! feeling an election/selection was unfair, §Yslaves§! rebelling, an §Yheir§! being disinherited, an §Yimperial ruler§! dying without an heir, or an §Yunstable planet/sector§! can all trigger §HCivil Wars§!."
+
 
  #######################
  #######################

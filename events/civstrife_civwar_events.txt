@@ -2319,6 +2319,7 @@ situation_event = { # Revolt/Civil War Event
 				}
 				random = {
 					chance = value:civil_war_chance
+					# chance = 0
 					root.target = { set_faction_rebellion_suppression_flag = yes }
 					root = { create_civil_war = yes }
 				}
@@ -2348,6 +2349,7 @@ situation_event = { # Revolt/Civil War Event
 				}
 				random = {
 					chance = value:civil_war_chance
+					# chance = 0
 					root.target = { set_faction_rebellion_suppression_flag = yes }
 					random_owned_sector = {
 						limit = {
@@ -2401,6 +2403,7 @@ situation_event = { # Revolt/Civil War Event
 				}
 				random = {
 					chance = value:civil_war_chance
+					# chance = 0
 					root.target = { set_faction_rebellion_suppression_flag = yes }
 					random_owned_planet = {
 						limit = {

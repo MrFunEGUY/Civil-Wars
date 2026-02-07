@@ -1,0 +1,14 @@
+random_owned_leader = {
+	limit = {
+		has_ethic = ethic_$ETHIC$
+		OR = {
+			background_planet = { is_same_value = event_target:civil_war_planet }
+			AND = {
+				event_target:civil_war_planet = { has_planet_flag = sep_sector_rebellion }
+				exists = background_planet.sector
+				background_planet.sector = { is_same_value = event_target:civil_war_planet.sector }
+			}
+		}
+	}
+	save_event_target_as = new_rebel_leader
+}

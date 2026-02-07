@@ -357,3 +357,15 @@ test_distance_effect = {
 		set_variable = { which = distance_from_traitor value = root.capital_scope.distance_from_traitor }
 	}
 }
+
+test_create_civwar_army = {
+	while = {
+		count = $NUM$
+		create_army = {
+			name = random
+			owner = root
+			species = root.species
+			type = civwar_$TYPE$_army
+		}
+	}
+}

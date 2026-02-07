@@ -9,7 +9,9 @@
 war_name_parts_list = {
 	key = "installation_war_names"
 	parts = {
-		"Interventionary War" = 1
+		war_intervention = 3
+		war_imposition = 2
+		war_intercession = 1
 	}
 }
 
@@ -23,7 +25,7 @@ war_name_parts_list = {
 war_name_parts_list = {
 	key = "retrieval_war_names"
 	parts = {
-		"Retrieval of" = 1
+		war_retrieval = 1
 	}
 }
 
@@ -37,7 +39,7 @@ war_name_parts_list = {
 war_name_parts_list = {
 	key = "heir_installation_war_names_1"
 	parts = {
-		"War for the Throne" = 1
+		war_throne = 1
 	}
 }
 
@@ -62,7 +64,7 @@ war_name_format = {
 			}
 		}
 	}
-	format = "{[This.MainAttacker.GetAdj] {<installation_war_names>}}"
+	format = "The {[This.MainAttacker.GetAdj] {<installation_war_names>}}"
 }
 
 # Retrieve Traitor

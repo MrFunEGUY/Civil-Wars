@@ -3535,24 +3535,43 @@ created_civwar_rebel_country_effect = {
 		event_target:cw_scope_initializer = {
 			switch = {
 				trigger = has_ethic
-				ethic_egalitarian = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = egalitarian } } }
-				ethic_authoritarian = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = authoritarian } } }
-				ethic_spiritualist = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = spiritualist } } }
-				ethic_materialist = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = materialist } } }
-				ethic_militarist = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = militarist } } }
-				ethic_pacifist = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = pacifist } } }
-				ethic_xenophile = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = xenophile } } }
-				ethic_xenophobe = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = xenophobe } } }
-				ethic_socialism = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = socialism } } }
-				ethic_capitalism = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = capitalism } } }
-				ethic_cooperative = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = cooperative } } }
-				ethic_competitive = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = competitive } } }
-				ethic_industrial = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = industrial } } }
-				ethic_green = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = green } } }
-				ethic_anthropocentric = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = anthropocentric } } }
-				ethic_ecocentric = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = ecocentric } } }
-				ethic_elitist = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = elitist } } }
-				ethic_pluralist = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = pluralist } } }
+				ethic_egalitarian = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = egalitarian } } }
+				ethic_authoritarian = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = authoritarian } } }
+				ethic_spiritualist = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = spiritualist } } }
+				ethic_materialist = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = materialist } } }
+				ethic_militarist = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = militarist } } }
+				ethic_pacifist = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = pacifist } } }
+				ethic_xenophile = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = xenophile } } }
+				ethic_xenophobe = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = xenophobe } } }
+				ethic_socialism = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = socialism } } }
+				ethic_capitalism = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = capitalism } } }
+				ethic_cooperative = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = cooperative } } }
+				ethic_competitive = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = competitive } } }
+				ethic_industrial = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = industrial } } }
+				ethic_green = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = green } } }
+				ethic_anthropocentric = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = anthropocentric } } }
+				ethic_ecocentric = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = ecocentric } } }
+				ethic_elitist = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = elitist } } }
+				ethic_pluralist = { owner = { inline_script = { script = effects/created_civwar_rebel_leader_ethic ETHIC = pluralist } } }
+
+				# ethic_egalitarian = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = egalitarian } } }
+				# ethic_authoritarian = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = authoritarian } } }
+				# ethic_spiritualist = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = spiritualist } } }
+				# ethic_materialist = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = materialist } } }
+				# ethic_militarist = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = militarist } } }
+				# ethic_pacifist = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = pacifist } } }
+				# ethic_xenophile = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = xenophile } } }
+				# ethic_xenophobe = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = xenophobe } } }
+				# ethic_socialism = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = socialism } } }
+				# ethic_capitalism = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = capitalism } } }
+				# ethic_cooperative = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = cooperative } } }
+				# ethic_competitive = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = competitive } } }
+				# ethic_industrial = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = industrial } } }
+				# ethic_green = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = green } } }
+				# ethic_anthropocentric = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = anthropocentric } } }
+				# ethic_ecocentric = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = ecocentric } } }
+				# ethic_elitist = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = elitist } } }
+				# ethic_pluralist = { owner = { created_civwar_rebel_leader_ethic = { ETHIC = pluralist } } }
 			}
 		}
 	}
@@ -3711,22 +3730,22 @@ created_slave_rebel_country_effect = {
 	created_civwar_rebel_country_effect = yes
 }
 
-created_civwar_rebel_leader_ethic = {
-	if = {
-		limit = { homeworld_ethic_leader_exists = { ETHIC = $ETHIC$ } }
-		get_homeworld_ethic_leader = { ETHIC = $ETHIC$ }
-	}
-	else_if = {
-		limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_$ETHIC$ } } }
-		event_target:civil_war_planet.owner = {
-			random_owned_leader = {
-				limit = { has_ethic = ethic_$ETHIC$ }
-				save_event_target_as = new_rebel_leader
-			}
-		}
-	}
-	else = { create_planetary_leader_with_ethic = { ETHIC = $ETHIC$ } }
-}
+# created_civwar_rebel_leader_ethic = {
+# 	if = {
+# 		limit = { homeworld_ethic_leader_exists = { ETHIC = $ETHIC$ } }
+# 		get_homeworld_ethic_leader = { ETHIC = $ETHIC$ }
+# 	}
+# 	else_if = {
+# 		limit = { event_target:civil_war_planet.owner = { any_owned_leader = { has_ethic = ethic_$ETHIC$ } } }
+# 		event_target:civil_war_planet.owner = {
+# 			random_owned_leader = {
+# 				limit = { has_ethic = ethic_$ETHIC$ }
+# 				save_event_target_as = new_rebel_leader
+# 			}
+# 		}
+# 	}
+# 	else = { create_planetary_leader_with_ethic = { ETHIC = $ETHIC$ } }
+# }
 
 #####################
 # Civil War Type Effects
@@ -5250,7 +5269,7 @@ create_civil_war = {
 							save_event_target_as = civil_war_planet
 							solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
 							if = {
-								limit = { any_owned_pop_group = { pop_faction = { is_same_value = event_target:civwar_party } } }
+								limit = { any_owned_pop_group = { exists = pop_faction pop_faction = { is_same_value = event_target:civwar_party } } }
 								every_owned_pop_group = {
 									limit = {
 										exists = pop_faction
@@ -8145,22 +8164,22 @@ get_war_leader_ethic = {
 	}
 }
 
-get_homeworld_ethic_leader = {
-	random_owned_leader = {
-		limit = {
-			has_ethic = ethic_$ETHIC$
-			OR = {
-				background_planet = { is_same_value = event_target:civil_war_planet }
-				AND = {
-					event_target:civil_war_planet = { has_planet_flag = sep_sector_rebellion }
-					exists = background_planet.sector
-					background_planet.sector = { is_same_value = event_target:civil_war_planet.sector }
-				}
-			}
-		}
-		save_event_target_as = new_rebel_leader
-	}
-}
+# get_homeworld_ethic_leader = {
+# 	random_owned_leader = {
+# 		limit = {
+# 			has_ethic = ethic_$ETHIC$
+# 			OR = {
+# 				background_planet = { is_same_value = event_target:civil_war_planet }
+# 				AND = {
+# 					event_target:civil_war_planet = { has_planet_flag = sep_sector_rebellion }
+# 					exists = background_planet.sector
+# 					background_planet.sector = { is_same_value = event_target:civil_war_planet.sector }
+# 				}
+# 			}
+# 		}
+# 		save_event_target_as = new_rebel_leader
+# 	}
+# }
 
 get_leader_homeworld = {
 	if = {
@@ -8180,36 +8199,36 @@ get_leader_homeworld = {
 	}
 }
 
-create_planetary_leader_with_ethic = {
-	create_leader = {
-		class = random_ruler
-		species = event_target:civwar_species
-		name = random
-		skill = 5
-		background_ethic = ethic_$ETHIC$
-		background_planet = event_target:civil_war_planet
-		effect = {
-			set_leader_flag = new_civwar_ruler
-			save_event_target_as = new_rebel_leader
-			# if = {
-			# 	limit = {
-			# 		leader_class = official
-			# 		NOT = { has_global_flag = has_ALTM_mod }
-			# 	}
-			# 	add_trait = {
-			# 		trait = trait_ruler_deep_connections_2
-			# 		show_message = no
-			# 	}
-			# }
-			# else = {
-			# 	add_trait = {
-			# 		trait = leader_trait_deep_connections_2
-			# 		show_message = no
-			# 	}
-			# }
-		}
-	}
-}
+# create_planetary_leader_with_ethic = {
+# 	create_leader = {
+# 		class = random_ruler
+# 		species = event_target:civwar_species
+# 		name = random
+# 		skill = 5
+# 		background_ethic = ethic_$ETHIC$
+# 		background_planet = event_target:civil_war_planet
+# 		effect = {
+# 			set_leader_flag = new_civwar_ruler
+# 			save_event_target_as = new_rebel_leader
+# 			# if = {
+# 			# 	limit = {
+# 			# 		leader_class = official
+# 			# 		NOT = { has_global_flag = has_ALTM_mod }
+# 			# 	}
+# 			# 	add_trait = {
+# 			# 		trait = trait_ruler_deep_connections_2
+# 			# 		show_message = no
+# 			# 	}
+# 			# }
+# 			# else = {
+# 			# 	add_trait = {
+# 			# 		trait = leader_trait_deep_connections_2
+# 			# 		show_message = no
+# 			# 	}
+# 			# }
+# 		}
+# 	}
+# }
 
 create_civil_war_leader_with_ethic = {
 
@@ -11353,7 +11372,7 @@ get_country_immediate_setup = {
 				limit = { has_fleet_flag = civil_war_fleet }
 				set_owner = root
 				if = { # If they are not in their seized territory, they stay as leader of their fleet
-					limit = { solar_system.starbase = { is_owned_by = event_target:civwar_originator } }
+					limit = { exists = solar_system.starbase solar_system.starbase = { is_owned_by = event_target:civwar_originator } }
 					set_leader = root.ruler
 				}
 				remove_fleet_flag = civil_war_fleet
@@ -12291,7 +12310,7 @@ swap_fleets_in_system = {
 			is_owned_by = event_target:civwar_originator
 			any_owned_ship = {
 				OR = {
-					is_ship_class = science
+					is_ship_class = shipclass_science_ship
 					is_ship_class = shipclass_military
 				}
 			}
@@ -12339,23 +12358,33 @@ swap_fleets_in_system = {
 
 swap_leader = {
 	if = {
-		limit = { is_scope_type = leader }
-		random = {
-			chance = value:leader_to_defect_chance
-			set_owner = root
-			set_defected = yes
-		}
-	}
-	else_if = {
 		limit = { exists = leader }
 		leader = {
 			random = {
 				chance = value:leader_to_defect_chance
 				set_owner = root
-				set_defected = yes
+				set_defected_real = yes
 			}
 		}
 	}
+	# if = {
+	# 	limit = { is_scope_type = leader }
+	# 	random = {
+	# 		chance = value:leader_to_defect_chance
+	# 		set_owner = root
+	# 		set_defected = yes
+	# 	}
+	# }
+	# else_if = {
+	# 	limit = { exists = leader }
+	# 	leader = {
+	# 		random = {
+	# 			chance = value:leader_to_defect_chance
+	# 			set_owner = root
+	# 			set_defected = yes
+	# 		}
+	# 	}
+	# }
 }
 
 set_defected = {
@@ -12363,7 +12392,8 @@ set_defected = {
 		limit = { is_scope_type = leader }
 		set_defected_real = yes
 	}
-	else = {
+	else_if = {
+		limit = { exists = leader }
 		leader = { set_defected_real = yes }
 	}
 }
@@ -15616,9 +15646,11 @@ exile_restoration_gen_effect = {
 
 		# The nationalists in the restored homeland have won, they don't need to be nationalist anymore 
 		every_owned_pop_group = {
-			limit = { has_pop_group_flag = sep_pop_nat_@prev }
+			limit = {
+				has_pop_group_flag = sep_pop_nat_@prev
+				nats_modifier_flag_matcher = { SCOPE = prev }
+			}
 			remove_pop_group_flag = sep_pop_nat_@prev
-			nats_modifier_flag_matcher = { SCOPE = prev }
 			if = {
 				limit = { has_pop_group_flag = sep_pop }
 				remove_pop_group_flag = sep_pop
@@ -15994,7 +16026,7 @@ create_civwar_army = {
 			name = random
 			owner = event_target:civwar_rebels
 			species = event_target:civwar_rebels.species
-			type = "civwar_$TYPE$_army"
+			type = civwar_$TYPE$_army
 		}
 	}
 }

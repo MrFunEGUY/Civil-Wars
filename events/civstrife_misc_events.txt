@@ -63,7 +63,7 @@ country_event = {
     }
 
 	immediate = {
-		event = { id = civmisc.5010 }
+		country_event = { id = civmisc.5010 }
 	}
 }
 
@@ -386,7 +386,7 @@ country_event = {
 	}
 }
 
-event = {
+country_event = {
 	id = civmisc.5010
 	title = civstrife.modmenu.title
 	desc = civstrife.modmenu.desc
@@ -401,6 +401,7 @@ event = {
 	option = {
 		trigger = { civil_wars_enabled = yes }
 		name = civstrife.modmenu.civwars_enabled
+		custom_tooltip = civstrife.modmenu.civil_war_tooltip
 		hidden_effect = {
 			remove_global_flag = CWM_civil_wars_ON
 			country_event = { id = civmisc.5010 }
@@ -410,6 +411,7 @@ event = {
 	option = {
 		trigger = { civil_wars_enabled = no }
 		name = civstrife.modmenu.civwars_disabled
+		custom_tooltip = civstrife.modmenu.civil_war_tooltip
 		hidden_effect = {
 			set_global_flag = CWM_civil_wars_ON
 			country_event = { id = civmisc.5010 }

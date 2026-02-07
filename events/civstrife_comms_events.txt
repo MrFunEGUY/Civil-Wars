@@ -661,20 +661,21 @@ country_event = {
 
 	option = {
 		name = civcom.spacer
-		trigger = { NOT = { has_country_flag = heir_rebel_country } }
+		trigger = { is_ai = no NOT = { has_country_flag = heir_rebel_country } }
 		response_text = civcom.2000.norm.desc
 		is_dialog_only = yes
 	}
 
 	option = {
 		name = civcom.spacer
-		trigger = { has_country_flag = heir_rebel_country }
+		trigger = { is_ai = no has_country_flag = heir_rebel_country }
 		response_text = civcom.2000.heir.desc
 		is_dialog_only = yes
 	}
 
 	option = {
 		name = civcom.swap_to_rebels
+		trigger = { is_ai = no }
 		custom_tooltip = civcom.swap_to_rebels.tooltip
 		hidden_effect = { event_target:civwar_rebels = { set_player = root } }
 	}
@@ -725,12 +726,14 @@ country_event = {
 
 	option = {
 		name = civcom.spacer
+		trigger = { is_ai = no }
 		response_text = civcom.2010.desc
 		is_dialog_only = yes
 	}
 
 	option = {
 		name = civcom.swap_to_rebels
+		trigger = { is_ai = no }
 		custom_tooltip = civcom.swap_to_rebels.tooltip
 		hidden_effect = { event_target:civwar_rebels = { set_player = root } }
 	}
@@ -783,12 +786,14 @@ country_event = {
 
 	option = {
 		name = civcom.spacer
+		trigger = { is_ai = no }
 		response_text = civcom.2020.desc
 		is_dialog_only = yes
 	}
 
 	option = {
 		name = civcom.swap_to_rebels
+		trigger = { is_ai = no }
 		custom_tooltip = civcom.swap_to_rebels.tooltip
 		hidden_effect = { event_target:civwar_rebels = { set_player = root } }
 	}
@@ -833,12 +838,14 @@ country_event = {
 
 	option = {
 		name = civcom.spacer
+		trigger = { is_ai = no }
 		response_text = civcom.2025.desc
 		is_dialog_only = yes
 	}
 
 	option = {
 		name = civcom.swap_to_rebels
+		trigger = { is_ai = no }
 		custom_tooltip = civcom.swap_to_rebels.tooltip
 		hidden_effect = { event_target:civwar_rebels = { set_player = root } }
 	}
@@ -1071,9 +1078,9 @@ country_event = {
 
 	immediate = {
 		random_list = {
-			15 = { set_sector_flag = gov_monetary }
-			40 = { set_sector_flag = gov_subject }
-			45 = { set_sector_flag = gov_heir }
+			15 = { event_target:crisis_sector = { set_sector_flag = gov_monetary } }
+			40 = { event_target:crisis_sector = { set_sector_flag = gov_subject } }
+			45 = { event_target:crisis_sector = { set_sector_flag = gov_heir } }
 		}
 	}
 
@@ -1279,7 +1286,7 @@ country_event = {
 		name = civcom.4000.abstain
 		hidden_effect = {
 			if = {
-				limit = { is_same_value = event_target:nat_motherland_model }
+				limit = { exists = event_target:nat_motherland_model is_same_value = event_target:nat_motherland_model }
 				set_country_flag = motherland_wont_join_@event_target:civwar_rebels
 			}
 			country_event = { id = civcom.4100 }
@@ -1365,7 +1372,7 @@ country_event = {
 		}
 		hidden_effect = {
 			if = {
-				limit = { is_same_value = event_target:nat_motherland_model }
+				limit = { exists = event_target:nat_motherland_model is_same_value = event_target:nat_motherland_model }
 				set_country_flag = motherland_wont_join_@event_target:civwar_rebels
 			}
 			country_event = { id = civcom.4110 }
@@ -1522,7 +1529,7 @@ country_event = {
 			custom_tooltip = { # This is checked for everyone else before this point
 				fail_text = we_must_border_rebels
 				if = {
-					limit = { is_same_value = event_target:nat_motherland_model }
+					limit = { exists = event_target:nat_motherland_model is_same_value = event_target:nat_motherland_model }
 					any_system_within_border = {
 						closest_system = {
 							limit = {
@@ -1549,7 +1556,7 @@ country_event = {
 		}
 		hidden_effect = {
 			if = {
-				limit = { is_same_value = event_target:nat_motherland_model }
+				limit = { exists = event_target:nat_motherland_model is_same_value = event_target:nat_motherland_model }
 				set_country_flag = motherland_will_join_@event_target:civwar_rebels
 			}
 			country_event = { id = civcom.4125 }
@@ -1611,7 +1618,7 @@ country_event = {
 			modifier = {
 				factor = 1.25
 				has_rival = event_target:civwar_originator
-				event_target:civwar_rebels = { is_wrival_government = no }
+				event_target:civwar_rebels = { is_rival_government = no }
 			}
 		}
 	}
