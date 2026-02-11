@@ -1200,6 +1200,7 @@ get_motherland_effect = {
 # Make countries
 
 make_civil_war_ethic_country = {
+	optimize_memory
 	event_target:cw_scope_initializer = {
 		## If country shares ethic with initializer, possible they claim full legitimacy and start TOTAL war
 		if = { ##Multi Sector Civil Wars determine this earlier
@@ -1889,7 +1890,7 @@ create_auth_country = {
 			create_country = {
 				authority = auth_imperial
 				ethos = { ethic = ethic_fanatic_authoritarian }
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = imperial }
 		}
@@ -1897,7 +1898,7 @@ create_auth_country = {
 			create_country = {
 				authority = auth_dictatorial
 				ethos = { ethic = ethic_fanatic_authoritarian }
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
 		}
@@ -1914,7 +1915,7 @@ create_egal_country = {
 					create_country = {
 						authority = auth_democratic
 						ethos = { ethic = ethic_fanatic_egalitarian }
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
 				}
@@ -1922,7 +1923,7 @@ create_egal_country = {
 					create_country = {
 						authority = auth_strict_democratic
 						ethos = { ethic = ethic_fanatic_egalitarian }
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = strict_democratic }
 				}
@@ -1934,7 +1935,7 @@ create_egal_country = {
 					create_country = {
 						authority = auth_democratic
 						ethos = { ethic = ethic_fanatic_egalitarian }
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
 				}
@@ -1942,7 +1943,7 @@ create_egal_country = {
 					create_country = {
 						authority = auth_direct_democratic
 						ethos = { ethic = ethic_fanatic_egalitarian }
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = direct_democratic }
 				}
@@ -1953,7 +1954,7 @@ create_egal_country = {
 		create_country = {
 			authority = auth_democratic
 			ethos = { ethic = ethic_fanatic_egalitarian }
-			inline_script = { script = civil_war_country_creation/gen_civil_war }
+			inline_script = { script = civil_war_country_creation/gen_country }
 		}
 	}
 }
@@ -1967,7 +1968,7 @@ create_mil_country = {
 				10 = {
 					create_country = {
 						authority = auth_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_militarist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -1975,7 +1976,7 @@ create_mil_country = {
 				5 = {
 					create_country = {
 						authority = auth_strict_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_militarist
 							ethic = ethic_egalitarian
@@ -1986,7 +1987,7 @@ create_mil_country = {
 				25 = {
 					create_country = {
 						authority = auth_dict_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_militarist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dict_democratic }
@@ -1994,7 +1995,7 @@ create_mil_country = {
 				25 = {
 					create_country = {
 						authority = auth_imperial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_militarist
 							ethic = ethic_authoritarian
@@ -2005,7 +2006,7 @@ create_mil_country = {
 				25 = {
 					create_country = {
 						authority = auth_dictatorial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_militarist
 							ethic = ethic_authoritarian
@@ -2016,7 +2017,7 @@ create_mil_country = {
 				10 = {
 					create_country = {
 						authority = auth_oligarchic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_militarist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2028,7 +2029,7 @@ create_mil_country = {
 				15 = {
 					create_country = {
 						authority = auth_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_militarist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2036,7 +2037,7 @@ create_mil_country = {
 				5 = {
 					create_country = {
 						authority = auth_direct_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_militarist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = direct_democratic }
@@ -2044,7 +2045,7 @@ create_mil_country = {
 				30 = {
 					create_country = {
 						authority = auth_imperial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_militarist
 							ethic = ethic_authoritarian
@@ -2055,7 +2056,7 @@ create_mil_country = {
 				30 = {
 					create_country = {
 						authority = auth_dictatorial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_militarist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2063,7 +2064,7 @@ create_mil_country = {
 				20 = {
 					create_country = {
 						authority = auth_oligarchic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_militarist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2076,7 +2077,7 @@ create_mil_country = {
 			5 = {
 				create_country = {
 					authority = auth_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_militarist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2084,7 +2085,7 @@ create_mil_country = {
 			45 = {
 				create_country = {
 					authority = auth_imperial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_militarist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = imperial }
@@ -2092,7 +2093,7 @@ create_mil_country = {
 			40 = {
 				create_country = {
 					authority = auth_dictatorial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_militarist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2100,7 +2101,7 @@ create_mil_country = {
 			10 = {
 				create_country = {
 					authority = auth_oligarchic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_militarist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2118,7 +2119,7 @@ create_pac_country = {
 				10 = {
 					create_country = {
 						authority = auth_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_pacifist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2126,7 +2127,7 @@ create_pac_country = {
 				5 = {
 					create_country = {
 						authority = auth_strict_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_pacifist
 							ethic = ethic_egalitarian
@@ -2137,7 +2138,7 @@ create_pac_country = {
 				25 = {
 					create_country = {
 						authority = auth_dict_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_pacifist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dict_democratic }
@@ -2145,7 +2146,7 @@ create_pac_country = {
 				25 = {
 					create_country = {
 						authority = auth_imperial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_pacifist
 							ethic = ethic_authoritarian
@@ -2156,7 +2157,7 @@ create_pac_country = {
 				25 = {
 					create_country = {
 						authority = auth_dictatorial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_pacifist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2164,7 +2165,7 @@ create_pac_country = {
 				10 = {
 					create_country = {
 						authority = auth_oligarchic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_pacifist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2176,7 +2177,7 @@ create_pac_country = {
 				15 = {
 					create_country = {
 						authority = auth_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_pacifist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2184,7 +2185,7 @@ create_pac_country = {
 				5 = {
 					create_country = {
 						authority = auth_direct_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_pacifist
 							ethic = ethic_egalitarian
@@ -2195,7 +2196,7 @@ create_pac_country = {
 				30 = {
 					create_country = {
 						authority = auth_imperial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_pacifist
 							ethic = ethic_authoritarian
@@ -2206,7 +2207,7 @@ create_pac_country = {
 				30 = {
 					create_country = {
 						authority = auth_dictatorial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_pacifist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2214,7 +2215,7 @@ create_pac_country = {
 				20 = {
 					create_country = {
 						authority = auth_oligarchic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_pacifist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2227,7 +2228,7 @@ create_pac_country = {
 			15 = {
 				create_country = {
 					authority = auth_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_pacifist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2235,7 +2236,7 @@ create_pac_country = {
 			20 = {
 				create_country = {
 					authority = auth_imperial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_pacifist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = imperial }
@@ -2243,7 +2244,7 @@ create_pac_country = {
 			50 = {
 				create_country = {
 					authority = auth_dictatorial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_pacifist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2251,7 +2252,7 @@ create_pac_country = {
 			15 = {
 				create_country = {
 					authority = auth_oligarchic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_pacifist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2269,7 +2270,7 @@ create_mat_country = {
 				15 = {
 					create_country = {
 						authority = auth_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_materialist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2277,7 +2278,7 @@ create_mat_country = {
 				10 = {
 					create_country = {
 						authority = auth_strict_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_materialist
 							ethic = ethic_egalitarian
@@ -2288,7 +2289,7 @@ create_mat_country = {
 				25 = {
 					create_country = {
 						authority = auth_dict_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_materialist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dict_democratic }
@@ -2296,7 +2297,7 @@ create_mat_country = {
 				15 = {
 					create_country = {
 						authority = auth_imperial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_materialist
 							ethic = ethic_authoritarian
@@ -2307,7 +2308,7 @@ create_mat_country = {
 				25 = {
 					create_country = {
 						authority = auth_dictatorial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_materialist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2315,7 +2316,7 @@ create_mat_country = {
 				10 = {
 					create_country = {
 						authority = auth_oligarchic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_materialist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2327,7 +2328,7 @@ create_mat_country = {
 				15 = {
 					create_country = {
 						authority = auth_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_materialist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2335,7 +2336,7 @@ create_mat_country = {
 				10 = {
 					create_country = {
 						authority = auth_direct_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_materialist
 							ethic = ethic_egalitarian
@@ -2346,7 +2347,7 @@ create_mat_country = {
 				15 = {
 					create_country = {
 						authority = auth_imperial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_materialist
 							ethic = ethic_authoritarian
@@ -2357,7 +2358,7 @@ create_mat_country = {
 				30 = {
 					create_country = {
 						authority = auth_dictatorial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_materialist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2365,7 +2366,7 @@ create_mat_country = {
 				30 = {
 					create_country = {
 						authority = auth_oligarchic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_materialist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2378,7 +2379,7 @@ create_mat_country = {
 			20 = {
 				create_country = {
 					authority = auth_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_materialist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2386,7 +2387,7 @@ create_mat_country = {
 			30 = {
 				create_country = {
 					authority = auth_imperial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_materialist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = imperial }
@@ -2394,7 +2395,7 @@ create_mat_country = {
 			30 = {
 				create_country = {
 					authority = auth_dictatorial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_materialist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2402,7 +2403,7 @@ create_mat_country = {
 			20 = {
 				create_country = {
 					authority = auth_oligarchic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_materialist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2420,7 +2421,7 @@ create_spi_country = {
 				10 = {
 					create_country = {
 						authority = auth_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_spiritualist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2428,7 +2429,7 @@ create_spi_country = {
 				5 = {
 					create_country = {
 						authority = auth_strict_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_spiritualist
 							ethic = ethic_egalitarian
@@ -2439,7 +2440,7 @@ create_spi_country = {
 				25 = {
 					create_country = {
 						authority = auth_dict_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_spiritualist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dict_democratic }
@@ -2447,7 +2448,7 @@ create_spi_country = {
 				25 = {
 					create_country = {
 						authority = auth_imperial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_spiritualist
 							ethic = ethic_authoritarian
@@ -2458,7 +2459,7 @@ create_spi_country = {
 				25 = {
 					create_country = {
 						authority = auth_dictatorial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_spiritualist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2466,7 +2467,7 @@ create_spi_country = {
 				10 = {
 					create_country = {
 						authority = auth_oligarchic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_spiritualist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2478,7 +2479,7 @@ create_spi_country = {
 				15 = {
 					create_country = {
 						authority = auth_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_spiritualist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2486,7 +2487,7 @@ create_spi_country = {
 				5 = {
 					create_country = {
 						authority = auth_direct_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_spiritualist
 							ethic = ethic_egalitarian
@@ -2497,7 +2498,7 @@ create_spi_country = {
 				25 = {
 					create_country = {
 						authority = auth_imperial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_spiritualist
 							ethic = ethic_authoritarian
@@ -2508,7 +2509,7 @@ create_spi_country = {
 				30 = {
 					create_country = {
 						authority = auth_dictatorial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_spiritualist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2516,7 +2517,7 @@ create_spi_country = {
 				25 = {
 					create_country = {
 						authority = auth_oligarchic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_spiritualist }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2529,7 +2530,7 @@ create_spi_country = {
 			5 = {
 				create_country = {
 					authority = auth_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_spiritualist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2537,7 +2538,7 @@ create_spi_country = {
 			45 = {
 				create_country = {
 					authority = auth_imperial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_spiritualist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = imperial }
@@ -2545,7 +2546,7 @@ create_spi_country = {
 			35 = {
 				create_country = {
 					authority = auth_dictatorial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_spiritualist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2553,7 +2554,7 @@ create_spi_country = {
 			15 = {
 				create_country = {
 					authority = auth_oligarchic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_spiritualist }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2571,7 +2572,7 @@ create_phile_country = {
 				5 = {
 					create_country = {
 						authority = auth_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophile }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2579,7 +2580,7 @@ create_phile_country = {
 				5 = {
 					create_country = {
 						authority = auth_strict_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_xenophile
 							ethic = ethic_egalitarian
@@ -2590,7 +2591,7 @@ create_phile_country = {
 				25 = {
 					create_country = {
 						authority = auth_dict_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophile }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dict_democratic }
@@ -2598,7 +2599,7 @@ create_phile_country = {
 				25 = {
 					create_country = {
 						authority = auth_imperial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_xenophile
 							ethic = ethic_authoritarian
@@ -2609,7 +2610,7 @@ create_phile_country = {
 				25 = {
 					create_country = {
 						authority = auth_dictatorial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophile }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2617,7 +2618,7 @@ create_phile_country = {
 				10 = {
 					create_country = {
 						authority = auth_oligarchic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophile }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2629,7 +2630,7 @@ create_phile_country = {
 				15 = {
 					create_country = {
 						authority = auth_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophile }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2637,7 +2638,7 @@ create_phile_country = {
 				5 = {
 					create_country = {
 						authority = auth_direct_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_xenophile
 							ethic = ethic_egalitarian
@@ -2648,7 +2649,7 @@ create_phile_country = {
 				25 = {
 					create_country = {
 						authority = auth_imperial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = {
 							ethic = ethic_fanatic_xenophile
 							ethic = ethic_authoritarian
@@ -2659,7 +2660,7 @@ create_phile_country = {
 				30 = {
 					create_country = {
 						authority = auth_dictatorial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophile }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2667,7 +2668,7 @@ create_phile_country = {
 				25 = {
 					create_country = {
 						authority = auth_oligarchic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophile }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2680,7 +2681,7 @@ create_phile_country = {
 			25 = {
 				create_country = {
 					authority = auth_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_xenophile }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2688,7 +2689,7 @@ create_phile_country = {
 			30 = {
 				create_country = {
 					authority = auth_imperial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_xenophile }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = imperial }
@@ -2696,7 +2697,7 @@ create_phile_country = {
 			30 = {
 				create_country = {
 					authority = auth_dictatorial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_xenophile }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2704,7 +2705,7 @@ create_phile_country = {
 			15 = {
 				create_country = {
 					authority = auth_oligarchic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_xenophile }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2722,7 +2723,7 @@ create_phobe_country = {
 				10 = {
 					create_country = {
 						authority = auth_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophobe }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2730,7 +2731,7 @@ create_phobe_country = {
 				5 = {
 					create_country = {
 						authority = auth_strict_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { 
 							ethic = ethic_fanatic_xenophobe
 							ethic = ethic_egalitarian
@@ -2741,7 +2742,7 @@ create_phobe_country = {
 				25 = {
 					create_country = {
 						authority = auth_dict_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophobe }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dict_democratic }
@@ -2749,7 +2750,7 @@ create_phobe_country = {
 				25 = {
 					create_country = {
 						authority = auth_imperial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { 
 							ethic = ethic_fanatic_xenophobe
 							ethic = ethic_authoritarian
@@ -2760,7 +2761,7 @@ create_phobe_country = {
 				25 = {
 					create_country = {
 						authority = auth_dictatorial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophobe }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2768,7 +2769,7 @@ create_phobe_country = {
 				10 = {
 					create_country = {
 						authority = auth_oligarchic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophobe }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2780,7 +2781,7 @@ create_phobe_country = {
 				10 = {
 					create_country = {
 						authority = auth_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophobe }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2788,7 +2789,7 @@ create_phobe_country = {
 				5 = {
 					create_country = {
 						authority = auth_direct_democratic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { 
 							ethic = ethic_fanatic_xenophobe
 							ethic = ethic_egalitarian
@@ -2799,7 +2800,7 @@ create_phobe_country = {
 				30 = {
 					create_country = {
 						authority = auth_imperial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { 
 							ethic = ethic_fanatic_xenophobe
 							ethic = ethic_authoritarian
@@ -2810,7 +2811,7 @@ create_phobe_country = {
 				30 = {
 					create_country = {
 						authority = auth_dictatorial
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophobe }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2818,7 +2819,7 @@ create_phobe_country = {
 				25 = {
 					create_country = {
 						authority = auth_oligarchic
-						inline_script = { script = civil_war_country_creation/gen_civil_war }
+						inline_script = { script = civil_war_country_creation/gen_country }
 						ethos = { ethic = ethic_fanatic_xenophobe }
 					}
 					inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2831,7 +2832,7 @@ create_phobe_country = {
 			5 = {
 				create_country = {
 					authority = auth_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_xenophobe }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2839,7 +2840,7 @@ create_phobe_country = {
 			45 = {
 				create_country = {
 					authority = auth_imperial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_xenophobe }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = imperial }
@@ -2847,7 +2848,7 @@ create_phobe_country = {
 			35 = {
 				create_country = {
 					authority = auth_dictatorial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_xenophobe }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2855,7 +2856,7 @@ create_phobe_country = {
 			15 = {
 				create_country = {
 					authority = auth_oligarchic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_xenophobe }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2887,7 +2888,7 @@ create_soc_country = {
 			10 = {
 				create_country = {
 					authority = auth_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_socialism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2895,7 +2896,7 @@ create_soc_country = {
 			10 = {
 				create_country = {
 					authority = auth_strict_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { 
 						ethic = ethic_fanatic_socialism
 						ethic = ethic_egalitarian
@@ -2906,7 +2907,7 @@ create_soc_country = {
 			20 = {
 				create_country = {
 					authority = auth_dict_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_socialism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = dict_democratic }
@@ -2914,7 +2915,7 @@ create_soc_country = {
 			15 = {
 				create_country = {
 					authority = auth_imperial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { 
 						ethic = ethic_fanatic_socialism
 						ethic = ethic_authoritarian
@@ -2925,7 +2926,7 @@ create_soc_country = {
 			25 = {
 				create_country = {
 					authority = auth_dictatorial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_socialism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2933,7 +2934,7 @@ create_soc_country = {
 			20 = {
 				create_country = {
 					authority = auth_oligarchic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_socialism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2945,7 +2946,7 @@ create_soc_country = {
 			10 = {
 				create_country = {
 					authority = auth_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_socialism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -2953,7 +2954,7 @@ create_soc_country = {
 			5 = {
 				create_country = {
 					authority = auth_direct_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { 
 						ethic = ethic_fanatic_socialism
 						ethic = ethic_egalitarian
@@ -2964,7 +2965,7 @@ create_soc_country = {
 			35 = {
 				create_country = {
 					authority = auth_imperial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { 
 						ethic = ethic_fanatic_socialism
 						ethic = ethic_authoritarian
@@ -2975,7 +2976,7 @@ create_soc_country = {
 			35 = {
 				create_country = {
 					authority = auth_dictatorial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_socialism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -2983,7 +2984,7 @@ create_soc_country = {
 			15 = {
 				create_country = {
 					authority = auth_oligarchic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_socialism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -2999,7 +3000,7 @@ create_cap_country = {
 			5 = {
 				create_country = {
 					authority = auth_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_capitalism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -3007,7 +3008,7 @@ create_cap_country = {
 			5 = {
 				create_country = {
 					authority = auth_strict_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { 
 						ethic = ethic_fanatic_capitalism
 						ethic = ethic_egalitarian
@@ -3018,7 +3019,7 @@ create_cap_country = {
 			10 = {
 				create_country = {
 					authority = auth_dict_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_capitalism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = dict_democratic }
@@ -3026,7 +3027,7 @@ create_cap_country = {
 			10 = {
 				create_country = {
 					authority = auth_imperial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = {
 						ethic = ethic_fanatic_capitalism
 						ethic = ethic_authoritarian
@@ -3037,7 +3038,7 @@ create_cap_country = {
 			50 = {
 				create_country = {
 					authority = auth_corporate
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_capitalism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = corporate }
@@ -3046,7 +3047,7 @@ create_cap_country = {
 			10 = {
 				create_country = {
 					authority = auth_dictatorial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_capitalism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -3054,7 +3055,7 @@ create_cap_country = {
 			10 = {
 				create_country = {
 					authority = auth_oligarchic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_capitalism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -3066,7 +3067,7 @@ create_cap_country = {
 			10 = {
 				create_country = {
 					authority = auth_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_capitalism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -3074,7 +3075,7 @@ create_cap_country = {
 			5 = {
 				create_country = {
 					authority = auth_direct_democratic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { 
 						ethic = ethic_fanatic_capitalism
 						ethic = ethic_egalitarian
@@ -3085,7 +3086,7 @@ create_cap_country = {
 			15 = {
 				create_country = {
 					authority = auth_imperial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { 
 						ethic = ethic_fanatic_capitalism
 						ethic = ethic_authoritarian
@@ -3096,7 +3097,7 @@ create_cap_country = {
 			50 = {
 				create_country = {
 					authority = auth_corporate
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_capitalism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = corporate }
@@ -3105,7 +3106,7 @@ create_cap_country = {
 			10 = {
 				create_country = {
 					authority = auth_dictatorial
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_capitalism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -3113,7 +3114,7 @@ create_cap_country = {
 			10 = {
 				create_country = {
 					authority = auth_oligarchic
-					inline_script = { script = civil_war_country_creation/gen_civil_war }
+					inline_script = { script = civil_war_country_creation/gen_country }
 					ethos = { ethic = ethic_fanatic_capitalism }
 				}
 				inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -3127,7 +3128,7 @@ create_coop_country = {
 		20 = {
 			create_country = {
 				authority = auth_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_cooperative }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -3135,7 +3136,7 @@ create_coop_country = {
 		20 = {
 			create_country = {
 				authority = auth_bugged_direct_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { 
 					ethic = ethic_fanatic_cooperative
 					ethic = ethic_egalitarian
@@ -3146,7 +3147,7 @@ create_coop_country = {
 		15 = {
 			create_country = {
 				authority = auth_imperial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { 
 					ethic = ethic_fanatic_cooperative
 					ethic = ethic_authoritarian
@@ -3157,7 +3158,7 @@ create_coop_country = {
 		25 = {
 			create_country = {
 				authority = auth_dictatorial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_cooperative }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -3165,7 +3166,7 @@ create_coop_country = {
 		20 = {
 			create_country = {
 				authority = auth_oligarchic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_cooperative }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -3178,7 +3179,7 @@ create_comp_country = {
 		10 = {
 			create_country = {
 				authority = auth_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_competitive }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -3186,7 +3187,7 @@ create_comp_country = {
 		10 = {
 			create_country = {
 				authority = auth_bugged_direct_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { 
 					ethic = ethic_fanatic_competitive
 					ethic = ethic_egalitarian
@@ -3197,7 +3198,7 @@ create_comp_country = {
 		10 = {
 			create_country = {
 				authority = auth_imperial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = {
 					ethic = ethic_fanatic_competitive
 					ethic = ethic_authoritarian
@@ -3208,7 +3209,7 @@ create_comp_country = {
 		25 = {
 			create_country = {
 				authority = auth_bugged_corporate_imperial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = {
 					ethic = ethic_fanatic_competitive
 					ethic = ethic_authoritarian
@@ -3219,7 +3220,7 @@ create_comp_country = {
 		25 = {
 			create_country = {
 				authority = auth_corporate
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_competitive }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = corporate }
@@ -3228,7 +3229,7 @@ create_comp_country = {
 		10 = {
 			create_country = {
 				authority = auth_dictatorial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_competitive }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -3236,7 +3237,7 @@ create_comp_country = {
 		10 = {
 			create_country = {
 				authority = auth_oligarchic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_competitive }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -3249,7 +3250,7 @@ create_indus_country = {
 		10 = {
 			create_country = {
 				authority = auth_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_industrial }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -3257,7 +3258,7 @@ create_indus_country = {
 		5 = {
 			create_country = {
 				authority = auth_direct_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = {
 					ethic = ethic_fanatic_industrial
 					ethic = ethic_egalitarian
@@ -3268,7 +3269,7 @@ create_indus_country = {
 		35 = {
 			create_country = {
 				authority = auth_imperial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = {
 					ethic = ethic_fanatic_industrial
 					ethic = ethic_authoritarian
@@ -3279,7 +3280,7 @@ create_indus_country = {
 		35 = {
 			create_country = {
 				authority = auth_dictatorial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_industrial }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -3287,7 +3288,7 @@ create_indus_country = {
 		15 = {
 			create_country = {
 				authority = auth_oligarchic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_industrial }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -3300,7 +3301,7 @@ create_green_country = {
 		10 = {
 			create_country = {
 				authority = auth_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_green }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -3308,7 +3309,7 @@ create_green_country = {
 		10 = {
 			create_country = {
 				authority = auth_direct_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = {
 					ethic = ethic_fanatic_green
 					ethic = ethic_egalitarian
@@ -3319,7 +3320,7 @@ create_green_country = {
 		20 = {
 			create_country = {
 				authority = auth_imperial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = {
 					ethic = ethic_fanatic_green
 					ethic = ethic_authoritarian
@@ -3330,7 +3331,7 @@ create_green_country = {
 		35 = {
 			create_country = {
 				authority = auth_dictatorial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_green }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -3338,7 +3339,7 @@ create_green_country = {
 		25 = {
 			create_country = {
 				authority = auth_oligarchic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_green }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -3351,7 +3352,7 @@ create_anthro_country = {
 		10 = {
 			create_country = {
 				authority = auth_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_anthropocentric }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -3359,7 +3360,7 @@ create_anthro_country = {
 		5 = {
 			create_country = {
 				authority = auth_bugged_direct_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = {
 					ethic = ethic_fanatic_anthropocentric
 					ethic = ethic_egalitarian
@@ -3370,7 +3371,7 @@ create_anthro_country = {
 		35 = {
 			create_country = {
 				authority = auth_imperial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = {
 					ethic = ethic_fanatic_anthropocentric
 					ethic = ethic_authoritarian
@@ -3381,7 +3382,7 @@ create_anthro_country = {
 		35 = {
 			create_country = {
 				authority = auth_dictatorial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_anthropocentric }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -3389,7 +3390,7 @@ create_anthro_country = {
 		15 = {
 			create_country = {
 				authority = auth_oligarchic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_anthropocentric }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -3402,7 +3403,7 @@ create_eco_country = {
 		10 = {
 			create_country = {
 				authority = auth_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_ecocentric }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -3410,7 +3411,7 @@ create_eco_country = {
 		10 = {
 			create_country = {
 				authority = auth_bugged_direct_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = {
 					ethic = ethic_fanatic_ecocentric
 					ethic = ethic_egalitarian
@@ -3421,7 +3422,7 @@ create_eco_country = {
 		20 = {
 			create_country = {
 				authority = auth_imperial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = {
 					ethic = ethic_fanatic_ecocentric
 					ethic = ethic_authoritarian
@@ -3432,7 +3433,7 @@ create_eco_country = {
 		35 = {
 			create_country = {
 				authority = auth_dictatorial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_ecocentric }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -3440,7 +3441,7 @@ create_eco_country = {
 		25 = {
 			create_country = {
 				authority = auth_oligarchic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_ecocentric }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -3453,7 +3454,7 @@ create_elite_country = {
 		10 = {
 			create_country = {
 				authority = auth_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_elitist }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -3461,7 +3462,7 @@ create_elite_country = {
 		35 = {
 			create_country = {
 				authority = auth_imperial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = {
 					ethic = ethic_fanatic_elitist
 					ethic = ethic_authoritarian
@@ -3472,7 +3473,7 @@ create_elite_country = {
 		35 = {
 			create_country = {
 				authority = auth_dictatorial
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_elitist }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = dictatorial }
@@ -3480,7 +3481,7 @@ create_elite_country = {
 		20 = {
 			create_country = {
 				authority = auth_oligarchic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_elitist }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = oligarchic }
@@ -3493,7 +3494,7 @@ create_plur_country = {
 		50 = {
 			create_country = {
 				authority = auth_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = { ethic = ethic_fanatic_pluralist }
 			}
 			inline_script = { script = modifiers/authority_doubler_modifier AUTH = democratic }
@@ -3501,7 +3502,7 @@ create_plur_country = {
 		50 = {
 			create_country = {
 				authority = auth_direct_democratic
-				inline_script = { script = civil_war_country_creation/gen_civil_war }
+				inline_script = { script = civil_war_country_creation/gen_country }
 				ethos = {
 					ethic = ethic_fanatic_pluralist
 					ethic = ethic_egalitarian
@@ -3522,6 +3523,7 @@ created_civwar_country_effect = {
 }
 
 created_civwar_rebel_country_effect = {
+	optimize_memory
 	set_timed_country_flag = { flag = civwar_rebel_timer months = 3 }
 	save_event_target_as = civwar_rebels
 	if = {
@@ -3751,6 +3753,7 @@ created_slave_rebel_country_effect = {
 # Civil War Type Effects
 
 create_civil_war = {
+	optimize_memory
 	log = "--------------------------------"
 	log = "| Create Civil War Effect Called - \\[GetDate]"
 	root.owner = {
@@ -5807,6 +5810,7 @@ set_recent_civwar_flag = {
 # Get Rebels
 
 get_ethic_plan_rebels = {
+	optimize_memory
 
 	if = {
 		limit = { has_planet_flag = ethic_planet_rebellion_@this }
@@ -5814,44 +5818,152 @@ get_ethic_plan_rebels = {
 	}
 
 	event_target:cw_scope_initializer = {
+
+		# random_list = {
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# 	20 = {
+		# 		create_rebels = {
+		# 			authority = auth_democratic
+		# 			inline_script = { script = civil_war_country_creation/gen_rebels }
+		# 			ethos = { ethic = ethic_fanatic_militarist }
+		# 		}
+		# 	}
+		# }
 		switch = {
 			trigger = has_ethic
 			ethic_authoritarian = {
 				event_target:civil_war_planet = {
-					if = {
-						limit = { has_global_flag = cultural_overhaul_active }
-						random_list = {
-							50 = {
-								create_rebels = {
-									authority = auth_imperial
-									inline_script = { script = civil_war_country_creation/gen_rebels }
-									ethos = { ethic = ethic_fanatic_authoritarian }
-								}
-							}
-							50 = {
-								create_rebels = {
-									authority = auth_dictatorial
-									inline_script = { script = civil_war_country_creation/gen_rebels }
-									ethos = { ethic = ethic_fanatic_authoritarian }
-								}
+					random_list = {
+						50 = {
+							create_rebels = {
+								authority = auth_imperial
+								inline_script = { script = civil_war_country_creation/gen_rebels }
+								ethos = { ethic = ethic_fanatic_authoritarian }
 							}
 						}
-					}
-					else = {
-						random_list = {
-							50 = {
-								create_rebels = {
-									authority = auth_imperial
-									inline_script = { script = civil_war_country_creation/gen_rebels }
-									ethos = { ethic = ethic_fanatic_authoritarian }
-								}
-							}
-							50 = {
-								create_rebels = {
-									authority = auth_dictatorial
-									inline_script = { script = civil_war_country_creation/gen_rebels }
-									ethos = { ethic = ethic_fanatic_authoritarian }
-								}
+						50 = {
+							create_rebels = {
+								authority = auth_dictatorial
+								inline_script = { script = civil_war_country_creation/gen_rebels }
+								ethos = { ethic = ethic_fanatic_authoritarian }
 							}
 						}
 					}
