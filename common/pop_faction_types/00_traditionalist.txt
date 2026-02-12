@@ -50,7 +50,7 @@ traditionalist = {
 					}
 				}
             }
-            engineering_research = @faction_major_output
+            physics_research = @faction_major_output
 			society_research = @faction_minor_output
 			mult = @crowdsourcing_multiplier
         }
@@ -66,7 +66,7 @@ traditionalist = {
 						has_civic = civic_corporate_crowdsourcing
 					}
 				}
-				is_lithoid_empire = no
+				is_lithoid_or_infernal_empire = no
 			}
 			food = @faction_base_output
 			mult = @faction_extortion_food_ratio
@@ -87,6 +87,19 @@ traditionalist = {
 		produces = {
 			trigger = {
 				owner = {
+					NOR = {
+						has_civic = civic_crowdsourcing
+						has_civic = civic_corporate_crowdsourcing
+					}
+				}
+				is_infernal_empire = yes
+			}
+			alloys = @faction_base_output
+			mult = @faction_extortion_alloys_ratio
+		}
+		produces = {
+			trigger = {
+				owner = {
 					OR = {
 						has_civic = civic_crowdsourcing
 						has_civic = civic_corporate_crowdsourcing
@@ -101,7 +114,10 @@ traditionalist = {
 
 	is_potential = {
 		is_faction_allowed = yes
-		NOT = { has_origin = origin_cybernetic_creed }
+		NOR = {
+			has_origin = origin_cybernetic_creed
+			has_civic = civic_pyrolatry
+		}
 	}
 
 	parameters = {
@@ -255,6 +271,46 @@ traditionalist = {
 		}
 	}
 
+	demand = { # Unplugged: De-Cyberize
+		title = TRADITIONALIST_UNPLUGGED_DECYBERIZE
+		unfulfilled_title = TRADITIONALIST_UNPLUGGED_NOT_DECYBERIZE
+		desc = TRADITIONALIST_UNPLUGGED_DECYBERIZE_DESC
+
+		unfulfilled_effect = -20
+		fulfilled_effect = 10
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_unplugged
+				any_situation = {
+					is_situation_type = situation_unplugged_identity
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				any_situation = {
+					is_situation_type = situation_unplugged_identity
+					OR = {
+						AND = { # safely in the De-Cyberize stage
+							current_stage = unplugged_identity_stage_1
+							situation_monthly_progress < 0
+						}
+						AND = { # trending towards De-Cyberization and our Approach is aligned
+							situation_monthly_progress < 0.05
+							OR = {
+								current_situation_approach = situation_unplugged_identity_discourage_change
+								current_situation_approach = situation_unplugged_identity_embrace_opinion
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	demand = { # "TRADITIONALIST_SPIRITUALIST_GOVERNMENT"
 		title = "TRADITIONALIST_SPIRITUALIST_GOVERNMENT"
 		unfulfilled_title = "TRADITIONALIST_SECULAR_GOVERNMENT"
@@ -328,14 +384,7 @@ traditionalist = {
 		potential = {
 			exists = owner
 			owner = {
-				OR = {
-					has_surveyed_class = pc_gaia
-					has_surveyed_class = pc_hot_gaia
-					has_surveyed_class = pc_cold_gaia
-					has_surveyed_class = pc_gaia_cave
-					has_surveyed_class = pc_gaia_superhab
-					has_surveyed_class = pc_tidallygaia
-				}
+				is_gaia_surv_plan = { SURV_PLAN = surveyed }
 				has_ascension_perk = ap_consecrated_worlds
 			}
 		}
@@ -343,7 +392,7 @@ traditionalist = {
 		trigger = {
 			owner = {
 				any_planet_within_border = {
-					is_pd_gaia = yes
+					is_gaia_surv_plan = { SURV_PLAN = surveyed }
 					is_colony = no
 					OR = {
 						has_modifier = consecrated_quality_1
@@ -421,12 +470,16 @@ traditionalist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			host_has_dlc = "Utopia"
+			OR = {
+				has_utopia = yes
+				has_shroud_dlc = yes
+			}
 			exists = owner
 			owner = {
 				NOR = {
                     has_origin = origin_shroudwalker_apprentice
 					has_origin = origin_cybernetic_creed
+					has_origin = origin_mindwardens
                     has_origin = origin_pd_shroud
                 }
 				OR = {
@@ -439,7 +492,7 @@ traditionalist = {
 
 		trigger = {
 			owner = {
-				has_ascension_perk = ap_mind_over_matter
+				has_psionic_ascension = yes
 			}
 		}
 	}
@@ -492,7 +545,7 @@ traditionalist = {
 
 		trigger = {
 			owner = {
-				is_cyborg_empire = no # checks for the Cybernetic trait
+				is_cyborg_empire = no
 			}
 		}
 	}
@@ -688,7 +741,7 @@ traditionalist = {
 			owner = {
 				count_owned_pop_amount = {
 					limit = {
-						pop_has_ethic = ethic_materialist
+						has_ethic = ethic_materialist
 					}
 					count < 1000
 				}
@@ -758,6 +811,7 @@ traditionalist = {
 
 			effect = {
 				add_modifier = { modifier = embraced_faction days = 3600 }
+				owner = { set_country_flag = has_embraced_faction }
 				parameter:empire = {
 					shift_ethic = ethic_spiritualist
 					hidden_effect = {
@@ -826,6 +880,7 @@ traditionalist = {
 			}
 
 			effect = {
+				owner = { set_country_flag = has_promoted_faction }
 				parameter:empire = {
 					add_modifier = { modifier = promoted_spiritualist days = -1 }
 				}
@@ -913,6 +968,10 @@ traditionalist = {
 				owner = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
+					NOR = {
+						has_valid_civic = civic_crowdsourcing
+						has_valid_civic = civic_corporate_crowdsourcing
+					}
 				}
 				is_faction_extorted = no
 			}
@@ -920,6 +979,33 @@ traditionalist = {
 			effect = {
 				set_faction_extorted = yes
 				custom_tooltip = food_extortion_tt
+				custom_tooltip = ONLY_ONE_EXTORTED_FACTION_TT
+			}
+
+			ai_weight = {
+				base = 0
+			}
+		}
+		extort_faction_crowdsourcing = { #Crowdsourcing version
+			title = "EXTORT_FACTION"
+			description = "EXTORT_FACTION_DESC"
+
+			potential = {
+				exists = owner
+				owner = {
+					is_oligarchic_authority = yes
+					has_country_flag = cyber_collectivist
+					OR = {
+						has_valid_civic = civic_crowdsourcing
+						has_valid_civic = civic_corporate_crowdsourcing
+					}
+				}
+				is_faction_extorted = no
+			}
+
+			effect = {
+				set_faction_extorted = yes
+				custom_tooltip = crowdsourced_extortion_tt
 				custom_tooltip = ONLY_ONE_EXTORTED_FACTION_TT
 			}
 

@@ -35,6 +35,19 @@ has_long_reign_auth = {
 	}
 }
 
+#####
+
+is_gaia_surv_plan = {
+	OR = {
+		has_$SURV_PLAN$_class = pc_gaia
+		has_$SURV_PLAN$_class = pc_hot_gaia
+		has_$SURV_PLAN$_class = pc_cold_gaia
+		has_$SURV_PLAN$_class = pc_gaia_cave
+		has_$SURV_PLAN$_class = pc_gaia_superhab
+		has_$SURV_PLAN$_class = pc_tidallygaia
+	}
+}
+
 #############
 
 is_elitist = { always = no }

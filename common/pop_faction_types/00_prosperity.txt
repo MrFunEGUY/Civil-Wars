@@ -51,7 +51,7 @@ prosperity = {
 				}
             }
             engineering_research = @faction_major_output
-			society_research = @faction_minor_output
+			physics_research = @faction_minor_output
 			mult = @crowdsourcing_multiplier
         }
 	}
@@ -353,6 +353,7 @@ prosperity = {
 			owner = {
 				is_homicidal = no
 				is_country_type = default
+				# has_policy_flag = diplo_stance_mercantile
 			}
 		}
 
@@ -399,6 +400,10 @@ prosperity = {
 			owner = {
 				is_homicidal = no
 				is_country_type = default
+				# OR = {
+				# 	has_policy_flag = diplo_stance_belligerent
+				# 	has_policy_flag = diplo_stance_supremacist
+				# }
 			}
 		}
 
@@ -407,6 +412,46 @@ prosperity = {
 				NOR = {
 					has_policy_flag = diplo_stance_belligerent
 					has_policy_flag = diplo_stance_supremacist
+				}
+			}
+		}
+	}
+
+	demand = { # Unplugged: De-Cyberize
+		title = PROSPERITY_UNPLUGGED_DECYBERIZE
+		unfulfilled_title = PROSPERITY_UNPLUGGED_NOT_DECYBERIZE
+		desc = PROSPERITY_UNPLUGGED_DECYBERIZE_DESC
+
+		unfulfilled_effect = -10
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				has_origin = origin_unplugged
+				any_situation = {
+					is_situation_type = situation_unplugged_identity
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				any_situation = {
+					is_situation_type = situation_unplugged_identity
+					OR = {
+						AND = { # safely in the De-Cyberize stage
+							current_stage = unplugged_identity_stage_1
+							situation_monthly_progress < 0
+						}
+						AND = { # trending towards De-Cyberization and our Approach is aligned
+							situation_monthly_progress < 0.05
+							OR = {
+								current_situation_approach = situation_unplugged_identity_discourage_change
+								current_situation_approach = situation_unplugged_identity_embrace_opinion
+							}
+						}
+					}
 				}
 			}
 		}
@@ -473,6 +518,7 @@ prosperity = {
 
 			effect = {
 				add_modifier = { modifier = embraced_faction days = 3600 }
+				owner = { set_country_flag = has_embraced_faction }
 				parameter:empire = {
 					shift_ethic = ethic_pacifist
 					hidden_effect = {
@@ -541,6 +587,7 @@ prosperity = {
 			}
 
 			effect = {
+				owner = { set_country_flag = has_promoted_faction }
 				parameter:empire = {
 					add_modifier = { modifier = promoted_pacifist days = -1 }
 				}
@@ -628,13 +675,44 @@ prosperity = {
 				owner = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
+					NOR = {
+						has_valid_civic = civic_crowdsourcing
+						has_valid_civic = civic_corporate_crowdsourcing
+					}
 				}
 				is_faction_extorted = no
 			}
 
 			effect = {
 				set_faction_extorted = yes
-				custom_tooltip = consumer_goods_extortion_tt
+				custom_tooltip = energy_extortion_tt
+				custom_tooltip = ONLY_ONE_EXTORTED_FACTION_TT
+			}
+
+			ai_weight = {
+				base = 0
+			}
+		}
+		extort_faction_crowdsourcing = { #Crowdsourcing version
+			title = "EXTORT_FACTION"
+			description = "EXTORT_FACTION_DESC"
+
+			potential = {
+				exists = owner
+				owner = {
+					is_oligarchic_authority = yes
+					has_country_flag = cyber_collectivist
+					OR = {
+						has_valid_civic = civic_crowdsourcing
+						has_valid_civic = civic_corporate_crowdsourcing
+					}
+				}
+				is_faction_extorted = no
+			}
+
+			effect = {
+				set_faction_extorted = yes
+				custom_tooltip = crowdsourced_extortion_tt
 				custom_tooltip = ONLY_ONE_EXTORTED_FACTION_TT
 			}
 
