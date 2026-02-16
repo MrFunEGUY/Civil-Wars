@@ -9,7 +9,7 @@
 # l_korean:
 # l_japanese:
 
- ###################
+###################
  # Initial Comms
 
  # Subject Request Assistance
@@ -87,7 +87,7 @@
  ON_SCREEN_REBELS: "What!? On screen!"
 
  # Planetary Rebellion
- ###################
+###################
 
  civplan.9000.name: "§RHeir's Forces Strike!§!"
  civplan.9000.desc: "The forces of the former §Yheir§!, §H[civwar_rebels.ruler.GetName]§!, have mobilized on §Y[civil_war_planet.GetName]§! and are attempting to seize the planet!"
@@ -101,7 +101,7 @@
  civplan.9020.a: "Excellent."
 
  # Origins
- ###################
+###################
 
  origin_civwar: "Separatist State"
  origin_civwar_desc: "This state was formed after political disagreements led to their secession from another nation."
@@ -149,7 +149,7 @@
  origin_civsecession_desc: "This state was formed after their people gained their independence peacefully through legal political procedures."
 
  # Opinion Modifiers
- ###################
+###################
  opinion_civwar: "Declared Independence From Us"
  opinion_civwar_peace: "Declared Independence From Us"
  opinion_civwar_planet: "Declared Independence From Us"
@@ -178,14 +178,14 @@
  opinion_gives_large_resources: "$opinion_supported_rebellion_financially$"
 
  # Army Names
- ###################
+###################
  civwar_defense_army: "Separatist Defense Militia"
  civwar_defense_army_desc: "This Defense Militia is ready to defend their planet to protect their revolution."
  civwar_assault_army: "Separatist Forward Militia"
  civwar_assault_army_desc: "This Assault Militia is ready to land on other planets to support their revoltion."
 
  # Planetary Modifiers
- ###################
+###################
  planetary_rebels: "Separatists Organizing"
  planetary_rebels_desc: "Months of turmoil and instability have made the local populace begin to question our governance of the planet. There are whispers of secession and separatist groups have begun to organize."
  planet_no_sector: "No Sectoral Support"
@@ -210,7 +210,7 @@
  planet_fundamental_planet_desc: "This planet belongs to a sector that is fundamental to the identity of the country. This sector has been held by this country for generations, and the citizens here take pride in that."
 
  # Modifiers
- ###################
+###################
  rigged_elections_pop: "Electoral Fraud"
  rigged_elections_faction: "Electoral Fraud"
  ruler_once_rigged_elections: "Past Electoral Fraud"
@@ -221,7 +221,7 @@
  civwar_country_boost: "National Emergency"
 
  # Enclaves
- ###################
+###################
  enclave_exiled_gov: "Government-in-Exile"
  enclave_exiled_gov_desc: "Governments-in-Exile are governments of nations that have lost all their territory. They continue on with the hope that at least some of their territory may eventually be restored."
 
@@ -234,7 +234,7 @@
  RT_EXILE_LEADER: "Exiled Government Head"
 
  # Fail Texts
- ###################
+###################
  resource_fail_text: "§RWe do not have enough resources.§!"
  war_leader_engaged: "§RLeader is engaged in ongoing operations and cannot be dismissed.§!"
  two_year_unity_fail_text: "§RRequires§! §Y[Root.year_unity_prod]§! £unity£ §YUnity§!"
@@ -242,9 +242,9 @@
  no_border_overlord_or_rebels: "§RWe do not border our overlord or the rebels.§!"
  no_border_rebels: "§RWe do not border the rebels.§!"
 
- ##################
+##################
  # Communications #
- ##################
+##################
 
  dummy_sector_leader: "[sector_name_local.GetName]"
  dummy_old_name_leader: "[new_homeland.GetName]"
@@ -275,29 +275,41 @@
  defected_leader_20: "[defected_leader_20.GetClass] §Y[defected_leader_20.GetName]§!"
 
  fleets_who_defected: "\n§RDefecting Fleets§!:"
- defected_fleet_1: "[defected_fleet_1.GetClass] §Y[defected_fleet_1.GetName]§!"
- defected_fleet_2: "[defected_fleet_2.GetClass] §Y[defected_fleet_2.GetName]§!"
- defected_fleet_3: "[defected_fleet_3.GetClass] §Y[defected_fleet_3.GetName]§!"
- defected_fleet_4: "[defected_fleet_4.GetClass] §Y[defected_fleet_4.GetName]§!"
- defected_fleet_5: "[defected_fleet_5.GetClass] §Y[defected_fleet_5.GetName]§!"
- defected_fleet_6: "[defected_fleet_6.GetClass] §Y[defected_fleet_6.GetName]§!"
- defected_fleet_7: "[defected_fleet_7.GetClass] §Y[defected_fleet_7.GetName]§!"
- defected_fleet_8: "[defected_fleet_8.GetClass] §Y[defected_fleet_8.GetName]§!"
- defected_fleet_9: "[defected_fleet_9.GetClass] §Y[defected_fleet_9.GetName]§!"
- defected_fleet_10: "[defected_fleet_10.GetClass] §Y[defected_fleet_10.GetName]§!"
- defected_fleet_11: "[defected_fleet_11.GetClass] §Y[defected_fleet_11.GetName]§!"
- defected_fleet_12: "[defected_fleet_12.GetClass] §Y[defected_fleet_12.GetName]§!"
- defected_fleet_13: "[defected_fleet_13.GetClass] §Y[defected_fleet_13.GetName]§!"
- defected_fleet_14: "[defected_fleet_14.GetClass] §Y[defected_fleet_14.GetName]§!"
- defected_fleet_15: "[defected_fleet_15.GetClass] §Y[defected_fleet_15.GetName]§!"
- defected_fleet_16: "[defected_fleet_16.GetClass] §Y[defected_fleet_16.GetName]§!"
- defected_fleet_17: "[defected_fleet_17.GetClass] §Y[defected_fleet_17.GetName]§!"
- defected_fleet_18: "[defected_fleet_18.GetClass] §Y[defected_fleet_18.GetName]§!"
- defected_fleet_19: "[defected_fleet_19.GetClass] §Y[defected_fleet_19.GetName]§!"
- defected_fleet_20: "[defected_fleet_20.GetClass] §Y[defected_fleet_20.GetName]§!"
+ defected_fleet_1: "§Y[defected_fleet_1.GetName]§!"
+ defected_fleet_2: "§Y[defected_fleet_2.GetName]§!"
+ defected_fleet_3: "§Y[defected_fleet_3.GetName]§!"
+ defected_fleet_4: "§Y[defected_fleet_4.GetName]§!"
+ defected_fleet_5: "§Y[defected_fleet_5.GetName]§!"
+ defected_fleet_6: "§Y[defected_fleet_6.GetName]§!"
+ defected_fleet_7: "§Y[defected_fleet_7.GetName]§!"
+ defected_fleet_8: "§Y[defected_fleet_8.GetName]§!"
+ defected_fleet_9: "§Y[defected_fleet_9.GetName]§!"
+ defected_fleet_10: "§Y[defected_fleet_10.GetName]§!"
+ defected_fleet_11: "§Y[defected_fleet_11.GetName]§!"
+ defected_fleet_12: "§Y[defected_fleet_12.GetName]§!"
+ defected_fleet_13: "§Y[defected_fleet_13.GetName]§!"
+ defected_fleet_14: "§Y[defected_fleet_14.GetName]§!"
+ defected_fleet_15: "§Y[defected_fleet_15.GetName]§!"
+ defected_fleet_16: "§Y[defected_fleet_16.GetName]§!"
+ defected_fleet_17: "§Y[defected_fleet_17.GetName]§!"
+ defected_fleet_18: "§Y[defected_fleet_18.GetName]§!"
+ defected_fleet_19: "§Y[defected_fleet_19.GetName]§!"
+ defected_fleet_20: "§Y[defected_fleet_20.GetName]§!"
+
+ rebel_ally_countries: "\n§RAllied Rebels§!:"
+ ally_rebel_1: "§Y[ally_rebel_1.GetName]§!"
+ ally_rebel_2: "§Y[ally_rebel_2.GetName]§!"
+ ally_rebel_3: "§Y[ally_rebel_3.GetName]§!"
+ ally_rebel_4: "§Y[ally_rebel_4.GetName]§!"
+ ally_rebel_5: "§Y[ally_rebel_5.GetName]§!"
+ ally_rebel_6: "§Y[ally_rebel_6.GetName]§!"
+ ally_rebel_7: "§Y[ally_rebel_7.GetName]§!"
+ ally_rebel_8: "§Y[ally_rebel_8.GetName]§!"
+ ally_rebel_9: "§Y[ally_rebel_9.GetName]§!"
+ ally_rebel_10: "§Y[ally_rebel_10.GetName]§!"
 
  # Faction and Sector Planetary Rebellion
- ########################################
+########################################
 
  civcom.1000.name: "[civwar_rebels.GetRulerTitle] §H[civwar_rebels.Ruler.GetName]§!"
  civcom.1000.leader.plan.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people of §Y[civwar_rebels.capital_scope.GetName]§! have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
@@ -369,9 +381,9 @@
  civcom.1000.war: "This is treason. We will reunite our nation. This means war."
  civcom.1000.independence: "We're better off without you."
 
- #####################
+#####################
  # Government-in-Exile
- #####################
+#####################
 
  civcom.9000.name: "The Government-in-Exile of the §Y[from.GetName]§!"
  civcom.9000.regular: "Greetings, esteemed §Y[root.GetRulerTitle]§! §H[root.ruler.GetName]§!. I am §H[from.ruler.GetName]§!, leader of the §Y[from.GetName]§!. As you may already be aware, our territory has been completely conquered by foreign forces. In the interests of the §Y[from.GetSpeciesAdj]§! people, our leadership has formed a §HGovernment-in-Exile§!. However, this government will be unable to function unless we have a space to operate. The purpose of my audience with you today is to request that you host us."
@@ -407,7 +419,7 @@
  civcom.9220.desc: "This is amazing news. We would be extremely grateful for any sector."
 
  # Restoration Planets
- #####################
+#####################
  civcom.9210.restoration_planet_1: "§Y[restoration_planet_1.GetName]§! with §Y[restoration_planet_1.solar_system.GetName]§!"
  civcom.9210.restoration_planet_2: "§Y[restoration_planet_2.GetName]§! with §Y[restoration_planet_2.solar_system.GetName]§!"
  civcom.9210.restoration_planet_3: "§Y[restoration_planet_3.GetName]§! with §Y[restoration_planet_3.solar_system.GetName]§!"
@@ -430,7 +442,7 @@
  civcom.9210.restoration_planet_20: "§Y[restoration_planet_20.GetName]§! with §Y[restoration_planet_20.solar_system.GetName]§!"
 
  # Restoration Sectors
- #####################
+#####################
  civcom.9220.restoration_sector_1: "§Y[restoration_sector_1.GetName]§!"
  civcom.9220.restoration_sector_2: "§Y[restoration_sector_2.GetName]§!"
  civcom.9220.restoration_sector_3: "§Y[restoration_sector_3.GetName]§!"
@@ -452,8 +464,8 @@
  civcom.9220.restoration_sector_19: "§Y[restoration_sector_19.GetName]§!"
  civcom.9220.restoration_sector_20: "§Y[restoration_sector_20.GetName]§!"
 
- #### Civil War Communications ####
- ##################################
+#### Civil War Communications####
+##################################
 
  civcom.spacer: "§Y===================§!"
  civcom.swap_to_rebels: "You've made some good points..."
@@ -509,7 +521,7 @@
 
  civcom.election_dispute.corp.desc: "It's unfortunate that it had to come to this, but its your arrogance that has torn this organization apart. I could not allow our company to fall into the hands of someone so incompetent. Our shareholders deserve much better than you as our §H[civwar_originator.Ruler.GetTitle]§!. In order to ensure future profits, I will lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of our shareholders, and we are prepared to defend ourselves. I recommend that your board accept this, so that we may prevent any further drops in revenue."
 
- civcom.allys.desc: "\n\nFurthermore, we are allied to the other revolutionary states that have just risen in revolt. §PIf you attack one of us, you attack all of us§!."
+ civcom.allys.desc: "\nFurthermore, we are allied to the other revolutionary states that have just risen in revolt. §PIf you attack one of us, you attack all of us§!."
 
  civcom.1100.leader.iso.sec.desc: "It's unfortunate that it had to come to this. You knew me as [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§! of the §Y[sector_name_leader.GetName]§! sector. My sector has been cut off from the central government for quite a few years, which led me to active partipation in and then leadership of the §Y[civwar_party_name_leader.GetName]§!. The simple truth is that your [GetGovermentBoard] is distant and unreachable, and the people of §Y[sector_name_leader.GetName]§! deserve a government that they actually have access to. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and should you somehow manage to actually get any ships here, we are prepared to defend ourselves. I recommend that your [GetGovermentBoard] accept this, so that we may prevent any further bloodshed."
 
@@ -536,7 +548,7 @@
  civcom.1100.under_one_rule.desc: "The tyrannical rule of the §YLuminary§! has been ended! The people have had enough, and yearn to be free of the yoke of authoritarianism. Now, I have been chosen to represent the §H[civwar_rebels.GetName]§!, a revolutionary state founded on the principles of freedom and democracy, as their §Y[civwar_rebels.GetRulerTitle]§!. By making peace impossible, you made violence inevitable. However, you still have the chance to prevent any further bloodshed."
 
 
- ############## With Vassalization
+############## With Vassalization
 
  civcom.1105.leader.desc: "It's unfortunate that it had to come to this. I was a leader within the §Y[civwar_party_name_leader.GetName]§!, and your [GetGovermentBoard] had long been neglectful of our concerns. The people have had enough. Now, I have been chosen to lead the §Y[civwar_rebels.GetName]§! as their §H[civwar_rebels.GetRulerTitle]§!. I have the support of the people, and we are prepared to defend ourselves."
 
@@ -569,12 +581,12 @@
  civcom.2115.large: "You can have all the resources you need."
 
 
- #####
+#####
 
  civcom.1200.name: "[civwar_originator.GetRulerTitle] §H[civwar_originator.ruler.GetName]§! of the §Y[civwar_originator.GetName]§!"
  civcom.1200.desc: "Greetings my esteemed, §Y[Root.GetRulerTitle]§!. I come before you today to request aid in maintaining the stability of my realm. A group of separatists have managed to seize control over some of our territory. They have declared themselves independent from both the §Y[civwar_originator.GetName]§! and the §Y[root.GetName]§!. If this is allowed to stand, the rebels may attempt to take more territory in the future. If you want to retain overlordship of the territory they've seized and ensure that they pose no future threat, we need to crush their rebellion."
 
- #####
+#####
 
  civcom.4000.name: "[civwar_rebels.GetRulerTitle] §H[civwar_rebels.ruler.GetName]§! of the §Y[civwar_rebels.GetName]§!"
  civcom.4000.norm.desc: "Greetings to §Y[Root.GetRulerTitle]§! §H[Root.GetRulerName]§!. I am §Y[civwar_rebels.GetRulerTitle]§! §H[civwar_rebels.ruler.GetName]§!, and I represent the §Y[civwar_rebels.GetName]§!. We have broken away from the §Y[civwar_originator.GetName]§! and founded a new state. However, the §Y[civwar_originator.GetAdj]§! government has declared war in an attempt to maintain their hold over us. I come before you today requesting any assistance that you may be able to provide."
@@ -686,7 +698,7 @@
  civcom.5000.refresh: "Refresh Subject List"
 
  ## Situation Communications ##
- ##############################
+##############################
 
  civcom.6000.name: "[mad_faction_leader.GetTitle] §H[mad_faction_leader.GetName]§!"
 
@@ -698,8 +710,8 @@
  civcom.6000.heir: "I'll name you as my heir."
  
 
- #### Traitor Communications ####
- ################################
+#### Traitor Communications####
+################################
 
  civcom.7000.name: "[defeated_traitor.GetName]"
  civcom.8100.name: "[disinherited_heir.GetName]"
@@ -746,9 +758,9 @@
  civcom.8010.b: "You'll serve as a $commander_with_icon$."
  civcom.8010.c: "You'll serve as a $scientist_with_icon$."
 
- #################
+#################
  #  Heir Events  #
- #################
+#################
 
  civheir.3000.name: "§Y[disinherited_heir.GetName]§! Flees"
  civheir.3000.desc: "After being disinherited, the former heir §Y[disinherited_heir.GetName]§! fled beyond our borders. Only time will tell whether that means anything for us."
@@ -780,7 +792,7 @@
 
  heir_exile_country_name: "[ruler.GetFirstName] of [heir_mother_country.GetName]"
 
- ###############################
+###############################
 
  civend.6000.name: "§Y[defeated_traitor.GetName] is Dead!§!"
 
@@ -794,7 +806,7 @@
 
  civend.6000.a: "Good."
 
- ##############
+##############
 
  civend.1001.name: "§Y[defeated_traitor.GetName] Dies!§!"
  civend.1001.hanging.desc: "The traitor is dead. According to first-hand reports, when their defeat seemed inevitable, §H[defeated_traitor.GetName]§! hanged themself."
@@ -832,8 +844,8 @@
 
  civend.9005.a: "Excellent"
 
- #### Election Communications ####
- #################################
+#### Election Communications####
+#################################
 
  civcom.9990.name: "[grievance_party_leader.GetTitle] [grievance_party_leader.GetName]"
  civcom.9990.desc: "Thank you for taking my call, [root.GetRulerTitle] [ruler.GetSecondName]. My party has found preliminary evidence that the most recent election may have been compromised. We are demanding a full investigation, and trust that we can count on your support in a matter so intengral to our democracy."
@@ -857,8 +869,8 @@
 
  civcom.9993.a: "We shall see."
 
- #### Imperial Succession Crisis ####
- ####################################
+#### Imperial Succession Crisis####
+####################################
 
  civroyal.1020.name: "Succession Crisis"
  civroyal.1020.desc_reg: "The death of §H[prior_dead_ruler.GetName]§! without an heir has created a constitutional crisis. Without first being anointed as heir, §H[root.GetRulerName]§! has ascended to the throne and declared [root.ruler.GetHerselfHimself] §Y[root.GetRulerTitle]§!. In the wake of [root.ruler.GetHerHis] coronation, there are still other members of the §Y[crisis_dynasty_name.GetSecondName]§! family looking to assert their claim to the throne, along with ambitious regional officials that are trying to assert their autonomy. The realm is in a state of instability."
@@ -1003,9 +1015,9 @@
 
  cannot_fire_leader_during_crisis: "$TRIGGER_FAIL$ Will refuse to step down during this succession crisis."
 
- #######################
- ### Leader Events ###
- #######################
+#######################
+### Leader Events###
+#######################
 
  civleader.1002.dem.name: "Election Dispute"
  civleader.1002.not_dem.name: "Selection Dispute"
@@ -1140,9 +1152,9 @@
  couped_faction_other: "$couped_faction_dem$"
  couped_faction_pop_other: "$couped_faction_pop_dem$"
 
- ########################
- ### Espionage Events ###
- ########################
+########################
+### Espionage Events###
+########################
 
  operation_civstrife_coup: "Instigate a Coup"
  operation_civstrife_coup_desc: "We will attempt to find a candidate more suitable to our interests to lead their nation. This will ideally end up with a change in leadership such that the country is more aligned with our interests, but could also end up throwing the country into turmoil."
@@ -1175,12 +1187,12 @@
 
  espionage_faction_leader_captured: "We've gotten word that [operation_rebel_leader.GetTitle] §Y[operation_rebel_leader.GetSecondName]§! and their associates have been arrested. We have to scrub the operation."
 
- ##################
+##################
  # Situations
 
- ##################
+##################
  ##   Pandemic   ##
- ##################
+##################
 
  situation_civstrife_pandemic_planet: "§Y[Target.GetAdj]§! Pandemic"
  situation_civstrife_pandemic_planet_type: "Planetary Pandemic"
@@ -1281,9 +1293,9 @@
  civpan.8055.desc: "Our medical community has recieved no more reports of the pandemic that originated amongst the §Y[pandemic_species_loc.GetNamePlural]§! of §Y[Target.GetName]§!. It appears that all infected individuals have either left the country or passed away."
  civpan.8055.interesting: "Interesting."
 
- #############################
+#############################
  ##   Factional Sepratism   ##
- #############################
+#############################
 
  # Multi-Purpose
  approach_do_nothing: "Do Nothing"
@@ -1474,18 +1486,18 @@
  situation_civstrife_faction_plur_desc: "$ethic_faction_general_desc$"
  situation_civstrife_faction_plur_monthly_change_tooltip: "$ethic_faction_general_monthly_tooltip$"
 
- ###################
+###################
  ##   Modifier   ##
- ###################
+###################
 
  mod_shipclass_military_build_cost_mult: "Military Ship Construction Cost"
 
  # Subject Modifiers
  exile_gov_loyalty: "Hosting Government-in-Exile"
 
- ###################
+###################
  ##   Greetings   ##
- ###################
+###################
 
  01_CIVWAR_GREETING: "You hold no authority over the [Root.GetAdj] people." 
  02_CIVWAR_GREETING: "I have no wish to spill [From.GetAdj] blood, but I will do what I must."
@@ -1510,9 +1522,9 @@
  03_EXILE_GREETING: "I will be restored to my rightful place upon the throne."
  04_EXILE_GREETING: "My dynasty will not end exiled in disgrace."
 
- #############
+#############
  # War Stuff #
- #############
+#############
 
  casus_belli_cb_install_traitor: "Regime Change"
  casus_belli_cb_retrieve_traitor: "Treason"
@@ -1582,7 +1594,7 @@
  traitor_heir_installed_tooltip: "The rightful heir, §H[traitorous_heir.GetName]§!, will be placed on the throne."
  traitor_heir_retrieved_tooltip: "The treasonous former heir §H[traitorous_heir.GetName]§! will be retrieved from the §Y[from.GetName]§!."
 
- ##############
+##############
  # Names
 
  exile_country_restored_name: "[event_target:nat_motherland_model.GetName]"
@@ -1707,7 +1719,7 @@
  war_retrieval: "Retrieval of"
  war_throne: "War for the Throne"
 
- ################
+################
  # Faction Events
 
  civnat.8000.name: "End of the [nat_gone.GetName]"
@@ -1792,9 +1804,31 @@
  civnat.9300.desc: "Our fleet has destroyed the station that headquartered the government-in-exile of the §Y[destroyed_exile_gov.GetName]§!. They were unable to evacuate to a new location before their demise, and so the government of the §Y[destroyed_exile_gov.GetName]§! has finally been destroyed."
  civnat.9300.other.desc: "Word has reached us that the station that headquartered the government-in-exile of the §Y[destroyed_exile_gov.GetName]§! in [exile_system.GetName] system has been destroyed by the §Y[exile_destroyer.GetName]§!."
 
- ######################
- ###   Overwrites   ###
- ######################
+###################
+###   Unrest   ###
+###################
+
+ civstrife_unrest.101.title: "[from.target.GetEthicEquivelent] $unrest_title$"
+ civstrife_unrest.101.pacifist.desc: "The threat of forceful intervention has done little to dissuade the disruptive elements on §Y[Root.GetName]§!. In fact, the locals seem to have lost faith in this method of control, and are now increasingly mobilizing within the §Y[from.target.GetName]§! and engaging in nonviolent resistance. However, the possibility remains that they eventually move past nonviolence."
+ civstrife_unrest.101.militarist.desc: "Increasing unrest on §Y[Root.GetName]§! has led to mounting calls from the leadership of the §Y[from.target.GetName]§! for a more pronounced military presence, both on the planet and within the [Root.Owner.GetName] as a whole. Local military veterans are enjoying a rise in popularity, and have assumed prominent roles within the growing resistance movement."
+ civstrife_unrest.101.xenophobe.desc: "As the §Y[from.target.GetName]§! continues to encourage the breakdown of the social order, residents of §Y[Root.GetName]§! have become markedly more hostile to outsiders, viewing those unlike themselves with considerable antipathy. Their leaders are deploying ever more xenophobic slogans, calling for increased regulation on interspecies relations."
+ civstrife_unrest.101.xenophile.desc: "There is mounting unrest on §Y[Root.GetName]§!. This is reportedly caused, at least in part, by our perceived hostility towards aliens. Leaders from the §Y[from.target.GetName]§! have drawn up a charter listing supposed injustices and acts of discrimination that they demand be corrected. Failing this, they will not balk at pushing for a change of administration."
+ civstrife_unrest.101.egalitarian.desc: "As widening social rifts manifest on §Y[Root.GetName]§!, local communities are galvanized by the upheaval and united by a common desire for greater equality. Leaders from the §Y[from.target.GetName]§! have drawn up a charter listing supposed injustices and inequalities they demand be corrected. Failing this, they promise that the political situation on the colony, and perhaps throughout the country, will only deteriorate."
+ civstrife_unrest.101.authoritarian.desc: "The agitations of the §Y[from.target.GetName]§! have propelled a new narrative to the forefront of §Y[Root.GetName]'s§! political stage; one of populist strongmen and order. Various strongmen and their followers are taking a prominent role in the unrest that continues to escalate on the planet and throughout the country."
+ civstrife_unrest.101.spiritualist.desc: "Our latest reports from §Y[Root.GetName]§! suggest that members of the §Y[from.target.GetName]§! are taking a lead role in fomenting unrest on the planet. Promising deliverance from spiritual hardship, they have managed to successfully appeal to the populace."
+ civstrife_unrest.101.materialist.desc: "The inability of any local spiritual leaders on §Y[Root.GetName]§! to even begin to calm the rampant unrest on the colony has lead to the populace taking a more rational view of the material realm they inhabit. Unfortunately, their focus on logic is leading them to question whether they are best served by remaining within the §H[Root.Owner.GetName]§!."
+ civstrife_unrest.101.capitalism.desc: "With regulatory hurdles leading to rampant black market activity, combined with the continuing decline of economic and political power among the merchant class on §Y[Root.GetName]§!, leaders of the §Y[from.target.GetName]§! have drawn up a charter of supposed economic property rights they demand be instituted. Failing this, they promise that the political situation on the colony, and perhaps throughout the country, will only deteriorate."
+ civstrife_unrest.101.socialism.desc: "As rising income inequality manifests on §Y[Root.GetName]§!, the working class are growing tired of the overt corruption displayed by the elites. Leaders from the §Y[from.target.GetName]§! have drawn up a charter listing supposed injustices and inequalities they demand be corrected. Failing this, they promise that the political situation on the colony, and perhaps throughout the country, will only deteriorate."
+ civstrife_unrest.101.elitist.desc: "Due to the continuing decline of the economic and political power among the elites of §Y[Root.GetName]§!, leaders of the §Y[from.target.GetName]§! have drawn up a charter of supposed aristocratic rights they demand be instituted. Failing this, they promise that the political situation on the colony, and perhaps throughout the country, will only deteriorate."
+ civstrife_unrest.101.pluralist.desc: "As rising inequality manifests on §Y[Root.GetName]§!, communities are galvanized by the upheaval and united by a common desire for a more equitable distribution of resources. Leaders from the §Y[from.target.GetName]§! have drawn up a charter listing supposed injustices and inequalities they demand be corrected. Failing this, they promise that the political situation on the colony, and perhaps throughout the country, will only deteriorate."
+ civstrife_unrest.101.green.desc: "Due to the continuing destruction of the biosphere on §Y[Root.GetName]§!, leaders of the §Y[from.target.GetName]§! begun aggressively lobbying the government for immediate environmental regulation. Failing this, they promise that the political and ecological situation on the colony, and perhaps through the country, will only deteriorate."
+ civstrife_unrest.101.ecocentric.desc: "$civstrife_unrest.101.green.desc$"
+ civstrife_unrest.101.industrial.desc: "Due to the continuing decline of the economic and political power among the industrialists of §Y[Root.GetName]§!, leaders of the §Y[from.target.GetName]§! begun aggressively lobbying the government for industrial deregulation. Failing this, they promise that the political and economic situation on the colony, and perhaps throughout the country, will only deteriorate."
+ civstrife_unrest.101.anthropocentric.desc: "$civstrife_unrest.101.industrial.desc$"
+
+######################
+###   Overwrites  ###
+######################
 
  unrest.55.name: "§YSlaves Organizing§! on [Root.GetName]"
  unrest.55.desc.standard: "Months of turmoil and instability on §Y[Root.GetName]§! have made the local populace begin to question our ability to effectively govern the planet. Now their defiance is becoming ever more brazen, and dissidents are openly calling for independence. A show of authority may be necessary if we are to keep control of the colony."
@@ -1834,7 +1868,7 @@
 
  federation_actor_no_separate_treaties_empire: "§Y$law_category_separate_treaties_empire$§! §Ris §Y$treaties_separate_no$§! by Imperial decree - we cannot have treaties with nations who are not members of our empire.§!"
 
- ### Event Overwrites But not technically overwrites
+### Event Overwrites But not technically overwrites
  civ_action.62.name: "End of the [gov_in_exile.GetName]"
  civ_action.62.desc.reg: "After being destroyed by their enemies, the remnants of the leadership of the §Y[gov_in_exile.GetName]§! formed a government-in-exile. However, being unable to find any state willing to host them, the government-in-exile has officially announced their dissolution. How this will affect the political climate of the galaxy remains to be seen."
  civ_action.62.desc.integrated: "The last vestiges of §Y[gov_in_exile.species.GetAdj]§! sovereignty have been erased, as the §H[gov_in_exile.GetName]§! has been fully integrated into the §H[overlord_country.GetName]§!. While some §Y[gov_in_exile.species.GetAdj]§! nationalists doubtless remain, the state as it was no longer exists. How this will affect the political climate of the galaxy remains to be seen."
@@ -1850,13 +1884,13 @@
  civ_action.6310.name: "$action.6210.name$"
  civ_action.6310.desc: "After being destroyed by their enemies, the remnants of the leadership of the ancient precursor state known as the §Y[from.GetName]§! formed a government-in-exile. Now, the §Y[hosting_country.GetName]§! has agreed to host them. How this will affect the political climate of the galaxy remains to be seen."
 
- unrest.101.civstrife.desc: "After a period of mounting tension, the unrest on §Y[target_planet.GetName]§! has resulted in terrorist action. While casualties and property damage were minimal, faith in the [Root.Owner.GetName]'s ability to protect its citizens has been shaken."
+ unrest.101.civstrife.desc: "After a period of mounting tension, the unrest on §Y[target_planet.GetName]§! has resulted in terrorist action. While casualties and property damage were minimal, faith in the §H[Root.Owner.GetName]'s§! ability to protect its citizens has been shaken."
 
  unrest.105.civstrife.desc: "A major incident has occurred on the badly-troubled colony of §Y[target_planet.GetName]§!. While state-critical facilities remain unscathed, extensive property damage and significant loss of life as a result of coordinated terrorist attacks have shaken the colony to its core."
 
  unrest.110.civstrife.desc: "Reports from §Y[riot_avert_planet.GetName]§! suggested that there was an imminent risk that violent rioting would break out. However, thanks to the quick and decisive action of [Root.Owner.GetAdj] forces, in partnership with loyalist civilians, this threat has been quelled."
 
- ##############
+##############
  # Other
 
  civstrife_menu_name: "Civil Wars"
@@ -2532,22 +2566,22 @@
  traitor_country_100_only: "§Y[event_target:secession_country_100.GetName]§!"
 
 
- #################
+#################
  ##   Concepts  ##
- #################
+#################
 
  concept_civil_war: "Civil War"
  concept_civil_wars: "Civil Wars"
  concept_civil_war_desc: "§HCivil Wars§! are internal wars that can occur in multiple ways: A §Yfaction§! being dissatisfied over a prolonged period of time, a §Yleader§! feeling an election/selection was unfair, §Yslaves§! rebelling, an §Yheir§! being disinherited, an §Yimperial ruler§! dying without an heir, or an §Yunstable planet/sector§! can all trigger §HCivil Wars§!."
 
 
- #######################
- #######################
- #######################
+#######################
+#######################
+#######################
  ##   Timeline Stuff  ##
- #######################
- #######################
- #######################
+#######################
+#######################
+#######################
 
  TIMELINE_EVENT_CIVIL_WAR_TOOLTIP: "§HCivil War Erupts§!\n§YEmpire Event§!\n\n[EVENT_TARGET_0.GetName] declared war on rebels calling themselves the [EVENT_TARGET_1.GetName] - §L[GetDate]§!"
  TIMELINE_EVENT_PLANET_CIVIL_WAR_TOOLTIP: "§HPlanet Rebels§!\n§YEmpire Event§!\n\n[EVENT_TARGET_0.GetName] declares war on the illegitimate [EVENT_TARGET_2.GetName], a revolutionary government that seized control of the planet [EVENT_TARGET_3.GetName] after it erupted in rebellion - §L[GetDate]§!"

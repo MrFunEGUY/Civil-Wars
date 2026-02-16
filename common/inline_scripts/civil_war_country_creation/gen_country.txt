@@ -10,6 +10,7 @@ randomize_ethos = yes
 ethos = { ethic = $ETH_1$ }
 ethos = { ethic = $ETH_2$ }
 effect = {
+	log = "GEN COUNTRY HIT"
 	save_event_target_as = civwar_rebels
 	if = {
 		limit = { exists = event_target:cw_scope_initializer }
@@ -49,7 +50,17 @@ effect = {
 				chance = 75
 				change_government = { authority = auth_corporate_imperial }
 			}
-			log = "NEW AUTH: [this.GetAuthority]"
+		}
+		else_if = {
+			limit = {
+				is_megacorp = yes
+				has_bug_branch = yes
+				is_authoritarian = yes
+			}
+			random = {
+				chance = 75
+				change_government = { authority = auth_bugged_corporate_imperial }
+			}
 		}
 		else_if = {
 			limit = {

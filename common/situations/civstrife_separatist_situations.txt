@@ -11,7 +11,7 @@ situation_civstrife_sep_plan = {
 		target = {
 			set_variable = { which = gen_sep_upkeep value = 0 }
 			every_owned_pop_group = {
-				limit = { happiness <= 0.5 }
+				limit = { rebel_happiness = yes }
 				prev = { change_variable = { which = gen_sep_upkeep value = 1 } }
 			}
 		}
@@ -42,8 +42,7 @@ situation_civstrife_sep_plan = {
 			NOT = { exists = target }
 			target = { is_capital = yes }
 			target = { has_ground_combat = yes }
-			target = { count_owned_pop_amount = { count < 500 } }
-			target = { count_owned_pop_amount = { limit = { has_pop_group_flag = sep_pop } count = 0 } }
+			target = { count_owned_pop_amount = { count < 300 } }
 			target = { has_planet_flag = rebellion_suppressed }
 			target = { has_planet_flag = situation_abort_flag }
 			AND = {
@@ -60,7 +59,7 @@ situation_civstrife_sep_plan = {
 			icon = GFX_situation_stage_1
 			icon_background = GFX_situation_stage_frame_blue
 			on_first_enter = {
-				# situation_event = { id = unrest.100 } ##TODO Will want to get these activated soon
+				# situation_event = { id = civstrife_unrest.100 days = 1 random = 275 } ##TODO Will want to get these activated soon
 			}
 			end = 30
 		}
@@ -144,7 +143,6 @@ situation_civstrife_sep_plan = {
 
 	on_monthly = {
 		events = {
-			civsep.4010			# Monthly Separatism Spread
 			civsep.4100			# Possible Revolt/Civil War
 	    }
 	    random_events = {
@@ -343,7 +341,6 @@ situation_civstrife_faction_sep_sec = {
 
 	on_monthly = {
 		events = {
-			civsep.4010			# Monthly Separatism Spread
 			civsep.4200			# Possible Revolt/Civil War
 	    }
 	    random_events = {

@@ -106,26 +106,15 @@ country_event = { # Clear unused global event targets
 	}
 
 	immediate = {
-		if = {
+		every_owned_sector = {
 			limit = {
-				any_owned_sector = {
-					OR = {
-						is_sector_event_target = yes
-						is_iso_sector_event_target = yes
-					}
-					NOT = { has_sector_flag = sector_sep_active }
+				OR = {
+					is_sector_event_target = yes
+					is_iso_sector_event_target = yes
 				}
+				NOT = { has_sector_flag = sector_sep_active }
 			}
-			every_owned_sector = {
-				limit = {
-					OR = {
-						is_sector_event_target = yes
-						is_iso_sector_event_target = yes
-					}
-					NOT = { has_sector_flag = sector_sep_active }
-				}
-				remove_sector_event_target = yes
-			}
+			remove_sector_event_target = yes
 		}
 	}
 }

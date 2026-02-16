@@ -62,6 +62,9 @@ stages = {
 	reb_situation_1 = {
 		icon = GFX_situation_stage_1
 		icon_background = GFX_situation_stage_frame_blue
+		on_first_enter = {
+			situation_event = { id = civstrife_unrest.100 days = 1 random = 275 }
+		}
 		end = 30
 	}
 	reb_situation_2 = {

@@ -111,7 +111,7 @@ civil_war_chance = {
 }
 
 total_war_chance = {
-	base = @base_total_war_chance ## 10
+	base = @base_total_war_chance ## 50
 
 	# modifier = { ### Test
 	# 	factor = 1000
@@ -395,12 +395,14 @@ leader_to_defect_chance = {
 	modifier = { ## Dont throw away career for planetary rebellions
 		factor = 0.15
 		event_target:civwar_rebels.capital_scope.solar_system = { has_star_flag = civwar_planet }
+		exists = background_planet
 		background_planet = { NOT = { is_owned_by = event_target:civwar_rebels } }
 	}
 
 	modifier = { ## Dont throw away career for planetary rebellions
 		factor = 0.5
 		event_target:civwar_rebels.capital_scope.solar_system = { has_star_flag = civwar_planet }
+		exists = background_planet
 		background_planet = { is_owned_by = event_target:civwar_rebels }
 	}
 

@@ -1,0 +1,87 @@
+modifier = {
+	add = @pac_oli
+	event_target:cw_scope_initializer = { is_pacifist = yes }
+}
+
+modifier = {
+	add = @mil_oli
+	event_target:cw_scope_initializer = { is_militarist = yes }
+}
+
+modifier = {
+	add = @mat_oli
+	event_target:cw_scope_initializer = { is_materialist = yes }
+}
+
+modifier = {
+	add = @spi_oli
+	event_target:cw_scope_initializer = { is_spiritualist = yes }
+}
+
+modifier = {
+	add = @egal_oli
+	event_target:cw_scope_initializer = { is_egalitarian = yes }
+}
+
+modifier = {
+	add = @auth_oli
+	event_target:cw_scope_initializer = { is_authoritarian = yes }
+}
+
+modifier = {
+	add = @phile_oli
+	event_target:cw_scope_initializer = { is_xenophile = yes }
+}
+
+modifier = {
+	add = @phobe_oli
+	event_target:cw_scope_initializer = { is_xenophobe = yes }
+}
+
+modifier = {
+	add = @plur_oli
+	event_target:cw_scope_initializer = { is_pluralist = yes }
+}
+
+modifier = {
+	add = @elite_oli
+	event_target:cw_scope_initializer = { is_elitist = yes }
+}
+
+modifier = {
+	add = @green_oli
+	OR = {
+		event_target:cw_scope_initializer = { is_green = yes }
+		event_target:cw_scope_initializer = { is_ecocentric = yes }
+	}
+}
+
+modifier = {
+	add = @indus_oli
+	OR = {
+		event_target:cw_scope_initializer = { is_industrial = yes }
+		event_target:cw_scope_initializer = { is_anthropocentric = yes }
+	}
+}
+
+modifier = {
+	add = @soc_oli
+	OR = {
+		event_target:cw_scope_initializer = { is_socialist = yes }
+		event_target:cw_scope_initializer = { is_cooperative = yes }
+	}
+}
+
+modifier = {
+	add = @cap_oli
+	OR = {
+		event_target:cw_scope_initializer = { is_capitalism = yes }
+		event_target:cw_scope_initializer = { is_competitive = yes }
+	}
+}
+
+## Doubler Modifier
+modifier = {
+	factor = 2
+	event_target:civwar_originator = { is_oligarchic_authority = yes }
+}

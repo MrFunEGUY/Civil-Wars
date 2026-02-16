@@ -1,6 +1,27 @@
 
 is_domineering_federation_type = { has_federation_type = hegemony_federation }
 
+#####
+
+is_elitist = { always = no }
+is_green = { always = no }
+
+#####
+is_pluralist = { always = no }
+is_industrial = { always = no }
+is_cooperative = { always = no }
+is_competitive = { always = no }
+is_anthropocentric = { always = no }
+is_ecocentric = { always = no }
+
+has_bug_branch = { always = no }
+is_bugged_direct_democratic = { always = no }
+
+#############
+has_ecc_classic = { has_global_flag = ethic_civic_classic_active }
+is_ecc_direct_democracy = { always = no }
+#############
+
 is_strict_dem = { always = no }
 is_dictatorial_dem = { always = no }
 
@@ -9,8 +30,6 @@ is_diplocracy = { always = no }
 is_stratocracy = { always = no }
 is_technocracy = { always = no }
 
-has_adoptive_dynasties = { always = no }
-
 is_socialist = { is_socialism = yes }
 
 is_socialism = { always = no }
@@ -18,6 +37,14 @@ is_fanatic_socialist = { always = no }
 
 is_capitalism = { always = no }
 is_fanatic_capitalist = { always = no }
+
+is_cap_comp = { OR = { is_capitalism = yes is_competitive = yes } }
+is_soc_coop = { OR = { is_socialism = yes is_cooperative = yes } }
+
+
+#####
+has_adoptive_dynasties = { always = no }
+#####
 
 
 is_imp_or_dict = { #Power of one
@@ -29,9 +56,8 @@ is_imp_or_dict = { #Power of one
 
 has_long_reign_auth = {
 	OR = {
+		is_imp_or_dict = yes
 		is_dictatorial_dem = yes
-		is_imperial_authority = yes
-		is_dictatorial_authority = yes
 	}
 }
 
@@ -47,19 +73,6 @@ is_gaia_surv_plan = {
 		has_$SURV_PLAN$_class = pc_tidallygaia
 	}
 }
-
-#############
-
-is_elitist = { always = no }
-is_green = { always = no }
-is_pluralist = { always = no }
-is_industrial = { always = no }
-is_cooperative = { always = no }
-is_competitive = { always = no }
-is_anthropocentric = { always = no }
-is_ecocentric = { always = no }
-
-has_bug_branch = { always = no }
 
 #############
 

@@ -498,7 +498,7 @@ l_korean:
 
  civcom.election_dispute.corp.desc: "상황이 이렇게까지 된 건 안타까운 일이지만, 당신의 거만함은 이 조직을 찢어버렸습니다. 저는 우리 회사가 몇몇 아주 무능한 자들의 손에 떨어지는 것을 용납할 수 없습니다. 우리 주주들은 우리의 §H[civwar_originator.Ruler.GetTitle]§!인 당신보다 훨씬 더 나은 사장을 가질 자격이 있습니다. 미래 수익을 보장하기 위해서, 저는 주주들의 §H[civwar_rebels.GetRulerTitle]§!로서 §Y[civwar_rebels.GetName]§!를 이끌 것입니다. 저는 우리 주주들의 지지를 얻었으며, 우리는 자신들을 지킬 준비가 되어 있습니다. 저는 당신의 이사회가 이것을 수용하여 우리가 더 이상의 수익 감소를 일으키지 않게 도와주길 있도록 권고합니다."
 
- civcom.allys.desc: "\n\n더욱이, 우리는 방금 봉기한 다른 혁명 국가들과 동맹을 맺고 있습니다. §P그들 중 하나를 공격하신다면, 그것은 우리 모두를 공격하는 것입니다§!."
+ civcom.allys.desc: "\n더욱이, 우리는 방금 봉기한 다른 혁명 국가들과 동맹을 맺고 있습니다. §P그들 중 하나를 공격하신다면, 그것은 우리 모두를 공격하는 것입니다§!."
 
  civcom.1100.leader.iso.sec.desc: "상황이 이렇게까지 된 게 안타깝군요. 여러분은 저를 §Y[sector_name_leader.GetName]§! 섹터의 [civwar_rebels.Ruler.GetClass] §H[civwar_rebels.Ruler.GetName]§!로 알고 계셨죠. 제 섹터는 몇 년 동안 중앙 정부와 단절되어 있었고, 그 때문에 저는 §Y[civwar_party_name_leader.GetName]§!에 가입해서 활동하고 결국엔 §Y[civwar_party_name_leader.GetName]§!의 지도자에까지 오르게 되었습니다. 간단한 진실은 당신의 [GetGovermentBoard]는 너무 멀어서 도달할 수 없다는 것이고, §Y[sector_name_leader.GetName]§!의 사람들은 그들이 실제로 접근할 수 있는 정부를 얻을 권리가 있다는 것입니다. 이제 저는 그들의 §H[civwar_rebels.GetRulerTitle]§!로서 §Y[civwar_rebels.GetName]§!를 이끌기로 결심했습니다. 저는 우리 사람들의 지지를 얻었습니다. 당신이 이 곳에 어떤 함선이라도 보내시는 데 성공한다 해도, 우리는 자신들을 지킬 준비가 되어 있습니다. 저는 여러분의 [GetGovermentBoard]가 이것을 수용하여 우리가 더 이상의 유혈사태를 일으키지 않게 도와주길 권고합니다."
 
@@ -1785,7 +1785,29 @@ l_korean:
  civnat.9300.desc: "우리의 함대가 §Y[destroyed_exile_gov.GetName]§!의 망명 정부를 지휘하던 기지를 파괴했습니다. 그들은 멸망하기 전에 새 구역으로 탈출하지 못했고, §Y[destroyed_exile_gov.GetName]§!의 정부는 궁극적으로 파괴되었습니다."
  civnat.9300.other.desc: "[exile_system.GetName] 성계에서 §Y[destroyed_exile_gov.GetName]§!의 망명 정부를 지휘하던 기지가 §Y[exile_destroyer.GetName]§!에 의해서 파괴되었다는 소식이 들려았습니다."
 
- ######################
+###################
+###   Unrest   ###
+###################
+
+ civstrife_unrest.101.title: "[from.target.GetEthicEquivelent] $unrest_title$"
+ civstrife_unrest.101.pacifist.desc: "The threat of forceful intervention has done little to dissuade the disruptive elements on §Y[Root.GetName]§!. In fact, the locals seem to have lost faith in this method of control, and are now increasingly mobilizing within the §Y[from.target.GetName]§! and engaging in nonviolent resistance. However, the possibility remains that they eventually move past nonviolence."
+ civstrife_unrest.101.militarist.desc: "Increasing unrest on §Y[Root.GetName]§! has led to mounting calls from the leadership of the §Y[from.target.GetName]§! for a more pronounced military presence, both on the planet and within the [Root.Owner.GetName] as a whole. Local military veterans are enjoying a rise in popularity, and have assumed prominent roles within the growing resistance movement."
+ civstrife_unrest.101.xenophobe.desc: "As the §Y[from.target.GetName]§! continues to encourage the breakdown of the social order, residents of §Y[Root.GetName]§! have become markedly more hostile to outsiders, viewing those unlike themselves with considerable antipathy. Their leaders are deploying ever more xenophobic slogans, calling for increased regulation on interspecies relations."
+ civstrife_unrest.101.xenophile.desc: "There is mounting unrest on §Y[Root.GetName]§!. This is reportedly caused, at least in part, by our perceived hostility towards aliens. Leaders from the §Y[from.target.GetName]§! have drawn up a charter listing supposed injustices and acts of discrimination that they demand be corrected. Failing this, they will not balk at pushing for a change of administration."
+ civstrife_unrest.101.egalitarian.desc: "As widening social rifts manifest on §Y[Root.GetName]§!, local communities are galvanized by the upheaval and united by a common desire for greater equality. Leaders from the §Y[from.target.GetName]§! have drawn up a charter listing supposed injustices and inequalities they demand be corrected. Failing this, they promise that the political situation on the colony, and perhaps throughout the country, will only deteriorate."
+ civstrife_unrest.101.authoritarian.desc: "The agitations of the §Y[from.target.GetName]§! have propelled a new narrative to the forefront of §Y[Root.GetName]'s§! political stage; one of populist strongmen and order. Various strongmen and their followers are taking a prominent role in the unrest that continues to escalate on the planet and throughout the country."
+ civstrife_unrest.101.spiritualist.desc: "Our latest reports from §Y[Root.GetName]§! suggest that members of the §Y[from.target.GetName]§! are taking a lead role in fomenting unrest on the planet. Promising deliverance from spiritual hardship, they have managed to successfully appeal to the populace."
+ civstrife_unrest.101.materialist.desc: "The inability of any local spiritual leaders on §Y[Root.GetName]§! to even begin to calm the rampant unrest on the colony has lead to the populace taking a more rational view of the material realm they inhabit. Unfortunately, their focus on logic is leading them to question whether they are best served by remaining within the §H[Root.Owner.GetName]§!."
+ civstrife_unrest.101.capitalism.desc: "With regulatory hurdles leading to rampant black market activity, combined with the continuing decline of economic and political power among the merchant class on §Y[Root.GetName]§!, leaders of the §Y[from.target.GetName]§! have drawn up a charter of supposed economic property rights they demand be instituted. Failing this, they promise that the political situation on the colony, and perhaps throughout the country, will only deteriorate."
+ civstrife_unrest.101.socialism.desc: "As rising income inequality manifests on §Y[Root.GetName]§!, the working class are growing tired of the overt corruption displayed by the elites. Leaders from the §Y[from.target.GetName]§! have drawn up a charter listing supposed injustices and inequalities they demand be corrected. Failing this, they promise that the political situation on the colony, and perhaps throughout the country, will only deteriorate."
+ civstrife_unrest.101.elitist.desc: "Due to the continuing decline of the economic and political power among the elites of §Y[Root.GetName]§!, leaders of the §Y[from.target.GetName]§! have drawn up a charter of supposed aristocratic rights they demand be instituted. Failing this, they promise that the political situation on the colony, and perhaps throughout the country, will only deteriorate."
+ civstrife_unrest.101.pluralist.desc: "As rising inequality manifests on §Y[Root.GetName]§!, communities are galvanized by the upheaval and united by a common desire for a more equitable distribution of resources. Leaders from the §Y[from.target.GetName]§! have drawn up a charter listing supposed injustices and inequalities they demand be corrected. Failing this, they promise that the political situation on the colony, and perhaps throughout the country, will only deteriorate."
+ civstrife_unrest.101.green.desc: "Due to the continuing destruction of the biosphere on §Y[Root.GetName]§!, leaders of the §Y[from.target.GetName]§! begun aggressively lobbying the government for immediate environmental regulation. Failing this, they promise that the political and ecological situation on the colony, and perhaps through the country, will only deteriorate."
+ civstrife_unrest.101.ecocentric.desc: "$civstrife_unrest.101.green.desc$"
+ civstrife_unrest.101.industrial.desc: "Due to the continuing decline of the economic and political power among the industrialists of §Y[Root.GetName]§!, leaders of the §Y[from.target.GetName]§! begun aggressively lobbying the government for industrial deregulation. Failing this, they promise that the political and economic situation on the colony, and perhaps throughout the country, will only deteriorate."
+ civstrife_unrest.101.anthropocentric.desc: "$civstrife_unrest.101.industrial.desc$"
+
+######################
  ###   Overwrites   ###
  ######################
 

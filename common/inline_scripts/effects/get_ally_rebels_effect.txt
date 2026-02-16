@@ -1,0 +1,6 @@
+limit = { check_variable = { which = total_ally_rebs value >= $NUM$ } }
+random_playable_country = {
+	limit = { has_country_flag = counted_ally }
+	remove_country_flag = counted_ally
+	save_event_target_as = ally_rebel_$NUM$
+}

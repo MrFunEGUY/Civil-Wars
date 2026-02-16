@@ -1,0 +1,71 @@
+modifier = {
+	add = @pac_dict_dem
+	event_target:cw_scope_initializer = { is_pacifist = yes }
+}
+
+modifier = {
+	add = @mil_dict_dem
+	event_target:cw_scope_initializer = { is_militarist = yes }
+}
+
+modifier = {
+	add = @mat_dict_dem
+	event_target:cw_scope_initializer = { is_materialist = yes }
+}
+
+modifier = {
+	add = @spi_dict_dem
+	event_target:cw_scope_initializer = { is_spiritualist = yes }
+}
+
+modifier = {
+	add = @egal_dict_dem
+	event_target:cw_scope_initializer = { is_egalitarian = yes }
+}
+
+modifier = {
+	add = @auth_dict_dem
+	event_target:cw_scope_initializer = { is_authoritarian = yes }
+}
+
+modifier = {
+	add = @phile_dict_dem
+	event_target:cw_scope_initializer = { is_xenophile = yes }
+}
+
+modifier = {
+	add = @phobe_dict_dem
+	event_target:cw_scope_initializer = { is_xenophobe = yes }
+}
+
+modifier = {
+	add = @plur_dict_dem
+	event_target:cw_scope_initializer = { is_pluralist = yes }
+}
+
+modifier = {
+	add = @elite_dict_dem
+	event_target:cw_scope_initializer = { is_elitist = yes }
+}
+
+modifier = {
+	add = @soc_dict_dem
+	event_target:cw_scope_initializer = { is_socialist = yes }
+}
+
+modifier = {
+	add = @cap_dict_dem
+	event_target:cw_scope_initializer = { is_capitalism = yes }
+}
+
+## Modded Auths
+modifier = {
+	factor = 0
+	has_ecaf_mod = no
+}
+
+## Doubler Modifier
+modifier = {
+	factor = 2
+	event_target:civwar_originator = { is_dictatorial_dem = yes }
+}

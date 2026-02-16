@@ -4,7 +4,7 @@
 ################
 
 @base_civil_war_chance = 6
-@base_total_war_chance = 50 #25
+@base_total_war_chance = 35 #25
 @base_leader_civil_war_oppurtunity = 15
 @base_leader_election_dispute_chance = 15
 @base_sector_rebellion_chance = 4
@@ -17,3 +17,271 @@
 @base_fleet_swap_chance = 50
 @base_pop_to_army_chance = 50
 @base_leader_to_defect_chance = 15
+
+################
+### Authorities
+#### Addition
+
+@coop_corp = 5
+
+@pac_dem = 20
+@pac_imp = 25
+@pac_dict = 30
+@pac_oli = 20
+@pac_corp = 5
+@pac_dict_dem = 15
+@pac_strict_dem = 15
+@pac_direct_dem = 10
+@pac_bug_direct_dem = 10
+
+@mil_dem = 20
+@mil_imp = 20
+@mil_dict = 35
+@mil_oli = 20
+@mil_corp = 5
+@mil_dict_dem = 15
+@mil_strict_dem = 5
+@mil_direct_dem = 5
+@mil_bug_direct_dem = 5
+
+@mat_dem = 25
+@mat_imp = 25
+@mat_dict = 30
+@mat_oli = 15
+@mat_corp = 5
+@mat_dict_dem = 10
+@mat_strict_dem = 10
+@mat_direct_dem = 5
+@mat_bug_direct_dem = 5
+
+@spi_dem = 15
+@spi_imp = 30
+@spi_dict = 35
+@spi_oli = 20
+@spi_corp = 0
+@spi_dict_dem = 15
+@spi_strict_dem = 5
+@spi_direct_dem = 5
+@spi_bug_direct_dem = 5
+
+@egal_dem = 40
+@egal_imp = 0
+@egal_dict = 0
+@egal_oli = 0
+@egal_corp = 0
+@egal_dict_dem = 0
+@egal_strict_dem = 60
+@egal_direct_dem = 60
+@egal_bug_direct_dem = 60
+
+@auth_dem = 0
+@auth_imp = 40
+@auth_dict = 60
+@auth_oli = 0
+@auth_corp = 0
+@auth_dict_dem = 0
+@auth_strict_dem = 0
+@auth_direct_dem = 0
+@auth_bug_direct_dem = 0
+
+@phile_dem = 30
+@phile_imp = 20
+@phile_dict = 25
+@phile_oli = 15
+@phile_corp = 10
+@phile_dict_dem = 10
+@phile_strict_dem = 15
+@phile_direct_dem = 5
+@phile_bug_direct_dem = 5
+
+@phobe_dem = 20
+@phobe_imp = 25
+@phobe_dict = 35
+@phobe_oli = 20
+@phobe_corp = 0
+@phobe_dict_dem = 10
+@phobe_strict_dem = 5
+@phobe_direct_dem = 5
+@phobe_bug_direct_dem = 5
+
+@plur_dem = 25
+@plur_imp = 10
+@plur_dict = 20
+@plur_oli = 20
+@plur_corp = 0
+@plur_bug_direct_dem 20 
+
+@elite_dem = 5
+@elite_imp = 30
+@elite_dict = 35
+@elite_oli = 25
+@elite_corp = 0
+@elite_bug_direct_dem = 5
+
+@green_dem = 30
+@green_imp = 15
+@green_dict = 35
+@green_oli = 20
+@green_corp = 0
+@green_direct_dem = 5
+@green_bug_direct_dem = 5
+
+@indus_dem = 5
+@indus_imp = 15
+@indus_dict = 30
+@indus_oli = 20
+@indus_corp = 20
+@indus_direct_dem = 5
+@indus_bug_direct_dem = 5
+
+@soc_dem = 30
+@soc_imp = 15
+@soc_dict = 35
+@soc_oli = 20
+@soc_corp = 0
+@soc_dict_dem = 10
+@soc_strict_dem = 15
+@soc_direct_dem = 10
+@soc_bug_direct_dem = 15
+
+@cap_dem = 5
+@cap_imp = 10
+@cap_dict = 15
+@cap_oli = 20
+@cap_corp = 35
+@cap_dict_dem = 10
+@cap_strict_dem = 5
+@cap_direct_dem = 5
+@cap_bug_direct_dem = 5
+
+# @coop_corp = 0 5 ## 5
+
+# @pac_dem = -5 20 ## 25
+# @pac_imp = 0 25 ## 25
+# @pac_dict = 0 30 ## 30
+# @pac_oli = 5 20 ## 15
+# @pac_corp = 0 5 ## 5
+# @pac_dict_dem = 5 15 ## 10
+# @pac_strict_dem = 5 15 ## 10
+# @pac_direct_dem = 5 10 ## 5
+# @pac_bug_direct_dem = 5 10 ## 5
+
+# @mil_dem = -5 20 ## 25
+# @mil_imp = -5 20 ## 25
+# @mil_dict = 5 35 ## 30
+# @mil_oli = 5 20 ## 15
+# @mil_corp = 0 5 ## 5
+# @mil_dict_dem = 5 15 ## 10
+# @mil_strict_dem = -5 5 ## 10
+# @mil_direct_dem = 0 5 ## 5
+# @mil_bug_direct_dem = 0 5 ## 5
+
+# @mat_dem = 25
+# @mat_imp = 25
+# @mat_dict = 30
+# @mat_oli = 15
+# @mat_corp = 5
+# @mat_dict_dem = 10
+# @mat_strict_dem = 10
+# @mat_direct_dem = 5
+# @mat_bug_direct_dem = 5
+
+# @spi_dem = -10 15 ## 25
+# @spi_imp = 5 30 ## 25
+# @spi_dict = 5 35 ## 30
+# @spi_oli = 5 20 ## 15
+# @spi_corp = -5 0 ## 5
+# @spi_dict_dem = 5 15 ## 10
+# @spi_strict_dem = -5 5 ## 10
+# @spi_direct_dem = -5 5 ## 5
+# @spi_bug_direct_dem = 5 5 ## 5
+
+# @egal_dem = 15 40 ## 25
+# @egal_imp = -25 0 ## 25
+# @egal_dict = -30 0 ## 30
+# @egal_oli = -15 0 ## 15
+# @egal_corp = -5 0 ## 5
+# @egal_dict_dem = 60 60 ## 10
+# @egal_strict_dem = 60 60 ## 10
+# @egal_direct_dem = 60 60 ## 5
+# @egal_bug_direct_dem = 60 60 ## 5
+
+# @auth_dem = -25 0 ## 25
+# @auth_imp = 15 40 ## 25
+# @auth_dict = 10 60 ## 30
+# @auth_oli = -15 0 ## 15
+# @auth_corp = -5 0 ## 5
+# @auth_dict_dem = -10 0 ## 10
+# @auth_strict_dem = -10 0 ## 10
+# @auth_direct_dem = -5 0 ## 5
+# @auth_bug_direct_dem = -5 0 ## 5
+
+# @phile_dem = 5 30 ## 25
+# @phile_imp = -5 20 ## 25
+# @phile_dict = -5 25 ## 30
+# @phile_oli = 0 15 ## 15
+# @phile_corp = 5 10 ## 5
+# @phile_dict_dem = 5 10 ## 10
+# @phile_strict_dem = 5 15 ## 10
+# @phile_direct_dem = 5 5 ## 5
+# @phile_bug_direct_dem = 5 5 ## 5
+
+# @phobe_dem = -5 20 ## 25
+# @phobe_imp = 0 25 ## 25
+# @phobe_dict = 5 35 ## 30
+# @phobe_oli = 5 20 ## 15
+# @phobe_corp = -5 0 ## 5
+# @phobe_dict_dem = 0 10 ## 10
+# @phobe_strict_dem = -5 5 ## 10
+# @phobe_direct_dem = 0 5 ## 5
+# @phobe_bug_direct_dem = 0 5 ## 5
+
+# @plur_dem = 20 25
+# @plur_imp = -15 10
+# @plur_dict = -10 20
+# @plur_oli = 5 20
+# @plur_corp = -5 0
+# @plur_bug_direct_dem = 20 
+
+# @elite_dem = -20 5
+# @elite_imp = 5 30
+# @elite_dict = 5 35
+# @elite_oli = 10 25
+# @elite_corp = 0 0
+# @elite_bug_direct_dem = 0 5
+
+# @green_dem = 5 30
+# @green_imp = -10 15
+# @green_dict = 5 35
+# @green_oli = 5 20
+# @green_corp = -5 0
+# @green_direct_dem = 5 5
+# @green_bug_direct_dem = -5 5
+
+# @indus_dem = -20 5
+# @indus_imp = 5 15
+# @indus_dict = 5 30
+# @indus_oli = 5 20
+# @indus_corp = 5 20
+# @indus_direct_dem = -5 5
+# @indus_bug_direct_dem = 0 5
+
+# @soc_dem = 5 30 ## 25
+# @soc_imp = -10 15 ## 25
+# @soc_dict = 5 35 ## 30
+# @soc_oli = 5 20 ## 15
+# @soc_corp = -5 0 ## 5
+# @soc_dict_dem = 0 10 ## 10
+# @soc_strict_dem = 5 15 ## 10
+# @soc_direct_dem = 5 10 ## 5
+# @soc_bug_direct_dem = -5 15 ## 5
+
+# @cap_dem = -15 5 ## 25
+# @cap_imp = -5 10 ## 25
+# @cap_dict = 0 15 ## 30
+# @cap_oli = 5 20 ## 15
+# @cap_corp = 20 35 ## 5
+# @cap_dict_dem = 0 10 ## 10
+# @cap_strict_dem = -5 5 ## 10
+# @cap_direct_dem = -5 5 ## 5
+# @cap_bug_direct_dem = -5 5 ## 5

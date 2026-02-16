@@ -10,6 +10,7 @@ flag = event_target:civwar_originator
 # flag = random ### Test the above first, used to be broken || Doesnt appear broken anymore
 ethos = event_target:civwar_originator
 effect = {
+	log = "COUNTRY MADE: [this.GetName]"
 	set_country_flag = total_civil_war_government
 	set_country_flag = rival_to_@event_target:civwar_originator
 	save_event_target_as = civwar_rebels

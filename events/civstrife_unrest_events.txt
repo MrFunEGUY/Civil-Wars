@@ -1,0 +1,75 @@
+namespace = civstrife_unrest
+
+@unrest_event_cooldown = 360
+
+situation_event = {
+	id = civstrife_unrest.100
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		situation_progress > 0
+		NOT = { has_situation_flag = unrest_ethic_event }
+	}
+
+	immediate = {
+		set_situation_flag = unrest_ethic_event
+		random = { ## This doesnt always need to fire
+			chance = 55
+			target = {
+				random_owned_pop_group = { planet = { save_event_target_as = random_rebel_planet } }
+				event_target:random_rebel_planet = {
+					set_timed_planet_flag = {
+						flag = recent_unrest_event
+						days = @unrest_event_cooldown
+					}
+					planet_event = { id = civstrife_unrest.100 }
+				}
+			}
+		}
+	}
+}
+
+# Unrest
+planet_event = {
+	id = civstrife_unrest.101
+	title = civstrife_unrest.101.title
+	show_sound = event_announcement
+	location = root
+	situation = from
+
+	is_triggered_only = yes
+
+	# Descriptions + Pictures
+	inline_script = "comms/civstrife_unrest_desc_pics"
+
+	immediate = {
+		from.target = {
+			switch = {
+				trigger = has_ethic
+				ethic_authoritarian = { root = { add_modifier = { modifier = authoritarian_unrest days = 5400 } } }
+				ethic_egalitarian = { root = { add_modifier = { modifier = egalitarian_unrest days = 5400 } } }
+				ethic_militarist = { root = { add_modifier = { modifier = militarist_unrest days = 5400 } } }
+				ethic_pacifist = { root = { add_modifier = { modifier = pacifist_unrest days = 5400 } } }
+				ethic_materialist = { root = { add_modifier = { modifier = materialist_unrest days = 5400 } } }
+				ethic_spiritualist = { root = { add_modifier = { modifier = spiritualist_unrest days = 5400 } } }
+				ethic_xenophile = { root = { add_modifier = { modifier = xenophile_unrest days = 5400 } } }
+				ethic_xenophobe = { root = { add_modifier = { modifier = xenophobe_unrest days = 5400 } } }
+				ethic_socialism = { root = { add_modifier = { modifier = socialism_unrest days = 5400 } } }
+				ethic_capitalism = { root = { add_modifier = { modifier = capitalism_unrest days = 5400 } } }
+				ethic_cooperative = { root = { add_modifier = { modifier = cooperative_unrest days = 5400 } } }
+				ethic_competitive = { root = { add_modifier = { modifier = competitive_unrest days = 5400 } } }
+				ethic_industrial = { root = { add_modifier = { modifier = industrial_unrest days = 5400 } } }
+				ethic_green = { root = { add_modifier = { modifier = green_unrest days = 5400 } } }
+				ethic_anthropocentric = { root = { add_modifier = { modifier = anthropocentric_unrest days = 5400 } } }
+				ethic_ecocentric = { root = { add_modifier = { modifier = ecocentric_unrest days = 5400 } } }
+				ethic_elitist = { root = { add_modifier = { modifier = elitist_unrest days = 5400 } } }
+				ethic_pluralist = { root = { add_modifier = { modifier = pluralist_unrest days = 5400 } } }
+			}
+		}
+	}
+
+	option = {
+		name = WORRYING
+	}
+}

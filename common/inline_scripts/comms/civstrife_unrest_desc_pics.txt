@@ -1,0 +1,144 @@
+desc = {
+	trigger = {
+		success_text = {
+			text = civstrife_unrest.101.pacifist.desc
+			from.target = { is_pacifist = yes }
+		}
+
+		success_text = {
+			text = civstrife_unrest.101.militarist.desc
+			from.target = { is_militarist = yes }
+		}
+
+		success_text = {
+			text = civstrife_unrest.101.xenophobe.desc
+			from.target = { is_xenophobe = yes }
+		}
+
+		success_text = {
+			text = civstrife_unrest.101.xenophile.desc
+			from.target = { is_xenophile = yes }
+		}
+
+		success_text = {
+			text = civstrife_unrest.101.egalitarian.desc
+			from.target = { is_egalitarian = yes }
+		}
+
+		success_text = {
+			text = civstrife_unrest.101.authoritarian.desc
+			from.target = { is_authoritarian = yes }
+		}
+
+		success_text = {
+			text = civstrife_unrest.101.spiritualist.desc
+			from.target = { is_spiritualist = yes }
+		}
+
+		success_text = {
+			text = civstrife_unrest.101.materialist.desc
+			from.target = { is_materialist = yes }
+		}
+
+		## Ethics and Civics Alternative/Classic/Bug Branch
+		success_text = {
+			text = civstrife_unrest.101.capitalism.desc
+			from.target = { is_cap_comp = yes }
+		}
+
+		success_text = {
+			text = civstrife_unrest.101.socialism.desc
+			from.target = { is_soc_coop = yes }
+		}
+
+		## Bug Branch
+		success_text = {
+			text = civstrife_unrest.101.elitist.desc
+			from.target = { is_elitist = yes }
+		}
+
+		success_text = {
+			text = civstrife_unrest.101.pluralist.desc
+			from.target = { is_pluralist = yes }
+		}
+
+		success_text = {
+			text = civstrife_unrest.101.anthropocentric.desc
+			from.target = { is_anthropocentric = yes }
+		}
+
+		success_text = {
+			text = civstrife_unrest.101.ecocentric.desc
+			from.target = { is_ecocentric = yes }
+		}
+
+		## Ethics and Civics Classic
+		success_text = {
+			text = civstrife_unrest.101.green.desc
+			from.target = { is_green = yes }
+		}
+
+		success_text = {
+			text = civstrife_unrest.101.industrial.desc
+			from.target = { is_industrial = yes }
+		}
+	}
+}
+
+picture = {
+	trigger = { from.target = { OR = { is_xenophobe = yes is_xenophile = yes } } }
+	picture = GFX_evt_alien_segregation
+}
+
+picture = {
+	trigger = { from.target = { OR = { is_pacifist = yes is_egalitarian = yes is_materialist = yes } } }
+	picture = GFX_evt_announcement
+}
+
+picture = {
+	trigger = { from.target = { is_militarist = yes } }
+	picture = GFX_evt_victorious_army
+}
+
+picture = {
+	trigger = { from.target = { is_authoritarian = yes } }
+	picture = GFX_evt_alien_propaganda
+}
+
+picture = {
+	trigger = { from.target = { is_spiritualist = yes } }
+	picture = GFX_evt_conclave
+}
+
+## Ethics and Civics Alternative/Classic/Bug Branch
+picture = {
+	trigger = { from.target = { is_cap_comp = yes } }
+	picture = GFX_evt_black_market
+}
+
+picture = {
+	trigger = { from.target = { is_soc_coop = yes } }
+	picture = GFX_evt_bribery
+}
+
+## Bug Branch
+picture = {
+	trigger = { from.target = { is_elitist = yes } }
+	picture = GFX_evt_overt_indoctrination
+}
+
+picture = {
+	trigger = { from.target = { is_pluralist = yes } }
+	picture = GFX_evt_enlightenment_failure
+}
+
+## Bug Branch / E + C Classic
+picture = {
+	trigger = { from.target = { OR = { is_anthropocentric = yes is_industrial = yes } } }
+	picture = GFX_evt_deficit
+}
+
+picture = {
+	trigger = { from.target = { OR = { is_ecocentric = yes is_green = yes } } }
+	picture = GFX_evt_alien_hieroglyphics
+}
