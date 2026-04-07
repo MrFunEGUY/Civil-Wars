@@ -3545,7 +3545,7 @@ created_civwar_rebel_country_effect = {
 	set_leader = event_target:new_rebel_leader # Needs to be after the above with the leader flags
 
 	event_target:civil_war_planet = {
-		planet_event = { id = civplan.2000 }
+		rebel_army_effect = yes
 	}
 }
 
@@ -4257,6 +4257,7 @@ create_civil_war = {
 					limit = { any_owned_pop_group = { planet = { is_same_value = event_target:civil_war_planet } } }
 					set_variable = { which = mil_support value = 0 }
 					save_event_target_as = civwar_party
+					save_event_target_as = cw_scope_initializer
 				}
 			}
 			
@@ -13881,6 +13882,127 @@ remove_old_secession_link_flag = {
 		secession_country_48_traitor = { remove_leader_flag = secession_country_48_traitor }
 		secession_country_49_traitor = { remove_leader_flag = secession_country_49_traitor }
 		secession_country_50_traitor = { remove_leader_flag = secession_country_50_traitor }
+	}
+}
+
+rebel_army_effect = {
+	set_variable = { which = num_sep_pops value = 0 }
+
+	if = {
+		limit = {
+			OR = {
+				has_planet_flag = balkan_war
+				has_planet_flag = small_civil_war
+				has_planet_flag = nat_planet_rebellion_@this
+				has_planet_flag = ethic_planet_rebellion_@this
+			}
+			NOT = { has_planet_flag = under_one_rule_small_civil_war }
+		}
+		every_owned_pop_group = {
+			limit = {
+				exists = pop_faction
+				pop_faction = { is_same_value = event_target:civwar_party }
+			}
+			root = { change_variable = { which = num_sep_pops value = 1 } }
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_planet_flag = sep_sector_rebellion
+				has_planet_flag = nat_sector_rebellion
+				has_planet_flag = ethic_sector_rebellion
+			}
+		}
+		sector = {
+			every_owned_planet = {
+				every_owned_pop_group = {
+					limit = {
+						exists = pop_faction
+						pop_faction = { is_same_value = event_target:civwar_party }
+					}
+					root = { change_variable = { which = num_sep_pops value = 1 } }
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { has_planet_flag = heir_planetary_rebellion }
+		every_owned_pop_group = {
+			limit = { can_think = yes }
+			random = {
+				chance = 35
+				root = { change_variable = { which = num_sep_pops value = 1 } }
+			}	
+		}
+	}
+	else_if = {
+		limit = { has_planet_flag = plan_slave_revolt }
+		every_owned_pop_group = {
+			limit = {
+				is_enslaved_or_purged = yes
+				happiness < 0.6
+			}
+			root = { change_variable = { which = num_sep_pops value = 1 } }	
+		}
+	}
+	else_if = {
+		limit = { has_planet_flag = sec_slave_revolt }
+		sector = {
+			every_owned_planet = {
+				every_owned_pop_group = {
+					limit = {
+						is_enslaved_or_purged = yes
+						happiness < 0.6
+					}
+					root = { change_variable = { which = num_sep_pops value = 1 } }
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { has_planet_flag = under_one_rule_small_civil_war }
+		every_owned_pop_group = {
+			limit = { is_egalitarian = yes }
+			root = { change_variable = { which = num_sep_pops value = 5 } }	
+		}
+	}
+	else_if = {
+		limit = { has_planet_flag = sep_planet_rebellion }
+		every_owned_pop_group = {
+			limit = { happiness <= 0.5 }
+			root = { change_variable = { which = num_sep_pops value = 1 } }	
+		}
+	}
+	
+	if = {
+		limit = { check_variable = { which = num_sep_pops value = 0 } }
+		log = "| NOTE: BACKUP SEPS CREATED"
+		set_variable = { which = num_sep_pops value = event_target:cw_scope_initializer.mil_support }
+		# set_variable = { which = num_sep_pops value = 10 }
+		# divide_variable = { which = num_sep_pops value = 3 }
+		ceiling_variable = num_sep_pops
+		log = "[this.num_sep_pops]"
+	}
+
+	log = "PLAN [event_target:civwar_rebels.GetName]"
+
+
+	while = {
+		count = num_sep_pops
+		random_list = {
+			50 = {
+				create_civwar_army = { TYPE = assault NUM = 3 }
+			}
+			30 = {
+				create_civwar_army = { TYPE = assault NUM = 2 }
+				create_civwar_army = { TYPE = defense NUM = 2 }
+			}
+			20 = {
+				create_civwar_army = { TYPE = assault NUM = 3 }
+				create_civwar_army = { TYPE = defense NUM = 2 }
+			}
+		}
 	}
 }
 

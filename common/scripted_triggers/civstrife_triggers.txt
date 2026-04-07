@@ -2015,8 +2015,6 @@ is_fake_leader = {
 ########## Other Triggers
 ###########################
 
-# Ethics and Civics Overwrites/Backups
-
 is_ethic_situation = {
 	OR = {
 		is_situation_type = situation_civstrife_faction_egal
@@ -2056,6 +2054,19 @@ is_faction_based_situation = {
 		is_situation_type = situation_civstrife_faction_sep_sec
 		is_situation_type = situation_civstrife_faction_iso_sep_sec
 		is_situation_type = situation_civstrife_faction_sep_nat
+	}
+}
+
+is_civstrife_plan_sit = {
+	OR = {
+		is_situation_type = situation_civstrife_sep_plan
+		is_situation_type = situation_civstrife_sep_slaves_plan
+	}
+}
+
+is_civstrife_sec_sit = {
+	OR = {
+		is_situation_type = situation_civstrife_sep_slaves_sec
 	}
 }
 
