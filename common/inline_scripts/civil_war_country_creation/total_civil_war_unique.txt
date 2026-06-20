@@ -1,0 +1,69 @@
+name = event_target:civwar_originator
+type = default
+species = event_target:civwar_originator ## Test how the above works out
+ignore_initial_colony_error = yes
+day_zero_contact = no
+origin = origin_default
+# origin = event_target:civwar_originator ## This is just cleaner and more true to the spirit of what the country believes
+authority = event_target:civwar_originator
+civics = event_target:civwar_originator
+flag = event_target:civwar_originator
+# flag = random ### Test the above first, used to be broken || Doesnt appear broken anymore
+ethos = event_target:civwar_originator
+effect = {
+	log = "COUNTRY MADE: [this.GetName]"
+	set_country_flag = total_civil_war_government
+	set_country_flag = rival_to_@event_target:civwar_originator
+	save_event_target_as = civwar_rebels
+	event_target:civwar_originator = { set_country_flag = mother_rival_to_@event_target:civwar_rebels }
+	if = {
+		limit = { exists = event_target:cw_scope_initializer }
+		event_target:cw_scope_initializer = {
+			switch = {
+				trigger = has_ethic
+				ethic_authoritarian = { event_target:civwar_rebels = { set_country_flag = civwar_auth } }
+				ethic_egalitarian = { event_target:civwar_rebels = { set_country_flag = civwar_egal } }
+				ethic_militarist = { event_target:civwar_rebels = { set_country_flag = civwar_mil } }
+				ethic_pacifist = { event_target:civwar_rebels = { set_country_flag = civwar_pac } }
+				ethic_materialist = { event_target:civwar_rebels = { set_country_flag = civwar_mat } }
+				ethic_spiritualist = { event_target:civwar_rebels = { set_country_flag = civwar_spi } }
+				ethic_xenophile = { event_target:civwar_rebels = { set_country_flag = civwar_phile } }
+				ethic_xenophobe = { event_target:civwar_rebels = { set_country_flag = civwar_phobe } }
+				ethic_socialism = { event_target:civwar_rebels = { set_country_flag = civwar_soc } }
+				ethic_capitalism = { event_target:civwar_rebels = { set_country_flag = civwar_cap } }
+				ethic_cooperative = { event_target:civwar_rebels = { set_country_flag = civwar_coop } }
+				ethic_competitive = { event_target:civwar_rebels = { set_country_flag = civwar_comp } }
+				ethic_industrial = { event_target:civwar_rebels = { set_country_flag = civwar_indus } }
+				ethic_green = { event_target:civwar_rebels = { set_country_flag = civwar_green } }
+				ethic_anthropocentric = { event_target:civwar_rebels = { set_country_flag = civwar_anthro } }
+				ethic_ecocentric = { event_target:civwar_rebels = { set_country_flag = civwar_eco } }
+				ethic_elitist = { event_target:civwar_rebels = { set_country_flag = civwar_elite } }
+				ethic_pluralist = { event_target:civwar_rebels = { set_country_flag = civwar_plur } }
+			}
+		}
+	}
+	event_target:civwar_originator = {
+		switch = {
+			trigger = has_origin
+			origin_cybernetic_creed = { event_target:civwar_rebels = { set_origin = origin_cybernetic_creed } }
+			origin_synthetic_fertility = { event_target:civwar_rebels = { set_origin = origin_synthetic_fertility } }
+			origin_legendary_leader = { event_target:civwar_rebels = { set_origin = origin_legendary_leader } }
+			origin_payback = { event_target:civwar_rebels = { set_origin = origin_payback } }
+			origin_broken_shackles = { event_target:civwar_rebels = { set_origin = origin_broken_shackles } }
+			origin_fear_of_the_dark = { event_target:civwar_rebels = { set_origin = origin_fear_of_the_dark } }
+			origin_overtuned = { event_target:civwar_rebels = { set_origin = origin_overtuned } }
+			origin_toxic_knights = { event_target:civwar_rebels = { set_origin = origin_toxic_knights } }
+			origin_subterranean = { event_target:civwar_rebels = { set_origin = origin_subterranean } }
+			origin_shroudwalker_apprentice = { event_target:civwar_rebels = { set_origin = origin_shroudwalker_apprentice } }
+			origin_ocean_paradise = { event_target:civwar_rebels = { set_origin = origin_ocean_paradise } }
+			origin_necrophage = { event_target:civwar_rebels = { set_origin = origin_necrophage } }
+			origin_void_dwellers = { event_target:civwar_rebels = { set_origin = origin_void_dwellers } }
+			origin_scion = { event_target:civwar_rebels = { set_origin = origin_scion } }
+			origin_shoulders_of_giants = { event_target:civwar_rebels = { set_origin = origin_shoulders_of_giants } }
+			origin_post_apocalyptic = { event_target:civwar_rebels = { set_origin = origin_post_apocalyptic } }
+			origin_clone_army = { event_target:civwar_rebels = { set_origin = origin_clone_army } }
+			origin_mechanists = { event_target:civwar_rebels = { set_origin = origin_mechanists } }
+		}
+	}
+	created_civwar_country_effect = yes
+}

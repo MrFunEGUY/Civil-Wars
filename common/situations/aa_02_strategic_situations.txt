@@ -127,10 +127,10 @@ situation_planetary_revolt = {
 					limit = {
 						root = { has_situation_flag = slave_revolt }
 					}
-					planet_event = { id = unrest.161 }
+					carrier_event = { id = unrest.161 }
 				}
 				else = {
-					planet_event = { id = unrest.4300 }
+					carrier_event = { id = unrest.4300 }
 				}
 				set_timed_planet_flag = {
 					flag = recent_revolt_attempt
@@ -186,7 +186,7 @@ situation_planetary_revolt = {
 					limit = { has_situation_flag = slave_revolt }
 					target = {
 						#Sabotage
-						planet_event = { id = unrest.156 }
+						carrier_event = { id = unrest.156 }
 					}
 				}
 				else = {

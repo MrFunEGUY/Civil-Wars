@@ -85,8 +85,8 @@ civil_war_chance = {
 
 	modifier = {
 		factor = 0.2
-		exists = root.target
-		root.target = { is_pacifist = yes }
+		# exists = root.target
+		root.target? = { is_pacifist = yes }
 	}
 
 	modifier = {
@@ -225,8 +225,8 @@ leader_election_dispute_chance = {
 
 	modifier = {
 		factor = 0.75
-		exists = leader
-		leader = { has_trait = leader_trait_peacekeeper }
+		# exists = leader
+		leader? = { has_trait = leader_trait_peacekeeper }
 	}
 
 	modifier = {
@@ -247,22 +247,22 @@ leader_election_dispute_chance = {
 
 	modifier = {
 		factor = 4.5
-		exists = fleet
-		fleet = { any_owned_ship = { is_ship_class = shipclass_military } }
+		# exists = fleet
+		fleet? = { any_owned_ship = { is_ship_class = shipclass_military } }
 	}
 
 	modifier = {
 		factor = 3
-		exists = planet
-		planet = { is_capital = no }
+		# exists = planet
+		planet? = { is_capital = no }
 	}
 
 	modifier = {
 		factor = 3.5
-		exists = planet
+		# exists = planet
 		exists = planet.sector
-		planet = { is_capital = no }
-		planet = { is_sector_capital = yes }
+		planet? = { is_capital = no }
+		planet? = { is_sector_capital = yes }
 	}
 
 	modifier = {
@@ -299,8 +299,8 @@ leader_dispute_civil_war_chance = {
 
 	modifier = {
 		factor = 0.8
-		exists = leader
-		leader = { has_trait = leader_trait_peacekeeper }
+		# exists = leader
+		leader? = { has_trait = leader_trait_peacekeeper }
 	}
 
 	modifier = {
@@ -325,22 +325,22 @@ leader_dispute_civil_war_chance = {
 
 	modifier = {
 		factor = 1.5
-		exists = fleet
-		fleet = { any_owned_ship = { is_ship_class = shipclass_military } }
+		# exists = fleet
+		fleet? = { any_owned_ship = { is_ship_class = shipclass_military } }
 	}
 
 	modifier = {
 		factor = 1.4
-		exists = planet
-		planet = { is_capital = no }
+		# exists = planet
+		planet? = { is_capital = no }
 	}
 
 	modifier = {
 		factor = 1.45
-		exists = planet
+		# exists = planet
 		exists = planet.sector
-		planet = { is_capital = no }
-		planet = { is_sector_capital = yes }
+		planet? = { is_capital = no }
+		planet? = { is_sector_capital = yes }
 	}
 
 	modifier = {
@@ -395,15 +395,15 @@ leader_to_defect_chance = {
 	modifier = { ## Dont throw away career for planetary rebellions
 		factor = 0.15
 		event_target:civwar_rebels.capital_scope.solar_system = { has_star_flag = civwar_planet }
-		exists = background_planet
-		background_planet = { NOT = { is_owned_by = event_target:civwar_rebels } }
+		# exists = background_planet
+		background_planet? = { NOT = { is_owned_by = event_target:civwar_rebels } }
 	}
 
 	modifier = { ## Dont throw away career for planetary rebellions
 		factor = 0.5
 		event_target:civwar_rebels.capital_scope.solar_system = { has_star_flag = civwar_planet }
-		exists = background_planet
-		background_planet = { is_owned_by = event_target:civwar_rebels }
+		# exists = background_planet
+		background_planet? = { is_owned_by = event_target:civwar_rebels }
 	}
 
 	modifier = {
@@ -436,14 +436,16 @@ leader_to_defect_chance = {
 	modifier = {
 		factor = 2.5
 		OR = {
-			AND = {
-				exists = planet
-				planet = { is_owned_by = event_target:civwar_rebels }
-			}
-			AND = { ## Fleet Folks too
-				exists = solar_system.space_owner
-				solar_system.space_owner = { is_same_empire = event_target:civwar_rebels }
-			}
+			planet? = { is_owned_by = event_target:civwar_rebels }
+			solar_system.space_owner? = { is_same_empire = event_target:civwar_rebels }
+			# AND = {
+			# 	exists = planet
+			# 	planet? = { is_owned_by = event_target:civwar_rebels }
+			# }
+			# AND = { ## Fleet Folks too
+			# 	exists = solar_system.space_owner
+			# 	solar_system.space_owner? = { is_same_empire = event_target:civwar_rebels }
+			# }
 		}
 	}
 

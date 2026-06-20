@@ -192,8 +192,7 @@ progressive = {
 		unfulfilled_effect = -10
 
 		potential = {
-			exists = owner
-			owner = { has_encountered_other_species = yes }
+			owner? = { has_encountered_other_species = yes }
 		}
 
 		trigger = {
@@ -267,8 +266,7 @@ progressive = {
 		unfulfilled_effect = -5
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					has_technology = tech_selected_lineages
 					has_technology = tech_capacity_boosters
@@ -294,8 +292,7 @@ progressive = {
 		unfulfilled_effect = -15
 		potential = {
 			has_global_flag = cultural_overhaul_active
-			exists = owner
-			owner = {
+			owner? = {
 				# has_policy_flag = slavery_allowed
 				NOR = {
 					is_xenophobe = yes
@@ -348,8 +345,7 @@ progressive = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_homicidal = no
 				is_country_type = default
 				# has_policy_flag = diplo_stance_cooperative
@@ -369,8 +365,7 @@ progressive = {
 		fulfilled_effect = 5
 		unfulfilled_effect = -5
 		potential = {
-			exists = owner
-			owner = { has_technology = tech_federal_state }
+			owner? = { has_technology = tech_federal_state }
 		}
 		trigger = {
 			owner = { has_policy_flag = federal_state }
@@ -407,8 +402,7 @@ progressive = {
 		fulfilled_effect = 5
 
 		potential = {
-			exists = owner
-			owner = { is_subject = no }
+			owner? = { is_subject = no }
 		}
 
 		trigger = {
@@ -427,8 +421,7 @@ progressive = {
 		fulfilled_effect = 5
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_origin = origin_unplugged
 				any_situation = {
 					is_situation_type = situation_unplugged_identity
@@ -495,8 +488,7 @@ progressive = {
 			}
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					OR = {
 						is_subject = no
 						NOT = { any_agreement = { agreement_preset = preset_dominion } }
@@ -672,8 +664,7 @@ progressive = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					NOR = {
@@ -699,8 +690,7 @@ progressive = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					OR = {
@@ -726,8 +716,7 @@ progressive = {
 			description = "CANCEL_EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 				}

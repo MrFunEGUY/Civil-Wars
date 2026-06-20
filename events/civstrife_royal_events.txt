@@ -21,6 +21,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civroyal.1000"
 
 		if = {
 			limit = {
@@ -319,6 +320,7 @@ country_event = { # Disputed Ruler Ascension, start situation
 	}
 
 	immediate = {
+		log = "event: civroyal.1010"
 
 		ruler = {
 			if = {
@@ -360,6 +362,7 @@ country_event = { # Officials/Dynasts are considering rebellion, start situation
 	}
 
 	immediate = {
+		log = "event: civroyal.1020"
 		if = {
 			limit = { NOT = { is_variable_set = succession_crisis } }
 			set_variable = { which = succession_crisis value = 1 }
@@ -406,6 +409,7 @@ situation_event = { # Send Message out to officials to ask if they are loyal
 	}
 
 	immediate = {
+		log = "event: civroyal.1100"
 		set_situation_flag = loyalty_test_sent
 		situation_event = { id = civroyal.1105 days = 1 random = 29 }
 	}
@@ -424,6 +428,7 @@ situation_event = { # Send Message out to officials to ask if they are loyal
 	}
 
 	immediate = {
+		log = "event: civroyal.1105"
 
 		target = {
 			set_variable = { which = all_potential_sectors value = 0 }
@@ -497,6 +502,7 @@ situation_event = { # Rebel Sectors Exist
 	is_triggered_only = yes
 
 	immediate = {
+		log = "event: civroyal.1110"
 
 		event_target:global_event_country = { change_variable = { which = total_gal_coup_rebs value = 1 } }
 
@@ -559,6 +565,7 @@ situation_event = { # Rebel Sectors Dont Exist
 	}
 
 	after = {
+		log = "event: civroyal.1115"
 		hidden_effect = {
 			destroy_situation = this
 		}
@@ -580,7 +587,7 @@ situation_event = { # Query Official
 	}
 
 	immediate = {
-
+		log = "event: civroyal.1120"
 
 		save_event_target_as = succession_crisis_sit
 
@@ -667,6 +674,7 @@ country_event = { # Succession Country Subjects Join War Fix
 	}
 
 	immediate = {
+		log = "event: civroyal.1200"
 		every_subject = {
 			limit = { is_at_war = no }
 			join_war = overlord

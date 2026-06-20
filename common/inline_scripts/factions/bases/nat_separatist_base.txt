@@ -15,7 +15,13 @@ resources = {
 is_potential = {
 	is_faction_allowed = yes
 	exists = event_target:nat_country_$NAT_FAC_NUM$
-	count_owned_pop_group = { limit = { has_modifier = nat_country_$NAT_FAC_NUM$_modifier } count >= 5 }
+	any_owned_planet = {
+		OR = {
+			has_planet_flag = integrated_planet_@event_target:nat_country_$NAT_FAC_NUM$
+			has_planet_flag = fundamental_planet_@event_target:nat_country_$NAT_FAC_NUM$
+		}
+		count_owned_pop_group = { limit = { is_same_species = event_target:nat_country_$NAT_FAC_NUM$.species } count >= 5 }
+	}
 }
 
 parameters = {
@@ -33,10 +39,15 @@ can_join_pre_triggers = {
 }
 
 can_join_faction = {
-	has_modifier = nat_country_$NAT_FAC_NUM$_modifier
 	can_think = yes
 	pop_was_saved = no
 	is_shackled_robot = no
+	planet = {
+		OR = {
+			has_carrier_flag = integrated_planet_@event_target:nat_country_$NAT_FAC_NUM$
+			has_carrier_flag = fundamental_planet_@event_target:nat_country_$NAT_FAC_NUM$
+		}
+	}
 	owner = {
 		NOT = { is_same_value = event_target:nat_country_$NAT_FAC_NUM$ }
 		OR = {
@@ -47,6 +58,7 @@ can_join_faction = {
 			}
 		}
 	}
+	is_same_species = event_target:nat_country_$NAT_FAC_NUM$.species
 }
 
 attraction = {
@@ -116,6 +128,7 @@ leader = {
 
 	modifier = {
 		factor = 0
-		NOT = { has_leader_flag = sep_leader }
+		is_event_leader = yes
+		# NOT = { has_leader_flag = sep_leader }
 	}
 }

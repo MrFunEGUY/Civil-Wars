@@ -16,7 +16,7 @@ country_event = { # Setup for Civil War (create_country)
 	is_triggered_only = yes
 
 	immediate = {
-		log = "1000 HIT"
+		# log = "1000 HIT"
 		log = "ORIGIN: [event_target:civwar_originator.GetName]"
 		
 		set_timed_country_flag = { flag = civwar_country months = 3 }
@@ -433,6 +433,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 	is_triggered_only = yes
 
 	immediate = {
+		log = "event: civwar.1100"
 
 		set_country_type = default
 
@@ -726,6 +727,7 @@ country_event = { # Has Vassals, Vassal Interaction
 	is_triggered_only = yes
 
 	immediate = {
+		log = "event: civwar.1500"
 		log = "1500 INIT"
 		log = "1500: [this.GetName]"
 
@@ -1027,6 +1029,7 @@ country_event = { # Has Vassals, Vassal Interaction After War Comms
 	}
 
 	immediate = {
+		log = "event: civwar.1501"
 
 		export_trigger_value_to_variable = {
 			trigger = subjects
@@ -1558,6 +1561,7 @@ country_event = { # Player Subject Can Decide What to do
 	}
 
 	immediate = {
+		log = "event: civwar.2300"
 		set_variable = { which = mother_power_ratio value = event_target:civwar_originator.mother_power }
 		divide_variable = { which = mother_power_ratio value = combined_rebel_fleet_power }
 
@@ -1766,6 +1770,7 @@ country_event = { # Overlord Accepts Help
 	is_triggered_only = yes
 
 	immediate = {
+		log = "event: civwar.2310"
 		event_target:civwar_rebels = {
 			random_war = { save_event_target_as = rebel_civwar }
 		}
@@ -1802,6 +1807,7 @@ country_event = { # Create Fleets and give resources
 	is_triggered_only = yes
 
 	immediate = {
+		log = "event: civwar.3000"
 
 		event_target:civwar_originator = {
 			export_trigger_value_to_variable = { trigger = pop_amount variable = num_mil_pops }
@@ -1981,6 +1987,7 @@ country_event = { # Destroy Fleets
 	is_triggered_only = yes
 
 	immediate = {
+		log = "event: civwar.3005"
 
 		if = {
 			limit = {
@@ -2028,6 +2035,7 @@ country_event = { # Create Armies, needs to be done later so pops have changed o
 	is_triggered_only = yes
 
 	immediate = {
+		log = "event: civwar.3100"
 		every_owned_planet = {
 			set_variable = { which = num_sep_pops value = 0 }
 
@@ -2103,6 +2111,7 @@ country_event = { # Give Systems
 	}
 
 	immediate = {
+		log = "event: civwar.3200"
 		while = { # clean up borders 2
 			limit = {
 				any_system_within_border = {
@@ -2206,6 +2215,7 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 					}
 				}
 				any_owned_planet = { # Planetary Revolt
+					is_capital = no
 					solar_system = { is_capital_system = no }
 					has_ground_combat = no
 					is_occupied_flag = no
@@ -2219,6 +2229,8 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 					}
 				}
 			}
+			NOT = { any_war = { using_war_goal = { type = wg_total_civwar owner = prev } } }
+			NOT = { any_war = { using_war_goal = { type = wg_total_civwar_rebel owner = prev } } }
 		}
 	}
 
@@ -2240,6 +2252,7 @@ situation_event = { # Revolt/Civil War Event
 				AND = { # Civil War
 					any_owned_planet = {
 						pop_amount > 0
+						is_capital = no
 						solar_system = { is_capital_system = no }
 						has_ground_combat = no
 						is_occupied_flag = no
@@ -2282,6 +2295,7 @@ situation_event = { # Revolt/Civil War Event
 				}
 				any_owned_planet = { # Planetary Revolt
 					pop_amount > 0
+					is_capital = no
 					solar_system = { is_capital_system = no }
 					has_ground_combat = no
 					is_occupied_flag = no
@@ -2306,11 +2320,13 @@ situation_event = { # Revolt/Civil War Event
 	}
 
 	immediate = {
+		log = "event: civwar.5010"
 		owner = {
 			if = { # Potential Multi Planet/Sector Civil War
 				limit = {
 					any_owned_planet = {
 						pop_amount > 0
+						is_capital = no
 						solar_system = { is_capital_system = no }
 						has_ground_combat = no
 						is_occupied_flag = no
@@ -2395,6 +2411,7 @@ situation_event = { # Revolt/Civil War Event
 				limit = {
 					any_owned_planet = {
 						pop_amount > 0
+						is_capital = no
 						solar_system = { is_capital_system = no }
 						has_ground_combat = no
 						is_occupied_flag = no
@@ -2422,6 +2439,7 @@ situation_event = { # Revolt/Civil War Event
 					random_owned_planet = {
 						limit = {
 							is_under_colonization = no
+							is_capital = no
 							solar_system = { is_capital_system = no }
 							has_ground_combat = no
 							is_occupied_flag = no
@@ -2473,6 +2491,7 @@ country_event = { # Change leader flags to ruler flags
 	}
 
 	immediate = {
+		log = "event: civwar.9200"
 		if = {
 			limit = { ruler = { has_leader_flag = civil_war_leader_heir_isolated } }
 			ruler = {
@@ -2516,6 +2535,7 @@ country_event = { # Remove flag sectors that are flagged
 	}
 
 	immediate = {
+		log = "event: civwar.9203"
 		every_owned_sector = {
 			limit = { has_sector_flag = rebel_sector }
 			remove_sector_flag = rebel_sector

@@ -54,7 +54,6 @@ on_create = {
 
 on_destroy = {
 	# Allows planets to resume getting separatists, which in turn will allow this to re-form if necessary
-	# faction_kill_leader_effect = yes
 	if = {
 		limit = { exists = event_target:sec_iso_separatist_$ISO_SEC_FAC_NUM$ }
 		event_target:sec_iso_separatist_$ISO_SEC_FAC_NUM$ = { remove_sector_flag = sector_sep_active }

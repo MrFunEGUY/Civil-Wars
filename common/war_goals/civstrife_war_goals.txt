@@ -1,7 +1,7 @@
 wg_civwar = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 	set_defender_wargoal = wg_civwar_rebel
 
 	surrender_acceptance = -100
@@ -85,7 +85,7 @@ wg_civwar = {
 wg_civwar_rebel = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 
 	surrender_acceptance = -100
 
@@ -117,7 +117,7 @@ wg_civwar_rebel = {
 wg_total_civwar = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 	total_war = yes
 
 	set_defender_wargoal = wg_total_civwar_rebel
@@ -186,7 +186,7 @@ wg_total_civwar = {
 wg_total_civwar_rebel = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 	total_war = yes
 
 	surrender_acceptance = -500
@@ -212,7 +212,7 @@ wg_total_civwar_rebel = {
 wg_planet_rebellion = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 	set_defender_wargoal = wg_planet_rebellion_rebels
 
 	surrender_acceptance = -100
@@ -313,7 +313,7 @@ wg_planet_rebellion = {
 wg_planet_rebellion_rebels = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 
 	surrender_acceptance = -100
 
@@ -347,7 +347,7 @@ wg_planet_rebellion_rebels = {
 wg_natwar = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 	set_defender_wargoal = wg_natwar_rebel
 
 	surrender_acceptance = -100
@@ -440,7 +440,7 @@ wg_natwar = {
 wg_natwar_rebel = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 
 	surrender_acceptance = -100
 
@@ -474,7 +474,7 @@ wg_natwar_rebel = {
 wg_civwar_heir = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 	set_defender_wargoal = wg_civwar_heir_rebel
 
 	surrender_acceptance = -100
@@ -571,7 +571,7 @@ wg_civwar_heir = {
 wg_civwar_heir_rebel = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 
 	surrender_acceptance = -100
 
@@ -605,7 +605,7 @@ wg_civwar_heir_rebel = {
 wg_coup_successor = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 	set_defender_wargoal = wg_coup_successor_opponent
 	total_war = yes
 
@@ -633,7 +633,7 @@ wg_coup_successor = {
 			if = {
 				limit = { NOT = { has_country_flag = coup_name_changed } }
 				set_country_flag = coup_name_changed
-				capital_scope = { set_name = random }
+				capital_scope.carrier = { set_name = random }
 				set_name = random
 			}
 			set_timed_country_flag = { flag = recent_civwar_ended years = 15 }
@@ -659,7 +659,7 @@ wg_coup_successor = {
 wg_coup_successor_opponent = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 	total_war = yes
 
 
@@ -685,7 +685,7 @@ wg_coup_successor_opponent = {
 wg_coup_independent = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 	set_defender_wargoal = wg_coup_independent_opponent
 
 	surrender_acceptance = -100
@@ -756,7 +756,7 @@ wg_coup_independent = {
 wg_coup_independent_opponent = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 
 	surrender_acceptance = -100
 
@@ -788,7 +788,7 @@ wg_coup_independent_opponent = {
 wg_coup_fealty = { # Currently Unused
 	casus_belli = cb_fealty_war
 
-	hide_if_no_cb = yes
+	hide = no_cb
 	set_defender_wargoal = wg_coup_independent_opponent
 
 	surrender_acceptance = -100
@@ -841,7 +841,7 @@ wg_coup_fealty = { # Currently Unused
 
 wg_install_traitor = {
 	casus_belli = cb_install_traitor
-	hide_if_no_cb = yes
+	hide = no_cb
 
 	surrender_acceptance = -50
 
@@ -886,7 +886,7 @@ wg_install_traitor = {
 
 wg_retrieve_traitor = {
 	casus_belli = cb_retrieve_traitor
-	hide_if_no_cb = yes
+	hide = no_cb
 
 	potential = {
 		always = yes
@@ -931,7 +931,7 @@ wg_retrieve_traitor = {
 
 wg_install_traitor_heir = {
 	casus_belli = cb_install_traitor_heir
-	hide_if_no_cb = yes
+	hide = no_cb
 
 	surrender_acceptance = -50
 
@@ -976,7 +976,7 @@ wg_install_traitor_heir = {
 
 wg_retrieve_traitor_heir = {
 	casus_belli = cb_retrieve_traitor_heir
-	hide_if_no_cb = yes
+	hide = no_cb
 
 	potential = {
 		always = yes
@@ -1024,7 +1024,7 @@ wg_retrieve_traitor_heir = {
 wg_slave_uprising = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 	set_defender_wargoal = wg_slave_uprising_rebel
 
 	surrender_acceptance = -100
@@ -1108,7 +1108,7 @@ wg_slave_uprising = {
 wg_slave_uprising_rebel = {
 	casus_belli = cb_event
 
-	hide_if_no_cb = yes
+	hide = no_cb
 
 	surrender_acceptance = -100
 

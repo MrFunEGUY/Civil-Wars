@@ -13,6 +13,7 @@ situation_event = {
 	}
 
 	immediate = {
+		log = "event: civstrife_unrest.100"
 		set_situation_flag = unrest_ethic_event
 		random = { ## This doesnt always need to fire
 			chance = 55
@@ -23,7 +24,7 @@ situation_event = {
 						flag = recent_unrest_event
 						days = @unrest_event_cooldown
 					}
-					planet_event = { id = civstrife_unrest.101 }
+					carrier_event = { id = civstrife_unrest.101 }
 				}
 			}
 		}
@@ -31,7 +32,7 @@ situation_event = {
 }
 
 # Unrest
-planet_event = {
+carrier_event = {
 	id = civstrife_unrest.101
 	title = civstrife_unrest.101.title
 	show_sound = event_announcement
@@ -44,6 +45,7 @@ planet_event = {
 	inline_script = "comms/civstrife_unrest_desc_pics"
 
 	immediate = {
+		log = "event: civstrife_unrest.101"
 		from.target = {
 			switch = {
 				trigger = has_ethic

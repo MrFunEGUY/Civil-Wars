@@ -13,7 +13,6 @@ auth_bugged_direct_democratic = { potential = { always = no } playable = { alway
 auth_bugged_corporate_democratic = { potential = { always = no } playable = { always = no } possible = { always = no } }
 auth_bugged_corporate_imperial = { potential = { always = no } playable = { always = no } possible = { always = no } }
 
-
 # These may be overwitten in an "extendable" manner, meaning (for example) you can create a second "auth_democratic" with extra swaps in it.
 # WARNING: The extend functionality breaks if you make changes in runtime and will require a restart to work correctly.
 #auth_example = {
@@ -58,6 +57,7 @@ auth_bugged_corporate_imperial = { potential = { always = no } playable = { alwa
 #
 #	tags = { <key> <key2> }								# add these translation tags to the description
 #}
+
 
 auth_democratic = {
 	election_term_years = 10
@@ -110,8 +110,8 @@ auth_democratic = {
 			pop_ethic_spiritualist_attraction_mult = 0.2
 			pop_cyborg_happiness = 0.15
 			pop_non_cyborg_happiness = -0.15
-			pop_factions_produces_mult = 0.10
-			all_technology_research_speed = 0.05
+			pop_factions_produces_mult = 0.15
+			leaders_upkeep_mult = -0.25
 		}
 	}
 
@@ -129,7 +129,7 @@ auth_democratic = {
 			show_only_custom_tooltip = no
 			pop_cyborg_happiness = 0.2
 			pop_non_cyborg_happiness = -0.15
-			empire_size_pops_mult = -0.15
+			empire_size_pops_mult = -0.10
 			leaders_cost_mult = -0.25
 			pop_factions_produces_mult = 0.2
 			planet_jobs_specialist_produces_mult = 0.1
@@ -149,10 +149,10 @@ auth_democratic = {
 			custom_tooltip = auth_cyber_democratic_collectivist_tt
 			show_only_custom_tooltip = no
 			pop_non_cyborg_happiness = -0.15
-			empire_size_pops_mult = -0.15
+			empire_size_pops_mult = -0.10
 			leaders_cost_mult = -0.25
 			planet_jobs_worker_produces_mult = 0.15
-			planet_stability_add = 15
+			planet_stability_add = 10
 		}
 	}
 
@@ -230,7 +230,7 @@ auth_democratic = {
 		modifier = {
 			custom_tooltip = auth_bio_democratic_cloning_tt
 			show_only_custom_tooltip = no
-			empire_size_pops_mult = -0.15
+			empire_size_pops_mult = -0.10
 			pop_factions_produces_mult = 0.25
 		}
 	}
@@ -309,7 +309,7 @@ auth_democratic = {
 			custom_tooltip = corporeal_democratic_tt
 			psionic_aura_effectiveness_mult = 0.25
 			faction_approval = 0.1
-			empire_size_psionic_pops_mult = -0.1
+			empire_size_psionic_pops_mult = -0.05
 			planet_jobs_unity_produces_mult = 0.1
 			pop_political_power = 0.10
 		}
@@ -368,7 +368,8 @@ auth_oligarchic = {
 			pop_cyborg_happiness = 0.15
 			pop_non_cyborg_happiness = -0.15
 			pop_factions_produces_mult = 0.1
-			all_technology_research_speed = 0.05
+			planet_jobs_specialist_produces_mult = 0.1
+			planet_stability_add = 3
 		}
 	}
 
@@ -387,7 +388,7 @@ auth_oligarchic = {
 		}
 		modifier = {
 			custom_tooltip = auth_cyber_oligarchic_individualist_tt
-			planet_stability_add = 10
+			planet_stability_add = 6
 			pop_cat_ruler_happiness = 0.25
 			pop_cat_ruler_political_power = 2
 			planet_jobs_specialist_produces_mult = 0.1
@@ -395,7 +396,6 @@ auth_oligarchic = {
 			pop_cat_specialist_political_power = -1
 			planet_jobs_worker_produces_mult = -0.15
 			pop_cat_worker_political_power = -1
-			pop_unemployment_demotion_time_mult = 0.25
 			show_only_custom_tooltip = no
 		}
 	}
@@ -490,7 +490,7 @@ auth_oligarchic = {
 			custom_tooltip = auth_bio_oligarchic_cloning_tt
 			show_only_custom_tooltip = no
 			councilor_skill_add = 2
-			pop_category_rulers_unity_produces_add = 3
+			planet_politicians_unity_produces_add = 2
 		}
 	}
 
@@ -623,10 +623,11 @@ auth_dictatorial = {
 		}
 		modifier = {
 			pop_ethic_spiritualist_attraction_mult = 0.2
-			pop_cyborg_happiness = 0.15
+			pop_cyborg_happiness = 0.10
 			pop_non_cyborg_happiness = -0.15
 			pop_factions_produces_mult = 0.1
-			all_technology_research_speed = 0.05
+			all_technology_research_speed = 0.1
+			planet_enforcers_engineering_research_produces_add = 3
 		}
 	}
 
@@ -645,11 +646,12 @@ auth_dictatorial = {
 		}
 		modifier = {
 			custom_tooltip = auth_cyber_dictatorial_individualist_tt
-			pop_ethic_authoritarian_attraction_mult = 1
+			pop_government_ethic_attraction = 1
 			show_only_custom_tooltip = no
-			planet_stability_add = 5
 			edicts_upkeep_mult = -0.25
-			planet_enforcers_unity_produces_add = 3
+			cyborg_pop_bonus_workforce_mult = 0.15
+			planet_enforcers_unity_produces_add = 1
+			job_enforcer_stability_add = 1
 		}
 	}
 
@@ -674,7 +676,7 @@ auth_dictatorial = {
 			custom_tooltip = auth_cyber_dictatorial_collectivist_official_tt
 			show_only_custom_tooltip = yes
 			planet_jobs_worker_produces_mult = 0.15
-			planet_stability_add = 5
+			planet_stability_add = 3
 			edicts_upkeep_mult = -0.25
 			pop_amenities_usage_mult = 0.15
 		}
@@ -695,8 +697,8 @@ auth_dictatorial = {
 			custom_tooltip = auth_cyber_dictatorial_collectivist_commander_tt
 			show_only_custom_tooltip = yes
 			ship_fire_rate_mult = 0.10
-			job_soldier_stability_add = 2
-			planet_stability_add = 5
+			job_soldier_stability_add = 1
+			planet_stability_add = 3
 			edicts_upkeep_mult = -0.25
 			pop_amenities_usage_mult = 0.15
 		}
@@ -717,7 +719,7 @@ auth_dictatorial = {
 			custom_tooltip = auth_cyber_dictatorial_collectivist_scientist_tt
 			show_only_custom_tooltip = yes
 			all_technology_research_speed = 0.10
-			planet_stability_add = 5
+			planet_stability_add = 3
 			edicts_upkeep_mult = -0.25
 			pop_amenities_usage_mult = 0.15
 		}
@@ -740,7 +742,7 @@ auth_dictatorial = {
 		modifier = {
 			custom_tooltip = auth_cyber_dictatorial_collectivist_vacant_tt
 			show_only_custom_tooltip = no
-			planet_stability_add = 5
+			planet_stability_add = 3
 			edicts_upkeep_mult = -0.25
 			pop_amenities_usage_mult = 0.15
 		}
@@ -819,8 +821,8 @@ auth_dictatorial = {
 			custom_tooltip = auth_bio_dictatorial_cloning_tt
 			show_only_custom_tooltip = no
 			councilor_ruler_dictatorial_exp_gain = 0.25
-			pop_ethic_authoritarian_attraction_mult = 1
-			planet_stability_add = 10
+			pop_government_ethic_attraction = 1
+			planet_stability_add = 3
 		}
 	}
 
@@ -842,7 +844,7 @@ auth_dictatorial = {
 			show_only_custom_tooltip = no
 			pop_cat_ruler_bonus_workforce_mult = 0.25
 			pop_cat_ruler_happiness = 0.25
-			planet_stability_add = 10
+			planet_stability_add = 3
 			planet_enforcers_unity_produces_add = 3
 			pop_factions_produces_mult = 0.1
 		}
@@ -948,10 +950,11 @@ auth_imperial = {
 		}
 		modifier = {
 			pop_ethic_spiritualist_attraction_mult = 0.2
-			pop_cyborg_happiness = 0.15
-			pop_non_cyborg_happiness = -0.15
-			pop_factions_produces_mult = 0.1
+			pop_cyborg_happiness = 0.20
+			pop_non_cyborg_happiness = -0.20
+			ruler_skill_add = 3
 			all_technology_research_speed = 0.05
+			planet_jobs_worker_produces_mult = 0.10
 		}
 	}
 
@@ -1212,12 +1215,6 @@ auth_hive_mind = {
 
 	ruler_council_position = councilor_ruler_hive_mind
 
-	playable = {
-		OR = {
-			has_utopia = yes
-			has_biogenesis_dlc = yes
-		}
-	}
 	possible = {
 		ethics = {
 			value = ethic_gestalt_consciousness
@@ -1335,8 +1332,8 @@ auth_hive_mind = {
 		modifier = {
 			custom_tooltip = auth_mutation_habitability_tt
 			show_only_custom_tooltip = no
-			planet_stability_add = 10
-			empire_size_pops_mult = -0.15
+			planet_stability_add = 3
+			empire_size_pops_mult = -0.10
 			pop_environment_tolerance = 0.15
 			pop_cat_simple_drone_bonus_workforce_mult = 0.15
 		}
@@ -1353,10 +1350,34 @@ auth_hive_mind = {
 			is_scope_valid = yes
 			has_country_flag = bio_mutation
 			has_origin = origin_evolutionary_predators
+			is_nomadic = no
 		}
 		modifier = {
 			custom_tooltip = auth_bio_hive_mind_evopred_tt
 			show_only_custom_tooltip = no
+			pop_cat_purge_bonus_workforce_mult = 0.5
+			empire_size_penalty_mult = -0.20
+		}
+	}
+
+	# EvoPred Mutation (Hive Mind Nomadic)
+
+	advanced_authority_swap	= {
+		name = "auth_bio_hive_mind_evopred"
+		description = "auth_bio_hive_mind_evopred_desc"
+		inherit_icon = no
+		inherit_effects = no
+		trigger = {
+			is_scope_valid = yes
+			has_country_flag = bio_mutation
+			has_origin = origin_evolutionary_predators
+			is_nomadic = yes
+		}
+		modifier = {
+			custom_tooltip = auth_bio_hive_mind_evopred_nomads_tt
+			show_only_custom_tooltip = no
+			empire_size_districts_mult = -0.25
+			empire_size_colonies_mult = -0.25
 			pop_cat_purge_bonus_workforce_mult = 0.5
 			empire_size_penalty_mult = -0.20
 		}
@@ -1385,7 +1406,7 @@ auth_hive_mind = {
 		modifier = {
 			empire_size_penalty_mult = -0.25
 			empire_size_districts_mult = 2
-			empire_size_colonies_mult = 2
+			empire_size_colonies_mult = 1
 			diplo_weight_economy_mult = 1
 		}
 	}
@@ -1458,33 +1479,7 @@ auth_machine_intelligence = {
 
 	ruler_council_position = councilor_ruler_machine_intelligence
 
-	playable = {
-		OR = {
-			has_synthetic_dawn = yes
-			has_machine_age_dlc = yes
-			has_shroud_dlc = yes
-		}
-	}
 	possible = {
-		AND = {
-			limit = {
-				OR = {
-					has_synthetic_dawn = yes
-					has_machine_age_dlc = yes
-				}
-			}
-			always = yes
-		}
-		AND = {
-			limit = {
-				has_synthetic_dawn = no
-				has_machine_age_dlc = no
-				has_shroud_dlc = yes
-			}
-			origin = {
-				value = origin_shroud_forged
-			}
-		}
 		ethics = {
 			value = ethic_gestalt_consciousness
 		}
@@ -1532,7 +1527,7 @@ auth_machine_intelligence = {
 			colony_start_urban_districts_add = 1
 			planet_colony_development_speed_mult = 0.25
 			planet_pop_assembly_add = 1
-			empire_size_pops_mult = -0.1
+			empire_size_pops_mult = -0.05
 			MACHINE_species_trait_picks_add = 1
 		}
 		tags = {
@@ -1575,7 +1570,7 @@ auth_machine_intelligence = {
 			AUTH_GESTALT_IMMORTAL_LEADERS
 		}
 	}
-
+	#Transcendent Machines
 	advanced_authority_swap	= {
 		name = "auth_shroud_machine_transcendent"
 		description = "auth_shroud_machine_transcendent_desc"
@@ -1601,7 +1596,7 @@ auth_machine_intelligence = {
 			station_researchers_produces_mult = -0.2
 		}
 	}
-
+	#Corporeal Machines
 	advanced_authority_swap	= {
 		name = "auth_shroud_machine_corporeal"
 		description = "auth_shroud_machine_corporeal_desc"
@@ -1684,8 +1679,9 @@ auth_corporate = {
 
 	country_modifier = {
 		planet_jobs_trade_produces_mult = 0.10
+		nomadic_contract_value_mult = 0.10
 		empire_size_colonies_mult = 0.50
-		external_leader_pool_add = 1
+		envoys_add = 1
 	}
 
 	advanced_authority_swap	= {
@@ -1886,7 +1882,7 @@ auth_corporate = {
 		modifier = {
 			custom_tooltip = auth_shroud_corporate_corporeal_tt
 			psionic_aura_effectiveness_mult = 0.25
-			planet_branch_offices_influence_cost_mult = -0.4
+			country_branch_office_influence_cost_mult = -0.4
 			council_agenda_early_activation_cost_mult = -0.25
 			council_agenda_cooldown_mult = -0.25
 			species_leader_exp_gain = 0.25
@@ -1898,10 +1894,3 @@ auth_corporate = {
 		AUTHORITY_CORPORATE_SUCCESSION
 	}
 }
-
-# auth_dict_democratic = { playable = { always = no } possible = { always = no } ruler_council_position = councilor_ruler_democratic }
-# auth_strict_democratic = { playable = { always = no } possible = { always = no } ruler_council_position = councilor_ruler_democratic }
-# auth_corporate_imperial = { playable = { always = no } possible = { always = no } ruler_council_position = councilor_ruler_democratic }
-# auth_direct_democratic = { playable = { always = no } possible = { always = no } ruler_council_position = councilor_ruler_democratic }
-# auth_bugged_corporate_democratic = { playable = { always = no } possible = { always = no } ruler_council_position = councilor_ruler_democratic }
-# auth_bugged_corporate_imperial = { playable = { always = no } possible = { always = no } ruler_council_position = councilor_ruler_democratic }

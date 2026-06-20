@@ -904,7 +904,7 @@ situation_civstrife_sep_slaves_plan = {
 			icon_background = GFX_situation_stage_frame_red
 			on_first_enter = {
 				#Sabotage
-				target = { planet_event = { id = unrest.156 } }
+				target = { carrier_event = { id = unrest.156 } }
 			}
 			target_modifier = {
 				planet_stability_add = -15
@@ -1141,7 +1141,7 @@ situation_civstrife_sep_slaves_sec = {
 			icon_background = GFX_situation_stage_frame_red
 			on_first_enter = {
 				#Sabotage
-				target.sector_capital = { planet_event = { id = unrest.156 } }
+				target.sector_capital = { carrier_event = { id = unrest.156 } }
 			}
 			target_modifier = {
 				planet_stability_add = -15

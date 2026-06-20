@@ -45,6 +45,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civleader.1000"
 		random = {
 			chance = value:leader_civil_war_oppurtunity
 			country_event = { id = civleader.1001 days = 3 }
@@ -68,6 +69,7 @@ country_event = { #
 	}
 
 	immediate = {
+		log = "event: civleader.1001"
 		random_owned_leader = {
 			limit = {
 				is_fake_leader = no
@@ -97,6 +99,7 @@ leader_event = {
 	}
 
 	immediate = {
+		log = "event: civleader.1002"
 		set_cooldown = 18000 ## 50 years
 		set_leader_flag = cw_cannot_be_fired
 		set_leader_flag = election_dispute_leader
@@ -133,6 +136,10 @@ country_event = {
 		trigger = { is_democratic_authority = no }
 	}
 
+	immediate = {
+		log = "event: civleader.1003"
+	}
+
 	option = {
 		name = GOOD
 	}
@@ -163,6 +170,7 @@ situation_event = {
 	}
 
 	immediate = {
+		log = "event: civleader.1010"
 		set_situation_flag = protests_happened
 		target = { set_leader_flag = protests_happened }
 	}
@@ -195,6 +203,7 @@ situation_event = {
 	}
 
 	immediate = {
+		log = "event: civleader.1011"
 		set_situation_flag = terror_happened
 		target = { set_leader_flag = terror_happened }
 		owner.capital_scope = {
@@ -285,6 +294,7 @@ situation_event = {
 	}
 
 	immediate = {
+		log = "event: civleader.1020"
 		set_situation_flag = watergate_happened
 		target = { set_leader_flag = watergate_happened }
 	}
@@ -312,6 +322,7 @@ leader_event = { ## Declare War or Not Decision
 	}
 	
 	immediate = {
+		log = "event: civleader.1090"
 		random = {
 			chance = value:election_out_is_allowed
 			set_leader_flag = leader_can_be_pacified
@@ -406,6 +417,10 @@ leader_event = { ## Leader Admits Defeat
 	desc = {
 		text = civleader.1091.not_dem.desc
 		trigger = { owner = { has_democratic_elections = no } }
+	}
+
+	immediate = {
+		log = "event: civleader.1091"
 	}
 
 	option = {

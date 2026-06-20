@@ -16,6 +16,7 @@ country_event = { ## Pulses
 	trigger = { exists = ruler }
 
 	immediate = {
+		log = "event: civmisc_leader.1000"
 		ruler = {
 			change_variable = { which = years_as_ruler_total value = 1 }
 			change_variable = { which = years_as_ruler_continuous value = 1 }
@@ -31,6 +32,7 @@ country_event = { ## On Ruler Set
 	trigger = { exists = ruler }
 
 	immediate = {
+		log = "event: civmisc_leader.1001"
 		ruler = {
 			set_variable = { which = years_as_ruler_continuous value = 0 }
 			if = {
@@ -51,6 +53,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civmisc_leader.1050"
 		if = {
 			limit = { from = { is_variable_set = years_as_ruler_continuous } }
 			if = {

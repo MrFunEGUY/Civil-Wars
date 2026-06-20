@@ -84,10 +84,9 @@ desc = {
 		success_text = { # New Nat Country, motherland wont join war
 			text = civcom.1100.nationalist.no_support.desc
 			NOT = { has_country_flag = rebs_help_eachother }
-			exists = event_target:nat_motherland_model
 			OR = {
-				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_exile_country = yes }
+				event_target:nat_motherland_model? = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+				event_target:nat_motherland_model? = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
 				NOT = { has_country_flag = exile_restored_country }
@@ -99,10 +98,9 @@ desc = {
 		success_text = { # Multiple New Nat Countries, motherland wont join war
 			text = civcom.1100.nationalist.mult.no_support.desc
 			has_country_flag = rebs_help_eachother
-			exists = event_target:nat_motherland_model
 			OR = {
-				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_exile_country = yes }
+				event_target:nat_motherland_model? = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+				event_target:nat_motherland_model? = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
 				NOT = { has_country_flag = exile_restored_country }
@@ -114,10 +112,9 @@ desc = {
 		success_text = { # Restored Country
 			text = civcom.1100.nationalist.no_support.exile.reg.desc
 			NOT = { has_country_flag = rebs_help_eachother }
-			exists = event_target:nat_motherland_model
 			OR = {
-				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_exile_country = yes }
+				event_target:nat_motherland_model? = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+				event_target:nat_motherland_model? = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
 				is_imperial_authority = no
@@ -130,10 +127,9 @@ desc = {
 		success_text = { # Restored Country, other states as well
 			text = civcom.1100.nationalist.mult.no_support.exile.reg.desc
 			has_country_flag = rebs_help_eachother
-			exists = event_target:nat_motherland_model
 			OR = {
-				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_exile_country = yes }
+				event_target:nat_motherland_model? = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+				event_target:nat_motherland_model? = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
 				is_imperial_authority = no
@@ -146,10 +142,9 @@ desc = {
 		success_text = { # Restored Country, Old Dynasty will take over
 			text = civcom.1100.nationalist.no_support.exile.imp.desc
 			NOT = { has_country_flag = rebs_help_eachother }
-			exists = event_target:nat_motherland_model
 			OR = {
-				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_exile_country = yes }
+				event_target:nat_motherland_model? = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+				event_target:nat_motherland_model? = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
 				is_imperial_authority = yes
@@ -162,10 +157,9 @@ desc = {
 		success_text = { # Restored Country, Old Dynasty will take over, other states as well
 			text = civcom.1100.nationalist.mult.no_support.exile.imp.desc
 			has_country_flag = rebs_help_eachother
-			exists = event_target:nat_motherland_model
 			OR = {
-				event_target:nat_motherland_model = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
-				event_target:nat_motherland_model = { is_exile_country = yes }
+				event_target:nat_motherland_model? = { has_country_flag = motherland_wont_join_@event_target:civwar_rebels }
+				event_target:nat_motherland_model? = { is_exile_country = yes }
 			}
 			event_target:civwar_rebels = {
 				is_imperial_authority = yes

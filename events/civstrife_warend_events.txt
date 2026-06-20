@@ -41,6 +41,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.1000"
 
 		from.ruler = {
 			set_owner = root
@@ -95,6 +96,7 @@ country_event = {
 	# Unfortunate we couldn't capture them
 	option = {
 		name = civend.1001.a
+		log = "event: civend.1001"
 		hidden_effect = {
 			event_target:defeated_traitor = {
 				kill_leader = { show_notification = no }
@@ -126,6 +128,7 @@ country_event = {
 	option = {
 		name = civend.1003.a
 		hidden_effect = {
+			log = "event: civend.1003"
 			set_fled_fled_year = yes
 			country_event = { id = civend.5000 }
 		}
@@ -158,6 +161,7 @@ country_event = {
 	}
 
 	after = {
+		log = "event: civend.1004"
 		if = {
 			limit = { has_country_flag = captured_by_coup }
 			remove_country_flag = captured_by_coup
@@ -184,6 +188,7 @@ country_event = { ## If the rebels win, effectively make them the motherland cou
 	}
 
 	immediate = {
+		log = "event: civend.1500"
 
 		random_playable_country = {
 			limit = { has_country_flag = rival_to_@root }
@@ -232,6 +237,7 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		log = "event: civend.1501"
 		## So this should usually capture the original homeworld, but if not, it does make for an interesting narrative change. Will need to see how often its not the original.
 		ordered_owned_planet = {
 			position = 0
@@ -264,6 +270,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.1510"
 
 		random_playable_country = {
 			limit = { has_country_flag = mother_rival_to_@root }
@@ -333,6 +340,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.2000"
 
 		random_subject = {
 			limit = { has_country_flag = subject_for_traitor_@from }
@@ -385,6 +393,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.3000"
 		fromfrom = {
 			every_attacker = {
 				limit = {
@@ -423,6 +432,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.3005"
 		every_subject = {
 			limit = { has_country_flag = helped_rebels_sub }
 			remove_country_flag = helped_rebels_sub
@@ -458,6 +468,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.3006"
 		FromFromFrom = {
 			every_subject = {
 				limit = { has_country_flag = helped_rebels_sub }
@@ -494,6 +505,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.3010"
 		from = {
 			every_subject = {
 				set_subject_of = {
@@ -533,6 +545,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.3020"
 		from = {
 			every_subject = {
 				limit = { has_country_flag = helped_rebels_sub }
@@ -576,6 +589,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.3030"
 		fromfrom = {
 			every_war_participant = {
 				limit = {
@@ -620,6 +634,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.3031"
 		fromfrom = {
 			every_war_participant = {
 				limit = {
@@ -666,6 +681,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.3032"
 		FromFromFromFrom = {
 			every_war_participant = {
 				limit = {
@@ -694,6 +710,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.3045"
 		if = {
 			limit = { has_country_flag = helped_rebels_sub }
 			remove_country_flag = helped_rebels_sub
@@ -722,6 +739,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.3100"
 		every_controlled_fleet = {
 			limit = { has_fleet_flag = civwar_loaned_fleet }
 			remove_fleet_flag = civwar_loaned_fleet
@@ -752,6 +770,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.3132"
 		FromFromFrom = {
 			every_controlled_fleet = {
 				limit = { has_fleet_flag = civwar_loaned_fleet }
@@ -779,6 +798,7 @@ country_event = {
 	}
 	
 	immediate = {
+		log = "event: civend.5000"
 
 		# Note: Make subjects able to recieve traitors, at the risk of their overlord finding out.
 		
@@ -856,6 +876,7 @@ country_event = {
 	option = { # How dare they accept them!
 		name = civend.5002.a
 		hidden_effect = {
+			log = "event: civend.5002"
 			add_opinion_modifier = {
 				who = from
 				modifier = opinion_received_traitor
@@ -911,6 +932,7 @@ country_event = {
 	option = { # Good
 		name = civend.6000.a
 		hidden_effect = {
+			log = "event: civend.6000"
 			event_target:defeated_traitor = { kill_leader = { show_notification = no } }
 			switch = {
 				trigger = has_country_flag
@@ -948,6 +970,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.8000"
 
 		if = {
 			limit = { fromfrom = { using_war_goal = { type = wg_install_traitor owner = root } } }
@@ -1028,6 +1051,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.9000"
 
 		from = {
 			save_global_event_target_as = dead_grateful_leader
@@ -1069,6 +1093,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civend.9001"
 
 		from = { save_event_target_as = dead_traitor }
 

@@ -11,34 +11,37 @@ on_start = {
 on_progress_complete = {
 	custom_tooltip = situation_civstrife_separatist_end
 	hidden_effect = {
-		if = {
-			limit = { exists = target }
-			target = {
-				remove_pop_faction_flag = faction_sep_situation
-			}
-		}
+		target? = { remove_pop_faction_flag = faction_sep_situation }
+		# if = {
+		# 	limit = { exists = target }
+		# 	target = {
+		# 		remove_pop_faction_flag = faction_sep_situation
+		# 	}
+		# }
 	}
 }
 
 on_fail = {
 	custom_tooltip = situation_civstrife_separatist_failed
 	hidden_effect = {
-		if = {
-			limit = { exists = target }
-			target = {
-				remove_pop_faction_flag = faction_sep_situation
-			}
-		}
+		target? = { remove_pop_faction_flag = faction_sep_situation }
+		# if = {
+		# 	limit = { exists = target }
+		# 	target? = {
+		# 		remove_pop_faction_flag = faction_sep_situation
+		# 	}
+		# }
 	}
 }
 
 on_abort = {
-	if = {
-		limit = { exists = target }
-		target = {
-			remove_pop_faction_flag = faction_sep_situation
-		}
-	}
+	target? = { remove_pop_faction_flag = faction_sep_situation }
+	# if = {
+	# 	limit = { exists = target }
+	# 	target = {
+	# 		remove_pop_faction_flag = faction_sep_situation
+	# 	}
+	# }
 }
 
 abort_trigger = {

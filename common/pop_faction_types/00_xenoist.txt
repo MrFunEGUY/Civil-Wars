@@ -179,8 +179,7 @@ xenoist = {
 		unfulfilled_effect = -5
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				any_relation = {
 					is_country_type = primitive
 				}
@@ -206,8 +205,7 @@ xenoist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				any_owned_species = {
 					NOR = {
 						is_same_species = prev
@@ -264,8 +262,7 @@ xenoist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 3
 				any_owned_species = {
 					NOR = {
@@ -293,8 +290,7 @@ xenoist = {
 		fulfilled_effect = 5
 		unfulfilled_effect = -0.001
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 5
 				has_valid_civic = civic_free_haven
 				any_owned_species = {
@@ -320,8 +316,7 @@ xenoist = {
 		fulfilled_effect = 10
 		unfulfilled_effect = -0.001
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 7
 				has_valid_civic = civic_free_haven
 				any_owned_species = {
@@ -347,8 +342,7 @@ xenoist = {
 		fulfilled_effect = 15
 		unfulfilled_effect = -0.001
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 10
 				has_valid_civic = civic_free_haven
 				any_owned_species = {
@@ -375,8 +369,7 @@ xenoist = {
 		unfulfilled_effect = -10
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				any_relation = {
 					is_country_type = default
 					has_communications = prev
@@ -400,8 +393,7 @@ xenoist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				any_country = {
 					is_country_type = enclave
 					has_communications = root.owner
@@ -414,8 +406,7 @@ xenoist = {
 				any_system_within_border = {
 					has_star_flag = enclave
 					any_fleet_in_system = {
-						exists = owner
-						owner = { is_country_type = enclave }
+						owner? = { is_country_type = enclave }
 					}
 				}
 			}
@@ -431,8 +422,7 @@ xenoist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_technology = tech_epigenetic_triggers
 			}
 		}
@@ -453,8 +443,7 @@ xenoist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					any_controlled_ship = { is_ship_size = observation_station }
 					has_country_flag = recent_enlightenment_timed
@@ -479,8 +468,7 @@ xenoist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					has_policy_flag = pre_sapients_allow
 					has_policy_flag = pre_sapients_purge
@@ -513,8 +501,7 @@ xenoist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_country_flag = encountered_first_primitive
 				NOT = { has_origin = origin_necrophage }
 			}
@@ -536,8 +523,7 @@ xenoist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 3
 			}
 		}
@@ -558,8 +544,7 @@ xenoist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				any_country = {
 					NOT = { has_communications = prev }
 					OR = {
@@ -589,8 +574,7 @@ xenoist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_modifier = celebrate_diversity
 			}
 		}
@@ -611,8 +595,7 @@ xenoist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_modifier = proclaim_superiority
 			}
 		}
@@ -633,8 +616,7 @@ xenoist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				NOT = { has_policy_flag = first_contact_attack_allowed }
 				OR = {
 					years_passed <= 75
@@ -659,8 +641,7 @@ xenoist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_policy_flag = first_contact_attack_allowed
 				OR = {
 					years_passed <= 75
@@ -685,8 +666,7 @@ xenoist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_homicidal = no
 				is_country_type = default
 				has_policy_flag = diplo_stance_cooperative
@@ -709,8 +689,7 @@ xenoist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_subject = no
 				has_policy_flag = oppressive_terms
 			}
@@ -733,8 +712,7 @@ xenoist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_subject = no
 				NOT = { has_policy_flag = oppressive_terms }
 			}
@@ -756,8 +734,7 @@ xenoist = {
 		fulfilled_effect = 5
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_origin = origin_unplugged
 				any_situation = {
 					is_situation_type = situation_unplugged_identity
@@ -804,8 +781,7 @@ xenoist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_technology = tech_alien_life_studies
 				NOT = { has_valid_civic = civic_warrior_culture }
 			}
@@ -852,8 +828,7 @@ xenoist = {
 			}
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					OR = {
 						is_subject = no
 						NOT = { any_agreement = { agreement_preset = preset_dominion } }
@@ -1029,8 +1004,7 @@ xenoist = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					NOR = {
@@ -1056,8 +1030,7 @@ xenoist = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					OR = {
@@ -1083,8 +1056,7 @@ xenoist = {
 			description = "CANCEL_EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 				}

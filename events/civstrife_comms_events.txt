@@ -33,6 +33,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civcom.1000"
 		get_motherland_effect = yes
 	}
 
@@ -106,6 +107,7 @@ country_event = {
 	inline_script = "comms/rebellion_with_vas_desc"
 
 	immediate = {
+		log = "event: civcom.1005"
 		get_motherland_effect = yes
 	}
 
@@ -225,6 +227,7 @@ country_event = {
 	inline_script = "comms/civil_war_no_vas"
 
 	immediate = {
+		log = "event: civcom.1100"
 		event_target:civwar_rebels = {
 			if = {
 				limit = { is_overlord = yes }
@@ -375,6 +378,7 @@ country_event = {
 	inline_script = "comms/civil_war_with_vas"
 
 	immediate = {
+		log = "event: civcom.1105"
 		get_motherland_effect = yes
 	}
 
@@ -475,6 +479,11 @@ country_event = {
 		city_level = event_target:civwar_originator.capital_scope
 		room = event_target:civwar_originator.ruler
 	}
+
+	immediate = {
+		log = "event: civcom.1200"
+	}
+
 
 	# Lead subject in their war
 	option = {
@@ -617,6 +626,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civcom.2000"
 		save_event_target_as = civwar_originator ## Just in Case...
 
 		hidden_effect = {
@@ -709,6 +719,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civcom.2010"
 		hidden_effect = {
 			event_target:civwar_rebels = {
 				set_subject_of = {
@@ -767,6 +778,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civcom.2020"
 		hidden_effect = {
 			event_target:civwar_rebels = {
 				every_system_within_border = {
@@ -829,6 +841,10 @@ country_event = {
 		graphical_culture = event_target:civwar_rebels
 		city_level = event_target:civwar_rebels.capital_scope
 		room = event_target:civwar_rebels.ruler
+	}
+
+	immediate = {
+		log = "event: civcom.2025"
 	}
 
 	option = {
@@ -903,7 +919,7 @@ country_event = {
 	}
 
 	immediate = {
-
+		log = "event: civcom.3000"
 		event_target:crisis_sector = {
 			if = {
 				limit = { has_sector_flag = leader_rebel_sector }
@@ -985,6 +1001,7 @@ country_event = {
 
 	after = {
 		hidden_effect = {
+			log = "event: civcom.3010"
 			make_succession_crisis_gov_country = yes
 			after_comms_cleanup_effect = yes
 		}
@@ -1020,6 +1037,7 @@ country_event = {
 
 	after = {
 		hidden_effect = {
+			log = "event: civcom.3015"
 			make_succession_crisis_dynast_country = yes
 			after_comms_cleanup_effect = yes
 		}
@@ -1077,6 +1095,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civcom.3020"
 		random_list = {
 			15 = { event_target:crisis_sector = { set_sector_flag = gov_monetary } }
 			40 = { event_target:crisis_sector = { set_sector_flag = gov_subject } }
@@ -1193,6 +1212,10 @@ country_event = {
 		room = event_target:civwar_rebels.ruler
 	}
 
+	immediate = {
+		log = "event: civcom.3100"
+	}
+
 	# This means war
 	option = {
 		name = civcom.1000.war
@@ -1279,6 +1302,10 @@ country_event = {
 		graphical_culture = event_target:civwar_rebels
 		city_level = event_target:civwar_rebels.capital_scope
 		room = event_target:civwar_rebels.ruler
+	}
+
+	immediate = {
+		log = "event: civcom.4000"
 	}
 
 	# Abstain from assisting
@@ -1662,6 +1689,10 @@ country_event = {
 		room = event_target:civwar_rebels.ruler
 	}
 
+	immediate = {
+		log = "event: civcom.4100"
+	}
+
 	# Bye
 	option = {
 		name = civcom.4100.sorry
@@ -1697,6 +1728,10 @@ country_event = {
 		graphical_culture = event_target:civwar_rebels
 		city_level = event_target:civwar_rebels.capital_scope
 		room = event_target:civwar_rebels.ruler
+	}
+
+	immediate = {
+		log = "event: civcom.4110"
 	}
 
 	# Nevermind
@@ -1846,6 +1881,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civcom.4120"
 		get_fleet_effect = yes
 	}
 
@@ -1985,6 +2021,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civcom.4121"
 		get_fleet_effect = yes
 	}
 
@@ -2210,6 +2247,7 @@ fleet_event = {
 	}
 
 	immediate = {
+		log = "event: civcom.4122"
 		save_event_target_as = leased_civwar_fleet
 		owner = { country_event = { id = civcom.4123 } }
 	}
@@ -2236,6 +2274,11 @@ country_event = {
 		city_level = event_target:leased_civwar_fleet.controller.capital_scope
 		room = event_target:leased_civwar_fleet.controller.ruler
 	}
+
+	immediate = {
+		log = "event: civcom.4123"
+	}
+
 
 	option = {
 		name = civcom.4123.no_extension
@@ -2372,6 +2415,11 @@ country_event = {
 		room = event_target:civwar_rebels.ruler
 	}
 
+	immediate = {
+		log = "event: civcom.4125"
+	}
+
+
 	option = {
 		name = civcom.4120.nevermind
 		ai_chance = { factor = 0 }
@@ -2454,6 +2502,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civcom.5000"
 		if = {
 			limit = { NOT = { exists = event_target:civil_war_secretary } }
 			create_leader = {
@@ -2876,6 +2925,10 @@ country_event = {
 		room = root.owner
 	}
 
+	immediate = {
+		log = "event: civcom.7000"
+	}
+
 	# Execute
 	option = {
 		name = civcom.7000.a
@@ -2948,6 +3001,10 @@ country_event = {
 		room = root.owner
 	}
 
+	immediate = {
+		log = "event: civcom.7001"
+	}
+
 	# Execute
 	option = {
 		name = civcom.7001.a
@@ -2978,6 +3035,10 @@ country_event = {
 		room = root.owner
 	}
 
+	immediate = {
+		log = "event: civcom.7002"
+	}
+
 	# Torture
 	option = {
 		name = civcom.7002.a
@@ -3006,6 +3067,10 @@ country_event = {
 		graphical_culture = root.owner
 		city_level = root.owner
 		room = root.owner
+	}
+
+	immediate = {
+		log = "event: civcom.7003"
 	}
 
 	# Imprison
@@ -3040,6 +3105,10 @@ country_event = {
 		room = root.owner
 	}
 
+	immediate = {
+		log = "event: civcom.7004"
+	}
+
 	# Pardon
 	option = {
 		name = civcom.7004.a
@@ -3070,6 +3139,10 @@ country_event = {
 		graphical_culture = root.owner
 		city_level = root.owner
 		room = root.owner
+	}
+
+	immediate = {
+		log = "event: civcom.7005"
 	}
 
 	# Banish
@@ -3105,6 +3178,10 @@ country_event = {
 		graphical_culture = root.owner
 		city_level = root.owner
 		room = root.owner
+	}
+
+	immediate = {
+		log = "event: civcom.7100"
 	}
 
 	# Execute
@@ -3184,6 +3261,10 @@ country_event = {
 		room = root.owner
 	}
 
+	immediate = {
+		log = "event: civcom.7110"
+	}
+
 	option = {
 		name = civcom.7110.die
 		trigger = {
@@ -3234,6 +3315,10 @@ country_event = {
 		room = root.owner
 	}
 
+	immediate = {
+		log = "event: civcom.7115"
+	}
+
 	# Imprison
 	option = {
 		name = civcom.7003.a
@@ -3268,6 +3353,10 @@ country_event = {
 		graphical_culture = root.owner
 		city_level = root.owner
 		room = root.owner
+	}
+
+	immediate = {
+		log = "event: civcom.8000"
 	}
 
 	# Deny them asylum
@@ -3388,6 +3477,10 @@ country_event = {
 		graphical_culture = root.owner
 		city_level = root.owner
 		room = root.owner
+	}
+
+	immediate = {
+		log = "event: civcom.8100"
 	}
 
 	## Deny them asylum
@@ -3518,6 +3611,10 @@ country_event = {
 		graphical_culture = root
 		city_level = root
 		room = root.ruler
+	}
+
+	immediate = {
+		log = "event: civcom.9000"
 	}
 
 	# Deny Hosting Them

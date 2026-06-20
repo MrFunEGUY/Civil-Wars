@@ -47,6 +47,7 @@ country_event = { # Planetary Unrest Counter
 	}
 
 	immediate = {
+		log = "event: civsep.1000"
 		every_owned_planet = {
 			limit = {
 				has_any_planet_rebellion_stopper = no
@@ -95,21 +96,21 @@ country_event = { # Planetary Unrest Counter
 					frontier_planet_unrest_tick_check = yes
 					check_variable = { which = revolt_tick value = 12 }
 				}
-				planet_event = { id = civsep.2000 days = 1 random = 29 }
+				carrier_event = { id = civsep.2000 days = 1 random = 29 }
 			}
 			else_if = {
 				limit = {
 					integrated_planet_unrest_tick_check = yes
 					check_variable = { which = revolt_tick value = 18 }
 				}
-				planet_event = { id = civsep.2000 days = 1 random = 29 }
+				carrier_event = { id = civsep.2000 days = 1 random = 29 }
 			}
 			else_if = {
 				limit = {
 					fundamental_planet_unrest_tick_check = yes
 					check_variable = { which = revolt_tick value = 24 }
 				}
-				planet_event = { id = civsep.2000 days = 1 random = 29 }
+				carrier_event = { id = civsep.2000 days = 1 random = 29 }
 			}
 		}
 	}
@@ -142,6 +143,7 @@ country_event = { # Planetary Decrease unrest Counter
 	}
 
 	immediate = {
+		log = "event: civsep.1010"
 		every_owned_planet = {
 			limit = {
 				pop_amount > 0
@@ -200,6 +202,7 @@ country_event = { # Planetary Calm Counter
 	}
 
 	immediate = {
+		log = "event: civsep.1020"
 		every_owned_planet = {
 			limit = {
 				pop_amount > 0
@@ -213,7 +216,7 @@ country_event = { # Planetary Calm Counter
 				clear_variable = calm_tick
 				clear_variable = revolt_tick
 				save_event_target_as = separatists_disband_planet
-				planet_event = { id = civsep.9005 }
+				carrier_event = { id = civsep.9005 }
 			}
 			else_if = {
 				limit = {
@@ -223,7 +226,7 @@ country_event = { # Planetary Calm Counter
 				clear_variable = calm_tick
 				clear_variable = revolt_tick
 				save_event_target_as = separatists_disband_planet
-				planet_event = { id = civsep.9005 }
+				carrier_event = { id = civsep.9005 }
 			}
 			else_if = {
 				limit = {
@@ -233,7 +236,7 @@ country_event = { # Planetary Calm Counter
 				clear_variable = calm_tick
 				clear_variable = revolt_tick
 				save_event_target_as = separatists_disband_planet
-				planet_event = { id = civsep.9005 }
+				carrier_event = { id = civsep.9005 }
 			}
 			else_if = {
 				limit = {
@@ -264,6 +267,7 @@ country_event = { # Planetary Decrease Calm counter
 	}
 
 	immediate = {
+		log = "event: civsep.1030"
 		every_owned_planet = {
 			limit = { combined_planet_unrest_calm_retick_check = yes }
 			subtract_variable = { which = calm_tick value = 1 }
@@ -281,6 +285,7 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 	}
 
 	immediate = {
+		log = "event: civsep.1100"
 
 		if = {
 			limit = {
@@ -433,6 +438,7 @@ country_event = { # Sectoral Decrease calm counter on stability decrease after s
 	}
 
 	immediate = {
+		log = "event: civsep.1110"
 		every_owned_sector = {
 			limit = { combined_sector_calm_retick_check = yes }
 			sector_capital = { subtract_variable = { which = calm_tick value = 1 } }
@@ -444,7 +450,7 @@ country_event = { # Sectoral Decrease calm counter on stability decrease after s
 # Create Separatists #
 ######################
 
-planet_event = { # Create First Separatists, Planetary
+carrier_event = { # Create First Separatists, Planetary
 	id = civsep.2000
 	hide_window = yes
 	is_triggered_only = yes
@@ -459,6 +465,7 @@ planet_event = { # Create First Separatists, Planetary
 	}
 
 	immediate = {
+		log = "event: civsep.2000"
 		##PLANETARY
 		owner = {
 			start_situation = {
@@ -515,6 +522,7 @@ country_event = { # Sector Separatist Party Form Check
 	}
 
 	immediate = {
+		log = "event: civsep.3000"
 
 		every_owned_sector = {
 			limit = {
@@ -567,6 +575,7 @@ country_event = { # Find isolated sectors
 	}
 
 	immediate = {
+		log = "event: civsep.3100"
 
 		capital_scope.solar_system = {
 			create_fleet = {
@@ -682,6 +691,7 @@ country_event = { # Start Isolated Sector Chains
 	}
 
 	immediate = {
+		log = "event: civsep.3110"
 		every_owned_sector = {
 			limit = {
 				NOR = {
@@ -766,6 +776,7 @@ country_event = { # Check disapproving Factions every month
 	}
 
 	immediate = {
+		log = "event: civsep.4000"
 		random_pop_faction = {
 			limit = {
 				count_owned_pop_amount = { count >= 500 }
@@ -899,6 +910,7 @@ situation_event = { # Planetary Revolt Event
 	}
 
 	immediate = {
+		log = "event: civsep.4110"
 		target = {
 			random = {
 				chance = @base_plan_rebellion_chance
@@ -1011,6 +1023,7 @@ situation_event = { # Sectoral Revolt Event
 	}
 
 	immediate = {
+		log = "event: civsep.4210"
 
 		if = {
 			limit = { root.target = { is_iso_sector_separatist_faction = no } }
@@ -1056,6 +1069,7 @@ situation_event = { # Sectoral Revolt Event
 							owner = { create_party_name_leader = yes }
 							owner = { save_event_target_as = civwar_originator }
 							set_planet_flag = sep_sector_rebellion
+							set_timed_carrier_flag = { flag = sector_planet_loc_flag days = 60 }
 							get_sectoral_reb_number = yes
 							get_gen_sec_rebels = yes
 						}
@@ -1214,6 +1228,7 @@ situation_event = { # Sectoral Revolt Event
 					sector_capital = {
 						get_sectoral_reb_number = yes
 						save_event_target_as = civil_war_planet
+						set_timed_carrier_flag = { flag = sector_planet_loc_flag days = 60 }
 					}
 					set_sector_flag = leader_sector
 					set_sector_flag = rebel_sector_@this
@@ -1261,30 +1276,6 @@ situation_event = { # Sectoral Revolt Event
 					}
 				}
 
-				event_target:leading_iso_sector = {
-					save_event_target_as = sector_name_local
-				}
-
-				create_leader = {
-					class = random_ruler
-					event_leader = yes
-					hide_leader = yes
-					species = owner_main_species
-					name = random
-					effect = {
-						set_name = {
-							key = dummy_sector_leader
-							variable_string = "[event_target:sector_name_local.GetName]"
-						}
-						set_leader_flag = dummy_leader
-						set_leader_flag = dummy_sector_leader
-						save_global_event_target_as = sector_name_leader
-					}
-				}
-				last_created_leader = {
-					leader_event = { id = civ_misc_leader.1000 days = 180 }
-				}
-
 				make_isolated_sector_country = yes
 			}
 		}
@@ -1304,7 +1295,8 @@ country_event = { # Slave Unrest Counter
 		is_country_type_with_subjects = yes
 		NOT = { years_passed < 15 }
 		any_owned_planet = {
-			solar_system = { is_capital_system = no }
+			is_capital = no
+			solar_system? = { is_capital_system = no }
 			has_ground_combat = no
 			is_occupied_flag = no
 			pop_amount > 0
@@ -1318,9 +1310,11 @@ country_event = { # Slave Unrest Counter
 	}
 
 	immediate = {
+		log = "event: civsep.5000"
 		every_owned_planet = {
 			limit = {
-				solar_system = { is_capital_system = no }
+				is_capital = no
+				solar_system? = { is_capital_system = no }
 				has_ground_combat = no
 				is_occupied_flag = no
 				pop_amount > 0
@@ -1365,21 +1359,21 @@ country_event = { # Slave Unrest Counter
 					frontier_planet_slave_tick_check = yes
 					check_variable = { which = slave_revolt_tick value = 36 }
 				}
-				planet_event = { id = civsep.5500 }
+				carrier_event = { id = civsep.5500 }
 			}
 			else_if = {
 				limit = {
 					integrated_planet_slave_tick_check = yes
 					check_variable = { which = slave_revolt_tick value = 60 }
 				}
-				planet_event = { id = civsep.5500 }
+				carrier_event = { id = civsep.5500 }
 			}
 			else_if = {
 				limit = {
 					fundamental_planet_slave_tick_check = yes
 					check_variable = { which = slave_revolt_tick value = 120 }
 				}
-				planet_event = { id = civsep.5500 }
+				carrier_event = { id = civsep.5500 }
 			}
 		}
 	}
@@ -1413,6 +1407,7 @@ country_event = { # Slave Decrease unrest Counter
 	}
 
 	immediate = {
+		log = "event: civsep.5010"
 		every_owned_planet = {
 			limit = {
 				pop_amount > 0
@@ -1483,6 +1478,7 @@ country_event = { # Slave Calm counter
 	}
 
 	immediate = {
+		log = "event: civsep.5020"
 		every_owned_planet = {
 			limit = {
 				pop_amount > 0
@@ -1511,7 +1507,7 @@ country_event = { # Slave Calm counter
 				clear_variable = slave_revolt_tick
 				remove_planet_flag = plan_slave_sep_active
 				save_event_target_as = slaves_disband_planet
-				planet_event = { id = civsep.9006 }
+				carrier_event = { id = civsep.9006 }
 			}
 			else_if = {
 				limit = {
@@ -1522,7 +1518,7 @@ country_event = { # Slave Calm counter
 				clear_variable = slave_revolt_tick
 				remove_planet_flag = plan_slave_sep_active
 				save_event_target_as = slaves_disband_planet
-				planet_event = { id = civsep.9006 }
+				carrier_event = { id = civsep.9006 }
 			}
 			else_if = {
 				limit = {
@@ -1533,7 +1529,7 @@ country_event = { # Slave Calm counter
 				clear_variable = slave_revolt_tick
 				remove_planet_flag = plan_slave_sep_active
 				save_event_target_as = slaves_disband_planet
-				planet_event = { id = civsep.9006 }
+				carrier_event = { id = civsep.9006 }
 			}
 		}
 	}
@@ -1550,6 +1546,7 @@ country_event = { # Slave Decrease Calm counter
 	}
 
 	immediate = {
+		log = "event: civsep.5030"
 		every_owned_planet = {
 			limit = { combined_planet_slave_calm_retick_check = yes }
 			subtract_variable = { which = slave_calm_tick value = 1 }
@@ -1606,6 +1603,7 @@ country_event = { # Sectoral Slave Situation Form Check
 	}
 
 	immediate = {
+		log = "event: civsep.5100"
 
 		every_owned_sector = {
 			limit = {
@@ -1715,6 +1713,7 @@ country_event = { # Sectoral Slave Calm counter on stability increase and remove
 	}
 
 	immediate = {
+		log = "event: civsep.5110"
 
 		if = {
 			limit = {
@@ -1899,6 +1898,7 @@ country_event = { # Sectoral Slave Decrease calm counter on stability decrease a
 	}
 
 	immediate = {
+		log = "event: civsep.5120"
 		every_owned_sector = {
 			limit = { combined_sector_slave_calm_retick_check = yes }
 			sector_capital = { subtract_variable = { which = sec_slave_calm_tick value = 1 } }
@@ -1913,6 +1913,7 @@ situation_event = { # Slave Revolt Upkeep and Initializer
 
 
 	immediate = {
+		log = "event: civsep.5200"
 
 		if = {
 			limit = { is_situation_type = situation_civstrife_sep_slaves_plan }
@@ -1971,6 +1972,7 @@ situation_event = { # Slave Revolt Event
 	}
 
 	immediate = {
+		log = "event: civsep.5205"
 		if = {
 			limit = { is_situation_type = situation_civstrife_sep_slaves_plan }
 			target = {
@@ -2024,7 +2026,7 @@ situation_event = { # Slave Revolt Event
 	}
 }
 
-planet_event = { # Slave Situation start event, taken from unrest.55
+carrier_event = { # Slave Situation start event, taken from unrest.55
 	id = civsep.5500
 	title = unrest.55.name
 	desc = {
@@ -2049,6 +2051,7 @@ planet_event = { # Slave Situation start event, taken from unrest.55
 	situation = event_target:new_situation
 
 	immediate = {
+		log = "event: civsep.5500"
 		set_planet_flag = plan_slave_sep_active
 		owner = {
 			start_situation = {
@@ -2101,6 +2104,7 @@ country_event = { # Remove Separatists from capital and core sector (ie if you m
 	}
 
 	immediate = {
+		log = "event: civsep.6000"
 
 		if = {
 			limit = { capital_scope = { has_planet_flag = plan_slave_sep_active } }
@@ -2159,7 +2163,7 @@ pop_faction_event = { # Planetary Separatist Faction Formed Notif
 	}
 }
 
-planet_event = { # Planetary Separatist Faction Disband Notif
+carrier_event = { # Planetary Separatist Faction Disband Notif
 	id = civsep.9005
 	title = civsep.9005.name
 	desc = civsep.9005.desc
@@ -2172,7 +2176,7 @@ planet_event = { # Planetary Separatist Faction Disband Notif
 	}
 }
 
-planet_event = { # Planetary Separatist Faction Disband Notif
+carrier_event = { # Planetary Separatist Faction Disband Notif
 	id = civsep.9006
 	title = civsep.9006.name
 	desc = civsep.9006.desc

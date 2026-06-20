@@ -2,6 +2,7 @@ heir_country = {
 	playable = no
 	has_pulse_events = yes
 	randomize_ethos = yes
+	is_enclave = yes
 	# randomize_ethos = no
 	sub_title = "Heir Country"
 	sub_title_desc = "Heirs waiting to rebel"
@@ -15,6 +16,7 @@ heir_country = {
 	blocks_piracy = yes
 	government = yes
 	observable = yes
+
 
 	ai = {
 		enabled = no
@@ -43,6 +45,7 @@ exile_country = {
 	playable = no
 	has_pulse_events = yes
 	randomize_ethos = no
+	is_enclave = yes
 	sub_title = "Government-in-Exile"
 	sub_title_desc = "A Government-in-Exile that hopes to one day reclaim actual territory."
 	has_capital = no
@@ -55,6 +58,7 @@ exile_country = {
 	blocks_piracy = yes
 	government = yes
 	observable = yes
+
 
 	ai = {
 		enabled = no
@@ -98,7 +102,8 @@ dead_nat_country = {
 	playable = no
 	has_pulse_events = yes
 	randomize_ethos = no
-	sub_title = "Nationalist Country"
+	is_enclave = yes
+	# sub_title = "Nationalist Country"
 	sub_title_desc = "Country for nat pops."
 	has_capital = no
 	enforces_borders = no

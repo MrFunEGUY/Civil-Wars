@@ -26,6 +26,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civheir.1000"
 
 		country_event = { id = civheir.1001 days = 2 random = 21 }
 
@@ -56,7 +57,7 @@ country_event = {
 	}
 
 	immediate = {
-
+		log = "event: civheir.1001"
 
 		if = {
 			limit = {
@@ -189,6 +190,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civheir.2000"
 
 		if = {
 			limit = { exists = event_target:gov_switch_country }
@@ -257,6 +259,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civheir.2005"
 
 		if = {
 			limit = { exists = event_target:gov_switch_country }
@@ -324,6 +327,7 @@ country_event = {
 	}
 	
 	immediate = {
+		log = "event: civheir.2100"
 
 		if = {
 			limit = { NOT = { exists = event_target:heir_civil_war_dummy_country } }
@@ -381,6 +385,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civheir.3000"
 		event_target:disinherited_heir = {
 			# set_owner = root
 			save_event_target_as = defeated_traitor
@@ -405,6 +410,7 @@ country_event = {
 	}
 	
 	immediate = {
+		log = "event: civheir.3010"
 
 		save_event_target_as = traitor_home_country
 
@@ -465,6 +471,10 @@ country_event = {
 	hide_window = no
 	is_triggered_only = yes
 
+	immediate = {
+		log = "event: civheir.3020"
+	}
+
 	option = {
 		name = civheir.3020.a
 		hidden_effect = {
@@ -482,6 +492,10 @@ country_event = {
 	location = from.capital_scope
 	hide_window = no
 	is_triggered_only = yes
+
+	immediate = {
+		log = "event: civheir.3030"
+	}
 
 	option = { # How dare they accept them!
 		name = civheir.3030.a
@@ -507,6 +521,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civheir.6000"
 
 		random_country = {
 			limit = { has_country_flag = ruler_heir_connection_@from }
@@ -523,6 +538,7 @@ leader_event = { # Actual Appointed Heir Ruler Flag Fix
 	is_triggered_only = yes
 
 	immediate = {
+		log = "event: civheir.6200"
 		leader_event = { id = civheir.6210 days = 2 }
 	}
 }
@@ -537,6 +553,7 @@ leader_event = {
 	}
 
 	immediate = {
+		log = "event: civheir.6210"
 		remove_leader_flag = civil_war_ruler_heir_disinherited
 	}
 }
@@ -556,6 +573,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civheir.8000"
 
 		from = { save_event_target_as = dead_disinherited_heir }
 
@@ -576,6 +594,7 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		log = "event: civheir.8005"
 		if = {
 			limit = {
 				num_owned_planets > 1
@@ -702,6 +721,10 @@ country_event = {
 		}
 	}
 
+	immediate = {
+		log = "event: civheir.8100"
+	}
+
 	option = { # One less threat to stability.
 		name = civheir.8100.a
 		hidden_effect = {
@@ -738,6 +761,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civheir.8200"
 		heir = { save_event_target_as = disinherited_heir_maybe }
 
 		create_country = {
@@ -779,6 +803,7 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		log = "event: civheir.8210"
 
 		if = {
 			limit = { is_imperial_authority = no }
@@ -847,6 +872,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civheir.9000"
 		from = { save_event_target_as = disinherited_heir_first }
 		clone_leader = {
 			target = event_target:disinherited_heir_first

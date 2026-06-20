@@ -2839,6 +2839,8 @@ is_able_to_assist_rebels = {
 	NOT = { is_in_federation_with = event_target:civwar_originator }
 	NOT = { has_association_status = event_target:civwar_originator }
 	NOT = { has_non_aggression_pact = event_target:civwar_originator }
+	NOT = { any_war = { using_war_goal = { type = wg_total_civwar owner = prev } } }
+	NOT = { any_war = { using_war_goal = { type = wg_total_civwar_rebel owner = prev } } }
 	if = {
 		limit = {
 			exists = event_target:civwar_originator.overlord
@@ -2856,6 +2858,29 @@ is_able_to_assist_rebels = {
 
 subject_can_wage_war = {
 	any_agreement = { has_term_value = { term = subject_diplomacy value = subject_can_do_diplomacy } }
+}
+
+has_unique_origin = {
+	OR = {
+		has_origin = origin_cybernetic_creed
+		has_origin = origin_synthetic_fertility
+		has_origin = origin_legendary_leader
+		has_origin = origin_payback
+		has_origin = origin_broken_shackles
+		has_origin = origin_fear_of_the_dark
+		has_origin = origin_overtuned
+		has_origin = origin_toxic_knights
+		has_origin = origin_subterranean
+		has_origin = origin_shroudwalker_apprentice
+		has_origin = origin_ocean_paradise
+		has_origin = origin_necrophage
+		has_origin = origin_void_dwellers
+		has_origin = origin_scion
+		has_origin = origin_shoulders_of_giants
+		has_origin = origin_post_apocalyptic
+		has_origin = origin_clone_army
+		has_origin = origin_mechanists
+	}
 }
 
 # For My Sanity

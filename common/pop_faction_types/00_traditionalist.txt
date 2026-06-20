@@ -203,8 +203,7 @@ traditionalist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				NOR = {
 					has_valid_civic = civic_machine_cult
 					has_origin = origin_cybernetic_creed
@@ -229,8 +228,7 @@ traditionalist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				can_set_ai_policy = yes
 				NAND = {
 					has_policy_flag = ai_full_rights
@@ -256,8 +254,7 @@ traditionalist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_individual_machine = no
 				can_set_ai_policy = yes
 				NOT = { has_valid_civic = civic_machine_cult}
@@ -280,8 +277,7 @@ traditionalist = {
 		fulfilled_effect = 10
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_origin = origin_unplugged
 				any_situation = {
 					is_situation_type = situation_unplugged_identity
@@ -339,8 +335,7 @@ traditionalist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				pd_is_planet_class_nuked_surveyed = yes
 				NOR = {
 					has_origin = origin_post_apocalyptic
@@ -382,8 +377,7 @@ traditionalist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_gaia_surv_plan = { SURV_PLAN = surveyed }
 				has_ascension_perk = ap_consecrated_worlds
 			}
@@ -411,8 +405,7 @@ traditionalist = {
 		desc = "PROTECTED_NATURE_DESC"
 		fulfilled_effect = 4
 		potential = {
-			exists = owner
-			owner = { has_valid_civic = civic_keepers_harmony }
+			owner? = { has_valid_civic = civic_keepers_harmony }
 		}
 		trigger = {
 			owner = { any_owned_planet = { has_modifier = "lush_planet" } }
@@ -425,8 +418,7 @@ traditionalist = {
 		desc = "PROTECTED_WILDLIFE_DESC"
 		fulfilled_effect = 5
 		potential = {
-			exists = owner
-			owner = { has_valid_civic = civic_keepers_harmony }
+			owner? = { has_valid_civic = civic_keepers_harmony }
 		}
 		trigger = {
 			owner = { any_owned_planet = { has_modifier = "dangerous_wildlife" } }
@@ -439,8 +431,7 @@ traditionalist = {
 		desc = "PROTECTED_BEAUTY_DESC"
 		fulfilled_effect = 4
 		potential = {
-			exists = owner
-			owner = { has_valid_civic = civic_keepers_harmony }
+			owner? = { has_valid_civic = civic_keepers_harmony }
 		}
 		trigger = {
 			owner = { any_owned_planet = { has_modifier = "natural_beauty" } }
@@ -453,8 +444,7 @@ traditionalist = {
 		desc = "UNIQUE_LIFERORMS_DESC"
 		fulfilled_effect = 10
 		potential = {
-			exists = owner
-			owner = { has_valid_civic = civic_keepers_harmony }
+			owner? = { has_valid_civic = civic_keepers_harmony }
 		}
 		trigger = {
 			owner = { any_owned_planet = { has_modifier = "titanic_life" } }
@@ -474,8 +464,7 @@ traditionalist = {
 				has_utopia = yes
 				has_shroud_dlc = yes
 			}
-			exists = owner
-			owner = {
+			owner? = {
 				NOR = {
                     has_origin = origin_shroudwalker_apprentice
 					has_origin = origin_cybernetic_creed
@@ -506,8 +495,7 @@ traditionalist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
                     has_origin = origin_shroudwalker_apprentice
                     has_origin = origin_pd_shroud
@@ -532,8 +520,7 @@ traditionalist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_ascension_perk = ap_the_flesh_is_weak
 				NOR = {
 					has_valid_civic = civic_machine_cult
@@ -560,8 +547,7 @@ traditionalist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_ascension_perk = ap_the_flesh_is_weak
 				has_policy_flag = cyberization_standards_limited
 				NOR = {
@@ -621,8 +607,7 @@ traditionalist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_country_flag = positive_shroud_outcome
 			}
 		}
@@ -643,8 +628,7 @@ traditionalist = {
 		unfulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_country_flag = negative_shroud_outcome
 			}
 		}
@@ -665,8 +649,7 @@ traditionalist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_modifier = proclaim_religious_finding
 			}
 		}
@@ -705,8 +688,7 @@ traditionalist = {
 		fulfilled_effect = 15
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_individual_machine = yes
 			}
 		}
@@ -727,8 +709,7 @@ traditionalist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_individual_machine = yes
 				any_pop_faction = {
 					is_pop_faction_type = technologist
@@ -737,8 +718,7 @@ traditionalist = {
 		}
 
 		trigger = {
-			exists = owner
-			owner = {
+			owner? = {
 				count_owned_pop_amount = {
 					limit = {
 						has_ethic = ethic_materialist
@@ -787,8 +767,7 @@ traditionalist = {
 			}
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					OR = {
 						is_subject = no
 						NOT = { any_agreement = { agreement_preset = preset_dominion } }
@@ -964,8 +943,7 @@ traditionalist = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					NOR = {
@@ -991,8 +969,7 @@ traditionalist = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					OR = {
@@ -1018,8 +995,7 @@ traditionalist = {
 			description = "CANCEL_EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 				}

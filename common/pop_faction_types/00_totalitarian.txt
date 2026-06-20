@@ -169,8 +169,7 @@ totalitarian = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = { is_democratic_authority = no }
+			owner? = { is_democratic_authority = no }
 		}
 
 		trigger = {
@@ -187,8 +186,7 @@ totalitarian = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = { is_imp_or_dict = no }
+			owner? = { is_imp_or_dict = no }
 		}
 
 		trigger = {
@@ -242,8 +240,7 @@ totalitarian = {
 		unfulfilled_effect = -5
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					has_technology = tech_selected_lineages
 					has_technology = tech_capacity_boosters
@@ -267,8 +264,7 @@ totalitarian = {
 		desc = "TOTALITARIAN_PERSONALITY_CULT_DESC"
 		fulfilled_effect = 5
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					has_valid_civic = civic_military_dictatorship
 					has_valid_civic = civic_imperial_cult
@@ -293,8 +289,7 @@ totalitarian = {
 		desc = "TOTALITARIAN_ARISTOCRACY_DESC"
 		fulfilled_effect = 5
 		potential = {
-			exists = owner
-			owner = { has_valid_civic = civic_aristocratic_elite }
+			owner? = { has_valid_civic = civic_aristocratic_elite }
 		}
 		trigger = {
 			owner = { has_valid_civic = civic_aristocratic_elite }
@@ -307,8 +302,7 @@ totalitarian = {
 		desc = "TOTALITARIAN_CASTE_DESC"
 		fulfilled_effect = 5
 		potential = {
-			exists = owner
-			owner = { has_valid_civic = civic_divine_order }
+			owner? = { has_valid_civic = civic_divine_order }
 		}
 		trigger = {
 			owner = { has_valid_civic = civic_divine_order }
@@ -321,8 +315,7 @@ totalitarian = {
 		desc = "TOTALITARIAN_SLAVERY_DESC"
 		fulfilled_effect = 5
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					has_valid_civic = civic_slaver_guilds
 					has_valid_civic = civic_slaving_despots
@@ -345,8 +338,7 @@ totalitarian = {
 		desc = "TOTALITARIAN_POLICE_CONTROL_DESC"
 		fulfilled_effect = 5
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					has_valid_civic = civic_police_state
 					has_valid_civic = civic_cyber_dictatorship
@@ -385,8 +377,7 @@ totalitarian = {
 		fulfilled_effect = 5
 		unfulfilled_effect = -5
 		potential = {
-			exists = owner
-			owner = { has_technology = tech_centralized_state }
+			owner? = { has_technology = tech_centralized_state }
 			has_global_flag = cultural_overhaul_active
 		}
 		trigger = {
@@ -403,8 +394,7 @@ totalitarian = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 2
 			}
 		}
@@ -425,8 +415,7 @@ totalitarian = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_subject = yes
 			}
 		}
@@ -447,8 +436,7 @@ totalitarian = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_subject = no
 				has_policy_flag = benevolent_terms
 			}
@@ -470,8 +458,7 @@ totalitarian = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_subject = no
 				NOT = { has_policy_flag = benevolent_terms }
 			}
@@ -511,8 +498,7 @@ totalitarian = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_origin = origin_unplugged
 				any_situation = {
 					is_situation_type = situation_unplugged_identity
@@ -568,8 +554,7 @@ totalitarian = {
 			}
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					OR = {
 						is_subject = no
 						NOT = { any_agreement = { agreement_preset = preset_dominion } }
@@ -745,8 +730,7 @@ totalitarian = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					NOR = {
@@ -772,8 +756,7 @@ totalitarian = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					OR = {
@@ -799,8 +782,7 @@ totalitarian = {
 			description = "CANCEL_EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 				}

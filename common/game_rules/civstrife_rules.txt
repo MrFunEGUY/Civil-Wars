@@ -20,8 +20,7 @@ can_build_branch_offices = {
 can_dismiss_leader = {
 	custom_tooltip = {
 		fail_text = "requires_actor_not_feudal_society"
-		exists = owner
-		owner = {
+		owner? = {
 			NOT = { has_valid_civic = civic_feudal_realm }
 		}
 	}

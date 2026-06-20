@@ -193,8 +193,7 @@ prosperity = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_owned_planets >= 3
 			}
 		}
@@ -213,8 +212,7 @@ prosperity = {
 		unfulfilled_effect = -10
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				any_relation = {
 					has_communications = root.owner
 					is_country_type = default
@@ -258,8 +256,7 @@ prosperity = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 2
 			}
 		}
@@ -283,8 +280,7 @@ prosperity = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				host_has_dlc = "Ancient Relics Story Pack"
 				has_technology = tech_arcane_deciphering
 				OR = {
@@ -317,8 +313,7 @@ prosperity = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				host_has_dlc = "Ancient Relics Story Pack"
 				has_technology = tech_arcane_deciphering
 				OR = {
@@ -349,8 +344,7 @@ prosperity = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_homicidal = no
 				is_country_type = default
 				# has_policy_flag = diplo_stance_mercantile
@@ -396,8 +390,7 @@ prosperity = {
 		unfulfilled_effect = -10
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_homicidal = no
 				is_country_type = default
 				# OR = {
@@ -426,8 +419,7 @@ prosperity = {
 		fulfilled_effect = 5
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_origin = origin_unplugged
 				any_situation = {
 					is_situation_type = situation_unplugged_identity
@@ -494,8 +486,7 @@ prosperity = {
 			}
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					OR = {
 						is_subject = no
 						NOT = { any_agreement = { agreement_preset = preset_dominion } }
@@ -671,8 +662,7 @@ prosperity = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					NOR = {
@@ -698,8 +688,7 @@ prosperity = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					OR = {
@@ -725,8 +714,7 @@ prosperity = {
 			description = "CANCEL_EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 				}

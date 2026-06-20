@@ -80,6 +80,7 @@ country_event = { # Kill old Dummy faction Leaders
 	}
 
 	immediate = {
+		log = "event: civmisc.2100"
 		every_owned_leader = {
 			limit = {
 				is_ruler = no
@@ -106,6 +107,7 @@ country_event = { # Clear unused global event targets
 	}
 
 	immediate = {
+		log = "event: civmisc.2200"
 		every_owned_sector = {
 			limit = {
 				OR = {
@@ -136,6 +138,7 @@ country_event = {
 	# }
 
 	immediate = {
+		log = "event: civmisc.3000"
 
 		set_saved_date = {
 			key = birth_date
@@ -165,6 +168,7 @@ country_event = { # Set Birthday
 	}
 
 	immediate = {
+		log = "event: civmisc.3001"
 
 		set_variable = { which = birth_year value = 2200 }
 		export_trigger_value_to_variable = {
@@ -193,6 +197,7 @@ country_event = { # Log
 	is_triggered_only = yes
 
 	immediate = {
+		log = "event: civmisc.3002"
 
 		log = "| ++++++++++++++++++++++++++++++++++++++++++++++++"
 		
@@ -238,6 +243,7 @@ country_event = { # War Log, War won + Status Quo
 	}
 
 	immediate = {
+		log = "event: civmisc.3010"
 
 		log = "| ------------------------------"
 		
@@ -288,6 +294,7 @@ fleet_event = {
 	}
 
 	immediate = {
+		log = "event: civmisc.4000"
 		prolong_fleet_contract = { days = 3600 }
 		fleet_event = { id = civmisc.4000 days = 3570 }
 	}
@@ -303,6 +310,7 @@ fleet_event = {
 	}
 
 	immediate = {
+		log = "event: civmisc.4100"
 		remove_fleet_flag = civwar_loaned_fleet
 	}
 }
@@ -321,6 +329,7 @@ country_event = {
 	}
 
 	immediate = {
+		log = "event: civmisc.5000"
 		event_target:global_event_country = {
 			change_variable = { which = total_gal_civstrife_events value = 1 }
 			
@@ -781,6 +790,7 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		log = "event: civmisc.6000"
 		from = { set_country_flag = integrated_subject }
 	}
 }

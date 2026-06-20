@@ -179,8 +179,7 @@ technologist = {
 		fulfilled_effect = 10
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_origin = origin_unplugged
 				any_situation = {
 					is_situation_type = situation_unplugged_identity
@@ -216,8 +215,7 @@ technologist = {
 		desc = "ACADEMIC_PRIVILEGES_DESC"
 		fulfilled_effect = 10
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_valid_civic = civic_science_directorate
 			}
 		}
@@ -242,8 +240,7 @@ technologist = {
 		fulfilled_effect = 15
 		unfulfilled_effect = -2
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_valid_civic = civic_symbiotic_race
 			}
 		}
@@ -275,8 +272,7 @@ technologist = {
 		unfulfilled_effect = -20
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_subject = no
 				any_relation = {
 					has_communications = root.owner
@@ -327,8 +323,7 @@ technologist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 3
 				NOT = { has_valid_civic = civic_inwards_perfection }
 			}
@@ -366,8 +361,7 @@ technologist = {
 
 		potential = {
 			years_passed >= 50 #otherwise, just a penalty for meeting Mechanists early
-			exists = owner
-			owner = {
+			owner? = {
 				NOT = { has_ascension_perk = ap_synthetic_evolution }
 				is_individual_machine = no
 				any_relation = {
@@ -419,8 +413,7 @@ technologist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					has_modifier = fallen_empire_gift_databanks
 					has_modifier = curator_insight
@@ -465,8 +458,7 @@ technologist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					has_modifier = arcane_deciphering_cooldown
 					has_modifier = arcane_insight
@@ -494,8 +486,7 @@ technologist = {
 
 		potential = {
 			host_has_dlc = "Ancient Relics Story Pack"
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					has_country_flag = irassian_world_found
 					has_country_flag = yuht_world_found
@@ -532,8 +523,7 @@ technologist = {
 		}
 
 		trigger = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_policy_flag = research_restriction_no_restriction
 			}
 		}
@@ -554,8 +544,7 @@ technologist = {
 		}
 
 		trigger = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_policy_flag = research_restriction_dangerous_encouraged
 			}
 		}
@@ -570,8 +559,7 @@ technologist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_homicidal = no
 				is_country_type = default
 				has_policy_flag = diplo_stance_cooperative
@@ -614,8 +602,7 @@ technologist = {
 			}
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					OR = {
 						is_subject = no
 						NOT = { any_agreement = { agreement_preset = preset_dominion } }
@@ -791,8 +778,7 @@ technologist = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					NOR = {
@@ -818,8 +804,7 @@ technologist = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					OR = {
@@ -845,8 +830,7 @@ technologist = {
 			description = "CANCEL_EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 				}

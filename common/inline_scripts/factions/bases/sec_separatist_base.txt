@@ -33,8 +33,7 @@ can_join_pre_triggers = {
 }
 
 can_join_faction = {
-	exists = sector
-	sector = {
+	sector? = {
 		is_same_value = event_target:sec_separatist_$SEC_FAC_NUM$
 		has_sector_flag = sector_sep_active
 	}

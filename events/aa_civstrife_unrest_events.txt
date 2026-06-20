@@ -4,7 +4,7 @@ namespace = unrest
 
 ###### These events have been repurposed:
 
-planet_event = { # Never Fires
+carrier_event = { # Never Fires
 	id = unrest.50
 	is_triggered_only = yes
 	hide_window = yes
@@ -52,7 +52,7 @@ planet_event = { # Never Fires
 	immediate = {}
 }
 
-planet_event = { # Never Fires
+carrier_event = { # Never Fires
 	id = unrest.54
 	is_triggered_only = yes
 	hide_window = yes
@@ -124,7 +124,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 			}
 			random_list = {
 				1 = {
-					planet_event = { id = unrest.115 }
+					carrier_event = { id = unrest.115 }
 					root = { set_situation_flag = spiritualist }
 					modifier = {
 						factor = 0
@@ -147,7 +147,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					}
 				}
 				1 = {
-					planet_event = { id = unrest.120 }
+					carrier_event = { id = unrest.120 }
 					root = { set_situation_flag = authoritarian }
 					modifier = {
 						factor = 0
@@ -178,7 +178,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					}
 				}
 				1 = {
-					planet_event = { id = unrest.125 }
+					carrier_event = { id = unrest.125 }
 					root = { set_situation_flag = xenophobe }
 					modifier = {
 						factor = 0
@@ -222,7 +222,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					}
 				}
 				1 = {
-					planet_event = { id = unrest.130 }
+					carrier_event = { id = unrest.130 }
 					root = { set_situation_flag = spiritualist }
 					modifier = {
 						factor = 0
@@ -245,7 +245,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					}
 				}
 				1 = {
-					planet_event = { id = unrest.135 }
+					carrier_event = { id = unrest.135 }
 					root = { set_situation_flag = xenophile }
 					modifier = {
 						factor = 0
@@ -281,7 +281,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					}
 				}
 				1 = {
-					planet_event = { id = unrest.140 }
+					carrier_event = { id = unrest.140 }
 					root = { set_situation_flag = egalitarian }
 					modifier = {
 						factor = 0
@@ -312,7 +312,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					}
 				}
 				1 = {
-					planet_event = { id = unrest.145 }
+					carrier_event = { id = unrest.145 }
 					root = { set_situation_flag = pacifist }
 					modifier = {
 						factor = 0
@@ -339,7 +339,7 @@ situation_event = { ### Stability Revolt - Faction Check - currently unused
 					}
 				}
 				1 = {
-					planet_event = { id = unrest.150 }
+					carrier_event = { id = unrest.150 }
 					root = { set_situation_flag = militarist }
 					modifier = {
 						factor = 0
@@ -808,7 +808,7 @@ situation_event = {
 # Extra slave revolt content
 
 # Resistance: Sabotage
-planet_event = {
+carrier_event = {
 	id = unrest.156
 	title = unrest.156.name
 	desc = unrest.156.desc

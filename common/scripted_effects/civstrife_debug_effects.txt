@@ -265,13 +265,13 @@ get_civwar_sits_effect = {
 	every_playable_country = {
 		limit = { any_situation = { is_faction_based_situation = yes } }
 		log = "Country: \\[this.GetName]"
-		log = "--------------------------"
+		log = "-------------------------------"
 		every_situation = {
 			limit = { is_faction_based_situation = yes }
 			log = "Situation: \\[this.GetName]"
 		}
+		log = "====================================="
 	}
-	log = "==========================="
 }
 
 get_test_country_effect = {

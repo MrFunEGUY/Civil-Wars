@@ -185,8 +185,7 @@ supremacist = {
 		unfulfilled_effect = -30
 
 		potential = {
-			exists = owner
-			owner = { NOT = { has_valid_civic = civic_fanatic_purifiers } }
+			owner? = { NOT = { has_valid_civic = civic_fanatic_purifiers } }
 		}
 
 		trigger = {
@@ -212,8 +211,7 @@ supremacist = {
 		unfulfilled_effect = -10
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				any_owned_leader = {
 					is_councilor = yes
 					is_same_species = owner_species
@@ -282,8 +280,7 @@ supremacist = {
 		unfulfilled_effect = -20
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				OR = {
 					AND = {
@@ -335,8 +332,7 @@ supremacist = {
 		unfulfilled_effect = -30
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				OR = {
 					AND = {
@@ -388,8 +384,7 @@ supremacist = {
 		unfulfilled_effect = -40
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				OR = {
 					AND = {
@@ -441,8 +436,7 @@ supremacist = {
 		unfulfilled_effect = -60
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				NOR = {
 					any_owned_leader = {
@@ -501,8 +495,7 @@ supremacist = {
 		unfulfilled_effect = -20
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 0
 			}
 		}
@@ -530,8 +523,7 @@ supremacist = {
 		unfulfilled_effect = -10
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				any_relation = {
 					is_country_type = primitive
@@ -559,8 +551,7 @@ supremacist = {
 		unfulfilled_effect = -10
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				any_owned_species = {
 					NOT = { is_same_species = prev }
@@ -604,8 +595,7 @@ supremacist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				num_communications > 2
 			}
@@ -640,8 +630,7 @@ supremacist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				NOT = { has_valid_civic = civic_fanatic_purifiers }
 				any_relation = {
 					is_country_type = default
@@ -669,8 +658,7 @@ supremacist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_valid_civic = civic_fanatic_purifiers
 			}
 		}
@@ -691,8 +679,7 @@ supremacist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					has_country_flag = killed_guardian
 					any_relation = { is_guardian_country = yes }
@@ -716,8 +703,7 @@ supremacist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_modifier = proclaim_superiority
 			}
 		}
@@ -738,8 +724,7 @@ supremacist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_modifier = celebrate_diversity
 			}
 		}
@@ -760,8 +745,7 @@ supremacist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_homicidal = no
 				is_country_type = default
 				OR = {
@@ -792,8 +776,7 @@ supremacist = {
 		unfulfilled_effect = -10
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_homicidal = no
 				is_country_type = default
 				has_policy_flag = diplo_stance_cooperative
@@ -816,8 +799,7 @@ supremacist = {
 		fulfilled_effect = 10
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					years_passed <= 75
 					has_country_flag = recent_first_contact_process_started
@@ -841,8 +823,7 @@ supremacist = {
 		fulfilled_effect = 10
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_subject = no
 			}
 		}
@@ -863,8 +844,7 @@ supremacist = {
 		fulfilled_effect = 5
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_origin = origin_unplugged
 				any_situation = {
 					is_situation_type = situation_unplugged_identity
@@ -931,8 +911,7 @@ supremacist = {
 			}
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					OR = {
 						is_subject = no
 						NOT = { any_agreement = { agreement_preset = preset_dominion } }
@@ -1125,8 +1104,7 @@ supremacist = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					OR = {
@@ -1152,8 +1130,7 @@ supremacist = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					OR = {
@@ -1179,8 +1156,7 @@ supremacist = {
 			description = "CANCEL_EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 				}

@@ -11,14 +11,14 @@ modifier = { has_trait = leader_trait_corrupt add = 5 }
 
 ## War Values
 modifier = {
-	exists = solar_system
-	solar_system = { is_capital_system = no }
-	owner.capital_scope = { is_occupied_flag = yes }
+	# exists = solar_system
+	solar_system? = { is_capital_system = no }
+	owner.capital_scope.carrier = { is_occupied_flag = yes }
 	add = 1
 }
 
 modifier = {
-	exists = planet
-	planet = { is_occupied_flag = yes }
+	# exists = planet
+	planet? = { is_occupied_flag = yes }
 	factor = 0.25
 }

@@ -179,8 +179,7 @@ isolationist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				any_relation = {
 					has_communications = root.owner
 					is_country_type = default
@@ -205,8 +204,7 @@ isolationist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 2
 				any_war = { is_war_participant = { who = prev side = attackers } }
 			}
@@ -228,8 +226,7 @@ isolationist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 0
 			}
 		}
@@ -250,8 +247,7 @@ isolationist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 2
 			}
 		}
@@ -282,8 +278,7 @@ isolationist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 2
 				count_playable_country = {
 					limit = {
@@ -316,8 +311,7 @@ isolationist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 2
 				count_playable_country = {
 					limit = {
@@ -364,8 +358,7 @@ isolationist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 2
 				count_playable_country = {
 					limit = {
@@ -403,8 +396,7 @@ isolationist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 0
 			}
 		}
@@ -427,8 +419,7 @@ isolationist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 0
 				years_of_peace = {
 					value > 9
@@ -454,8 +445,7 @@ isolationist = {
 		unfulfilled_effect = -0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				num_communications > 0
 				years_of_peace = {
 					value > 24
@@ -481,8 +471,7 @@ isolationist = {
 		unfulfilled_effect = -10
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				is_homicidal = no
 				is_country_type = default
 				is_megacorp = no
@@ -505,8 +494,7 @@ isolationist = {
 		fulfilled_effect = 0.001
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				OR = {
 					years_passed <= 75
 					has_country_flag = recent_first_contact_process_started
@@ -530,8 +518,7 @@ isolationist = {
 		fulfilled_effect = 5
 
 		potential = {
-			exists = owner
-			owner = {
+			owner? = {
 				has_origin = origin_unplugged
 				any_situation = {
 					is_situation_type = situation_unplugged_identity
@@ -598,8 +585,7 @@ isolationist = {
 			}
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					OR = {
 						is_subject = no
 						NOT = { any_agreement = { agreement_preset = preset_dominion } }
@@ -791,8 +777,7 @@ isolationist = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					NOR = {
@@ -818,8 +803,7 @@ isolationist = {
 			description = "EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 					OR = {
@@ -845,8 +829,7 @@ isolationist = {
 			description = "CANCEL_EXTORT_FACTION_DESC"
 
 			potential = {
-				exists = owner
-				owner = {
+				owner? = {
 					is_oligarchic_authority = yes
 					has_country_flag = cyber_collectivist
 				}
