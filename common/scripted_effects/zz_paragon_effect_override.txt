@@ -162,7 +162,7 @@ paragon_origin_launch_rebelion = {
 			
 
 			every_system_within_border = {
-				every_system_colony = {
+				every_system_planet = {
 					limit = { is_capital = no }
 					solar_system = {
 						if = {
@@ -236,7 +236,7 @@ paragon_origin_launch_rebelion = {
 			# Remove Reformists modifiers
 			every_system_within_border = {
 				limit = {
-					any_system_colony = {
+					any_system_planet_colony = {
 						has_modifier = paragon_origin_reformists
 					}
 				}
@@ -646,7 +646,7 @@ paragon_origin_launch_rebelion = {
 					}
 				
 					every_system_within_border = {
-						every_system_colony = {
+						every_system_planet = {
 							limit = { is_capital = no }
 							solar_system = {
 								if = {
@@ -720,7 +720,7 @@ paragon_origin_launch_rebelion = {
 					# Remove Reformists modifiers
 					every_system_within_border = {
 						limit = {
-							any_system_colony = {
+							any_system_planet_colony = {
 								has_modifier = paragon_origin_reformists
 							}
 						}
@@ -769,7 +769,7 @@ paragon_origin_launch_rebelion = {
 					has_ground_combat = no
 					is_occupied_flag = no
 				}
-				set_timed_planet_flag = { flag = under_one_rule_small_civil_war days = 30 }
+				set_timed_carrier_flag = { flag = under_one_rule_small_civil_war days = 30 }
 				prev = { change_variable = { which = yes_rebel_planets value = 1 } }
 				save_event_target_as = civil_war_planet
 				solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
@@ -867,7 +867,7 @@ paragon_origin_launch_rebelion = {
 							limit = { is_egalitarian = yes }
 						}
 					}
-					set_timed_planet_flag = { flag = maybe_balkan_war days = 30 }
+					set_timed_carrier_flag = { flag = maybe_balkan_war days = 30 }
 					prev = { change_variable = { which = yes_rebel_planets value = 1 } }
 				}
 			}
@@ -885,7 +885,7 @@ paragon_origin_launch_rebelion = {
 					}
 					position = 0
 					order_by = trigger:pop_amount
-					set_timed_planet_flag = { flag = maybe_balkan_war days = 30 }
+					set_timed_carrier_flag = { flag = maybe_balkan_war days = 30 }
 					prev = { change_variable = { which = yes_rebel_planets value = 1 } }
 				}
 			}
@@ -893,10 +893,10 @@ paragon_origin_launch_rebelion = {
 			while = {
 				count = yes_rebel_planets
 				ordered_owned_planet = {
-					limit = { has_planet_flag = maybe_balkan_war }
+					limit = { has_carrier_flag = maybe_balkan_war }
 					position = 0
 					order_by = trigger:pop_amount
-					remove_planet_flag = maybe_balkan_war
+					remove_carrier_flag = maybe_balkan_war
 
 					save_event_target_as = civil_war_planet
 					solar_system = { set_timed_star_flag = { flag = civwar_planet months = 3 } }
@@ -909,9 +909,9 @@ paragon_origin_launch_rebelion = {
 						species = { save_event_target_as = civwar_species }
 					}
 
-					set_timed_planet_flag = { flag = under_one_rule_balkan_war days = 30 }
-					set_timed_planet_flag = { flag = under_one_rule_small_civil_war days = 30 }
-					set_planet_flag = ethic_planet_rebellion_@this # Such that Balkanization doesnt result in a bunch of wars numbered different civil wars at the same time
+					set_timed_carrier_flag = { flag = under_one_rule_balkan_war days = 30 }
+					set_timed_carrier_flag = { flag = under_one_rule_small_civil_war days = 30 }
+					set_carrier_flag = ethic_planet_rebellion_@this # Such that Balkanization doesnt result in a bunch of wars numbered different civil wars at the same time
 					set_recent_civwar_flag = yes
 					if = {
 						limit = { has_global_flag = cultural_overhaul_active }
@@ -976,7 +976,7 @@ paragon_origin_launch_rebelion = {
 	# Remove Reformists modifiers
 	every_system_within_border = {
 		limit = {
-			any_system_colony = {
+			any_system_planet_colony = {
 				has_modifier = paragon_origin_reformists
 			}
 		}

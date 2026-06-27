@@ -20,7 +20,7 @@ situation_event = {
 			target = {
 				random_owned_pop_group = { planet = { save_event_target_as = random_rebel_planet } }
 				event_target:random_rebel_planet = {
-					set_timed_planet_flag = {
+					set_timed_carrier_flag = {
 						flag = recent_unrest_event
 						days = @unrest_event_cooldown
 					}

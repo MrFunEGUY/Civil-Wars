@@ -17,8 +17,8 @@ is_potential = {
 	exists = event_target:nat_country_$NAT_FAC_NUM$
 	any_owned_planet = {
 		OR = {
-			has_planet_flag = integrated_planet_@event_target:nat_country_$NAT_FAC_NUM$
-			has_planet_flag = fundamental_planet_@event_target:nat_country_$NAT_FAC_NUM$
+			has_carrier_flag = integrated_planet_@event_target:nat_country_$NAT_FAC_NUM$
+			has_carrier_flag = fundamental_planet_@event_target:nat_country_$NAT_FAC_NUM$
 		}
 		count_owned_pop_group = { limit = { is_same_species = event_target:nat_country_$NAT_FAC_NUM$.species } count >= 5 }
 	}

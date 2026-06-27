@@ -4,7 +4,7 @@ random_owned_leader = {
 		OR = {
 			background_planet = { is_same_value = event_target:civil_war_planet }
 			AND = {
-				event_target:civil_war_planet = { has_planet_flag = sep_sector_rebellion }
+				event_target:civil_war_planet = { has_carrier_flag = sep_sector_rebellion }
 				exists = background_planet.sector
 				background_planet.sector = { is_same_value = event_target:civil_war_planet.sector }
 			}

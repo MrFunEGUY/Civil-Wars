@@ -59,52 +59,52 @@ country_event = {
 
 		# Planetary Rebellions
 		if = {
-			limit = { FromFrom = { has_planet_flag = ethic_planet_rebellion_@this } }
-			FromFrom = { remove_planet_flag = ethic_planet_rebellion_@this }
+			limit = { FromFrom = { has_carrier_flag = ethic_planet_rebellion_@this } }
+			FromFrom = { remove_carrier_flag = ethic_planet_rebellion_@this }
 			from = { set_country_flag = plan_rebel_country }
 		}
 		else_if = {
-			limit = { FromFrom = { has_planet_flag = nat_planet_rebellion_@this } }
-			FromFrom = { remove_planet_flag = nat_planet_rebellion_@this }
+			limit = { FromFrom = { has_carrier_flag = nat_planet_rebellion_@this } }
+			FromFrom = { remove_carrier_flag = nat_planet_rebellion_@this }
 			from = { set_country_flag = nat_plan_rebels }
 		}
 		else_if = {
-			limit = { FromFrom = { has_planet_flag = sep_planet_rebellion } }
-			FromFrom = { remove_planet_flag = sep_planet_rebellion }
+			limit = { FromFrom = { has_carrier_flag = sep_planet_rebellion } }
+			FromFrom = { remove_carrier_flag = sep_planet_rebellion }
 			from = { set_country_flag = plan_rebel_country }
 		}
 		else_if = {
-			limit = { FromFrom = { has_planet_flag = heir_planetary_rebellion } }
-			FromFrom = { remove_planet_flag = heir_planetary_rebellion }
+			limit = { FromFrom = { has_carrier_flag = heir_planetary_rebellion } }
+			FromFrom = { remove_carrier_flag = heir_planetary_rebellion }
 			# from = { set_country_flag = heir_rebel_country } # Done on Creation
 		}
 		else_if = {
-			limit = { FromFrom = { has_planet_flag = plan_slave_revolt } }
-			FromFrom = { remove_planet_flag = slave_revolt }
+			limit = { FromFrom = { has_carrier_flag = plan_slave_revolt } }
+			FromFrom = { remove_carrier_flag = slave_revolt }
 			from = { set_country_flag = plan_slave_rebel_country }
 		}
 		# Sectoral Rebellions
 		else_if = {
-			limit = { FromFrom = { has_planet_flag = ethic_sector_rebellion } }
-			FromFrom = { remove_planet_flag = ethic_sector_rebellion }
+			limit = { FromFrom = { has_carrier_flag = ethic_sector_rebellion } }
+			FromFrom = { remove_carrier_flag = ethic_sector_rebellion }
 			from = { set_country_flag = ethic_sec_rebels }
 			get_sector_name_leader = yes
 		}
 		else_if = {
-			limit = { FromFrom = { has_planet_flag = sep_sector_rebellion } }
-			FromFrom = { remove_planet_flag = sep_sector_rebellion }
+			limit = { FromFrom = { has_carrier_flag = sep_sector_rebellion } }
+			FromFrom = { remove_carrier_flag = sep_sector_rebellion }
 			from = { set_country_flag = sep_sec_rebels }
 			get_sector_name_leader = yes
 		}
 		else_if = {
-			limit = { FromFrom = { has_planet_flag = nat_sector_rebellion } }
-			FromFrom = { remove_planet_flag = nat_sector_rebellion }
+			limit = { FromFrom = { has_carrier_flag = nat_sector_rebellion } }
+			FromFrom = { remove_carrier_flag = nat_sector_rebellion }
 			from = { set_country_flag = nat_sec_rebels }
 			get_sector_name_leader = yes
 		}
 		else_if = {
-			limit = { FromFrom = { has_planet_flag = sec_slave_revolt } }
-			FromFrom = { remove_planet_flag = sec_slave_revolt }
+			limit = { FromFrom = { has_carrier_flag = sec_slave_revolt } }
+			FromFrom = { remove_carrier_flag = sec_slave_revolt }
 			from = { set_country_flag = sec_slave_rebel_country }
 			get_sector_name_leader = yes
 		}
@@ -132,21 +132,21 @@ country_event = {
 					from = { has_origin = origin_legendary_leader_death }
 					FromFrom = {
 						OR = {
-							has_planet_flag = balkan_war
-							has_planet_flag = small_civil_war
+							has_carrier_flag = balkan_war
+							has_carrier_flag = small_civil_war
 						}
 					}
 				}
 			}
 			# log = "2"
 			if = {
-				limit = { FromFrom = { has_planet_flag = small_civil_war } }
-				FromFrom = { remove_planet_flag = small_civil_war }
+				limit = { FromFrom = { has_carrier_flag = small_civil_war } }
+				FromFrom = { remove_carrier_flag = small_civil_war }
 				country_event = { id = civcom.1100 }
 			}
 			else_if = {
-				limit = { FromFrom = { has_planet_flag = balkan_war } }
-				FromFrom = { remove_planet_flag = balkan_war }
+				limit = { FromFrom = { has_carrier_flag = balkan_war } }
+				FromFrom = { remove_carrier_flag = balkan_war }
 				country_event = { id = civcom.1000 }
 			}
 			else_if = {
@@ -234,56 +234,56 @@ country_event = {
 
 		FromFrom = {
 			random_list = {
-				40 = { set_timed_planet_flag = { flag = rebellion_suppressed years = 5 } }
-				25 = { set_timed_planet_flag = { flag = rebellion_suppressed years = 10 } }
-				20 = { set_timed_planet_flag = { flag = rebellion_suppressed years = 15 } }
-				15 = { set_timed_planet_flag = { flag = rebellion_suppressed years = 20 } }
+				40 = { set_timed_carrier_flag = { flag = rebellion_suppressed years = 5 } }
+				25 = { set_timed_carrier_flag = { flag = rebellion_suppressed years = 10 } }
+				20 = { set_timed_carrier_flag = { flag = rebellion_suppressed years = 15 } }
+				15 = { set_timed_carrier_flag = { flag = rebellion_suppressed years = 20 } }
 			}
 			if = {
-				limit = { has_planet_flag = ethic_planet_rebellion_@this }
-				remove_planet_flag = ethic_planet_rebellion_@this
+				limit = { has_carrier_flag = ethic_planet_rebellion_@this }
+				remove_carrier_flag = ethic_planet_rebellion_@this
 			}
 			else_if = {
-				limit = { has_planet_flag = nat_planet_rebellion_@this }
-				remove_planet_flag = nat_planet_rebellion_@this
+				limit = { has_carrier_flag = nat_planet_rebellion_@this }
+				remove_carrier_flag = nat_planet_rebellion_@this
 			}
 			else_if = {
-				limit = { has_planet_flag = sep_planet_rebellion }
-				remove_planet_flag = sep_planet_rebellion
+				limit = { has_carrier_flag = sep_planet_rebellion }
+				remove_carrier_flag = sep_planet_rebellion
 			}
 			else_if = {
-				limit = { has_planet_flag = small_civil_war }
-				remove_planet_flag = small_civil_war
+				limit = { has_carrier_flag = small_civil_war }
+				remove_carrier_flag = small_civil_war
 			}
 			else_if = {
-				limit = { has_planet_flag = balkan_war }
-				remove_planet_flag = balkan_war
+				limit = { has_carrier_flag = balkan_war }
+				remove_carrier_flag = balkan_war
 			}
 			else_if = {
-				limit = { has_planet_flag = balkan_war }
-				remove_planet_flag = balkan_war
+				limit = { has_carrier_flag = balkan_war }
+				remove_carrier_flag = balkan_war
 			}
 			else_if = {
-				limit = { has_planet_flag = plan_slave_revolt }
-				remove_planet_flag = plan_slave_revolt
+				limit = { has_carrier_flag = plan_slave_revolt }
+				remove_carrier_flag = plan_slave_revolt
 			}
 			else_if = {
-				limit = { has_planet_flag = sec_slave_revolt }
-				remove_planet_flag = sec_slave_revolt
+				limit = { has_carrier_flag = sec_slave_revolt }
+				remove_carrier_flag = sec_slave_revolt
 			}
 			else_if = {
-				limit = { has_planet_flag = ethic_sector_rebellion }
-				remove_planet_flag = ethic_sector_rebellion
+				limit = { has_carrier_flag = ethic_sector_rebellion }
+				remove_carrier_flag = ethic_sector_rebellion
 				sector = { remove_sector_flag = ethic_sector_rebellion }
 			}
 			else_if = {
-				limit = { has_planet_flag = sep_sector_rebellion }
-				remove_planet_flag = sep_sector_rebellion
+				limit = { has_carrier_flag = sep_sector_rebellion }
+				remove_carrier_flag = sep_sector_rebellion
 				sector = { remove_sector_flag = sep_sector_rebellion }
 			}
 			else_if = {
-				limit = { has_planet_flag = nat_sector_rebellion }
-				remove_planet_flag = nat_sector_rebellion
+				limit = { has_carrier_flag = nat_sector_rebellion }
+				remove_carrier_flag = nat_sector_rebellion
 				sector = { remove_sector_flag = nat_sector_rebellion }
 			}
 			save_event_target_as = rebellion_planet
@@ -403,14 +403,14 @@ country_event = {
 	trigger = {
 		is_country_type_with_subjects = yes
 		FromFrom = {
-			has_planet_flag = heir_planetary_rebellion
+			has_carrier_flag = heir_planetary_rebellion
 			controller = { is_same_value = root } ## ??? What is this for?
 		}
 	}
 
 	immediate = {
 		log = "event: civplan.9010"
-		FromFrom = { remove_planet_flag = heir_planetary_rebellion }
+		FromFrom = { remove_carrier_flag = heir_planetary_rebellion }
 		event_target:heir_civil_war_dummy_country = {
 			ruler = {
 				set_leader_flag = defeated_traitor_heir

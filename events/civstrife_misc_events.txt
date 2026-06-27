@@ -140,6 +140,23 @@ country_event = {
 	immediate = {
 		log = "event: civmisc.3000"
 
+		####
+		if = {
+			limit = { is_country_type = rebel }
+			log = "| Planetary Rebellion"
+			log = "| Rebellion on [this.Capital.GetName] against [birth_event_owner.GetName] started on [this.birth_date]"
+			log = "| REBELS call themselves: [this.GetName]"
+		}
+		else = {
+			log = "| The [this.GetName] was formed on [this.birth_date]"
+		}
+		log = "| Capital World: [this.Capital.GetName]"
+		log = "| Capital System: [this.Capital.System.GetName]"
+		log = "| Origin: [this.GetOriginName]"
+		log = "| Ruler: [this.Ruler.GetName]"
+		log = "| ++++++++++++++++++++++++++++++++++++++++++++++++"
+		####
+
 		set_saved_date = {
 			key = birth_date
 			days_from_present = 0

@@ -3656,18 +3656,18 @@ country_event = {
 			else = {
 				from = { save_event_target_as = exile_new_host }
 				if = {
-					limit = { any_owned_planet = { NOT = { has_planet_flag = exiled_gov_host_planet } } }
+					limit = { any_owned_planet = { NOT = { has_carrier_flag = exiled_gov_host_planet } } }
 					if = {
-						limit = { capital_scope = { NOT = { has_planet_flag = exiled_gov_host_planet } } }
+						limit = { capital_scope = { NOT = { has_carrier_flag = exiled_gov_host_planet } } }
 						capital_scope = {
-							set_planet_flag = exiled_gov_host_planet
+							set_carrier_flag = exiled_gov_host_planet
 							save_event_target_as = gov_hosting_planet
 						}
 					}
 					else = {
 						random_owned_planet = {
-							limit = { NOT = { has_planet_flag = exiled_gov_host_planet } }
-							set_planet_flag = exiled_gov_host_planet
+							limit = { NOT = { has_carrier_flag = exiled_gov_host_planet } }
+							set_carrier_flag = exiled_gov_host_planet
 							save_event_target_as = gov_hosting_planet
 						}
 					}
@@ -3675,8 +3675,8 @@ country_event = {
 				else = {
 					random_system_within_border = {
 						random_system_planet = {
-							limit = { NOT = { has_planet_flag = exiled_gov_host_planet } }
-							set_planet_flag = exiled_gov_host_planet
+							limit = { NOT = { has_carrier_flag = exiled_gov_host_planet } }
+							set_carrier_flag = exiled_gov_host_planet
 							save_event_target_as = gov_hosting_planet
 						}
 					}
@@ -3700,7 +3700,7 @@ country_event = {
 				}
 
 				event_target:gov_hosting_planet = {
-					set_planet_flag = exile_enclave_link_@event_target:exile_new_host
+					set_carrier_flag = exile_enclave_link_@event_target:exile_new_host
 				}
 
 				event_target:exile_new_host = {

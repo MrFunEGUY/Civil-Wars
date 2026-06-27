@@ -204,7 +204,7 @@
 # 				current_situation_approach = approach_pandemic_official
 # 				NOT = { has_situation_flag = gov_quarantine_check }
 # 				target.sector.sector_capital.leader = { NOT = { has_leader_flag = gov_pandemic_decided } }
-# 				target = { NOT = { has_planet_flag = pandemic_quarantine  } }
+# 				target = { NOT = { has_carrier_flag = pandemic_quarantine  } }
 # 			}
 # 			set_timed_situation_flag = { flag = gov_quarantine_check months = 3 }
 # 			target.sector.sector_capital.leader = {
@@ -213,7 +213,7 @@
 # 					limit = { has_level <= 2 }
 # 					random_list = {
 # 						40 = { }
-# 						60 = { root.target = { set_planet_flag = pandemic_quarantine  } }
+# 						60 = { root.target = { set_carrier_flag = pandemic_quarantine  } }
 # 					}
 # 				}
 # 				else_if = {
@@ -223,7 +223,7 @@
 # 					}
 # 					random_list = {
 # 						30 = { }
-# 						70 = { root.target = { set_planet_flag = pandemic_quarantine  } }
+# 						70 = { root.target = { set_carrier_flag = pandemic_quarantine  } }
 # 					}
 # 				}
 # 				else_if = {
@@ -233,7 +233,7 @@
 # 					}
 # 					random_list = {
 # 						20 = { }
-# 						80 = { root.target = { set_planet_flag = pandemic_quarantine  } }
+# 						80 = { root.target = { set_carrier_flag = pandemic_quarantine  } }
 # 					}
 # 				}
 # 				else_if = {
@@ -243,30 +243,30 @@
 # 					}
 # 					random_list = {
 # 						10 = { }
-# 						90 = { root.target = { set_planet_flag = pandemic_quarantine  } }
+# 						90 = { root.target = { set_carrier_flag = pandemic_quarantine  } }
 # 					}
 # 				}
 # 				else_if = {
 # 					limit = {
 # 						has_level >= 10
 # 					}
-# 					root.target = { set_planet_flag = pandemic_quarantine }
+# 					root.target = { set_carrier_flag = pandemic_quarantine }
 # 				}
 # 			}
 # 		}
 # 		else_if = {
 # 			limit = {
 # 				current_situation_approach = approach_pandemic_direct
-# 				target = { NOT = { has_planet_flag = pandemic_quarantine_direct } }
+# 				target = { NOT = { has_carrier_flag = pandemic_quarantine_direct } }
 # 			}
-# 			target = { set_planet_flag = pandemic_quarantine_direct }
+# 			target = { set_carrier_flag = pandemic_quarantine_direct }
 # 		}
 # 		else_if = {
 # 			limit = {
 # 				NOT = { current_situation_approach = approach_pandemic_direct }
-# 				target = { has_planet_flag = pandemic_quarantine_direct }
+# 				target = { has_carrier_flag = pandemic_quarantine_direct }
 # 			}
-# 			target = { remove_planet_flag = pandemic_quarantine_direct }
+# 			target = { remove_carrier_flag = pandemic_quarantine_direct }
 # 		}
 
 # 		if = {
@@ -577,8 +577,8 @@
 # 					}
 # 					target = {
 # 						if = {
-# 							limit = { has_planet_flag = pandemic_quarantine }
-# 							remove_planet_flag = pandemic_quarantine
+# 							limit = { has_carrier_flag = pandemic_quarantine }
+# 							remove_carrier_flag = pandemic_quarantine
 # 						}
 # 					}
 # 					clear_global_event_target = initial_pandemic
@@ -601,8 +601,8 @@
 # 					}
 # 					target = {
 # 						if = {
-# 							limit = { has_planet_flag = pandemic_quarantine }
-# 							remove_planet_flag = pandemic_quarantine
+# 							limit = { has_carrier_flag = pandemic_quarantine }
+# 							remove_carrier_flag = pandemic_quarantine
 # 						}
 # 					}
 # 					clear_global_event_target = initial_pandemic

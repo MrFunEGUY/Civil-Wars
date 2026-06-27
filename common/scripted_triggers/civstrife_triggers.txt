@@ -1323,7 +1323,7 @@ has_civil_war_goal = {
 frontier_planet_slave_tick_check = {
 	has_any_planet_rebellion_stopper = no
 	planet_stability < 25
-	has_planet_flag = frontier_planet_@root
+	has_carrier_flag = frontier_planet_@root
 	NOT = { planet_devastation >= 30 }
 	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 	if = {
@@ -1353,7 +1353,7 @@ frontier_planet_slave_tick_check = {
 integrated_planet_slave_tick_check = {
 	has_any_planet_rebellion_stopper = no
 	planet_stability < 20
-	has_planet_flag = integrated_planet_@root
+	has_carrier_flag = integrated_planet_@root
 	NOT = { planet_devastation >= 20 }
 	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 	if = {
@@ -1383,7 +1383,7 @@ integrated_planet_slave_tick_check = {
 fundamental_planet_slave_tick_check = {
 	has_any_planet_rebellion_stopper = no
 	planet_stability < 15
-	has_planet_flag = fundamental_planet_@root
+	has_carrier_flag = fundamental_planet_@root
 	NOT = { planet_devastation >= 10 }
 	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 	if = {
@@ -1412,7 +1412,7 @@ fundamental_planet_slave_tick_check = {
 
 frontier_planet_unrest_tick_check = {
 	has_any_planet_rebellion_stopper = no
-	has_planet_flag = frontier_planet_@root
+	has_carrier_flag = frontier_planet_@root
 	NOT = { planet_devastation >= 15 }
 	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 	OR = {
@@ -1453,7 +1453,7 @@ frontier_planet_unrest_tick_check = {
 
 integrated_planet_unrest_tick_check = {
 	has_any_planet_rebellion_stopper = no
-	has_planet_flag = integrated_planet_@root
+	has_carrier_flag = integrated_planet_@root
 	NOT = { planet_devastation >= 15 }
 	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 	OR = { # Shouldn't be as relevant for non-Frontier Sectors
@@ -1494,7 +1494,7 @@ integrated_planet_unrest_tick_check = {
 
 fundamental_planet_unrest_tick_check = {
 	has_any_planet_rebellion_stopper = no
-	has_planet_flag = fundamental_planet_@root
+	has_carrier_flag = fundamental_planet_@root
 	NOT = { planet_devastation >= 15 }
 	NOT = { any_targeting_situation = { is_situation_type = situation_civstrife_sep_plan } }
 	OR = { # Shouldn't be as relevant for non-Frontier Sectors
@@ -1534,22 +1534,22 @@ fundamental_planet_unrest_tick_check = {
 }
 
 frontier_planet_slave_untick_check = {
-	has_planet_flag = frontier_planet_@root
+	has_carrier_flag = frontier_planet_@root
 	planet_stability >= 25
 }
 
 integrated_planet_slave_untick_check = {
-	has_planet_flag = integrated_planet_@root
+	has_carrier_flag = integrated_planet_@root
 	planet_stability >= 20
 }
 
 fundamental_planet_slave_untick_check = {
-	has_planet_flag = fundamental_planet_@root
+	has_carrier_flag = fundamental_planet_@root
 	planet_stability >= 15
 }
 
 frontier_planet_unrest_untick_check = {
-	has_planet_flag = frontier_planet_@root.owner
+	has_carrier_flag = frontier_planet_@root.owner
 	planet_stability >= 30
 	OR = {
 		planet_crime < 60
@@ -1561,7 +1561,7 @@ frontier_planet_unrest_untick_check = {
 }
 
 integrated_planet_unrest_untick_check = {
-	has_planet_flag = integrated_planet_@root.owner
+	has_carrier_flag = integrated_planet_@root.owner
 	planet_stability >= 25
 	OR = {
 		planet_crime < 70
@@ -1573,7 +1573,7 @@ integrated_planet_unrest_untick_check = {
 }
 
 fundamental_planet_unrest_untick_check = {
-	has_planet_flag = fundamental_planet_@root.owner
+	has_carrier_flag = fundamental_planet_@root.owner
 	planet_stability >= 20
 	OR = {
 		planet_crime < 80
@@ -1623,15 +1623,15 @@ combined_planet_slave_calm_retick_check = {
 	check_variable = { which = slave_calm_tick value > 0 }
 	OR = {
 		AND = {
-			has_planet_flag = frontier_planet_@root
+			has_carrier_flag = frontier_planet_@root
 			planet_stability <= 25
 		}
 		AND = {
-			has_planet_flag = integrated_planet_@root
+			has_carrier_flag = integrated_planet_@root
 			planet_stability <= 20
 		}
 		AND = {
-			has_planet_flag = fundamental_planet_@root
+			has_carrier_flag = fundamental_planet_@root
 			planet_stability <= 15
 		}
 	}
@@ -1642,7 +1642,7 @@ combined_planet_unrest_calm_retick_check = {
 	check_variable = { which = calm_tick value > 0 }
 	OR = {
 		AND = {
-			has_planet_flag = frontier_planet_@root
+			has_carrier_flag = frontier_planet_@root
 			OR = {
 				planet_stability <= 30
 				AND = {
@@ -1658,7 +1658,7 @@ combined_planet_unrest_calm_retick_check = {
 			}
 		}
 		AND = {
-			has_planet_flag = integrated_planet_@root
+			has_carrier_flag = integrated_planet_@root
 			OR = {
 				planet_stability <= 25
 				AND = {
@@ -1675,7 +1675,7 @@ combined_planet_unrest_calm_retick_check = {
 			}
 		}
 		AND = {
-			has_planet_flag = fundamental_planet_@root
+			has_carrier_flag = fundamental_planet_@root
 			OR = {
 				planet_stability <= 20
 				AND = {
@@ -1886,8 +1886,8 @@ has_any_planet_rebellion_stopper = {
 		has_ground_combat = yes
 		has_orbital_bombardment = yes
 		has_modifier = planet_culture_shock
-		has_planet_flag = plan_slave_sep_active
-		has_planet_flag = rebellion_suppressed
+		has_carrier_flag = plan_slave_sep_active
+		has_carrier_flag = rebellion_suppressed
 	}
 }
 
@@ -1945,7 +1945,7 @@ homeworld_ethic_leader_exists = {
 			OR = {
 				background_planet = { is_same_value = event_target:civil_war_planet }
 				AND = {
-					event_target:civil_war_planet = { has_planet_flag = sep_sector_rebellion }
+					event_target:civil_war_planet = { has_carrier_flag = sep_sector_rebellion }
 					exists = background_planet.sector
 					background_planet.sector = { is_same_value = event_target:civil_war_planet.sector }
 				}

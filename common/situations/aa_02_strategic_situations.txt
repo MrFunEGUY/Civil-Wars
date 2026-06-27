@@ -101,7 +101,7 @@ situation_planetary_revolt = {
 		}
 		hidden_effect = {
 			target = {
-				set_timed_planet_flag = {
+				set_timed_carrier_flag = {
 					flag = recent_revolt_attempt
 					years = 15
 				}
@@ -109,7 +109,7 @@ situation_planetary_revolt = {
 			owner = {
 				every_owned_planet = {
 					limit = { has_modifier = instability_join_revolt }
-					set_timed_planet_flag = {
+					set_timed_carrier_flag = {
 						flag = recent_revolt_attempt
 						years = 15
 					}
@@ -132,7 +132,7 @@ situation_planetary_revolt = {
 				else = {
 					carrier_event = { id = unrest.4300 }
 				}
-				set_timed_planet_flag = {
+				set_timed_carrier_flag = {
 					flag = recent_revolt_attempt
 					years = 15
 				}
@@ -140,7 +140,7 @@ situation_planetary_revolt = {
 			owner = {
 				every_owned_planet = {
 					limit = { has_modifier = instability_join_revolt }
-					set_timed_planet_flag = {
+					set_timed_carrier_flag = {
 						flag = recent_revolt_attempt
 						years = 15
 					}
@@ -436,7 +436,7 @@ situation_planetary_revolt = {
 			}
 			potential = {
 				target.solar_system = {
-					any_system_colony = {
+					any_system_planet_colony = {
 						NOT = { is_same_value = root.target }
 						planet_stability >= @stabilitylevel3
 						pop_amount > 500
@@ -459,7 +459,7 @@ situation_planetary_revolt = {
 			}
 			potential = {
 				target.solar_system = {
-					any_system_colony = {
+					any_system_planet_colony = {
 						NOT = { is_same_value = root.target }
 						planet_stability < @stabilitylevel2
 						pop_amount > 500

@@ -93,10 +93,10 @@ country_event = { # Setup for Civil War (create_country)
 				}
 
 				if = {
-					limit = { any_owned_planet = { has_planet_flag = secession_planet } }
+					limit = { any_owned_planet = { has_carrier_flag = secession_planet } }
 					log = "SECESSION"
 					random_owned_planet = {
-						limit = { has_planet_flag = secession_planet }
+						limit = { has_carrier_flag = secession_planet }
 						set_owner = root
 						starbase = { set_owner = root }
 						while = {
@@ -484,14 +484,14 @@ country_event = { # Setup for Rebellions (create_rebels)
 			limit = {
 				capital_scope = {
 					OR = {
-						has_planet_flag = small_civil_war
-						has_planet_flag = leader_civil_war
-						has_planet_flag = heir_planetary_rebellion
-						has_planet_flag = nat_leader_planet
-						has_planet_flag = plan_slave_revolt
-						has_planet_flag = ethic_planet_rebellion_@this
-						has_planet_flag = sep_planet_rebellion
-						has_planet_flag = nat_planet_rebellion_@this
+						has_carrier_flag = small_civil_war
+						has_carrier_flag = leader_civil_war
+						has_carrier_flag = heir_planetary_rebellion
+						has_carrier_flag = nat_leader_planet
+						has_carrier_flag = plan_slave_revolt
+						has_carrier_flag = ethic_planet_rebellion_@this
+						has_carrier_flag = sep_planet_rebellion
+						has_carrier_flag = nat_planet_rebellion_@this
 					}
 				}
 			}
@@ -528,7 +528,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 			}
 		}
 		else_if = {
-			limit = { capital_scope = { has_planet_flag = ethic_sector_rebellion } }
+			limit = { capital_scope = { has_carrier_flag = ethic_sector_rebellion } }
 			capital_scope = { save_event_target_as = sector_capital_planet }
 			event_target:civwar_originator = {
 				random_owned_sector = {
@@ -546,7 +546,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 			}
 		}
 		else_if = {
-			limit = { capital_scope = { has_planet_flag = sep_sector_rebellion } }
+			limit = { capital_scope = { has_carrier_flag = sep_sector_rebellion } }
 			capital_scope = { save_event_target_as = sector_capital_planet }
 			event_target:civwar_originator = {
 				random_owned_sector = {
@@ -564,7 +564,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 			}
 		}
 		else_if = {
-			limit = { capital_scope = { has_planet_flag = nat_sector_rebellion } }
+			limit = { capital_scope = { has_carrier_flag = nat_sector_rebellion } }
 			capital_scope = { save_event_target_as = sector_capital_planet }
 			event_target:civwar_originator = {
 				random_owned_sector = {
@@ -582,7 +582,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 			}
 		}
 		else_if = {
-			limit = { capital_scope = { has_planet_flag = sec_slave_revolt } }
+			limit = { capital_scope = { has_carrier_flag = sec_slave_revolt } }
 			capital_scope = { save_event_target_as = sector_capital_planet }
 			event_target:civwar_originator = {
 				random_owned_sector = {
