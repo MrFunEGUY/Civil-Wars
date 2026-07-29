@@ -6,7 +6,7 @@
 get_border_test = {
 	if = {
 		limit = {
-			has_global_flag = we_require_borders
+			has_wrb_active = yes
 			is_nomadic = no
 			NOT = { has_country_flag = shares_borders_with_@from }
 		}
@@ -20,7 +20,7 @@ get_border_test = {
 get_border_test_defense = {
 	if = {
 		limit = {
-			has_global_flag = we_require_borders
+			has_wrb_active = yes
 			is_nomadic = no
 			NOT = { has_country_flag = shares_defense_borders_with_@from }
 		}
