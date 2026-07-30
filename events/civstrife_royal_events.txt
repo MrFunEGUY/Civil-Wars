@@ -38,7 +38,7 @@ country_event = {
 				effect = {
 					set_immortal = yes # So they dont die while we need them
 					set_leader_flag = dead_crisis_leader
-					set_leader_flag = dummy_leader
+					set_dummy_leader_flags = yes
 				}
 			}
 			last_created_leader = { # Dont know why, but doesnt like when I do this in the effect
@@ -56,7 +56,7 @@ country_event = {
 				effect = {
 					set_immortal = yes # So they dont die while we need them
 					set_leader_flag = dead_crisis_leader
-					set_leader_flag = dummy_leader
+					set_dummy_leader_flags = yes
 				}
 			}
 			last_created_leader = { # Dont know why, but doesnt like when I do this in the effect
@@ -449,7 +449,7 @@ situation_event = { # Send Message out to officials to ask if they are loyal
 						NOT = { any_system_within_border = { is_capital_system = yes } }
 						OR = {
 							NOT = { exists = sector_capital.leader }
-							sector_capital.leader = { NOT = { has_leader_flag = appointed_heir } } # An heir wants a larger stable realm to inherit
+							sector_capital.leader? = { NOT = { has_leader_flag = appointed_heir } } # An heir wants a larger stable realm to inherit
 						}
 					}
 					if = {

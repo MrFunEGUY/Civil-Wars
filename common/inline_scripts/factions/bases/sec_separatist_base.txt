@@ -93,8 +93,7 @@ leader = {
 			has_leader_flag = appointed_heir
 			AND = {
 				leader_class = official
-				exists = sector
-				sector = { NOT = { is_same_value = event_target:sec_separatist_$SEC_FAC_NUM$ } }
+				sector? = { NOT = { is_same_value = event_target:sec_separatist_$SEC_FAC_NUM$ } }
 			}
 			AND = {
 				is_ruler = yes

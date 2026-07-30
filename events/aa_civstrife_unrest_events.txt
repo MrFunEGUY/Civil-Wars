@@ -426,8 +426,7 @@ situation_event = {
 				target = {
 					any_owned_pop_group = {
 						planet = {
-							exists = controller
-							controller = { is_same_empire = root.owner }
+							controller? = { is_same_empire = root.owner }
 							planet_stability < @stabilitylevel2
 							NOT = { has_carrier_flag = recent_unrest_event }
 							has_orbital_bombardment = no
@@ -440,8 +439,7 @@ situation_event = {
 				is_situation_type = situation_civstrife_sep_slaves_sec
 				target = {
 					any_owned_planet = {
-						exists = controller
-						controller = { is_same_empire = root.owner }
+						controller? = { is_same_empire = root.owner }
 						planet_stability < @stabilitylevel2
 						NOT = { has_carrier_flag = recent_unrest_event }
 						has_orbital_bombardment = no
@@ -474,8 +472,7 @@ situation_event = {
 				else = {
 					random_owned_planet = {
 						limit = {
-							exists = controller
-							controller = { is_same_empire = root.owner }
+							controller? = { is_same_empire = root.owner }
 							planet_stability < @stabilitylevel2
 							NOT = { has_carrier_flag = recent_unrest_event }
 							has_orbital_bombardment = no
@@ -534,8 +531,7 @@ situation_event = {
 				target = {
 					any_owned_pop_group = {
 						planet = {
-							exists = controller
-							controller = { is_same_empire = root.owner }
+							controller? = { is_same_empire = root.owner }
 							planet_stability < @stabilitylevel2
 							NOT = { has_carrier_flag = recent_unrest_event }
 							has_orbital_bombardment = no
@@ -548,8 +544,7 @@ situation_event = {
 				is_situation_type = situation_civstrife_sep_slaves_sec
 				target = {
 					any_owned_planet = {
-						exists = controller
-						controller = { is_same_empire = root.owner }
+						controller? = { is_same_empire = root.owner }
 						planet_stability < @stabilitylevel2
 						NOT = { has_carrier_flag = recent_unrest_event }
 						has_orbital_bombardment = no
@@ -568,8 +563,7 @@ situation_event = {
 				random_owned_pop_group = {
 					limit = {
 						planet = {
-							exists = controller
-							controller = { is_same_empire = root.owner }
+							controller? = { is_same_empire = root.owner }
 							planet_stability < @stabilitylevel2
 							NOT = { has_carrier_flag = recent_unrest_event }
 							has_orbital_bombardment = no
@@ -607,8 +601,7 @@ situation_event = {
 				else = {
 					random_owned_planet = {
 						limit = {
-							exists = controller
-							controller = { is_same_empire = root.owner }
+							controller? = { is_same_empire = root.owner }
 							planet_stability < @stabilitylevel2
 							NOT = { has_carrier_flag = recent_unrest_event }
 							has_orbital_bombardment = no
@@ -667,8 +660,7 @@ situation_event = {
 				target = {
 					any_owned_pop_group = {
 						planet = {
-							exists = controller
-							controller = { is_same_empire = root.owner }
+							controller? = { is_same_empire = root.owner }
 							planet_stability < @stabilitylevel2
 							planet_stability >= @stabilitylevel1
 							NOT = { has_carrier_flag = recent_unrest_event }
@@ -688,8 +680,7 @@ situation_event = {
 				}
 				target = {
 					any_owned_planet = {
-						exists = controller
-						controller = { is_same_empire = root.owner }
+						controller? = { is_same_empire = root.owner }
 						planet_stability < @stabilitylevel2
 						planet_stability >= @stabilitylevel1
 						NOT = { has_carrier_flag = recent_unrest_event }
@@ -701,8 +692,7 @@ situation_event = {
 			AND = {
 				is_situation_type = situation_civstrife_sep_slaves_plan
 				target = {
-					exists = controller
-					controller = { is_same_empire = root.owner }
+					controller? = { is_same_empire = root.owner }
 					planet_stability < @stabilitylevel2
 					planet_stability >= @stabilitylevel1
 					NOT = { has_carrier_flag = recent_unrest_event }
@@ -722,8 +712,7 @@ situation_event = {
 				random_owned_pop_group = {
 					limit = {
 						planet = {
-							exists = controller
-							controller = { is_same_empire = root.owner }
+							controller? = { is_same_empire = root.owner }
 							planet_stability < @stabilitylevel2
 							planet_stability >= @stabilitylevel1
 							NOT = { has_carrier_flag = recent_unrest_event }
@@ -757,8 +746,7 @@ situation_event = {
 			target = {
 				random_owned_planet = {
 					limit = {
-						exists = controller
-						controller = { is_same_empire = root.owner }
+						controller? = { is_same_empire = root.owner }
 						planet_stability < @stabilitylevel2
 						planet_stability >= @stabilitylevel1
 						NOT = { has_carrier_flag = recent_unrest_event }
@@ -851,8 +839,7 @@ situation_event = {
 			AND = {
 				is_situation_type = situation_civstrife_sep_slaves_plan
 				target = {
-					exists = controller
-					controller = { is_same_empire = root.owner }
+					controller? = { is_same_empire = root.owner }
 					planet_stability < @stabilitylevel2
 					NOT = { has_carrier_flag = recent_unrest_event }
 					has_orbital_bombardment = no
@@ -863,8 +850,7 @@ situation_event = {
 				is_situation_type = situation_civstrife_sep_slaves_sec
 				target = {
 					any_owned_planet = {
-						exists = controller
-						controller = { is_same_empire = root.owner }
+						controller? = { is_same_empire = root.owner }
 						any_owned_pop_group = { is_enslaved_or_purged = yes }
 						planet_stability < @stabilitylevel2
 						NOT = { has_carrier_flag = recent_unrest_event }
@@ -930,8 +916,7 @@ situation_event = {
 			AND = {
 				is_situation_type = situation_civstrife_sep_slaves_plan
 				target = {
-					exists = controller
-					controller = { is_same_empire = root.owner }
+					controller? = { is_same_empire = root.owner }
 					planet_stability < @stabilitylevel2
 					NOT = { has_carrier_flag = recent_unrest_event }
 					has_orbital_bombardment = no
@@ -942,8 +927,7 @@ situation_event = {
 				is_situation_type = situation_civstrife_sep_slaves_sec
 				target = {
 					any_owned_planet = {
-						exists = controller
-						controller = { is_same_empire = root.owner }
+						controller? = { is_same_empire = root.owner }
 						planet_stability < @stabilitylevel2
 						NOT = { has_carrier_flag = recent_unrest_event }
 						has_orbital_bombardment = no

@@ -103,8 +103,7 @@ country_event = { # Setup for Civil War (create_country)
 							count = 20
 							closest_system = {
 								limit = {
-									exists = starbase
-									starbase = { is_owned_by = event_target:civwar_originator }
+									starbase? = { is_owned_by = event_target:civwar_originator }
 									NOT = { is_capital_system = yes }
 									OR = {
 										root = { has_country_flag = heir_rebel_country }
@@ -137,8 +136,7 @@ country_event = { # Setup for Civil War (create_country)
 					# Flip Systems and count pops
 					if = {
 						limit = { ## Cant scope directly to sector from leader, for some reason
-							exists = event_target:cw_war_leader.planet.sector
-							event_target:cw_war_leader.planet.sector = { has_sector_flag = leader_sector }
+							event_target:cw_war_leader.planet.sector? = { has_sector_flag = leader_sector }
 						}
 						event_target:cw_war_leader.planet.sector = {
 							remove_sector_flag = leader_sector
@@ -161,8 +159,7 @@ country_event = { # Setup for Civil War (create_country)
 								limit = { event_target:cw_scope_initializer = { is_scope_type = pop_faction } }
 								random_owned_pop_group = { # Get random pop species to be leader of secondary revolts
 									limit = {
-										exists = pop_faction
-										pop_faction = { is_same_value = event_target:civwar_party }
+										pop_faction? = { is_same_value = event_target:civwar_party }
 									}
 									set_timed_pop_group_flag = { flag = sep_leader_species days = 10 }
 								}
@@ -219,8 +216,7 @@ country_event = { # Setup for Civil War (create_country)
 				any_system_within_border = {
 					closest_system = {
 						limit = {
-							exists = space_owner
-							space_owner = { is_same_value = event_target:civwar_originator }
+							space_owner? = { is_same_value = event_target:civwar_originator }
 							NOT = { exists = sector }
 						}
 						use_bypasses = yes
@@ -232,8 +228,7 @@ country_event = { # Setup for Civil War (create_country)
 				limit = {
 					closest_system = {
 						limit = {
-							exists = space_owner
-							space_owner = { is_same_value = event_target:civwar_originator }
+							space_owner? = { is_same_value = event_target:civwar_originator }
 							NOT = { exists = sector }
 						}
 						use_bypasses = yes
@@ -297,8 +292,7 @@ country_event = { # Setup for Civil War (create_country)
 								planet.solar_system = {
 									closest_system = {
 										limit = {
-											exists = space_owner
-											space_owner = { is_same_value = event_target:civwar_rebels }
+											space_owner? = { is_same_value = event_target:civwar_rebels }
 										}
 										use_bypasses = yes
 										max_steps = 1
@@ -313,8 +307,7 @@ country_event = { # Setup for Civil War (create_country)
 											limit = { event_target:cw_scope_initializer = { is_scope_type = pop_faction } }
 											random_owned_pop_group = { # Get random pop species to be leader of secondary revolts
 												limit = {
-													exists = pop_faction
-													pop_faction = { is_same_value = event_target:civwar_party }
+													pop_faction? = { is_same_value = event_target:civwar_party }
 												}
 												set_timed_pop_group_flag = { flag = sep_leader_species days = 10 }
 											}
@@ -505,8 +498,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 					count = 20
 					closest_system = {
 						limit = {
-							exists = starbase
-							starbase = { is_owned_by = event_target:civwar_originator }
+							starbase? = { is_owned_by = event_target:civwar_originator }
 							NOT = { is_capital_system = yes }
 							OR = {
 								root = { has_country_flag = heir_rebel_country }
@@ -638,8 +630,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 								planet.solar_system = {
 									closest_system = {
 										limit = {
-											exists = space_owner
-											space_owner = { is_same_value = event_target:civwar_rebels }
+											space_owner? = { is_same_value = event_target:civwar_rebels }
 										}
 										use_bypasses = yes
 										max_steps = 1
@@ -654,8 +645,7 @@ country_event = { # Setup for Rebellions (create_rebels)
 											limit = { event_target:cw_scope_initializer = { is_scope_type = pop_faction } }
 											random_owned_pop_group = { # Get random pop species to be leader of secondary revolts
 												limit = {
-													exists = pop_faction
-													pop_faction = { is_same_value = event_target:civwar_party }
+													pop_faction? = { is_same_value = event_target:civwar_party }
 												}
 												set_timed_pop_group_flag = { flag = sep_leader_species days = 10 }
 											}
@@ -791,8 +781,7 @@ country_event = { # Has Vassals, Vassal Interaction
 					any_system_within_border = {
 						closest_system = {
 							limit = {
-								exists = space_owner
-								space_owner = { has_country_flag = allied_via_@event_target:civwar_originator }
+								space_owner? = { has_country_flag = allied_via_@event_target:civwar_originator }
 							}
 							use_bypasses = yes
 							max_steps = 1
@@ -812,8 +801,7 @@ country_event = { # Has Vassals, Vassal Interaction
 						any_system_within_border = {
 							closest_system = {
 								limit = {
-									exists = space_owner
-									space_owner = { is_same_empire = event_target:border_subject }
+									space_owner? = { is_same_empire = event_target:border_subject }
 								}
 								use_bypasses = yes
 								max_steps = 1
@@ -1633,8 +1621,7 @@ country_event = { # Player Subject Can Decide What to do
 					any_system_within_border = {
 						closest_system = {
 							limit = {
-								exists = space_owner
-								space_owner = { is_same_value = event_target:civwar_originator }
+								space_owner? = { is_same_value = event_target:civwar_originator }
 							}
 							use_bypasses = yes
 							max_steps = 1
@@ -1676,8 +1663,7 @@ country_event = { # Player Subject Can Decide What to do
 					any_system_within_border = {
 						closest_system = {
 							limit = {
-								exists = space_owner
-								space_owner = { is_same_value = event_target:civwar_originator }
+								space_owner? = { is_same_value = event_target:civwar_originator }
 							}
 							use_bypasses = yes
 							max_steps = 1
@@ -1739,8 +1725,7 @@ country_event = { # Player Subject Can Decide What to do
 					any_system_within_border = {
 						closest_system = {
 							limit = {
-								exists = space_owner
-								space_owner = { is_same_value = event_target:civwar_originator }
+								space_owner? = { is_same_value = event_target:civwar_originator }
 							}
 							use_bypasses = yes
 							max_steps = 1
@@ -1941,8 +1926,7 @@ country_event = { # Create Fleets and give resources
 			event_target:civwar_originator = {
 				every_owned_fleet = {
 					limit = {
-						exists = solar_system.starbase
-						solar_system.starbase = { is_owned_by = event_target:civwar_rebels }
+						solar_system.starbase? = { is_owned_by = event_target:civwar_rebels }
 					}
 					set_owner = event_target:civwar_rebels
 				}
@@ -2060,8 +2044,7 @@ country_event = { # Create Armies, needs to be done later so pops have changed o
 				limit = { exists = event_target:civwar_party }
 				every_owned_pop_group = {
 					limit = {
-						exists = pop_faction
-						pop_faction = { is_same_value = event_target:civwar_party }
+						pop_faction? = { is_same_value = event_target:civwar_party }
 					}
 					random = {
 						chance = value:pop_to_army_chance
@@ -2117,8 +2100,7 @@ country_event = { # Give Systems
 				any_system_within_border = {
 					closest_system = {
 						limit = {
-							exists = space_owner
-							space_owner = { is_same_value = event_target:civwar_originator }
+							space_owner? = { is_same_value = event_target:civwar_originator }
 							NOT = { exists = sector }
 						}
 						use_bypasses = yes
@@ -2130,8 +2112,7 @@ country_event = { # Give Systems
 				limit = {
 					closest_system = {
 						limit = {
-							exists = space_owner
-							space_owner = { is_same_value = event_target:civwar_originator }
+							space_owner? = { is_same_value = event_target:civwar_originator }
 							NOT = { exists = sector }
 						}
 						use_bypasses = yes
@@ -2140,8 +2121,7 @@ country_event = { # Give Systems
 				}
 				closest_system = {
 					limit = {
-						exists = space_owner
-						space_owner = { is_same_value = event_target:civwar_originator }
+						space_owner? = { is_same_value = event_target:civwar_originator }
 						NOT = { exists = sector }
 					}
 					use_bypasses = yes
@@ -2185,8 +2165,7 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 					pop_amount_percentage = { # Civil War
 						percentage >= @civwar_pop_percent_needed
 						limit = {
-							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
+							pop_faction? = { is_same_value = root.target }
 						}
 						exclude = {
 							can_think = no
@@ -2208,8 +2187,7 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 					pop_amount_percentage = {
 						percentage >= @civwar_pop_percent_needed
 						limit = {
-							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
+							pop_faction? = { is_same_value = root.target }
 						}
 						exclude = { can_think = no }
 					}
@@ -2222,8 +2200,7 @@ situation_event = { # Possible Revolt/Civil War Initializer - Ethics and Nationa
 					pop_amount_percentage = {
 						percentage >= @civwar_pop_percent_needed
 						limit = {
-							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
+							pop_faction? = { is_same_value = root.target }
 						}
 						exclude = { can_think = no }
 					}
@@ -2257,15 +2234,13 @@ situation_event = { # Revolt/Civil War Event
 						has_ground_combat = no
 						is_occupied_flag = no
 						any_owned_pop_group = {
-							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
+							pop_faction? = { is_same_value = root.target }
 						}
 					}
 					pop_amount_percentage = {
 						percentage >= @civwar_pop_percent_needed
 						limit = {
-							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
+							pop_faction? = { is_same_value = root.target }
 						}
 						exclude = {
 							can_think = no
@@ -2287,8 +2262,7 @@ situation_event = { # Revolt/Civil War Event
 					pop_amount_percentage = {
 						percentage >= @civwar_pop_percent_needed
 						limit = {
-							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
+							pop_faction? = { is_same_value = root.target }
 						}
 						exclude = { can_think = no }
 					}
@@ -2309,8 +2283,7 @@ situation_event = { # Revolt/Civil War Event
 					pop_amount_percentage = {
 						percentage >= @civwar_pop_percent_needed
 						limit = {
-							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
+							pop_faction? = { is_same_value = root.target }
 						}
 						exclude = { can_think = no }
 					}
@@ -2331,15 +2304,13 @@ situation_event = { # Revolt/Civil War Event
 						has_ground_combat = no
 						is_occupied_flag = no
 						any_owned_pop_group = {
-							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
+							pop_faction? = { is_same_value = root.target }
 						}
 					}
 					pop_amount_percentage = { 
 						percentage >= @civwar_pop_percent_needed
 						limit = {
-							exists = pop_faction
-							pop_faction = { is_same_value = root.target }
+							pop_faction? = { is_same_value = root.target }
 						}
 						exclude = {
 							can_think = no
@@ -2370,8 +2341,7 @@ situation_event = { # Revolt/Civil War Event
 						pop_amount_percentage = {
 							percentage >= @civwar_pop_percent_needed
 							limit = {
-								exists = pop_faction
-								pop_faction = { is_same_value = root.target }
+								pop_faction? = { is_same_value = root.target }
 							}
 							exclude = { can_think = no }
 						}
@@ -2396,8 +2366,7 @@ situation_event = { # Revolt/Civil War Event
 							pop_amount_percentage = {
 								percentage >= @civwar_pop_percent_needed
 								limit = {
-									exists = pop_faction
-									pop_faction = { is_same_value = root.target }
+									pop_faction? = { is_same_value = root.target }
 									rebel_happiness = yes
 								}
 								exclude = { can_think = no }
@@ -2425,8 +2394,7 @@ situation_event = { # Revolt/Civil War Event
 						pop_amount_percentage = {
 							percentage >= @civwar_pop_percent_needed
 							limit = {
-								exists = pop_faction
-								pop_faction = { is_same_value = root.target }
+								pop_faction? = { is_same_value = root.target }
 							}
 							exclude = { can_think = no }
 						}
@@ -2452,8 +2420,7 @@ situation_event = { # Revolt/Civil War Event
 							pop_amount_percentage = {
 								percentage >= @civwar_pop_percent_needed
 								limit = {
-									exists = pop_faction
-									pop_faction = { is_same_value = root.target }
+									pop_faction? = { is_same_value = root.target }
 									rebel_happiness = yes
 								}
 								exclude = { can_think = no }

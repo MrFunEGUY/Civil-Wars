@@ -34,7 +34,7 @@ country_event = { # Planetary Unrest Counter
 			has_any_planet_rebellion_stopper = no
 			OR = {
 				NOT = { exists = sector }
-				sector = { NOT = { has_sector_flag = sector_sep_active } }
+				sector? = { NOT = { has_sector_flag = sector_sep_active } }
 			}
 			OR = {
 				frontier_planet_unrest_tick_check = yes
@@ -53,7 +53,7 @@ country_event = { # Planetary Unrest Counter
 				has_any_planet_rebellion_stopper = no
 				OR = {
 					NOT = { exists = sector }
-					sector = { NOT = { has_sector_flag = sector_sep_active } }
+					sector? = { NOT = { has_sector_flag = sector_sep_active } }
 				}
 				OR = {
 					frontier_planet_unrest_tick_check = yes
@@ -349,10 +349,7 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 									planet_crime  >= 60
 									OR = {
 										NOT = { exists = sector.sector_capital.leader }
-										AND = {
-											exists = sector.sector_capital.leader
-											sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
-										}
+										sector.sector_capital.leader? = { NOT = { has_trait = leader_trait_corrupt } }
 									}
 								}
 							}
@@ -371,10 +368,7 @@ country_event = { # Sectoral Calm counter on stability increase and remove separ
 									planet_crime  >= 60
 									OR = {
 										NOT = { exists = sector.sector_capital.leader }
-										AND = {
-											exists = sector.sector_capital.leader
-											sector.sector_capital.leader = { NOT = { has_trait = leader_trait_corrupt } }
-										}
+										sector.sector_capital.leader? = { NOT = { has_trait = leader_trait_corrupt } }
 									}
 								}
 							}
@@ -681,8 +675,7 @@ country_event = { # Start Isolated Sector Chains
 			NOR = { ## Noticed 2 iso sec factions at the same time, so both below is to be doubly sure
 				has_sector_flag = sector_sep_active
 				any_owned_pop_group = {
-					exists = pop_faction
-					pop_faction = { is_iso_sector_separatist_faction = yes }
+					pop_faction? = { is_iso_sector_separatist_faction = yes }
 				}
 			}
 			is_variable_set = isolated_sector_year
@@ -697,8 +690,7 @@ country_event = { # Start Isolated Sector Chains
 				NOR = {
 					has_sector_flag = sector_sep_active
 					any_owned_pop_group = {
-						exists = pop_faction
-						pop_faction = { is_iso_sector_separatist_faction = yes }
+						pop_faction? = { is_iso_sector_separatist_faction = yes }
 					}
 				}
 				is_variable_set = isolated_sector_year
@@ -763,9 +755,8 @@ country_event = { # Check disapproving Factions every month
 						pop_amount_percentage = {
 							percentage >= 0.5
 							limit = {
-								exists = pop_faction
-								pop_faction = { is_nationalist_faction = yes }
-								pop_faction = { has_pop_faction_flag = faction_sep_situation }
+								pop_faction? = { is_nationalist_faction = yes }
+								pop_faction? = { has_pop_faction_flag = faction_sep_situation }
 							}
 							exclude = { can_think = no }
 						}
@@ -789,9 +780,8 @@ country_event = { # Check disapproving Factions every month
 							pop_amount_percentage = {
 								percentage >= 0.5
 								limit = {
-									exists = pop_faction
-									pop_faction = { is_nationalist_faction = yes }
-									pop_faction = { has_pop_faction_flag = faction_sep_situation }
+									pop_faction? = { is_nationalist_faction = yes }
+									pop_faction? = { has_pop_faction_flag = faction_sep_situation }
 								}
 								exclude = { can_think = no }
 							}
@@ -957,9 +947,8 @@ situation_event = { # Sectoral Revolt Initializer
 					pop_amount_percentage = {
 						percentage >= 0.5
 						limit = {
-							exists = pop_faction
-							pop_faction = { is_nationalist_faction = yes }
-							pop_faction = { has_pop_faction_flag = faction_sep_situation }
+							pop_faction? = { is_nationalist_faction = yes }
+							pop_faction? = { has_pop_faction_flag = faction_sep_situation }
 						}
 						exclude = { can_think = no }
 					}
@@ -967,8 +956,7 @@ situation_event = { # Sectoral Revolt Initializer
 				pop_amount_percentage = {
 					percentage >= @civwar_pop_percent_needed
 					limit = {
-						exists = pop_faction
-						pop_faction = { is_same_value = root.target }
+						pop_faction? = { is_same_value = root.target }
 					}
 					exclude = { can_think = no }
 				}
@@ -1003,9 +991,8 @@ situation_event = { # Sectoral Revolt Event
 					pop_amount_percentage = {
 						percentage >= 0.5
 						limit = {
-							exists = pop_faction
-							pop_faction = { is_nationalist_faction = yes }
-							pop_faction = { has_pop_faction_flag = faction_sep_situation }
+							pop_faction? = { is_nationalist_faction = yes }
+							pop_faction? = { has_pop_faction_flag = faction_sep_situation }
 						}
 						exclude = { can_think = no }
 					}
@@ -1013,8 +1000,7 @@ situation_event = { # Sectoral Revolt Event
 				pop_amount_percentage = {
 					percentage >= @civwar_pop_percent_needed
 					limit = {
-						exists = pop_faction
-						pop_faction = { is_same_value = root.target }
+						pop_faction? = { is_same_value = root.target }
 					}
 					exclude = { can_think = no }
 				}
@@ -1033,8 +1019,7 @@ situation_event = { # Sectoral Revolt Event
 						pop_amount_percentage = {
 							percentage >= @civwar_pop_percent_needed
 							limit = {
-								exists = pop_faction
-								pop_faction = { is_same_value = root.target }
+								pop_faction? = { is_same_value = root.target }
 							}
 							exclude = { can_think = no }
 						}
@@ -1051,15 +1036,13 @@ situation_event = { # Sectoral Revolt Event
 						every_owned_planet = {
 							every_owned_pop_group = {
 								limit = {
-									exists = pop_faction
-									pop_faction = { is_same_value = root.target }
+									pop_faction? = { is_same_value = root.target }
 								}
 								root.target = { change_variable = { which = mil_support value = 1 } }
 							}
 							random_owned_pop_group = {
 								limit = {
-									exists = pop_faction
-									pop_faction = { is_same_value = root.target }
+									pop_faction? = { is_same_value = root.target }
 								}
 								species = { save_event_target_as = civwar_species }
 							}
@@ -1104,8 +1087,7 @@ situation_event = { # Sectoral Revolt Event
 						pop_amount_percentage = {
 							percentage >= @civwar_pop_percent_needed
 							limit = {
-								exists = pop_faction
-								pop_faction = { is_same_value = root.target }
+								pop_faction? = { is_same_value = root.target }
 							}
 							exclude = { can_think = no }
 						}
@@ -1116,25 +1098,20 @@ situation_event = { # Sectoral Revolt Event
 				if = {
 					limit = {
 						any_owned_leader = {
-							exists = sector
-							sector = { is_same_value = event_target:rebel_sector }
+							sector? = { is_same_value = event_target:rebel_sector }
 						}
 					}
 					if = {
 						limit = {
 							any_owned_leader = {
-								exists = sector
-								sector = { is_same_value = event_target:rebel_sector }
-								exists = background_planet.sector
-								background_planet.sector = { is_same_value = event_target:rebel_sector }
+								sector? = { is_same_value = event_target:rebel_sector }
+								background_planet.sector? = { is_same_value = event_target:rebel_sector }
 							}
 						}
 						random_owned_leader = {
 							limit = {
-								exists = sector
-								sector = { is_same_value = event_target:rebel_sector }
-								exists = background_planet.sector
-								background_planet.sector = { is_same_value = event_target:rebel_sector }
+								sector? = { is_same_value = event_target:rebel_sector }
+								background_planet.sector? = { is_same_value = event_target:rebel_sector }
 							}
 							set_leader_flag = leader_civil_war_isolated
 							set_leader_flag = situation_leader_@root
@@ -1148,8 +1125,7 @@ situation_event = { # Sectoral Revolt Event
 					else = {
 						random_owned_leader = {
 							limit = {
-								exists = sector
-								sector = { is_same_value = event_target:rebel_sector }
+								sector? = { is_same_value = event_target:rebel_sector }
 							}
 							set_leader_flag = leader_civil_war_isolated
 							set_leader_flag = situation_leader_@root
@@ -1211,8 +1187,7 @@ situation_event = { # Sectoral Revolt Event
 						pop_amount_percentage = {
 							percentage >= @civwar_pop_percent_needed
 							limit = {
-								exists = pop_faction
-								pop_faction = { is_same_value = root.target }
+								pop_faction? = { is_same_value = root.target }
 							}
 							exclude = { can_think = no }
 						}
@@ -1244,8 +1219,7 @@ situation_event = { # Sectoral Revolt Event
 							any_system_within_border = {
 								closest_system = {
 									limit = {
-										exists = sector
-										sector = { has_sector_flag = rebel_sector_@event_target:leading_iso_sector }
+										sector? = { has_sector_flag = rebel_sector_@event_target:leading_iso_sector }
 									}
 									use_bypasses = yes
 									max_steps = 1
@@ -1262,8 +1236,7 @@ situation_event = { # Sectoral Revolt Event
 								any_system_within_border = {
 									closest_system = {
 										limit = {
-											exists = sector
-											sector = { is_same_value = event_target:leading_iso_sector }
+											sector? = { is_same_value = event_target:leading_iso_sector }
 										}
 										use_bypasses = yes
 										max_steps = 1

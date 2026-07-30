@@ -16,14 +16,7 @@ country_event = {
 	}
 
 	immediate = {
-		if = {
-			limit = {
-				exists = from
-			}
-			from = {
-				save_global_event_target_as = destroyer_country
-			}
-		}
+		from? = { save_global_event_target_as = destroyer_country }
 		# If the MSI got destroyed by someone else, payback empires will get a follow-up
 		# after action.62
 		if = {

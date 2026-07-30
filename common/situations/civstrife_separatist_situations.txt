@@ -45,10 +45,7 @@ situation_civstrife_sep_plan = {
 			target = { count_owned_pop_amount = { count < 300 } }
 			target = { has_carrier_flag = rebellion_suppressed }
 			target = { has_carrier_flag = situation_abort_flag }
-			AND = {
-				exists = target.sector
-				target.sector = { has_sector_flag = sector_sep_active }
-			}
+			target.sector? = { has_sector_flag = sector_sep_active }
 		}
 	}
 

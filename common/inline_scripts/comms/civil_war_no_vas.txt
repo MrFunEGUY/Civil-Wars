@@ -66,8 +66,7 @@ desc = {
 		success_text = { # New Nat Country, motherland will join war
 			text = civcom.1100.nationalist.support.desc
 			NOT = { has_country_flag = rebs_help_eachother }
-			exists = event_target:nat_motherland_model
-			event_target:nat_motherland_model = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
+			event_target:nat_motherland_model? = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
 			event_target:civwar_rebels = { is_rival_government = no }
 		}
@@ -75,8 +74,7 @@ desc = {
 		success_text = { # Multiple New Nat Countries, motherland will join war
 			text = civcom.1100.nationalist.mult.support.desc
 			has_country_flag = rebs_help_eachother
-			exists = event_target:nat_motherland_model
-			event_target:nat_motherland_model = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
+			event_target:nat_motherland_model? = { has_country_flag = motherland_will_join_@event_target:civwar_rebels }
 			event_target:civwar_rebels = { has_origin = origin_nationalist_rebellion }
 			event_target:civwar_rebels = { is_rival_government = no }
 		}

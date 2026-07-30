@@ -18,7 +18,7 @@ leader_event = { # Kill Dummy Leaders
 	immediate = {
 		if = {
 			limit = { NOT = { has_leader_flag = dummy_leader } }
-			set_leader_flag = dummy_leader
+			set_dummy_leader_flags = yes
 		}
 		kill_leader = { show_notification = no }
 	}
@@ -83,8 +83,7 @@ country_event = { # Set Sep Won Election Flag
 
 	trigger = {
 		ruler = {
-			exists = pop_faction
-			pop_faction = { is_separatist_faction = yes }
+			pop_faction? = { is_separatist_faction = yes }
 		}
 	}
 

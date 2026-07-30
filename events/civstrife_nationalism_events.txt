@@ -964,7 +964,7 @@ country_event = { # Gov In Exile restoration, on status quo
 				}
 			}
 
-			capital_scope = {
+			capital_scope.carrier = {
 				if = { # If they don't have their opriginal capital planet, they rename their empire.
 					limit = { NOT = { has_carrier_flag = capital_planet_@event_target:new_homeland } }
 					prev = {
@@ -1094,6 +1094,7 @@ country_event = { # Set Sector and System flags
 	is_triggered_only = yes
 
 	trigger = {
+		is_nomadic = no
 		is_country_type_with_subjects = yes
 		years_passed >= 1
 		OR = {
@@ -1153,7 +1154,7 @@ country_event = { # Set Sector and System flags
 				}
 				if = {
 					limit = {
-						sector_capital = {
+						sector_capital.carrier = {
 							NOR = {
 								has_carrier_flag = frontier_planet_@root
 								has_carrier_flag = integrated_planet_@root
@@ -1165,15 +1166,15 @@ country_event = { # Set Sector and System flags
 					every_owned_planet = { set_carrier_flag = frontier_planet_@root }
 				}
 				else_if = {
-					limit = { sector_capital = { has_carrier_flag = frontier_planet_@root } }
+					limit = { sector_capital.carrier = { has_carrier_flag = frontier_planet_@root } }
 					set_sector_flag = frontier_sector_@root
 				}
 				else_if = {
-					limit = { sector_capital = { has_carrier_flag = integrated_planet_@root } }
+					limit = { sector_capital.carrier = { has_carrier_flag = integrated_planet_@root } }
 					set_sector_flag = integrated_sector_@root
 				}
 				else_if = {
-					limit = { sector_capital = { has_carrier_flag = fundamental_planet_@root } }
+					limit = { sector_capital.carrier = { has_carrier_flag = fundamental_planet_@root } }
 					set_sector_flag = fundamental_sector_@root
 					every_owned_planet = {
 						limit = { is_owned_by = root }
@@ -1253,12 +1254,13 @@ country_event = { # Set Capital Sector as Fundamental on Game Start initializer
 	is_triggered_only = yes
 
 	trigger = {
+		is_nomadic = no
 		is_regular_empire = yes
 		NOT = { has_country_flag = capital_fundamental_set }
 	}
 
 	immediate = {
-		country_event = { id = civnat.2006 days = 270 } # Was getting issues with sectors existing yet
+		country_event = { id = civnat.2006 days = 90 } # Was getting issues with sectors existing yet
 	}
 }
 
@@ -1268,13 +1270,14 @@ country_event = { # Set Capital Sector as Fundamental after one year
 	is_triggered_only = yes
 
 	trigger = {
+		is_nomadic = no
 		is_regular_empire = yes
 		NOT = { has_country_flag = capital_fundamental_set }
 	}
 
 	immediate = {
 
-		capital_scope = {
+		capital_scope.carrier = {
 			set_carrier_flag = fundamental_planet_@root
 			set_carrier_flag = capital_planet_@root
 			if = {
@@ -1309,6 +1312,7 @@ carrier_event = { # Set Planet Flag on Colonized
 	is_triggered_only = yes
 
 	trigger = {
+		owner = { is_nomadic = no }
 		owner = { is_country_type_with_subjects = yes }
 	}
 
@@ -1356,6 +1360,7 @@ carrier_event = { # Frontier Planet + Sector -> Integrated Planet + Sector
 	is_triggered_only = yes
 
 	trigger = {
+		owner = { is_nomadic = no }
 		exists = event_target:original_owner
 		is_owned_by = event_target:original_owner
 	}
@@ -1363,9 +1368,8 @@ carrier_event = { # Frontier Planet + Sector -> Integrated Planet + Sector
 	immediate = {
 		if = {
 			limit = {
-				exists = sector
-				sector = { NOT = { has_sector_flag = integrated_sector_@root.owner } }
-				sector = { NOT = { has_sector_flag = fundamental_sector_@root.owner } }
+				sector? = { NOT = { has_sector_flag = integrated_sector_@root.owner } }
+				sector? = { NOT = { has_sector_flag = fundamental_sector_@root.owner } }
 			}
 			if = {
 				limit = { sector = { has_sector_flag = frontier_sector_@root.owner } }
@@ -1409,6 +1413,7 @@ carrier_event = { # Integrated Planet + Sector -> Fundamental Planet + Sector
 	is_triggered_only = yes
 
 	trigger = {
+		owner = { is_nomadic = no }
 		exists = event_target:original_owner
 		is_owned_by = event_target:original_owner
 	}
@@ -1416,9 +1421,8 @@ carrier_event = { # Integrated Planet + Sector -> Fundamental Planet + Sector
 	immediate = {
 		if = {
 			limit = {
-				exists = sector
-				sector = { NOT = { has_sector_flag = frontier_sector_@root.owner } }
-				sector = { NOT = { has_sector_flag = fundamental_sector_@root.owner } }
+				sector? = { NOT = { has_sector_flag = frontier_sector_@root.owner } }
+				sector? = { NOT = { has_sector_flag = fundamental_sector_@root.owner } }
 			}
 			if = {
 				limit = { sector = { has_sector_flag = integrated_sector_@root.owner } }
@@ -1458,8 +1462,8 @@ carrier_event = { # Get nat Flags when a planet changes owners
 	is_triggered_only = yes
 
 	trigger = {
-		exists = owner
-		owner = { is_country_type_with_subjects = yes }
+		owner? = { is_nomadic = no }
+		owner? = { is_country_type_with_subjects = yes }
 		NOR = {
 			has_carrier_flag = frontier_planet_@root.owner
 			has_carrier_flag = integrated_planet_@root.owner
@@ -1539,6 +1543,7 @@ country_event = { # For planets that have changed sectors
 	is_triggered_only = yes
 
 	trigger = {
+		is_nomadic = no
 		any_owned_planet = {
 			exists = sector
 			OR = {
@@ -1562,21 +1567,19 @@ country_event = { # For planets that have changed sectors
 		if = {
 			limit = {
 				any_owned_planet = {
-					exists = sector
 					has_carrier_flag = frontier_planet_@root
 					OR = {
-						sector = { has_sector_flag = integrated_sector_@root }
-						sector = { has_sector_flag = fundamental_sector_@root }
+						sector? = { has_sector_flag = integrated_sector_@root }
+						sector? = { has_sector_flag = fundamental_sector_@root }
 					}
 				}
 			}
 			every_owned_planet = {
 				limit = {
-					exists = sector
 					has_carrier_flag = frontier_planet_@root
 					OR = {
-						sector = { has_sector_flag = integrated_sector_@root }
-						sector = { has_sector_flag = fundamental_sector_@root }
+						sector? = { has_sector_flag = integrated_sector_@root }
+						sector? = { has_sector_flag = fundamental_sector_@root }
 					}
 				}
 				remove_carrier_flag = frontier_planet_@root
@@ -1593,16 +1596,14 @@ country_event = { # For planets that have changed sectors
 		else_if = {
 			limit = {
 				any_owned_planet = {
-					exists = sector
 					has_carrier_flag = integrated_planet_@root
-					sector = { has_sector_flag = fundamental_sector_@root }
+					sector? = { has_sector_flag = fundamental_sector_@root }
 				}
 			}
 			every_owned_planet = {
 				limit = {
-					exists = sector
 					has_carrier_flag = integrated_planet_@root
-					sector = { has_sector_flag = fundamental_sector_@root }
+					sector? = { has_sector_flag = fundamental_sector_@root }
 				}
 				remove_carrier_flag = integrated_planet_@root
 				set_carrier_flag = fundamental_planet_@root
@@ -1617,9 +1618,9 @@ carrier_event = { # Get sector nat flag check every year
 	is_triggered_only = yes
 
 	trigger = {
-		exists = sector
+		owner = { is_nomadic = no }
 		is_sector_capital = yes
-		sector = {
+		sector? = {
 			NOT = { has_sector_flag = frontier_sector_@root.owner }
 			NOT = { has_sector_flag = integrated_sector_@root.owner }
 			NOT = { has_sector_flag = fundamental_sector_@root.owner }
@@ -1683,6 +1684,7 @@ country_event = { # Set and Remove Citizenship flags for species
 	is_triggered_only = yes
 
 	trigger = {
+		is_nomadic = no
 		NOT = { has_country_flag = civstrife_nat_timer }
 		
 		any_owned_pop_group = {
@@ -1919,9 +1921,8 @@ carrier_event = { # Set Planet Sectoral Modifiers
 	is_triggered_only = yes
 
 	trigger = {
-		exists = owner
-		owner = { is_gestalt = no }
-		owner = { is_country_type_with_subjects = yes }
+		owner? = { is_nomadic = no is_gestalt = no }
+		owner? = { is_country_type_with_subjects = yes }
 		OR = {
 			AND = {
 				OR = {
@@ -1997,8 +1998,7 @@ carrier_event = { # Remove Planet Sectoral Modifiers from Gestalt
 	is_triggered_only = yes
 
 	trigger = {
-		exists = owner
-		owner = { is_gestalt = yes }
+		owner? = { is_gestalt = yes }
 		OR = {
 			has_modifier = planet_frontier_sector
 			has_modifier = planet_integrated_sector
@@ -2047,6 +2047,7 @@ country_event = { # Spread Nationalism Initial Trigger
 	is_triggered_only = yes
 
 	trigger = {
+		is_nomadic = no
 		any_country = {
 			NOT = { is_same_value = root }
 			is_country_type_with_subjects = yes
@@ -2138,6 +2139,7 @@ carrier_event = { # Spread Nationalism Event
 	is_triggered_only = yes
 
 	trigger = {
+		owner = { is_nomadic = no }
 		any_owned_pop_group = {
 			has_pop_group_flag = sep_pop_nat_@event_target:nat_motherland
 			happiness < 65
@@ -2334,7 +2336,7 @@ country_event = { # Destroy Government-In-Exile when no nats exist
 ###################
 # Situation Events
 
-country_event = { # Check disapproving Factions every month Initializer
+country_event = { # Check disapproving Factions every other year Initializer
 	id = civnat.4000
 	hide_window = yes
 	is_triggered_only = yes
@@ -2367,7 +2369,7 @@ country_event = { # Check disapproving Factions every month Initializer
 					count_owned_pop_amount = { count >= 500 }
 				}
 			}
-			country_event = { id = civnat.4010 days = 1 random = 29 }
+			country_event = { id = civnat.4010 days = 1 random = 179 }
 		}
 	}
 }
@@ -2411,6 +2413,7 @@ country_event = { # Give Claims to Fundamental land
 	is_triggered_only = yes
 
 	trigger = {
+		is_nomadic = no
 		any_country = {
 			NOT = { is_same_value = root }
 			any_owned_planet = { has_carrier_flag = fundamental_planet_@root }

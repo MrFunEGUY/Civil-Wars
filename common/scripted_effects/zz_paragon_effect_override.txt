@@ -33,16 +33,14 @@ paragon_origin_launch_rebelion = {
 		if = {
 			limit = {
 				any_owned_pop_group = {
-					exists = sector
 					is_egalitarian = yes
-					sector = { NOT = { any_system_within_border = { is_capital_system = yes } } }
+					sector? = { NOT = { any_system_within_border = { is_capital_system = yes } } }
 				}
 			}
 			random_owned_pop_group = {
 				limit = {
-					exists = sector
 					is_egalitarian = yes
-					sector = { NOT = { any_system_within_border = { is_capital_system = yes } } }
+					sector? = { NOT = { any_system_within_border = { is_capital_system = yes } } }
 				}
 				species = { save_event_target_as = civwar_species }
 			}
@@ -435,8 +433,7 @@ paragon_origin_launch_rebelion = {
 								any_system_within_border = {
 									closest_system = {
 										limit = {
-											exists = sector
-											sector = { has_sector_flag = rebel_sector_@event_target:rebel_sector_leader }
+											sector? = { has_sector_flag = rebel_sector_@event_target:rebel_sector_leader }
 										}
 										use_bypasses = yes
 										max_steps = 1
@@ -451,8 +448,7 @@ paragon_origin_launch_rebelion = {
 								any_system_within_border = {
 									closest_system = {
 										limit = {
-											exists = sector
-											sector = { has_sector_flag = rebel_sector_@event_target:rebel_sector_leader }
+											sector? = { has_sector_flag = rebel_sector_@event_target:rebel_sector_leader }
 										}
 										use_bypasses = yes
 										max_steps = 1

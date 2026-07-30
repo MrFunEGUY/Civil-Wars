@@ -21,8 +21,7 @@ country_event = {
 		num_owned_planets > 1
 		is_imperial_authority = yes
 		is_country_type_with_subjects = yes
-		exists = event_target:disinherited_heir
-		event_target:disinherited_heir = { is_fake_leader = no } # Failsafe
+		event_target:disinherited_heir? = { is_fake_leader = no } # Failsafe
 	}
 
 	immediate = {
@@ -453,7 +452,7 @@ country_event = {
 		}
 		else = {
 			event_target:disinherited_heir = {
-				set_leader_flag = dummy_leader
+				set_dummy_leader_flags = yes
 				kill_leader = { show_notification = no }
 			}
 			kill_gov_switch_country = yes
