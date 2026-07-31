@@ -9,7 +9,7 @@ prosperity = {
 
 	unique = yes
 	support_multiplier = 1
-
+	inline_script = pop_faction_types/shared_unity_production
 	resources = {
 		category = pop_factions
 		produces = {
@@ -106,6 +106,7 @@ prosperity = {
 	can_join_faction = {
 		is_shackled_robot = no
 		can_think = yes
+		is_interlink_cyborg_pop = no
 	}
 
 	attraction = {
@@ -451,7 +452,7 @@ prosperity = {
 
 	# Faction Demands for Ruler and Council positions.
 	inline_script = {
-		script = "paragon/global_faction_demands"
+		script = "pop_faction_types/global_faction_demands"
 		ETHIC = ethic_pacifist
 		ETHIC_FANATIC = ethic_fanatic_pacifist
 		ETHIC_OPPOSED = ethic_militarist
