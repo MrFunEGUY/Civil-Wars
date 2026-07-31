@@ -11,6 +11,7 @@ imperialist = {
 	support_multiplier = 1
 
 	resources = {
+		inline_script = pop_faction_types/shared_unity_production
 		category = pop_factions
 		produces = {
             trigger = {
@@ -106,6 +107,7 @@ imperialist = {
 	can_join_faction = {
 		is_shackled_robot = no
 		can_think = yes
+		is_interlink_cyborg_pop = no
 	}
 
 	attraction = {
@@ -724,7 +726,7 @@ imperialist = {
 
 	# Faction Demands for Ruler and Council positions.
 	inline_script = {
-		script = "paragon/global_faction_demands"
+		script = "pop_faction_types/global_faction_demands"
 		ETHIC = ethic_militarist
 		ETHIC_FANATIC = ethic_fanatic_militarist
 		ETHIC_OPPOSED = ethic_pacifist
