@@ -12,6 +12,7 @@ technologist = {
 
 	resources = {
 		category = pop_factions
+		inline_script = pop_faction_types/shared_unity_production
 		produces = {
             trigger = {
                 owner = {
@@ -105,6 +106,7 @@ technologist = {
 	can_join_faction = {
 		is_shackled_robot = no
 		can_think = yes
+	    is_interlink_cyborg_pop = no
 	}
 
 	attraction = {
@@ -398,7 +400,7 @@ technologist = {
 
 	# Faction Demands for Ruler and Council positions.
 	inline_script = {
-		script = "paragon/global_faction_demands"
+		script = "pop_faction_types/global_faction_demands"
 		ETHIC = ethic_materialist
 		ETHIC_FANATIC = ethic_fanatic_materialist
 		ETHIC_OPPOSED = ethic_spiritualist

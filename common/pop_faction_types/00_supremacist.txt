@@ -12,6 +12,7 @@ supremacist = {
 
 	resources = {
 		category = pop_factions
+		inline_script = pop_faction_types/shared_unity_production
 		produces = {
             trigger = {
                 owner = {
@@ -106,6 +107,7 @@ supremacist = {
 	can_join_faction = {
 		is_shackled_robot = no
 		can_think = yes
+	    is_interlink_cyborg_pop = no
 		owner = {
 			is_pacifist = no
 		}
@@ -876,7 +878,7 @@ supremacist = {
 
 	# Faction Demands for Ruler and Council positions.
 	inline_script = {
-		script = "paragon/global_faction_demands"
+		script = "pop_faction_types/global_faction_demands"
 		ETHIC = ethic_xenophobe
 		ETHIC_FANATIC = ethic_fanatic_xenophobe
 		ETHIC_OPPOSED = ethic_xenophile

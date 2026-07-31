@@ -12,6 +12,7 @@ xenoist = {
 
 	resources = {
 		category = pop_factions
+		inline_script = pop_faction_types/shared_unity_production
 		produces = {
             trigger = {
                 owner = {
@@ -106,6 +107,7 @@ xenoist = {
 	can_join_faction = {
 		is_shackled_robot = no
 		can_think = yes
+	    is_interlink_cyborg_pop = no
 	}
 
 	attraction = {
@@ -766,7 +768,7 @@ xenoist = {
 
 	# Global Faction Demands.
 	inline_script = {
-		script = "paragon/global_faction_demands"
+		script = "pop_faction_types/global_faction_demands"
 		ETHIC = ethic_xenophile
 		ETHIC_FANATIC = ethic_fanatic_xenophile
 		ETHIC_OPPOSED = ethic_xenophobe
